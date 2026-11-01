@@ -21,6 +21,7 @@ use super::{
     Application,
 };
 use crate::{repository::SqlRepository, Error, Result};
+use serde::Deserialize;
 use serde_json::{json, Value};
 use std::collections::HashMap;
 use xharness_superagent_core::{
@@ -73,6 +74,12 @@ fn routed(app: &Application, ticket: &str, reason: &str) -> Result<Value> {
     }
     Ok(result)
 }
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct TicketNote {
+    ticket_id: String,
+    text: String,
+}
 /// Fallible point reads first, then the pure shared ownership predicate. Never
 /// turn a failed ticket/thread SQL read into "no owners" and requeue a message.
 fn owners(app: &Application, id: &str) -> Result<Vec<String>> {
@@ -104,6 +111,14 @@ fn owners(app: &Application, id: &str) -> Result<Vec<String>> {
 pub(super) fn invoke(app: &Application, scope: &Scope, name: &str, args: Value) -> Result<Value> {
     app.state.require_open()?;
     match (scope, name) {
+        (Scope::Main, "orchestrator_ticket_note") => {
+            let args: TicketNote = serde_json::from_value(args)?;
+            let text = super::text::checked(&args.text, 100, "Ticket note")?;
+            app.driver.command(&app.state.context, |engine| {
+                engine.note(&args.ticket_id, &text)
+            })?;
+            routed(app, &args.ticket_id, "Noted for the worker")
+        }
         (Scope::Main, "orchestrator_ticket_retry") => {
             let id = text(&args, "ticket_id")?;
             let ticket = app

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile, writeFile } from 'node:fs/promises';
 
 const selected = {
-  main: ['orchestrator_read', 'orchestrator_route', 'orchestrator_ticket_retry', 'orchestrator_ticket_request_status', 'orchestrator_trigger_requeue', 'orchestrator_reply', 'orchestrator_thread_unsubscribe', 'orchestrator_settings_save', 'orchestrator_prompts_save', 'orchestrator_eval', 'orchestrator_eval_read', 'orchestrator_eval_decide'],
+  main: ['orchestrator_read', 'orchestrator_route', 'orchestrator_ticket_retry', 'orchestrator_ticket_note', 'orchestrator_ticket_request_status', 'orchestrator_trigger_requeue', 'orchestrator_reply', 'orchestrator_thread_unsubscribe', 'orchestrator_settings_save', 'orchestrator_prompts_save', 'orchestrator_eval', 'orchestrator_eval_read', 'orchestrator_eval_decide'],
   worker: ['orchestrator_read', 'orchestrator_ack', 'orchestrator_thread_unrelated', 'orchestrator_thread_follow', 'orchestrator_trigger_handback', 'orchestrator_report'],
 };
 const reference = JSON.parse(await readFile(new URL('../reference/runtime-contracts.json', import.meta.url), 'utf8'));
@@ -94,4 +94,4 @@ assert.deepEqual(JSON.parse(await readFile(target, 'utf8')), expected);
 assert.equal(unions, 10);
 assert.equal(inputDefaults, 4);
 assert.equal(jsonDomains, 1);
-console.log('18 product-subset definitions verified: 10 primitive/null unions, 4 explicit Zod input defaults, and 1 unconstrained JSON domain projected; all other pinned metadata retained.');
+console.log('19 product-subset definitions verified: 10 primitive/null unions, 4 explicit Zod input defaults, and 1 unconstrained JSON domain projected; all other pinned metadata retained.');

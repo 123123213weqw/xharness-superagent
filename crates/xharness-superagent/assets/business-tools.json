@@ -134,6 +134,28 @@
       }
     },
     {
+      "name": "orchestrator_ticket_note",
+      "description": "Tell a ticket's worker a fact from other work, such as what another ticket found; it grants no authority.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "ticket_id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "ticket_id",
+          "text"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
       "name": "orchestrator_ticket_request_status",
       "description": "Ask the worker of an idle ticket, one whose turn ended without a report, for a status report; for other tickets it sends nothing and returns the card.",
       "parameters": {

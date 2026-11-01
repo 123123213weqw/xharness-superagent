@@ -605,6 +605,7 @@ async fn invoke(
         (
             Scope::Main,
             "orchestrator_ticket_retry"
+            | "orchestrator_ticket_note"
             | "orchestrator_ticket_request_status"
             | "orchestrator_trigger_requeue"
             | "orchestrator_thread_unsubscribe",
