@@ -28,6 +28,11 @@ struct Operation {
     mode: ObservedInputMode,
     prepared: RefCell<Option<PreparedInputAdmission>>,
     pending: RefCell<Option<PendingInputAdmission>>,
+    observation: Option<InputObservation>,
+}
+struct InputObservation {
+    handle: xharness_agent::DurableAgentHandle,
+    turns: Observations,
 }
 type Current = Rc<RefCell<Option<Rc<Operation>>>>;
 struct Scope {
@@ -76,7 +81,9 @@ struct NativeAgent {
     identity: protocol::SessionIdentity,
     observer: protocol::AgentDelivery,
     current: Current,
+    observations: Option<Observations>,
 }
+type Observations = Rc<RefCell<HashMap<(String, String), Box<dyn RunningTurn>>>>;
 impl NativeAgent {
     fn put(&self, message: protocol::Message, expected: ObservedInputMode) -> Outcome {
         let root = self.root.upgrade().ok_or_else(unavailable)?;
@@ -97,6 +104,26 @@ impl NativeAgent {
             id: message.id,
             source: Some(message.source),
         };
+        // The actor may consume/finish immediately after producer release.
+        // Install this input-scoped subscription before the logical commit.
+        let observed = if expected != ObservedInputMode::Inject {
+            operation
+                .observation
+                .as_ref()
+                .map(|observation| {
+                    root.runtime()
+                        .and_then(|runtime| {
+                            runtime
+                                .observe_prepared_input(&observation.handle, &input.id)
+                                .map_err(failure)
+                        })
+                        .map_err(native)
+                })
+                .transpose()?
+        } else {
+            None
+        };
+        let id = input.id.clone();
         let prepared = operation
             .prepared
             .borrow_mut()
@@ -107,6 +134,12 @@ impl NativeAgent {
             .commit(&root, prepared, input)
             .map_err(native)?;
         operation.pending.replace(Some(pending));
+        if let (Some(observation), Some(observed)) = (&operation.observation, observed) {
+            observation
+                .turns
+                .borrow_mut()
+                .insert((self.id.clone(), id), observed);
+        }
         Ok(())
     }
 }
@@ -126,6 +159,7 @@ impl Agent for NativeAgent {
         let observer = self.observer.clone();
         let identity = self.identity.clone();
         let journal = authority.journal.clone();
+        let observations = self.observations.clone();
         Some(
             async move {
                 let root = root.upgrade().ok_or_else(unavailable)?;
@@ -165,12 +199,11 @@ impl Agent for NativeAgent {
                 for event in history_events(&cut) {
                     observer.observe(&identity, &event);
                 }
-                // Do not retain the execution handle/lease in the live Agent.
-                drop(handle);
                 let operation = Rc::new(Operation {
                     mode,
                     prepared: RefCell::new(Some(prepared)),
                     pending: RefCell::new(None),
+                    observation: observations.map(|turns| InputObservation { handle, turns }),
                 });
                 current.replace(Some(operation.clone()));
                 Ok(Box::new(Scope { current, operation }) as Box<dyn InputScope>)
@@ -268,9 +301,19 @@ pub struct NativeDelivery {
     root: Weak<NativeSessions>,
     registry: Rc<Registry>,
     protocol: protocol::AgentDelivery,
+    observations: Option<Observations>,
 }
 impl NativeDelivery {
     pub fn new(root: &Arc<NativeSessions>) -> Result<(Self, protocol::Runner)> {
+        Self::open(root, false)
+    }
+    /// Product opt-in: retain one pre-admission observer per newly committed
+    /// waking input until its local lifecycle owner claims it with take_turn.
+    /// The default protocol-only adapter keeps its existing behavior.
+    pub fn new_observed(root: &Arc<NativeSessions>) -> Result<(Self, protocol::Runner)> {
+        Self::open(root, true)
+    }
+    fn open(root: &Arc<NativeSessions>, observed: bool) -> Result<(Self, protocol::Runner)> {
         if root.buffered.is_none() {
             return Err(failure(
                 "native delivery requires explicit open_buffered composition",
@@ -337,9 +380,25 @@ impl NativeDelivery {
                 root: weak,
                 registry,
                 protocol,
+                observations: observed.then(|| Rc::new(RefCell::new(HashMap::new()))),
             },
             runner,
         ))
+    }
+    pub async fn take_turn(
+        &self,
+        binding: &ManagedSession,
+        request: &str,
+    ) -> Result<Option<Box<dyn RunningTurn>>> {
+        let root = self
+            .root
+            .upgrade()
+            .ok_or_else(|| failure("native delivery owner unavailable"))?;
+        root.journal(binding).await?;
+        Ok(self.observations.as_ref().and_then(|o| {
+            o.borrow_mut()
+                .remove(&(binding.native_id(), protocol::message_id(request)))
+        }))
     }
     /// A binding is a non-serializable owner/role/CWD creation capability. No
     /// raw native ID supplied by an HTTP request/model is accepted here.
@@ -387,6 +446,7 @@ impl NativeDelivery {
             identity: protocol::SessionIdentity::new(),
             observer: self.protocol.clone(),
             current: Rc::new(RefCell::new(None)),
+            observations: self.observations.clone(),
         });
         agents.insert(id, agent.clone());
         Ok(agent)
@@ -433,6 +493,7 @@ mod tests {
                 mode: ObservedInputMode::Inject,
                 prepared: RefCell::new(None),
                 pending: RefCell::new(None),
+                observation: None,
             })
         };
         let first = operation();

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "product_local_overlay_not_canonical_import",
+  "path": "crates/xharness-host/src/runtime.rs",
+  "base_sha256": "5f3bb3858608a9956e5f0db6c6ad56287f3619cad28cf8a43ba9bd64aaa76c64",
+  "after_sha256": "5203e980ee97f60b81f30721cfa8bf9a411bc4742a48c35da9339daa47954c4b",
+  "reason": "B1 actual NativeDelivery can finish or fail before a post-admission subscriber attaches; expose only a pre-commit observer over the already-authorized actor handle. No admission/wake/default change.",
+  "context_before": "            prepared,\n            Arc::clone(&self.next_control_id),\n        ))\n",
+  "addition": "    }\n\n    /// Subscribe before a trusted prepared-input capability commits. This is\n    /// observation only: it does not append, authorize, wake or replay input.\n    /// The caller already owns the real actor handle and must retire the\n    /// observer when it elects not to commit the corresponding input ID.\n    pub fn observe_prepared_input(\n        &self,\n        handle: &DurableAgentHandle,\n        input_id: &str,\n    ) -> Result<Box<dyn RunningTurn>, AgentRuntimeError> {\n        self.require_execution()?;\n        Ok(self.running_from_prepared(PreparedDurableTurn {\n            handle: handle.clone(),\n            events: handle.subscribe(),\n            input_id: input_id.into(),\n        }))\n",
+  "context_after": "    }\n}\n\n",
+  "added_lines": 17,
+  "removed_lines": 0,
+  "reference_sources_modified": false,
+  "language_equivalence_work": false
+}

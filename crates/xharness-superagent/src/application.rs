@@ -47,6 +47,9 @@ use xharness_superagent_core::{
     model::{latest_assignment, live_ticket, Assignment, AssignmentState, Ticket, Trigger},
     repository::Repository,
 };
+pub mod client;
+pub mod native;
+mod tools;
 
 pub type ServiceFuture<T> = LocalBoxFuture<'static, std::result::Result<T, HandlerError>>;
 pub type Shutdown = Shared<LocalBoxFuture<'static, std::result::Result<(), Rc<Error>>>>;
@@ -105,11 +108,14 @@ pub struct Application {
     state: Rc<State>,
     driver: Driver,
     passes: Passes,
+    client: client::Client,
 }
 pub struct Runner {
     _state: Rc<State>,
     effects: driver::Runner,
     passes: passes::Runner,
+    application: Application,
+    requests: tokio::sync::mpsc::Receiver<client::Request>,
 }
 fn pass_failure(error: Rc<passes::Failure>) -> Error {
     Error::Message(error.to_string())
@@ -188,18 +194,26 @@ impl Application {
             },
             Rc::new(move || (context.clock)()),
         ));
+        let (client, requests) = client::channel();
+        let application = Self {
+            state: state.clone(),
+            driver,
+            passes,
+            client,
+        };
         Ok((
-            Self {
-                state: state.clone(),
-                driver,
-                passes,
-            },
+            application.clone(),
             Runner {
                 _state: state,
                 effects: effects_runner,
                 passes: passes_runner,
+                application,
+                requests,
             },
         ))
+    }
+    pub fn client(&self) -> client::Client {
+        self.client.clone()
     }
     pub fn configure(&self, configured: bool) -> Result<()> {
         if self.state.closing.get() {
@@ -305,7 +319,11 @@ impl Runner {
             }
         };
         let running = async {
-            futures::join!(self.effects.run(), self.passes.run());
+            futures::join!(
+                self.effects.run(),
+                self.passes.run(),
+                client::run(self.application, self.requests)
+            );
         };
         tokio::select! {
             _ = settled => (),

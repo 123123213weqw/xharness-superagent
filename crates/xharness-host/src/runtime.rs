@@ -1695,6 +1695,23 @@ impl DurableLoopAgentRuntime {
             Arc::clone(&self.next_control_id),
         ))
     }
+
+    /// Subscribe before a trusted prepared-input capability commits. This is
+    /// observation only: it does not append, authorize, wake or replay input.
+    /// The caller already owns the real actor handle and must retire the
+    /// observer when it elects not to commit the corresponding input ID.
+    pub fn observe_prepared_input(
+        &self,
+        handle: &DurableAgentHandle,
+        input_id: &str,
+    ) -> Result<Box<dyn RunningTurn>, AgentRuntimeError> {
+        self.require_execution()?;
+        Ok(self.running_from_prepared(PreparedDurableTurn {
+            handle: handle.clone(),
+            events: handle.subscribe(),
+            input_id: input_id.into(),
+        }))
+    }
 }
 
 #[async_trait]

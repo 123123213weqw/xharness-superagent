@@ -1187,11 +1187,31 @@ impl NativeSessions {
         request_id: &str,
         prompt: Option<PromptAssembly>,
     ) -> Result<Option<Box<dyn RunningTurn>>> {
+        self.wake_id(binding, prompted_id(request_id)?, prompt)
+            .await
+    }
+    /// Observe/wake an input admitted by NativeDelivery, whose protocol uses
+    /// the original request ID rather than the direct prompt API's hashed ID.
+    /// Keep the two namespaces explicit; never re-admit text to repair a miss.
+    pub async fn wake_delivery(
+        &self,
+        binding: &ManagedSession,
+        request_id: &str,
+        prompt: Option<PromptAssembly>,
+    ) -> Result<Option<Box<dyn RunningTurn>>> {
+        self.wake_id(binding, crate::delivery::message_id(request_id), prompt)
+            .await
+    }
+    async fn wake_id(
+        &self,
+        binding: &ManagedSession,
+        id: String,
+        prompt: Option<PromptAssembly>,
+    ) -> Result<Option<Box<dyn RunningTurn>>> {
         self.gate.require_active().map_err(failure)?;
         let _guard = self.lock_session(&binding.native_id()).await;
         let journal = self.journal(binding).await?;
         let inbox = InboxProjection::from_session(&journal).map_err(failure)?;
-        let id = prompted_id(request_id)?;
         let pending = Self::pending_delivery(&journal, &id)?;
         if let Some(input) = pending {
             let runnable = inbox.next_turn().iter().any(|queued| queued.id == input.id)
