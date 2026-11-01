@@ -1,9 +1,10 @@
+import {auditedLockBeforeFeishu} from './feishu-cargo-overlay.mjs';
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {auditedLockBeforeBusinessWords} from './business-word-cargo-overlay.mjs';
-const current = readFileSync(new URL('../../Cargo.lock', import.meta.url));
+const current = auditedLockBeforeFeishu(readFileSync(new URL('../../Cargo.lock', import.meta.url)));
 test('declared six new packages and seven feature-edge sections reconstruct prior lock exactly', () => {
   const before = auditedLockBeforeBusinessWords(current);
   assert.equal(createHash('sha256').update(before).digest('hex'), '6de2b3f070b89320e17f75adf88f2bb4ca2c7e3d6ce6e96a3d844d89f63af359');

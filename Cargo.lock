@@ -3078,6 +3078,7 @@ dependencies = [
  "thiserror",
  "tokio",
  "tokio-util",
+ "url",
  "xharness-agent",
  "xharness-api",
  "xharness-coding-tools",

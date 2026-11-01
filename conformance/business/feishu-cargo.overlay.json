@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "kind": "existing_external_dependency_edge_for_feishu_applink_validation",
+  "path": "Cargo.lock",
+  "package": "xharness-superagent",
+  "dependency": "url",
+  "version": "2.5.8",
+  "base_sha256": "90510cf2323305f2c5de875f1e7049ba1c0821340c018123e63a1a0edeabcc97",
+  "after_sha256": "4bd1dfbad0241ff6be3a1bb1541bbf98832f3b4ddec47b1de7f8b0cdad5eeba7",
+  "external_packages_versions_checksums_unchanged": true
+}

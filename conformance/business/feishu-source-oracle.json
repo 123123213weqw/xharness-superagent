@@ -1,0 +1,1463 @@
+{
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "scope": "Source boundary only; original trigger/channel/Commands imports plus isolated unchanged Config/Members/scope/sync method with type erasure and method wrapper; no SDK stubs, full-kind/runtime/product approval",
+  "isolated_sha256": {
+    "botSchema": "631f9ffc11b2b21f426cad07970683318dc60e010efdb8691f55d669d6c6ea03",
+    "configSchema": "c79dd1332ae0c9f9aa22368a9ced3f2c2146e4b40c8fc33f883f1c3949425910",
+    "memberSchema": "f7a330ad426a7c94509d354b76310c769b0b93e3d57638e6b94d6983a8fc0bc8",
+    "syncMethod": "afff98f6fdd00c197e9fee6b89518d5d208b224564e102850cbf8d4681173f2e",
+    "scopeMethod": "83f10f6f3dd8f2db11dc5de0c11c962f380e0fc6c9d813dafd34995d1782f2b9",
+    "policySchema": "d218c8ee608a943a84ee75a5c3bb127dadb9d58eeb41415cb4a3046926f1a158"
+  },
+  "events": [
+    {
+      "name": "group-mention",
+      "input": {
+        "message_id": "om_one",
+        "chat_id": "oc_chat",
+        "chat_type": "group",
+        "sender_id": "ou_alice",
+        "sender_type": "user",
+        "content": "你好 @_user_1，补充 @_user_1 😀",
+        "create_time": "1793577600000",
+        "mentions": [
+          {
+            "id": "ou_bot",
+            "key": "@_user_1",
+            "name": "机器人"
+          }
+        ]
+      },
+      "value": {
+        "id": "1d30d92769d9b42d5a7f33dde0e2e712",
+        "source": "feishu",
+        "threads": [
+          {
+            "source": "feishu",
+            "id": "oc_chat:om_one"
+          }
+        ],
+        "actor": {
+          "source": "feishu",
+          "id": "ou_alice"
+        },
+        "human": true,
+        "addressed": "mention",
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "你好 @机器人，补充 @机器人 😀",
+        "channel": {
+          "source": "feishu",
+          "thread": "feishu:oc_chat",
+          "address": {
+            "chatId": "oc_chat",
+            "messageId": "om_one"
+          }
+        },
+        "meta": {
+          "chatId": "oc_chat",
+          "messageId": "om_one",
+          "direct": false,
+          "mentioned": true
+        }
+      }
+    },
+    {
+      "name": "direct",
+      "input": {
+        "message_id": "om_one",
+        "chat_id": "oc_chat",
+        "chat_type": "p2p",
+        "sender_id": "ou_alice",
+        "sender_type": "user",
+        "content": "你好 @_user_1，补充 @_user_1 😀",
+        "create_time": "1793577600000",
+        "mentions": [
+          {
+            "id": "ou_bot",
+            "key": "@_user_1",
+            "name": "机器人"
+          }
+        ]
+      },
+      "value": {
+        "id": "1d30d92769d9b42d5a7f33dde0e2e712",
+        "source": "feishu",
+        "threads": [
+          {
+            "source": "feishu",
+            "id": "oc_chat:om_one"
+          }
+        ],
+        "actor": {
+          "source": "feishu",
+          "id": "ou_alice"
+        },
+        "human": true,
+        "addressed": "direct",
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "你好 @机器人，补充 @机器人 😀",
+        "channel": {
+          "source": "feishu",
+          "thread": "feishu:oc_chat",
+          "address": {
+            "chatId": "oc_chat",
+            "messageId": "om_one",
+            "direct": "true"
+          }
+        },
+        "meta": {
+          "chatId": "oc_chat",
+          "messageId": "om_one",
+          "direct": true,
+          "mentioned": true
+        }
+      }
+    },
+    {
+      "name": "bot",
+      "input": {
+        "message_id": "om_one",
+        "chat_id": "oc_chat",
+        "chat_type": "group",
+        "sender_id": "cli_other",
+        "sender_type": "bot",
+        "content": "你好 @_user_1，补充 @_user_1 😀",
+        "create_time": "1793577600000",
+        "mentions": []
+      },
+      "value": {
+        "id": "1d30d92769d9b42d5a7f33dde0e2e712",
+        "source": "feishu",
+        "threads": [
+          {
+            "source": "feishu",
+            "id": "oc_chat:om_one"
+          }
+        ],
+        "actor": {
+          "source": "feishu",
+          "id": "cli_other"
+        },
+        "human": false,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "你好 @_user_1，补充 @_user_1 😀",
+        "channel": {
+          "source": "feishu",
+          "thread": "feishu:oc_chat",
+          "address": {
+            "chatId": "oc_chat",
+            "messageId": "om_one"
+          }
+        },
+        "meta": {
+          "chatId": "oc_chat",
+          "messageId": "om_one",
+          "direct": false,
+          "mentioned": false
+        }
+      }
+    },
+    {
+      "name": "unaddressed",
+      "input": {
+        "message_id": "om_one",
+        "chat_id": "oc_chat",
+        "chat_type": "group",
+        "sender_id": "ou_alice",
+        "sender_type": "user",
+        "content": "你好 @_user_1，补充 @_user_1 😀",
+        "create_time": "1793577600000",
+        "mentions": []
+      },
+      "value": {
+        "id": "1d30d92769d9b42d5a7f33dde0e2e712",
+        "source": "feishu",
+        "threads": [
+          {
+            "source": "feishu",
+            "id": "oc_chat:om_one"
+          }
+        ],
+        "actor": {
+          "source": "feishu",
+          "id": "ou_alice"
+        },
+        "human": true,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "你好 @_user_1，补充 @_user_1 😀",
+        "channel": {
+          "source": "feishu",
+          "thread": "feishu:oc_chat",
+          "address": {
+            "chatId": "oc_chat",
+            "messageId": "om_one"
+          }
+        },
+        "meta": {
+          "chatId": "oc_chat",
+          "messageId": "om_one",
+          "direct": false,
+          "mentioned": false
+        }
+      }
+    },
+    {
+      "name": "self-bot",
+      "input": {
+        "message_id": "om_one",
+        "chat_id": "oc_chat",
+        "chat_type": "group",
+        "sender_id": "ou_bot",
+        "sender_type": "user",
+        "content": "你好 @_user_1，补充 @_user_1 😀",
+        "create_time": "1793577600000",
+        "mentions": [
+          {
+            "id": "ou_bot",
+            "key": "@_user_1",
+            "name": "机器人"
+          }
+        ]
+      },
+      "value": null
+    },
+    {
+      "name": "self-app",
+      "input": {
+        "message_id": "om_one",
+        "chat_id": "oc_chat",
+        "chat_type": "group",
+        "sender_id": "cli_app",
+        "sender_type": "user",
+        "content": "你好 @_user_1，补充 @_user_1 😀",
+        "create_time": "1793577600000",
+        "mentions": [
+          {
+            "id": "ou_bot",
+            "key": "@_user_1",
+            "name": "机器人"
+          }
+        ]
+      },
+      "value": null
+    },
+    {
+      "name": "thread-reply",
+      "input": {
+        "message_id": "om_one",
+        "chat_id": "oc_chat",
+        "chat_type": "group",
+        "sender_id": "ou_alice",
+        "sender_type": "user",
+        "content": "你好 @_user_1，补充 @_user_1 😀",
+        "create_time": "1793577600000",
+        "mentions": [
+          {
+            "id": "ou_bot",
+            "key": "@_user_1",
+            "name": "机器人"
+          }
+        ],
+        "root_id": "om_root",
+        "parent_id": "om_parent",
+        "thread_id": "omt_topic",
+        "message_app_link": "https://applink.feishu.cn/client/message/open?x=1"
+      },
+      "value": {
+        "id": "1d30d92769d9b42d5a7f33dde0e2e712",
+        "source": "feishu",
+        "threads": [
+          {
+            "source": "feishu",
+            "id": "oc_chat:om_root"
+          }
+        ],
+        "actor": {
+          "source": "feishu",
+          "id": "ou_alice"
+        },
+        "human": true,
+        "addressed": "mention",
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "你好 @机器人，补充 @机器人 😀",
+        "channel": {
+          "source": "feishu",
+          "thread": "feishu:oc_chat",
+          "address": {
+            "chatId": "oc_chat",
+            "messageId": "om_one"
+          }
+        },
+        "url": "https://applink.feishu.cn/client/message/open?x=1",
+        "meta": {
+          "chatId": "oc_chat",
+          "messageId": "om_one",
+          "direct": false,
+          "mentioned": true,
+          "rootId": "om_root",
+          "parentId": "om_parent",
+          "threadId": "omt_topic"
+        }
+      }
+    },
+    {
+      "name": "missing-mentions",
+      "input": {
+        "message_id": "om_one",
+        "chat_id": "oc_chat",
+        "chat_type": "group",
+        "sender_id": "ou_alice",
+        "sender_type": "user",
+        "content": "你好 @_user_1，补充 @_user_1 😀",
+        "create_time": "1793577600000"
+      },
+      "value": {
+        "id": "1d30d92769d9b42d5a7f33dde0e2e712",
+        "source": "feishu",
+        "threads": [
+          {
+            "source": "feishu",
+            "id": "oc_chat:om_one"
+          }
+        ],
+        "actor": {
+          "source": "feishu",
+          "id": "ou_alice"
+        },
+        "human": true,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "你好 @_user_1，补充 @_user_1 😀",
+        "channel": {
+          "source": "feishu",
+          "thread": "feishu:oc_chat",
+          "address": {
+            "chatId": "oc_chat",
+            "messageId": "om_one"
+          }
+        },
+        "meta": {
+          "chatId": "oc_chat",
+          "messageId": "om_one",
+          "direct": false,
+          "mentioned": false
+        }
+      }
+    },
+    {
+      "name": "invalid-time",
+      "input": {
+        "message_id": "om_one",
+        "chat_id": "oc_chat",
+        "chat_type": "group",
+        "sender_id": "ou_alice",
+        "sender_type": "user",
+        "content": "你好 @_user_1，补充 @_user_1 😀",
+        "create_time": "not-a-date",
+        "mentions": [
+          {
+            "id": "ou_bot",
+            "key": "@_user_1",
+            "name": "机器人"
+          }
+        ]
+      },
+      "error": true,
+      "message": "Unreadable Feishu message time: not-a-date"
+    },
+    {
+      "name": "invalid-type",
+      "input": {
+        "message_id": "om_one",
+        "chat_id": "oc_chat",
+        "chat_type": "group",
+        "sender_id": "ou_alice",
+        "sender_type": "app",
+        "content": "你好 @_user_1，补充 @_user_1 😀",
+        "create_time": "1793577600000",
+        "mentions": [
+          {
+            "id": "ou_bot",
+            "key": "@_user_1",
+            "name": "机器人"
+          }
+        ]
+      },
+      "error": true,
+      "message": "[\n  {\n    \"code\": \"invalid_value\",\n    \"values\": [\n      \"user\",\n      \"bot\"\n    ],\n    \"path\": [\n      \"sender_type\"\n    ],\n    \"message\": \"Invalid option: expected one of \\\"user\\\"|\\\"bot\\\"\"\n  }\n]"
+    },
+    {
+      "name": "null-root",
+      "input": {
+        "message_id": "om_one",
+        "chat_id": "oc_chat",
+        "chat_type": "group",
+        "sender_id": "ou_alice",
+        "sender_type": "user",
+        "content": "你好 @_user_1，补充 @_user_1 😀",
+        "create_time": "1793577600000",
+        "mentions": [
+          {
+            "id": "ou_bot",
+            "key": "@_user_1",
+            "name": "机器人"
+          }
+        ],
+        "root_id": null
+      },
+      "error": true,
+      "message": "[\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"root_id\"\n    ],\n    \"message\": \"Invalid input: expected string, received null\"\n  }\n]"
+    },
+    {
+      "name": "invalid-url",
+      "input": {
+        "message_id": "om_one",
+        "chat_id": "oc_chat",
+        "chat_type": "group",
+        "sender_id": "ou_alice",
+        "sender_type": "user",
+        "content": "你好 @_user_1，补充 @_user_1 😀",
+        "create_time": "1793577600000",
+        "mentions": [
+          {
+            "id": "ou_bot",
+            "key": "@_user_1",
+            "name": "机器人"
+          }
+        ],
+        "message_app_link": "not a url"
+      },
+      "error": true,
+      "message": "[\n  {\n    \"code\": \"invalid_format\",\n    \"format\": \"url\",\n    \"path\": [\n      \"message_app_link\"\n    ],\n    \"message\": \"Invalid URL\"\n  }\n]"
+    }
+  ],
+  "policies": [
+    {
+      "input": {},
+      "value": {
+        "allowed": [],
+        "syncChat": ""
+      }
+    },
+    {
+      "input": {
+        "allowed": [
+          {
+            "id": "ou_alice",
+            "name": " 好 "
+          }
+        ],
+        "bots": [
+          {
+            "id": "cli_bot"
+          }
+        ],
+        "syncChat": "oc_sync"
+      },
+      "value": {
+        "allowed": [
+          {
+            "id": "ou_alice",
+            "name": "好"
+          }
+        ],
+        "syncChat": "oc_sync",
+        "bots": [
+          {
+            "id": "cli_bot"
+          }
+        ]
+      }
+    },
+    {
+      "input": {
+        "allowed": [
+          {
+            "id": "ou_one"
+          },
+          {
+            "id": "ou_one"
+          }
+        ]
+      },
+      "error": true
+    },
+    {
+      "input": {
+        "bots": [
+          {
+            "id": "github-login"
+          }
+        ]
+      },
+      "error": true
+    },
+    {
+      "input": {
+        "unknown": true
+      },
+      "error": true
+    },
+    {
+      "input": {
+        "syncChat": "oc_"
+      },
+      "error": true
+    },
+    {
+      "input": {
+        "allowed": [
+          {
+            "id": "ou_one",
+            "name": null
+          }
+        ]
+      },
+      "error": true
+    }
+  ],
+  "config": [
+    {
+      "input": {},
+      "value": {
+        "cli": "",
+        "readPageSize": 20,
+        "linkTimeoutMs": 5000,
+        "chats": [],
+        "directMessages": true,
+        "otherChats": "none"
+      }
+    },
+    {
+      "input": {
+        "cli": " lark ",
+        "chats": [
+          {
+            "chatId": "oc_one",
+            "listen": "all",
+            "name": " 名字 "
+          }
+        ]
+      },
+      "value": {
+        "cli": "lark",
+        "readPageSize": 20,
+        "linkTimeoutMs": 5000,
+        "chats": [
+          {
+            "chatId": "oc_one",
+            "name": "名字",
+            "listen": "all"
+          }
+        ],
+        "directMessages": true,
+        "otherChats": "none"
+      }
+    },
+    {
+      "input": {
+        "chats": [
+          {
+            "chatId": "oc_one",
+            "listen": "all"
+          },
+          {
+            "chatId": "oc_one",
+            "listen": "mentions"
+          }
+        ]
+      },
+      "error": true
+    },
+    {
+      "input": {
+        "chats": [
+          {
+            "chatId": "bad",
+            "listen": "all"
+          }
+        ]
+      },
+      "error": true
+    },
+    {
+      "input": {
+        "readPageSize": 0
+      },
+      "error": true
+    },
+    {
+      "input": {
+        "linkTimeoutMs": 90001
+      },
+      "error": true
+    },
+    {
+      "input": {
+        "otherChats": "all"
+      },
+      "error": true
+    },
+    {
+      "input": {
+        "chats": [
+          {
+            "chatId": "oc_one",
+            "listen": "all",
+            "name": null
+          }
+        ]
+      },
+      "error": true
+    }
+  ],
+  "scopes": [
+    {
+      "meta": {
+        "direct": true
+      },
+      "input": {},
+      "value": {
+        "listened": true,
+        "observed": false,
+        "row": "direct"
+      }
+    },
+    {
+      "meta": {
+        "direct": true
+      },
+      "input": {
+        "directMessages": false
+      },
+      "value": {
+        "listened": false,
+        "reason": "direct_messages_not_allowed"
+      }
+    },
+    {
+      "meta": {
+        "chatId": "oc_one"
+      },
+      "input": {
+        "chats": [
+          {
+            "chatId": "oc_one",
+            "listen": "all"
+          }
+        ]
+      },
+      "value": {
+        "listened": true,
+        "observed": true,
+        "row": "oc_one"
+      }
+    },
+    {
+      "meta": {
+        "chatId": "oc_one"
+      },
+      "input": {
+        "chats": [
+          {
+            "chatId": "oc_one",
+            "listen": "mentions"
+          }
+        ]
+      },
+      "value": {
+        "listened": true,
+        "observed": false,
+        "row": "oc_one"
+      }
+    },
+    {
+      "meta": {
+        "chatId": "oc_other"
+      },
+      "input": {
+        "otherChats": "mentions"
+      },
+      "value": {
+        "listened": true,
+        "observed": false,
+        "row": "other"
+      }
+    },
+    {
+      "meta": {
+        "chatId": "oc_other"
+      },
+      "input": {},
+      "value": {
+        "listened": false,
+        "reason": "chat_not_allowed"
+      }
+    }
+  ],
+  "sync": [
+    {
+      "name": "preserve-update-append",
+      "before": {
+        "allowed": [
+          {
+            "id": "ou_keep",
+            "name": "Old"
+          },
+          {
+            "id": "ou_remove",
+            "name": "Gone"
+          }
+        ],
+        "syncChat": "oc_sync",
+        "bots": [
+          {
+            "id": "cli_bot"
+          }
+        ]
+      },
+      "data": {
+        "users": [
+          {
+            "member_id": "ou_new",
+            "name": "新用户"
+          },
+          {
+            "member_id": "ou_keep",
+            "name": "新名字 😀"
+          }
+        ],
+        "has_more": false
+      },
+      "outcome": {
+        "value": {
+          "allowed": [
+            {
+              "id": "ou_keep",
+              "name": "新名字 😀"
+            },
+            {
+              "id": "ou_new",
+              "name": "新用户"
+            }
+          ],
+          "syncChat": "oc_sync",
+          "bots": [
+            {
+              "id": "cli_bot"
+            }
+          ]
+        }
+      },
+      "trace": [
+        [
+          "im",
+          "+chat-members-list",
+          "--chat-id",
+          "oc_sync",
+          "--member-types",
+          "user",
+          "--page-all",
+          "--page-limit",
+          "0",
+          "--as",
+          "bot",
+          "--format",
+          "json"
+        ]
+      ]
+    },
+    {
+      "name": "empty-list",
+      "before": {
+        "allowed": [
+          {
+            "id": "ou_keep",
+            "name": "Old"
+          },
+          {
+            "id": "ou_remove",
+            "name": "Gone"
+          }
+        ],
+        "syncChat": "oc_sync",
+        "bots": [
+          {
+            "id": "cli_bot"
+          }
+        ]
+      },
+      "data": {
+        "users": [],
+        "has_more": false
+      },
+      "outcome": {
+        "value": {
+          "allowed": [],
+          "syncChat": "oc_sync",
+          "bots": [
+            {
+              "id": "cli_bot"
+            }
+          ]
+        }
+      },
+      "trace": [
+        [
+          "im",
+          "+chat-members-list",
+          "--chat-id",
+          "oc_sync",
+          "--member-types",
+          "user",
+          "--page-all",
+          "--page-limit",
+          "0",
+          "--as",
+          "bot",
+          "--format",
+          "json"
+        ]
+      ]
+    },
+    {
+      "name": "incomplete",
+      "before": {
+        "allowed": [
+          {
+            "id": "ou_keep",
+            "name": "Old"
+          },
+          {
+            "id": "ou_remove",
+            "name": "Gone"
+          }
+        ],
+        "syncChat": "oc_sync",
+        "bots": [
+          {
+            "id": "cli_bot"
+          }
+        ]
+      },
+      "data": {
+        "users": [],
+        "has_more": true
+      },
+      "outcome": {
+        "error": true,
+        "message": "Feishu returned an incomplete member list"
+      },
+      "trace": [
+        [
+          "im",
+          "+chat-members-list",
+          "--chat-id",
+          "oc_sync",
+          "--member-types",
+          "user",
+          "--page-all",
+          "--page-limit",
+          "0",
+          "--as",
+          "bot",
+          "--format",
+          "json"
+        ]
+      ]
+    },
+    {
+      "name": "truncated",
+      "before": {
+        "allowed": [
+          {
+            "id": "ou_keep",
+            "name": "Old"
+          },
+          {
+            "id": "ou_remove",
+            "name": "Gone"
+          }
+        ],
+        "syncChat": "oc_sync",
+        "bots": [
+          {
+            "id": "cli_bot"
+          }
+        ]
+      },
+      "data": {
+        "users": [],
+        "has_more": false,
+        "truncations": [
+          {}
+        ]
+      },
+      "outcome": {
+        "error": true,
+        "message": "Feishu returned an incomplete member list"
+      },
+      "trace": [
+        [
+          "im",
+          "+chat-members-list",
+          "--chat-id",
+          "oc_sync",
+          "--member-types",
+          "user",
+          "--page-all",
+          "--page-limit",
+          "0",
+          "--as",
+          "bot",
+          "--format",
+          "json"
+        ]
+      ]
+    },
+    {
+      "name": "missing-has-more",
+      "before": {
+        "allowed": [
+          {
+            "id": "ou_keep",
+            "name": "Old"
+          },
+          {
+            "id": "ou_remove",
+            "name": "Gone"
+          }
+        ],
+        "syncChat": "oc_sync",
+        "bots": [
+          {
+            "id": "cli_bot"
+          }
+        ]
+      },
+      "data": {
+        "users": []
+      },
+      "outcome": {
+        "error": true,
+        "message": "[\n  {\n    \"expected\": \"boolean\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"has_more\"\n    ],\n    \"message\": \"Invalid input: expected boolean, received undefined\"\n  }\n]"
+      },
+      "trace": [
+        [
+          "im",
+          "+chat-members-list",
+          "--chat-id",
+          "oc_sync",
+          "--member-types",
+          "user",
+          "--page-all",
+          "--page-limit",
+          "0",
+          "--as",
+          "bot",
+          "--format",
+          "json"
+        ]
+      ]
+    },
+    {
+      "name": "invalid-member",
+      "before": {
+        "allowed": [
+          {
+            "id": "ou_keep",
+            "name": "Old"
+          },
+          {
+            "id": "ou_remove",
+            "name": "Gone"
+          }
+        ],
+        "syncChat": "oc_sync",
+        "bots": [
+          {
+            "id": "cli_bot"
+          }
+        ]
+      },
+      "data": {
+        "users": [
+          {
+            "member_id": "ou_new"
+          }
+        ],
+        "has_more": false
+      },
+      "outcome": {
+        "error": true,
+        "message": "[\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"users\",\n      0,\n      \"name\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  }\n]"
+      },
+      "trace": [
+        [
+          "im",
+          "+chat-members-list",
+          "--chat-id",
+          "oc_sync",
+          "--member-types",
+          "user",
+          "--page-all",
+          "--page-limit",
+          "0",
+          "--as",
+          "bot",
+          "--format",
+          "json"
+        ]
+      ]
+    },
+    {
+      "name": "null-truncations",
+      "before": {
+        "allowed": [
+          {
+            "id": "ou_keep",
+            "name": "Old"
+          },
+          {
+            "id": "ou_remove",
+            "name": "Gone"
+          }
+        ],
+        "syncChat": "oc_sync",
+        "bots": [
+          {
+            "id": "cli_bot"
+          }
+        ]
+      },
+      "data": {
+        "users": [],
+        "has_more": false,
+        "truncations": null
+      },
+      "outcome": {
+        "error": true,
+        "message": "[\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"truncations\"\n    ],\n    \"message\": \"Invalid input: expected array, received null\"\n  }\n]"
+      },
+      "trace": [
+        [
+          "im",
+          "+chat-members-list",
+          "--chat-id",
+          "oc_sync",
+          "--member-types",
+          "user",
+          "--page-all",
+          "--page-limit",
+          "0",
+          "--as",
+          "bot",
+          "--format",
+          "json"
+        ]
+      ]
+    },
+    {
+      "name": "duplicate-new-members",
+      "before": {
+        "allowed": [
+          {
+            "id": "ou_keep",
+            "name": "Old"
+          },
+          {
+            "id": "ou_remove",
+            "name": "Gone"
+          }
+        ],
+        "syncChat": "oc_sync",
+        "bots": [
+          {
+            "id": "cli_bot"
+          }
+        ]
+      },
+      "data": {
+        "users": [
+          {
+            "member_id": "ou_new",
+            "name": "first"
+          },
+          {
+            "member_id": "ou_new",
+            "name": "last"
+          }
+        ],
+        "has_more": false
+      },
+      "outcome": {
+        "value": {
+          "allowed": [
+            {
+              "id": "ou_new",
+              "name": "first"
+            },
+            {
+              "id": "ou_new",
+              "name": "last"
+            }
+          ],
+          "syncChat": "oc_sync",
+          "bots": [
+            {
+              "id": "cli_bot"
+            }
+          ]
+        }
+      },
+      "trace": [
+        [
+          "im",
+          "+chat-members-list",
+          "--chat-id",
+          "oc_sync",
+          "--member-types",
+          "user",
+          "--page-all",
+          "--page-limit",
+          "0",
+          "--as",
+          "bot",
+          "--format",
+          "json"
+        ]
+      ]
+    }
+  ],
+  "replies": [
+    {
+      "name": "sent",
+      "message": {
+        "id": "receipt-one",
+        "channel": {
+          "source": "feishu",
+          "thread": "feishu:oc_chat",
+          "address": {
+            "chatId": "oc_chat",
+            "messageId": "om_one"
+          }
+        },
+        "text": "正文 😀"
+      },
+      "response": {
+        "ok": true,
+        "data": {
+          "message_id": "om_reply"
+        }
+      },
+      "outcome": {
+        "value": "sent"
+      },
+      "trace": [
+        [
+          "im",
+          "+messages-reply",
+          "--message-id",
+          "om_one",
+          "--markdown",
+          "正文 😀",
+          "--reply-in-thread",
+          "--idempotency-key",
+          "receipt-one",
+          "--as",
+          "bot",
+          "--format",
+          "json"
+        ]
+      ]
+    },
+    {
+      "name": "sent-no-payload",
+      "message": {
+        "id": "receipt-one",
+        "channel": {
+          "source": "feishu",
+          "thread": "feishu:oc_chat",
+          "address": {
+            "chatId": "oc_chat",
+            "messageId": "om_one"
+          }
+        },
+        "text": "正文 😀"
+      },
+      "response": {
+        "ok": true
+      },
+      "outcome": {
+        "value": "sent"
+      },
+      "trace": [
+        [
+          "im",
+          "+messages-reply",
+          "--message-id",
+          "om_one",
+          "--markdown",
+          "正文 😀",
+          "--reply-in-thread",
+          "--idempotency-key",
+          "receipt-one",
+          "--as",
+          "bot",
+          "--format",
+          "json"
+        ]
+      ]
+    },
+    {
+      "name": "withdrawn",
+      "message": {
+        "id": "receipt-one",
+        "channel": {
+          "source": "feishu",
+          "thread": "feishu:oc_chat",
+          "address": {
+            "chatId": "oc_chat",
+            "messageId": "om_one"
+          }
+        },
+        "text": "正文"
+      },
+      "response": {
+        "ok": false,
+        "error": {
+          "code": 230011,
+          "message": "withdrawn"
+        }
+      },
+      "outcome": {
+        "value": "gone"
+      },
+      "trace": [
+        [
+          "im",
+          "+messages-reply",
+          "--message-id",
+          "om_one",
+          "--markdown",
+          "正文",
+          "--reply-in-thread",
+          "--idempotency-key",
+          "receipt-one",
+          "--as",
+          "bot",
+          "--format",
+          "json"
+        ]
+      ]
+    },
+    {
+      "name": "not-found",
+      "message": {
+        "id": "receipt-one",
+        "channel": {
+          "source": "feishu",
+          "thread": "feishu:oc_chat",
+          "address": {
+            "chatId": "oc_chat",
+            "messageId": "om_one"
+          }
+        },
+        "text": "正文"
+      },
+      "response": {
+        "ok": false,
+        "error": {
+          "code": 230099,
+          "message": "Not Found"
+        }
+      },
+      "outcome": {
+        "value": "gone"
+      },
+      "trace": [
+        [
+          "im",
+          "+messages-reply",
+          "--message-id",
+          "om_one",
+          "--markdown",
+          "正文",
+          "--reply-in-thread",
+          "--idempotency-key",
+          "receipt-one",
+          "--as",
+          "bot",
+          "--format",
+          "json"
+        ]
+      ]
+    },
+    {
+      "name": "membership",
+      "message": {
+        "id": "receipt-one",
+        "channel": {
+          "source": "feishu",
+          "thread": "feishu:oc_chat",
+          "address": {
+            "chatId": "oc_chat",
+            "messageId": "om_one"
+          }
+        },
+        "text": "正文"
+      },
+      "response": {
+        "ok": false,
+        "error": {
+          "code": 232011,
+          "message": "not joined"
+        }
+      },
+      "outcome": {
+        "error": true,
+        "message": "The Feishu bot is not a member of the chat. Add the bot in the chat settings, then retry.",
+        "code": 232011
+      },
+      "trace": [
+        [
+          "im",
+          "+messages-reply",
+          "--message-id",
+          "om_one",
+          "--markdown",
+          "正文",
+          "--reply-in-thread",
+          "--idempotency-key",
+          "receipt-one",
+          "--as",
+          "bot",
+          "--format",
+          "json"
+        ]
+      ]
+    },
+    {
+      "name": "uncoded-withdrawn",
+      "message": {
+        "id": "receipt-one",
+        "channel": {
+          "source": "feishu",
+          "thread": "feishu:oc_chat",
+          "address": {
+            "chatId": "oc_chat",
+            "messageId": "om_one"
+          }
+        },
+        "text": "正文"
+      },
+      "response": {
+        "ok": false,
+        "error": {
+          "message": "withdrawn"
+        }
+      },
+      "outcome": {
+        "error": true,
+        "message": "withdrawn"
+      },
+      "trace": [
+        [
+          "im",
+          "+messages-reply",
+          "--message-id",
+          "om_one",
+          "--markdown",
+          "正文",
+          "--reply-in-thread",
+          "--idempotency-key",
+          "receipt-one",
+          "--as",
+          "bot",
+          "--format",
+          "json"
+        ]
+      ]
+    },
+    {
+      "name": "transient",
+      "message": {
+        "id": "receipt-one",
+        "channel": {
+          "source": "feishu",
+          "thread": "feishu:oc_chat",
+          "address": {
+            "chatId": "oc_chat",
+            "messageId": "om_one"
+          }
+        },
+        "text": "正文"
+      },
+      "response": {
+        "ok": false,
+        "error": {
+          "code": 999,
+          "message": "timeout"
+        }
+      },
+      "outcome": {
+        "error": true,
+        "message": "timeout (999)",
+        "code": 999
+      },
+      "trace": [
+        [
+          "im",
+          "+messages-reply",
+          "--message-id",
+          "om_one",
+          "--markdown",
+          "正文",
+          "--reply-in-thread",
+          "--idempotency-key",
+          "receipt-one",
+          "--as",
+          "bot",
+          "--format",
+          "json"
+        ]
+      ]
+    },
+    {
+      "name": "over-limit",
+      "message": {
+        "id": "receipt-one",
+        "channel": {
+          "source": "feishu",
+          "thread": "feishu:oc_chat",
+          "address": {
+            "chatId": "oc_chat",
+            "messageId": "om_one"
+          }
+        },
+        "text": "修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 "
+      },
+      "response": {
+        "ok": true,
+        "data": {}
+      },
+      "outcome": {
+        "error": true,
+        "message": "IM message has 101 words; maximum is 100. Rewrite as a short high-level update. Do not split it into multiple messages."
+      },
+      "trace": []
+    }
+  ],
+  "links": [
+    {
+      "brand": "feishu",
+      "chat": "oc_中 文/?",
+      "value": "https://applink.feishu.cn/client/chat/open?openChatId=oc_%E4%B8%AD%20%E6%96%87%2F%3F"
+    },
+    {
+      "brand": "lark",
+      "chat": "oc_one",
+      "value": "https://applink.larksuite.com/client/chat/open?openChatId=oc_one"
+    }
+  ],
+  "mentions": "@甲 @甲 @乙"
+}

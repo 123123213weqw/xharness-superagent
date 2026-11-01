@@ -23,6 +23,8 @@ pub enum Error {
     SettingsConflict { block: String },
     #[error(transparent)]
     GithubRead(Box<sources::github::Error>),
+    #[error(transparent)]
+    FeishuRead(Box<sources::feishu::Error>),
     #[error("{0}")]
     WorkspacePrepare(String),
     #[error(transparent)]

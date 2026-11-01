@@ -1,9 +1,10 @@
+import {auditedLockBeforeFeishu} from './feishu-cargo-overlay.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { auditedLockBeforeProductDependency } from './product-cargo-overlay.mjs';
 import { auditedLockBeforeBusinessWords } from './business-word-cargo-overlay.mjs';
-const current = auditedLockBeforeBusinessWords(readFileSync(new URL('../../Cargo.lock', import.meta.url)));
+const current = auditedLockBeforeBusinessWords(auditedLockBeforeFeishu(readFileSync(new URL('../../Cargo.lock', import.meta.url))));
 const overlay = JSON.parse(readFileSync(new URL('./product-cargo.overlay.json', import.meta.url)));
 test('exact product workspace edge reconstructs audited lock', () => {
   const before = auditedLockBeforeProductDependency(current, overlay.base_sha256);
