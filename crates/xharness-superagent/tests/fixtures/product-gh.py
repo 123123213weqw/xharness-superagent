@@ -31,14 +31,15 @@ elif path == 'repos/owner/repo/issues/12':
              'title': 'Original issue', 'state': 'open', 'body': 'Old issue',
              'created_at': '2026-10-30T00:00:00.000Z', 'html_url': 'https://github.com/owner/repo/issues/12'}
 elif path.startswith('repos/owner/repo/issues/12/comments?'):
-    timestamp = root / 'timestamp'
+    comment_id = int(os.environ.get('GH_FIXTURE_COMMENT_ID', '101'))
+    timestamp = root / ('timestamp' if comment_id == 101 else f'timestamp-{comment_id}')
     if not timestamp.exists():
         timestamp.write_text((datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(seconds=1)).isoformat(timespec='milliseconds').replace('+00:00', 'Z'))
     at = timestamp.read_text()
     actor = os.environ.get('GH_FIXTURE_ACTOR', 'alice')
-    value = [[{'id': 101, 'user': {'login': actor, 'type': 'Bot' if actor == 'other[bot]' else 'User'},
+    value = [[{'id': comment_id, 'user': {'login': actor, 'type': 'Bot' if actor == 'other[bot]' else 'User'},
                'body': os.environ.get('GH_FIXTURE_TEXT', '@robot Create result.txt in the workspace 😀'), 'created_at': at, 'updated_at': at,
-               'html_url': 'https://github.com/owner/repo/issues/12#issuecomment-101',
+               'html_url': f'https://github.com/owner/repo/issues/12#issuecomment-{comment_id}',
                'issue_url': 'https://api.github.com/repos/owner/repo/issues/12'}]]
 elif path == 'repos/owner/repo/issues/12/comments':
     if 'POST' in args:

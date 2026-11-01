@@ -64,6 +64,7 @@ use xharness_superagent_core::{
     settings::Settings,
 };
 mod idle;
+mod recovery;
 
 pub type PrepareWorkspace = Rc<dyn Fn(Ticket) -> LocalBoxFuture<'static, Result<()>>>;
 pub type ConfiguredSourceEnabled = Rc<dyn Fn(&Settings, &str) -> Result<bool>>;
@@ -461,6 +462,9 @@ impl Product {
     pub async fn start(&self) -> Result<()> {
         self.backend.native.restore().await?;
         self.backend.ensure_main().await?;
+        // Reconcile durable assignments before any Source/effect may dispatch.
+        // The Native catalogue restore alone does not restore Executor bindings.
+        self.backend.resume_assignments()?;
         self.backend.native.set_configured(true);
         self.application.configure(true)?;
         self.application.start()
@@ -700,22 +704,7 @@ impl Backend {
         if !self.current(&ticket.id, &assignment.id)? {
             return Ok(());
         }
-        let directory = Path::new(&execution.directory);
-        let binding = self
-            .native
-            .ensure(&format!("worker-{}", ticket.id), Role::Worker, directory)
-            .await?;
-        self.bind(&binding, Scope::Worker(ticket.id.clone()), directory)?;
-        self.native.bind_prompt_ticket(&binding, &ticket.id).await?;
-        let cancel = self.stopping.child_token();
-        self.workers.borrow_mut().insert(
-            ticket.id.clone(),
-            Worker {
-                binding: binding.clone(),
-                assignment: assignment.id.clone(),
-                cancel,
-            },
-        );
+        let binding = self.worker_binding(ticket, assignment).await?;
         let root = self.root.get()?;
         let trigger = SqlRepository::new(&root.state.store).trigger(&ticket.origin.trigger_id)?;
         let request = if ticket.assignments.len() > 1 {
@@ -787,13 +776,8 @@ impl Backend {
             let Some(input) = ticket.undelivered.first().cloned() else {
                 return Ok(());
             };
-            let binding = self
-                .workers
-                .borrow()
-                .get(ticket_id)
-                .filter(|w| w.assignment == assignment.id)
-                .map(|w| w.binding.clone())
-                .ok_or_else(|| unavailable("Worker has no live Native binding"))?;
+            let delivered = async {
+            let binding = self.worker_binding(&ticket, &assignment).await?;
             let stored = ticket
                 .inputs
                 .iter()
@@ -855,10 +839,31 @@ impl Backend {
             self.observe(
                 binding,
                 &input,
-                Some((ticket_id.into(), assignment.id)),
+                Some((ticket_id.into(), assignment.id.clone())),
                 Some(input.clone()),
             )
-            .await?;
+            .await
+            }.await;
+            if let Err(error) = &delivered {
+                // Delivery failures are user-visible Ticket facts, not just an
+                // Effects retry error. Never attribute one to a successor or
+                // turn shutdown/pause into a false delivery failure.
+                if !self.stopping.is_cancelled()
+                    && !root.state.closing.get()
+                    && !root.state.store.settings()?.paused()
+                    && root
+                        .ticket(ticket_id)?
+                        .filter(live_ticket)
+                        .is_some_and(|ticket| {
+                            running_assignment(&ticket).is_some_and(|a| a.id == assignment.id)
+                        })
+                {
+                    root.driver.command(&root.state.context, |engine| {
+                        engine.delivery_failed(ticket_id, &assignment.id, &error.to_string())
+                    })?;
+                }
+            }
+            delivered?;
         }
     }
     async fn observe(

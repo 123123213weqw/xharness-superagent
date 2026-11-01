@@ -183,6 +183,9 @@ fn serve(
     blocked: &AtomicBool,
     ending: &AtomicBool,
 ) -> Result<(), Box<dyn std::error::Error>> {
+    // Only accept is nonblocking. Each accepted HTTP connection is a bounded
+    // blocking exchange; set its mode explicitly on both Linux and macOS.
+    stream.set_nonblocking(false)?;
     stream.set_read_timeout(Some(Duration::from_secs(5)))?;
     let mut bytes = Vec::new();
     let mut buffer = [0u8; 8192];
@@ -523,6 +526,13 @@ fn idle_status_answer(request: &Value) -> ModelReply {
         );
     }
     answer(request, false)
+}
+fn leave_waiting_answer(request: &Value) -> ModelReply {
+    let user = last_user(request);
+    if request["model"] == "main" && user["kind"] == "worker_report" && user["state"] == "waiting" {
+        return Ok((None, Value::Null));
+    }
+    idle_status_answer(request)
 }
 fn success(output: &Output) -> Value {
     assert!(
@@ -960,4 +970,236 @@ async fn formal_idle_worker_gets_waiting_report_and_status_request_reaches_same_
         .flat_map(|request| request["messages"].as_array().unwrap())
         .map(message_text)
         .any(|text| text.contains("Asked the worker for a status report")));
+}
+
+#[tokio::test]
+async fn formal_waiting_worker_rebinds_after_restart_and_reads_new_source_input_once() {
+    // Leave the assignment waiting across a real executable shutdown.
+    let server = Server::with_responder(leave_waiting_answer);
+    let fixture = Fixture::new(&server.url);
+    success(&fixture.run("--once").await);
+    let before = fixture.table("ticket");
+    assert_eq!(before.len(), 1);
+    let original = &before[0];
+    assert_eq!(original["assignments"][0]["report"]["state"], "waiting");
+    assert!(original.get("ended").is_none());
+    let assignment = original["assignments"][0]["id"].clone();
+    let directory = PathBuf::from(original["execution"]["directory"].as_str().unwrap());
+    assert!(!directory.join("result.txt").exists());
+    assert_eq!(fixture.posts().len(), 1);
+    let requests_before = server.requests().len();
+    success(&fixture.run("--once").await);
+    assert_eq!(
+        server.requests().len(),
+        requests_before,
+        "waiting is not interrupted work"
+    );
+    assert_eq!(fixture.table("ticket"), before);
+
+    let resumed = tokio::time::timeout(
+        Duration::from_secs(45),
+        fixture
+            .command("--once")
+            .env("GH_FIXTURE_COMMENT_ID", "102")
+            .env(
+                "GH_FIXTURE_TEXT",
+                "@robot Continue the accepted work and create result.txt now 😀",
+            )
+            .output(),
+    )
+    .await
+    .unwrap()
+    .unwrap();
+    let summary = success(&resumed);
+    assert_eq!(summary["pendingEffects"], 0);
+    let after = fixture.table("ticket");
+    assert_eq!(after.len(), 1, "followup must not create a second ticket");
+    assert_eq!(after[0]["id"], original["id"]);
+    assert_eq!(after[0]["assignments"].as_array().unwrap().len(), 1);
+    assert_eq!(after[0]["assignments"][0]["id"], assignment);
+    assert_eq!(after[0]["assignments"][0]["report"]["state"], "ready");
+    assert!(after[0].get("ended").is_some());
+    assert_eq!(
+        std::fs::read_to_string(directory.join("result.txt")).unwrap(),
+        "你好 😀\n"
+    );
+    let inputs = after[0]["inputs"].as_array().unwrap();
+    assert_eq!(inputs.len(), 1);
+    assert_eq!(inputs[0]["kind"], "trigger");
+    assert_eq!(inputs[0]["deliveredTo"], assignment);
+    assert!(inputs[0]["readAt"].is_string());
+    assert!(after[0]["undelivered"].as_array().unwrap().is_empty());
+    let count = server.requests().len();
+    let posts = fixture.posts();
+    assert_eq!(posts.len(), 2);
+    success(
+        &tokio::time::timeout(
+            Duration::from_secs(45),
+            fixture
+                .command("--once")
+                .env("GH_FIXTURE_COMMENT_ID", "102")
+                .env(
+                    "GH_FIXTURE_TEXT",
+                    "@robot Continue the accepted work and create result.txt now 😀",
+                )
+                .output(),
+        )
+        .await
+        .unwrap()
+        .unwrap(),
+    );
+    assert_eq!(server.requests().len(), count);
+    assert_eq!(fixture.posts(), posts);
+}
+
+#[tokio::test]
+async fn formal_crashed_worker_restarts_with_recovery_note_and_preserves_its_worktree() {
+    // Block the first worker HTTP request before even its first SSE byte.
+    // Dropping this server discards that one explicitly faulted connection;
+    // it never manufactures a successful provider response for the killed owner.
+    let block = Arc::new(std::sync::OnceLock::<Arc<AtomicBool>>::new());
+    let worker_gate = block.clone();
+    let first = Server::with_responder(move |request| {
+        if request["model"] == "worker" {
+            worker_gate.get().unwrap().store(true, Ordering::SeqCst);
+        }
+        answer(request, false)
+    });
+    block.set(first.block.clone()).unwrap();
+    let mut fixture = Fixture::new(&first.url);
+    let mut child = fixture
+        .command("--once")
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped())
+        .spawn()
+        .unwrap();
+    tokio::time::timeout(Duration::from_secs(20), async {
+        while !first
+            .requests()
+            .iter()
+            .any(|request| request["model"] == "worker")
+        {
+            tokio::time::sleep(Duration::from_millis(10)).await;
+        }
+    })
+    .await
+    .unwrap();
+    let before = fixture.table("ticket");
+    assert_eq!(before.len(), 1);
+    assert_eq!(before[0]["assignments"][0]["state"], "running");
+    assert!(before[0]["assignments"][0].get("report").is_none());
+    let directory = PathBuf::from(before[0]["execution"]["directory"].as_str().unwrap());
+    std::fs::write(
+        directory.join("partial.txt"),
+        "already completed local work 😀",
+    )
+    .unwrap();
+    assert_eq!(fixture.posts().len(), 1);
+    child.start_kill().unwrap();
+    let killed = tokio::time::timeout(Duration::from_secs(10), child.wait_with_output())
+        .await
+        .unwrap()
+        .unwrap();
+    assert!(!killed.status.success());
+    drop(first);
+
+    let server = Server::new(false);
+    // Explicit replacement of a test-only endpoint, not a production fallback.
+    for model in fixture.config["models"].as_array_mut().unwrap() {
+        model["baseUrl"] = json!(server.url);
+    }
+    let summary = success(&fixture.run("--once").await);
+    assert_eq!(summary["pendingEffects"], 0);
+    let after = fixture.table("ticket");
+    assert_eq!(after.len(), 1);
+    assert_eq!(after[0]["id"], before[0]["id"]);
+    let assignments = after[0]["assignments"].as_array().unwrap();
+    assert_eq!(assignments.len(), 2);
+    assert_eq!(assignments[0]["id"], before[0]["assignments"][0]["id"]);
+    assert_eq!(assignments[0]["state"], "ended");
+    assert_eq!(assignments[0]["endedReason"], "hostRestarted");
+    assert_ne!(assignments[0]["id"], assignments[1]["id"]);
+    assert_eq!(assignments[1]["report"]["state"], "ready");
+    assert!(after[0].get("ended").is_some());
+    assert!(after[0]["inputs"].as_array().unwrap().iter().any(|input| {
+        input["kind"] == "text"
+            && input["text"].as_str().is_some_and(|text| {
+                text.contains("Do not repeat an already completed external operation")
+            })
+    }));
+    assert!(after[0]["undelivered"].as_array().unwrap().is_empty());
+    assert_eq!(
+        std::fs::read_to_string(directory.join("partial.txt")).unwrap(),
+        "already completed local work 😀"
+    );
+    assert_eq!(
+        std::fs::read_to_string(directory.join("result.txt")).unwrap(),
+        "你好 😀\n"
+    );
+    assert_eq!(fixture.posts().len(), 2);
+    assert!(server
+        .requests()
+        .iter()
+        .filter(|request| request["model"] == "worker")
+        .flat_map(|request| request["messages"].as_array().unwrap())
+        .map(message_text)
+        .any(|text| text.contains("The host restarted during this ticket")));
+    let count = server.requests().len();
+    success(&fixture.run("--once").await);
+    assert_eq!(server.requests().len(), count);
+    assert_eq!(fixture.posts().len(), 2);
+}
+
+#[tokio::test]
+async fn formal_missing_recovery_workspace_preserves_input_and_exposes_delivery_error() {
+    let server = Server::with_responder(leave_waiting_answer);
+    let fixture = Fixture::new(&server.url);
+    success(&fixture.run("--once").await);
+    let original = fixture.table("ticket").remove(0);
+    let directory = PathBuf::from(original["execution"]["directory"].as_str().unwrap());
+    let held = directory.with_file_name("held-original-workspace");
+    std::fs::rename(&directory, &held).unwrap();
+    let count = server.requests().len();
+    let summary = success(
+        &tokio::time::timeout(
+            Duration::from_secs(45),
+            fixture
+                .command("--once")
+                .env("GH_FIXTURE_COMMENT_ID", "102")
+                .env(
+                    "GH_FIXTURE_TEXT",
+                    "@robot Continue the original accepted work 😀",
+                )
+                .output(),
+        )
+        .await
+        .unwrap()
+        .unwrap(),
+    );
+    assert_eq!(
+        summary["pendingEffects"], 1,
+        "failed delivery must remain pending, not succeed"
+    );
+    let after = fixture.table("ticket");
+    assert_eq!(after.len(), 1);
+    assert_eq!(after[0]["id"], original["id"]);
+    assert_eq!(after[0]["assignments"], original["assignments"]);
+    assert!(after[0]["delivery"]["error"]
+        .as_str()
+        .is_some_and(|text| !text.is_empty()));
+    let inputs = after[0]["inputs"].as_array().unwrap();
+    assert_eq!(inputs.len(), 1);
+    assert_eq!(after[0]["undelivered"], json!([inputs[0]["id"]]));
+    assert!(inputs[0].get("deliveredTo").is_none());
+    assert!(inputs[0].get("readAt").is_none());
+    assert!(
+        !directory.exists(),
+        "reconnect must not run prepare or invent a new workspace"
+    );
+    assert_eq!(
+        std::fs::read_to_string(held.join("seed.txt")).unwrap(),
+        "prepared\n"
+    );
+    assert_eq!(server.requests().len(), count);
+    assert_eq!(fixture.posts().len(), 1, "no fake completion reply");
 }
