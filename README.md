@@ -34,6 +34,8 @@
 - [未完成工单恢复](docs/superagent/business-recovery.md)：等待工单重启后处理新输入、
   Worker 进程中断后的恢复 assignment、目录丢失时保留输入与可观察错误。
   只验证所列场景，不代表全部后台任务/崩溃切点和部署恢复完成。
+- [业务读取组件](docs/superagent/business-resources.md)：权限/脱敏/分页与不唤醒 Worker
+  的已有会话读取接口已实现；完整 `orchestrator_read` 的端口和正式工具接线仍未完成。
 
 ## 尚未完成
 

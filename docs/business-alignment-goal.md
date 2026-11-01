@@ -102,3 +102,11 @@ CodingToolBundle write、报告和 marker 回执；不是将分开的组件测�
 fmt/check/严格 Clippy 通过。它们不是全工作区绿：此前飞书部署断言、旧提交的跨平台
 CI 失败均保留，当前精确 head 的 CI 仍须另验。见 `docs/business-recovery-verification.json`。
 完整后台/停止/恢复矩阵及 B2 剩余业务工具、Sources、API/UI、部署回退仍在本 Goal。
+
+## B2 资源读取组件进展（不是完整 read 工具验收）
+
+已有角色限定的 SQL 卡片/分页/脱敏规划和 Native 已有会话的被动检查接口，9个组件
+边界检查通过。未注册完整 `orchestrator_read`，工具数量和整产品验收数未变化。
+下一步必须完成真实会话投影/输入/Source/配置端口及缓存，再验证正式模型工具调用；
+不把内部待解析 Plan、mock 或组件检查当成功产品响应。当前证据见
+`docs/business-resources-verification.json`，完整 Goal 范围不变。

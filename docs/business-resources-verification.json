@@ -1,0 +1,188 @@
+{
+  "created_at_utc": "2026-11-01T19:45:33.021365+00:00",
+  "source_commit": "b04d49ad7a74baaabeac8b2c9549907a791e0da2",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "status": "resource_backing_and_passive_history_components_verified_full_read_tool_not_yet_installed",
+  "host": "WZU_Server",
+  "isolated_owned_validation_directory": true,
+  "local_rust_compilation": false,
+  "profile_sha256": "a834932ae75be6a1a349c991e57eb5fd53b4f7475095d7042fa80767c67c3ce3",
+  "profile_files": 702,
+  "profile_manifest": "docs/business-resources-source-profile.json",
+  "local_remote_source_equal": true,
+  "new_runtime_dependencies": [],
+  "cargo_lock_changed": false,
+  "application_tools": {
+    "main": 6,
+    "worker": 5,
+    "required_main": 14,
+    "required_worker": 6,
+    "orchestrator_read_registered": false,
+    "remaining_registrations": 9
+  },
+  "new_checks_not_product_acceptance": {
+    "resource_component_count": 7,
+    "resource_names": [
+      "strict_read_request_normalizes_only_legacy_prefixes_and_rejects_forged_scope",
+      "worker_own_ticket_and_shared_thread_do_not_expose_other_tickets_or_decisions",
+      "trigger_reads_allow_origin_delivery_context_and_bound_threads_but_redact_fanout_and_neighbours",
+      "list_and_ticket_pages_are_bounded_newest_first_with_copyable_offsets",
+      "live_plans_retain_trusted_scope_and_never_return_fake_transcripts_or_source_success",
+      "actual_sql_errors_and_corrupt_records_never_become_absence_or_empty_pages",
+      "ordinary_unicode_pages_reconstruct_content_without_cutting_emoji_or_stalling"
+    ],
+    "native_inspection_component_count": 2,
+    "native_names": [
+      "passive_logical_inspection_reads_cold_inbox_without_creation_activation_or_workspace",
+      "passive_logical_inspection_rejects_missing_or_duplicate_creation_proof"
+    ],
+    "full_product_groups_signed_off": 0,
+    "new_formal_entry_tests": 0,
+    "existing_formal_entry_tests_passed": 14
+  },
+  "implemented_components": [
+    "Validated resource Request with private fields and no public Deserialize bypass; legacy path aliases, bounded list/text paging.",
+    "Main stored-resource projections and worker-own ticket/read-context guards; shared-thread, fanout, neighbour and reopen-decision redaction.",
+    "Fallible SQL errors and corrupt records remain errors, not absence or empty pages.",
+    "Explicit non-serializable live-resource plans, not fake transcripts or Source-success handlers.",
+    "Native inspect_existing derives the role/logical identity and validates original creation proof through existing Host; no ensure/prepare/model/tool/prompt/activation/lease/wake.",
+    "Cold owned inbox is inspectable without recreating a deleted worktree or waking queued input. Canonical Store still rejects duplicate mutations; unproven journals are not adopted."
+  ],
+  "remaining_read_ports": [
+    "Install actual Native/Source/config resource resolver through the existing SQL Client and trusted role/session binding.",
+    "Filter transcript messages/reasoning and render input text; do not serialize raw Native Session or internal Plan to the model.",
+    "Complete Source links/context/snapshots, GitHub read patterns and Feishu when installed.",
+    "Complete settings/prompts/models/session revision scope, source registry and session-scoped snapshot/preview caches.",
+    "Complete original card enrichments including native model-retry and PR ownership fields.",
+    "Only then register orchestrator_read for both roles and verify actual formal-entry HTTP/SSE tool calls."
+  ],
+  "unicode_business_scope": {
+    "normal_chinese_emoji_pages_reconstruct": true,
+    "offset_counts": "existing UTF-16 character-count convention with Unicode-character-aligned page boundaries",
+    "boundary_difference": "Unlike raw JS slice, a page never returns half an emoji; arbitrary offsets inside a surrogate pair are rejected. Full malformed/lone-surrogate language fidelity remains excluded.",
+    "global_string_type_or_date_timezone_migration": false,
+    "cancelled_language_work_counted_as_pass": false
+  },
+  "commands": [
+    {
+      "command": "cargo fmt --all -- --check",
+      "exit": 0
+    },
+    {
+      "command": "cargo check --locked --workspace --all-targets --features xharness-superagent/conformance",
+      "exit": 0
+    },
+    {
+      "command": "cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings",
+      "exit": 0
+    },
+    {
+      "command": "unset XH_GH_LIVE; cargo test --locked -p xharness-superagent -p xharness-gh --all-targets --features xharness-superagent/conformance --no-fail-fast -- --test-threads=1",
+      "exit": 0
+    }
+  ],
+  "regression_scope": {
+    "tested_crates": 2,
+    "full_workspace_tests_on_this_increment": false,
+    "early_live_opt_in_return_not_acceptance": true,
+    "live_gh_opt_in_explicitly_unset": true,
+    "ignored_or_capability_guarded_checks_not_business_pass": true,
+    "aggregate_count_omitted": "Do not sum nested subprocess result rows or repeat executions as distinct declarations.",
+    "prior_failures_not_cleared_by_selected_regression": "Old WZU Feishu dedicated UID/egress deployment assertions and historical frozen Host flush-count race remain documented. No server/user/firewall/proxy/service changes, assertions removed or release-green claim."
+  },
+  "legacy_ci_fixture": {
+    "previous_ci_url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41340641126",
+    "previous_head": "35a34a2fff007f0fa29b346f40a7ec553f1933a0",
+    "linux": "success (full workspace command, with its existing ignored/early-return gates; not all business acceptance)",
+    "macos": "failure in legacy xharness-gh review_pipeline before product_entry: TaskOutcome.done was observed before async comment/label HTTP writes",
+    "source_evidence": "crates/xharness-gh/src/server.rs inserts TaskOutcome and only then awaits upsert_session_comment and label requests. Production ordering unchanged.",
+    "fix": "Test fixture endpoints notify actual writes; wait for comment and two labels before original assertions. No changed expected content/status or production code.",
+    "original_assertions_byte_preserved": 14,
+    "standalone_repeat_executions": 5,
+    "repeat_passed": 5,
+    "repeat_scope": "Earlier regression-01 source; not added as new tests. Final source also passes exact pipeline in regression-02.",
+    "new_head_cross_platform_ci_not_yet_verified": true,
+    "previous_failed_log_sha256": "9346e386e33d29d540f6de0b76f6669fc20463d67f031aae10f88a53b7c0d6d8"
+  },
+  "reference_checks": {
+    "source_files_unchanged": 216,
+    "import_chain_steps": 11,
+    "controlled_paths": 86,
+    "declared_overlays_unchanged": 2,
+    "tool_subset_registrations": 11,
+    "negative_guards": 6,
+    "original_source_oracle_samples": 57,
+    "full_original_read_resource_oracle": false
+  },
+  "earlier_failures_preserved": [
+    "check-01 strict Clippy: as_ref().map(Vec::as_slice) -> as_deref(), no suppression.",
+    "check-03/check-04 missing InboxProjection import; the first textual import edit did not match and was ineffective; explicit qualified use fixed it.",
+    "check-05 exposed the new negative test assumption: canonical Store rejects duplicate mutation at append. Test now asserts that typed rejection and unchanged good journal, then separately rejects an unproven journal; no Store/Host invariant bypass."
+  ],
+  "logs": [
+    {
+      "path": "docs/evidence/business-resources-01/check-01.log",
+      "exit": 101,
+      "raw_sha256": "1534b24792c85591ec8275d088b5deec623ec7e85eebaa90bb95e27de446a44c",
+      "published_sha256": "428136ba69855a3340607bb1c5fb4410be098c690eb5850d04a335fd30f15a7c"
+    },
+    {
+      "path": "docs/evidence/business-resources-01/check-02.log",
+      "exit": 0,
+      "raw_sha256": "136cbfa70b3b0d7ee1450cba473b36ee6b47c152839e20ee564421a1e681c4be",
+      "published_sha256": "ef9c60884d59a7c35e3412753a783cb59f7b9f0d0f9db7528d4c9cb0d9301def"
+    },
+    {
+      "path": "docs/evidence/business-resources-01/check-03.log",
+      "exit": 101,
+      "raw_sha256": "daf21bef960e52fb46a07a03813434157e5c9c2d1598642c3dc941ebdcd4e8dd",
+      "published_sha256": "db8bb8c84d362cf9f92300e4712ead4d4d1fa38deaf0b49fa054ca65d3b575f4"
+    },
+    {
+      "path": "docs/evidence/business-resources-01/check-04.log",
+      "exit": 101,
+      "raw_sha256": "40e577348f00195078322f0a64e7334dd3b56daf2ec86e3a91bb01ac124fba72",
+      "published_sha256": "c9cfaee064c7f59be67818becd491c030efec61976485d9f24887be9bba062a0"
+    },
+    {
+      "path": "docs/evidence/business-resources-01/check-05.log",
+      "exit": 101,
+      "raw_sha256": "2182a8529644bb0912433c2abc75658d29ccfb94fc1f5fc8b180e6a7d7d9ba86",
+      "published_sha256": "11813d8170e2262839e134b6476122d777a81ca7d00ad3bd598c3929db921b8a"
+    },
+    {
+      "path": "docs/evidence/business-resources-01/regression-01.log",
+      "exit": 0,
+      "raw_sha256": "5796929a644d4ce54a262d686bda332e1184716b819519e6c51dce116e78fe83",
+      "published_sha256": "b517af30ff442aeb4fe7bfe8505ee1e3ebc3dc50b09156884d94a929bdad9bcd"
+    },
+    {
+      "path": "docs/evidence/business-resources-01/regression-02.log",
+      "exit": 0,
+      "raw_sha256": "f6abed0a4f6c9e578f2ca220da25929724d7fe90b62c9f60dab9c2b8bcd61fd5",
+      "published_sha256": "f0c78c45910036146b48e733b3141ad7b55d3c06c401b297fd7e56e3d92e3b68"
+    },
+    {
+      "path": "docs/evidence/business-resources-01/provenance-01.log",
+      "exit": 0,
+      "raw_sha256": "487a25afb3afdbf395a456f48dd597f852c70173bef9b038fe612b8775c6a262",
+      "published_sha256": "487a25afb3afdbf395a456f48dd597f852c70173bef9b038fe612b8775c6a262"
+    },
+    {
+      "path": "docs/evidence/business-resources-01/legacy-assertions-01.log",
+      "exit": 0,
+      "raw_sha256": "dc4db0c094199f59b230eb07cb87861cd32e9241e43b1c740c33775fb5c3e38e",
+      "published_sha256": "dc4db0c094199f59b230eb07cb87861cd32e9241e43b1c740c33775fb5c3e38e"
+    }
+  ],
+  "normalization": "Only absolute source/target prefixes replaced; full stdout/stderr retained with raw/public hashes.",
+  "new_business_groups_signed_off": 0,
+  "full_goal_still_active": true,
+  "remaining_full_scope": [
+    "complete read and all remaining main14/worker6 application registrations and inferred evaluation/note/settings/prompts",
+    "GitHub PR ownership/context and Feishu/multi-source integration",
+    "configuration API/UI and full persistence/authorization/version-conflict flows",
+    "30-minute background/subagent stop/slots and full lifecycle/crash recovery matrix",
+    "backup/deployment/rollback plus necessary full regression/environment verification"
+  ]
+}

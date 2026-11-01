@@ -118,3 +118,22 @@ workspace 测试。新代码的跨平台CI另以其精确提交检查，不复�
 工具数量仍主6/Worker5；完整 bounded read、其余工具、飞书、API/UI、完整后台/停止/
 全部恢复切点及部署回退仍未完成。业务清单现5组离线通过、6组部分推进、12组未运行，
 不代表功能完成率。Goal 继续活动，仅对齐产品逻辑，不恢复全域 JS/UTF-16 方向。
+
+## B2 资源读取组件（当前，尚未注册完整工具）
+
+业务读取的 SQL 权限/脱敏/分页层已有7个组件检查；Native 已有会话的被动读取有2个
+检查，冷启动可读排队输入、不创建或唤醒 Worker、不重建丢失工作目录。它们不增加
+整产品验收通过数，也未向模型注册未接完的 read 工具。主6/Worker5、14条已有正式
+入口测试以及业务清单5通过/6部分推进/12未运行均保持不变。
+
+完整 transcript/input/Source/settings/prompts/models 端口、会话快照缓存和正式工具
+接线仍是下一步；不能把内部 Plan 当成工具的成功响应或完整 readResource 等价。
+见 [边界](docs/superagent/business-resources.md) 和 `docs/business-resources-verification.json`。
+
+本批 workspace fmt/check/严格 Clippy、2个选定 crate 全目标回归通过，不是全工作区
+测试。前一35a34a2 CI：Linux通过，macOS旧 gh-host 只等模型 done、未等评论/标签
+写入就断言。已补实际 HTTP endpoint 的写入等待，原14个断言逐字保留；新 head CI
+仍须另验。冻结 Host 的历史 flush 竞争与 WZU 飞书两项部署失败未据此清除。
+
+完整业务工具、推断研判、飞书/多来源、配置 API/UI、后台/停止/完整恢复与部署回退
+继续在活动 Goal 内。没有全局语言类型迁移、新依赖、付费调用或线上服务变更。

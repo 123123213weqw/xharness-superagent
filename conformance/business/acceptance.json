@@ -325,8 +325,15 @@
       "required_main": 14,
       "required_worker": 6
     },
-    "workspace_test_gate": "previous_full_workspace_and_prior_CI_failures_unresolved_this_run_selected9passed"
+    "workspace_test_gate": "previous_full_workspace_and_prior_CI_failures_unresolved_this_run_selected9passed",
+    "resource_backing_components": {
+      "evidence": "docs/business-resources-verification.json",
+      "sql_checks": 7,
+      "native_passive_history_checks": 2,
+      "read_tool_registered": false,
+      "new_business_cases_passed": 0
+    }
   },
-  "updated_at_utc": "2026-11-01T19:06:33.614715+00:00",
+  "updated_at_utc": "2026-11-01T19:45:33.021365+00:00",
   "validation_note": "passed denotes the listed complete product scenario in an explicitly offline protocol environment, not real GitHub/model service approval, universal parity or release readiness. Unexecuted branches remain open."
 }

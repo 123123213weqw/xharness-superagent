@@ -1,0 +1,7 @@
+{
+  "file": "crates/xharness-gh/tests/review_pipeline.rs",
+  "baseline": "35a34a2fff007f0fa29b346f40a7ec553f1933a0",
+  "existing_assertions_unchanged": 14,
+  "current_file_sha256": "1c59a7c26e72faf58c32020ea626938c39b775c2a1572b9a5ffcee38c49e0db4",
+  "scope": "No assertion removed or relaxed; only actual HTTP-write wait/notifications added; production gh-host unchanged."
+}

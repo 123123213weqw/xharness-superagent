@@ -1,0 +1,15 @@
+    Checking xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+error[E0433]: cannot find type `InboxProjection` in this scope
+   --> crates/xharness-superagent/tests/native_sessions.rs:933:13
+    |
+933 |             InboxProjection::from_session(&read)
+    |             ^^^^^^^^^^^^^^^ use of undeclared type `InboxProjection`
+
+error[E0433]: cannot find type `InboxProjection` in this scope
+   --> crates/xharness-superagent/tests/native_sessions.rs:964:9
+    |
+964 |         InboxProjection::from_session(&read)
+    |         ^^^^^^^^^^^^^^^ use of undeclared type `InboxProjection`
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `xharness-superagent` (test "native_sessions") due to 2 previous errors

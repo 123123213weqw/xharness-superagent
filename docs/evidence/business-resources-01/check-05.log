@@ -1,0 +1,39 @@
+    Checking xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.23s
+    Checking xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 5.87s
+   Compiling xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.80s
+     Running unittests src/lib.rs (<isolated-target>/debug/deps/xharness_superagent-9b820b8cd6a8dbe2)
+
+running 7 tests
+test application::resources::tests::ordinary_unicode_pages_reconstruct_content_without_cutting_emoji_or_stalling ... ok
+test application::resources::tests::live_plans_retain_trusted_scope_and_never_return_fake_transcripts_or_source_success ... ok
+test application::resources::tests::strict_read_request_normalizes_only_legacy_prefixes_and_rejects_forged_scope ... ok
+test application::resources::tests::worker_own_ticket_and_shared_thread_do_not_expose_other_tickets_or_decisions ... ok
+test application::resources::tests::trigger_reads_allow_origin_delivery_context_and_bound_threads_but_redact_fanout_and_neighbours ... ok
+test application::resources::tests::actual_sql_errors_and_corrupt_records_never_become_absence_or_empty_pages ... ok
+test application::resources::tests::list_and_ticket_pages_are_bounded_newest_first_with_copyable_offsets ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 27 filtered out; finished in 0.06s
+
+   Compiling xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 16.90s
+     Running tests/native_sessions.rs (<isolated-target>/debug/deps/native_sessions-6837902f90928289)
+
+running 2 tests
+
+thread 'passive_logical_inspection_rejects_missing_or_duplicate_creation_proof' (2801715) panicked at crates/xharness-superagent/tests/native_sessions.rs:1006:6:
+called `Result::unwrap()` on an `Err` value: InvalidSession(InvalidLifecycle { seq: 6, message: "xharness/mutation-committed must be unique, secret-free, valid and end a state-mutation revision" })
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test passive_logical_inspection_rejects_missing_or_duplicate_creation_proof ... FAILED
+test passive_logical_inspection_reads_cold_inbox_without_creation_activation_or_workspace ... ok
+
+failures:
+
+failures:
+    passive_logical_inspection_rejects_missing_or_duplicate_creation_proof
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 32 filtered out; finished in 0.04s
+
+error: test failed, to rerun pass `-p xharness-superagent --test native_sessions`
