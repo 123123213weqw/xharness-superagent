@@ -19,7 +19,7 @@ use std::{
     cell::{Cell, RefCell},
     collections::{BTreeMap, HashMap, HashSet},
     rc::Rc,
-    sync::Arc,
+    sync::{Arc, OnceLock},
     time::Duration,
 };
 use tokio_util::sync::CancellationToken;
@@ -30,6 +30,77 @@ use xharness_superagent_core::{
 };
 const HORIZON: i64 = 14 * 24 * 3_600_000;
 const RETRY_WINDOW: i64 = 24 * 3_600_000;
+
+/// Startup installs these ports before SQL opens, then fills them using the
+/// ACTUAL persisted Settings after Product acquires the writer lease. There is
+/// no provisional/fake account or successful-send fallback while setup is pending.
+#[derive(Clone, Default)]
+pub struct Prepared {
+    installed: Arc<OnceLock<Installed>>,
+}
+#[derive(Clone)]
+struct Installed {
+    transport: Arc<dyn Transport>,
+    deployment: Deployment,
+}
+impl Prepared {
+    pub fn install(&self, transport: Arc<dyn Transport>, deployment: Deployment) -> Result<()> {
+        deployment.validate()?;
+        self.installed
+            .set(Installed {
+                transport,
+                deployment,
+            })
+            .map_err(|_| {
+                Error::Config(
+                    "GitHub deployment already resolved; restart to change accounts".into(),
+                )
+            })
+    }
+    pub fn deployment(&self) -> Result<Deployment> {
+        Ok(self.ready()?.deployment)
+    }
+    fn ready(&self) -> Result<Installed> {
+        self.installed
+            .get()
+            .cloned()
+            .ok_or_else(|| Error::Config("GitHub deployment setup is unavailable".into()))
+    }
+    pub fn ports(&self, stop: CancellationToken) -> Sources {
+        let send = self.clone();
+        let enabled = self.clone();
+        Sources {
+            scope: Arc::new(protocol::scope),
+            enabled: Rc::new(move |settings, source| {
+                Ok(source == "github"
+                    && enabled.installed.get().is_some()
+                    && Config::resolve(settings).is_some())
+            }),
+            channel_allowed: Rc::new(|channel| Ok(channel["source"] == "github")),
+            validate_message: Arc::new(|_| Ok(())),
+            send: Rc::new(move |receipt| {
+                let installed = send.ready();
+                let stop = stop.clone();
+                async move {
+                    let installed = installed.map_err(|e| HandlerError::Failure(e.to_string()))?;
+                    channel::send(
+                        installed.transport.as_ref(),
+                        &installed.deployment,
+                        &receipt,
+                        stop,
+                    )
+                    .await
+                    .map_err(|e| HandlerError::Failure(e.to_string()))
+                }
+                .boxed_local()
+            }),
+        }
+    }
+    pub fn source(&self, application: Application) -> Result<Source> {
+        let installed = self.ready()?;
+        Source::new(application, installed.transport, installed.deployment)
+    }
+}
 
 pub fn ports(
     transport: Arc<dyn Transport>,
@@ -233,6 +304,7 @@ impl Source {
             match self.poll_once(stop.clone()).await {
                 Ok(_) => (),
                 Err(Error::Cancelled) if stop.is_cancelled() => break,
+                Err(error) if stop.is_cancelled() => return Err(error),
                 Err(_) => (),
             }
             let configured = self.config()?.map_or(60, |c| c.poll_seconds);

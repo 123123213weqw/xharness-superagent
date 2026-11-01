@@ -1,0 +1,789 @@
+//! Executable product composition. No probe/test provider, fake account, legacy
+//! gh-host factory, elevated permission, or successful external-action fallback.
+#![forbid(unsafe_code)]
+#![deny(
+    clippy::unwrap_used,
+    clippy::expect_used,
+    clippy::let_underscore_must_use,
+    unused_must_use
+)]
+use super::{
+    client::Client,
+    github::Prepared,
+    native::{self, Product},
+    Application,
+};
+use crate::{
+    native_sessions::{prompts::RequestInputs, RoleFactories, RoleRoutes},
+    prompts::{Description, Inputs, Variable},
+    repository::SqlRepository,
+    sources::github::{Cli, Config as GithubConfig, Deployment},
+    store::Store,
+    Error, Result,
+};
+use async_trait::async_trait;
+use futures::FutureExt;
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::{
+    collections::BTreeMap,
+    ffi::OsString,
+    path::PathBuf,
+    rc::Rc,
+    sync::{Arc, OnceLock},
+    time::Duration,
+};
+use tokio_util::sync::CancellationToken;
+use xharness_coding_tools::CodingToolBundle;
+use xharness_core::IdentityContextPolicy;
+use xharness_host::{
+    ModelDescriptor, ModelReasoning, ModelReasoningEffort, ModelRegistry, ModelRoute, NoTools,
+    PermissionPreset, RegisteredModel, SessionToolFactory,
+};
+use xharness_jobs::{protocol::JobRun, JobOutputCursor, JobRead, JobRegistry, JobRegistryConfig};
+use xharness_platform::{NativePlatform, PlatformConfig};
+use xharness_process::{ProcessRuntime, SpawnSpec, TerminationReason};
+use xharness_provider_openai::{
+    OpenAiProtocol, OpenAiProvider, OpenAiProviderConfig, OpenAiReasoningProfile,
+};
+use xharness_superagent_core::{
+    js_json::JsValue,
+    model::{latest_assignment, live_ticket, running_assignment, Ticket},
+    repository::Repository,
+    settings::Settings,
+};
+use xharness_tools::{
+    GuardDecision, MiddlewareError, MonotonicGuard, ToolExecutionContext, ToolExecutor,
+    ToolRegistry,
+};
+use xharness_web::WebRuntime;
+
+fn error(message: impl Into<String>) -> Error {
+    Error::Message(message.into())
+}
+fn display(error: impl std::fmt::Display) -> Error {
+    self::error(error.to_string())
+}
+fn prompt_limit() -> usize {
+    100_000
+}
+#[derive(Clone, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+struct Selector {
+    provider: String,
+    model: String,
+    #[serde(default)]
+    reasoning_effort: Option<String>,
+}
+impl Selector {
+    fn route(&self) -> ModelRoute {
+        ModelRoute {
+            provider: self.provider.clone(),
+            model: self.model.clone(),
+            reasoning_effort: self.reasoning_effort.clone(),
+            context_window_tokens: None,
+        }
+    }
+}
+#[derive(Clone, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+struct Model {
+    provider: String,
+    model: String,
+    #[serde(default)]
+    upstream_model: Option<String>,
+    protocol: OpenAiProtocol,
+    base_url: String,
+    api_key_env: String,
+    #[serde(default)]
+    context_window_tokens: Option<u64>,
+    #[serde(default)]
+    reasoning: BTreeMap<String, Value>,
+}
+#[derive(Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
+struct Document {
+    state_dir: PathBuf,
+    #[serde(default)]
+    main_directory: Option<PathBuf>,
+    #[serde(default = "prompt_limit")]
+    prompt_max_chars: usize,
+    models: Vec<Model>,
+    default_model: Selector,
+    #[serde(default)]
+    settings: Option<Value>,
+}
+pub struct Config {
+    document: Document,
+    settings: Option<Settings>,
+}
+impl Config {
+    pub fn parse(text: &str) -> Result<Self> {
+        let document: Document = serde_json::from_str(text)?;
+        if !document.state_dir.is_absolute() {
+            return Err(error("stateDir must be an absolute path"));
+        }
+        if document
+            .main_directory
+            .as_ref()
+            .is_some_and(|p| !p.is_absolute())
+        {
+            return Err(error("mainDirectory must be an absolute path"));
+        }
+        if !(1000..=1_000_000).contains(&document.prompt_max_chars) {
+            return Err(error("promptMaxChars must be 1000–1000000"));
+        }
+        if document.models.is_empty() {
+            return Err(error(
+                "At least one explicitly configured model is required",
+            ));
+        }
+        for model in &document.models {
+            if model.provider.trim().is_empty()
+                || model.model.trim().is_empty()
+                || model.base_url.trim().is_empty()
+            {
+                return Err(error("A model needs provider, model and baseUrl"));
+            }
+            if model.api_key_env.is_empty()
+                || !xharness_process::is_secret_env_name(std::ffi::OsStr::new(&model.api_key_env))
+            {
+                return Err(error("apiKeyEnv must name a credential environment variable (for example SUPERAGENT_API_KEY) so worker subprocesses scrub it"));
+            }
+            if model.context_window_tokens == Some(0) {
+                return Err(error("contextWindowTokens must be positive"));
+            }
+        }
+        // Preserve the product's existing identity-bearing settings document;
+        // don't route its dynamic policy keys through an unordered Value map.
+        let root = JsValue::parse(text).map_err(display)?;
+        let settings = if document.settings.is_some() {
+            Some(
+                Settings::parse(
+                    root.get("settings")
+                        .ok_or_else(|| error("Missing initial settings"))?,
+                )
+                .map_err(display)?,
+            )
+        } else {
+            None
+        };
+        Ok(Self { document, settings })
+    }
+    fn models(&self) -> Result<ModelRegistry> {
+        let mut registry = ModelRegistry::new();
+        for model in &self.document.models {
+            let key = std::env::var(&model.api_key_env).map_err(|_| {
+                error(format!(
+                    "Missing model credential environment variable {}",
+                    model.api_key_env
+                ))
+            })?;
+            if key.is_empty() {
+                return Err(error(format!(
+                    "Empty model credential environment variable {}",
+                    model.api_key_env
+                )));
+            }
+            let mut config = OpenAiProviderConfig::new(
+                model.protocol,
+                &model.base_url,
+                key,
+                model.upstream_model.as_deref().unwrap_or(&model.model),
+            )
+            .with_context_window_fallback(model.context_window_tokens);
+            let mut descriptor =
+                ModelDescriptor::new(&model.provider, &model.provider, &model.model, &model.model);
+            if !model.reasoning.is_empty() {
+                config = config.with_reasoning_profile(
+                    OpenAiReasoningProfile::new(None, model.reasoning.clone()).map_err(display)?,
+                );
+                descriptor = descriptor.with_reasoning(ModelReasoning::new(
+                    model
+                        .reasoning
+                        .keys()
+                        .map(|id| ModelReasoningEffort::new(id, id))
+                        .collect(),
+                ));
+            }
+            let provider = Arc::new(OpenAiProvider::new(config).map_err(display)?);
+            registry
+                .register(RegisteredModel::new(descriptor, provider))
+                .map_err(display)?;
+        }
+        Ok(registry)
+    }
+}
+#[derive(Clone, Copy, Debug)]
+pub enum Mode {
+    Check,
+    Once,
+    Watch,
+}
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Summary {
+    pub state: String,
+    pub tickets: usize,
+    pub pending_effects: u64,
+    pub github: Option<super::github::Health>,
+}
+
+fn variable(key: &str, value: String, en: &str) -> Variable {
+    Variable {
+        key: key.into(),
+        value,
+        description: Description {
+            zh: en.into(),
+            en: en.into(),
+        },
+        owner: "github".into(),
+    }
+}
+fn source_environment(deployment: &Deployment, trigger: Option<&Value>) -> Vec<Variable> {
+    let number = trigger
+        .filter(|t| t["source"] == "github")
+        .and_then(|t| t["meta"]["number"].as_u64())
+        .filter(|n| *n > 0);
+    let head = if trigger.is_some_and(|t| t["meta"]["isPr"] == true) {
+        number
+            .map(|n| format!("refs/pull/{n}/head"))
+            .unwrap_or_default()
+    } else {
+        String::new()
+    };
+    vec![
+        variable(
+            "DSH_SUPERAGENT_GITHUB_REPOSITORY",
+            deployment.repository.clone(),
+            "The repository this Source watches, as owner/name",
+        ),
+        variable(
+            "DSH_SUPERAGENT_GITHUB_ACCOUNT",
+            deployment.login.clone(),
+            "The agent's GitHub account; use its configured gh CLI",
+        ),
+        variable(
+            "DSH_SUPERAGENT_GITHUB_COMMIT_EMAIL",
+            deployment.noreply.clone(),
+            "Commit email of the agent account",
+        ),
+        variable(
+            "DSH_SUPERAGENT_GITHUB_NUMBER",
+            number.map(|n| n.to_string()).unwrap_or_default(),
+            "Issue or PR that started this ticket; empty for other Sources",
+        ),
+        variable(
+            "DSH_SUPERAGENT_GITHUB_PR_HEAD",
+            head,
+            "Source PR head ref; empty when not a PR",
+        ),
+    ]
+}
+struct PromptInputs {
+    github: Prepared,
+    max_chars: usize,
+}
+impl Inputs for PromptInputs {
+    fn max_chars(&self) -> Result<usize> {
+        Ok(self.max_chars)
+    }
+    fn environment(&self) -> Result<Option<Vec<Variable>>> {
+        Ok(Some(source_environment(
+            &self.github.deployment().map_err(display)?,
+            None,
+        )))
+    }
+    fn feishu(&self) -> Result<bool> {
+        Ok(false)
+    }
+}
+impl RequestInputs for PromptInputs {
+    fn worker_source_environment(
+        &self,
+        store: &Store,
+        _: &Value,
+        trigger: Option<&Value>,
+    ) -> Result<Vec<Variable>> {
+        if GithubConfig::resolve(&store.settings()?).is_none() {
+            return Ok(Vec::new());
+        }
+        Ok(source_environment(
+            &self.github.deployment().map_err(display)?,
+            trigger,
+        ))
+    }
+}
+fn executor_environment(
+    ticket: &Ticket,
+    settings: &Settings,
+    deployment: &Deployment,
+    trigger: Option<&Value>,
+) -> BTreeMap<OsString, OsString> {
+    let mut result: BTreeMap<_, _> = source_environment(deployment, trigger)
+        .into_iter()
+        .map(|v| (v.key.into(), v.value.into()))
+        .collect();
+    let blocked = settings
+        .value()
+        .get("executor")
+        .and_then(|v| v.get("blockedCommands"))
+        .and_then(JsValue::array)
+        .unwrap_or_default()
+        .iter()
+        .filter_map(JsValue::as_str)
+        .collect::<Vec<_>>()
+        .join(" ");
+    result.insert("DSH_SUPERAGENT_TICKET".into(), ticket.id.clone().into());
+    result.insert("DSH_SUPERAGENT_BLOCKED_COMMANDS".into(), blocked.into());
+    if let Some(execution) = &ticket.execution {
+        result.insert(
+            "DSH_SUPERAGENT_DIR".into(),
+            execution.directory.clone().into(),
+        );
+        result.insert("DSH_SUPERAGENT_NAME".into(), execution.name.clone().into());
+    }
+    result
+}
+fn trigger_for(app: &Application, ticket: &Ticket) -> Result<Option<Value>> {
+    Ok(SqlRepository::new(&app.state.store)
+        .trigger(&ticket.origin.trigger_id)?
+        .map(serde_json::to_value)
+        .transpose()?)
+}
+struct Coding {
+    client: Arc<OnceLock<Client>>,
+    github: Prepared,
+    jobs: Arc<JobRegistry>,
+    web: Arc<WebRuntime>,
+}
+/// Product-only tool authority for an admitted ticket. Generic Host defaults
+/// are unchanged, and native filesystem/process sandbox restrictions remain
+/// independently enforced. It cannot authorize a different ticket or role.
+struct TicketAuthority {
+    client: Client,
+    ticket: String,
+    assignment: String,
+}
+impl TicketAuthority {
+    async fn check(&self) -> std::result::Result<(), MiddlewareError> {
+        let (ticket, assignment) = (self.ticket.clone(), self.assignment.clone());
+        self.client
+            .call(move |app| {
+                app.state.require_open()?;
+                if app.state.store.settings()?.paused() {
+                    return Err(error("Product processing is paused"));
+                }
+                let ticket = app
+                    .ticket(&ticket)?
+                    .filter(live_ticket)
+                    .ok_or_else(|| error("Tool ticket has ended"))?;
+                if running_assignment(&ticket).is_none_or(|current| current.id != assignment) {
+                    return Err(error("Tool assignment is no longer running"));
+                }
+                if !(app.state.context.policy)()?.revalidate(&ticket.mandate)? {
+                    return Err(error("Tool ticket authorization was revoked"));
+                }
+                Ok(())
+            })
+            .await
+            .map_err(|e| MiddlewareError::new(e.to_string()))
+    }
+}
+#[async_trait]
+impl MonotonicGuard for TicketAuthority {
+    async fn evaluate(
+        &self,
+        _: &ToolExecutionContext,
+    ) -> std::result::Result<GuardDecision, MiddlewareError> {
+        self.check().await?;
+        Ok(GuardDecision::Allow)
+    }
+}
+#[async_trait]
+impl SessionToolFactory for Coding {
+    async fn executor(
+        &self,
+        session: &str,
+        cwd: &str,
+        permission: PermissionPreset,
+    ) -> std::result::Result<ToolExecutor, String> {
+        if permission != PermissionPreset::WorkspaceWrite {
+            return Err("Product coding tools require the existing WorkspaceWrite preset".into());
+        }
+        let directory = std::fs::canonicalize(cwd).map_err(|e| e.to_string())?;
+        let deployment = self.github.deployment().map_err(|e| e.to_string())?;
+        let client = self
+            .client
+            .get()
+            .ok_or("Application tool owner not installed")?;
+        let (environment, ticket, assignment) = client
+            .call(move |app| {
+                app.state.require_open()?;
+                // Bounded by the open working set, not all historical transcripts.
+                let mut tickets = Vec::new();
+                for value in app.state.store.list("ticket", Some("open"))? {
+                    let ticket: Ticket = serde_json::from_value(value)?;
+                    if live_ticket(&ticket)
+                        && ticket.execution.as_ref().is_some_and(|e| {
+                            std::fs::canonicalize(&e.directory).is_ok_and(|p| p == directory)
+                        })
+                    {
+                        tickets.push(ticket);
+                    }
+                }
+                let [ticket] = tickets.as_slice() else {
+                    return Err(error("Coding workspace has no unique live product ticket"));
+                };
+                let assignment = latest_assignment(ticket)
+                    .ok_or_else(|| error("Tool ticket has no assignment"))?
+                    .id
+                    .clone();
+                Ok((
+                    executor_environment(
+                        ticket,
+                        &app.state.store.settings()?,
+                        &deployment,
+                        trigger_for(app, ticket)?.as_ref(),
+                    ),
+                    ticket.id.clone(),
+                    assignment,
+                ))
+            })
+            .await
+            .map_err(|e| e.to_string())?;
+        let platform =
+            Arc::new(NativePlatform::new(PlatformConfig::new(cwd)).map_err(|e| e.to_string())?);
+        let bundle = CodingToolBundle::new(
+            platform,
+            self.jobs.clone(),
+            self.web.clone(),
+            session,
+            session,
+        )
+        .with_process_environment(environment)?;
+        let registry = Arc::new(ToolRegistry::new());
+        for spec in bundle.specs() {
+            // Network-denied is the existing platform default. The Web bundle
+            // bypasses process sandboxing, so it is not advertised in this mode.
+            if matches!(spec.definition.name.as_str(), "web_fetch" | "web_search") {
+                continue;
+            }
+            // Autonomous work was already admitted by this exact ticket's
+            // mandate. Keep the generic bundle's interactive defaults intact;
+            // this product-only projection uses the live TicketAuthority gate
+            // instead, with no permission/sandbox promotion.
+            let spec = if matches!(
+                spec.definition.name.as_str(),
+                "write" | "edit" | "bash" | "pwsh"
+            ) {
+                spec.requiring_approval(false)
+            } else {
+                spec
+            };
+            registry.register(spec).await.map_err(|e| e.to_string())?;
+        }
+        let authority = Arc::new(TicketAuthority {
+            client: client.clone(),
+            ticket,
+            assignment,
+        });
+        Ok(ToolExecutor::new(registry).with_guards(vec![authority]))
+    }
+    fn allows_host_tool(&self, _: &str) -> bool {
+        false
+    }
+    async fn process_runs(&self, session: &str) -> std::result::Result<Vec<JobRun>, String> {
+        Ok(self
+            .jobs
+            .list(session)
+            .into_iter()
+            .map(JobRun::process)
+            .collect())
+    }
+    async fn process_output(
+        &self,
+        session: &str,
+        id: &str,
+        cursor: JobOutputCursor,
+    ) -> std::result::Result<JobRead, String> {
+        self.jobs
+            .read_since(session, id, &cursor)
+            .map_err(|e| e.to_string())
+    }
+    async fn cancel_process_run(&self, session: &str, id: &str) -> std::result::Result<(), String> {
+        self.jobs
+            .kill(session, id, Some("Product worker cancelled"))
+            .map(|_| ())
+            .map_err(|e| e.to_string())
+    }
+    async fn shutdown(&self) -> std::result::Result<(), String> {
+        let report = self.jobs.shutdown(Duration::from_secs(10)).await;
+        if report.is_graceful() {
+            Ok(())
+        } else {
+            Err(format!("Coding jobs did not stop: {report:?}"))
+        }
+    }
+}
+async fn prepare_workspace(
+    client: Client,
+    github: Prepared,
+    ticket: Ticket,
+    stop: CancellationToken,
+) -> Result<()> {
+    let deployment = github.deployment().map_err(display)?;
+    let id = ticket.id.clone();
+    let (command, environment) = client
+        .call(move |app| {
+            app.state.require_open()?;
+            let ticket = app
+                .ticket(&id)?
+                .ok_or_else(|| error("Prepared ticket disappeared"))?;
+            let settings = app.state.store.settings()?;
+            let command = settings
+                .value()
+                .get("executor")
+                .and_then(|e| e.get("prepare"))
+                .and_then(JsValue::as_str)
+                .ok_or_else(|| error("Missing executor.prepare"))?
+                .trim()
+                .to_owned();
+            let env = executor_environment(
+                &ticket,
+                &settings,
+                &deployment,
+                trigger_for(app, &ticket)?.as_ref(),
+            );
+            Ok((command, env))
+        })
+        .await?;
+    let directory = PathBuf::from(
+        ticket
+            .execution
+            .as_ref()
+            .ok_or_else(|| error("Ticket execution is missing"))?
+            .directory
+            .clone(),
+    );
+    let parent = directory
+        .parent()
+        .ok_or_else(|| error("Ticket has no workspace parent"))?;
+    tokio::fs::create_dir_all(parent).await?;
+    if !command.is_empty() {
+        // This is the explicitly configured preparation command, not model
+        // output. Workers still use the default sandbox after preparation.
+        let mut spec = SpawnSpec::new("sh", parent)
+            .args(["-c", &command])
+            .timeout(Duration::from_secs(600))
+            .output_limits(16 * 1024 * 1024, 16 * 1024 * 1024);
+        spec.env = std::env::vars_os().collect();
+        xharness_process::scrub_secret_env(&mut spec.env);
+        spec.env.extend(environment);
+        spec.env.insert("GH_PROMPT_DISABLED".into(), "1".into());
+        let handle = ProcessRuntime::new()
+            .spawn(spec)
+            .map_err(|e| Error::WorkspacePrepare(e.to_string()))?;
+        let cancellation = handle.cancellation();
+        let wait = handle.wait();
+        tokio::pin!(wait);
+        let result = tokio::select! {biased;_=stop.cancelled()=>{cancellation.cancel();wait.await},result=&mut wait=>result};
+        let output = result.map_err(|e| Error::WorkspacePrepare(e.to_string()))?;
+        if output.termination != TerminationReason::Exited
+            || !output.status.success
+            || output.stdout.truncated
+            || output.stderr.truncated
+        {
+            // Only remove an empty partial directory. Never discard the user's
+            // partial work or count an existing failed prepare as successful.
+            match tokio::fs::remove_dir(&directory).await {
+                Ok(()) => (),
+                Err(e)
+                    if matches!(
+                        e.kind(),
+                        std::io::ErrorKind::NotFound | std::io::ErrorKind::DirectoryNotEmpty
+                    ) => {}
+                Err(e) => {
+                    return Err(Error::WorkspacePrepare(format!(
+                        "Prepare failed and empty-directory cleanup failed: {e}"
+                    )))
+                }
+            }
+            return Err(Error::WorkspacePrepare(format!(
+                "The prepare command failed: {:?}; {}",
+                output.termination,
+                output.stderr.text.chars().take(2000).collect::<String>()
+            )));
+        }
+    }
+    tokio::fs::create_dir_all(&directory).await?;
+    let metadata = tokio::fs::metadata(&directory).await?;
+    if !metadata.is_dir() {
+        return Err(Error::WorkspacePrepare(
+            "Prepared workspace is not a directory".into(),
+        ));
+    }
+    Ok(())
+}
+
+/// Must be polled on LocalSet. The executable supplies the outer interrupt
+/// token; every admitted runner and Source is joined on success AND failure.
+pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<Summary> {
+    let models = config.models()?;
+    let route = config.document.default_model.route();
+    let source_stop = stop.child_token();
+    let prepared = Prepared::default();
+    let client: Arc<OnceLock<Client>> = Arc::new(OnceLock::new());
+    let coding = Arc::new(Coding {
+        client: client.clone(),
+        github: prepared.clone(),
+        jobs: Arc::new(JobRegistry::new(JobRegistryConfig::default())),
+        web: Arc::new(WebRuntime::default()),
+    });
+    let inputs = Rc::new(PromptInputs {
+        github: prepared.clone(),
+        max_chars: config.document.prompt_max_chars,
+    });
+    let prepare_client = client.clone();
+    let prepare_github = prepared.clone();
+    let prepare_stop = stop.clone();
+    let main_directory = config
+        .document
+        .main_directory
+        .unwrap_or(std::env::current_dir()?);
+    let (product, runner) = Product::open(native::Config {
+        state_dir: config.document.state_dir,
+        main_directory: main_directory.clone(),
+        models,
+        routes: RoleRoutes {
+            orchestrator: route.clone(),
+            worker: route,
+        },
+        base_tools: RoleFactories {
+            orchestrator: Arc::new(NoTools),
+            worker: coding,
+        },
+        context_policy: Arc::new(IdentityContextPolicy),
+        prompts: inputs,
+        initial_settings: config.settings,
+        sources: prepared.ports(source_stop.clone()),
+        prepare_workspace: Rc::new(move |ticket| {
+            let client = prepare_client.get().cloned();
+            let github = prepare_github.clone();
+            let stop = prepare_stop.clone();
+            async move {
+                prepare_workspace(
+                    client.ok_or_else(|| error("Workspace owner not installed"))?,
+                    github,
+                    ticket,
+                    stop,
+                )
+                .await
+                .map_err(|error| Error::WorkspacePrepare(error.to_string()))
+            }
+            .boxed_local()
+        }),
+        now: Arc::new(|| chrono::Utc::now().to_rfc3339_opts(chrono::SecondsFormat::Millis, true)),
+        clock: Arc::new(|| chrono::Utc::now().timestamp_millis()),
+    })
+    .await?;
+    client
+        .set(product.application().client())
+        .map_err(|_| error("Application owner already installed"))?;
+    let runner = tokio::task::spawn_local(runner.run());
+    let work = async {
+        let settings = product.settings();
+        let raw = settings
+            .value()
+            .get("sources")
+            .and_then(|s| s.get("github"))
+            .and_then(|s| s.get("config"))
+            .cloned()
+            .unwrap_or(JsValue::Object(Vec::new()));
+        let config =
+            GithubConfig::parse(&serde_json::from_str(&raw.stringify().map_err(display)?)?)
+                .map_err(display)?;
+        let cli = Arc::new(
+            Cli::resolve(
+                PathBuf::from(&config.cli),
+                main_directory,
+                &config,
+                std::env::vars_os().collect(),
+                source_stop.clone(),
+            )
+            .await
+            .map_err(display)?,
+        );
+        prepared
+            .install(cli.clone(), cli.deployment().clone())
+            .map_err(display)?;
+        let source = prepared
+            .source(product.application().clone())
+            .map_err(display)?;
+        if !matches!(mode, Mode::Check) {
+            product.start().await?;
+        }
+        let mut poll_error = None;
+        match mode {
+            Mode::Check => (),
+            Mode::Once => {
+                match source.poll_once(source_stop.clone()).await {
+                    Err(crate::sources::github::Error::Cancelled) if source_stop.is_cancelled() => {
+                    }
+                    Err(error) => poll_error = Some(display(error)),
+                    Ok(_) => (),
+                }
+                // Idle is only an observation barrier: dropping this wait does
+                // not detach any admitted work. Shutdown below cancels/joins
+                // it, including a model that never sends its first SSE byte.
+                tokio::select! {result=product.idle()=>result?,_=stop.cancelled()=>()}
+            }
+            Mode::Watch => source.run(source_stop.clone()).await.map_err(display)?,
+        }
+        if let Some(error) = poll_error {
+            return Err(error);
+        }
+        let store = &product.application().state.store;
+        let pending_effects =
+            store
+                .connection()
+                .query_row("SELECT COUNT(*) FROM effect", [], |row| {
+                    row.get::<_, u64>(0)
+                })?;
+        Ok(Summary {
+            state: if stop.is_cancelled() {
+                "stopped"
+            } else if matches!(mode, Mode::Check) {
+                "checked"
+            } else if pending_effects > 0 {
+                "waiting"
+            } else if matches!(mode, Mode::Once) {
+                "idle"
+            } else {
+                "stopped"
+            }
+            .into(),
+            tickets: store.list("ticket", None)?.len(),
+            pending_effects,
+            github: source.health(),
+        })
+    }
+    .await;
+    source_stop.cancel();
+    let shutdown = product.shutdown().await.map_err(|e| error(e.to_string()));
+    let owner = runner.await.map_err(display).and_then(|result| result);
+    let mut failures = Vec::new();
+    if let Err(e) = &work {
+        failures.push(e.to_string());
+    }
+    if let Err(e) = shutdown {
+        failures.push(e.to_string());
+    }
+    if let Err(e) = owner {
+        failures.push(e.to_string());
+    }
+    if !failures.is_empty() {
+        return Err(error(failures.join("; ")));
+    }
+    work
+}

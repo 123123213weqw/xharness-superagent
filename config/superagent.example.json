@@ -1,0 +1,24 @@
+{
+  "stateDir": "/ABSOLUTE/PATH/superagent-state",
+  "mainDirectory": "/ABSOLUTE/PATH/repository",
+  "models": [
+    {
+      "provider": "configured-gateway",
+      "model": "configured-model",
+      "upstreamModel": "REPLACE_WITH_GATEWAY_MODEL_ID",
+      "protocol": "chat_completions",
+      "baseUrl": "https://MODEL-GATEWAY.example/v1",
+      "apiKeyEnv": "SUPERAGENT_API_KEY",
+      "contextWindowTokens": 128000
+    }
+  ],
+  "defaultModel": { "provider": "configured-gateway", "model": "configured-model" },
+  "settings": {
+    "eval": { "mode": "observe" },
+    "executor": { "prepare": "", "maxWorkers": 3 },
+    "sources": {
+      "github": { "enabled": false, "config": { "repository": "YOUR_ORG/YOUR_REPO", "cli": "gh" } }
+    },
+    "policy": { "sources": { "github": { "allowed": [] } } }
+  }
+}

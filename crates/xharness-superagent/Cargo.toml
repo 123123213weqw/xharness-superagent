@@ -33,7 +33,15 @@ xharness-session-jsonl = { path = "../xharness-session-jsonl" }
 xharness-tools = { path = "../xharness-tools" }
 xharness-jobs = { path = "../xharness-jobs" }
 xharness-process = { path = "../xharness-process" }
+xharness-provider-openai = { path = "../xharness-provider-openai" }
+xharness-coding-tools = { path = "../xharness-coding-tools" }
+xharness-platform = { path = "../xharness-platform" }
+xharness-web = { path = "../xharness-web", default-features = false }
 regex = { version = "=1.13.1", default-features = false, features = ["std", "perf"] }
+
+[[bin]]
+name = "xharness-superagent"
+path = "src/bin/superagent.rs"
 
 [[bin]]
 name = "superagent-store-bridge"

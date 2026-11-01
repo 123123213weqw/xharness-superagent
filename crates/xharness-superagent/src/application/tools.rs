@@ -435,7 +435,7 @@ fn routes(app: &Application, args: Value) -> Result<Value> {
     app.passes.request();
     Ok(json!({"results":results}))
 }
-fn worker_report(app: &Application, ticket: &str, args: Value) -> Result<Value> {
+pub(super) fn worker_report(app: &Application, ticket: &str, args: Value) -> Result<Value> {
     app.state.require_open()?;
     app.ticket(ticket)?
         .filter(live_ticket)

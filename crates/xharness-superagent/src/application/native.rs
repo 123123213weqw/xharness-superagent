@@ -318,6 +318,7 @@ impl Product {
             }
         }
         settings.send_replace(application.state.store.settings()?);
+        config.routes = configured_routes(&settings.borrow(), config.routes)?;
         let main_id = match application.state.store.get::<String>("master-id")? {
             Some(id) => id,
             None => {
@@ -461,6 +462,39 @@ impl Product {
             }
         }
     }
+}
+
+/// Saved selectors override the host's default route only after the actual
+/// leased Store has loaded. No unleased pre-read or fallback from an invalid
+/// saved model to a different provider is allowed.
+fn configured_routes(settings: &Settings, mut routes: RoleRoutes) -> Result<RoleRoutes> {
+    for (block, route) in [
+        ("eval", &mut routes.orchestrator),
+        ("executor", &mut routes.worker),
+    ] {
+        if let Some(model) = settings
+            .value()
+            .get(block)
+            .and_then(|b| b.get("model"))
+            .filter(|m| !matches!(m, JsValue::Null))
+        {
+            let required = |field| {
+                model
+                    .get(field)
+                    .and_then(JsValue::as_str)
+                    .filter(|s| !s.is_empty())
+                    .map(str::to_owned)
+                    .ok_or_else(|| unavailable(format!("Invalid saved {block} model {field}")))
+            };
+            route.provider = required("provider")?;
+            route.model = required("model")?;
+            route.reasoning_effort = model
+                .get("reasoningEffort")
+                .and_then(JsValue::as_str)
+                .map(str::to_owned);
+        }
+    }
+    Ok(routes)
 }
 impl Runner {
     pub async fn run(self) -> Result<()> {
@@ -608,6 +642,24 @@ impl Backend {
         self.starting.borrow_mut().insert(ticket.id.clone());
         let result = self.launch_inner(&ticket, &assignment).await;
         self.starting.borrow_mut().remove(&ticket.id);
+        if let Err(Error::WorkspacePrepare(message)) = &result {
+            let app = self.root.get()?;
+            if !self.stopping.is_cancelled()
+                && !app.state.closing.get()
+                && !app.state.store.settings()?.paused()
+                && self.current(&ticket.id, &assignment.id)?
+            {
+                // Preparation is a terminal assignment failure, not a launch
+                // retry against a possibly nonempty partial directory.
+                tools::worker_report(
+                    &app,
+                    &ticket.id,
+                    json!({"state":"failed","summary":message}),
+                )?;
+                app.passes.request();
+                return Ok(());
+            }
+        }
         result
     }
     async fn launch_inner(self: &Rc<Self>, ticket: &Ticket, assignment: &Assignment) -> Result<()> {

@@ -3015,16 +3015,20 @@ dependencies = [
  "tokio-util",
  "xharness-agent",
  "xharness-api",
+ "xharness-coding-tools",
  "xharness-control",
  "xharness-core",
  "xharness-host",
  "xharness-jobs",
+ "xharness-platform",
  "xharness-process",
  "xharness-prompt",
+ "xharness-provider-openai",
  "xharness-session",
  "xharness-session-jsonl",
  "xharness-superagent-core",
  "xharness-tools",
+ "xharness-web",
 ]
 
 [[package]]

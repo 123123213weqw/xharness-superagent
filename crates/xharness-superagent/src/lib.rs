@@ -19,6 +19,8 @@ pub mod store;
 use xharness_superagent_core::engine::DomainError;
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
+    #[error("{0}")]
+    WorkspacePrepare(String),
     #[error(transparent)]
     StateLease(#[from] xharness_agent::LeaseError),
     #[error(transparent)]

@@ -1,15 +1,18 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "kind": "product_local_workspace_dependency",
   "path": "Cargo.lock",
   "package": "xharness-superagent",
-  "dependency": "xharness-process",
   "external_packages_unchanged": true,
   "base_sha256": "c6b9762efb75979bc88737319a0f81e432cd6d590314b6cb929db133c83a7b7f",
-  "after_sha256": "2397021ac202cb62a94ddc76e62b1e1a2803b794746d569dd704a2ecd85e5f5c",
-  "context_before": " \"xharness-core\",\n \"xharness-host\",\n \"xharness-jobs\",\n",
-  "addition": " \"xharness-process\",\n",
-  "context_after": " \"xharness-prompt\",\n \"xharness-session\",\n \"xharness-session-jsonl\",\n",
-  "added_lines": 1,
-  "removed_lines": 0
+  "after_sha256": "6de2b3f070b89320e17f75adf88f2bb4ca2c7e3d6ce6e96a3d844d89f63af359",
+  "added_lines": 5,
+  "removed_lines": 0,
+  "dependencies": [
+    "xharness-coding-tools",
+    "xharness-platform",
+    "xharness-process",
+    "xharness-provider-openai",
+    "xharness-web"
+  ]
 }

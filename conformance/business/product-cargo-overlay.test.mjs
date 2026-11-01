@@ -6,10 +6,10 @@ const current = readFileSync(new URL('../../Cargo.lock', import.meta.url));
 const overlay = JSON.parse(readFileSync(new URL('./product-cargo.overlay.json', import.meta.url)));
 test('exact product workspace edge reconstructs audited lock', () => {
   const before = auditedLockBeforeProductDependency(current, overlay.base_sha256);
-  assert.equal(current.length - before.length, Buffer.byteLength(overlay.addition));
+  assert.equal(current.length - before.length, overlay.dependencies.reduce((size, dependency) => size + Buffer.byteLength(` "${dependency}",\n`), 0));
 });
 test('unrelated lock edits, wrong base and changed dependency are rejected', () => {
-  for (const changed of [Buffer.concat([current, Buffer.from('\n')]), Buffer.from(current.toString().replace(overlay.addition, ' "different-dependency",\n'))]) {
+  for (const changed of [Buffer.concat([current, Buffer.from('\n')]), Buffer.from(current.toString().replace(' "xharness-provider-openai",\n', ' "different-dependency",\n'))]) {
     assert.notDeepEqual(changed, current);
     assert.throws(() => auditedLockBeforeProductDependency(changed, overlay.base_sha256));
   }

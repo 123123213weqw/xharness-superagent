@@ -47,6 +47,7 @@ use xharness_superagent_core::{
     model::{latest_assignment, live_ticket, Assignment, AssignmentState, Ticket, Trigger},
     repository::Repository,
 };
+pub mod boot;
 pub mod client;
 pub mod github;
 pub mod native;

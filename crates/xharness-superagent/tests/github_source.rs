@@ -30,6 +30,29 @@ fn oracle() -> Value {
 fn deployment() -> Deployment {
     serde_json::from_value(oracle()["deployment"].clone()).unwrap()
 }
+
+#[tokio::test]
+async fn prepared_ports_are_unavailable_until_real_identity_is_installed_once() {
+    use xharness_superagent::application::github::Prepared;
+    let prepared = Prepared::default();
+    let ports = prepared.ports(CancellationToken::new());
+    let settings=Settings::parse(&JsValue::from_serializable(&json!({"sources":{"github":{"enabled":true,"config":{"repository":"owner/repo","cli":"gh"}}}})).unwrap()).unwrap();
+    assert!(!(ports.enabled)(&settings, "github").unwrap());
+    assert!(prepared.deployment().is_err());
+    assert!((ports.send)(json!({})).await.is_err());
+    let api = Arc::new(Scripted {
+        kind: "ordinary".into(),
+        trace: Mutex::new(Vec::new()),
+    });
+    let mut invalid = deployment();
+    invalid.login = String::new();
+    assert!(prepared.install(api.clone(), invalid).is_err());
+    assert!(prepared.deployment().is_err());
+    prepared.install(api.clone(), deployment()).unwrap();
+    assert!((ports.enabled)(&settings, "github").unwrap());
+    assert!(!(ports.enabled)(&settings, "feishu").unwrap());
+    assert!(prepared.install(api, deployment()).is_err());
+}
 #[test]
 fn normalization_matches_unmodified_pinned_source_functions() {
     let fixture = oracle();
