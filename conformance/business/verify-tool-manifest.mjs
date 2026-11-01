@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile, writeFile } from 'node:fs/promises';
 
 const selected = {
-  main: ['orchestrator_read', 'orchestrator_route', 'orchestrator_ticket_retry', 'orchestrator_ticket_request_status', 'orchestrator_trigger_requeue', 'orchestrator_reply', 'orchestrator_thread_unsubscribe', 'orchestrator_settings_save', 'orchestrator_prompts_save'],
+  main: ['orchestrator_read', 'orchestrator_route', 'orchestrator_ticket_retry', 'orchestrator_ticket_request_status', 'orchestrator_trigger_requeue', 'orchestrator_reply', 'orchestrator_thread_unsubscribe', 'orchestrator_settings_save', 'orchestrator_prompts_save', 'orchestrator_eval', 'orchestrator_eval_read', 'orchestrator_eval_decide'],
   worker: ['orchestrator_read', 'orchestrator_ack', 'orchestrator_thread_unrelated', 'orchestrator_thread_follow', 'orchestrator_trigger_handback', 'orchestrator_report'],
 };
 const reference = JSON.parse(await readFile(new URL('../reference/runtime-contracts.json', import.meta.url), 'utf8'));
@@ -68,6 +68,15 @@ for (const [role, names] of Object.entries(selected)) {
       definition.parameters.required = ['resource'];
       inputDefaults += 1;
     }
+    if (name === 'orchestrator_eval_read') {
+      assert.deepEqual(definition.parameters.required, ['trigger_id', 'resource', 'offset']);
+      assert.equal(definition.parameters.properties.offset.default, 0);
+      assert.equal(definition.parameters.properties.offset.type, 'integer');
+      assert.equal(definition.parameters.properties.offset.minimum, 0);
+      assert.equal(definition.parameters.properties.offset.maximum, Number.MAX_SAFE_INTEGER);
+      definition.parameters.required = ['trigger_id', 'resource'];
+      inputDefaults += 1;
+    }
     if (name === 'orchestrator_prompts_save') {
       // Same explicit Zod input/output distinction as read.offset: missing
       // preview is parsed as false, while baseRevision remains handler-checked.
@@ -82,7 +91,7 @@ for (const [role, names] of Object.entries(selected)) {
 }
 if (process.argv.includes('--write')) await writeFile(target, JSON.stringify(expected, null, 2) + '\n');
 assert.deepEqual(JSON.parse(await readFile(target, 'utf8')), expected);
-assert.equal(unions, 8);
-assert.equal(inputDefaults, 3);
+assert.equal(unions, 10);
+assert.equal(inputDefaults, 4);
 assert.equal(jsonDomains, 1);
-console.log('15 product-subset definitions verified: 8 primitive/null unions, 3 explicit Zod input defaults, and 1 unconstrained JSON domain projected; all other pinned metadata retained.');
+console.log('18 product-subset definitions verified: 10 primitive/null unions, 4 explicit Zod input defaults, and 1 unconstrained JSON domain projected; all other pinned metadata retained.');

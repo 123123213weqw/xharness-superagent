@@ -47,6 +47,7 @@ use xharness_superagent_core::{
     model::{latest_assignment, live_ticket, Assignment, AssignmentState, Ticket, Trigger},
     repository::Repository,
 };
+pub mod assessment;
 pub mod boot;
 pub mod client;
 pub mod configuration;
@@ -54,6 +55,7 @@ mod controls;
 pub mod github;
 pub mod native;
 pub mod resources;
+pub mod text;
 mod tools;
 
 pub type ServiceFuture<T> = LocalBoxFuture<'static, std::result::Result<T, HandlerError>>;
@@ -91,6 +93,7 @@ struct State {
     services: Services,
     resource_reader: OnceCell<resources::ReadPort>,
     management: OnceCell<configuration::ManagementPort>,
+    assessment: OnceCell<assessment::ToolPort>,
     resource_pages: Rc<RefCell<resources::TextCache>>,
     // Both public handle and runner retain state, so the writer lease cannot be
     // released while an owning runner still uses the database.
@@ -165,6 +168,7 @@ impl Application {
             services,
             resource_reader: OnceCell::new(),
             management: OnceCell::new(),
+            assessment: OnceCell::new(),
             resource_pages: Rc::new(RefCell::new(resources::TextCache::new(4_000_000))),
             _lease: lease,
         });

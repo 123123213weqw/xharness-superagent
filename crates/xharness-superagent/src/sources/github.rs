@@ -12,6 +12,7 @@ use xharness_superagent_core::{
 };
 pub mod channel;
 pub mod ci;
+pub mod context;
 pub mod read;
 pub mod trigger;
 

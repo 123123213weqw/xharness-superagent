@@ -71,7 +71,9 @@ impl Prepared {
         let send = self.clone();
         let enabled = self.clone();
         let reads = self.clone();
+        let assessment = self.clone();
         Sources {
+            assessment: assessment_ports(Rc::new(move || assessment.ready())),
             configuration: configuration_ports(),
             resources: resource_ports(Rc::new(move || reads.ready())),
             scope: Arc::new(protocol::scope),
@@ -116,7 +118,9 @@ pub fn ports(
         transport: transport.clone(),
         deployment: deployment.clone(),
     };
+    let assessment = reads.clone();
     Ok(Sources {
+        assessment: assessment_ports(Rc::new(move || Ok(assessment.clone()))),
         configuration: configuration_ports(),
         resources: resource_ports(Rc::new(move || Ok(reads.clone()))),
         scope: Arc::new(protocol::scope),
@@ -283,6 +287,47 @@ pub fn resource_instances(
         });
     }
     Ok(result)
+}
+fn assessment_ports(ready: Rc<dyn Fn() -> Result<Installed>>) -> super::assessment::SourcePorts {
+    let context = ready.clone();
+    super::assessment::SourcePorts {
+        context: Rc::new(move |trigger| {
+            if trigger.source != "github" {
+                return Ok(None);
+            }
+            let installed = context().map_err(|e| crate::Error::GithubRead(Box::new(e)))?;
+            let trigger = trigger.clone();
+            Ok(Some(super::assessment::ContextReader {
+                message_id: trigger.url.clone().unwrap_or_default(),
+                read: Rc::new(move |part, cursor, stop| {
+                    let installed = installed.clone();
+                    let trigger = trigger.clone();
+                    async move {
+                        protocol::context::thread(
+                            installed.transport.as_ref(),
+                            &trigger,
+                            part,
+                            cursor.as_deref(),
+                            stop,
+                        )
+                        .await
+                        .map_err(|e| crate::Error::GithubRead(Box::new(e)))
+                    }
+                    .boxed_local()
+                }),
+            }))
+        }),
+        repository: Rc::new(move |path, kind, stop| {
+            let ready = ready.clone();
+            async move {
+                let installed = ready().map_err(|e| crate::Error::GithubRead(Box::new(e)))?;
+                protocol::context::repository(installed.transport.as_ref(), &path, kind, stop)
+                    .await
+                    .map_err(|e| crate::Error::GithubRead(Box::new(e)))
+            }
+            .boxed_local()
+        }),
+    }
 }
 fn resource_ports(ready: Rc<dyn Fn() -> Result<Installed>>) -> SourceResources {
     SourceResources {

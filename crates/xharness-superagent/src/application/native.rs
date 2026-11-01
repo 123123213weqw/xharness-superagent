@@ -63,6 +63,7 @@ use xharness_superagent_core::{
     repository::Repository,
     settings::Settings,
 };
+mod assessment;
 mod configuration;
 mod idle;
 mod recovery;
@@ -71,6 +72,7 @@ mod resources;
 pub type PrepareWorkspace = Rc<dyn Fn(Ticket) -> LocalBoxFuture<'static, Result<()>>>;
 pub type ConfiguredSourceEnabled = Rc<dyn Fn(&Settings, &str) -> Result<bool>>;
 pub struct Sources {
+    pub assessment: super::assessment::SourcePorts,
     pub configuration: super::configuration::SourcePorts,
     pub resources: super::resources::SourceResources,
     pub scope: Arc<ConfiguredScope>,
@@ -80,6 +82,7 @@ pub struct Sources {
     pub send: Rc<dyn Fn(Value) -> super::ServiceFuture<Sent>>,
 }
 pub struct Config {
+    pub assessment: super::assessment::Options,
     pub state_dir: PathBuf,
     pub main_directory: PathBuf,
     pub models: ModelRegistry,
@@ -189,6 +192,9 @@ struct Backend {
     default_routes: RoleRoutes,
     configuration_sources: super::configuration::SourcePorts,
     source_scope: Arc<ConfiguredScope>,
+    assessment_sources: super::assessment::SourcePorts,
+    assessment_options: super::assessment::Options,
+    assessment_reads: RefCell<HashMap<String, Rc<assessment::Reads>>>,
 }
 pub struct Product {
     application: Application,
@@ -205,6 +211,7 @@ pub struct Runner {
 }
 impl Product {
     pub async fn open(mut config: Config) -> Result<(Self, Runner)> {
+        config.assessment.validate()?;
         std::fs::create_dir_all(&config.state_dir)?;
         config.state_dir = std::fs::canonicalize(&config.state_dir)?;
         config.main_directory = std::fs::canonicalize(&config.main_directory)?;
@@ -409,11 +416,29 @@ impl Product {
             default_routes,
             configuration_sources: config.sources.configuration,
             source_scope: config.sources.scope,
+            assessment_sources: config.sources.assessment,
+            assessment_options: config.assessment,
+            assessment_reads: RefCell::new(HashMap::new()),
         });
         slot.set(backend.clone())
             .map_err(|_| unavailable("Native services already installed"))?;
         let reader = Rc::downgrade(&backend);
         let manager = Rc::downgrade(&backend);
+        let assessor = Rc::downgrade(&backend);
+        application
+            .state
+            .assessment
+            .set(Rc::new(move |name, args, cancel| {
+                let backend = assessor.upgrade();
+                async move {
+                    backend
+                        .ok_or_else(|| unavailable("Native assessment owner stopped"))?
+                        .assessment_tool(&name, args, cancel)
+                        .await
+                }
+                .boxed_local()
+            }))
+            .map_err(|_| unavailable("Assessment tools already installed"))?;
         application
             .state
             .management
@@ -1034,6 +1059,11 @@ impl Backend {
         }.boxed_local())
     }
     fn control(&self, action: PostCommit) -> Result<()> {
+        if let PostCommit::AssessorRelease { eval_id } = &action {
+            if let Some(reads) = self.assessment_reads.borrow_mut().remove(eval_id) {
+                reads.cancel();
+            }
+        }
         if let PostCommit::ExecutorStop {
             ticket, assignment, ..
         } = action

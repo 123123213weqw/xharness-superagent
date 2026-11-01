@@ -17,7 +17,7 @@ fn invalid() -> Error {
 fn positive(text: &str) -> bool {
     !text.is_empty() && !text.starts_with('0') && text.bytes().all(|b| b.is_ascii_digit())
 }
-fn message(item: &Comment, text: String, id: String) -> Value {
+pub(crate) fn message(item: &Comment, text: String, id: String) -> Value {
     let mut value = json!({"id":id,"from":item.user.login,"at":item.created_at.as_deref().or(item.submitted_at.as_deref()).unwrap_or(""),"text":text});
     if !trigger::is_human(&item.user) {
         value["bot"] = json!(true);

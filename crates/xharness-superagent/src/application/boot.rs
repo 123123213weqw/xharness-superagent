@@ -67,6 +67,12 @@ fn display(error: impl std::fmt::Display) -> Error {
 fn prompt_limit() -> usize {
     100_000
 }
+fn admission_pages() -> usize {
+    10
+}
+fn admission_timeout() -> u64 {
+    15_000
+}
 #[derive(Clone, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 struct Selector {
@@ -103,6 +109,10 @@ struct Model {
 #[derive(Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 struct Document {
+    #[serde(default = "admission_pages")]
+    admission_context_max_pages: usize,
+    #[serde(default = "admission_timeout")]
+    admission_context_timeout_ms: u64,
     state_dir: PathBuf,
     #[serde(default)]
     main_directory: Option<PathBuf>,
@@ -120,6 +130,11 @@ pub struct Config {
 impl Config {
     pub fn parse(text: &str) -> Result<Self> {
         let document: Document = serde_json::from_str(text)?;
+        super::assessment::Options {
+            max_pages: document.admission_context_max_pages,
+            timeout: Duration::from_millis(document.admission_context_timeout_ms),
+        }
+        .validate()?;
         if !document.state_dir.is_absolute() {
             return Err(error("stateDir must be an absolute path"));
         }
@@ -652,6 +667,10 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
         .main_directory
         .unwrap_or(std::env::current_dir()?);
     let (product, runner) = Product::open(native::Config {
+        assessment: super::assessment::Options {
+            max_pages: config.document.admission_context_max_pages,
+            timeout: Duration::from_millis(config.document.admission_context_timeout_ms),
+        },
         state_dir: config.document.state_dir,
         main_directory: main_directory.clone(),
         models,

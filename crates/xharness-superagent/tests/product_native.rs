@@ -339,6 +339,7 @@ impl Fixture {
         let queue = clock.clone();
         let sent = self.sent.clone();
         let (product, runner) = Product::open(Config {
+            assessment: xharness_superagent::application::assessment::Options::default(),
             state_dir: self.dir.0.join("state"),
             main_directory: self.dir.0.join("repository"),
             models,
@@ -360,6 +361,17 @@ impl Fixture {
             prompts: Rc::new(PromptInputs),
             initial_settings: Some(settings),
             sources: sources.unwrap_or_else(|| Sources {
+                assessment: xharness_superagent::application::assessment::SourcePorts {
+                    context: Rc::new(|_| Ok(None)),
+                    repository: Rc::new(|_, _, _| {
+                        async {
+                            Err(xharness_superagent::Error::Message(
+                                "Recording Source fixture has no repository reader".into(),
+                            ))
+                        }
+                        .boxed_local()
+                    }),
+                },
                 configuration: xharness_superagent::application::github::configuration_ports(),
                 resources: xharness_superagent::application::resources::SourceResources {
                     instances: Rc::new(

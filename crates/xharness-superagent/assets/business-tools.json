@@ -352,6 +352,206 @@
         ],
         "additionalProperties": false
       }
+    },
+    {
+      "name": "orchestrator_eval",
+      "description": "Load a proactive candidate's window and its thread's tickets; repeated calls reuse them.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "trigger_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "trigger_id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_eval_read",
+      "description": "Read more of a candidate's context, always with its trigger_id: a message or stub whole by message_id, an image by image_id, the root, the parent, a thread page by cursor, or a file or directory by path.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "trigger_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Original candidate ID returned by orchestrator_eval; every reference is scoped to this trigger."
+          },
+          "resource": {
+            "type": "string",
+            "enum": [
+              "message",
+              "root",
+              "parent",
+              "thread",
+              "file",
+              "directory",
+              "image"
+            ]
+          },
+          "path": {
+            "description": "Repository-relative path, only for file/directory.",
+            "type": "string"
+          },
+          "message_id": {
+            "description": "Only for message: omit for the trigger, or the id of a window message or stub.",
+            "type": "string"
+          },
+          "cursor": {
+            "description": "Only for thread: omit on the first page, then the next_cursor of the window or the cursor of next_read. Never a thread or message ID.",
+            "type": "string"
+          },
+          "image_id": {
+            "description": "Only for image: an image id the window or a read lists.",
+            "type": "string"
+          },
+          "offset": {
+            "default": 0,
+            "description": "Text pagination: copy next_offset; keep the other arguments unchanged. Images use 0.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "trigger_id",
+          "resource"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_eval_decide",
+      "description": "Record the decision of an assessment, as admission describes it, after orchestrator_eval with the same trigger_id.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "trigger_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "accept",
+              "ignore",
+              "unavailable"
+            ]
+          },
+          "rule_assessments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "rule_id": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9_-]{1,80}$"
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500
+                },
+                "matched": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "rule_id",
+                "reason",
+                "matched"
+              ],
+              "additionalProperties": false
+            },
+            "description": "One per enabled rule."
+          },
+          "direction": {
+            "type": "object",
+            "properties": {
+              "implementation_requested": {
+                "type": "boolean"
+              },
+              "target_basis": {
+                "type": "string",
+                "enum": [
+                  "specified",
+                  "existing-standard",
+                  "undetermined"
+                ]
+              },
+              "requires_design_decision": {
+                "type": "boolean"
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 700
+              }
+            },
+            "required": [
+              "implementation_requested",
+              "target_basis",
+              "requires_design_decision",
+              "evidence"
+            ],
+            "additionalProperties": false,
+            "description": "Required for every decision."
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "worktree_name": {
+            "type": "string",
+            "maxLength": 32,
+            "pattern": "^[a-z]+(?:-[a-z0-9]+){0,3}$",
+            "description": "Meaningful short English ticket name, e.g. fix-plan-color. Translate Chinese titles into English; no Chinese, pinyin or generic ticket names. 1–4 lowercase words in kebab-case, at most 32 characters."
+          },
+          "scope": {
+            "type": "string",
+            "maxLength": 1500
+          },
+          "intent_evidence": {
+            "description": "For acceptance: the quotes that establish the three facts.",
+            "minLength": 1,
+            "maxLength": 700,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "acknowledgement": {
+            "description": "For acceptance: one sentence in the source language, posted as a reply to the trigger; omit only when a matched rule asks for silence.",
+            "minLength": 1,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "trigger_id",
+          "decision",
+          "rule_assessments",
+          "direction",
+          "title",
+          "scope",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
     }
   ],
   "worker": [

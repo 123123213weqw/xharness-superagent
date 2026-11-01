@@ -38,6 +38,7 @@ xharness-coding-tools = { path = "../xharness-coding-tools" }
 xharness-platform = { path = "../xharness-platform" }
 xharness-web = { path = "../xharness-web", default-features = false }
 regex = { version = "=1.13.1", default-features = false, features = ["std", "perf"] }
+icu_segmenter = "=2.3.0"
 
 [[bin]]
 name = "xharness-superagent"

@@ -1,0 +1,56 @@
+{
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "scope": "Normal business word limits only; ICU dictionary releases are not claimed globally identical",
+  "cases": [
+    {
+      "text": "修复颜色并补充测试。😀",
+      "words": 5,
+      "im_accepted": true
+    },
+    {
+      "text": "hello, 中文 test 123!",
+      "words": 4,
+      "im_accepted": true
+    },
+    {
+      "text": "[说明](https://example.com/a-b?q=x)",
+      "words": 7,
+      "im_accepted": true
+    },
+    {
+      "text": "修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 ",
+      "words": 100,
+      "im_accepted": true
+    },
+    {
+      "text": "修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 ",
+      "words": 101,
+      "im_accepted": false
+    },
+    {
+      "text": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+      "words": 100,
+      "im_accepted": true
+    },
+    {
+      "text": "word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word ",
+      "words": 101,
+      "im_accepted": false
+    },
+    {
+      "text": "修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 ",
+      "words": 30,
+      "im_accepted": true
+    },
+    {
+      "text": "修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 修复 ",
+      "words": 31,
+      "im_accepted": true
+    },
+    {
+      "text": "👩‍💻 😀 …",
+      "words": 0,
+      "im_accepted": true
+    }
+  ]
+}

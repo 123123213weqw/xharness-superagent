@@ -35,9 +35,12 @@ jobs:
       - run: node conformance/business/verify-tool-manifest.mjs
       - run: node --test conformance/business/host-input-observer.test.mjs
       - run: node --test conformance/business/product-cargo-overlay.test.mjs
+      - run: node --test conformance/business/business-word-cargo-overlay.test.mjs
       - run: npm ci --ignore-scripts --no-audit --no-fund --prefix conformance
       - run: node --experimental-transform-types conformance/business/github-source-oracle.mjs --check
       - run: node --experimental-transform-types conformance/business/github-read-oracle.mjs --check
+      - run: node --experimental-transform-types conformance/business/github-context-oracle.mjs --check
+      - run: node --experimental-transform-types conformance/business/word-limits-oracle.mjs --check
       - run: node --experimental-transform-types conformance/business/transcript-oracle.mjs --check
       # coding-tools 的 glob/grep 真实依赖 ripgrep;2026-10 起 GitHub 镜像不再预装
       # bubblewrap:沙箱测试真实依赖它。装着才验证得了 bash 越界与断网两条断言,

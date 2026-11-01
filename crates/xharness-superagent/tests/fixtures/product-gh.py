@@ -26,11 +26,21 @@ elif path.startswith('repos/owner/repo/notifications?'):
         {'repository': {'full_name': 'owner/repo'}, 'subject': {'url': 'https://api.github.com/repos/owner/repo/issues/12'}}
     ]))
     sys.exit(0)
+elif path.startswith(('repos/owner/repo/issues/comments?', 'repos/owner/repo/pulls/comments?')):
+    # The test event arrives through notifications; these independently polled
+    # recent-comment feeds have no additional events in this explicit fixture.
+    assert args[2:] == ['--include'], args
+    print('HTTP/2 200 OK\r\n\r\n[]')
+    sys.exit(0)
 elif path == 'repos/owner/repo/issues/12':
     # The first request is the Source poll; the second is a real read tool.
     if os.environ.get('GH_FIXTURE_BLOCK_READ') and (root / 'timestamp').exists():
         import time
-        (root / 'blocked-read-pid').write_text(str(os.getpid()))
+        # Publish a complete PID atomically. exists() alone otherwise races
+        # with opening/truncating the file before write_text writes its bytes.
+        pid_file = root / 'blocked-read-pid.tmp'
+        pid_file.write_text(str(os.getpid()))
+        pid_file.replace(root / 'blocked-read-pid')
         time.sleep(120)
     value = {'id': 12, 'number': 12, 'user': {'login': 'bob', 'type': 'User'},
              'title': 'Original issue', 'state': 'open', 'body': 'Old issue',
@@ -42,10 +52,23 @@ elif path.startswith('repos/owner/repo/issues/12/comments?'):
         timestamp.write_text((datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(seconds=1)).isoformat(timespec='milliseconds').replace('+00:00', 'Z'))
     at = timestamp.read_text()
     actor = os.environ.get('GH_FIXTURE_ACTOR', 'alice')
-    value = [[{'id': comment_id, 'user': {'login': actor, 'type': 'Bot' if actor == 'other[bot]' else 'User'},
+    comments = [{'id': comment_id, 'user': {'login': actor, 'type': 'Bot' if actor == 'other[bot]' else 'User'},
                'body': os.environ.get('GH_FIXTURE_TEXT', '@robot Create result.txt in the workspace 😀'), 'created_at': at, 'updated_at': at,
                'html_url': f'https://github.com/owner/repo/issues/12#issuecomment-{comment_id}',
-               'issue_url': 'https://api.github.com/repos/owner/repo/issues/12'}]]
+               'issue_url': 'https://api.github.com/repos/owner/repo/issues/12'}]
+    if os.environ.get('GH_FIXTURE_BATCH'):
+        second = dict(comments[0], id=102, body='Second settled detail 中文 😀',
+                      html_url='https://github.com/owner/repo/issues/12#issuecomment-102')
+        third = dict(second, id=103, body='Third settled detail 中文 😀',
+                     html_url='https://github.com/owner/repo/issues/12#issuecomment-103')
+        comments.extend([second, third])
+    value = [comments] if '--slurp' in args else comments
+elif path == 'repos/owner/repo/contents/src/details.md':
+    assert args[2:] == ['-H', 'Accept: application/vnd.github.raw'], args
+    print('a' * 4100 + '配置尾部 😀', end='')
+    sys.exit(0)
+elif path == 'repos/owner/repo/contents/':
+    value = [{'name': name} for name in ['z.rs', '.env', 'node_modules', 'src', '文件']]
 elif path == 'repos/owner/repo/issues/12/comments':
     if 'POST' in args:
         assert '-f' in args, args

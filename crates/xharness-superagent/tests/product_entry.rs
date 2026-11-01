@@ -17,6 +17,8 @@ use std::{
 };
 use tokio::process::Command;
 static NEXT: AtomicU64 = AtomicU64::new(0);
+#[path = "product_entry/assessment.rs"]
+mod assessment;
 #[path = "product_entry/configuration.rs"]
 mod configuration;
 #[path = "product_entry/configuration_lifecycle.rs"]
@@ -755,9 +757,16 @@ async fn formal_entry_source_native_coding_tools_and_reply_survive_restart_witho
                     .iter()
                     .filter(|n| n.starts_with("orchestrator_"))
                     .count(),
-                9
+                12
             );
-            assert_eq!(tools.len(), 10);
+            assert_eq!(tools.len(), 13);
+            for name in [
+                "orchestrator_eval",
+                "orchestrator_eval_read",
+                "orchestrator_eval_decide",
+            ] {
+                assert!(tools.contains(&name));
+            }
             assert!(tools.contains(&"skill"));
             assert!(!tools.contains(&"write"));
         } else {

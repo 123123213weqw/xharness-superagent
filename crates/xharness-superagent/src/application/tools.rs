@@ -559,6 +559,25 @@ async fn invoke(
     cancel: tokio_util::sync::CancellationToken,
 ) -> Result<Value> {
     match (scope, name) {
+        (
+            Scope::Main,
+            "orchestrator_eval" | "orchestrator_eval_read" | "orchestrator_eval_decide",
+        ) => {
+            let name = name.to_owned();
+            client
+                .call_with_cancel(cancel.clone(), move |app| {
+                    let prepared = (|| {
+                        app.state.require_open()?;
+                        app.state
+                            .assessment
+                            .get()
+                            .cloned()
+                            .ok_or_else(|| error("Native assessment tools are unavailable"))
+                    })();
+                    async move { prepared?(name, args, cancel).await }.boxed_local()
+                })
+                .await
+        }
         (scope, "orchestrator_read") => {
             let audience = match scope {
                 Scope::Main => super::resources::Audience::Main,
