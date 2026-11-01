@@ -49,6 +49,7 @@ use xharness_superagent_core::{
 };
 pub mod boot;
 pub mod client;
+mod controls;
 pub mod github;
 pub mod native;
 mod tools;

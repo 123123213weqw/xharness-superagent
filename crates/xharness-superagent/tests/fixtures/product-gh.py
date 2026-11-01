@@ -37,7 +37,7 @@ elif path.startswith('repos/owner/repo/issues/12/comments?'):
     at = timestamp.read_text()
     actor = os.environ.get('GH_FIXTURE_ACTOR', 'alice')
     value = [[{'id': 101, 'user': {'login': actor, 'type': 'Bot' if actor == 'other[bot]' else 'User'},
-               'body': '@robot Create result.txt in the workspace 😀', 'created_at': at, 'updated_at': at,
+               'body': os.environ.get('GH_FIXTURE_TEXT', '@robot Create result.txt in the workspace 😀'), 'created_at': at, 'updated_at': at,
                'html_url': 'https://github.com/owner/repo/issues/12#issuecomment-101',
                'issue_url': 'https://api.github.com/repos/owner/repo/issues/12'}]]
 elif path == 'repos/owner/repo/issues/12/comments':

@@ -63,6 +63,7 @@ use xharness_superagent_core::{
     repository::Repository,
     settings::Settings,
 };
+mod idle;
 
 pub type PrepareWorkspace = Rc<dyn Fn(Ticket) -> LocalBoxFuture<'static, Result<()>>>;
 pub type ConfiguredSourceEnabled = Rc<dyn Fn(&Settings, &str) -> Result<bool>>;
@@ -385,6 +386,32 @@ impl Product {
         });
         slot.set(backend.clone())
             .map_err(|_| unavailable("Native services already installed"))?;
+        let notice = Rc::downgrade(&backend);
+        application.driver.handle(
+            "notice",
+            Rc::new(move |payload, id| {
+                let backend = notice.upgrade();
+                async move {
+                    let backend = backend.ok_or_else(|| failure("Native services stopped"))?;
+                    let text = payload["text"]
+                        .as_str()
+                        .ok_or_else(|| failure("Notice has no text"))?;
+                    let summary = payload["summary"]
+                        .as_str()
+                        .ok_or_else(|| failure("Notice has no summary"))?;
+                    let binding = backend.ensure_main().await.map_err(failure)?;
+                    backend
+                        .native
+                        .inject_notice(&binding, &id, text, summary, None)
+                        .await
+                        .map_err(failure)?;
+                    Ok(())
+                }
+                .boxed_local()
+            }),
+            super::limit(&application.state, 1),
+            Options::default(),
+        )?;
         let relay = Rc::downgrade(&backend);
         application.driver.handle(
             "relay",
@@ -875,6 +902,9 @@ impl Backend {
             let result=running.result().await;
             if let Some(b)=backend.upgrade(){if let Some((id,assignment))=&worker{let root=b.root.get()?;
                 root.driver.command(&root.state.context,|e|e.turn_ended(id,assignment))?;
+                if !cancelled && result.status==LoopStatus::Completed {
+                    b.record_quiet_idle(&binding,id,assignment,&result.final_text).await?;
+                }
             }}
             if result.status==LoopStatus::Failed && !cancelled{return Err(unavailable(result.error.unwrap_or_else(||"Native model turn failed".into())));}
             Ok(())

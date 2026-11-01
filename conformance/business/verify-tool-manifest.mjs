@@ -1,13 +1,13 @@
 // Product subset metadata check, not a product-acceptance or SDK execution test.
 import assert from 'node:assert/strict';
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 
 const selected = {
-  main: ['orchestrator_route', 'orchestrator_reply'],
-  worker: ['orchestrator_ack', 'orchestrator_report'],
+  main: ['orchestrator_route', 'orchestrator_ticket_retry', 'orchestrator_ticket_request_status', 'orchestrator_trigger_requeue', 'orchestrator_reply', 'orchestrator_thread_unsubscribe'],
+  worker: ['orchestrator_ack', 'orchestrator_thread_unrelated', 'orchestrator_thread_follow', 'orchestrator_trigger_handback', 'orchestrator_report'],
 };
 const reference = JSON.parse(await readFile(new URL('../reference/runtime-contracts.json', import.meta.url), 'utf8'));
-const actual = JSON.parse(await readFile(new URL('../../crates/xharness-superagent/assets/business-tools.json', import.meta.url), 'utf8'));
+const target = new URL('../../crates/xharness-superagent/assets/business-tools.json', import.meta.url);
 let unions = 0;
 function portable(value) {
   if (Array.isArray(value)) return value.map(portable);
@@ -45,6 +45,7 @@ for (const [role, names] of Object.entries(selected)) {
     return portable(matches[0]);
   });
 }
-assert.deepEqual(actual, expected);
+if (process.argv.includes('--write')) await writeFile(target, JSON.stringify(expected, null, 2) + '\n');
+assert.deepEqual(JSON.parse(await readFile(target, 'utf8')), expected);
 assert.equal(unions, 8);
-console.log('4 product-subset tool definitions match pinned metadata; 8 equivalent primitive/null unions normalized.');
+console.log('11 product-subset tool definitions match pinned metadata; 8 equivalent primitive/null unions normalized.');

@@ -467,7 +467,7 @@ pub(super) fn worker_report(app: &Application, ticket: &str, args: Value) -> Res
         Ok(result)
     })
 }
-fn relay(ticket: &Ticket, report: &WorkerReport) -> Result<Option<(String, String)>> {
+pub(super) fn relay(ticket: &Ticket, report: &WorkerReport) -> Result<Option<(String, String)>> {
     if report
         .question
         .as_ref()
@@ -510,6 +510,28 @@ async fn invoke(
     cancel: tokio_util::sync::CancellationToken,
 ) -> Result<Value> {
     match (scope, name) {
+        (
+            Scope::Main,
+            "orchestrator_ticket_retry"
+            | "orchestrator_ticket_request_status"
+            | "orchestrator_trigger_requeue"
+            | "orchestrator_thread_unsubscribe",
+        )
+        | (
+            Scope::Worker(_),
+            "orchestrator_thread_follow"
+            | "orchestrator_thread_unrelated"
+            | "orchestrator_trigger_handback",
+        ) => {
+            let scope = scope.clone();
+            let name = name.to_owned();
+            client
+                .call_with_cancel(cancel, move |app| {
+                    futures::future::ready(super::controls::invoke(app, &scope, &name, args))
+                        .boxed_local()
+                })
+                .await
+        }
         (Scope::Main, "orchestrator_route") => {
             client
                 .call_with_cancel(cancel, move |app| {

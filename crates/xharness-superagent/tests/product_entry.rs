@@ -76,7 +76,9 @@ impl Fixture {
             "effect",
             "message",
             "assessment",
-            "disposition"
+            "disposition",
+            "thread",
+            "decision"
         ]
         .contains(&table));
         let db = rusqlite::Connection::open_with_flags(
@@ -113,8 +115,14 @@ struct Server {
     block: Arc<AtomicBool>,
     join: Option<thread::JoinHandle<()>>,
 }
+type ModelReply = Result<(Option<&'static str>, Value), Box<dyn std::error::Error>>;
+type Responder = dyn Fn(&Value) -> ModelReply + Send + Sync;
 impl Server {
     fn new(refuse: bool) -> Self {
+        Self::with_responder(move |request| answer(request, refuse))
+    }
+    fn with_responder(responder: impl Fn(&Value) -> ModelReply + Send + Sync + 'static) -> Self {
+        let responder: Arc<Responder> = Arc::new(responder);
         let listener = TcpListener::bind("127.0.0.1:0").unwrap();
         listener.set_nonblocking(true).unwrap();
         let url = format!("http://{}/v1", listener.local_addr().unwrap());
@@ -128,7 +136,9 @@ impl Server {
             while !ending.load(Ordering::SeqCst) {
                 match listener.accept() {
                     Ok((mut stream, _)) => {
-                        if let Err(error) = serve(&mut stream, &record, refuse, &blocked, &ending) {
+                        if let Err(error) =
+                            serve(&mut stream, &record, responder.as_ref(), &blocked, &ending)
+                        {
                             failures.lock().unwrap().push(error.to_string());
                         }
                     }
@@ -169,7 +179,7 @@ impl Drop for Server {
 fn serve(
     stream: &mut TcpStream,
     requests: &Mutex<Vec<Value>>,
-    refuse: bool,
+    responder: &Responder,
     blocked: &AtomicBool,
     ending: &AtomicBool,
 ) -> Result<(), Box<dyn std::error::Error>> {
@@ -227,7 +237,7 @@ fn serve(
         .into());
     }
     let request: Value = serde_json::from_slice(&bytes[end..end + length])?;
-    let (name, args) = answer(&request, refuse)?;
+    let (name, args) = responder(&request)?;
     let mut recorded = requests.lock().unwrap();
     let id = recorded.len();
     recorded.push(request);
@@ -323,6 +333,11 @@ fn answer(
                     json!({"purpose":"result","ticket_id":user["ticket"]["ticket_id"],"text":"已生成 result.txt 😀"}),
                 )),
                 Some("worker_report") if user["state"] == "failed" => Ok((None, Value::Null)),
+                _ if user.get("thread_followed").is_some()
+                    || user.get("thread_unrelated").is_some() =>
+                {
+                    Ok((None, Value::Null))
+                }
                 _ => Err(format!("Unexpected product main input: {user}").into()),
             }
         }
@@ -330,6 +345,184 @@ fn answer(
             Err("Saved product selector was not used; fallback is forbidden in this fixture".into())
         }
     }
+}
+
+fn calls(request: &Value) -> Vec<&Value> {
+    request["messages"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .flat_map(|message| message["tool_calls"].as_array().into_iter().flatten())
+        .collect()
+}
+fn last_user(request: &Value) -> Value {
+    request["messages"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .rev()
+        .filter(|message| message["role"] == "user")
+        .map(message_text)
+        .find_map(|text| serde_json::from_str(&text).ok())
+        .unwrap()
+}
+fn thread_controls_answer(request: &Value) -> ModelReply {
+    if request["model"] != "worker" {
+        return answer(request, false);
+    }
+    let user = last_user(request);
+    let trigger = user["trigger"]["trigger_id"].as_str().unwrap();
+    let step = calls(request).len();
+    let actions = [
+        (
+            "orchestrator_thread_follow",
+            json!({"thread":"github:100","reason":"must not retarget","ticket_id":"foreign"}),
+        ),
+        (
+            "orchestrator_thread_follow",
+            json!({"thread":"github:99","reason":"Related comparison"}),
+        ),
+        (
+            "orchestrator_thread_follow",
+            json!({"thread":"github:99","reason":"Duplicate follow"}),
+        ),
+        (
+            "orchestrator_thread_unrelated",
+            json!({"thread":"github:12","reason":"must not drop origin"}),
+        ),
+        (
+            "orchestrator_thread_unrelated",
+            json!({"thread":"github:99","reason":"Comparison is unrelated after inspection"}),
+        ),
+        (
+            "orchestrator_trigger_handback",
+            json!({"trigger_id":trigger,"reason":"origin is not a delivered followup"}),
+        ),
+        (
+            "orchestrator_thread_unsubscribe",
+            json!({"thread":"github:12"}),
+        ),
+        ("write", json!({"path":"result.txt","content":"你好 😀\n"})),
+        (
+            "orchestrator_report",
+            json!({"state":"ready","summary":"Actual thread controls and scoped file work completed."}),
+        ),
+    ];
+    Ok(actions
+        .get(step)
+        .map(|(name, args)| (Some(*name), args.clone()))
+        .unwrap_or((None, Value::Null)))
+}
+fn retry_answer(request: &Value) -> ModelReply {
+    let user = last_user(request);
+    let calls = calls(request);
+    if request["model"] == "worker" {
+        let assignments = request["messages"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .filter(|message| message["role"] == "user")
+            .map(message_text)
+            .filter_map(|text| serde_json::from_str::<Value>(&text).ok())
+            .filter(|value| value.get("ticket_id").is_some())
+            .count();
+        if assignments < 2 {
+            return Ok(
+                if calls
+                    .iter()
+                    .any(|call| call["function"]["name"] == "orchestrator_report")
+                {
+                    (None, Value::Null)
+                } else {
+                    (
+                        Some("orchestrator_report"),
+                        json!({"state":"failed","summary":"First assignment deliberately failed; human requested one retry."}),
+                    )
+                },
+            );
+        }
+        if !calls.iter().any(|call| call["function"]["name"] == "write") {
+            return Ok((
+                Some("write"),
+                json!({"path":"result.txt","content":"你好 😀\n"}),
+            ));
+        }
+        if calls
+            .iter()
+            .filter(|call| call["function"]["name"] == "orchestrator_report")
+            .count()
+            < 2
+        {
+            return Ok((
+                Some("orchestrator_report"),
+                json!({"state":"ready","summary":"New assignment completed actual file work."}),
+            ));
+        }
+        return Ok((None, Value::Null));
+    }
+    if user["kind"] == "worker_report" && user["state"] == "failed" {
+        return Ok(
+            if calls
+                .iter()
+                .any(|call| call["function"]["name"] == "orchestrator_ticket_retry")
+            {
+                (None, Value::Null)
+            } else {
+                (
+                    Some("orchestrator_ticket_retry"),
+                    json!({"ticket_id":user["ticket"]["ticket_id"]}),
+                )
+            },
+        );
+    }
+    answer(request, false)
+}
+fn idle_status_answer(request: &Value) -> ModelReply {
+    let user = last_user(request);
+    let calls = calls(request);
+    if request["model"] == "worker" {
+        let deliveries = request["messages"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .filter(|message| message["role"] == "user")
+            .count();
+        if deliveries < 2 {
+            return Ok((None, Value::Null));
+        }
+        if !calls.iter().any(|call| call["function"]["name"] == "write") {
+            return Ok((
+                Some("write"),
+                json!({"path":"result.txt","content":"你好 😀\n"}),
+            ));
+        }
+        if !calls
+            .iter()
+            .any(|call| call["function"]["name"] == "orchestrator_report")
+        {
+            return Ok((
+                Some("orchestrator_report"),
+                json!({"state":"ready","summary":"Status requested after quiet unreported turn; actual work now done."}),
+            ));
+        }
+        return Ok((None, Value::Null));
+    }
+    if user["kind"] == "worker_report" && user["state"] == "waiting" {
+        return Ok(
+            if calls
+                .iter()
+                .any(|call| call["function"]["name"] == "orchestrator_ticket_request_status")
+            {
+                (None, Value::Null)
+            } else {
+                (
+                    Some("orchestrator_ticket_request_status"),
+                    json!({"ticket_id":user["ticket"]["ticket_id"]}),
+                )
+            },
+        );
+    }
+    answer(request, false)
 }
 fn success(output: &Output) -> Value {
     assert!(
@@ -381,7 +574,7 @@ async fn formal_entry_source_native_coding_tools_and_reply_survive_restart_witho
             .collect();
         assert!(!tools.contains(&"web_fetch") && !tools.contains(&"web_search"));
         if request["model"] == "main" {
-            assert_eq!(tools.len(), 2);
+            assert_eq!(tools.len(), 6);
             assert!(!tools.contains(&"write"));
         } else {
             assert!(
@@ -626,4 +819,145 @@ async fn once_interrupt_cancels_a_model_wait_and_releases_the_lease() {
     assert_eq!(success(&output)["state"], "stopped");
     assert!(fixture.posts().is_empty());
     assert_eq!(success(&fixture.run("--check").await)["state"], "checked");
+}
+
+#[tokio::test]
+async fn formal_worker_thread_controls_keep_ownership_context_and_role_boundaries() {
+    let server = Server::with_responder(thread_controls_answer);
+    let fixture = Fixture::new(&server.url);
+    let summary = success(&fixture.run("--once").await);
+    assert_eq!(summary["pendingEffects"], 0);
+    let tickets = fixture.table("ticket");
+    assert_eq!(tickets.len(), 1);
+    let directory = PathBuf::from(tickets[0]["execution"]["directory"].as_str().unwrap());
+    assert_eq!(
+        std::fs::read_to_string(directory.join("result.txt")).unwrap(),
+        "你好 😀\n"
+    );
+    let threads = fixture.table("thread");
+    assert!(!threads.iter().any(|thread| thread["key"] == "github:100"));
+    assert!(threads
+        .iter()
+        .any(|thread| thread["key"] == "github:99" && thread["subscriptions"] == json!([])));
+    let requests = server.requests();
+    let worker_results: Vec<String> = requests
+        .iter()
+        .filter(|request| request["model"] == "worker")
+        .flat_map(|request| request["messages"].as_array().unwrap())
+        .filter(|message| message["role"] == "tool")
+        .map(message_text)
+        .collect();
+    for expected in [
+        "\"followed\":true",
+        "\"followed\":false",
+        "\"removed\":true",
+        "the ticket started on",
+        "does not belong to this worker",
+        "unknown tool",
+    ] {
+        assert!(
+            worker_results
+                .iter()
+                .any(|result| result.to_ascii_lowercase().contains(expected)),
+            "Missing {expected}: {worker_results:?}"
+        );
+    }
+    let main_text = requests
+        .iter()
+        .filter(|request| request["model"] == "main")
+        .flat_map(|request| request["messages"].as_array().unwrap())
+        .map(message_text)
+        .collect::<Vec<_>>()
+        .join("\n");
+    assert!(main_text.contains("thread_followed") && main_text.contains("thread_unrelated"));
+    let db = rusqlite::Connection::open_with_flags(
+        fixture.directory.join("state/orchestrator.sqlite"),
+        rusqlite::OpenFlags::SQLITE_OPEN_READ_ONLY,
+    )
+    .unwrap();
+    let sequence: String = db
+        .query_row(
+            "SELECT value FROM kv WHERE key='tool-notice-sequence'",
+            [],
+            |row| row.get(0),
+        )
+        .unwrap();
+    assert_eq!(
+        sequence, "2",
+        "only genuine follow/unrelated queue a notice; refused/duplicate do not"
+    );
+    assert_eq!(fixture.posts().len(), 2);
+    assert!(tickets[0].get("ended").is_some());
+}
+#[tokio::test]
+async fn formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work() {
+    let server = Server::with_responder(retry_answer);
+    let fixture = Fixture::new(&server.url);
+    let output = tokio::time::timeout(
+        Duration::from_secs(45),
+        fixture
+            .command("--once")
+            .env(
+                "GH_FIXTURE_TEXT",
+                "@robot Create result.txt. If the first attempt fails, retry it once.",
+            )
+            .output(),
+    )
+    .await
+    .unwrap()
+    .unwrap();
+    let summary = success(&output);
+    assert_eq!(summary["pendingEffects"], 0);
+    let tickets = fixture.table("ticket");
+    assert_eq!(tickets.len(), 1);
+    let assignments = tickets[0]["assignments"].as_array().unwrap();
+    assert_eq!(assignments.len(), 2);
+    assert_ne!(assignments[0]["id"], assignments[1]["id"]);
+    assert_eq!(assignments[0]["endedReason"], "retried");
+    assert_eq!(assignments[0]["report"]["state"], "failed");
+    assert_eq!(assignments[1]["report"]["state"], "ready");
+    assert!(tickets[0].get("ended").is_some());
+    let directory = PathBuf::from(tickets[0]["execution"]["directory"].as_str().unwrap());
+    assert_eq!(
+        std::fs::read_to_string(directory.join("result.txt")).unwrap(),
+        "你好 😀\n"
+    );
+    assert_eq!(fixture.posts().len(), 2);
+    let requests = server.requests();
+    assert!(requests
+        .iter()
+        .filter(|request| request["model"] == "main")
+        .flat_map(calls)
+        .any(|call| call["function"]["name"] == "orchestrator_ticket_retry"));
+}
+
+#[tokio::test]
+async fn formal_idle_worker_gets_waiting_report_and_status_request_reaches_same_assignment() {
+    let server = Server::with_responder(idle_status_answer);
+    let fixture = Fixture::new(&server.url);
+    let summary = success(&fixture.run("--once").await);
+    assert_eq!(summary["pendingEffects"], 0);
+    let tickets = fixture.table("ticket");
+    assert_eq!(tickets.len(), 1);
+    assert_eq!(tickets[0]["assignments"].as_array().unwrap().len(), 1);
+    assert_eq!(tickets[0]["assignments"][0]["report"]["state"], "ready");
+    assert!(tickets[0]["inputs"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .any(|input| input["kind"] == "text"));
+    assert!(tickets[0].get("ended").is_some());
+    let directory = PathBuf::from(tickets[0]["execution"]["directory"].as_str().unwrap());
+    assert_eq!(
+        std::fs::read_to_string(directory.join("result.txt")).unwrap(),
+        "你好 😀\n"
+    );
+    assert_eq!(fixture.posts().len(), 2);
+    let requests = server.requests();
+    assert!(requests
+        .iter()
+        .filter(|request| request["model"] == "main")
+        .flat_map(|request| request["messages"].as_array().unwrap())
+        .map(message_text)
+        .any(|text| text.contains("Asked the worker for a status report")));
 }
