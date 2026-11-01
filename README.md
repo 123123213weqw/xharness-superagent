@@ -19,7 +19,7 @@
 - XHarness 原生会话/JSONL 接入组件、队列/followup/steer/inject、观察与关闭。
 - 部分 Prompt/skills、输入准备、重试健康和崩溃恢复组件。
 - 固定原版源码及组件差分验证设施。
-- Application/Native 装配及19个应用工具子集（主角色13个、Worker6个）。
+- Application/Native 装配及20个角色应用工具注册（主角色14个、Worker6个）。
   名字已注册不代表所有分支完成；正式入口离线协议夹具可实际启动 Worker 写文件
   并经 Outbox 回复，不冒充真实外部服务或完整产品验收。
 - GitHub Source 的通知/评论/PR/CI 轮询、稳定事件和 marker 回复库已接到 Native；
@@ -30,7 +30,7 @@
   [配置、权限和验证边界](docs/superagent/business-entry.md)；外部服务由明确的
   loopback 模型/gh 协议夹具验证，没有付费调用或真实 GitHub 评论。
 - [工单/线程控制](docs/superagent/business-controls.md)：重试、状态查询、重新研判、
-  订阅/移除/handback 已接入同一 Native 工具路径；完整主14/Worker6仍未完成。
+  订阅/移除/handback 已接入同一 Native 工具路径；主14/Worker6名字已齐，完整业务分支仍未完成。
 - [未完成工单恢复](docs/superagent/business-recovery.md)：等待工单重启后处理新输入、
   Worker 进程中断后的恢复 assignment、目录丢失时保留输入与可观察错误。
   只验证所列场景，不代表全部后台任务/崩溃切点和部署恢复完成。
@@ -44,7 +44,9 @@
 
 - [跨工单事实](docs/superagent/business-note.md)：实际 Note 输入/投递，waiting 同 assignment 继续工作与 blocked 等待人工不唤醒；不改变授权。
 
-- [飞书来源基础](docs/superagent/business-feishu-foundation.md)：bot 身份、消息/范围、成员同步、回复及受管事件流组件已实现；尚未安装到正式入口，未注册 `policy_sync`，不算飞书产品闭环。
+- [飞书来源基础](docs/superagent/business-feishu-foundation.md)：bot 身份、消息/范围、成员同步、回复及受管事件流组件已实现；kind 配置与成员同步已进入正式入口；事件/历史/上下文尚未接通，不算飞书产品闭环。
+
+- [策略同步](docs/superagent/business-policy-sync.md)：正式 Main 工具 → bot CLI → 原子策略保存、版本冲突、通知、健康/退避和中断重开；7条新正式场景，仍不是飞书事件闭环。
 
 ## 尚未完成
 

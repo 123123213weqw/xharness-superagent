@@ -240,3 +240,21 @@ GitHub正式入口回归保持不变，`policy_sync` 尚未注册，Feishu 尚�
 下一步是实际 Source 事件/历史/健康、上下文/附件和带策略版本冲突保护的真实 policy_sync，
 再经正式 Feishu → 授权 → Ticket → Worker → Outbox 验证。API/UI、其余工具分支、
 后台/停止/恢复及部署回退仍须完成，不重启已取消的全域 JS/UTF-16 工作。
+
+## 策略同步正式接线（业务 Goal 继续）
+
+Main14/Worker6个应用工具的角色注册名称已齐，新增 policy_sync 有真实正式入口的
+模型工具 → 受管 bot CLI → 单 SQL owner → 原子策略保存路径，不是报错占位工具。
+新增7条正式测试，总37条，涵盖成员差分/改名/no-op、块 revision 冲突、无关保存与
+来源关闭、真实进程中断/回收/重开、缺少 bot 与禁止工具切换账号；坏可选 bot 不阻断
+GitHub 实际 Worker 写文件与 Outbox 回复。名字与 syncChat 仍进入原版 policyVersion，
+不做排除名字的优化。飞书 kind 配置/策略已经安装，不等于事件/历史/上下文已装配。
+
+本批 WZU_Server 独立目录 workspace fmt/check/严格 Clippy 与所列10个crate回归通过，
+不是全工作区测试验收。7条新正式路径仍使用明确离线外部协议，未调用线上服务/付费模型。
+先前63bdb07 CI两平台成功只证明旧head；本批精确head另验。
+详见 [策略同步](docs/superagent/business-policy-sync.md) 及其完整证据/失败诊断。
+
+23组验收仍为5组离线通过/10组部分推进/8组未运行，不以组件数或工具名字签收整组。
+下一步必须把实际飞书事件/历史/读取/附件/环境/Outbox贯通，然后完成所有工具分支、
+API/UI、后台/停止/并发/恢复和部署回退。完整 Goal 活动，不重启 JS/UTF-16 语言复刻。

@@ -82,3 +82,27 @@ ready/ended 状态、ack/result回执、角色工具隔离、重复事件/重启
 它**不是**真实 GitHub/付费模型验收，也没有覆盖全部 Source、inferred 研判、剩余
 工具/资源读取、飞书、配置 API/UI、所有崩溃切点/后台任务、部署/备份/回退。
 完整 Goal 不缩减。实际命令、范围和日志绑定见 `docs/business-entry-verification.json`。
+
+## 可选飞书成员同步（尚非飞书事件接入）
+
+在原配置的 `settings.sources` 和 `settings.policy.sources` 中分别**追加**以下部分，
+不要删除全局仍必需的 GitHub 仓库/账号配置；CLI 必须是真正的 bot-only 配置。
+
+```json
+{
+  "sources": {
+    "feishu": { "enabled": true, "config": { "cli": "/absolute/path/to/bot-lark" } }
+  },
+  "policy": {
+    "sources": {
+      "feishu": { "allowed": [], "syncChat": "oc_replaceWithYourChatId" }
+    }
+  }
+}
+```
+
+这是 `settings` 内合并片段，不是独立可启动的完整配置。`--check` 只读探测账号，
+不读取群成员；正常启动自动同步配置的群，Main 也可调用 `orchestrator_policy_sync`。
+来源关闭、无同步群和无同步能力分别按原版报错；bot 缺失/坏配置保持可观察错误，
+不切换用户身份、不让工具改账号。详细边界见 [策略同步](business-policy-sync.md)。
+当前尚无正式飞书事件/历史/上下文循环，不能把向 bot 发消息当作已可用的任务入口。

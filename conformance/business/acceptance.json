@@ -214,6 +214,25 @@
           "actual_product_path": true,
           "partial_not_full_group_pass": true,
           "remaining_scope": "Broad group remains in_progress; see verification remaining_scope."
+        },
+        {
+          "source_commit": "eee542cbf55ab49039b59b65f39e18389a9577ac",
+          "entry_and_command": "Formal executable product_entry policy_sync tests in final remote 10-crate regression; see complete log",
+          "environment": "Actual formal binary/OpenAI HTTP-SSE adapter/Native main tools/managed bot subprocess/Client/SQL policy/notices and shutdown. Model, gh and lark external endpoints alone are explicit offline fixtures. Optional-bot failure also executes the actual GitHub Worker/CodingToolBundle/Outbox path. No live Feishu/model/account/network or SDK success stubs.",
+          "full_log": "docs/evidence/business-policy-sync-01/regression-03.log",
+          "business_assertions": "docs/business-policy-sync-verification.json",
+          "tests": [
+            "formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin",
+            "formal_policy_sync_incomplete_members_are_health_error_not_grant_or_idle_blocker",
+            "formal_interrupt_joins_policy_sync_cli_tree_before_reopen_and_startup_sync",
+            "formal_startup_sync_rejects_even_a_concurrent_names_only_policy_revision",
+            "formal_startup_sync_merges_unrelated_saves_and_does_not_invent_source_off_conflict",
+            "formal_policy_sync_without_bot_reports_setup_error_and_cannot_switch_cli_from_tool",
+            "formal_bad_optional_bot_never_falls_back_or_blocks_github_worker_and_reply"
+          ],
+          "actual_product_path": true,
+          "full_feishu_event_loop": false,
+          "not_signed_off": true
         }
       ]
     },
@@ -430,6 +449,25 @@
           "business_assertions": "docs/business-recovery-verification.json",
           "actual_product_path": true,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "eee542cbf55ab49039b59b65f39e18389a9577ac",
+          "entry_and_command": "Formal executable product_entry policy_sync tests in final remote 10-crate regression; see complete log",
+          "environment": "Actual formal binary/OpenAI HTTP-SSE adapter/Native main tools/managed bot subprocess/Client/SQL policy/notices and shutdown. Model, gh and lark external endpoints alone are explicit offline fixtures. Optional-bot failure also executes the actual GitHub Worker/CodingToolBundle/Outbox path. No live Feishu/model/account/network or SDK success stubs.",
+          "full_log": "docs/evidence/business-policy-sync-01/regression-03.log",
+          "business_assertions": "docs/business-policy-sync-verification.json",
+          "tests": [
+            "formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin",
+            "formal_policy_sync_incomplete_members_are_health_error_not_grant_or_idle_blocker",
+            "formal_interrupt_joins_policy_sync_cli_tree_before_reopen_and_startup_sync",
+            "formal_startup_sync_rejects_even_a_concurrent_names_only_policy_revision",
+            "formal_startup_sync_merges_unrelated_saves_and_does_not_invent_source_off_conflict",
+            "formal_policy_sync_without_bot_reports_setup_error_and_cannot_switch_cli_from_tool",
+            "formal_bad_optional_bot_never_falls_back_or_blocks_github_worker_and_reply"
+          ],
+          "actual_product_path": true,
+          "full_feishu_event_loop": false,
+          "not_signed_off": true
         }
       ]
     },
@@ -508,6 +546,25 @@
           "component_progress_only": true,
           "not_product_acceptance": true,
           "remaining_scope": "Formal Feishu/Native/Outbox and policy_sync owner/lifecycle integration still absent; see verification remaining_scope."
+        },
+        {
+          "source_commit": "eee542cbf55ab49039b59b65f39e18389a9577ac",
+          "entry_and_command": "Formal executable product_entry policy_sync tests in final remote 10-crate regression; see complete log",
+          "environment": "Actual formal binary/OpenAI HTTP-SSE adapter/Native main tools/managed bot subprocess/Client/SQL policy/notices and shutdown. Model, gh and lark external endpoints alone are explicit offline fixtures. Optional-bot failure also executes the actual GitHub Worker/CodingToolBundle/Outbox path. No live Feishu/model/account/network or SDK success stubs.",
+          "full_log": "docs/evidence/business-policy-sync-01/regression-03.log",
+          "business_assertions": "docs/business-policy-sync-verification.json",
+          "tests": [
+            "formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin",
+            "formal_policy_sync_incomplete_members_are_health_error_not_grant_or_idle_blocker",
+            "formal_interrupt_joins_policy_sync_cli_tree_before_reopen_and_startup_sync",
+            "formal_startup_sync_rejects_even_a_concurrent_names_only_policy_revision",
+            "formal_startup_sync_merges_unrelated_saves_and_does_not_invent_source_off_conflict",
+            "formal_policy_sync_without_bot_reports_setup_error_and_cannot_switch_cli_from_tool",
+            "formal_bad_optional_bot_never_falls_back_or_blocks_github_worker_and_reply"
+          ],
+          "actual_product_path": true,
+          "full_feishu_event_loop": false,
+          "not_signed_off": true
         }
       ]
     },
@@ -531,6 +588,25 @@
             "configuration_lifecycle::formal_policy_save_rolls_back_history_effects_and_authority_on_sql_cut"
           ],
           "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "eee542cbf55ab49039b59b65f39e18389a9577ac",
+          "entry_and_command": "Formal executable product_entry policy_sync tests in final remote 10-crate regression; see complete log",
+          "environment": "Actual formal binary/OpenAI HTTP-SSE adapter/Native main tools/managed bot subprocess/Client/SQL policy/notices and shutdown. Model, gh and lark external endpoints alone are explicit offline fixtures. Optional-bot failure also executes the actual GitHub Worker/CodingToolBundle/Outbox path. No live Feishu/model/account/network or SDK success stubs.",
+          "full_log": "docs/evidence/business-policy-sync-01/regression-03.log",
+          "business_assertions": "docs/business-policy-sync-verification.json",
+          "tests": [
+            "formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin",
+            "formal_policy_sync_incomplete_members_are_health_error_not_grant_or_idle_blocker",
+            "formal_interrupt_joins_policy_sync_cli_tree_before_reopen_and_startup_sync",
+            "formal_startup_sync_rejects_even_a_concurrent_names_only_policy_revision",
+            "formal_startup_sync_merges_unrelated_saves_and_does_not_invent_source_off_conflict",
+            "formal_policy_sync_without_bot_reports_setup_error_and_cannot_switch_cli_from_tool",
+            "formal_bad_optional_bot_never_falls_back_or_blocks_github_worker_and_reply"
+          ],
+          "actual_product_path": true,
+          "full_feishu_event_loop": false,
           "not_signed_off": true
         }
       ]
@@ -565,20 +641,25 @@
     }
   ],
   "implementation_progress": {
-    "status": "B2_configuration_and_prompt_subset_in_progress_full_product_alignment_incomplete",
-    "evidence": "docs/business-configuration-verification.json",
+    "status": "B2_policy_sync_and_registered_tool_names_verified_full_business_branches_incomplete",
+    "evidence": "docs/business-policy-sync-verification.json",
     "full_business_groups_passed": 5,
-    "business_groups_in_progress": 9,
-    "business_groups_not_run": 9,
+    "business_groups_in_progress": 10,
+    "business_groups_not_run": 8,
     "validation_environment": "offline_protocol_fixture",
-    "formal_entry_tests_passed": 20,
+    "formal_entry_tests_passed": 37,
     "application_tool_registrations": {
-      "main": 9,
+      "main": 14,
       "worker": 6,
       "required_main": 14,
-      "required_worker": 6
+      "required_worker": 6,
+      "new": [
+        "orchestrator_policy_sync"
+      ],
+      "all_names_registered_not_all_business_branches_complete": true,
+      "framework_skill_separate": true
     },
-    "workspace_test_gate": "current_selected10_passed_not_full_workspace; previous53fb02b_CI_both_passed_with_existing_gates; new_exact_head_CI_separate; legacy_WZU_Feishu_deployment_not_cleared",
+    "workspace_test_gate": "selected10_passed_not_full_workspace; previous63bdb07_CI_both_passed_with_existing_gates; new_exact_head_CI_separate; legacy_WZU_Feishu_deployment_not_cleared",
     "resource_backing_components": {
       "evidence": "docs/business-resources-verification.json",
       "sql_checks": 7,
@@ -605,8 +686,15 @@
       ],
       "full_api_ui_sync_restart_complete": false,
       "new_full_business_groups_passed": 0
+    },
+    "policy_sync": {
+      "evidence": "docs/business-policy-sync-verification.json",
+      "registered": true,
+      "new_formal_test_declarations": 7,
+      "new_full_business_groups_passed": 0,
+      "full_feishu_source_complete": false
     }
   },
-  "updated_at_utc": "2026-11-01T21:23:02.734889+00:00",
+  "updated_at_utc": "2026-11-01T23:51:42.777357+00:00",
   "validation_note": "passed denotes the listed complete product scenario in an explicitly offline protocol environment, not real GitHub/model service approval, universal parity or release readiness. Unexecuted branches remain open."
 }
