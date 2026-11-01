@@ -150,7 +150,9 @@ impl SessionToolFactory for Factory {
                 async move {
                     let value = if matches!(
                         name.as_str(),
-                        "orchestrator_settings_save" | "orchestrator_prompts_save"
+                        "orchestrator_settings_save"
+                            | "orchestrator_prompts_save"
+                            | "orchestrator_policy_sync"
                     ) {
                         invoke_management(
                             &client,

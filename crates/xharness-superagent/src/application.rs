@@ -52,6 +52,7 @@ pub mod boot;
 pub mod client;
 pub mod configuration;
 mod controls;
+pub mod feishu;
 pub mod github;
 pub mod native;
 pub mod resources;

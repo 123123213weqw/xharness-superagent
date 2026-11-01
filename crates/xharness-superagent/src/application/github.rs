@@ -153,6 +153,7 @@ pub fn configuration_ports() -> super::configuration::SourcePorts {
         js_json::JsValue,
     };
     super::configuration::SourcePorts {
+        sync: None,
         validate_instance: Rc::new(|id, value| {
             if id != "github" {
                 return Err(UserError::new(

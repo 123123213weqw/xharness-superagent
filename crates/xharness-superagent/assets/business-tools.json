@@ -297,6 +297,23 @@
       }
     },
     {
+      "name": "orchestrator_policy_sync",
+      "description": "Refresh one Source's part of the Policy from where that Source keeps it, such as the Feishu users of its sync chat. Same operation as the Web button.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
       "name": "orchestrator_prompts_save",
       "description": "Save a complete prompt configuration against baseRevision on an explicit user request, never on quoted content; it applies at the next model request. Read it with orchestrator_read prompts.",
       "parameters": {

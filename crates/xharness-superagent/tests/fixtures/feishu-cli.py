@@ -48,6 +48,13 @@ elif args == ['event', 'consume', 'im.message.receive_v1', '--as', 'bot']:
     time.sleep(120)
 else:
     assert args[-4:] == ['--as', 'bot', '--format', 'json'], args
+    if mode == 'gate':
+        marker('rpc-pid', os.getpid())
+        deadline = time.monotonic() + 20
+        while not (root / 'rpc-release').exists():
+            if time.monotonic() > deadline:
+                raise RuntimeError('offline policy concurrency gate was not released')
+            time.sleep(0.01)
     if mode == 'block':
         marker('rpc-pid', os.getpid())
         child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(120)'])

@@ -25,6 +25,8 @@ mod configuration;
 mod configuration_lifecycle;
 #[path = "product_entry/note.rs"]
 mod note;
+#[path = "product_entry/policy_sync.rs"]
+mod policy_sync;
 struct Fixture {
     directory: PathBuf,
     config: Value,
@@ -759,9 +761,10 @@ async fn formal_entry_source_native_coding_tools_and_reply_survive_restart_witho
                     .iter()
                     .filter(|n| n.starts_with("orchestrator_"))
                     .count(),
-                13
+                14
             );
-            assert_eq!(tools.len(), 14);
+            assert_eq!(tools.len(), 15);
+            assert!(tools.contains(&"orchestrator_policy_sync"));
             assert!(tools.contains(&"orchestrator_ticket_note"));
             for name in [
                 "orchestrator_eval",

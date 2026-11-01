@@ -242,6 +242,10 @@ pub struct Summary {
     pub tickets: usize,
     pub pending_effects: u64,
     pub github: Option<super::github::Health>,
+    #[serde(skip_serializing_if = "BTreeMap::is_empty")]
+    pub policy_sync: BTreeMap<String, native::PolicySyncHealth>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub feishu_setup: Option<super::github::Health>,
 }
 
 fn variable(key: &str, value: String, en: &str) -> Variable {
@@ -648,6 +652,8 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
     let route = config.document.default_model.route();
     let source_stop = stop.child_token();
     let prepared = Prepared::default();
+    let feishu = super::feishu::Prepared::default();
+    let state_dir = config.document.state_dir.clone();
     let client: Arc<OnceLock<Client>> = Arc::new(OnceLock::new());
     let coding = Arc::new(Coding {
         client: client.clone(),
@@ -685,7 +691,7 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
         context_policy: Arc::new(IdentityContextPolicy),
         prompts: inputs,
         initial_settings: config.settings,
-        sources: prepared.ports(source_stop.clone()),
+        sources: feishu.configure(prepared.ports(source_stop.clone())),
         prepare_workspace: Rc::new(move |ticket| {
             let client = prepare_client.get().cloned();
             let github = prepare_github.clone();
@@ -725,7 +731,7 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
         let cli = Arc::new(
             Cli::resolve(
                 PathBuf::from(&config.cli),
-                main_directory,
+                main_directory.clone(),
                 &config,
                 std::env::vars_os().collect(),
                 source_stop.clone(),
@@ -736,6 +742,50 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
         prepared
             .install(cli.clone(), cli.deployment().clone())
             .map_err(display)?;
+        // Setup reads its own bot-account schema, not the whole Source config.
+        // An invalid chat/listen setting disables that instance, but must not
+        // hide a configured account CLI from the read-only setup verification.
+        let feishu_cli = settings
+            .value()
+            .get("sources")
+            .and_then(|s| s.get("feishu"))
+            .and_then(|s| s.get("config"))
+            .and_then(|c| c.get("cli"))
+            .cloned()
+            .unwrap_or_else(|| JsValue::String(String::new()));
+        let feishu_config = crate::sources::feishu::Config::parse(&serde_json::from_str(
+            &JsValue::object([("cli".into(), feishu_cli)]).stringify()?,
+        )?)
+        .map_err(display)?;
+        let mut feishu_setup = None;
+        match crate::sources::feishu::Cli::resolve_for_state(
+            PathBuf::from(&feishu_config.cli),
+            main_directory,
+            std::env::vars_os().collect(),
+            &state_dir,
+            source_stop.clone(),
+        )
+        .await
+        {
+            Ok(Some(cli)) => feishu.install(Arc::new(cli))?,
+            Ok(None) => (),
+            Err(crate::sources::feishu::Error::Cancelled) if source_stop.is_cancelled() => {
+                return Err(error("Feishu setup cancelled"))
+            }
+            Err(problem) => {
+                // Feishu is optional in the reference deployment. A bad bot
+                // remains unavailable and observable; it must not disable a
+                // healthy GitHub deployment or fall back to a user account.
+                feishu_setup = Some(super::github::Health {
+                    state: "error".into(),
+                    detail: problem.to_string(),
+                    code: Some("feishuCliFailed".into()),
+                    at: Some(
+                        chrono::Utc::now().to_rfc3339_opts(chrono::SecondsFormat::Millis, true),
+                    ),
+                });
+            }
+        }
         let source = prepared
             .source(product.application().clone())
             .map_err(display)?;
@@ -785,6 +835,8 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
             tickets: store.list("ticket", None)?.len(),
             pending_effects,
             github: source.health(),
+            policy_sync: product.policy_sync_health(),
+            feishu_setup,
         })
     }
     .await;

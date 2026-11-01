@@ -210,7 +210,15 @@ async fn formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worke
     }
     assert_eq!(tool_value(main, 2)["revision"], 0);
     assert_eq!(tool_value(main, 4)["revision"], 1);
-    assert_eq!(tool_value(main, 11)["sources"][0]["enabled"], false);
+    assert_eq!(
+        tool_value(main, 11)["sources"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|s| s["id"] == "github")
+            .expect("installed GitHub source")["enabled"],
+        false
+    );
     assert_eq!(tool_value(main, 13), json!({"paused":true}));
     assert_eq!(tool_value(main, 15), json!({"paused":false}));
     assert_eq!(tool_value(main, 14)["pause"]["value"]["paused"], true);

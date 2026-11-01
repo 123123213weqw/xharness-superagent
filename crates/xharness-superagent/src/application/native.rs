@@ -65,6 +65,8 @@ use xharness_superagent_core::{
 };
 mod assessment;
 mod configuration;
+mod policy_sync;
+pub use policy_sync::Health as PolicySyncHealth;
 mod idle;
 mod recovery;
 mod resources;
@@ -179,6 +181,10 @@ struct Backend {
     main_id: String,
     main_directory: PathBuf,
     main: RefCell<Option<ManagedSession>>,
+    // Serialize main admission/notice operations, not model execution. Both
+    // paths prepare the same actor; overlapping preparations can stall the next
+    // request between a policy reassessment and its settings notice.
+    main_input: tokio::sync::Mutex<()>,
     workers: RefCell<HashMap<String, Worker>>,
     starting: RefCell<HashSet<String>>,
     stopping: CancellationToken,
@@ -191,6 +197,7 @@ struct Backend {
     default_model: xharness_host::ModelRoute,
     default_routes: RoleRoutes,
     configuration_sources: super::configuration::SourcePorts,
+    syncs: policy_sync::State,
     source_scope: Arc<ConfiguredScope>,
     assessment_sources: super::assessment::SourcePorts,
     assessment_options: super::assessment::Options,
@@ -403,6 +410,7 @@ impl Product {
             main_id,
             main_directory: config.main_directory,
             main: RefCell::new(None),
+            main_input: tokio::sync::Mutex::new(()),
             workers: RefCell::new(HashMap::new()),
             starting: RefCell::new(HashSet::new()),
             stopping: CancellationToken::new(),
@@ -415,6 +423,7 @@ impl Product {
             default_model,
             default_routes,
             configuration_sources: config.sources.configuration,
+            syncs: policy_sync::State::default(),
             source_scope: config.sources.scope,
             assessment_sources: config.sources.assessment,
             assessment_options: config.assessment,
@@ -448,6 +457,7 @@ impl Product {
                     backend
                         .ok_or_else(|| unavailable("Native configuration owner stopped"))?
                         .manage(&name, &encoded, cancel)
+                        .await
                 }
                 .boxed_local()
             }))
@@ -479,10 +489,17 @@ impl Product {
                     let summary = payload["summary"]
                         .as_str()
                         .ok_or_else(|| failure("Notice has no summary"))?;
+                    let _input = backend.main_input.lock().await;
                     let binding = backend.ensure_main().await.map_err(failure)?;
                     backend
                         .native
-                        .inject_notice(&binding, &id, text, summary, None)
+                        .inject_notice(
+                            &binding,
+                            payload["delivery_key"].as_str().unwrap_or(&id),
+                            text,
+                            summary,
+                            None,
+                        )
                         .await
                         .map_err(failure)?;
                     Ok(())
@@ -546,7 +563,11 @@ impl Product {
         self.backend.resume_assignments()?;
         self.backend.native.set_configured(true);
         self.application.configure(true)?;
-        self.application.start()
+        self.application.start()?;
+        self.backend.start_syncs()
+    }
+    pub fn policy_sync_health(&self) -> BTreeMap<String, PolicySyncHealth> {
+        self.backend.syncs.health.borrow().clone()
     }
     pub fn shutdown(&self) -> super::Shutdown {
         self.application.shutdown()
@@ -615,7 +636,11 @@ impl Runner {
         futures::pin_mut!(prompts);
         let observations = observation_loop(self.observations, self.backend.clone());
         let supporting = async {
-            futures::join!(self.delivery.run(), observations);
+            futures::join!(
+                self.delivery.run(),
+                observations,
+                self.backend.clone().retry_syncs()
+            );
         };
         tokio::select! {
             _=self.application.run()=>(),
@@ -728,6 +753,7 @@ impl Backend {
         .await
     }
     async fn main_message(self: &Rc<Self>, id: &str, text: &str, mode: Mode) -> Result<()> {
+        let _input = self.main_input.lock().await;
         let binding = self.ensure_main().await?;
         let agent = self.delivery.resolve(&binding).await?;
         let stop = self.stopping.clone();
@@ -1037,7 +1063,15 @@ impl Backend {
             loop {
                 let event=tokio::select!{
                     biased;
-                    _=stop.cancelled(),if !cancelled=>{cancelled=true;match running.send(LoopCommand::Cancel).await{Ok(())|Err(xharness_core::LoopControlError::Closed)=>(),Err(e)=>return protocol(e)};continue;},
+                    _=stop.cancelled(),if !cancelled=>{
+                        // Main deliveries can share an actor and include a
+                        // queued input that never starts after shutdown. These
+                        // are passive observers, not owners of execution. The
+                        // Native shutdown below cancels and joins the one actor
+                        // and all its tools; do not wait for a fictitious turn
+                        // result for each not-yet-started observer.
+                        if worker.is_none() { return Ok(()); }
+                        cancelled=true;match running.send(LoopCommand::Cancel).await{Ok(())|Err(xharness_core::LoopControlError::Closed)=>(),Err(e)=>return protocol(e)};continue;},
                     event=running.next_event()=>event,
                 };
                 let Some(event)=event else{break;};
