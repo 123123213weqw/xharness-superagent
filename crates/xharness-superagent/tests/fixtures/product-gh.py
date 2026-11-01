@@ -27,6 +27,11 @@ elif path.startswith('repos/owner/repo/notifications?'):
     ]))
     sys.exit(0)
 elif path == 'repos/owner/repo/issues/12':
+    # The first request is the Source poll; the second is a real read tool.
+    if os.environ.get('GH_FIXTURE_BLOCK_READ') and (root / 'timestamp').exists():
+        import time
+        (root / 'blocked-read-pid').write_text(str(os.getpid()))
+        time.sleep(120)
     value = {'id': 12, 'number': 12, 'user': {'login': 'bob', 'type': 'User'},
              'title': 'Original issue', 'state': 'open', 'body': 'Old issue',
              'created_at': '2026-10-30T00:00:00.000Z', 'html_url': 'https://github.com/owner/repo/issues/12'}

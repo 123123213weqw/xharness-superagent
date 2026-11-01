@@ -1,6 +1,38 @@
 {
   "main": [
     {
+      "name": "orchestrator_read",
+      "description": "Read one page of a resource the resource parameter lists, such as the ticket list or a ticket. Follow next_offset, and next_resource where a page names one.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "resource": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The resource, one of: tickets: ticket cards, newest first; a card's state is person/review after a ready report, person/blocked or person/failed after those reports, person/answer with a question, person/delivery when an input could not reach the worker, working or working/queued while it works, idle once the worker ended its turn without a report, else how the ticket ended; triggers: trigger cards with where each went, newest first; threads: subscribed threads, newest activity first, with their labels, tickets, current assessment and polling errors; thread/<key>: one thread: its label and link, its tickets and latest decisions, and its triggers, newest first; decisions: decisions, newest first; decision/<id>: one decision with its audit; ticket/<id>: a ticket's card, the trigger, decision and threads it is tied to, its latest assignments with the start of each report, and its inputs, newest first; ticket/<id>/assignment: its assignment text; ticket/<id>/assignments: its assignments, newest first, with the start of each report; ticket/<id>/inputs: its inputs, newest first; ticket/<id>/result: its latest report; ticket/<id>/report/<id>: the report of one of its assignments; ticket/<id>/transcript: its Executor Session's messages, newest first; ticket/<id>/message/<n>: one message of that transcript; ticket/<id>/input/<id>: one input it was delivered; trigger/<id>: a trigger's text, where it went, the message it replies to and the messages around it on its thread; settings: settings by block, each with the revision a save names: the small blocks whole, the Policy and the Source instances summarized; settings/<block>: one settings block whole, as orchestrator_settings_save takes it: policy, eval, executor, pause or source:<id>; prompts: the prompt revision each Session reads, the skills, and the saved versions; prompts/<revision>: one prompt version by number, or current, the one the Session works under; prompts/defaults: the built-in prompt configuration, and the built-in parts by the key an override names; prompt-preview/<id>: a composed prompt that orchestrator_prompts_save previewed; models: model providers, the DSH default and each role's model; models/<provider>: one provider's models; feishu/<trigger-id>/…: a Feishu original, as the dsh-superagent-feishu skill describes; github/…: a GitHub original, as the dsh-superagent-github skill describes."
+          },
+          "offset": {
+            "default": 0,
+            "description": "Copy next_offset from the previous page; it counts characters of a text and items of a list.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "description": "Characters of a text, 4000 by default and 8000 at most, or items of a list, 20 by default and 50 at most.",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8000
+          }
+        },
+        "required": [
+          "resource"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
       "name": "orchestrator_route",
       "description": "Route candidates, one item each by the card's trigger_id, in one call: accept an explicit request as a new ticket, attach a trigger to an existing ticket, stop a ticket on a person's stop message, or ignore a candidate that needs no ticket or stop, as dispatch says. Items run in order and each is answered on its own; a refused item leaves the others. An inferred candidate may be ignored here; accepting one goes through orchestrator_eval_decide.",
       "parameters": {
@@ -195,6 +227,38 @@
     }
   ],
   "worker": [
+    {
+      "name": "orchestrator_read",
+      "description": "Read one page of a resource of this ticket that the resource parameter lists. Follow next_offset, and next_resource where a page names one.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "resource": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The resource, one of: thread/<key>: one thread: its label and link, its tickets and latest decisions, and its triggers, newest first; ticket/<id>: a ticket's card, the trigger, decision and threads it is tied to, its latest assignments with the start of each report, and its inputs, newest first; ticket/<id>/assignment: its assignment text; ticket/<id>/assignments: its assignments, newest first, with the start of each report; ticket/<id>/inputs: its inputs, newest first; ticket/<id>/result: its latest report; ticket/<id>/report/<id>: the report of one of its assignments; ticket/<id>/transcript: its Executor Session's messages, newest first; ticket/<id>/message/<n>: one message of that transcript; ticket/<id>/input/<id>: one input it was delivered; trigger/<id>: a trigger's text, where it went, the message it replies to and the messages around it on its thread; prompts/<revision>: one prompt version by number, or current, the one the Session works under; feishu/<trigger-id>/…: a Feishu original, as the dsh-superagent-feishu skill describes; github/…: a GitHub original, as the dsh-superagent-github skill describes."
+          },
+          "offset": {
+            "default": 0,
+            "description": "Copy next_offset from the previous page; it counts characters of a text and items of a list.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "description": "Characters of a text, 4000 by default and 8000 at most, or items of a list, 20 by default and 50 at most.",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8000
+          }
+        },
+        "required": [
+          "resource"
+        ],
+        "additionalProperties": false
+      }
+    },
     {
       "name": "orchestrator_ack",
       "description": "Acknowledge one original human request before substantial work, as the replies section says; it posts as a reply to that message.",

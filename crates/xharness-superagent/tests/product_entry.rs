@@ -113,6 +113,7 @@ struct Server {
     errors: Arc<Mutex<Vec<String>>>,
     stop: Arc<AtomicBool>,
     block: Arc<AtomicBool>,
+    reasoning: Arc<AtomicBool>,
     join: Option<thread::JoinHandle<()>>,
 }
 type ModelReply = Result<(Option<&'static str>, Value), Box<dyn std::error::Error>>;
@@ -131,14 +132,21 @@ impl Server {
         let stop = Arc::new(AtomicBool::new(false));
         let block = Arc::new(AtomicBool::new(false));
         let blocked = block.clone();
+        let reasoning = Arc::new(AtomicBool::new(false));
+        let private_reasoning = reasoning.clone();
         let (record, failures, ending) = (requests.clone(), errors.clone(), stop.clone());
         let join = thread::spawn(move || {
             while !ending.load(Ordering::SeqCst) {
                 match listener.accept() {
                     Ok((mut stream, _)) => {
-                        if let Err(error) =
-                            serve(&mut stream, &record, responder.as_ref(), &blocked, &ending)
-                        {
+                        if let Err(error) = serve(
+                            &mut stream,
+                            &record,
+                            responder.as_ref(),
+                            &blocked,
+                            &ending,
+                            &private_reasoning,
+                        ) {
                             failures.lock().unwrap().push(error.to_string());
                         }
                     }
@@ -158,6 +166,7 @@ impl Server {
             errors,
             stop,
             block,
+            reasoning,
             join: Some(join),
         }
     }
@@ -182,6 +191,7 @@ fn serve(
     responder: &Responder,
     blocked: &AtomicBool,
     ending: &AtomicBool,
+    reasoning: &AtomicBool,
 ) -> Result<(), Box<dyn std::error::Error>> {
     // Only accept is nonblocking. Each accepted HTTP connection is a bounded
     // blocking exchange; set its mode explicitly on both Linux and macOS.
@@ -240,6 +250,7 @@ fn serve(
         .into());
     }
     let request: Value = serde_json::from_slice(&bytes[end..end + length])?;
+    let worker = request["model"] == "worker";
     let (name, args) = responder(&request)?;
     let mut recorded = requests.lock().unwrap();
     let id = recorded.len();
@@ -251,11 +262,14 @@ fn serve(
         }
         thread::sleep(Duration::from_millis(5));
     }
-    let delta = if let Some(name) = name {
+    let mut delta = if let Some(name) = name {
         json!({"tool_calls":[{"index":0,"id":format!("call-{id}"),"type":"function","function":{"name":name,"arguments":args.to_string()}}]})
     } else {
         json!({"content":"Finished this turn"})
     };
+    if worker && reasoning.load(Ordering::SeqCst) {
+        delta["reasoning_content"] = json!("private-reader-reasoning-marker");
+    }
     let finish = if name.is_some() { "tool_calls" } else { "stop" };
     let body = format!(
         "data: {}\n\ndata: {}\n\ndata: [DONE]\n\n",
@@ -534,6 +548,154 @@ fn leave_waiting_answer(request: &Value) -> ModelReply {
     }
     idle_status_answer(request)
 }
+fn tool_value(request: &Value, index: usize) -> Value {
+    let id = calls(request)[index]["id"].as_str().unwrap();
+    let message = request["messages"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|m| m["role"] == "tool" && m["tool_call_id"] == id)
+        .unwrap();
+    serde_json::from_str(&message_text(message)).unwrap()
+}
+fn calls_in_last_input(request: &Value) -> usize {
+    let messages = request["messages"].as_array().unwrap();
+    let input = messages.iter().rposition(|m| m["role"] == "user").unwrap();
+    messages[input..]
+        .iter()
+        .flat_map(|m| m["tool_calls"].as_array().into_iter().flatten())
+        .count()
+}
+fn read_answer(request: &Value) -> ModelReply {
+    let user = last_user(request);
+    if request["model"] == "main" {
+        let step = calls_in_last_input(request);
+        if user["kind"] == "candidate" {
+            let resources = [
+                "settings",
+                "settings/policy",
+                "models",
+                "models/loopback",
+                "prompts/defaults",
+                "prompts",
+                "triggers",
+                "decisions",
+            ];
+            if let Some(resource) = resources.get(step) {
+                return Ok((
+                    Some("orchestrator_read"),
+                    if *resource == "models/loopback" {
+                        json!({"resource":resource,"offset":1,"limit":1})
+                    } else {
+                        json!({"resource":resource,"limit":8000})
+                    },
+                ));
+            }
+            if step == resources.len() {
+                return Ok((
+                    Some("orchestrator_route"),
+                    json!({"decisions":[{"kind":"accept","trigger_id":user["trigger_id"],"title":"Read and create result","worktree_name":"read-result","acknowledgement":"I will inspect the request and create result.txt."}]}),
+                ));
+            }
+            return Ok((None, Value::Null));
+        }
+        if user["kind"] == "worker_report" && user["state"] == "ready" {
+            let id = user["ticket"]["ticket_id"].as_str().unwrap();
+            let action = match step {
+                0 => (
+                    Some("orchestrator_read"),
+                    json!({"resource":"github/issues/12","offset":64,"limit":8000}),
+                ),
+                1 => (
+                    Some("orchestrator_read"),
+                    json!({"resource":format!("ticket/{id}")}),
+                ),
+                2 => (
+                    Some("orchestrator_read"),
+                    json!({"resource":format!("ticket/{id}/transcript"),"limit":8000}),
+                ),
+                3 => (
+                    Some("orchestrator_reply"),
+                    json!({"purpose":"result","ticket_id":id,"text":"已读取完整请求并生成 result.txt 😀"}),
+                ),
+                _ => (None, Value::Null),
+            };
+            return Ok(action);
+        }
+        return answer(request, false);
+    }
+    let id = user["ticket_id"].as_str().unwrap();
+    let trigger = user["trigger"]["trigger_id"].as_str().unwrap();
+    let step = calls(request).len();
+    let action = match step {
+        0 => ("orchestrator_read", json!({"resource":"tickets"})),
+        1 => (
+            "orchestrator_read",
+            json!({"resource":"ticket/foreign/result"}),
+        ),
+        2 => (
+            "orchestrator_read",
+            json!({"resource":format!("ticket/{id}"),"ticket_id":"foreign"}),
+        ),
+        3 => (
+            "orchestrator_read",
+            json!({"resource":format!("ticket/{id}")}),
+        ),
+        4 => (
+            "orchestrator_read",
+            json!({"resource":format!("trigger/{trigger}"),"limit":8000}),
+        ),
+        5 => (
+            "orchestrator_read",
+            json!({"resource":"prompts/current","limit":8000}),
+        ),
+        6 => ("orchestrator_read", json!({"resource":"prompts/defaults"})),
+        7 => (
+            "orchestrator_read",
+            json!({"resource":"github/issues/12","offset":64}),
+        ),
+        8 => (
+            "orchestrator_read",
+            json!({"resource":"github/issues/12","limit":64}),
+        ),
+        9 => {
+            let page = tool_value(request, 8);
+            let next = page["next_offset"].as_u64().ok_or_else(|| {
+                format!("Actual Source read did not return its continuation: {page}")
+            })?;
+            (
+                "orchestrator_read",
+                json!({"resource":"github/issues/12","offset":next,"limit":8000}),
+            )
+        }
+        10 => (
+            "orchestrator_read",
+            json!({"resource":format!("ticket/{id}/transcript"),"limit":8000}),
+        ),
+        11 => {
+            let listing = tool_value(request, 10);
+            let lines = listing["text"].as_str().unwrap();
+            let entry = lines
+                .lines()
+                .filter_map(|l| serde_json::from_str::<Value>(l).ok())
+                .find(|e| e["type"] == "assistant/message")
+                .unwrap();
+            (
+                "orchestrator_read",
+                json!({"resource":entry["read"],"limit":8000}),
+            )
+        }
+        12 => ("orchestrator_read", json!({"resource":"models"})),
+        13 => ("orchestrator_read", json!({"resource":"settings/executor"})),
+        14 => ("write", json!({"path":"result.txt","content":"你好 😀\n"})),
+        15 => (
+            "orchestrator_report",
+            json!({"state":"ready","summary":"Actual role-scoped SQL, Source snapshot and Native transcript reads completed before file work."}),
+        ),
+        _ => return Ok((None, Value::Null)),
+    };
+    Ok((Some(action.0), action.1))
+}
 fn success(output: &Output) -> Value {
     assert!(
         output.status.success(),
@@ -584,7 +746,7 @@ async fn formal_entry_source_native_coding_tools_and_reply_survive_restart_witho
             .collect();
         assert!(!tools.contains(&"web_fetch") && !tools.contains(&"web_search"));
         if request["model"] == "main" {
-            assert_eq!(tools.len(), 6);
+            assert_eq!(tools.len(), 7);
             assert!(!tools.contains(&"write"));
         } else {
             assert!(
@@ -1202,4 +1364,256 @@ async fn formal_missing_recovery_workspace_preserves_input_and_exposes_delivery_
     );
     assert_eq!(server.requests().len(), count);
     assert_eq!(fixture.posts().len(), 1, "no fake completion reply");
+}
+
+#[tokio::test]
+async fn formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history() {
+    let server = Server::with_responder(read_answer);
+    server.reasoning.store(true, Ordering::SeqCst);
+    let fixture = Fixture::new(&server.url);
+    let source_text = format!(
+        "@robot Create result.txt after reading this complete request: {} read-this-tail 中文 😀",
+        "业务内容 ".repeat(180)
+    );
+    let output = tokio::time::timeout(
+        Duration::from_secs(60),
+        fixture
+            .command("--once")
+            .env("GH_FIXTURE_TEXT", &source_text)
+            .output(),
+    )
+    .await
+    .unwrap()
+    .unwrap();
+    let summary = success(&output);
+    assert_eq!(summary["pendingEffects"], 0);
+    let requests = server.requests();
+    let worker = requests
+        .iter()
+        .rev()
+        .find(|r| r["model"] == "worker")
+        .unwrap();
+    let ticket = fixture.table("ticket").remove(0);
+    let id = ticket["id"].as_str().unwrap();
+    assert_eq!(calls(worker).len(), 16);
+    let forged_scope = tool_value(worker, 2);
+    assert_eq!(forged_scope["ok"], false);
+    assert!(forged_scope["error"]
+        .as_str()
+        .unwrap()
+        .contains("ticket_id"));
+    assert_eq!(tool_value(worker, 3)["ticket_id"], id);
+    assert!(tool_value(worker, 3).get("decision_id").is_none());
+    assert_eq!(tool_value(worker, 4)["text"], source_text);
+    assert_eq!(
+        tool_value(worker, 4)["total_chars"],
+        source_text.encode_utf16().count()
+    );
+    assert_eq!(tool_value(worker, 5)["resource"], "prompts/0");
+    let first = last_user(worker);
+    assert_eq!(
+        first["trigger"]["read"],
+        format!(
+            "trigger/{}",
+            ticket["origin"]["triggerId"].as_str().unwrap()
+        )
+    );
+    assert!(
+        first["trigger"]["text"]
+            .as_str()
+            .unwrap()
+            .encode_utf16()
+            .count()
+            <= 601
+    );
+    let first_page = tool_value(worker, 8);
+    let second_page = tool_value(worker, 9);
+    assert_eq!(first_page["next_offset"], 64);
+    assert!(second_page["next_offset"].is_null());
+    let original: Value = serde_json::from_str(&format!(
+        "{}{}",
+        first_page["text"].as_str().unwrap(),
+        second_page["text"].as_str().unwrap()
+    ))
+    .unwrap();
+    assert_eq!(original["text"], "Old issue");
+    assert_eq!(original["from"], "bob");
+    assert_eq!(original["number"], 12);
+    let transcript = tool_value(worker, 10);
+    assert!(transcript["text"].as_str().unwrap().contains("ticket/"));
+    let message: Value =
+        serde_json::from_str(tool_value(worker, 11)["text"].as_str().unwrap()).unwrap();
+    assert_eq!(message["type"], "assistant/message");
+    assert!(
+        message["message"]["content"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|b| b["type"] == "tool-call"
+                && b["name"] == "orchestrator_read"
+                && b["arguments"]
+                    .as_str()
+                    .is_some_and(|a| a.contains("/transcript"))),
+        "public tool invocation must not be dropped with private reasoning"
+    );
+    assert!(message["message"].get("reasoning").is_none());
+    assert!(!message
+        .to_string()
+        .contains("private-reader-reasoning-marker"));
+    let all_results = worker["messages"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|m| m["role"] == "tool")
+        .map(message_text)
+        .collect::<Vec<_>>()
+        .join("\n");
+    for rejected in [
+        "belongs to the main Session",
+        "does not belong to this worker",
+        "offset 0 first",
+        "inaccessible prompt version",
+    ] {
+        assert!(all_results.contains(rejected), "{rejected}: {all_results}");
+    }
+    assert!(!all_results.contains("offline-fixture-not-a-real-key"));
+    let main = requests
+        .iter()
+        .rev()
+        .find(|r| r["model"] == "main")
+        .unwrap();
+    let main_values = main["messages"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|m| m["role"] == "tool")
+        .filter_map(|m| serde_json::from_str::<Value>(&message_text(m)).ok())
+        .collect::<Vec<_>>();
+    assert!(main_values
+        .iter()
+        .any(|v| v.get("policy").is_some() && v["sources"][0]["installed"] == true));
+    assert!(main_values
+        .iter()
+        .any(|v| v["default"]["model"] == "fallback"
+            && v["roles"]["worker"]["model"] == "worker"
+            && v["providers"][0]["count"] == 3));
+    assert!(main_values
+        .iter()
+        .any(|v| v["items"][0]["id"] == "main" && v["next_offset"] == 2));
+    assert!(main_values
+        .iter()
+        .any(|v| v["resource"] == "prompts/defaults"));
+    assert!(main_values.iter().any(|v| v["skills"]["built_in"]
+        .as_array()
+        .is_some_and(|s| s.contains(&json!("dsh-superagent-github")))));
+    let main_results = main["messages"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .filter(|m| m["role"] == "tool")
+        .map(message_text)
+        .collect::<Vec<_>>()
+        .join("\n");
+    assert!(
+        main_results.contains("offset 0 first"),
+        "main must not reuse the worker's Source snapshot"
+    );
+    assert!(!main_results.contains("private-reader-reasoning-marker"));
+    let sessions = std::fs::read_dir(fixture.directory.join("state/sessions"))
+        .unwrap()
+        .map(|p| p.unwrap().path())
+        .filter(|p| p.extension().is_some_and(|s| s == "jsonl"))
+        .map(|p| std::fs::read_to_string(p).unwrap())
+        .collect::<Vec<_>>();
+    assert!(
+        sessions
+            .iter()
+            .any(|s| s.contains("private-reader-reasoning-marker")),
+        "reasoning must actually exist in the canonical journal, not be absent from the fixture"
+    );
+    let calls = std::fs::read_to_string(fixture.directory.join("gh-calls.jsonl")).unwrap();
+    assert_eq!(
+        calls
+            .lines()
+            .filter_map(|l| serde_json::from_str::<Value>(l).ok())
+            .filter(|a| a == &json!(["api", "repos/owner/repo/issues/12"]))
+            .count(),
+        2,
+        "one Source poll + one explicit read, not another API request for cached offset"
+    );
+    assert!(ticket.get("ended").is_some());
+    assert_eq!(fixture.posts().len(), 2);
+    assert_eq!(
+        std::fs::read_to_string(
+            std::path::Path::new(ticket["execution"]["directory"].as_str().unwrap())
+                .join("result.txt")
+        )
+        .unwrap(),
+        "你好 😀\n"
+    );
+}
+
+#[tokio::test]
+async fn interrupt_joins_inflight_read_cli_before_lease_release_without_completion() {
+    let server = Server::with_responder(read_answer);
+    let fixture = Fixture::new(&server.url);
+    let child = fixture
+        .command("--once")
+        .env("GH_FIXTURE_BLOCK_READ", "1")
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped())
+        .spawn()
+        .unwrap();
+    let owner = child.id().unwrap();
+    let marker = fixture.directory.join("blocked-read-pid");
+    tokio::time::timeout(Duration::from_secs(30), async {
+        while !marker.exists() {
+            tokio::time::sleep(Duration::from_millis(20)).await;
+        }
+    })
+    .await
+    .unwrap();
+    let cli = std::fs::read_to_string(marker).unwrap();
+    assert!(Command::new("kill")
+        .args(["-0", &cli])
+        .status()
+        .await
+        .unwrap()
+        .success());
+    assert!(Command::new("kill")
+        .args(["-INT", &owner.to_string()])
+        .status()
+        .await
+        .unwrap()
+        .success());
+    let output = tokio::time::timeout(Duration::from_secs(20), child.wait_with_output())
+        .await
+        .unwrap()
+        .unwrap();
+    assert_eq!(success(&output)["state"], "stopped");
+    assert!(
+        !Command::new("kill")
+            .args(["-0", &cli])
+            .stdout(std::process::Stdio::null())
+            .stderr(std::process::Stdio::null())
+            .status()
+            .await
+            .unwrap()
+            .success(),
+        "Source CLI must be joined before shutdown returns"
+    );
+    assert_eq!(success(&fixture.run("--check").await)["state"], "checked");
+    let ticket = fixture.table("ticket").remove(0);
+    assert!(ticket.get("ended").is_none());
+    assert!(ticket["assignments"][0].get("report").is_none());
+    assert!(
+        !PathBuf::from(ticket["execution"]["directory"].as_str().unwrap())
+            .join("result.txt")
+            .exists()
+    );
+    assert_eq!(
+        fixture.posts().len(),
+        1,
+        "acknowledgement is not completion"
+    );
 }

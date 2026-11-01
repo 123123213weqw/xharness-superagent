@@ -65,10 +65,12 @@ use xharness_superagent_core::{
 };
 mod idle;
 mod recovery;
+mod resources;
 
 pub type PrepareWorkspace = Rc<dyn Fn(Ticket) -> LocalBoxFuture<'static, Result<()>>>;
 pub type ConfiguredSourceEnabled = Rc<dyn Fn(&Settings, &str) -> Result<bool>>;
 pub struct Sources {
+    pub resources: super::resources::SourceResources,
     pub scope: Arc<ConfiguredScope>,
     pub enabled: ConfiguredSourceEnabled,
     pub channel_allowed: ChannelAllowed,
@@ -178,6 +180,10 @@ struct Backend {
     tasks: Rc<Tracker>,
     prepare: PrepareWorkspace,
     settings: tokio::sync::watch::Sender<Settings>,
+    resource_sources: super::resources::SourceResources,
+    inputs: Rc<dyn native_sessions::prompts::RequestInputs>,
+    catalog: Vec<xharness_host::ModelDescriptor>,
+    default_model: xharness_host::ModelRoute,
 }
 pub struct Product {
     application: Application,
@@ -320,6 +326,8 @@ impl Product {
             }
         }
         settings.send_replace(application.state.store.settings()?);
+        let default_model = config.routes.orchestrator.clone();
+        let catalog = config.models.models();
         config.routes = configured_routes(&settings.borrow(), config.routes)?;
         let main_id = match application.state.store.get::<String>("master-id")? {
             Some(id) => id,
@@ -384,9 +392,28 @@ impl Product {
             tasks,
             prepare: config.prepare_workspace,
             settings,
+            resource_sources: config.sources.resources,
+            inputs: config.prompts.clone(),
+            catalog,
+            default_model,
         });
         slot.set(backend.clone())
             .map_err(|_| unavailable("Native services already installed"))?;
+        let reader = Rc::downgrade(&backend);
+        application
+            .state
+            .resource_reader
+            .set(Rc::new(move |audience, request, cancel| {
+                let backend = reader.upgrade();
+                async move {
+                    backend
+                        .ok_or_else(|| unavailable("Native resource owner stopped"))?
+                        .read_resource(audience, request, cancel)
+                        .await
+                }
+                .boxed_local()
+            }))
+            .map_err(|_| unavailable("Resource reader already installed"))?;
         let notice = Rc::downgrade(&backend);
         application.driver.handle(
             "notice",
@@ -712,9 +739,63 @@ impl Backend {
         } else {
             format!("assignment:{}", ticket.id)
         };
-        let text = serde_json::to_string(
-            &json!({"ticket_id":ticket.id,"title":ticket.title,"assignment":execution.assignment,"trigger":trigger.as_ref().map(|t|json!({"trigger_id":t.id,"from":t.actor.id,"text":t.text,"at":t.at}))}),
-        )?;
+        let first = format!("assignment:{}", ticket.id);
+        let told = ticket.assignments.len() > 1 && self.native.holds(&binding, &first).await?;
+        let mut message = if told {
+            json!({"ticket_id":ticket.id,"assignment":ticket.assignments.len()})
+        } else {
+            let mut message = json!({"ticket_id":ticket.id,"title":ticket.title});
+            let page = super::resources::text_page("", &execution.assignment, 0, 1500)?;
+            if !execution.assignment.is_empty() {
+                message["assignment"] = if page["next_offset"].is_null() {
+                    page["text"].clone()
+                } else {
+                    json!(format!(
+                        "{}…",
+                        page["text"]
+                            .as_str()
+                            .ok_or_else(|| unavailable("Invalid assignment text"))?
+                    ))
+                };
+            }
+            if !page["next_offset"].is_null() {
+                message["assignment_chars"] = page["total_chars"].clone();
+                message["assignment_read"] = json!(format!("ticket/{}/assignment", ticket.id));
+            }
+            if let Some(trigger) = trigger {
+                let link =
+                    (self.resource_sources.link)(trigger.clone(), self.stopping.child_token())
+                        .await?;
+                message["trigger"] =
+                    super::resources::messages::trigger_message(&trigger, link, None)?;
+            }
+            let mut batch = Vec::new();
+            for id in ticket
+                .origin
+                .trigger_ids
+                .iter()
+                .filter(|id| **id != ticket.origin.trigger_id)
+            {
+                if let Some(trigger) = SqlRepository::new(&root.state.store).trigger(id)? {
+                    batch.push(json!({"trigger_id":trigger.id,"from":trigger.actor.id,"at":trigger.at,"preview":super::resources::preview(&trigger.text,160),"read":format!("trigger/{}",trigger.id)}));
+                }
+            }
+            if !batch.is_empty() {
+                message["batch"] = json!(batch);
+            }
+            message
+        };
+        if ticket
+            .assignments
+            .iter()
+            .rev()
+            .nth(1)
+            .and_then(|a| a.ended_reason.as_deref())
+            == Some("retried")
+        {
+            message["note"]=json!("A person retried this ticket. Continue the assignment from the current worktree, git history and PR state.");
+        }
+        let text = serde_json::to_string(&message)?;
         let agent = self.delivery.resolve(&binding).await?;
         let owner = Rc::downgrade(self);
         let id = ticket.id.clone();
@@ -783,17 +864,22 @@ impl Backend {
                 .iter()
                 .find(|i| i.id() == input)
                 .ok_or_else(|| unavailable("Queued ticket input missing"))?;
-            let text = match stored {
-                TicketInput::Trigger { trigger_id, .. } => {
+            let card = match stored {
+                TicketInput::Trigger { trigger_id, note,.. } => {
                     let trigger = SqlRepository::new(&root.state.store)
                         .trigger(trigger_id)?
                         .ok_or_else(|| unavailable("Input trigger missing"))?;
-                    serde_json::to_string(
-                        &json!({"trigger_id":trigger.id,"from":trigger.actor.id,"text":trigger.text,"at":trigger.at}),
-                    )?
+                    let link=(self.resource_sources.link)(trigger.clone(),self.stopping.child_token()).await?;
+                    Some(super::resources::messages::trigger_message(&trigger,link,note.as_deref())?)
                 }
-                _ => serde_json::to_string(stored)?,
+                _ => None,
             };
+            let Some(text)=super::resources::messages::input_message(stored,card)? else{
+                root.driver.command(&root.state.context,|engine|engine.inputs_delivered(ticket_id,&assignment.id,std::slice::from_ref(&input)))?;
+                return Ok(());
+            };
+            let page=super::resources::text_page("",&text,0,1500)?;
+            let text=if page["next_offset"].is_null(){text}else{serde_json::to_string(&json!({"text":format!("{}…",page["text"].as_str().ok_or_else(||unavailable("Invalid input text"))?),"chars":page["total_chars"],"read":format!("ticket/{ticket_id}/input/{}",key(&[&input])?)}))?};
             let agent = self.delivery.resolve(&binding).await?;
             let owner = Rc::downgrade(self);
             let id = ticket_id.to_owned();

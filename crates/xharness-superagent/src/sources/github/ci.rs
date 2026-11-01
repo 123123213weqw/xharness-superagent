@@ -191,7 +191,14 @@ pub async fn read(
         a.name
             .cmp(&b.name)
             .then(a.status.cmp(&b.status))
-            .then(a.conclusion.cmp(&b.conclusion))
+            // readGithub orders otherwise identical check JSON with a string
+            // conclusion before null. Keep both records; neither wins/dedupes.
+            .then_with(|| match (&a.conclusion, &b.conclusion) {
+                (Some(a), Some(b)) => a.cmp(b),
+                (Some(_), None) => std::cmp::Ordering::Less,
+                (None, Some(_)) => std::cmp::Ordering::Greater,
+                (None, None) => std::cmp::Ordering::Equal,
+            })
     });
     statuses.sort_by(|a, b| a.context.cmp(&b.context));
     Ok(Snapshot {

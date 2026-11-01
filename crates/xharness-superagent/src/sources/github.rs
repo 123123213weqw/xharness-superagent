@@ -12,6 +12,7 @@ use xharness_superagent_core::{
 };
 pub mod channel;
 pub mod ci;
+pub mod read;
 pub mod trigger;
 
 pub type Result<T> = std::result::Result<T, Error>;

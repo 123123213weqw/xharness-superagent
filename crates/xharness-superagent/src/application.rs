@@ -34,7 +34,7 @@ use futures::{
 };
 use serde_json::Value;
 use std::{
-    cell::{Cell, RefCell},
+    cell::{Cell, OnceCell, RefCell},
     path::Path,
     rc::Rc,
 };
@@ -88,6 +88,8 @@ struct State {
     terminated: Cell<bool>,
     done: tokio::sync::Notify,
     services: Services,
+    resource_reader: OnceCell<resources::ReadPort>,
+    resource_pages: Rc<RefCell<resources::TextCache>>,
     // Both public handle and runner retain state, so the writer lease cannot be
     // released while an owning runner still uses the database.
     _lease: Box<dyn AgentLease>,
@@ -159,6 +161,8 @@ impl Application {
             terminated: Cell::new(false),
             done: tokio::sync::Notify::new(),
             services,
+            resource_reader: OnceCell::new(),
+            resource_pages: Rc::new(RefCell::new(resources::TextCache::new(4_000_000))),
             _lease: lease,
         });
         let controls = Rc::downgrade(&state);

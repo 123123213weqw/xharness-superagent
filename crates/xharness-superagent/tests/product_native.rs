@@ -360,6 +360,28 @@ impl Fixture {
             prompts: Rc::new(PromptInputs),
             initial_settings: Some(settings),
             sources: sources.unwrap_or_else(|| Sources {
+                resources: xharness_superagent::application::resources::SourceResources {
+                    instances: Rc::new(
+                        xharness_superagent::application::github::resource_instances,
+                    ),
+                    read: Rc::new(|_, _| {
+                        async {
+                            Err(xharness_superagent::Error::Message(
+                                "Recording Source fixture has no original-resource reader".into(),
+                            ))
+                        }
+                        .boxed_local()
+                    }),
+                    link: Rc::new(|trigger, _| {
+                        async move {
+                            Ok(match trigger.url {
+                                Some(url) => json!({"source_url":url}),
+                                None => json!({}),
+                            })
+                        }
+                        .boxed_local()
+                    }),
+                },
                 scope: Arc::new(|settings, source, _| {
                     ScopeResult::listening(
                         settings

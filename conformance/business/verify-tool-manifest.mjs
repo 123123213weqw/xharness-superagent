@@ -3,12 +3,13 @@ import assert from 'node:assert/strict';
 import { readFile, writeFile } from 'node:fs/promises';
 
 const selected = {
-  main: ['orchestrator_route', 'orchestrator_ticket_retry', 'orchestrator_ticket_request_status', 'orchestrator_trigger_requeue', 'orchestrator_reply', 'orchestrator_thread_unsubscribe'],
-  worker: ['orchestrator_ack', 'orchestrator_thread_unrelated', 'orchestrator_thread_follow', 'orchestrator_trigger_handback', 'orchestrator_report'],
+  main: ['orchestrator_read', 'orchestrator_route', 'orchestrator_ticket_retry', 'orchestrator_ticket_request_status', 'orchestrator_trigger_requeue', 'orchestrator_reply', 'orchestrator_thread_unsubscribe'],
+  worker: ['orchestrator_read', 'orchestrator_ack', 'orchestrator_thread_unrelated', 'orchestrator_thread_follow', 'orchestrator_trigger_handback', 'orchestrator_report'],
 };
 const reference = JSON.parse(await readFile(new URL('../reference/runtime-contracts.json', import.meta.url), 'utf8'));
 const target = new URL('../../crates/xharness-superagent/assets/business-tools.json', import.meta.url);
 let unions = 0;
+let inputDefaults = 0;
 function portable(value) {
   if (Array.isArray(value)) return value.map(portable);
   if (!value || typeof value !== 'object') return value;
@@ -42,10 +43,26 @@ for (const [role, names] of Object.entries(selected)) {
   expected[role] = names.map(name => {
     const matches = reference.roles[role].filter(tool => tool.name === name);
     assert.equal(matches.length, 1, name);
-    return portable(matches[0]);
+    const definition = portable(matches[0]);
+    if (name === 'orchestrator_read') {
+      // Pinned sessions.ts calls schema.parse(args): Zod supplies offset=0.
+      // Its default toJSONSchema output describes parsed OUTPUT as required.
+      // XHarness validates INPUT before the handler, so advertise the actual
+      // accepted input here; Request::parse applies this one explicit default.
+      // No generic kernel defaulting, other optionalization or constraint loss.
+      assert.deepEqual(definition.parameters.required, ['resource', 'offset']);
+      assert.equal(definition.parameters.properties.offset.default, 0);
+      assert.equal(definition.parameters.properties.offset.type, 'integer');
+      assert.equal(definition.parameters.properties.offset.minimum, 0);
+      assert.equal(definition.parameters.properties.offset.maximum, Number.MAX_SAFE_INTEGER);
+      definition.parameters.required = ['resource'];
+      inputDefaults += 1;
+    }
+    return definition;
   });
 }
 if (process.argv.includes('--write')) await writeFile(target, JSON.stringify(expected, null, 2) + '\n');
 assert.deepEqual(JSON.parse(await readFile(target, 'utf8')), expected);
 assert.equal(unions, 8);
-console.log('11 product-subset tool definitions match pinned metadata; 8 equivalent primitive/null unions normalized.');
+assert.equal(inputDefaults, 2);
+console.log('13 product-subset definitions verified: 8 primitive/null unions and 2 explicit Zod offset-input defaults projected; all other pinned metadata retained.');

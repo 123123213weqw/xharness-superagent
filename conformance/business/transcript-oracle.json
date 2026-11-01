@@ -1,0 +1,218 @@
+{
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "original_function_sha256": "e2b4f1cc1a8278c9b0f643e7d16abcd13dde90d8c80a8b6a94bf7c249fcdf9ee",
+  "scope": "Unchanged standalone transcriptEntry, Node type erasure only; explicit Native data mapping, not whole-module/SDK/full-product acceptance",
+  "cases": [
+    {
+      "name": "user",
+      "reference": {
+        "type": "user/message",
+        "data": {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "你好 😀"
+            }
+          ]
+        }
+      },
+      "native": {
+        "type": "user/message",
+        "data": {
+          "message": {
+            "role": "user",
+            "content": "你好 😀",
+            "id": "hidden-delivery",
+            "provider_items": [
+              {
+                "private": "provider-header"
+              }
+            ]
+          }
+        }
+      },
+      "expected": {
+        "type": "user/message",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "type": "text",
+              "text": "你好 😀"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "assistant-call-reasoning",
+      "reference": {
+        "type": "assistant/message",
+        "data": {
+          "message": {
+            "role": "assistant",
+            "content": [
+              {
+                "type": "text",
+                "text": "你好 😀"
+              },
+              {
+                "type": "reasoning",
+                "text": "private-reasoning"
+              },
+              {
+                "type": "tool-call",
+                "id": "canonical-call",
+                "name": "orchestrator_read",
+                "arguments": "{\"resource\":\"ticket/own\""
+              }
+            ]
+          }
+        }
+      },
+      "native": {
+        "type": "assistant/message",
+        "data": {
+          "turn": 1,
+          "step": 1,
+          "message": {
+            "role": "assistant",
+            "content": "你好 😀",
+            "reasoning": "private-reasoning",
+            "tool_calls": [
+              {
+                "id": "canonical-call",
+                "provider_call_id": "private-provider-call",
+                "index": 0,
+                "name": "orchestrator_read",
+                "arguments_json": "{\"resource\":\"ticket/own\""
+              }
+            ],
+            "provider_items": [
+              {
+                "private": "provider-header"
+              }
+            ]
+          }
+        }
+      },
+      "expected": {
+        "type": "assistant/message",
+        "message": {
+          "role": "assistant",
+          "content": [
+            {
+              "type": "text",
+              "text": "你好 😀"
+            },
+            {
+              "type": "tool-call",
+              "id": "canonical-call",
+              "name": "orchestrator_read",
+              "arguments": "{\"resource\":\"ticket/own\""
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "reasoning-only",
+      "reference": {
+        "type": "assistant/message",
+        "data": {
+          "message": {
+            "role": "assistant",
+            "content": [
+              {
+                "type": "reasoning",
+                "text": "private-reasoning"
+              }
+            ]
+          }
+        }
+      },
+      "native": {
+        "type": "assistant/message",
+        "data": {
+          "turn": 1,
+          "step": 1,
+          "message": {
+            "role": "assistant",
+            "content": "",
+            "reasoning": "private-reasoning"
+          }
+        }
+      },
+      "expected": {
+        "type": "assistant/message",
+        "message": {
+          "role": "assistant",
+          "content": []
+        }
+      }
+    },
+    {
+      "name": "tool-result",
+      "reference": {
+        "type": "tool/result",
+        "data": {
+          "message": {
+            "role": "tool",
+            "content": [
+              {
+                "type": "text",
+                "text": "你好 😀"
+              }
+            ]
+          }
+        }
+      },
+      "native": {
+        "type": "tool/result",
+        "data": {
+          "turn": 1,
+          "step": 1,
+          "result": {
+            "call_id": "canonical-call",
+            "outcome": "success",
+            "content": "你好 😀",
+            "metadata": {
+              "private": "provider-header"
+            }
+          }
+        }
+      },
+      "expected": {
+        "type": "tool/result",
+        "message": {
+          "role": "tool",
+          "content": [
+            {
+              "type": "text",
+              "text": "你好 😀"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "non-message",
+      "reference": {
+        "type": "step/start",
+        "data": {
+          "turn": 1,
+          "step": 1
+        }
+      },
+      "native": {
+        "type": "step/start",
+        "data": {
+          "turn": 1,
+          "step": 1
+        }
+      },
+      "expected": null
+    }
+  ]
+}

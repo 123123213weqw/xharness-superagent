@@ -2,6 +2,7 @@
 //! second inbox, legacy gh-host, detached poll task or model bypass is used.
 #![forbid(unsafe_code)]
 #![deny(clippy::unwrap_used, clippy::expect_used, unused_must_use)]
+use super::resources::{Instance, SourceResources};
 use super::{native::Sources, Application};
 use crate::{
     driver::HandlerError,
@@ -69,7 +70,9 @@ impl Prepared {
     pub fn ports(&self, stop: CancellationToken) -> Sources {
         let send = self.clone();
         let enabled = self.clone();
+        let reads = self.clone();
         Sources {
+            resources: resource_ports(Rc::new(move || reads.ready())),
             scope: Arc::new(protocol::scope),
             enabled: Rc::new(move |settings, source| {
                 Ok(source == "github"
@@ -108,7 +111,12 @@ pub fn ports(
     stop: CancellationToken,
 ) -> Result<Sources> {
     deployment.validate()?;
+    let reads = Installed {
+        transport: transport.clone(),
+        deployment: deployment.clone(),
+    };
     Ok(Sources {
+        resources: resource_ports(Rc::new(move || Ok(reads.clone()))),
         scope: Arc::new(protocol::scope),
         enabled: Rc::new(|settings, source| {
             Ok(source == "github" && Config::resolve(settings).is_some())
@@ -129,6 +137,83 @@ pub fn ports(
             .boxed_local()
         }),
     })
+}
+
+/// Actual installed GitHub kind plus retained orphan configurations. Disabled
+/// and invalid instances follow the original SourceRegistry resolve contract.
+pub fn resource_instances(
+    settings: &xharness_superagent_core::settings::Settings,
+) -> crate::Result<Vec<Instance>> {
+    let parts = settings.value().get("sources");
+    let stored = parts.and_then(|p| p.get("github"));
+    let config = stored.and_then(|s| s.get("config")).cloned().unwrap_or(
+        xharness_superagent_core::js_json::JsValue::Object(Vec::new()),
+    );
+    let value: Value = serde_json::from_str(&config.stringify()?)?;
+    let parsed = Config::parse(&value);
+    let enabled = parsed.is_ok()
+        && stored
+            .and_then(|s| s.get("enabled"))
+            .and_then(xharness_superagent_core::js_json::JsValue::as_bool)
+            .unwrap_or(true);
+    // Invalid stored source config is disabled above; the reference registry
+    // exposes its schema defaults instead of presenting it as enabled.
+    let config = parsed.unwrap_or_default();
+    let mut result = vec![Instance {
+        id: "github".into(),
+        kind: "github".into(),
+        enabled,
+        installed: true,
+        config: serde_json::to_value(config)?,
+    }];
+    for (id, stored) in parts.map(|p| p.ordered_entries()).unwrap_or_default() {
+        if id == "github" {
+            continue;
+        }
+        let config = stored.get("config").cloned().unwrap_or(
+            xharness_superagent_core::js_json::JsValue::Object(Vec::new()),
+        );
+        result.push(Instance {
+            id: id.into(),
+            kind: id.into(),
+            enabled: stored
+                .get("enabled")
+                .and_then(xharness_superagent_core::js_json::JsValue::as_bool)
+                .unwrap_or(true),
+            installed: false,
+            config: serde_json::from_str(&config.stringify()?)?,
+        });
+    }
+    Ok(result)
+}
+fn resource_ports(ready: Rc<dyn Fn() -> Result<Installed>>) -> SourceResources {
+    SourceResources {
+        instances: Rc::new(resource_instances),
+        read: Rc::new(move |resource, stop| {
+            let ready = ready.clone();
+            async move {
+                if !resource.starts_with("github/") {
+                    return Err(crate::Error::Message(
+                        "Source kind not installed for this resource".into(),
+                    ));
+                }
+                let installed = ready().map_err(|e| crate::Error::GithubRead(Box::new(e)))?;
+                protocol::read::resource(installed.transport.as_ref(), &resource, stop)
+                    .await
+                    .map_err(|e| crate::Error::GithubRead(Box::new(e)))
+            }
+            .boxed_local()
+        }),
+        link: Rc::new(|trigger, _| {
+            async move {
+                Ok(match trigger.url.filter(|s| !s.is_empty()) {
+                    Some(url) => json!({"source_url":url}),
+                    None => json!({}),
+                })
+            }
+            .boxed_local()
+        }),
+    }
 }
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Health {

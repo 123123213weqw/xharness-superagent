@@ -238,17 +238,25 @@ pub(super) fn ticket_card(ticket: &Ticket) -> Result<Value> {
         })
     };
     let preview = latest_report(ticket)
-        .map(|r| {
-            r.summary
-                .split_whitespace()
-                .collect::<Vec<_>>()
-                .join(" ")
-                .chars()
-                .take(160)
-                .collect::<String>()
-        })
+        .map(|r| super::resources::preview(&r.summary, 160))
         .unwrap_or_default();
     let mut value = json!({"ticket_id":ticket.id,"title":ticket.title,"state":state,"strength":ticket.mandate.strength,"preview":preview,"read":format!("ticket/{}",ticket.id)});
+    let follows = ticket.follows.as_deref().unwrap_or(&[]);
+    let number = |follow: &xharness_superagent_core::model::Follow| {
+        follow
+            .thread
+            .strip_prefix("github:")
+            .and_then(|s| s.parse::<u64>().ok())
+    };
+    if let Some(pr) = follows
+        .iter()
+        .rev()
+        .filter(|f| f.closed.is_none())
+        .find_map(number)
+        .or_else(|| follows.iter().rev().find_map(number))
+    {
+        value["pr_number"] = json!(pr);
+    }
     if let Some(ended) = &ticket.ended {
         value["ended"] = json!({"at":ended.at,"by":ended.by,"reason":ended.reason.clone().map(Value::String).unwrap_or(serde_json::to_value(&ended.outcome)?)});
     }
@@ -510,6 +518,30 @@ async fn invoke(
     cancel: tokio_util::sync::CancellationToken,
 ) -> Result<Value> {
     match (scope, name) {
+        (scope, "orchestrator_read") => {
+            let audience = match scope {
+                Scope::Main => super::resources::Audience::Main,
+                Scope::Worker(id) => super::resources::Audience::Worker(id.clone()),
+            };
+            let request = super::resources::Request::parse(args)?;
+            client
+                .call_with_cancel(cancel.clone(), move |app| {
+                    let prepared = (|| {
+                        app.state.require_open()?;
+                        app.state
+                            .resource_reader
+                            .get()
+                            .cloned()
+                            .ok_or_else(|| error("Native resource reader is unavailable"))
+                    })();
+                    async move {
+                        let reader = prepared?;
+                        reader(audience, request, cancel).await
+                    }
+                    .boxed_local()
+                })
+                .await
+        }
         (
             Scope::Main,
             "orchestrator_ticket_retry"

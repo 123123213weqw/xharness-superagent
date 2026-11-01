@@ -20,6 +20,32 @@ use xharness_superagent_core::{
 };
 mod cards;
 pub use cards::{preview, text_page};
+mod cache;
+pub use cache::TextCache;
+pub mod messages;
+use futures::future::LocalBoxFuture;
+use std::rc::Rc;
+use tokio_util::sync::CancellationToken;
+use xharness_superagent_core::settings::Settings;
+
+pub type ReadFuture = LocalBoxFuture<'static, Result<Value>>;
+pub type ReadPort = Rc<dyn Fn(Audience, Request, CancellationToken) -> ReadFuture>;
+pub type SourceRead = Rc<dyn Fn(String, CancellationToken) -> ReadFuture>;
+pub type SourceLink = Rc<dyn Fn(Trigger, CancellationToken) -> ReadFuture>;
+pub type SourceInstances = Rc<dyn Fn(&Settings) -> Result<Vec<Instance>>>;
+#[derive(Clone, Debug)]
+pub struct Instance {
+    pub id: String,
+    pub kind: String,
+    pub enabled: bool,
+    pub installed: bool,
+    pub config: Value,
+}
+pub struct SourceResources {
+    pub instances: SourceInstances,
+    pub read: SourceRead,
+    pub link: SourceLink,
+}
 
 /// Supplied by a trusted role/session binding, never deserialized from tool args.
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -96,7 +122,7 @@ impl Request {
     pub fn limit(&self) -> Option<u16> {
         self.limit
     }
-    fn size(&self, default: u16) -> usize {
+    pub(super) fn size(&self, default: u16) -> usize {
         usize::from(self.limit.unwrap_or(default).min(50))
     }
     fn sql_offset(&self) -> Result<i64> {
@@ -110,7 +136,7 @@ impl Request {
             usize::from(self.limit.unwrap_or(4000)),
         )
     }
-    fn page(&self, mut items: Vec<Value>, size: usize) -> Value {
+    pub(super) fn page(&self, mut items: Vec<Value>, size: usize) -> Value {
         let more = items.len() > size;
         items.truncate(size);
         json!({"items":items,"next_offset":more.then(||self.offset.saturating_add(size as u64))})
