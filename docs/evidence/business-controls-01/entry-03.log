@@ -1,0 +1,9 @@
+   Compiling xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+error[E0425]: cannot find function `latest_report` in this scope
+  --> crates/xharness-superagent/src/application/native/idle.rs:72:24
+   |
+72 |         let previous = latest_report(&current)
+   |                        ^^^^^^^^^^^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `xharness-superagent` (lib test) due to 1 previous error

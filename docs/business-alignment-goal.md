@@ -82,3 +82,12 @@ CodingToolBundle write、报告和 marker 回执；不是将分开的组件测�
 `conformance/business/acceptance.json`；外部服务仍为明确协议夹具，不是线上 GitHub
 或付费模型验证。主14/Worker6剩余工具、inferred/资源、飞书、多来源、API/UI、完整
 崩溃恢复与部署回退均继续在 Goal 内，不缩减为只做 B1。
+
+## B2 控制工具接线
+
+7个控制工具现已经过实际处理器/SQL/队列接入；应用工具子集为主6/Worker5。
+新增正式入口场景证明重试的新 assignment、上下文线程控制及无报告 Worker 的状态
+查询路径。工具完整性仍未达到14/6；资源读取和完整推断/配置工具继续实现。
+
+本批全工作区测试实际执行，旧飞书专用 UID/出站过滤2项部署断言未通过；保留失败，
+不修改共享服务器来凑绿。详细范围见 `docs/business-controls-verification.json`。

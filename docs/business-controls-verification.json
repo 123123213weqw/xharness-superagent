@@ -1,0 +1,238 @@
+{
+  "created_at_utc": "2026-11-01T18:51:19.914805+00:00",
+  "source_commit": "0a7cc7e0d571ee247cef99e9083c2b7a0b8a53d4",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "status": "controls_and_quiet_idle_product_paths_verified_full_alignment_incomplete_workspace_test_gate_red",
+  "host": "WZU_Server",
+  "local_rust_compilation": false,
+  "isolated_owned_validation_directory": true,
+  "profile_sha256": "4e2801e2f90704146e40c87c119a6f9995e0300a6353859af142e26b7da60d50",
+  "profile_files": 697,
+  "profile_manifest": "docs/business-controls-source-profile.json",
+  "local_remote_source_equal": true,
+  "new_runtime_dependencies": [],
+  "cargo_lock_changed": false,
+  "application_tool_registrations": {
+    "main": 6,
+    "worker": 5,
+    "new": 7,
+    "required_main": 14,
+    "required_worker": 6,
+    "remaining_registrations": 9,
+    "metadata_equal_to_pinned_contract_subset": true
+  },
+  "formal_entry_tests": {
+    "count": 11,
+    "new_count": 3,
+    "names": [
+      "formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate",
+      "check_is_read_only_for_external_services_and_releases_state_lease",
+      "invalid_saved_model_and_missing_configuration_never_fall_back",
+      "refused_and_unauthorized_requests_do_not_start_workers",
+      "preparation_failure_is_reported_without_worker_or_silent_retry",
+      "watch_owns_the_state_exclusively_and_interrupt_joins_before_reopen",
+      "setup_failure_and_missing_model_credential_do_not_leave_a_live_owner",
+      "once_interrupt_cancels_a_model_wait_and_releases_the_lease",
+      "formal_worker_thread_controls_keep_ownership_context_and_role_boundaries",
+      "formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work",
+      "formal_idle_worker_gets_waiting_report_and_status_request_reaches_same_assignment"
+    ],
+    "passed": 11,
+    "new_tests": [
+      "formal_worker_thread_controls_keep_ownership_context_and_role_boundaries",
+      "formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work",
+      "formal_idle_worker_gets_waiting_report_and_status_request_reaches_same_assignment"
+    ],
+    "external_services": "Explicit loopback OpenAI HTTP/SSE and gh subprocess fixtures only. No paid calls or real GitHub writes.",
+    "actual_path": "Formal binary -> Source/policy/SQL -> actual Native main/worker -> real control handlers and CodingToolBundle write -> report/reply/marker outbox"
+  },
+  "business_assertions": {
+    "thread_controls": [
+      "Extra model ticket_id is rejected; a worker cannot target a different ticket.",
+      "First context follow is true, duplicate false; context thread later unrelated removes only this ticket.",
+      "Origin thread, invalid handback and unavailable main tool are refused before side effects.",
+      "Exactly two passive occurrence notices, not a new conversation or wake task.",
+      "Actual result file preserves Chinese/emoji, ready and source replies commit."
+    ],
+    "retry": [
+      "Explicit human text requests one retry after failure.",
+      "Same Ticket contains two different assignments, first endedReason retried and failed report.",
+      "Second assignment runs real file work, reports ready, and exactly ack/result replies are sent."
+    ],
+    "status": [
+      "Unreported quiet worker is recorded waiting by actual Executor glue, not by changing the pure Core turnEnded semantics.",
+      "Main status tool sends a real input, not a no-op.",
+      "Same assignment receives status request and then writes actual file, reports ready and replies."
+    ]
+  },
+  "component_tests_not_full_acceptance": {
+    "control_checks": 3,
+    "closing_error_negative_check": 1,
+    "checks": [
+      "context subscriptions never grant authority; unrelated preserves other tickets; main unsubscribe removes all",
+      "handback/requeue ownership rules and actual SQL failures do not become absent owners",
+      "status/no-op/retry command transitions and fresh assignment identity",
+      "shutdown barrier never reclassifies typed I/O/asset or other genuine failures"
+    ]
+  },
+  "shutdown_regression": {
+    "previous_ci_url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41333623582",
+    "previous_head": "771308b70270116f705e21fc53de5e44f9003e3a",
+    "previous_linux": "failed: native_prompts.rs:709 returned Failed instead of Cancelled",
+    "previous_macos": "success",
+    "fix_scope": "Product-owned prompt resolver only: narrowly wait for Core-owned cancellation during closing rejection/success window; real typed failures propagate. No Core/Host import or assertion changed.",
+    "unchanged_exact_shutdown_assertion_repeat_executions": 12,
+    "repeat_passed": 12,
+    "repeat_not_added_to_distinct_test_counts": true,
+    "new_head_ci_not_yet_verified": true
+  },
+  "commands": [
+    {
+      "command": "cargo fmt --all -- --check",
+      "exit": 0
+    },
+    {
+      "command": "cargo check --locked --workspace --all-targets --features xharness-superagent/conformance",
+      "exit": 0
+    },
+    {
+      "command": "cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings",
+      "exit": 0
+    },
+    {
+      "command": "cargo test --locked --workspace --all-targets --features xharness-superagent/conformance --no-fail-fast -- --test-threads=1",
+      "exit": 101
+    },
+    {
+      "command": "cargo build --locked -p xharness-superagent-core --bin superagent-engine",
+      "exit": 0
+    }
+  ],
+  "workspace_test_gate": {
+    "run": true,
+    "passed": false,
+    "failed_target": "xharness-feishu --test sandbox",
+    "failed_declarations": [
+      "egress_goes_only_through_the_whitelist_proxy",
+      "shell_runs_as_the_dedicated_uid_without_sudo"
+    ],
+    "observed_evidence": [
+      "Expected dedicated UID/GID 1007/995; actual sandbox command returned 1000/1000.",
+      "Negative egress assertions observed OPEN-PROXY:200 and CTRL:200."
+    ],
+    "interpretation": "These existing legacy Feishu deployment assertions have privileged UID/firewall/proxy preconditions, not the new Source/product path. No baseline replay as a different UID was performed, and they are not claimed fixed or proven unrelated by execution.",
+    "no_server_account_firewall_proxy_or_service_changes": true,
+    "no_failed_assertions_removed_or_relaxed": true,
+    "no_full_workspace_green_claim": true,
+    "aggregate_pass_count_deliberately_omitted": "Full logs include nested subprocess fixture result rows; no inflated sum of duplicate child reports.",
+    "ignored_declarations_not_product_pass": [
+      "test live_model_calls_real_tool_and_finishes_the_loop ... ignored, requires a live OpenAI-compatible model endpoint",
+      "test live_model_continues_coding_across_execution_checkpoints ... ignored, requires an explicitly configured live model endpoint",
+      "test live_model_repairs_code_and_emits_complete_debug_evidence ... ignored, requires a live OpenAI-compatible endpoint (XHARNESS_LIVE_BASE_URL/_API_KEY)",
+      "test live_model_uses_managed_jobs_instead_of_pty_or_nohup ... ignored, requires a live OpenAI-compatible endpoint (XHARNESS_LIVE_BASE_URL/_API_KEY)",
+      "test shell_native_failure_fixture ... ignored",
+      "test shell_native_success_fixture ... ignored",
+      "test shell_native_wait_fixture ... ignored",
+      "test context_selection::tests::actual_legacy_metadata_proves_inherited_automatic_budget ... ignored, metadata-only real journal acceptance; no transcript or tool bodies",
+      "test restore::dynamic_projection_tests::offline_dynamic_projection_stress ... ignored, bounded dynamic replay; explicit CI/local incident investigation only",
+      "test restore::tests::offline_authoritative_restore_100_cold_starts ... ignored, explicit isolated cold-start acceptance; run in diagnostics CI",
+      "test restore::tests::offline_journal_projection_stress ... ignored, explicit offline projection experiment; private journals stay local",
+      "test restore::tests::offline_reasoning_projection_stress ... ignored, offline crash-reproduction stress; run explicitly in CI",
+      "test restore_checkpoint::tests::recovery_checkpoint_performance_acceptance ... ignored, explicit remote cold-recovery performance acceptance",
+      "test runtime::tests::admission_performance_tests::large_history_rpc_performance_acceptance ... ignored, remote optimized real-RPC A/B acceptance, no network/model calls",
+      "test runtime::tests::max_tokens_diagnostic::diagnostic_max_tokens_notice_survives_next_turn_start ... ignored, diagnostic of known notice mismatch; run explicitly, remove when fixed",
+      "test provider::image_budget_tests::live_official_deepseek_image_allowance ... ignored, Paid official DeepSeek experiment; requires explicit key, fixture root and report path",
+      "test mixed_calibration_live::live_growth_and_restart_with_images ... ignored, paid official DeepSeek accounting experiment; requires an explicit evaluation key",
+      "test parsed_index_cache_ab_benchmark ... ignored, opt-in parsed-index A/B benchmark; no network/model calls",
+      "test history_index_performance_acceptance ... ignored, explicit remote history paging performance acceptance",
+      "test large_conversation_send_storage_performance_acceptance ... ignored, explicit remote large-conversation send performance acceptance"
+    ],
+    "capability_guarded_early_returns_not_business_acceptance": true
+  },
+  "reference_checks": {
+    "unmodified_engine_policy_scenarios": 20,
+    "commands": 120,
+    "equal": 20,
+    "differences": [],
+    "scope": "Existing normal business command regression with scripted executor/source ports; not full original/target Runtime SDK or real-service comparison.",
+    "source_function_oracle_samples": 57,
+    "reference_source_files_unchanged": 216,
+    "import_chain_steps": 11,
+    "controlled_paths": 86,
+    "product_overlays_unchanged": 2,
+    "negative_provenance_guards": 6
+  },
+  "earlier_failures_preserved": [
+    "entry-01: successful actual control operations, assertion used wrong wording for notReached; now uses original shared error text",
+    "entry-02: exposed that Core turnEnded alone is not Executor waiting; component seed made explicit AND actual Native quiet-idle transition plus formal case implemented",
+    "entry-03: missing latest_report import, fixed",
+    "regression-01: cleanup ignored a must-use Result; now handles error, no lint suppression",
+    "regression-02: 2 legacy deployment tests still fail; full output retained"
+  ],
+  "logs": [
+    {
+      "path": "docs/evidence/business-controls-01/check-01.log",
+      "exit": 0,
+      "raw_sha256": "7da1e451f5b727b654509bb0ee9f340615c902fe7c81d3c0bca175219a6087a6",
+      "published_sha256": "1fae026547c8304049df9d428471e60389da509cad0c6a744383dfa7c23b72cb"
+    },
+    {
+      "path": "docs/evidence/business-controls-01/entry-01.log",
+      "exit": 101,
+      "raw_sha256": "f2e8644af7b76feeb531b60cd670240f16812482f5d8d17e425e3f8916a6de5a",
+      "published_sha256": "52c92eddfe6c78ccd89490473776a5f68847f26491758797b02a7303b7670909"
+    },
+    {
+      "path": "docs/evidence/business-controls-01/entry-02.log",
+      "exit": 101,
+      "raw_sha256": "bbebf2916d716658f600152643eae6cfc2feade728d9398548d7cc5f67b83d12",
+      "published_sha256": "b7ce9e340b5d7cc6ea9011edf8e67a49b5eb862b7dd1f8fdb93dee9e5c9424d8"
+    },
+    {
+      "path": "docs/evidence/business-controls-01/entry-03.log",
+      "exit": 101,
+      "raw_sha256": "1ff824944d4d5734454f54514601f39201792e6f8370bbb0beb0adcb9e0c934a",
+      "published_sha256": "a6e5419dd3c69e3dbb822200a4265c1502ae1a2acc3f4cdb8ada55247a3bdfd1"
+    },
+    {
+      "path": "docs/evidence/business-controls-01/entry-04.log",
+      "exit": 0,
+      "raw_sha256": "29840b87d536afa73afafe04cbb6172f585f1c4ee6537b8bb053f73ac08b8fb4",
+      "published_sha256": "9b5371bc8ad1e70610076ac404e0b0a0a9d1dec4e29bb3ba1c9ef6c7f172fd45"
+    },
+    {
+      "path": "docs/evidence/business-controls-01/regression-01.log",
+      "exit": 101,
+      "raw_sha256": "a05d2d11f8ad891ed96b2e831351902d55f81a1672dd10cbdd67329680ea630b",
+      "published_sha256": "9b2517de947be309805e4f4293d823b9459a1947b658ef948e16fba439184925"
+    },
+    {
+      "path": "docs/evidence/business-controls-01/regression-02.log",
+      "exit": 101,
+      "raw_sha256": "1669116e79114bcc96252588c3b85a877b6870b8c94a9551bd626b86f0078bf4",
+      "published_sha256": "008e30c9b40d1537a6df2f6b2bbfeeb145435e08e1e5cf40b467120c0b3b5a2a"
+    },
+    {
+      "path": "docs/evidence/business-controls-01/oracle-02.log",
+      "exit": 0,
+      "raw_sha256": "bbe14a3ab90fa2b4709d532b5017f0c33d087bd87c5e471268497790ceed4634",
+      "published_sha256": "4aa1d6cc1bf7f0ea1b57d5be0c87fc41665891cc821fcf94407cdc56bd4e2232"
+    },
+    {
+      "path": "docs/evidence/business-controls-01/engine-report.json",
+      "raw_sha256": "b81447884f5db32730e6d1b51b509e95eca328bea7c331db1e1ec46249bdf86a",
+      "published_sha256": "484fdf6d6e98939ef3aceb131eb96e72765b5c17012ba3940d5b5372ac4ea7d9"
+    }
+  ],
+  "normalization": "Only absolute source/cache prefixes replaced; complete stdout/stderr retained with raw/public hashes.",
+  "cancelled_language_scope_counted_as_business_pass": false,
+  "new_business_case_groups_signed_off": 0,
+  "remaining": [
+    "complete bounded orchestrator_read for both roles, transcript/prompt/model/source resources with trusted ownership",
+    "main ticket note with word gate; eval/context/read/decide; settings/policy sync/prompts control and API/UI",
+    "complete GitHub report PR claim/context paths, Feishu/new multi-source registry",
+    "30-minute background/subagent settlement, timeout/stop/join, all lifecycle/crash/recovery cuts",
+    "normal open/waiting ticket restart delivery binding must be explicitly tested; no claim from completed-ticket replay",
+    "deployment/backup/rollback and necessary old-regression/environment gates"
+  ]
+}

@@ -120,15 +120,37 @@
       "id": "TOOLS-01",
       "milestone": "B2",
       "title": "实际模型请求中的主角色14个/Worker6个应用工具与角色权限",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "0a7cc7e0d571ee247cef99e9083c2b7a0b8a53d4",
+          "verified_subset": "Actual main6/worker5 application registrations and role boundaries verified; full main14/worker6 still incomplete.",
+          "entry_and_command": "Formal xharness-superagent binary in tests/product_entry.rs; remote cargo test --test product_entry and full workspace attempt",
+          "environment": "WZU_Server owned directory; explicit offline external-service protocol fixtures",
+          "full_log": "docs/evidence/business-controls-01/entry-04.log",
+          "business_assertions": "docs/business-controls-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        }
+      ]
     },
     {
       "id": "TOOLS-02",
       "milestone": "B2",
       "title": "工具处理器执行真实业务命令并保留批次部分成功和错误结果",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "0a7cc7e0d571ee247cef99e9083c2b7a0b8a53d4",
+          "verified_subset": "Actual seven new control handlers wired; 3 new formal entry paths plus explicit component checks; remaining tools and full branches unverified.",
+          "entry_and_command": "Formal xharness-superagent binary in tests/product_entry.rs; remote cargo test --test product_entry and full workspace attempt",
+          "environment": "WZU_Server owned directory; explicit offline external-service protocol fixtures",
+          "full_log": "docs/evidence/business-controls-01/entry-04.log",
+          "business_assertions": "docs/business-controls-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        }
+      ]
     },
     {
       "id": "PROMPT-01",
@@ -155,8 +177,19 @@
       "id": "WORK-03",
       "milestone": "B5",
       "title": "并发限制、失败重试、额度等待及人工重试在完整链路中正确",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "0a7cc7e0d571ee247cef99e9083c2b7a0b8a53d4",
+          "verified_subset": "Formal explicit-human conditional retry creates a distinct assignment and performs real work; concurrency/quota/backoff/full retry matrix still unverified.",
+          "entry_and_command": "Formal xharness-superagent binary in tests/product_entry.rs; remote cargo test --test product_entry and full workspace attempt",
+          "environment": "WZU_Server owned directory; explicit offline external-service protocol fixtures",
+          "full_log": "docs/evidence/business-controls-01/entry-04.log",
+          "business_assertions": "docs/business-controls-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        }
+      ]
     },
     {
       "id": "WORK-04",
@@ -257,14 +290,21 @@
     }
   ],
   "implementation_progress": {
-    "status": "B1_in_progress_not_product_accepted",
-    "evidence": "docs/business-native-verification.json",
-    "native_library_fixture_checks_passed": 7,
-    "full_business_cases_passed": 0,
-    "github_source_evidence": "docs/business-github-verification.json",
-    "github_protocol_checks_passed": 6,
-    "github_to_native_fixture_checks_passed": 8
+    "status": "B2_in_progress_full_product_alignment_incomplete",
+    "evidence": "docs/business-controls-verification.json",
+    "full_business_groups_passed": 5,
+    "business_groups_in_progress": 4,
+    "business_groups_not_run": 14,
+    "validation_environment": "offline_protocol_fixture",
+    "formal_entry_tests_passed": 11,
+    "application_tool_registrations": {
+      "main": 6,
+      "worker": 5,
+      "required_main": 14,
+      "required_worker": 6
+    },
+    "workspace_test_gate": "failed_two_legacy_feishu_sandbox_deployment_checks"
   },
-  "updated_at_utc": "2026-11-01T17:49:18.790819+00:00",
+  "updated_at_utc": "2026-11-01T18:51:19.914805+00:00",
   "validation_note": "passed denotes the listed complete product scenario in an explicitly offline protocol environment, not real GitHub/model service approval, universal parity or release readiness. Unexecuted branches remain open."
 }

@@ -53,8 +53,9 @@ SuperAgent 替代品。旧 gh-host/feishu-host 不参与这条路径。
 
 ## 工具与边界
 
-主角色只有 route/reply，Worker 只有 ack/report 这4个**应用工具子集**，尚不是
-主14/Worker6。Worker 另装实际编码工具：本机平台对应的 bash/pwsh、read/write/edit、
+入口首批是 route/reply/ack/report 4个应用工具。后续新增7个控制工具，目前是主角色
+6个、Worker5个，见 [控制接线](business-controls.md)，仍不是主14/Worker6。
+Worker 另装实际编码工具：本机平台对应的 bash/pwsh、read/write/edit、
 glob/grep 和 managed job 的 output/list/kill。没有假文件写入处理器。
 
 - 始终使用已有 WorkspaceWrite + NetworkDeny 平台，不转 full-access。

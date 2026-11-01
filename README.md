@@ -19,7 +19,7 @@
 - XHarness 原生会话/JSONL 接入组件、队列/followup/steer/inject、观察与关闭。
 - 部分 Prompt/skills、输入准备、重试健康和崩溃恢复组件。
 - 固定原版源码及组件差分验证设施。
-- Application/Native 库级装配，以及路由、回复、确认、报告四个产品工具子集。
+- Application/Native 装配及11个应用工具子集（主角色6个、Worker5个）。
   离线夹具可实际启动 Worker 写文件并经 Outbox 回复；详见
   [当前接线及边界](docs/superagent/business-native.md)，不冒充正式 Source/CLI 验收。
 - GitHub Source 的通知/评论/PR/CI 轮询、稳定事件和 marker 回复库已接到 Native；
@@ -29,6 +29,8 @@
   HTTP/SSE → Native → CodingToolBundle → GitHub marker 回复闭环。
   [配置、权限和验证边界](docs/superagent/business-entry.md)；外部服务由明确的
   loopback 模型/gh 协议夹具验证，没有付费调用或真实 GitHub 评论。
+- [工单/线程控制](docs/superagent/business-controls.md)：重试、状态查询、重新研判、
+  订阅/移除/handback 已接入同一 Native 工具路径；完整主14/Worker6仍未完成。
 
 ## 尚未完成
 

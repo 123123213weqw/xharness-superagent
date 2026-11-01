@@ -80,3 +80,21 @@ workspace 测试。新代码的跨平台CI另以其精确提交检查，不复�
 下一优先项：主14/Worker6余下业务工具、bounded read/context 和完整 inferred 研判，
 然后飞书/多来源、配置 API/UI、完整停止/追加/重试/后台/崩溃恢复与部署/回退。
 这些都留在活动 Goal 内，不把第一条闭环误记成全部业务对齐。
+
+## B2 控制工具接线（当前）
+
+新增7个实际控制处理器，现有主角色6个、Worker5个应用工具；完整20个工具仍缺9个
+注册及相关完整分支。正式入口测试现为11个，本批新增线程控制、失败后的新 assignment
+重试、普通无报告回合的 waiting/状态查询3条路径；3个控制组件检查不另算业务验收。
+
+修正产品自有 prompt resolver 的关闭竞争；保留原有 Cancelled 断言及真实错误，
+定点重复12次通过，未修改冻结的 Host 导入或参考断言。新 CI 须按精确提交复验。
+
+本批 workspace fmt/check/严格 Clippy 通过，但**全工作区测试未通过**：旧
+`xharness-feishu --test sandbox` 有2项部署检查失败（专用 UID、出站过滤）。
+没有据此改服务器用户/防火墙/代理或现有服务，也没有删测或把它们记成通过。
+完整输出、失败范围及其他证据见 `docs/business-controls-verification.json`。
+
+完整 bounded read、note/推断研判/设置/Prompt工具、飞书新 Source、API/UI、完整
+后台任务/恢复与部署继续留在 Goal 中。普通安静回合的 waiting 修复不代表原版30分钟
+后台/子任务结算已完成。当前仍为5组离线业务通过；新增控制证据只推进相关未完成组。
