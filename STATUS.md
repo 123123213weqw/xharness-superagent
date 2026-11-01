@@ -181,3 +181,27 @@ Note/三个eval/policy_sync、完整来源、API/UI、后台/停止/恢复/部�
 无新依赖、付费调用、真实GitHub评论/生产部署或JS/UTF-16全域迁移。
 见[配置边界](docs/superagent/business-configuration.md)与
 `docs/business-configuration-verification.json`。
+
+
+## 2026-11-02 主动研判业务子集
+
+新增 eval/eval_read/eval_decide 实际主角色路径；目前主12/Worker6应用工具，
+不是全部分支完成。推断 auto 经当前规则/方向/意图授权后，实际 Worker 写文件并
+经 Outbox 回复；observe 只记录建议，不开 Worker。显式请求仍必须 route。
+
+本次正式入口27条通过（新增7条），覆盖引用/路径拒绝、规则/证据/中文确认语
+边界、已结束评估、真实双消息批次的当前 trigger 身份、超时及 SIGINT 子进程回收。
+另有20个原版 GitHub 上下文/仓库/窗口执行样本和10个原版常见词数样本；
+这些组件样本不冒充整产品验收。所有 Rust 验证在 WZU_Server 独立目录执行；
+workspace fmt/check/严格 Clippy 与所列10个 crate 回归通过，来源指纹730文件本地/远端一致。
+
+新加 ICU4X 中文/英文确认语分词依赖，6个新增锁定外部包、7个既有区段依赖边；
+既有版本/checksum不刷新，保留许可证与独立严格 lock overlay。没有 Node/SDK
+生产依赖、全域 JS/UTF-16 迁移、付费或真实外部写入。
+
+上一精确提交 CI 的 macOS 成功，Linux 因 PID 夹具非原子发布读取到空值失败；
+现改原子发布并保留所有存活/取消/回收断言。新提交 CI 不能套用旧提交结果。
+完整证据见 docs/business-assessment-verification.json 与
+docs/superagent/business-assessment.md；仍为5组离线通过、9组部分推进、9组未运行。
+主工具还缺 ticket_note/policy_sync，完整来源/飞书/API/UI、后台/停止/恢复/部署
+回退继续在同一个活动 Goal 内，未标记完成。

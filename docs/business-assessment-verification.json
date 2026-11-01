@@ -1,0 +1,257 @@
+{
+  "created_at_utc": "2026-11-01T22:01:03.030454+00:00",
+  "source_commit": "5b04c16e9f1f6f4d5bdb3749df2b468afa8fe614",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "status": "proactive_business_assessment_subset_verified_full_goal_incomplete",
+  "host": "WZU_Server",
+  "local_rust_compilation": false,
+  "isolated_owned_validation_directory": true,
+  "profile_manifest": "docs/business-assessment-source-profile.json",
+  "profile_sha256": "62476a66a3392f8a54aca294fce0e9145872fe504a8aa06282ba3a6272bae785",
+  "profile_files": 730,
+  "local_remote_source_equal": true,
+  "application_tools": {
+    "main": 12,
+    "worker": 6,
+    "required_main": 14,
+    "required_worker": 6,
+    "new": [
+      "orchestrator_eval",
+      "orchestrator_eval_read",
+      "orchestrator_eval_decide"
+    ],
+    "remaining_main": [
+      "orchestrator_ticket_note",
+      "orchestrator_policy_sync"
+    ],
+    "framework_skill_not_counted": true,
+    "registration_is_not_all_branch_acceptance": true
+  },
+  "formal_entry": {
+    "tests_passed": 27,
+    "new_tests": [
+      "assessment::formal_inferred_auto_uses_scoped_context_rules_real_worker_and_reply",
+      "assessment::formal_inferred_observe_records_proposal_and_finishes_refs_without_worker",
+      "assessment::formal_inferred_direction_and_rule_gates_do_not_prepare_or_reply",
+      "assessment::formal_explicit_request_refuses_eval_and_remains_routable",
+      "assessment::formal_assessment_timeout_joins_cli_and_records_visible_unavailable_without_worker",
+      "assessment::formal_interrupt_joins_assessment_seed_without_authorizing_or_preparing_work",
+      "assessment::formal_batch_context_caches_once_but_uses_each_requested_trigger_identity"
+    ],
+    "actual_product_path": true,
+    "environment": "Formal executable, real OpenAI HTTP/SSE adapter, Client/Engine/SQL/Native/CodingToolBundle/Outbox; external model and gh boundaries are explicit offline protocol fixtures only."
+  },
+  "business_assertions": [
+    "Inferred auto candidate loads real installed GitHub thread context, applies every enabled rule plus settled-direction/intent-evidence gates, commits the Engine decision and mandate, runs actual Worker write/report, replies through Outbox, and does not repeat after restart.",
+    "Observe records would_accept and proposal without Worker/workspace/reply. Design decisions and no matched rule produce ignore with the original reason array and direction/rule audit. Explicit candidates refuse eval but remain routable.",
+    "Missing/duplicate rules, missing intent evidence, over-100-word Chinese acknowledgement, forged messages/cursors, hidden repository paths and finished evaluation references visibly fail without starting work.",
+    "Text reads retain ordinary Chinese/emoji, enforce path/reference scope, cache offset pages and filter hidden directory entries. Loaded thread window includes first five plus five neighbours; only the requested trigger is marked and top-level text is not duplicated.",
+    "Batch triggers share one bounded initial context load while context/default-message reads resolve each requested trigger identity, not the first loader. One ignore decision consumes both batch trigger IDs.",
+    "Context timeout remains visible as unavailable context; actual gh child is cancelled and joined. SIGINT during an in-flight assessment seed joins the child before lease release and never authorizes/prepares work."
+  ],
+  "component_checks_not_full_product_acceptance": {
+    "rust_tests": 3,
+    "original_github_context_repository_admission_executable_cases": 20,
+    "original_word_limit_samples": 10,
+    "original_read_cases_retained": 19,
+    "original_source_samples_retained": 57,
+    "original_transcript_samples_retained": 5,
+    "sdk_stubs": false
+  },
+  "business_dependency": {
+    "direct": "icu_segmenter = \"=2.3.0\"",
+    "reason": "Chinese/English acknowledgement word limits, not global JS/Intl fidelity",
+    "new_packages": [
+      {
+        "package": "icu_segmenter",
+        "version": "2.3.0",
+        "license_file": "LICENSE",
+        "sha256": "f367c1b8e1aa262435251e442901da4607b4650e0e63a026f5044473ecfb90f2"
+      },
+      {
+        "package": "icu_segmenter_data",
+        "version": "2.3.0",
+        "license_file": "LICENSE",
+        "sha256": "f367c1b8e1aa262435251e442901da4607b4650e0e63a026f5044473ecfb90f2"
+      },
+      {
+        "package": "icu_locale_fallback",
+        "version": "2.3.0",
+        "license_file": "LICENSE",
+        "sha256": "f367c1b8e1aa262435251e442901da4607b4650e0e63a026f5044473ecfb90f2"
+      },
+      {
+        "package": "icu_locale_fallback_data",
+        "version": "2.3.0",
+        "license_file": "LICENSE",
+        "sha256": "f367c1b8e1aa262435251e442901da4607b4650e0e63a026f5044473ecfb90f2"
+      },
+      {
+        "package": "core_maths",
+        "version": "0.1.1",
+        "license_file": "LICENSE",
+        "sha256": "9ebf8c4cc0b735ca13a766451f7b8097db3185975ceb2ba94b5abf439156a91f"
+      },
+      {
+        "package": "libm",
+        "version": "0.2.16",
+        "license_file": "LICENSE.txt",
+        "sha256": "3823dda7cf046602f4b4e77ec8e227863dc4736037cc85bb33d9f19febe16bb7"
+      }
+    ],
+    "changed_existing_package_sections": [
+      "icu_locale_core",
+      "icu_provider",
+      "potential_utf",
+      "tinystr",
+      "xharness-superagent",
+      "zerotrie",
+      "zerovec"
+    ],
+    "existing_versions_sources_checksums_unchanged": true,
+    "before_lock_sha256": "6de2b3f070b89320e17f75adf88f2bb4ca2c7e3d6ce6e96a3d844d89f63af359",
+    "after_lock_sha256": "90510cf2323305f2c5de875f1e7049ba1c0821340c018123e63a1a0edeabcc97",
+    "strict_overlay_manifest": "conformance/business/business-word-cargo.overlay.json",
+    "production_node_or_sdk_dependency_added": false
+  },
+  "metadata_projection": {
+    "primitive_null_unions": 10,
+    "explicit_input_defaults": 4,
+    "unconstrained_json_domains": 1,
+    "generic_validator_weakened": false,
+    "frozen_reference_edited": false
+  },
+  "provenance": {
+    "reference_files": 216,
+    "controlled_import_steps": 11,
+    "controlled_paths": 86,
+    "declared_product_overlays": 3,
+    "positive_and_negative_guard_tests": 8
+  },
+  "startup_options": {
+    "admissionContextMaxPages": {
+      "default": 10,
+      "range": [
+        1,
+        100
+      ]
+    },
+    "admissionContextTimeoutMs": {
+      "default": 15000,
+      "range": [
+        1,
+        90000
+      ]
+    },
+    "management_api_hot_updates_implemented": false
+  },
+  "regression": {
+    "workspace_format_check": true,
+    "workspace_all_targets_check": true,
+    "workspace_strict_clippy": true,
+    "selected_test_crates": 10,
+    "full_workspace_tests": false,
+    "reported_passed": 1334,
+    "reported_ignored": 17,
+    "ignored_or_capability_early_return_is_not_product_acceptance": true,
+    "final_log": "docs/evidence/business-assessment-01/regression-04.log"
+  },
+  "diagnostic_history": [
+    "tests-01: recent-comment fixture endpoints were missing after observeComments enabled; added valid empty independent feeds. Old inventory assertion updated from main9+skill to main12+skill with exact new-name checks; no frozen assertions changed.",
+    "tests-02: 24/25 formal passed; the new gate test incorrectly treated Decision.reason as an object instead of the existing array. Corrected shape and strengthened audit assertions.",
+    "regression-01: strict Clippy detected adjacent if statements in a new test; formatting fixed without lint allowances. regression-02 passed before the additional current-trigger batch identity fix/test; regression-03 and batch-01 exposed that the first receive synchronously starts a singleton Eval; the test now queues two later events while it is active, decides the first, then exercises the actual two-trigger batch (batch-02 PASS). No product assertions removed. regression-04 validates the final source.",
+    "Exact previous head 6132fb8 CI 41351769292: macOS succeeded, Linux failed because a PID fixture file existed before its write completed. Fixture now publishes via atomic rename; all original process-alive/SIGINT/join/lease assertions retained. This old run is not final-head approval."
+  ],
+  "remaining_scope": [
+    "two main application tools and complete tool branches",
+    "concurrent policy replacement/eval-cache invalidation and full lifecycle matrix",
+    "GitHub PR/review task attribution and complete Source/CI branches",
+    "Feishu/multi-source context/attachments/replies",
+    "configuration API/management UI and dynamic deployment settings",
+    "background/subtasks/stop/concurrency/resource limits",
+    "complete crash cuts, backup, deployment and rollback",
+    "live external-service validation only with authorized configuration"
+  ],
+  "logs": [
+    {
+      "path": "docs/evidence/business-assessment-01/batch-01.log",
+      "raw_sha256": "3b15d1cfcf2891f0b12ca08e38cc87fdba1ca7d1b4cacf5ef53139875b3f9261",
+      "public_sha256": "da84441288faeeaf9260d2e917b52cbe351c094ddabae58fc437113a7b88aa4d",
+      "normalization": "Absolute owned source/cache prefixes only; all output/assertions/errors retained."
+    },
+    {
+      "path": "docs/evidence/business-assessment-01/batch-02.log",
+      "raw_sha256": "658b326d450eeff48dff063060bf3d8b568e01aeb48e77882006da29b823cf37",
+      "public_sha256": "f97e9998e14eeb6c907e88b63141ef4a97a34ac3aaacf19762a0981e142ba2ca",
+      "normalization": "Absolute owned source/cache prefixes only; all output/assertions/errors retained."
+    },
+    {
+      "path": "docs/evidence/business-assessment-01/check-01.log",
+      "raw_sha256": "06f26a0e37a65c04e7d4c36500320bbb260961c1994e466de1a0354da308cd60",
+      "public_sha256": "5f6e6b107a7134b9ef50fb61366fe61eb692611b3cac65f4a1b3471ca5859ab1",
+      "normalization": "Absolute owned source/cache prefixes only; all output/assertions/errors retained."
+    },
+    {
+      "path": "docs/evidence/business-assessment-01/node-01.log",
+      "raw_sha256": "3878cdfc442c5c89d92a632662125d7386410f722eb64756c849720daf186689",
+      "public_sha256": "3878cdfc442c5c89d92a632662125d7386410f722eb64756c849720daf186689",
+      "normalization": "Absolute owned source/cache prefixes only; all output/assertions/errors retained."
+    },
+    {
+      "path": "docs/evidence/business-assessment-01/node-02.log",
+      "raw_sha256": "28f47244cda4a727688ad263055a235bf24891dcb6b2b10447e45b75c9372d2a",
+      "public_sha256": "28f47244cda4a727688ad263055a235bf24891dcb6b2b10447e45b75c9372d2a",
+      "normalization": "Absolute owned source/cache prefixes only; all output/assertions/errors retained."
+    },
+    {
+      "path": "docs/evidence/business-assessment-01/previous-head-ci-linux-failure.log",
+      "raw_sha256": "2a3e5f466b6976ec90cab4c5e59e43e4e1e0eb4edae62091d4fad261841b4948",
+      "public_sha256": "2a3e5f466b6976ec90cab4c5e59e43e4e1e0eb4edae62091d4fad261841b4948",
+      "normalization": "Absolute owned source/cache prefixes only; all output/assertions/errors retained."
+    },
+    {
+      "path": "docs/evidence/business-assessment-01/regression-01.log",
+      "raw_sha256": "39c54d18cb0db3b7a70ee09b29e84148aeb9ffb8b804fbf6ec91271286baabf2",
+      "public_sha256": "a4da4aa85df03c4c2b28b50c906712a8e83a275db7fcc8690865078c054c34b8",
+      "normalization": "Absolute owned source/cache prefixes only; all output/assertions/errors retained."
+    },
+    {
+      "path": "docs/evidence/business-assessment-01/regression-02.log",
+      "raw_sha256": "de4935edae2cb84a0028345e559583cdc5a1625e0e0dfce7c324db43bad96099",
+      "public_sha256": "4b408d8fea5bfce5ca588e77669f5c066c78f906002df4f40531b4f49d796daa",
+      "normalization": "Absolute owned source/cache prefixes only; all output/assertions/errors retained."
+    },
+    {
+      "path": "docs/evidence/business-assessment-01/regression-03.log",
+      "raw_sha256": "0ae122d7731d48d1bb329492cbb6e97186c4e98ab3b8fa8d839eced432bf1f2e",
+      "public_sha256": "b5de870a25bf9bf1c494c922bf1579b5f6dff9356e0dc2d2c6b78d9351d57be5",
+      "normalization": "Absolute owned source/cache prefixes only; all output/assertions/errors retained."
+    },
+    {
+      "path": "docs/evidence/business-assessment-01/regression-04.log",
+      "raw_sha256": "f73b2dd0692672c785eda1e06c26809e4130025a54e4070b64726a10bced566c",
+      "public_sha256": "9f895d25dcaa8a5b71eb801f2f92844b86d3e0cadd212ce23a28a0195af9d8c6",
+      "normalization": "Absolute owned source/cache prefixes only; all output/assertions/errors retained."
+    },
+    {
+      "path": "docs/evidence/business-assessment-01/tests-01.log",
+      "raw_sha256": "2bea4c8bf5d71117fa9828f75c7b2ecc7a5b14ccd4208985c3f6c7ffbd309a38",
+      "public_sha256": "e7ee21e44a6ea7a64f9512ee660817299f3dd090bf190fbd04b8b7c149f84145",
+      "normalization": "Absolute owned source/cache prefixes only; all output/assertions/errors retained."
+    },
+    {
+      "path": "docs/evidence/business-assessment-01/tests-02.log",
+      "raw_sha256": "19cd7493da712b48d629f5d4edf0a54a5970dd689e17d780c10b2af6de8156b1",
+      "public_sha256": "5f32b569c9de35898a2b36b79ef09cd54c1ecd6f6e252990f9d912dce2047e98",
+      "normalization": "Absolute owned source/cache prefixes only; all output/assertions/errors retained."
+    },
+    {
+      "path": "docs/evidence/business-assessment-01/word-dependency-01.log",
+      "raw_sha256": "06982798a797f7aa471e5573220f85fb0cdcb4d614e68c495a3854613d1c4d0e",
+      "public_sha256": "54bf99a627ca730e3dd97a2fe348fcd7af5e32c0775a4f24c963d8cf7ea1ce6a",
+      "normalization": "Absolute owned source/cache prefixes only; all output/assertions/errors retained."
+    }
+  ],
+  "full_goal_complete": false,
+  "cancelled_global_language_work_restarted": false
+}

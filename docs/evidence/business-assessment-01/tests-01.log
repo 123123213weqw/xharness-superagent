@@ -1,0 +1,131 @@
+   Compiling stable_deref_trait v1.2.1
+   Compiling writeable v0.6.4
+   Compiling litemap v0.8.3
+   Compiling libm v0.2.16
+   Compiling icu_locale_fallback_data v2.3.0
+   Compiling icu_segmenter_data v2.3.0
+   Compiling zerofrom v0.1.8
+   Compiling yoke v0.8.3
+   Compiling zerovec v0.11.7
+   Compiling zerotrie v0.2.5
+   Compiling core_maths v0.1.1
+   Compiling tinystr v0.8.4
+   Compiling potential_utf v0.1.6
+   Compiling icu_collections v2.3.0
+   Compiling icu_locale_core v2.3.0
+   Compiling icu_provider v2.3.0
+   Compiling icu_properties v2.3.0
+   Compiling icu_normalizer v2.3.0
+   Compiling icu_locale_fallback v2.3.0
+   Compiling icu_segmenter v2.3.0
+   Compiling idna_adapter v1.2.2
+   Compiling idna v1.1.0
+   Compiling url v2.5.8
+   Compiling tower-http v0.6.11
+   Compiling xharness-host v0.1.0 (<owned-source>/crates/xharness-host)
+   Compiling reqwest v0.12.28
+   Compiling xharness-web v0.1.0 (<owned-source>/crates/xharness-web)
+   Compiling xharness-provider-openai v0.1.0 (<owned-source>/crates/xharness-provider-openai)
+   Compiling xharness-coding-tools v0.1.0 (<owned-source>/crates/xharness-coding-tools)
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 46.86s
+     Running tests/assessment_context.rs (<owned-target>/debug/deps/assessment_context-fcd5837f8e2cc186)
+
+running 3 tests
+test admission_repeated_cursor_is_an_error_not_complete_or_partial_success ... ok
+test normal_chinese_english_word_limits_match_executed_business_samples ... ok
+test original_github_context_repository_and_admission_outputs_and_paths_match ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-ef0d52cf0b2d3454)
+
+running 25 tests
+test assessment::formal_assessment_timeout_joins_cli_and_records_visible_unavailable_without_worker ... 
+thread 'assessment::formal_assessment_timeout_joins_cli_and_records_visible_unavailable_without_worker' (3457581) panicked at crates/xharness-superagent/tests/product_entry.rs:706:5:
+stdout=
+stderr=2 GitHub reads failed: comments: Traceback (most recent call last):
+  File "/tmp/superagent-entry-3457580-0/fixture-gh", line 67, in <module>
+    raise AssertionError(f'Unexpected offline gh call: {args}')
+AssertionError: Unexpected offline gh call: ['api', 'repos/owner/repo/issues/comments?&sort=updated&direction=asc&per_page=100&since=2026-11-01T21%3A42%3A05.311Z', '--include']; review-comments: Traceback (most recent call last):
+  File "/tmp/superagent-entry-3457580-0/fixture-gh", line 67, in <module>
+    raise AssertionError(f'Unexpected offline gh call: {args}')
+AssertionError: Unexpected offline gh call: ['api', 'repos/owner/repo/pulls/comments?&sort=updated&direction=asc&per_page=100&since=2026-11-01T21%3A42%3A05.311Z', '--include']
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test assessment::formal_explicit_request_refuses_eval_and_remains_routable ... ok
+test assessment::formal_inferred_auto_uses_scoped_context_rules_real_worker_and_reply ... 
+thread 'assessment::formal_inferred_auto_uses_scoped_context_rules_real_worker_and_reply' (3457836) panicked at crates/xharness-superagent/tests/product_entry.rs:706:5:
+stdout=
+stderr=2 GitHub reads failed: comments: Traceback (most recent call last):
+  File "/tmp/superagent-entry-3457580-2/fixture-gh", line 67, in <module>
+    raise AssertionError(f'Unexpected offline gh call: {args}')
+AssertionError: Unexpected offline gh call: ['api', 'repos/owner/repo/issues/comments?&sort=updated&direction=asc&per_page=100&since=2026-11-01T21%3A42%3A07.092Z', '--include']; review-comments: Traceback (most recent call last):
+  File "/tmp/superagent-entry-3457580-2/fixture-gh", line 67, in <module>
+    raise AssertionError(f'Unexpected offline gh call: {args}')
+AssertionError: Unexpected offline gh call: ['api', 'repos/owner/repo/pulls/comments?&sort=updated&direction=asc&per_page=100&since=2026-11-01T21%3A42%3A07.092Z', '--include']
+
+FAILED
+test assessment::formal_inferred_direction_and_rule_gates_do_not_prepare_or_reply ... FAILED
+test assessment::formal_inferred_observe_records_proposal_and_finishes_refs_without_worker ... 
+thread 'assessment::formal_inferred_direction_and_rule_gates_do_not_prepare_or_reply' (3457982) panicked at crates/xharness-superagent/tests/product_entry.rs:706:5:
+stdout=
+stderr=2 GitHub reads failed: comments: Traceback (most recent call last):
+  File "/tmp/superagent-entry-3457580-3/fixture-gh", line 67, in <module>
+    raise AssertionError(f'Unexpected offline gh call: {args}')
+AssertionError: Unexpected offline gh call: ['api', 'repos/owner/repo/issues/comments?&sort=updated&direction=asc&per_page=100&since=2026-11-01T21%3A42%3A10.303Z', '--include']; review-comments: Traceback (most recent call last):
+  File "/tmp/superagent-entry-3457580-3/fixture-gh", line 67, in <module>
+    raise AssertionError(f'Unexpected offline gh call: {args}')
+AssertionError: Unexpected offline gh call: ['api', 'repos/owner/repo/pulls/comments?&sort=updated&direction=asc&per_page=100&since=2026-11-01T21%3A42%3A10.303Z', '--include']
+
+
+thread 'assessment::formal_inferred_observe_records_proposal_and_finishes_refs_without_worker' (3458053) panicked at crates/xharness-superagent/tests/product_entry.rs:706:5:
+stdout=
+stderr=2 GitHub reads failed: comments: Traceback (most recent call last):
+  File "/tmp/superagent-entry-3457580-4/fixture-gh", line 67, in <module>
+    raise AssertionError(f'Unexpected offline gh call: {args}')
+AssertionError: Unexpected offline gh call: ['api', 'repos/owner/repo/issues/comments?&sort=updated&direction=asc&per_page=100&since=2026-11-01T21%3A42%3A10.787Z', '--include']; review-comments: Traceback (most recent call last):
+  File "/tmp/superagent-entry-3457580-4/fixture-gh", line 67, in <module>
+    raise AssertionError(f'Unexpected offline gh call: {args}')
+AssertionError: Unexpected offline gh call: ['api', 'repos/owner/repo/pulls/comments?&sort=updated&direction=asc&per_page=100&since=2026-11-01T21%3A42%3A10.787Z', '--include']
+
+FAILED
+test check_is_read_only_for_external_services_and_releases_state_lease ... ok
+test configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions ... ok
+test configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model ... ok
+test configuration_lifecycle::formal_pause_records_decisions_but_holds_worker_and_replies_until_resume ... ok
+test configuration_lifecycle::formal_policy_save_rolls_back_history_effects_and_authority_on_sql_cut ... ok
+test formal_crashed_worker_restarts_with_recovery_note_and_preserves_its_worktree ... ok
+test formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate ... 
+thread 'formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate' (3459333) panicked at crates/xharness-superagent/tests/product_entry.rs:755:13:
+assertion `left == right` failed
+  left: 12
+ right: 9
+FAILED
+test formal_idle_worker_gets_waiting_report_and_status_request_reaches_same_assignment ... ok
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+test formal_missing_recovery_workspace_preserves_input_and_exposes_delivery_error ... ok
+test formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history ... ok
+test formal_waiting_worker_rebinds_after_restart_and_reads_new_source_input_once ... ok
+test formal_worker_thread_controls_keep_ownership_context_and_role_boundaries ... ok
+test interrupt_joins_inflight_read_cli_before_lease_release_without_completion ... ok
+test invalid_saved_model_and_missing_configuration_never_fall_back ... ok
+test once_interrupt_cancels_a_model_wait_and_releases_the_lease ... ok
+test preparation_failure_is_reported_without_worker_or_silent_retry ... ok
+test refused_and_unauthorized_requests_do_not_start_workers ... ok
+test setup_failure_and_missing_model_credential_do_not_leave_a_live_owner ... ok
+test watch_owns_the_state_exclusively_and_interrupt_joins_before_reopen ... ok
+
+failures:
+
+failures:
+    assessment::formal_assessment_timeout_joins_cli_and_records_visible_unavailable_without_worker
+    assessment::formal_inferred_auto_uses_scoped_context_rules_real_worker_and_reply
+    assessment::formal_inferred_direction_and_rule_gates_do_not_prepare_or_reply
+    assessment::formal_inferred_observe_records_proposal_and_finishes_refs_without_worker
+    formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate
+
+test result: FAILED. 20 passed; 5 failed; 0 ignored; 0 measured; 0 filtered out; finished in 39.37s
+
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`

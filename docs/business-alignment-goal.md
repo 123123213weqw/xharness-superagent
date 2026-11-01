@@ -132,3 +132,12 @@ CI 失败均保留，当前精确 head 的 CI 仍须另验。见 `docs/business-
 主Note、3个eval、policy_sync仍未注册；完整来源、配置API/UI、后台/停止/恢复/
 部署回退均继续同一活动Goal。见[配置边界](superagent/business-configuration.md)和
 `docs/business-configuration-verification.json`。
+
+
+### 主动研判子集进展（2026-11-02）
+
+已接入三个实际 eval 工具，主12/Worker6应用注册；auto 推断授权实际执行与
+observe 不执行、真实批次当前消息身份、超时/取消等27条正式入口测试通过。
+[本批边界与证据](superagent/business-assessment.md)不替代上文全部业务范围。
+剩余主工具2个，完整来源/飞书/配置API/UI、后台/停止/完整恢复与部署回退继续执行；
+Goal保持活动。没有重启已取消的全语言或UTF-16迁移。

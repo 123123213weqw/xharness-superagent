@@ -113,6 +113,25 @@
           ],
           "full_log": "docs/evidence/business-entry-01/regression-02.log",
           "remaining": "观察模式与人工显式授权区别尚未在正式入口完整验收；不计通过"
+        },
+        {
+          "source_commit": "5b04c16e9f1f6f4d5bdb3749df2b468afa8fe614",
+          "entry_and_command": "Remote WZU_Server final workspace fmt/check/strict Clippy and selected ten-crate regression; formal executable product_entry tests included",
+          "environment": "Formal executable, real OpenAI HTTP/SSE adapter, Client/Engine/SQL/Native/CodingToolBundle/Outbox; external model and gh boundaries are explicit offline protocol fixtures only.",
+          "full_log": "docs/evidence/business-assessment-01/regression-04.log",
+          "business_assertions": "docs/business-assessment-verification.json",
+          "tests": [
+            "assessment::formal_inferred_auto_uses_scoped_context_rules_real_worker_and_reply",
+            "assessment::formal_inferred_observe_records_proposal_and_finishes_refs_without_worker",
+            "assessment::formal_inferred_direction_and_rule_gates_do_not_prepare_or_reply",
+            "assessment::formal_explicit_request_refuses_eval_and_remains_routable",
+            "assessment::formal_assessment_timeout_joins_cli_and_records_visible_unavailable_without_worker",
+            "assessment::formal_interrupt_joins_assessment_seed_without_authorizing_or_preparing_work",
+            "assessment::formal_batch_context_caches_once_but_uses_each_requested_trigger_identity"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification remaining_scope; these broad acceptance groups remain in_progress."
         }
       ]
     },
@@ -161,6 +180,25 @@
           ],
           "actual_product_path": true,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "5b04c16e9f1f6f4d5bdb3749df2b468afa8fe614",
+          "entry_and_command": "Remote WZU_Server final workspace fmt/check/strict Clippy and selected ten-crate regression; formal executable product_entry tests included",
+          "environment": "Formal executable, real OpenAI HTTP/SSE adapter, Client/Engine/SQL/Native/CodingToolBundle/Outbox; external model and gh boundaries are explicit offline protocol fixtures only.",
+          "full_log": "docs/evidence/business-assessment-01/regression-04.log",
+          "business_assertions": "docs/business-assessment-verification.json",
+          "tests": [
+            "assessment::formal_inferred_auto_uses_scoped_context_rules_real_worker_and_reply",
+            "assessment::formal_inferred_observe_records_proposal_and_finishes_refs_without_worker",
+            "assessment::formal_inferred_direction_and_rule_gates_do_not_prepare_or_reply",
+            "assessment::formal_explicit_request_refuses_eval_and_remains_routable",
+            "assessment::formal_assessment_timeout_joins_cli_and_records_visible_unavailable_without_worker",
+            "assessment::formal_interrupt_joins_assessment_seed_without_authorizing_or_preparing_work",
+            "assessment::formal_batch_context_caches_once_but_uses_each_requested_trigger_identity"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification remaining_scope; these broad acceptance groups remain in_progress."
         }
       ]
     },
@@ -209,6 +247,25 @@
           ],
           "actual_product_path": true,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "5b04c16e9f1f6f4d5bdb3749df2b468afa8fe614",
+          "entry_and_command": "Remote WZU_Server final workspace fmt/check/strict Clippy and selected ten-crate regression; formal executable product_entry tests included",
+          "environment": "Formal executable, real OpenAI HTTP/SSE adapter, Client/Engine/SQL/Native/CodingToolBundle/Outbox; external model and gh boundaries are explicit offline protocol fixtures only.",
+          "full_log": "docs/evidence/business-assessment-01/regression-04.log",
+          "business_assertions": "docs/business-assessment-verification.json",
+          "tests": [
+            "assessment::formal_inferred_auto_uses_scoped_context_rules_real_worker_and_reply",
+            "assessment::formal_inferred_observe_records_proposal_and_finishes_refs_without_worker",
+            "assessment::formal_inferred_direction_and_rule_gates_do_not_prepare_or_reply",
+            "assessment::formal_explicit_request_refuses_eval_and_remains_routable",
+            "assessment::formal_assessment_timeout_joins_cli_and_records_visible_unavailable_without_worker",
+            "assessment::formal_interrupt_joins_assessment_seed_without_authorizing_or_preparing_work",
+            "assessment::formal_batch_context_caches_once_but_uses_each_requested_trigger_identity"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification remaining_scope; these broad acceptance groups remain in_progress."
         }
       ]
     },
@@ -350,6 +407,25 @@
           ],
           "actual_product_path": true,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "5b04c16e9f1f6f4d5bdb3749df2b468afa8fe614",
+          "entry_and_command": "Remote WZU_Server final workspace fmt/check/strict Clippy and selected ten-crate regression; formal executable product_entry tests included",
+          "environment": "Formal executable, real OpenAI HTTP/SSE adapter, Client/Engine/SQL/Native/CodingToolBundle/Outbox; external model and gh boundaries are explicit offline protocol fixtures only.",
+          "full_log": "docs/evidence/business-assessment-01/regression-04.log",
+          "business_assertions": "docs/business-assessment-verification.json",
+          "tests": [
+            "assessment::formal_inferred_auto_uses_scoped_context_rules_real_worker_and_reply",
+            "assessment::formal_inferred_observe_records_proposal_and_finishes_refs_without_worker",
+            "assessment::formal_inferred_direction_and_rule_gates_do_not_prepare_or_reply",
+            "assessment::formal_explicit_request_refuses_eval_and_remains_routable",
+            "assessment::formal_assessment_timeout_joins_cli_and_records_visible_unavailable_without_worker",
+            "assessment::formal_interrupt_joins_assessment_seed_without_authorizing_or_preparing_work",
+            "assessment::formal_batch_context_caches_once_but_uses_each_requested_trigger_identity"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification remaining_scope; these broad acceptance groups remain in_progress."
         }
       ]
     },

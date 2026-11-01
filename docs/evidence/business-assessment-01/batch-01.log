@@ -1,0 +1,19 @@
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.51s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-ef0d52cf0b2d3454)
+
+running 1 test
+test assessment::formal_batch_context_caches_once_but_uses_each_requested_trigger_identity ... FAILED
+
+failures:
+
+failures:
+    assessment::formal_batch_context_caches_once_but_uses_each_requested_trigger_identity
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 26 filtered out; finished in 1.12s
+
+
+thread 'assessment::formal_batch_context_caches_once_but_uses_each_requested_trigger_identity' (3546477) panicked at crates/xharness-superagent/tests/product_entry/assessment.rs:486:5:
+first={"mode":"auto","policy_version":"1f39f6d3a116d91fd360955ad6b3ae60","related_tickets":[],"source":{"actor":"alice","kind":"github","thread":"github:12","url":"https://github.com/owner/repo/issues/12#issuecomment-101"},"strength":"inferred","text":"Create result.txt with the given text","thread":{"complete":true,"loaded_messages":3,"messages":[{"at":"2026-10-30T00:00:00.000Z","from":"bob","id":"https://github.com/owner/repo/issues/12","text":"Original issue\n\nOld issue"},{"at":"2026-11-01T21:55:20.826Z","from":"alice","id":"https://github.com/owner/repo/issues/12#issuecomment-101","trigger":true},{"at":"2026-11-01T21:55:20.826Z","from":"alice","id":"https://github.com/owner/repo/issues/12#issuecomment-102","text":"Second settled detail 中文 😀"}],"source_found":true},"tickets_total":0,"trigger_id":"4e50313dd725580a7faff38b917fb231"}; second={"content":"","error":"$.trigger_id: expected string, got null","ok":false,"truncated":false}; user={"actor":"alice","kind":"candidate","policy_version":"1f39f6d3a116d91fd360955ad6b3ae60","read":"trigger/4e50313dd725580a7faff38b917fb231","source":"github","strength":"inferred","text":"Create result.txt with the given text","trigger_id":"4e50313dd725580a7faff38b917fb231"}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`

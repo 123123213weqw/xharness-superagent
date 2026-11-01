@@ -1,0 +1,86 @@
++ export PATH=/home/wzu/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ PATH=/home/wzu/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ root=/home/wzu/codex-build/x-harness-rs-superagent-validation
+++ cat /home/wzu/codex-build/x-harness-rs-superagent-validation/.superagent-goal-owner
++ test 01a1923a-5b0a-79a0-9675-4638cf37b624 = 01a1923a-5b0a-79a0-9675-4638cf37b624
++ cd <owned-source>
+++ cat .superagent-goal-owner
++ test 01a1923a-5b0a-79a0-9675-4638cf37b624-business = 01a1923a-5b0a-79a0-9675-4638cf37b624-business
++ export CARGO_TARGET_DIR=<owned-target>
++ CARGO_TARGET_DIR=<owned-target>
++ cargo check -p xharness-superagent --lib
+    Updating `rsproxy-sparse` index
+     Locking 6 packages to highest compatible versions
+      Adding core_maths v0.1.1
+      Adding icu_locale_fallback v2.3.0 (available: v2.4.0)
+      Adding icu_locale_fallback_data v2.3.0 (available: v2.4.0)
+      Adding icu_segmenter v2.3.0 (available: v2.4.0)
+      Adding icu_segmenter_data v2.3.0 (available: v2.4.0)
+      Adding libm v0.2.16
+ Downloading crates ...
+  Downloaded icu_locale_fallback_data v2.3.0 (registry `rsproxy-sparse`)
+  Downloaded icu_locale_fallback v2.3.0 (registry `rsproxy-sparse`)
+  Downloaded core_maths v0.1.1 (registry `rsproxy-sparse`)
+  Downloaded icu_segmenter_data v2.3.0 (registry `rsproxy-sparse`)
+  Downloaded icu_segmenter v2.3.0 (registry `rsproxy-sparse`)
+    Checking stable_deref_trait v1.2.1
+    Checking writeable v0.6.4
+    Checking litemap v0.8.3
+   Compiling icu_locale_fallback_data v2.3.0
+   Compiling libm v0.2.16
+   Compiling icu_segmenter_data v2.3.0
+    Checking tokio v1.53.1
+    Checking zerofrom v0.1.8
+    Checking yoke v0.8.3
+    Checking zerovec v0.11.7
+    Checking zerotrie v0.2.5
+    Checking core_maths v0.1.1
+    Checking tinystr v0.8.4
+    Checking potential_utf v0.1.6
+    Checking icu_collections v2.3.0
+    Checking icu_locale_core v2.3.0
+    Checking icu_provider v2.3.0
+    Checking icu_normalizer v2.3.0
+    Checking icu_properties v2.3.0
+    Checking icu_locale_fallback v2.3.0
+    Checking icu_segmenter v2.3.0
+    Checking idna_adapter v1.2.2
+    Checking idna v1.1.0
+    Checking url v2.5.8
+    Checking tokio-util v0.7.19
+    Checking xharness-debug v0.1.0 (<owned-source>/crates/xharness-debug)
+    Checking tokio-rustls v0.26.4
+    Checking tower v0.5.3
+    Checking xharness-fs v0.1.0 (<owned-source>/crates/xharness-fs)
+    Checking xharness-jobs v0.1.0 (<owned-source>/crates/xharness-jobs)
+    Checking xharness-control v0.1.0 (<owned-source>/crates/xharness-control)
+    Checking tower-http v0.6.11
+    Checking h2 v0.4.16
+    Checking tokio-stream v0.1.19
+    Checking xharness-api v0.1.0 (<owned-source>/crates/xharness-api)
+    Checking xharness-tools v0.1.0 (<owned-source>/crates/xharness-tools)
+    Checking xharness-process v0.1.0 (<owned-source>/crates/xharness-process)
+    Checking xharness-sandbox v0.1.0 (<owned-source>/crates/xharness-sandbox)
+    Checking xharness-platform v0.1.0 (<owned-source>/crates/xharness-platform)
+    Checking xharness-interaction v0.1.0 (<owned-source>/crates/xharness-interaction)
+    Checking xharness-session v0.1.0 (<owned-source>/crates/xharness-session)
+    Checking hyper v1.11.0
+    Checking hyper-util v0.1.20
+    Checking hyper-rustls v0.27.9
+    Checking reqwest v0.12.28
+    Checking xharness-web v0.1.0 (<owned-source>/crates/xharness-web)
+    Checking xharness-coding-tools v0.1.0 (<owned-source>/crates/xharness-coding-tools)
+    Checking xharness-compaction v0.1.0 (<owned-source>/crates/xharness-compaction)
+    Checking xharness-goal v0.1.0 (<owned-source>/crates/xharness-goal)
+    Checking xharness-attachments v0.1.0 (<owned-source>/crates/xharness-attachments)
+    Checking xharness-session-import v0.1.0 (<owned-source>/crates/xharness-session-import)
+    Checking xharness-session-jsonl v0.1.0 (<owned-source>/crates/xharness-session-jsonl)
+    Checking xharness-context v0.1.0 (<owned-source>/crates/xharness-context)
+    Checking xharness-core v0.1.0 (<owned-source>/crates/xharness-core)
+    Checking xharness-agent v0.1.0 (<owned-source>/crates/xharness-agent)
+    Checking xharness-projection v0.1.0 (<owned-source>/crates/xharness-projection)
+    Checking xharness-provider-openai v0.1.0 (<owned-source>/crates/xharness-provider-openai)
+    Checking xharness-schedule v0.1.0 (<owned-source>/crates/xharness-schedule)
+    Checking xharness-host v0.1.0 (<owned-source>/crates/xharness-host)
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 39.28s

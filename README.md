@@ -19,7 +19,7 @@
 - XHarness 原生会话/JSONL 接入组件、队列/followup/steer/inject、观察与关闭。
 - 部分 Prompt/skills、输入准备、重试健康和崩溃恢复组件。
 - 固定原版源码及组件差分验证设施。
-- Application/Native 装配及15个应用工具子集（主角色9个、Worker6个）。
+- Application/Native 装配及18个应用工具子集（主角色12个、Worker6个）。
   名字已注册不代表所有分支完成；正式入口离线协议夹具可实际启动 Worker 写文件
   并经 Outbox 回复，不冒充真实外部服务或完整产品验收。
 - GitHub Source 的通知/评论/PR/CI 轮询、稳定事件和 marker 回复库已接到 Native；
@@ -40,9 +40,11 @@
   执行环境 guard、暂停/恢复、角色默认模型、Prompt preview/版本和实际团队技能。
   管理 API/UI、panel 保存与完整同步/重启仍是缺口。
 
+- [主动研判业务](docs/superagent/business-assessment.md)：候选上下文、作用域补读、规则与方向/意图校验、auto/observe、超时及取消回收；正式离线链路已验证，完整业务仍未完成。
+
 ## 尚未完成
 
-- 完整 Assessor/Executor 协作、资源读取和推断研判。
+- 完整 Assessor/Executor 协作及剩余研判/资源/生命周期分支。
 - 14 个主工具与 6 个 Worker 应用工具的完整执行及生命周期。
 - GitHub 完整资源/工具分支、真实外部服务联调，以及飞书和多来源接入。
 - 完整配置 API、管理面板、部署和回退验收。
