@@ -19,36 +19,102 @@
       "id": "BOOT-01",
       "milestone": "B1",
       "title": "正式入口校验配置，未配置不主动接单，错误可定位",
-      "status": "not_run",
-      "evidence": []
+      "status": "passed",
+      "evidence": [
+        {
+          "source_commit": "a7737180dd17f0d9ad86c76c42b0ef4faf49b9ca",
+          "entry_and_command": "cargo test --locked -p xharness-superagent --test product_entry -- --test-threads=1 --nocapture (remote WZU_Server); also included in final 9-crate regression",
+          "environment": "Formal executable + loopback model HTTP/SSE + gh subprocess fixture + actual Native/CodingToolBundle/SQL/Outbox; no real external services",
+          "full_log": "docs/evidence/business-entry-01/regression-02.log",
+          "business_assertions": "docs/business-entry-verification.json",
+          "tests": [
+            "check_is_read_only_for_external_services_and_releases_state_lease",
+            "invalid_saved_model_and_missing_configuration_never_fall_back",
+            "setup_failure_and_missing_model_credential_do_not_leave_a_live_owner"
+          ],
+          "actual_product_path": true
+        }
+      ],
+      "validation_environment": "offline_protocol_fixture"
     },
     {
       "id": "BOOT-02",
       "milestone": "B1",
       "title": "独占状态目录、启动/关闭、再次启动及数据库恢复",
-      "status": "not_run",
-      "evidence": []
+      "status": "passed",
+      "evidence": [
+        {
+          "source_commit": "a7737180dd17f0d9ad86c76c42b0ef4faf49b9ca",
+          "entry_and_command": "cargo test --locked -p xharness-superagent --test product_entry -- --test-threads=1 --nocapture (remote WZU_Server); also included in final 9-crate regression",
+          "environment": "Formal executable + loopback model HTTP/SSE + gh subprocess fixture + actual Native/CodingToolBundle/SQL/Outbox; no real external services",
+          "full_log": "docs/evidence/business-entry-01/regression-02.log",
+          "business_assertions": "docs/business-entry-verification.json",
+          "tests": [
+            "watch_owns_the_state_exclusively_and_interrupt_joins_before_reopen",
+            "once_interrupt_cancels_a_model_wait_and_releases_the_lease",
+            "formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate"
+          ],
+          "actual_product_path": true
+        }
+      ],
+      "validation_environment": "offline_protocol_fixture"
     },
     {
       "id": "FLOW-01",
       "milestone": "B1",
       "title": "GitHub评论经Source、研判授权、Ticket、实际Worker工具、Outbox回复完整运行",
-      "status": "not_run",
-      "evidence": []
+      "status": "passed",
+      "evidence": [
+        {
+          "source_commit": "a7737180dd17f0d9ad86c76c42b0ef4faf49b9ca",
+          "entry_and_command": "cargo test --locked -p xharness-superagent --test product_entry -- --test-threads=1 --nocapture (remote WZU_Server); also included in final 9-crate regression",
+          "environment": "Formal executable + loopback model HTTP/SSE + gh subprocess fixture + actual Native/CodingToolBundle/SQL/Outbox; no real external services",
+          "full_log": "docs/evidence/business-entry-01/regression-02.log",
+          "business_assertions": "docs/business-entry-verification.json",
+          "tests": [
+            "formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate"
+          ],
+          "actual_product_path": true
+        }
+      ],
+      "validation_environment": "offline_protocol_fixture"
     },
     {
       "id": "FLOW-02",
       "milestone": "B1",
       "title": "拒绝或忽略的请求不会创建Worker或执行工具",
-      "status": "not_run",
-      "evidence": []
+      "status": "passed",
+      "evidence": [
+        {
+          "source_commit": "a7737180dd17f0d9ad86c76c42b0ef4faf49b9ca",
+          "entry_and_command": "cargo test --locked -p xharness-superagent --test product_entry -- --test-threads=1 --nocapture (remote WZU_Server); also included in final 9-crate regression",
+          "environment": "Formal executable + loopback model HTTP/SSE + gh subprocess fixture + actual Native/CodingToolBundle/SQL/Outbox; no real external services",
+          "full_log": "docs/evidence/business-entry-01/regression-02.log",
+          "business_assertions": "docs/business-entry-verification.json",
+          "tests": [
+            "refused_and_unauthorized_requests_do_not_start_workers"
+          ],
+          "actual_product_path": true
+        }
+      ],
+      "validation_environment": "offline_protocol_fixture"
     },
     {
       "id": "AUTH-01",
       "milestone": "B1",
       "title": "未授权和机器人事件不产生越权执行，保留观察/显式人工授权区别",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "a7737180dd17f0d9ad86c76c42b0ef4faf49b9ca",
+          "verified_subset": "Formal entry rejects unlisted account and bot without model/worker/reply",
+          "tests": [
+            "refused_and_unauthorized_requests_do_not_start_workers"
+          ],
+          "full_log": "docs/evidence/business-entry-01/regression-02.log",
+          "remaining": "观察模式与人工显式授权区别尚未在正式入口完整验收；不计通过"
+        }
+      ]
     },
     {
       "id": "TOOLS-01",
@@ -103,8 +169,21 @@
       "id": "REC-01",
       "milestone": "B1",
       "title": "同事件重复接收/重启重放不重复开单或重复执行已完成动作",
-      "status": "not_run",
-      "evidence": []
+      "status": "passed",
+      "evidence": [
+        {
+          "source_commit": "a7737180dd17f0d9ad86c76c42b0ef4faf49b9ca",
+          "entry_and_command": "cargo test --locked -p xharness-superagent --test product_entry -- --test-threads=1 --nocapture (remote WZU_Server); also included in final 9-crate regression",
+          "environment": "Formal executable + loopback model HTTP/SSE + gh subprocess fixture + actual Native/CodingToolBundle/SQL/Outbox; no real external services",
+          "full_log": "docs/evidence/business-entry-01/regression-02.log",
+          "business_assertions": "docs/business-entry-verification.json",
+          "tests": [
+            "formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate"
+          ],
+          "actual_product_path": true
+        }
+      ],
+      "validation_environment": "offline_protocol_fixture"
     },
     {
       "id": "REC-02",
@@ -185,5 +264,7 @@
     "github_source_evidence": "docs/business-github-verification.json",
     "github_protocol_checks_passed": 6,
     "github_to_native_fixture_checks_passed": 8
-  }
+  },
+  "updated_at_utc": "2026-11-01T17:49:18.790819+00:00",
+  "validation_note": "passed denotes the listed complete product scenario in an explicitly offline protocol environment, not real GitHub/model service approval, universal parity or release readiness. Unexecuted branches remain open."
 }

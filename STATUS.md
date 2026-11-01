@@ -1,6 +1,10 @@
 # 开发状态
 
-2026-11-01。当前是组件开发快照，没有完整产品启动入口。
+2026-11-02。当前已有正式入口及第一条 GitHub 离线协议整链路，仍未完成全部业务对齐。
+
+最新路径和边界见 [正式入口](docs/superagent/business-entry.md)，当前验收以
+`conformance/business/acceptance.json` 为准。以下逐批记录均是当时的范围/统计，
+不要把历史“尚无入口”和“23组未验收”当作当前状态，也不要累加重复测试。
 
 - 产品业务核心、SQLite、持久队列/Outbox 和若干原生会话组件已实现。
 - 完整工具、Assessor/Executor/Root、Source、API/UI 和部署闭环仍未完成。

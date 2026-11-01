@@ -60,7 +60,7 @@ B2/B5 中第一条闭环必要的子集并入 B1，不以里程碑排序拖延�
 此前 470 个组件测试、workspace check/Clippy 只作为起点回归记录；新业务场景尚未验收。
 当前工作是 B1 的装配和调用路径，不是扩展底层兼容矩阵。
 
-## B1 当前进展
+## B1 历史接线进展
 
 Application 的 SQL/队列/Outbox 组合后，已接入实际 Native 会话、主/Worker 角色和
 4个工具子集；离线模型夹具驱动了真实 Worker 文件写入与回执回复。
@@ -70,3 +70,15 @@ Application 的 SQL/队列/Outbox 组合后，已接入实际 Native 会话、�
 GitHub Source 现已接到上述同一 Native 路径；有57个参考函数协议/账号样本及明确的
 Source/CLI/组合夹具检查。仍缺正式产品入口，不将分开的 CLI 测试和库级组合拼成
 FLOW-01 通过。下一步应交付实际启动/配置和编码工具工厂，而不是继续扩语言兼容。
+
+## 正式入口进展（2026-11-02）
+
+现已提供独立 `xharness-superagent` 入口，支持显式配置、只读检查、单轮和持续运行。
+正式二进制在离线模型 HTTP/SSE 与 gh 子进程边界中，经过实际 Native、授权/Ticket、
+CodingToolBundle write、报告和 marker 回执；不是将分开的组件测试拼作闭环。
+测试还包含中断模型等待、独占状态目录/重开、初始化失败、准备命令失败和重放去重。
+
+本批完整日志/源码绑定和业务验收见 `docs/business-entry-verification.json` 与
+`conformance/business/acceptance.json`；外部服务仍为明确协议夹具，不是线上 GitHub
+或付费模型验证。主14/Worker6剩余工具、inferred/资源、飞书、多来源、API/UI、完整
+崩溃恢复与部署回退均继续在 Goal 内，不缩减为只做 B1。

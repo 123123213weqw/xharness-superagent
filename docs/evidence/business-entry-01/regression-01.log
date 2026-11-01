@@ -1,0 +1,48 @@
+   Compiling xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.87s
+     Running tests/product_entry.rs (<isolated-target>/debug/deps/product_entry-085c7a183df671db)
+
+running 8 tests
+test check_is_read_only_for_external_services_and_releases_state_lease ... ok
+test formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate ... ok
+test invalid_saved_model_and_missing_configuration_never_fall_back ... ok
+test once_interrupt_cancels_a_model_wait_and_releases_the_lease ... ok
+test preparation_failure_is_reported_without_worker_or_silent_retry ... ok
+test refused_and_unauthorized_requests_do_not_start_workers ... ok
+test setup_failure_and_missing_model_credential_do_not_leave_a_live_owner ... ok
+test watch_owns_the_state_exclusively_and_interrupt_joins_before_reopen ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.33s
+
+    Checking xharness-provider-openai v0.1.0 (<isolated-source>/crates/xharness-provider-openai)
+    Checking xharness-coding-tools v0.1.0 (<isolated-source>/crates/xharness-coding-tools)
+    Checking xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Checking xharness-gh v0.1.0 (<isolated-source>/crates/xharness-gh)
+    Checking xharness-feishu v0.1.0 (<isolated-source>/crates/xharness-feishu)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 8.76s
+    Checking xharness-provider-openai v0.1.0 (<isolated-source>/crates/xharness-provider-openai)
+    Checking xharness-coding-tools v0.1.0 (<isolated-source>/crates/xharness-coding-tools)
+    Checking xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Checking xharness-gh v0.1.0 (<isolated-source>/crates/xharness-gh)
+error: unneeded unit expression
+   --> crates/xharness-superagent/src/application/boot.rs:607:21
+    |
+607 |                     ()
+    |                     ^^ help: remove the final `()`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#unused_unit
+    = note: `-D clippy::unused-unit` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::unused_unit)]`
+
+error: unneeded unit expression
+   --> crates/xharness-superagent/src/application/boot.rs:735:25
+    |
+735 |                         ()
+    |                         ^^ help: remove the final `()`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#unused_unit
+
+    Checking xharness-feishu v0.1.0 (<isolated-source>/crates/xharness-feishu)
+error: could not compile `xharness-superagent` (lib) due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `xharness-superagent` (lib test) due to 2 previous errors

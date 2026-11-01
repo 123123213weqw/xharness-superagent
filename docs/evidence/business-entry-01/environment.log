@@ -1,0 +1,5 @@
+/usr/bin/bwrap
+bubblewrap 0.6.1
+/usr/bin/rg
+Linux 6.8.0-136-generic
+/usr/bin/python3

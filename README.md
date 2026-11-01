@@ -3,8 +3,8 @@
 基于 Rust / XHarness 的主动式 Agent 产品开发项目，参考 DeepSeek SuperAgent
 的产品逻辑：接收 GitHub/飞书事件，评估与授权，创建和执行任务，再将结果回复给用户。
 
-**状态：早期开发版。尚未提供完整产品启动入口，不是可直接部署的 SuperAgent 替代品，
-也不宣称已完整行为对齐。**
+**状态：早期开发版。已有正式可执行入口及 GitHub 第一条离线协议整链路；
+不是完整可部署的 SuperAgent 替代品，也不宣称已完整业务对齐。**
 
 ## 复刻什么
 
@@ -25,11 +25,16 @@
 - GitHub Source 的通知/评论/PR/CI 轮询、稳定事件和 marker 回复库已接到 Native；
   [接入进展与验证边界](docs/superagent/business-github.md)。
 
+- 正式 `xharness-superagent --config ... [--check | --once]` 入口及实际 OpenAI 兼容
+  HTTP/SSE → Native → CodingToolBundle → GitHub marker 回复闭环。
+  [配置、权限和验证边界](docs/superagent/business-entry.md)；外部服务由明确的
+  loopback 模型/gh 协议夹具验证，没有付费调用或真实 GitHub 评论。
+
 ## 尚未完成
 
-- 正式产品启动入口及完整 Assessor/Executor 协作、资源读取和推断研判。
+- 完整 Assessor/Executor 协作、资源读取和推断研判。
 - 14 个主工具与 6 个 Worker 应用工具的完整执行及生命周期。
-- GitHub 完整资源/工具分支、正式入口联调，以及飞书和多来源接入。
+- GitHub 完整资源/工具分支、真实外部服务联调，以及飞书和多来源接入。
 - 完整配置 API、管理面板、部署和回退验收。
 
 仓库中的旧 gh-host/feishu-host 是已有 XHarness 实验，不代表上述产品已完成。
