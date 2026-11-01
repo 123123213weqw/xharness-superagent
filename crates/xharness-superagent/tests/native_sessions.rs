@@ -893,6 +893,152 @@ async fn logical_identity_cannot_be_rebound_to_a_different_workspace_or_owner() 
 }
 
 #[tokio::test]
+async fn passive_logical_inspection_reads_cold_inbox_without_creation_activation_or_workspace() {
+    let fixture = Fixture::new("passive-inspection");
+    let native = fixture.open();
+    native.restore().await.unwrap();
+    assert!(native
+        .inspect_existing("absent", Role::Worker)
+        .await
+        .unwrap()
+        .is_none());
+    assert!(fixture.raw_store().list_headers().await.unwrap().is_empty());
+    let workspace = fixture.dir.0.join("worktree");
+    std::fs::create_dir(&workspace).unwrap();
+    let binding = native
+        .ensure("inspect-worker", Role::Worker, &workspace)
+        .await
+        .unwrap();
+    native.set_configured(true);
+    native
+        .queue(
+            &binding,
+            "pending-owned-input",
+            "Do not wake this queued input 中文 😀",
+            None,
+        )
+        .await
+        .unwrap();
+    let before = native.snapshot(&binding).await.unwrap();
+    let factories = fixture.worker.factory_calls.lock().unwrap().len();
+    for _ in 0..3 {
+        let read = native
+            .inspect_existing("inspect-worker", Role::Worker)
+            .await
+            .unwrap()
+            .unwrap();
+        assert_eq!(read.header().id, binding.native_id());
+        assert_eq!(read.events(), before.events());
+        assert_eq!(
+            xharness_agent::InboxProjection::from_session(&read)
+                .unwrap()
+                .next_turn()
+                .len(),
+            1
+        );
+    }
+    assert!(native
+        .inspect_existing("inspect-worker", Role::Orchestrator)
+        .await
+        .unwrap()
+        .is_none());
+    assert_eq!(fixture.worker.calls.load(Ordering::SeqCst), 0);
+    assert_eq!(
+        fixture.worker.factory_calls.lock().unwrap().len(),
+        factories
+    );
+    stop(&native).await;
+    drop(native);
+    std::fs::remove_dir(&workspace).unwrap();
+    let restored = fixture.open();
+    restored.restore().await.unwrap();
+    let models = serde_json::to_value(restored.models_health().await.unwrap()).unwrap();
+    let headers = fixture.raw_store().list_headers().await.unwrap();
+    let read = restored
+        .inspect_existing("inspect-worker", Role::Worker)
+        .await
+        .unwrap()
+        .unwrap();
+    assert_eq!(read.header().id, binding.native_id());
+    assert_eq!(
+        xharness_agent::InboxProjection::from_session(&read)
+            .unwrap()
+            .next_turn()
+            .len(),
+        1
+    );
+    assert_eq!(fixture.raw_store().list_headers().await.unwrap(), headers);
+    assert_eq!(
+        serde_json::to_value(restored.models_health().await.unwrap()).unwrap(),
+        models
+    );
+    assert_eq!(fixture.worker.calls.load(Ordering::SeqCst), 0);
+    assert_eq!(
+        fixture.worker.factory_calls.lock().unwrap().len(),
+        factories
+    );
+    assert!(!workspace.exists());
+    stop(&restored).await;
+}
+
+#[tokio::test]
+async fn passive_logical_inspection_rejects_missing_or_duplicate_creation_proof() {
+    let fixture = Fixture::new("inspection-proof");
+    let native = fixture.open();
+    native.restore().await.unwrap();
+    let binding = fixture.ensure(&native, Role::Worker).await;
+    let original = native.snapshot(&binding).await.unwrap();
+    let receipt = original
+        .events()
+        .iter()
+        .find_map(|event| match event.data() {
+            EventData::SessionMutationCommitted { receipt } => Some(receipt.clone()),
+            _ => None,
+        })
+        .unwrap();
+    let raw = fixture.raw_store();
+    // The canonical Store rejects a duplicate mutation before inspection can
+    // observe it. Do not bypass or weaken that existing lifecycle invariant.
+    let duplicate = raw
+        .append(
+            &binding.native_id(),
+            original.revision(),
+            vec![EventData::SessionMutationCommitted { receipt }.into()],
+        )
+        .await;
+    assert!(matches!(
+        duplicate,
+        Err(xharness_session::StoreError::InvalidSession(_))
+    ));
+    assert_eq!(
+        native
+            .inspect_existing("logical-one", Role::Worker)
+            .await
+            .unwrap()
+            .unwrap()
+            .events(),
+        original.events()
+    );
+    assert_eq!(fixture.worker.calls.load(Ordering::SeqCst), 0);
+    assert!(fixture.worker.factory_calls.lock().unwrap().is_empty());
+    // A raw journal with the deterministic name but no product creation proof
+    // is not adopted, even though it belongs to this same local Store root.
+    let absent = "forged-logical";
+    use sha2::{Digest, Sha256};
+    let name = format!(
+        "remote-{:x}",
+        Sha256::digest(
+            serde_json::to_vec(&["xharness.superagent.session.v1", "worker", absent]).unwrap()
+        )
+    );
+    raw.create(xharness_session::SessionHeader::new(name))
+        .await
+        .unwrap();
+    assert!(native.inspect_existing(absent, Role::Worker).await.is_err());
+    stop(&native).await;
+}
+
+#[tokio::test]
 async fn passive_notice_is_real_next_step_without_a_turn_goal_or_implicit_wake() {
     let fixture = Fixture::new("notice-idle");
     let native = fixture.open();

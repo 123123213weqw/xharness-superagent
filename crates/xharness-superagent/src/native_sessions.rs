@@ -41,6 +41,7 @@ use xharness_session::{
 use xharness_session_jsonl::{BufferedJsonlSessionStore, JsonlSessionStore};
 
 mod delivery;
+mod inspection;
 mod persistence;
 pub mod prompts;
 pub use delivery::NativeDelivery;

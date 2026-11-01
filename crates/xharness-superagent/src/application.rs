@@ -52,6 +52,7 @@ pub mod client;
 mod controls;
 pub mod github;
 pub mod native;
+pub mod resources;
 mod tools;
 
 pub type ServiceFuture<T> = LocalBoxFuture<'static, std::result::Result<T, HandlerError>>;
