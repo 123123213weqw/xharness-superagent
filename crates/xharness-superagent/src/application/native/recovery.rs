@@ -57,7 +57,12 @@ impl Backend {
         // and does not wake the worker or repeat its original user message.
         let binding = self
             .native
-            .ensure(&format!("worker-{}", ticket.id), Role::Worker, directory)
+            .ensure_with_initial_route(
+                &format!("worker-{}", ticket.id),
+                Role::Worker,
+                directory,
+                &self.role_route(Role::Worker)?,
+            )
             .await?;
         if !self.current(&ticket.id, &assignment.id)? {
             return Err(unavailable("Worker assignment changed during reconnect"));

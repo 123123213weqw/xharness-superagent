@@ -63,6 +63,7 @@ use xharness_superagent_core::{
     repository::Repository,
     settings::Settings,
 };
+mod configuration;
 mod idle;
 mod recovery;
 mod resources;
@@ -70,6 +71,7 @@ mod resources;
 pub type PrepareWorkspace = Rc<dyn Fn(Ticket) -> LocalBoxFuture<'static, Result<()>>>;
 pub type ConfiguredSourceEnabled = Rc<dyn Fn(&Settings, &str) -> Result<bool>>;
 pub struct Sources {
+    pub configuration: super::configuration::SourcePorts,
     pub resources: super::resources::SourceResources,
     pub scope: Arc<ConfiguredScope>,
     pub enabled: ConfiguredSourceEnabled,
@@ -184,6 +186,9 @@ struct Backend {
     inputs: Rc<dyn native_sessions::prompts::RequestInputs>,
     catalog: Vec<xharness_host::ModelDescriptor>,
     default_model: xharness_host::ModelRoute,
+    default_routes: RoleRoutes,
+    configuration_sources: super::configuration::SourcePorts,
+    source_scope: Arc<ConfiguredScope>,
 }
 pub struct Product {
     application: Application,
@@ -326,7 +331,8 @@ impl Product {
             }
         }
         settings.send_replace(application.state.store.settings()?);
-        let default_model = config.routes.orchestrator.clone();
+        let default_routes = config.routes.clone();
+        let default_model = default_routes.orchestrator.clone();
         let catalog = config.models.models();
         config.routes = configured_routes(&settings.borrow(), config.routes)?;
         let main_id = match application.state.store.get::<String>("master-id")? {
@@ -356,7 +362,11 @@ impl Product {
                 bindings.clone(),
             )),
         };
-        let (prompt_client, prompt_runtime) = native_sessions::prompts::channel(64)?;
+        let resources = native_sessions::prompts::skills::SkillResources::install_owned(
+            &config.state_dir.join("bundled-skills"),
+        )?;
+        let (prompt_client, prompt_runtime) =
+            native_sessions::prompts::channel_with_skills(64, resources)?;
         let native = Arc::new(NativeSessions::open_prompted(
             &config.state_dir,
             config.models,
@@ -396,10 +406,27 @@ impl Product {
             inputs: config.prompts.clone(),
             catalog,
             default_model,
+            default_routes,
+            configuration_sources: config.sources.configuration,
+            source_scope: config.sources.scope,
         });
         slot.set(backend.clone())
             .map_err(|_| unavailable("Native services already installed"))?;
         let reader = Rc::downgrade(&backend);
+        let manager = Rc::downgrade(&backend);
+        application
+            .state
+            .management
+            .set(Rc::new(move |name, encoded, cancel| {
+                let backend = manager.upgrade();
+                async move {
+                    backend
+                        .ok_or_else(|| unavailable("Native configuration owner stopped"))?
+                        .manage(&name, &encoded, cancel)
+                }
+                .boxed_local()
+            }))
+            .map_err(|_| unavailable("Configuration manager already installed"))?;
         application
             .state
             .resource_reader
@@ -603,7 +630,12 @@ impl Backend {
         }
         let binding = self
             .native
-            .ensure(&self.main_id, Role::Orchestrator, &self.main_directory)
+            .ensure_with_initial_route(
+                &self.main_id,
+                Role::Orchestrator,
+                &self.main_directory,
+                &self.role_route(Role::Orchestrator)?,
+            )
             .await?;
         self.bind(&binding, Scope::Main, &self.main_directory)?;
         *self.main.borrow_mut() = Some(binding.clone());

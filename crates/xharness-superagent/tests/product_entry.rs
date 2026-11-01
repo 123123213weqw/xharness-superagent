@@ -17,6 +17,10 @@ use std::{
 };
 use tokio::process::Command;
 static NEXT: AtomicU64 = AtomicU64::new(0);
+#[path = "product_entry/configuration.rs"]
+mod configuration;
+#[path = "product_entry/configuration_lifecycle.rs"]
+mod configuration_lifecycle;
 struct Fixture {
     directory: PathBuf,
     config: Value,
@@ -746,7 +750,15 @@ async fn formal_entry_source_native_coding_tools_and_reply_survive_restart_witho
             .collect();
         assert!(!tools.contains(&"web_fetch") && !tools.contains(&"web_search"));
         if request["model"] == "main" {
-            assert_eq!(tools.len(), 7);
+            assert_eq!(
+                tools
+                    .iter()
+                    .filter(|n| n.starts_with("orchestrator_"))
+                    .count(),
+                9
+            );
+            assert_eq!(tools.len(), 10);
+            assert!(tools.contains(&"skill"));
             assert!(!tools.contains(&"write"));
         } else {
             assert!(

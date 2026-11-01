@@ -360,6 +360,7 @@ impl Fixture {
             prompts: Rc::new(PromptInputs),
             initial_settings: Some(settings),
             sources: sources.unwrap_or_else(|| Sources {
+                configuration: xharness_superagent::application::github::configuration_ports(),
                 resources: xharness_superagent::application::resources::SourceResources {
                     instances: Rc::new(
                         xharness_superagent::application::github::resource_instances,

@@ -72,6 +72,7 @@ impl Prepared {
         let enabled = self.clone();
         let reads = self.clone();
         Sources {
+            configuration: configuration_ports(),
             resources: resource_ports(Rc::new(move || reads.ready())),
             scope: Arc::new(protocol::scope),
             enabled: Rc::new(move |settings, source| {
@@ -116,6 +117,7 @@ pub fn ports(
         deployment: deployment.clone(),
     };
     Ok(Sources {
+        configuration: configuration_ports(),
         resources: resource_ports(Rc::new(move || Ok(reads.clone()))),
         scope: Arc::new(protocol::scope),
         enabled: Rc::new(|settings, source| {
@@ -137,6 +139,102 @@ pub fn ports(
             .boxed_local()
         }),
     })
+}
+
+/// The installed kind's own validators, not a model-selectable registry or a
+/// permissive Settings-only parse. Orphan policy parts are retained as stored.
+pub fn configuration_ports() -> super::configuration::SourcePorts {
+    use xharness_superagent_core::{
+        errors::{UserError, UserErrorCode},
+        js_json::JsValue,
+    };
+    super::configuration::SourcePorts {
+        validate_instance: Rc::new(|id, value| {
+            if id != "github" {
+                return Err(UserError::new(
+                    UserErrorCode::SourceNotInstalled,
+                    [("source".into(), id.into())].into(),
+                )
+                .into());
+            }
+            let enabled = value
+                .get("enabled")
+                .and_then(JsValue::as_bool)
+                .ok_or_else(|| crate::Error::Message("Source enabled must be boolean".into()))?;
+            let config = value
+                .get("config")
+                .ok_or_else(|| crate::Error::Message("Source config is required".into()))?;
+            let config: Value = serde_json::from_str(&config.stringify()?)?;
+            let config =
+                Config::parse(&config).map_err(|e| crate::Error::GithubRead(Box::new(e)))?;
+            Ok(JsValue::object([
+                ("enabled".into(), JsValue::Bool(enabled)),
+                ("config".into(), JsValue::from_serializable(&config)?),
+            ]))
+        }),
+        validate_policy: Rc::new(|value| {
+            let normalized = value.clone();
+            if let Some(part) = normalized.get("sources").and_then(|s| s.get("github")) {
+                for (field, _) in part
+                    .entries()
+                    .ok_or_else(|| crate::Error::Message("Invalid GitHub policy part".into()))?
+                {
+                    if !["allowed", "bots", "admission"].contains(&field.as_str()) {
+                        return Err(crate::Error::Message(format!(
+                            "Unknown GitHub policy field: {field}"
+                        )));
+                    }
+                }
+                for field in ["allowed", "bots"] {
+                    if let Some(items) = part.get(field) {
+                        for item in items.array().ok_or_else(|| {
+                            crate::Error::Message(format!("Invalid GitHub {field}"))
+                        })? {
+                            let keys = item.entries().ok_or_else(|| {
+                                crate::Error::Message("Invalid GitHub account".into())
+                            })?;
+                            let id = item.get("id").and_then(JsValue::as_str).ok_or_else(|| {
+                                crate::Error::Message("GitHub account id is required".into())
+                            })?;
+                            let name = if field == "bots" {
+                                id.strip_suffix("[bot]").unwrap_or(id)
+                            } else {
+                                id
+                            };
+                            if keys.len() != 1
+                                || name.is_empty()
+                                || !name.bytes().all(|b| b.is_ascii_alphanumeric() || b == b'-')
+                            {
+                                return Err(crate::Error::Message(format!(
+                                    "Invalid GitHub {field} account: {id}"
+                                )));
+                            }
+                        }
+                    }
+                }
+            }
+            Ok(normalized)
+        }),
+        setup_fields: Rc::new(|settings| {
+            let config = settings
+                .value()
+                .get("sources")
+                .and_then(|s| s.get("github"))
+                .and_then(|s| s.get("config"));
+            Ok(JsValue::Array(
+                ["repository", "cli"]
+                    .into_iter()
+                    .map(|key| {
+                        config
+                            .and_then(|c| c.get(key))
+                            .filter(|v| !matches!(v, JsValue::Null))
+                            .cloned()
+                            .unwrap_or_else(|| JsValue::String(String::new()))
+                    })
+                    .collect(),
+            ))
+        }),
+    }
 }
 
 /// Actual installed GitHub kind plus retained orphan configurations. Disabled

@@ -708,6 +708,16 @@ fn compose(
         format!("revision:{}", version.revision),
         body,
     ));
+    if let Some(skills) = skills {
+        // The tool's description says to use the available-skills list. The
+        // private registry alone cannot teach the model which names to load.
+        // Only names/descriptions are advertised; full instructions stay behind
+        // the existing scoped skill tool, not a second registry or authority.
+        let catalog=skills.summaries(&work.native_id)?.into_iter().map(|skill|{
+            json!({"name":skill.name,"description":String::from_utf16_lossy(&skill.description_utf16)})
+        }).collect::<Vec<_>>();
+        sections.push(PromptSection::content_addressed("dsh-superagent-skills",format!("Available skills (load full instructions with the skill tool before using one):\n{}",serde_json::to_string(&catalog)?)));
+    }
     PromptAssembler
         .assemble_preserving_content(sections)
         .map(Some)

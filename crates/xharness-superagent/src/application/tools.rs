@@ -148,14 +148,28 @@ impl SessionToolFactory for Factory {
                 let scope = scope.clone();
                 let name = name.clone();
                 async move {
-                    let value = invoke(
-                        &client,
-                        &scope,
-                        &name,
-                        (*context.arguments).clone(),
-                        context.cancellation,
-                    )
-                    .await
+                    let value = if matches!(
+                        name.as_str(),
+                        "orchestrator_settings_save" | "orchestrator_prompts_save"
+                    ) {
+                        invoke_management(
+                            &client,
+                            &scope,
+                            &name,
+                            context.arguments_json.to_string(),
+                            context.cancellation,
+                        )
+                        .await
+                    } else {
+                        invoke(
+                            &client,
+                            &scope,
+                            &name,
+                            (*context.arguments).clone(),
+                            context.cancellation,
+                        )
+                        .await
+                    }
                     .map_err(|e| ToolHandlerError::new(e.to_string()))?;
                     Ok(ToolOutput::text(
                         serde_json::to_string(&value)
@@ -199,6 +213,33 @@ impl SessionToolFactory for Factory {
     async fn shutdown(&self) -> std::result::Result<(), String> {
         self.base.shutdown().await
     }
+}
+
+async fn invoke_management(
+    client: &Client,
+    scope: &Scope,
+    name: &str,
+    encoded: String,
+    cancel: tokio_util::sync::CancellationToken,
+) -> Result<Value> {
+    if !matches!(scope, Scope::Main) {
+        return Err(error("Tool is unavailable in this product role"));
+    }
+    let name = name.to_owned();
+    let stopped = cancel.clone();
+    client
+        .call_with_cancel(cancel, move |app| {
+            let reader = (|| {
+                app.state.require_open()?;
+                app.state
+                    .management
+                    .get()
+                    .cloned()
+                    .ok_or_else(|| error("Native configuration manager is unavailable"))
+            })();
+            async move { reader?(name, encoded, stopped).await }.boxed_local()
+        })
+        .await
 }
 
 fn error(message: impl Into<String>) -> Error {

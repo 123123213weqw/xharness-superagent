@@ -19,6 +19,8 @@ pub mod store;
 use xharness_superagent_core::engine::DomainError;
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
+    #[error("Settings changed. Reload before saving.")]
+    SettingsConflict { block: String },
     #[error(transparent)]
     GithubRead(Box<sources::github::Error>),
     #[error("{0}")]

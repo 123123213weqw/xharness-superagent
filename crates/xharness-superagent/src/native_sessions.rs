@@ -639,6 +639,23 @@ impl NativeSessions {
     /// `cwd` and logical identity are supplied only by trusted product setup or
     /// accepted Ticket allocation, not forwarded from model/API payloads.
     pub async fn ensure(&self, logical: &str, role: Role, cwd: &Path) -> Result<ManagedSession> {
+        self.ensure_with_initial_route(logical, role, cwd, self.routes.get(role))
+            .await
+    }
+    /// Validate against the installed registry without calling a provider or
+    /// changing a global/session selection. Setup owns the explicit registry.
+    pub fn supports_route(&self, route: &ModelRoute) -> Result<bool> {
+        Ok(self.runtime()?.can_route(route))
+    }
+    /// A new session takes the current saved role default. Existing durable or
+    /// manual selections remain authoritative, including across restart/retry.
+    pub async fn ensure_with_initial_route(
+        &self,
+        logical: &str,
+        role: Role,
+        cwd: &Path,
+        initial: &ModelRoute,
+    ) -> Result<ManagedSession> {
         if self.gate.closing.load(Ordering::Acquire) {
             return Err(failure("Orchestrator is stopping"));
         }
@@ -707,7 +724,10 @@ impl NativeSessions {
                 EventData::RequestHeader { .. } | EventData::SessionModelSelected { .. }
             )
         }) {
-            let route = self.routes.get(role);
+            let route = initial;
+            if !self.supports_route(route)? {
+                return Err(failure("managed role model is unavailable"));
+            }
             self.store
                 .append(
                     &session.header().id,
