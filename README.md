@@ -48,9 +48,13 @@
 
 ```sh
 cargo fmt --all -- --check
+node conformance/restore-reference-modes.mjs
 node conformance/verify-reference.mjs
 node conformance/verify-upstream.mjs
 ```
+
+Git 只保留可执行位，不保留参考归档的组写权限。恢复脚本先校验全部固定源码
+哈希再还原权限，不会修改源码内容或放宽校验。
 
 远程验证入口：`bash scripts/superagent/remote-validate.sh rust`，要求已配置
 SSH 别名 `WZU_Server`。工作目录独立于现有 Runtime 服务；不复制环境文件或密钥。
