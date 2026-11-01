@@ -1,0 +1,40 @@
+{"commit":"6337fc823ce20251c8de8085948165c81aaa701e","checked":216,"failures":[]}
+{"source_commit":"4ab403e0bb671b69fe56c5355bcf10dad7010c0b","runtime_base_commit":"2147ff270fe55c2c739e5063a5bfacefd01dc38a","controlled_steps":11,"controlled_paths":86,"source_patch_sha256":["9704604066bc132d6c0c1737f5d6acfb9c5946f649ae87b1cf180bb6698033b2","fc98603f9aa4195ead69542529311d2902674cbeb301ed426ba4d5bac8a612c4","ce5dfcae4fc7652e8335b3628c89af86a4687913c62653088df4ffe3493d6cca","e479550e69cc0d19bbf6e2ed46ae9d8c3b427f2d45caca6328156a26606fec04","b45030c1882e04f7a492133ac7d6a2638051e0c2fa4332afbac1760e695bf7b6","9375a55ac5234515eb8bcd363df526365ceb66020cdd4e94b42245a9c83a27fc","9854eef81e119033ba212d59b8c41423b0b4865e4acc8088684669104d88d45e","6aec468c801bd18684c55b5c5dde08dacc3752ca51b3554d36d86e1635208385","3b2a47b7d6c731c5dcdf8f8b639145ad5e484db11ee1bdfe2456786b1ae7b813","d7d5fb26ded5a3202c9d77179af8353ca4ec56be76b0fbf3776c5542da571808","42e8347593f136ad65e3331b51dd2c95b99d492023f0311ec18480389a8d7499"],"product_local_overlays":4,"current_target_matches_audited_backport":false,"current_target_matches_backport_plus_declared_product_overlays":true,"semantic_or_release_approval":false,"product_store_and_full_native_agentdelivery_installed":false}
+19 product-subset definitions verified: 10 primitive/null unions, 4 explicit Zod input defaults, and 1 unconstrained JSON domain projected; all other pinned metadata retained.
+✔ declared six new packages and seven feature-edge sections reconstruct prior lock exactly (2.370708ms)
+✔ unrelated append, changed version, checksum, dependency edge and missing package fail closed (1.501333ms)
+✔ one direct url edge reconstructs the exact preceding business lock (1.573042ms)
+✔ appended bytes, package version and dependency mutations fail closed (0.983167ms)
+✔ local addition reconstructs the exact frozen audited Host bytes (1.078625ms)
+✔ undeclared modification outside the local addition is rejected (0.790083ms)
+✔ modification inside the local addition is rejected (1.60125ms)
+✔ wrong import-chain base and unpatched baseline are rejected (1.009708ms)
+✔ exact product workspace edge reconstructs audited lock (1.241958ms)
+✔ unrelated lock edits, wrong base and changed dependency are rejected (1.105209ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 91.991208
+(node:3294) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+12 comment, 4 body, 12 mention, 9 address, 11 delivery, 2 CI, 7 account-metadata Source oracle fixtures verified.
+(node:3295) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+19 original GitHub read/Commands executable cases verified.
+(node:3310) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+20 original GitHub context/repository/admission executable cases verified.
+(node:3333) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+10 original business word-limit samples verified.
+(node:3334) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+5 original public transcript projections verified.
+(node:3335) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3335) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+12 trigger, 8 config, 7 policy, 6 scope, 8 member-sync, 8 reply, 2 link and 1 mention Source cases verified.

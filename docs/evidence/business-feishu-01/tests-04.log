@@ -1,0 +1,16 @@
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+
+running 8 tests
+test bot_identity_setup_never_falls_back_to_user_or_unready_app ...     Finished `test` profile [unoptimized + debuginfo] target(s) in 4.46s
+     Running tests/feishu_source.rs (<owned-target>/debug/deps/feishu_source-27abf58dd1344e11)
+ok
+test bot_setup_ignores_worker_shims_and_relative_path_entries_without_changing_alias ... ok
+test event_consumer_retains_split_unicode_reports_malformed_lines_and_joins_on_cancel ... ok
+test member_read_cancellation_joins_the_real_cli_and_descendant_before_return ... ok
+test natural_consumer_eof_drains_unterminated_unicode_lines_and_is_not_ready_success ... ok
+test original_member_sync_and_reply_run_over_verified_real_cli_with_exact_bot_argv ... ok
+test original_trigger_config_scope_and_link_business_samples_match ... ok
+test readiness_deadline_cancels_and_joins_the_unready_consumer_tree ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.50s
+

@@ -44,6 +44,8 @@
 
 - [跨工单事实](docs/superagent/business-note.md)：实际 Note 输入/投递，waiting 同 assignment 继续工作与 blocked 等待人工不唤醒；不改变授权。
 
+- [飞书来源基础](docs/superagent/business-feishu-foundation.md)：bot 身份、消息/范围、成员同步、回复及受管事件流组件已实现；尚未安装到正式入口，未注册 `policy_sync`，不算飞书产品闭环。
+
 ## 尚未完成
 
 - 完整 Assessor/Executor 协作及剩余研判/资源/生命周期分支。

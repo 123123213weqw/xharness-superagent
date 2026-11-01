@@ -1,0 +1,19 @@
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+error[E0369]: binary operation `==` cannot be applied to type `xharness_superagent::outbox::Sent`
+   --> crates/xharness-superagent/tests/feishu_source.rs:207:13
+    |
+207 |             assert_eq!(result.unwrap(), expected);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |             |
+    |             xharness_superagent::outbox::Sent
+    |             xharness_superagent::outbox::Sent
+    |
+note: `xharness_superagent::outbox::Sent` does not implement `PartialEq`
+   --> crates/xharness-superagent/src/outbox.rs:18:1
+    |
+ 18 | pub enum Sent {
+    | ^^^^^^^^^^^^^ `xharness_superagent::outbox::Sent` is defined in another crate
+
+For more information about this error, try `rustc --explain E0369`.
+error: could not compile `xharness-superagent` (test "feishu_source") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...

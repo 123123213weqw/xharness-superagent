@@ -224,3 +224,19 @@ docs/business-note-verification.json 与 docs/superagent/business-note.md。
 业务清单仍5组离线通过/9组部分推进/9组未运行。主工具剩policy_sync，需要真实
 来源同步而非只注册报错占位；完整飞书/多来源、PR/Review、API/UI、后台/停止/
 恢复/部署回退继续在原活动Goal内。没有全域JS/UTF-16迁移、付费或线上服务变更。
+
+## 飞书协议与 CLI 基础
+
+新增 bot 身份验证、飞书协议/范围/成员同步/回复与受管事件流基础，9 条来源边界检查和
+52 个原版函数样本通过；不是正式入口飞书验收。主13/Worker6个应用工具及30条既有
+GitHub正式入口回归保持不变，`policy_sync` 尚未注册，Feishu 尚未安装到产品 owner。
+
+本批 workspace fmt/check/严格 Clippy 和所列10个crate回归在独立 WZU_Server 目录通过；
+不是全工作区测试验收。固定参考与内核审计断言保持，新增一条已在 lock 内的 url 2.5.8
+直接依赖边，无新外部包或版本刷新。此前35fb07f的Linux/macOS CI两项成功，仅证明旧head。
+完整日志、指纹、失败诊断和剩余产品接线见 [飞书验证](docs/business-feishu-verification.json)。
+
+业务清单为5组离线通过/10组部分推进/8组未运行，非完成功能比例。完整 Goal 继续活动；
+下一步是实际 Source 事件/历史/健康、上下文/附件和带策略版本冲突保护的真实 policy_sync，
+再经正式 Feishu → 授权 → Ticket → Worker → Outbox 验证。API/UI、其余工具分支、
+后台/停止/恢复及部署回退仍须完成，不重启已取消的全域 JS/UTF-16 工作。
