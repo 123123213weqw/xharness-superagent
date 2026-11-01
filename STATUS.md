@@ -205,3 +205,22 @@ workspace fmt/check/严格 Clippy 与所列10个 crate 回归通过，来源指�
 docs/superagent/business-assessment.md；仍为5组离线通过、9组部分推进、9组未运行。
 主工具还缺 ticket_note/policy_sync，完整来源/飞书/API/UI、后台/停止/恢复/部署
 回退继续在同一个活动 Goal 内，未标记完成。
+
+
+## 2026-11-02 跨工单事实业务
+
+ticket_note 已接现有 Engine/SQL/Native，主13/Worker6应用工具；没有新依赖或锁文件变化。
+文本非空/trim/100词、未知/结束工单错误、暂停保存/恢复投递、原 mandate 不变、
+实际 Worker 文件工作/回复和正常重启不重复，已走正式入口。另验证 waiting 会被
+上下文 Note 唤醒并使用原 assignment；blocked 等待人工只存事实、不冒充人工答复。
+最初新增测试错把 waiting 当 blocked 导致循环发 Note，核对原版后改正并补正向场景，
+没有改领域规则或放宽固定断言；完整失败/通过日志均保留。
+
+正式入口累计30条通过（本批3条）；独立 WZU_Server 的 workspace fmt/check/严格
+Clippy 和所列10个 crate 回归通过，731来源文件指纹本地/远端一致。详细证据见
+docs/business-note-verification.json 与 docs/superagent/business-note.md。
+前一精确提交8c3d17d的Linux/macOS CI均通过，不套用作当前新提交证明。
+
+业务清单仍5组离线通过/9组部分推进/9组未运行。主工具剩policy_sync，需要真实
+来源同步而非只注册报错占位；完整飞书/多来源、PR/Review、API/UI、后台/停止/
+恢复/部署回退继续在原活动Goal内。没有全域JS/UTF-16迁移、付费或线上服务变更。

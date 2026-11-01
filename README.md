@@ -19,7 +19,7 @@
 - XHarness 原生会话/JSONL 接入组件、队列/followup/steer/inject、观察与关闭。
 - 部分 Prompt/skills、输入准备、重试健康和崩溃恢复组件。
 - 固定原版源码及组件差分验证设施。
-- Application/Native 装配及18个应用工具子集（主角色12个、Worker6个）。
+- Application/Native 装配及19个应用工具子集（主角色13个、Worker6个）。
   名字已注册不代表所有分支完成；正式入口离线协议夹具可实际启动 Worker 写文件
   并经 Outbox 回复，不冒充真实外部服务或完整产品验收。
 - GitHub Source 的通知/评论/PR/CI 轮询、稳定事件和 marker 回复库已接到 Native；
@@ -41,6 +41,8 @@
   管理 API/UI、panel 保存与完整同步/重启仍是缺口。
 
 - [主动研判业务](docs/superagent/business-assessment.md)：候选上下文、作用域补读、规则与方向/意图校验、auto/observe、超时及取消回收；正式离线链路已验证，完整业务仍未完成。
+
+- [跨工单事实](docs/superagent/business-note.md)：实际 Note 输入/投递，waiting 同 assignment 继续工作与 blocked 等待人工不唤醒；不改变授权。
 
 ## 尚未完成
 

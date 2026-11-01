@@ -199,6 +199,21 @@
           "actual_product_path": true,
           "partial_not_full_group_pass": true,
           "remaining_scope": "See verification remaining_scope; these broad acceptance groups remain in_progress."
+        },
+        {
+          "source_commit": "91605fe2eed3b0b544e40a8c3ecc74d6c87bd681",
+          "entry_and_command": "Remote WZU_Server workspace fmt/check/strict Clippy plus selected ten-crate all-target regression, including formal product_entry tests",
+          "environment": "Formal executable + real OpenAI HTTP/SSE adapter/Client/Engine/SQL/Native/CodingToolBundle/Outbox. Only external model and gh services are explicit offline protocol fixtures.",
+          "full_log": "docs/evidence/business-note-01/regression-01.log",
+          "business_assertions": "docs/business-note-verification.json",
+          "tests": [
+            "note::formal_ticket_note_delivers_trimmed_fact_with_original_mandate_and_rejects_invalid_or_ended_targets",
+            "note::formal_ticket_note_does_not_wake_worker_blocked_for_human_or_expand_authority",
+            "note::formal_context_note_wakes_waiting_worker_on_same_assignment_without_new_authority"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Broad group remains in_progress; see verification remaining_scope."
         }
       ]
     },
@@ -266,6 +281,21 @@
           "actual_product_path": true,
           "partial_not_full_group_pass": true,
           "remaining_scope": "See verification remaining_scope; these broad acceptance groups remain in_progress."
+        },
+        {
+          "source_commit": "91605fe2eed3b0b544e40a8c3ecc74d6c87bd681",
+          "entry_and_command": "Remote WZU_Server workspace fmt/check/strict Clippy plus selected ten-crate all-target regression, including formal product_entry tests",
+          "environment": "Formal executable + real OpenAI HTTP/SSE adapter/Client/Engine/SQL/Native/CodingToolBundle/Outbox. Only external model and gh services are explicit offline protocol fixtures.",
+          "full_log": "docs/evidence/business-note-01/regression-01.log",
+          "business_assertions": "docs/business-note-verification.json",
+          "tests": [
+            "note::formal_ticket_note_delivers_trimmed_fact_with_original_mandate_and_rejects_invalid_or_ended_targets",
+            "note::formal_ticket_note_does_not_wake_worker_blocked_for_human_or_expand_authority",
+            "note::formal_context_note_wakes_waiting_worker_on_same_assignment_without_new_authority"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Broad group remains in_progress; see verification remaining_scope."
         }
       ]
     },
@@ -315,6 +345,21 @@
           "business_assertions": "docs/business-recovery-verification.json",
           "actual_product_path": true,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "91605fe2eed3b0b544e40a8c3ecc74d6c87bd681",
+          "entry_and_command": "Remote WZU_Server workspace fmt/check/strict Clippy plus selected ten-crate all-target regression, including formal product_entry tests",
+          "environment": "Formal executable + real OpenAI HTTP/SSE adapter/Client/Engine/SQL/Native/CodingToolBundle/Outbox. Only external model and gh services are explicit offline protocol fixtures.",
+          "full_log": "docs/evidence/business-note-01/regression-01.log",
+          "business_assertions": "docs/business-note-verification.json",
+          "tests": [
+            "note::formal_ticket_note_delivers_trimmed_fact_with_original_mandate_and_rejects_invalid_or_ended_targets",
+            "note::formal_ticket_note_does_not_wake_worker_blocked_for_human_or_expand_authority",
+            "note::formal_context_note_wakes_waiting_worker_on_same_assignment_without_new_authority"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Broad group remains in_progress; see verification remaining_scope."
         }
       ]
     },

@@ -1,0 +1,140 @@
+{
+  "created_at_utc": "2026-11-01T22:17:38.332736+00:00",
+  "source_commit": "91605fe2eed3b0b544e40a8c3ecc74d6c87bd681",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "status": "ticket_note_business_path_verified_full_goal_incomplete",
+  "host": "WZU_Server",
+  "local_rust_compilation": false,
+  "isolated_owned_validation_directory": true,
+  "profile_manifest": "docs/business-note-source-profile.json",
+  "profile_sha256": "2bf6f57f12f7376b54bc395aeaf0b18d9cbeeada559dfd3761da77f70bea8b8a",
+  "profile_files": 731,
+  "local_remote_source_equal": true,
+  "new_runtime_dependencies": [],
+  "cargo_lock_changed": false,
+  "application_tools": {
+    "main": 13,
+    "worker": 6,
+    "required_main": 14,
+    "required_worker": 6,
+    "new": [
+      "orchestrator_ticket_note"
+    ],
+    "remaining_main": [
+      "orchestrator_policy_sync"
+    ],
+    "framework_skill_not_counted": true,
+    "registered_names_are_not_all_branch_acceptance": true
+  },
+  "formal_entry": {
+    "tests_passed": 30,
+    "new_tests": [
+      "note::formal_ticket_note_delivers_trimmed_fact_with_original_mandate_and_rejects_invalid_or_ended_targets",
+      "note::formal_ticket_note_does_not_wake_worker_blocked_for_human_or_expand_authority",
+      "note::formal_context_note_wakes_waiting_worker_on_same_assignment_without_new_authority"
+    ],
+    "actual_product_path": true,
+    "environment": "Formal executable + real OpenAI HTTP/SSE adapter/Client/Engine/SQL/Native/CodingToolBundle/Outbox. Only external model and gh services are explicit offline protocol fixtures."
+  },
+  "business_assertions": [
+    "Main-only ticket_note trims and checks a nonempty, at-most-100-word Chinese/English fact, calls the existing Engine.note and returns the routed ticket card; Worker never receives this main tool.",
+    "During pause, notes persist without Worker launch. After resume the real Native Worker sees the context-only prefix, performs actual original file work and reports/replies; original mandate is captured read-only before the note and remains identical afterward.",
+    "Blank/over-100-word, unknown-ticket and ended-ticket notes visibly fail without adding inputs or inventing tickets. Normal process restart does not repeat recorded notes or completed work; this is not all crash-cut proof.",
+    "A blocked-for-human worker retains the note as automatic context without undelivered input, a new worker turn/assignment, file work or result reply. The same state remains across restart.",
+    "A waiting worker is different: the context-only note reaches the same actual Native assignment, wakes a new turn, and it completes its original scope. No new mandate, ticket or assignment is invented."
+  ],
+  "original_behavior_basis": {
+    "files": [
+      "conformance/reference/upstream/src/app/tools/main.ts",
+      "conformance/reference/upstream/src/core/model.ts",
+      "conformance/reference/upstream/src/core/tickets.ts"
+    ],
+    "note_limit": 100,
+    "waits_for_person_states": [
+      "blocked",
+      "failed"
+    ],
+    "waiting_is_not_waits_for_person": true,
+    "frozen_sources_changed": false
+  },
+  "regression": {
+    "workspace_format_check": true,
+    "workspace_all_targets_check": true,
+    "workspace_strict_clippy": true,
+    "selected_test_crates": 10,
+    "full_workspace_tests": false,
+    "reported_passed": 1337,
+    "reported_ignored": 17,
+    "ignored_or_capability_early_return_is_not_product_acceptance": true,
+    "final_log": "docs/evidence/business-note-01/regression-01.log"
+  },
+  "previous_head_ci": {
+    "head_sha": "8c3d17d5a253737fc3919f4192a528f5e700a7ef",
+    "url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41354989770",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "rust (macos-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "rust (ubuntu-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "not_current_feature_head_approval": true
+  },
+  "provenance": {
+    "reference_files": 216,
+    "controlled_import_steps": 11,
+    "controlled_paths": 86,
+    "declared_product_overlays": 3,
+    "guard_tests": 8,
+    "application_metadata": 19,
+    "primitive_null_unions": 10,
+    "input_defaults": 4,
+    "json_domains": 1
+  },
+  "diagnostic_history": [
+    "tests-01: first new formal path passed; a new test wrongly assumed waiting means blocked-for-human and its model repeatedly posted notes, hitting the bounded deadline. Read the unmodified reference, retained the true blocked/failed hold rule and added a separate waiting-wakes-real-worker test; no domain behavior or frozen assertion was changed.",
+    "tests-02: real delivery and waiting-wake tests passed; the renamed blocked test still contained one stale expected string waiting. Corrected only that new assertion to blocked, then ran final full selected regression."
+  ],
+  "remaining_scope": [
+    "policy_sync with real Source sync I/O, ready/disabled gating, revisions, health and retry; not an always-error registration",
+    "all remaining tool/Source/GitHub PR-review/Feishu-multi-source branches",
+    "configuration API/UI and dynamic source/account lifecycle",
+    "background/subtasks/stop/concurrency",
+    "complete transaction/crash cuts, deployment/backup/rollback and authorized live-service validation"
+  ],
+  "logs": [
+    {
+      "path": "docs/evidence/business-note-01/node-01.log",
+      "raw_sha256": "2bc09e4544a1af1a432def8310a1dd41aa6f33329db2a36d96bfd04c9475c072",
+      "public_sha256": "2bc09e4544a1af1a432def8310a1dd41aa6f33329db2a36d96bfd04c9475c072",
+      "normalization": "Absolute owned source/cache prefixes only; complete output, assertions and failures retained."
+    },
+    {
+      "path": "docs/evidence/business-note-01/regression-01.log",
+      "raw_sha256": "d2251b19acb163577f956419c84cb87279fcf7fb353a079c70b42bdc7bea5368",
+      "public_sha256": "0e429472aa83eac00e4ddf9b41ceda38f1716f3cb5792210a629644d843b0490",
+      "normalization": "Absolute owned source/cache prefixes only; complete output, assertions and failures retained."
+    },
+    {
+      "path": "docs/evidence/business-note-01/tests-01.log",
+      "raw_sha256": "24c9856b703e9af2caebfcb1e0af725a1d9561ff2c47aec08189a98280354d01",
+      "public_sha256": "807a7568a490506aed5ec10ed799881ade49a1e717d94c67afa1d9e6370bf3a9",
+      "normalization": "Absolute owned source/cache prefixes only; complete output, assertions and failures retained."
+    },
+    {
+      "path": "docs/evidence/business-note-01/tests-02.log",
+      "raw_sha256": "f126e5c6e3071c9451756d422687003c7b9c9e997a5a1d06fbd2c5d74474a961",
+      "public_sha256": "77ea4959b9ba4803ffa9dd71a8d92747484eb235b63700fadaf287f706a2135e",
+      "normalization": "Absolute owned source/cache prefixes only; complete output, assertions and failures retained."
+    }
+  ],
+  "full_goal_complete": false,
+  "cancelled_global_language_work_restarted": false
+}

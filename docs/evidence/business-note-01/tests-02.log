@@ -1,0 +1,23 @@
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.25s
+
+running 3 tests
+test note::formal_context_note_wakes_waiting_worker_on_same_assignment_without_new_authority ...      Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-ef0d52cf0b2d3454)
+ok
+test note::formal_ticket_note_delivers_trimmed_fact_with_original_mandate_and_rejects_invalid_or_ended_targets ... ok
+test note::formal_ticket_note_does_not_wake_worker_blocked_for_human_or_expand_authority ... 
+thread 'note::formal_ticket_note_does_not_wake_worker_blocked_for_human_or_expand_authority' (3631293) panicked at crates/xharness-superagent/tests/product_entry/note.rs:231:5:
+assertion `left == right` failed
+  left: String("blocked")
+ right: "waiting"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    note::formal_ticket_note_does_not_wake_worker_blocked_for_human_or_expand_authority
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 27 filtered out; finished in 5.40s
+
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`
