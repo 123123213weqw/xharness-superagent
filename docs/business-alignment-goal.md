@@ -91,3 +91,14 @@ CodingToolBundle write、报告和 marker 回执；不是将分开的组件测�
 
 本批全工作区测试实际执行，旧飞书专用 UID/出站过滤2项部署断言未通过；保留失败，
 不修改共享服务器来凑绿。详细范围见 `docs/business-controls-verification.json`。
+
+## B5 恢复接线（部分，与 B2 并行推进但不另开 Goal）
+
+正式入口反例复现了等待工单重启后新输入无法派发的问题。现已重连原 Native 会话，
+并在开放派发前用既有 Engine 协调 open assignments：等待交接保留原 assignment，
+真正中断则建立恢复 assignment；丢失目录不重新 prepare，而保留输入与派发错误。
+
+新增3条正式路径已执行，当前14个入口测试通过；9个选定 crate 回归和 workspace
+fmt/check/严格 Clippy 通过。它们不是全工作区绿：此前飞书部署断言、旧提交的跨平台
+CI 失败均保留，当前精确 head 的 CI 仍须另验。见 `docs/business-recovery-verification.json`。
+完整后台/停止/恢复矩阵及 B2 剩余业务工具、Sources、API/UI、部署回退仍在本 Goal。

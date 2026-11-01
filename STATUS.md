@@ -98,3 +98,23 @@ workspace 测试。新代码的跨平台CI另以其精确提交检查，不复�
 完整 bounded read、note/推断研判/设置/Prompt工具、飞书新 Source、API/UI、完整
 后台任务/恢复与部署继续留在 Goal 中。普通安静回合的 waiting 修复不代表原版30分钟
 后台/子任务结算已完成。当前仍为5组离线业务通过；新增控制证据只推进相关未完成组。
+
+## 未完成工单恢复接线（当前，部分）
+
+已修复正式入口反例：waiting 工单正常重启后有新评论时，重建原 Native 会话的可信
+绑定，继续原 assignment，而非永远留下派发。真正中断的 Worker 用既有 Engine 生成
+恢复 assignment；丢失工作目录时不偷偷 prepare/建空目录，保留输入与派发错误。
+
+新增3条正式入口路径：等待/新输入/重放去重、实际 SIGKILL 后恢复且保留部分文件、
+目录缺失的负向结果。现14条入口测试通过，外部服务仍为明确离线 HTTP/SSE/gh 夹具。
+9个选定 crate 回归、workspace fmt/check/严格 Clippy 通过，不是全 workspace 测试。
+
+前一控制提交 b264618 的 CI 两平台未通过：macOS HTTP 夹具 WouldBlock（本批明确
+设置 accepted socket 阻塞模式，待新 head CI 验证），Linux 冻结 Host 的 flush 观察
+断言竞争（未改断言或导入）。此前完整 workspace 的飞书 UID/出站过滤失败仍未修复。
+没有改服务器权限/服务，也不把范围更小的绿替代上述失败。详见
+`docs/business-recovery-verification.json` 和 [恢复边界](docs/superagent/business-recovery.md)。
+
+工具数量仍主6/Worker5；完整 bounded read、其余工具、飞书、API/UI、完整后台/停止/
+全部恢复切点及部署回退仍未完成。业务清单现5组离线通过、6组部分推进、12组未运行，
+不代表功能完成率。Goal 继续活动，仅对齐产品逻辑，不恢复全域 JS/UTF-16 方向。

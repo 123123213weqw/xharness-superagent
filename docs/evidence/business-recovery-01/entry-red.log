@@ -1,0 +1,21 @@
+   Compiling xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.94s
+     Running tests/product_entry.rs (<isolated-target>/debug/deps/product_entry-085c7a183df671db)
+
+running 1 test
+test formal_waiting_worker_rebinds_after_restart_and_reads_new_source_input_once ... FAILED
+
+failures:
+
+failures:
+    formal_waiting_worker_rebinds_after_restart_and_reads_new_source_input_once
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 11 filtered out; finished in 1.00s
+
+
+thread 'formal_waiting_worker_rebinds_after_restart_and_reads_new_source_input_once' (2584114) panicked at crates/xharness-superagent/tests/product_entry.rs:994:5:
+assertion `left == right` failed
+  left: Number(1)
+ right: 0
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`

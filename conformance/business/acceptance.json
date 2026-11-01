@@ -170,8 +170,19 @@
       "id": "WORK-02",
       "milestone": "B5",
       "title": "追加消息进入活动工单，结束工单恢复遵守授权与原消息归属",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "73f584a7360bbe835d07130b3435818b6e4fe7b6",
+          "verified_subset": "Waiting-ticket restart keeps assignment and processes new same-thread input once; SIGKILL-before-first-SSE recovery and missing-workspace fail-closed are actual formal paths. Active/ended-ticket append and all crash/lifecycle cuts remain unverified.",
+          "entry_and_command": "Formal xharness-superagent executable in tests/product_entry.rs; remote all-targets selected regression and serial formal-entry runs",
+          "environment": "Formal executable, actual managed gh subprocess, existing OpenAI HTTP/SSE adapter, leased SQL/Outbox, actual Native journal and CodingToolBundle; only external services are loopback fixtures. No paid models or real GitHub writes.",
+          "full_log": "docs/evidence/business-recovery-01/regression-01.log",
+          "business_assertions": "docs/business-recovery-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        }
+      ]
     },
     {
       "id": "WORK-03",
@@ -229,8 +240,19 @@
       "id": "REC-03",
       "milestone": "B5",
       "title": "实际会话中断后恢复任务，回复幂等且不伪造成功",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "73f584a7360bbe835d07130b3435818b6e4fe7b6",
+          "verified_subset": "Waiting-ticket restart keeps assignment and processes new same-thread input once; SIGKILL-before-first-SSE recovery and missing-workspace fail-closed are actual formal paths. Active/ended-ticket append and all crash/lifecycle cuts remain unverified.",
+          "entry_and_command": "Formal xharness-superagent executable in tests/product_entry.rs; remote all-targets selected regression and serial formal-entry runs",
+          "environment": "Formal executable, actual managed gh subprocess, existing OpenAI HTTP/SSE adapter, leased SQL/Outbox, actual Native journal and CodingToolBundle; only external services are loopback fixtures. No paid models or real GitHub writes.",
+          "full_log": "docs/evidence/business-recovery-01/regression-01.log",
+          "business_assertions": "docs/business-recovery-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        }
+      ]
     },
     {
       "id": "GH-01",
@@ -290,21 +312,21 @@
     }
   ],
   "implementation_progress": {
-    "status": "B2_in_progress_full_product_alignment_incomplete",
-    "evidence": "docs/business-controls-verification.json",
+    "status": "B2_and_recovery_in_progress_full_product_alignment_incomplete",
+    "evidence": "docs/business-recovery-verification.json",
     "full_business_groups_passed": 5,
-    "business_groups_in_progress": 4,
-    "business_groups_not_run": 14,
+    "business_groups_in_progress": 6,
+    "business_groups_not_run": 12,
     "validation_environment": "offline_protocol_fixture",
-    "formal_entry_tests_passed": 11,
+    "formal_entry_tests_passed": 14,
     "application_tool_registrations": {
       "main": 6,
       "worker": 5,
       "required_main": 14,
       "required_worker": 6
     },
-    "workspace_test_gate": "failed_two_legacy_feishu_sandbox_deployment_checks"
+    "workspace_test_gate": "previous_full_workspace_and_prior_CI_failures_unresolved_this_run_selected9passed"
   },
-  "updated_at_utc": "2026-11-01T18:51:19.914805+00:00",
+  "updated_at_utc": "2026-11-01T19:06:33.614715+00:00",
   "validation_note": "passed denotes the listed complete product scenario in an explicitly offline protocol environment, not real GitHub/model service approval, universal parity or release readiness. Unexecuted branches remain open."
 }

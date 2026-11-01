@@ -31,6 +31,9 @@
   loopback 模型/gh 协议夹具验证，没有付费调用或真实 GitHub 评论。
 - [工单/线程控制](docs/superagent/business-controls.md)：重试、状态查询、重新研判、
   订阅/移除/handback 已接入同一 Native 工具路径；完整主14/Worker6仍未完成。
+- [未完成工单恢复](docs/superagent/business-recovery.md)：等待工单重启后处理新输入、
+  Worker 进程中断后的恢复 assignment、目录丢失时保留输入与可观察错误。
+  只验证所列场景，不代表全部后台任务/崩溃切点和部署恢复完成。
 
 ## 尚未完成
 
