@@ -19,10 +19,13 @@
 - XHarness 原生会话/JSONL 接入组件、队列/followup/steer/inject、观察与关闭。
 - 部分 Prompt/skills、输入准备、重试健康和崩溃恢复组件。
 - 固定原版源码及组件差分验证设施。
+- Application/Native 库级装配，以及路由、回复、确认、报告四个产品工具子集。
+  离线夹具可实际启动 Worker 写文件并经 Outbox 回复；详见
+  [当前接线及边界](docs/superagent/business-native.md)，不冒充正式 Source/CLI 验收。
 
 ## 尚未完成
 
-- 完整 Root/Runtime 装配和 Assessor/Executor 协作闭环。
+- 正式产品启动入口及完整 Assessor/Executor 协作、资源读取和推断研判。
 - 14 个主工具与 6 个 Worker 应用工具的完整执行及生命周期。
 - SuperAgent 业务链路的 GitHub/飞书 Source 接入。
 - 完整配置 API、管理面板、部署和回退验收。
@@ -51,6 +54,7 @@ cargo fmt --all -- --check
 node conformance/restore-reference-modes.mjs
 node conformance/verify-reference.mjs
 node conformance/verify-upstream.mjs
+node conformance/business/verify-tool-manifest.mjs
 ```
 
 Git 只保留可执行位，不保留参考归档的组写权限。恢复脚本先校验全部固定源码

@@ -1,0 +1,135 @@
+{
+  "created_at_utc": "2026-11-01T16:03:23.645984+00:00",
+  "milestone": "B1",
+  "status": "native_library_composition_verified_not_product_accepted",
+  "source_commit": "53c43c0af6e3f0dec9eba85ac01b3619ad31cc51",
+  "profile_sha256": "751d1141b603c06622ba4b2454355467eea76d740ac04ebdf302ffd97669edc3",
+  "profile_files": 668,
+  "local_remote_source_equal": true,
+  "rust_source_unchanged_between_regression_and_final_profile": true,
+  "host": "WZU_Server",
+  "isolated_build": true,
+  "local_rust_compilation": false,
+  "production_dependencies_changed": false,
+  "commands": [
+    {
+      "command": "cargo fmt --all -- --check",
+      "exit": 0
+    },
+    {
+      "command": "cargo check --locked --workspace --all-targets --features xharness-superagent/conformance",
+      "exit": 0
+    },
+    {
+      "command": "cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings",
+      "exit": 0
+    },
+    {
+      "command": "cargo test --locked -p xharness-superagent-core -p xharness-superagent -p xharness-host -p xharness-agent --all-targets --features xharness-superagent/conformance",
+      "exit": 0
+    },
+    {
+      "command": "node conformance/verify-reference.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node conformance/verify-upstream.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node conformance/business/verify-tool-manifest.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node --test conformance/business/host-input-observer.test.mjs",
+      "exit": 0
+    }
+  ],
+  "new_native_composition_tests": [
+    "main_routes_native_worker_writes_reports_and_main_replies",
+    "unauthorized_source_never_reaches_any_model_or_tool",
+    "main_ignore_records_decision_without_launching_worker",
+    "restart_keeps_ticket_receipts_and_duplicate_does_not_rerun",
+    "provider_failure_is_not_silently_reported_as_idle_success",
+    "shutdown_cancels_and_joins_a_running_native_worker",
+    "route_batch_refuses_one_item_without_rolling_back_another"
+  ],
+  "regression_unfiltered_result_rows": 55,
+  "regression_passed": 862,
+  "regression_failed": 0,
+  "regression_ignored": 8,
+  "ignored_not_counted_as_pass": [
+    "test context_selection::tests::actual_legacy_metadata_proves_inherited_automatic_budget ... ignored, metadata-only real journal acceptance; no transcript or tool bodies",
+    "test restore::dynamic_projection_tests::offline_dynamic_projection_stress ... ignored, bounded dynamic replay; explicit CI/local incident investigation only",
+    "test restore::tests::offline_authoritative_restore_100_cold_starts ... ignored, explicit isolated cold-start acceptance; run in diagnostics CI",
+    "test restore::tests::offline_journal_projection_stress ... ignored, explicit offline projection experiment; private journals stay local",
+    "test restore::tests::offline_reasoning_projection_stress ... ignored, offline crash-reproduction stress; run explicitly in CI",
+    "test restore_checkpoint::tests::recovery_checkpoint_performance_acceptance ... ignored, explicit remote cold-recovery performance acceptance",
+    "test runtime::tests::admission_performance_tests::large_history_rpc_performance_acceptance ... ignored, remote optimized real-RPC A/B acceptance, no network/model calls",
+    "test runtime::tests::max_tokens_diagnostic::diagnostic_max_tokens_notice_survives_next_turn_start ... ignored, diagnostic of known notice mismatch; run explicitly, remove when fixed"
+  ],
+  "full_workspace_tests_run": false,
+  "reference_sources_checked": 216,
+  "reference_sources_modified": false,
+  "controlled_import_steps_unchanged": 11,
+  "controlled_import_paths_unchanged": 86,
+  "product_local_host_overlay_added_lines": 17,
+  "product_local_host_overlay_removed_lines": 0,
+  "provenance_guard_negative_tests_passed": 4,
+  "subset_tool_definitions": {
+    "main": [
+      "orchestrator_route",
+      "orchestrator_reply"
+    ],
+    "worker": [
+      "orchestrator_ack",
+      "orchestrator_report"
+    ]
+  },
+  "behaviors_verified": [
+    "real Native main-to-worker model/tool execution, actual temporary workspace file write, report relay and receipt-settled reply",
+    "ordinary Chinese/emoji content retained in the real file operation and reply",
+    "unlisted sender records ignore/not_a_member without any model or tool calls",
+    "main ignore creates no worker or reply",
+    "route item refusal does not roll back a later accepted item",
+    "native provider failure is visible through idle and shutdown",
+    "shutdown cancels and joins a live native worker",
+    "normal shutdown/reopen preserves ticket/receipts and duplicate causes no repeated model/tool/reply"
+  ],
+  "not_proved": [
+    "formal product startup binary and configuration/setup flow",
+    "GitHub/Feishu Source event parsing and service transport",
+    "actual paid-model/provider service acceptance",
+    "main14/worker6 tools, remaining input guards/resource reads and inferred assessment",
+    "full PR ownership, background processes/subtasks, timeout and retry lifecycle",
+    "all crash/recovery cuts, API/UI, deployment/backup/rollback and complete business acceptance"
+  ],
+  "business_acceptance_cases_passed": 0,
+  "business_acceptance_cases_not_run": 23,
+  "cancelled_language_scope_not_counted_as_acceptance": true,
+  "failed_attempts_retained_locally": [
+    "initial integration: no model observed and unauthorized fixture incorrectly expected intake-filter rather than stored policy-ignore",
+    "post-admission subscription missed an immediate tool-registration failure; added opt-in pre-commit native observer and visible idle error",
+    "primitive/null anyOf metadata rejected by portable native schema; product manifest performs only equivalent bounded unions, without changing global schema validator",
+    "all-target Clippy found a missing unit fixture field and guard lifetime warnings; repaired fixture and lexical scopes without lint exemptions",
+    "provenance guard rejected the new Host seam; retained original controlled chain and declared independently hashed 17-line additive product overlay, with negative checks"
+  ],
+  "full_regression_log_sha256": "7566703a0cb5a236764ca247edd3287aafed4d823cb0f420f5c846389fbd4125",
+  "final_check_log_sha256": "402f887ef6387cb6d9df063064444b1e55fecc8cd47f7dac6e5db6c539e0bf21",
+  "source_files": {
+    "crates/xharness-host/src/runtime.rs": "5203e980ee97f60b81f30721cfa8bf9a411bc4742a48c35da9339daa47954c4b",
+    "crates/xharness-superagent/src/application.rs": "4a34f2397ab31e353649f1fa7617e9fb1892f7e5928e311cf93beaec4dfa3425",
+    "crates/xharness-superagent/src/application/client.rs": "e97ec5a88c874000dba2a0a5d24945b02d889a4b69a791094cb86d6d112514b3",
+    "crates/xharness-superagent/src/application/native.rs": "2b05a11197894ace8c0c301a9e0048cbfcfae73b91b8ade22c1036fe86b69f03",
+    "crates/xharness-superagent/src/application/tools.rs": "432462d124f6ba16cc7402df64475bae4ffe49336e06aec00f81765d9e192b01",
+    "crates/xharness-superagent/src/native_sessions.rs": "56e32221a823bf78df6376fcc1f446939c3e7b8514186cc7fdf801b80d780325",
+    "crates/xharness-superagent/src/native_sessions/delivery.rs": "44281b9fb7b256a070fff54adab6c03014bfee27389c31ab9088139c1a60c447",
+    "crates/xharness-superagent/assets/business-tools.json": "2203e0d4d7272b361a8ee8074b80a94edf48aa8923abb8d98854d764aa62db4b",
+    "crates/xharness-superagent/tests/product_native.rs": "56a85c520afc5c8ed0d774c2276e59956741bc9e86d5acdd570ce8a5864a8ee4",
+    "conformance/verify-upstream.mjs": "430bb5132cd874c876d64a84fa525c7d895bda1a79e8941808e63766475d0811",
+    "conformance/business/verify-tool-manifest.mjs": "eefa1ef98bbe823f7ebf7ffe30a10eb8115cd2352f2ea16e814c946ab8e00461",
+    "conformance/business/host-input-observer.mjs": "4473b26ec1e5b5b902eea39bb05e9d5c55afa2e288d8391183e82f1d8c74cc55",
+    "conformance/business/host-input-observer.overlay.json": "dc94b6e594628da3bbfd03cf88253ef2be4d94f2ddac83846adb6b37972ae7af",
+    "conformance/business/host-input-observer.test.mjs": "d245235f9b6cb415cb3eb825a98095752552a0537222abaed9aafaccb5933266"
+  }
+}

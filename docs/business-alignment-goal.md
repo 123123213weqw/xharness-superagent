@@ -59,3 +59,10 @@ B2/B5 中第一条闭环必要的子集并入 B1，不以里程碑排序拖延�
 公开 main：`4cd269d10864db6c4400cef7221a6343dab0001f`。
 此前 470 个组件测试、workspace check/Clippy 只作为起点回归记录；新业务场景尚未验收。
 当前工作是 B1 的装配和调用路径，不是扩展底层兼容矩阵。
+
+## B1 当前进展
+
+Application 的 SQL/队列/Outbox 组合后，已接入实际 Native 会话、主/Worker 角色和
+4个工具子集；离线模型夹具驱动了真实 Worker 文件写入与回执回复。
+见 [Native 接线说明](superagent/business-native.md)。正式入口与 GitHub Source 是下一步，
+不能把库级组合测试计入23个整产品场景的通过数。

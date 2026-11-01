@@ -178,9 +178,9 @@
     }
   ],
   "implementation_progress": {
-    "B1": "in_progress",
-    "component_report": "docs/business-application-verification.json",
-    "Native_product_loop_installed": false,
-    "component_tests_are_not_case_acceptance": true
+    "status": "B1_in_progress_not_product_accepted",
+    "evidence": "docs/business-native-verification.json",
+    "native_library_fixture_checks_passed": 7,
+    "full_business_cases_passed": 0
   }
 }

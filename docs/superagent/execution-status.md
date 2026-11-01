@@ -1,5 +1,11 @@
 # SuperAgent 行为对齐执行进度
 
+> **历史记录，不是当前 Goal 或验收口径。** 以下保留旧语言级对齐阶段的原始记录；
+> 用户已取消全域 JS/UTF-16 等非产品前置要求。当前只执行
+> [业务 Goal](../business-alignment-goal.md) 与
+> [新业务验收清单](../../conformance/business/acceptance.json)。
+> 本文旧“Goal ACTIVE / 40项 / 96条不变”等表述只描述当时状态，不再适用。
+
 完整 Goal **ACTIVE**，M0–M7、40 项任务和 96 条最终 Rubric 不变；最终验收 **0/96**。
 
 ## 当前新增：可信装饰握手与时序对齐
