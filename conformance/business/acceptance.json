@@ -181,6 +181,9 @@
     "status": "B1_in_progress_not_product_accepted",
     "evidence": "docs/business-native-verification.json",
     "native_library_fixture_checks_passed": 7,
-    "full_business_cases_passed": 0
+    "full_business_cases_passed": 0,
+    "github_source_evidence": "docs/business-github-verification.json",
+    "github_protocol_checks_passed": 6,
+    "github_to_native_fixture_checks_passed": 8
   }
 }

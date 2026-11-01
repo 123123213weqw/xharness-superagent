@@ -22,12 +22,14 @@
 - Application/Native 库级装配，以及路由、回复、确认、报告四个产品工具子集。
   离线夹具可实际启动 Worker 写文件并经 Outbox 回复；详见
   [当前接线及边界](docs/superagent/business-native.md)，不冒充正式 Source/CLI 验收。
+- GitHub Source 的通知/评论/PR/CI 轮询、稳定事件和 marker 回复库已接到 Native；
+  [接入进展与验证边界](docs/superagent/business-github.md)。
 
 ## 尚未完成
 
 - 正式产品启动入口及完整 Assessor/Executor 协作、资源读取和推断研判。
 - 14 个主工具与 6 个 Worker 应用工具的完整执行及生命周期。
-- SuperAgent 业务链路的 GitHub/飞书 Source 接入。
+- GitHub 完整资源/工具分支、正式入口联调，以及飞书和多来源接入。
 - 完整配置 API、管理面板、部署和回退验收。
 
 仓库中的旧 gh-host/feishu-host 是已有 XHarness 实验，不代表上述产品已完成。

@@ -1,0 +1,158 @@
+{
+  "created_at_utc": "2026-11-01T16:58:21.365921+00:00",
+  "milestone": "B1",
+  "status": "github_source_and_native_library_protocol_fixtures_verified_not_full_product_accepted",
+  "source_commit": "6898c2395476b4efa838b948b13517f7d61b9e7b",
+  "profile_sha256": "0dd25ad30edbbac61dd51443b577d04362131c1ba982ff1006e2bc281ad3fa7a",
+  "profile_files": 685,
+  "profile_method": "SHA-256 of all workspace Rust source/manifests/test lint config, product prompt assets/notices, executable conformance fixtures/dependency locks, CI/agent instructions and remote validation wrapper, excluding build outputs and mutable status documents",
+  "local_remote_source_equal": true,
+  "host": "WZU_Server",
+  "isolated_build": true,
+  "local_rust_compilation": false,
+  "new_direct_workspace_dependencies": [
+    "xharness-process"
+  ],
+  "external_rust_lock_versions_changed": false,
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "reference_sources_checked_unchanged": 216,
+  "controlled_import_steps_unchanged": 11,
+  "controlled_import_paths_unchanged": 86,
+  "declared_product_local_overlays": [
+    {
+      "path": "crates/xharness-host/src/runtime.rs",
+      "added_lines": 17,
+      "removed_lines": 0,
+      "scope": "existing pre-commit observer seam, unchanged this increment"
+    },
+    {
+      "path": "Cargo.lock",
+      "added_lines": 1,
+      "removed_lines": 0,
+      "scope": "direct existing workspace dependency; exact audited original lock reconstructed and verified"
+    }
+  ],
+  "commands": [
+    {
+      "command": "cargo fmt --all -- --check",
+      "exit": 0
+    },
+    {
+      "command": "cargo check --locked --workspace --all-targets --features xharness-superagent/conformance",
+      "exit": 0
+    },
+    {
+      "command": "cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings",
+      "exit": 0
+    },
+    {
+      "command": "cargo test --locked -p xharness-superagent --test github_source --test product_native -- --nocapture",
+      "exit": 0
+    },
+    {
+      "command": "cargo test --locked -p xharness-superagent-core -p xharness-superagent -p xharness-host -p xharness-agent --all-targets --features xharness-superagent/conformance",
+      "exit": 0
+    },
+    {
+      "command": "cargo test --locked -p xharness-process --all-targets -- --test-threads=1",
+      "exit": 0
+    },
+    {
+      "command": "node --experimental-transform-types conformance/business/github-source-oracle.mjs --check",
+      "exit": 0
+    },
+    {
+      "command": "node conformance/verify-reference.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node conformance/verify-upstream.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node --test conformance/business/product-cargo-overlay.test.mjs conformance/business/host-input-observer.test.mjs",
+      "exit": 0
+    },
+    {
+      "command": "node conformance/business/verify-tool-manifest.mjs",
+      "exit": 0
+    }
+  ],
+  "targeted_suite_passed_executions_separate_from_regression": 21,
+  "new_source_protocol_test_declarations": 6,
+  "new_source_native_composition_test_declarations": 8,
+  "existing_native_composition_test_declarations": 7,
+  "reference_function_samples": 57,
+  "reference_function_samples_scope": "12 comments,4 issue/PR bodies,12 mentions,9 addresses,11 channel traces,2 CI triggers,7 account metadata validity inputs; unmodified pinned functions executed offline",
+  "provenance_guard_test_declarations": 6,
+  "regression_result_rows_excluding_first_targeted_repeat": 60,
+  "regression_passed": 906,
+  "regression_failed": 0,
+  "regression_ignored": 8,
+  "ignored_not_counted_as_pass": [
+    "test context_selection::tests::actual_legacy_metadata_proves_inherited_automatic_budget ... ignored, metadata-only real journal acceptance; no transcript or tool bodies",
+    "test restore::dynamic_projection_tests::offline_dynamic_projection_stress ... ignored, bounded dynamic replay; explicit CI/local incident investigation only",
+    "test restore::tests::offline_authoritative_restore_100_cold_starts ... ignored, explicit isolated cold-start acceptance; run in diagnostics CI",
+    "test restore::tests::offline_journal_projection_stress ... ignored, explicit offline projection experiment; private journals stay local",
+    "test restore::tests::offline_reasoning_projection_stress ... ignored, offline crash-reproduction stress; run explicitly in CI",
+    "test restore_checkpoint::tests::recovery_checkpoint_performance_acceptance ... ignored, explicit remote cold-recovery performance acceptance",
+    "test runtime::tests::admission_performance_tests::large_history_rpc_performance_acceptance ... ignored, remote optimized real-RPC A/B acceptance, no network/model calls",
+    "test runtime::tests::max_tokens_diagnostic::diagnostic_max_tokens_notice_survives_next_turn_start ... ignored, diagnostic of known notice mismatch; run explicitly, remove when fixed"
+  ],
+  "full_workspace_tests_run": false,
+  "behaviors_verified": [
+    "Source notification comment normalization and policy gate reach real Native main/worker, actual temporary workspace file operation and marker-backed reply",
+    "duplicate notification does not duplicate ticket, model call, file work or reply",
+    "unlisted account and bot comments never invoke a model or worker",
+    "notification 404 retains per-thread retry, health threshold and recovers without advancing unread thread cursor",
+    "410 is dropped and 24-hour failed notification is abandoned without keeping Source health in error",
+    "notification failure does not roll back other repository streams; unchanged stream uses ETag/304",
+    "cancelled in-flight Source read advances neither unread thread nor retry cursor and does not report cancellation as an unhealthy poll",
+    "default-branch CI first observation baselines, running checks retain previous failures and only settled recovery triggers an event",
+    "agent PR matching the ticket branch binds once; stable reread leaves ticket unchanged; failed PR fetch is cached once per round; closing PR ends ticket and cancels actual Native worker",
+    "managed configured CLI uses direct argv, confines API repository, reads identity/push permission without granting it, preserves headers/HTTP and JSON errors, treats message shell syntax as literal and joins cancellation"
+  ],
+  "not_proved": [
+    "formal startup binary/configuration/setup path and one combined executable/CLI/provider/coding-tool product acceptance",
+    "real GitHub service or paid-model acceptance",
+    "complete Source poll-function differential for all branches and legacy CI fingerprint/special-sort migration",
+    "main14/worker6 remaining tools, report(pr_number) source ownership transaction, bounded context/resource reads, full inferred assessment and prompt environment",
+    "Feishu and multi-source registry, configuration API/UI, all crash/stop/retry/background lifecycle, deployment/backup/rollback"
+  ],
+  "business_acceptance_cases_passed": 0,
+  "business_acceptance_cases_not_run": 23,
+  "language_runtime_equivalence_not_restarted": true,
+  "failed_attempts_retained_locally": [
+    "initial strict Clippy rejected inconsistent digit grouping and an 8-argument new CI helper; corrected literal grouping and introduced a typed target rather than lint exemptions",
+    "second Clippy rejected a test comparison to empty string; changed to is_empty",
+    "frozen provenance guard detected the legitimate new one-line local Cargo dependency edge; added exact independently hash-pinned overlay, preserving all old imports and fixed reference sources"
+  ],
+  "source_audit_corrections_verified": [
+    "rejected PR reads cached as well as successful ones",
+    "existing own/open PR no longer rebinds and changes updatedAt on each poll",
+    "optional non-null user.type/title/created_at fields do not silently accept malformed null; required nullable CI conclusion cannot be omitted"
+  ],
+  "full_regression_log_sha256": "9f2891e57e4df29577a8c1305e9ef6ef505e067041cfa16839f0234162fb823b",
+  "oracle_check_log_sha256": "6c55d3234a8dfc9bc471d0f6eb900bce8affed4b8f96d92b66c921dbc1b10e38",
+  "source_files": {
+    "Cargo.lock": "2397021ac202cb62a94ddc76e62b1e1a2803b794746d569dd704a2ecd85e5f5c",
+    "crates/xharness-superagent/Cargo.toml": "76ed01b42b9aaff9633b9c152cac8d2dc001489f57cc7f8be12203a6d48a2528",
+    "crates/xharness-superagent/src/application/github.rs": "9ce503a97c2a869a8eac3abbfb607927b7e9faf218123749a0a58524e31b1f33",
+    "crates/xharness-superagent/src/application/native.rs": "507ebfdd06fe119122426d63b375d8f789e8ae136f3d48cb429cd7b0883f5052",
+    "crates/xharness-superagent/src/sources.rs": "b26d43c94cd7de7940e1c8b6549f1027dcae63b14045828f775eae3bf2181422",
+    "crates/xharness-superagent/src/sources/github.rs": "23270d84db686048d0a4c7b28421bd82e372b7c689e0a52ed936b6a914c79d9c",
+    "crates/xharness-superagent/src/sources/github/trigger.rs": "591ff6f3d95170f92f6555bcddc7d66d5ee6b82be787cb735928545092c1aef9",
+    "crates/xharness-superagent/src/sources/github/channel.rs": "098e52e2c9635739440d4756bed818dacfa56148411ae7b7d2a30f2b71e00fdd",
+    "crates/xharness-superagent/src/sources/github/ci.rs": "1c8f397f5c236fc44caa3a7db49194f40a35ac2c56c17424fe4c40ac82e5430f",
+    "crates/xharness-superagent/tests/github_source.rs": "300f9e1d85a31cb710d180a03d927497c87d091be360ab06c6ea0a3301e878b1",
+    "crates/xharness-superagent/tests/product_native.rs": "9bbf1e033383d2ff6eef973875d2f8b383488780ecf362416485d2a0ae2596e0",
+    "crates/xharness-superagent/tests/product_native/github.rs": "22f36854a77524716438840f79adb98188305a934473f948f61d9bc74a91c542",
+    "conformance/business/github-source-oracle.mjs": "78e4a4416f42720b9cc1ee816082c0b8ee068c51ac7cbaaa45f167328b09f504",
+    "conformance/business/github-source-oracle.json": "e2e57c63d36eb1c29b209d7d9d38c30ccd7146478993b7b259d77862980ff293",
+    "conformance/business/product-cargo-overlay.mjs": "2427896896af13f64937b474b92fc5c65537f9356076d5da9f6c0823dd11e511",
+    "conformance/business/product-cargo.overlay.json": "a9d3589f11bf05079e60842d549d869819db4a2016ba4a74e2bf24db86b21343",
+    "conformance/business/product-cargo-overlay.test.mjs": "77b8b9ab2593de1e0e99b212bb60d3389c5ca6df356f2ccade6b17b7394c2036",
+    "conformance/verify-upstream.mjs": "e02b17ebe0e1ec273846a00afcc4e21f2ee9ec88627f553e9b267f66f4c4f1aa",
+    ".github/workflows/ci.yml": "ceb30ad291ff9f796b33b050548110e58c5c115ae4daf4a8f6efb520da31f471"
+  }
+}

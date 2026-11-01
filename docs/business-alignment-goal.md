@@ -66,3 +66,7 @@ Application 的 SQL/队列/Outbox 组合后，已接入实际 Native 会话、�
 4个工具子集；离线模型夹具驱动了真实 Worker 文件写入与回执回复。
 见 [Native 接线说明](superagent/business-native.md)。正式入口与 GitHub Source 是下一步，
 不能把库级组合测试计入23个整产品场景的通过数。
+
+GitHub Source 现已接到上述同一 Native 路径；有57个参考函数协议/账号样本及明确的
+Source/CLI/组合夹具检查。仍缺正式产品入口，不将分开的 CLI 测试和库级组合拼成
+FLOW-01 通过。下一步应交付实际启动/配置和编码工具工厂，而不是继续扩语言兼容。

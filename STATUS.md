@@ -41,3 +41,18 @@ Outbox 与统一关闭。5 个新增组合测试及产品模块回归、workspac
 SuperAgent 两 crate、Host、Agent 回归共862通过、0失败、8个已有忽略项（不计通过）。
 不是完整 workspace 测试。固定参考216文件未变；原11步/86路径溯源链不变，
 额外17行 Host 观察接口以独立精确 overlay 校验，4个负例检查通过。
+
+## GitHub Source / B1 继续
+
+GitHub 的账号/仓库只读检查、受限 CLI 协议、事件规范化、通知/仓库/订阅线程轮询、
+PR/CI 观察和 marker 幂等回复已接入同一产品库。Source → 策略/SQL/队列 → Native
+Worker 实际写文件 → 报告/回复的协议夹具场景已执行，不再由调用方手填 Trigger。
+
+这仍没有经过正式产品入口或真实 GitHub 服务；CLI、账号配置与模型的外部边界使用
+明确的离线夹具。其余工具、资源/推断研判、飞书、多来源、API/UI 和完整恢复/部署
+仍未完成；全产品23组继续 `not_run`。见 [Source 说明](docs/superagent/business-github.md)
+和 [本批证据](docs/business-github-verification.json)。正式入口是下一优先项。
+
+本批在独立远程目录通过 workspace check/严格 Clippy/格式检查；5个选定 crate 的
+回归906通过、0失败、8个已有忽略项（不计通过），不是整个 workspace 测试。
+新增14个 Source/协议/组合检查及57个原版函数样本；当前主/Worker应用工具仍是4个子集。
