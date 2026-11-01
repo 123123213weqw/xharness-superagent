@@ -1,0 +1,223 @@
+{
+  "created_at_utc": "2026-11-01T21:23:02.734889+00:00",
+  "source_commit": "33f66be321b859f56c6fab0b4e0cdc4e92bf0f14",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "status": "settings_prompt_tools_and_actual_skill_path_verified_business_goal_incomplete",
+  "host": "WZU_Server",
+  "isolated_owned_validation_directory": true,
+  "local_rust_compilation": false,
+  "profile_sha256": "ea9df9468030951c36b3687eef232b73a3e505c413c9e8dafa1a2a3275a2d885",
+  "profile_files": 717,
+  "profile_manifest": "docs/business-configuration-source-profile.json",
+  "local_remote_source_equal": true,
+  "new_runtime_dependencies": [],
+  "cargo_lock_changed": false,
+  "application_tools": {
+    "main": 9,
+    "worker": 6,
+    "required_main": 14,
+    "required_worker": 6,
+    "new": [
+      "orchestrator_settings_save",
+      "orchestrator_prompts_save"
+    ],
+    "remaining_main": [
+      "orchestrator_ticket_note",
+      "orchestrator_eval",
+      "orchestrator_eval_read",
+      "orchestrator_eval_decide",
+      "orchestrator_policy_sync"
+    ],
+    "framework_skill_not_counted_as_application_registration": true,
+    "worker_names_registered_not_all_branches_complete": true
+  },
+  "formal_entry": {
+    "tests_passed": 20,
+    "new_tests": [
+      "configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model",
+      "configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions",
+      "configuration_lifecycle::formal_pause_records_decisions_but_holds_worker_and_replies_until_resume",
+      "configuration_lifecycle::formal_policy_save_rolls_back_history_effects_and_authority_on_sql_cut"
+    ],
+    "actual_product_path": true,
+    "environment": "Explicit offline model HTTP/SSE and gh executable boundaries only; actual formal binary/OpenAI adapter/Client/SQL/Native/CodingToolBundle/Outbox; no paid/live services."
+  },
+  "business_assertions": [
+    "Settings: actual strict block validation, source/field cross-validation, installed GitHub kind schema/account restrictions, environment/account panel-only guards, model availability and stale revisions return errors without history writes.",
+    "Settings no-op remains revision0; newly saved worker model seeds actual new Worker HTTP requests, no fallback/old model or global default mutation. Source off/on and pause updates persist and affect real dispatch.",
+    "Policy save atomically persists history, Engine reassessment/worker notices and post-commit policy watch. An actual temporary SQLite decision-insert abort rolls back history/revision/effects/authority; original allowed sender still accepts and performs real file work afterward.",
+    "Pause can record accept while holding worker creation/model calls and acceptance Outbox writes; main can read queued ticket but transcript returns nonexistent. Resume releases actual file work/replies; repeated same pause does not create history.",
+    "Prompt preview is session-scoped ephemeral paging without versions. Missing baseRevision errors; preview defaults false; stale saves conflict; first save retains defaults0; identical Prompt saves still version1/2; bound current revision and actual next main/worker request content change.",
+    "Actual product installs existing SkillManager, advertises available names/descriptions and Worker loads saved team skill via actual scoped skill tool. Worker has no settings/prompts save registrations; prompt text grants no new authority.",
+    "Original saved/manual Native selections remain intact; original separate role defaults are preserved when saved selectors are null, verified by unchanged broader legacy product_native tests."
+  ],
+  "asset_component_checks_not_deployment_acceptance": {
+    "tests": [
+      "bundled_assets_are_immutable_idempotent_and_recover_an_interrupted_reserved_temp",
+      "owned_skill_root_and_assets_never_follow_symlinks_or_replace_foreign_content"
+    ],
+    "count": 2,
+    "installed_from": "Compiled pinned SKILL.md bytes, content-addressed owned state directory, not build machine source paths",
+    "checks": [
+      "same package reused without overwrite",
+      "mismatch retained and errors",
+      "reserved interrupted temp repaired",
+      "root/asset symlinks rejected without modifying external content"
+    ]
+  },
+  "explicit_metadata_adaptations": {
+    "primitive_null_unions": 8,
+    "input_defaults": {
+      "main_and_worker_read_offset": 0,
+      "prompts_preview": false
+    },
+    "unconstrained_settings_value": "Explicit object/array/string/number/boolean/null domain equals z.unknown JSON input; existing Host requires type. Block handler retains validation; no generic validator weakening.",
+    "frozen_reference_edited": false
+  },
+  "commands": [
+    {
+      "command": "cargo fmt --all -- --check",
+      "exit": 0
+    },
+    {
+      "command": "cargo check --locked --workspace --all-targets --features xharness-superagent/conformance",
+      "exit": 0
+    },
+    {
+      "command": "cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings",
+      "exit": 0
+    },
+    {
+      "command": "unset XH_GH_LIVE; cargo test --locked -p xharness-superagent-core -p xharness-superagent -p xharness-agent -p xharness-host -p xharness-core -p xharness-provider-openai -p xharness-coding-tools -p xharness-platform -p xharness-gh --all-targets --features xharness-superagent/conformance --no-fail-fast",
+      "exit": 0
+    },
+    {
+      "command": "cargo test --locked -p xharness-process --all-targets -- --test-threads=1",
+      "exit": 0
+    }
+  ],
+  "final_full_log": "docs/evidence/business-configuration-01/regression-02.log",
+  "regression_scope": {
+    "tested_crates": 10,
+    "full_workspace_tests_on_this_increment": false,
+    "ignored_or_capability_early_returns_not_business_pass": true,
+    "historical_language_tests": "Unmodified regression only, not revived JS/UTF-16 alignment or new business signoff.",
+    "aggregate_count_omitted": "Nested subprocess/repeated Cargo result rows are not independent product declarations.",
+    "legacy_wzu_feishu_deployment_gate": "Not rerun/cleared; no host UID/firewall/proxy/service modifications."
+  },
+  "provenance": {
+    "reference_files": 216,
+    "audited_runtime_steps": 11,
+    "audited_runtime_paths": 86,
+    "declared_overlays": 2,
+    "negative_guards": 6,
+    "original_source_oracle_cases": 57,
+    "original_github_read_commands_cases": 19,
+    "original_standalone_transcript_cases": 5,
+    "node_log": "docs/evidence/business-configuration-01/node-01.log"
+  },
+  "failures_retained": [
+    {
+      "log": "check-01.log",
+      "failure": "Actual Host rejected newly installed settings.value untyped z.unknown schema; 12 original formal paths failed before handlers. Project exact JSON domain in product metadata, retain reference and Host validation."
+    },
+    {
+      "log": "check-02.log",
+      "failure": "New test incorrectly expected paused decision recording refused, causing early Worker/report interleaving; pinned Core actually holds dispatch/replies. Team skill also missing from formal prompt despite private registry support."
+    },
+    {
+      "log": "check-03.log",
+      "failure": "Corrected pause/reference test passed, settings path passed. Formal Product had no SkillManager channel installed; temporary SQL cut initially targeted a non-executed reassessment-enqueue path. Inspect actual code/path, install real skill channel, fault actual decision insert."
+    },
+    {
+      "log": "check-04.log",
+      "failure": "New installer key namespace compile error corrected without suppressions."
+    },
+    {
+      "log": "check-05.log",
+      "failure": "19/20 actual formal declarations passed; final rollback assertion queried a nonexistent assessment table. Query actual effect.kind and decision tables; earlier rollback history/authority assertions were retained."
+    },
+    {
+      "log": "regression-01.log",
+      "failure": "Full selected regression caught genuine null-selector default regression in unchanged legacy product_native: worker initialized from orchestrator default. Capture original RoleRoutes before saved overrides, preserve each role default and manual/durable selections. Do not change fixture or assertions.",
+      "source_profile_sha256": "be511ce1ad15c7173249ce99fbc8987f6441c2ef69389aaed89cf80ce65166d7",
+      "source_profile_manifest": "docs/business-configuration-role-regression-profile.json"
+    }
+  ],
+  "prior_published_ci": {
+    "head": "53fb02b643be76ee5af316c5803b3ff4f0a016b1",
+    "run_url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41347907712",
+    "linux": "success",
+    "macos": "success",
+    "not_current_increment_evidence": true,
+    "existing_ignored_or_capability_gates_not_business_acceptance": true
+  },
+  "current_head_ci": "Verify exact newly published head separately; do not reuse prior53fb02b green.",
+  "remaining_scope": [
+    "Five main registrations: ticket_note, three eval tools, policy_sync; full inferred assessment context and decisions.",
+    "Complete Feishu/multi-source, GitHub PR ownership/report/context/attachments/event branches.",
+    "Configuration API/UI and trusted panel-origin changes, setup account validation/restart, Source sync health/backoff and full model administration.",
+    "Full background/subagent/stop/slot/retry lifecycle, every crash/outbox cut, deploy/health/backup/restore/rollback and release gates."
+  ],
+  "business_groups": {
+    "passed": 5,
+    "in_progress": 9,
+    "not_run": 9,
+    "validation_environment": "offline_protocol_fixture",
+    "not_completion_percentage": true
+  },
+  "global_language_migration": false,
+  "paid_live_model_calls": false,
+  "real_github_writes_or_production_deployments": false,
+  "goal_complete": false,
+  "logs": [
+    {
+      "path": "docs/evidence/business-configuration-01/check-01.log",
+      "raw_sha256": "fb7811025520fa522ac3a99ac896ec4e8bfb0754113e558761740006d55c794e",
+      "public_sha256": "880c850e5ace53a6ff06ef366414ee8c27ef1eea6f7b50e063f67c41ec93877b",
+      "normalization": "Absolute owned source/cache prefixes only; complete output/errors/assertions retained."
+    },
+    {
+      "path": "docs/evidence/business-configuration-01/check-02.log",
+      "raw_sha256": "3ea062854a62ba22a20744cce765580efadd6991550f95a0bba433aa9c080b42",
+      "public_sha256": "f1a070e0e59246e0879882c720d6780f8062c5cc2262ff37abad225bf86c0c21",
+      "normalization": "Absolute owned source/cache prefixes only; complete output/errors/assertions retained."
+    },
+    {
+      "path": "docs/evidence/business-configuration-01/check-03.log",
+      "raw_sha256": "c363c0e0589a281e4643084b35e707c1894924455d25a4fa5fda71a18ce26790",
+      "public_sha256": "aa7166b03d0f98b425c9b297f4af5e072a2a36b832c1c464c3c7accc07f94966",
+      "normalization": "Absolute owned source/cache prefixes only; complete output/errors/assertions retained."
+    },
+    {
+      "path": "docs/evidence/business-configuration-01/check-04.log",
+      "raw_sha256": "c99dcf0e7ac7d82bc315d8e3e194c8b383aa4b56f9700f0724376f91c49a6228",
+      "public_sha256": "a1d547579ea71ed233bf852c9468d5f16db162383daaed208c547b02962c1ea2",
+      "normalization": "Absolute owned source/cache prefixes only; complete output/errors/assertions retained."
+    },
+    {
+      "path": "docs/evidence/business-configuration-01/check-05.log",
+      "raw_sha256": "161c4083e19412297d5946718e22f50372a727b49e2c2a2a727c0c3698e69ddf",
+      "public_sha256": "0ab4e40e9bf285801988a9f7b9455d4fb09d471605418b09b2454feacf3f9a7b",
+      "normalization": "Absolute owned source/cache prefixes only; complete output/errors/assertions retained."
+    },
+    {
+      "path": "docs/evidence/business-configuration-01/node-01.log",
+      "raw_sha256": "28d87fba6636ac9e04b3209b9acc4c572d3c6e7c09e8f4b76a7f91f4f405cd3e",
+      "public_sha256": "28d87fba6636ac9e04b3209b9acc4c572d3c6e7c09e8f4b76a7f91f4f405cd3e",
+      "normalization": "Absolute owned source/cache prefixes only; complete output/errors/assertions retained."
+    },
+    {
+      "path": "docs/evidence/business-configuration-01/regression-01.log",
+      "raw_sha256": "808e22cf3a3f8d219ae369697a7ca5ce56d54b924ddca7e527d6cdb6bb10cb58",
+      "public_sha256": "f0386941344ad912d7dce315841e4982bd0e57305cfc4372c1be2485a259a370",
+      "normalization": "Absolute owned source/cache prefixes only; complete output/errors/assertions retained."
+    },
+    {
+      "path": "docs/evidence/business-configuration-01/regression-02.log",
+      "raw_sha256": "f28942fe3c28d914d896efd356ca66ecc0093461ede2ff7b8665aa0816452eee",
+      "public_sha256": "73ff9e475e4c9e0992df35bbc920694b7546c77c7835b49471792e31aedd5a89",
+      "normalization": "Absolute owned source/cache prefixes only; complete output/errors/assertions retained."
+    }
+  ]
+}

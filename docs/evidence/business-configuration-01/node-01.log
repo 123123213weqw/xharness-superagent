@@ -1,0 +1,42 @@
++zsh:1> node conformance/verify-reference.mjs
+{"commit":"6337fc823ce20251c8de8085948165c81aaa701e","checked":216,"failures":[]}
++zsh:1> node conformance/verify-upstream.mjs
+{"source_commit":"4ab403e0bb671b69fe56c5355bcf10dad7010c0b","runtime_base_commit":"2147ff270fe55c2c739e5063a5bfacefd01dc38a","controlled_steps":11,"controlled_paths":86,"source_patch_sha256":["9704604066bc132d6c0c1737f5d6acfb9c5946f649ae87b1cf180bb6698033b2","fc98603f9aa4195ead69542529311d2902674cbeb301ed426ba4d5bac8a612c4","ce5dfcae4fc7652e8335b3628c89af86a4687913c62653088df4ffe3493d6cca","e479550e69cc0d19bbf6e2ed46ae9d8c3b427f2d45caca6328156a26606fec04","b45030c1882e04f7a492133ac7d6a2638051e0c2fa4332afbac1760e695bf7b6","9375a55ac5234515eb8bcd363df526365ceb66020cdd4e94b42245a9c83a27fc","9854eef81e119033ba212d59b8c41423b0b4865e4acc8088684669104d88d45e","6aec468c801bd18684c55b5c5dde08dacc3752ca51b3554d36d86e1635208385","3b2a47b7d6c731c5dcdf8f8b639145ad5e484db11ee1bdfe2456786b1ae7b813","d7d5fb26ded5a3202c9d77179af8353ca4ec56be76b0fbf3776c5542da571808","42e8347593f136ad65e3331b51dd2c95b99d492023f0311ec18480389a8d7499"],"product_local_overlays":2,"current_target_matches_audited_backport":false,"current_target_matches_backport_plus_declared_product_overlays":true,"semantic_or_release_approval":false,"product_store_and_full_native_agentdelivery_installed":false}
++zsh:1> node conformance/business/verify-tool-manifest.mjs
+15 product-subset definitions verified: 8 primitive/null unions, 3 explicit Zod input defaults, and 1 unconstrained JSON domain projected; all other pinned metadata retained.
++zsh:1> node --test conformance/business/host-input-observer.test.mjs
+✔ local addition reconstructs the exact frozen audited Host bytes (1.040916ms)
+✔ undeclared modification outside the local addition is rejected (0.674625ms)
+✔ modification inside the local addition is rejected (0.770833ms)
+✔ wrong import-chain base and unpatched baseline are rejected (0.47775ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 69.318083
++zsh:1> node --test conformance/business/product-cargo-overlay.test.mjs
+✔ exact product workspace edge reconstructs audited lock (1.469083ms)
+✔ unrelated lock edits, wrong base and changed dependency are rejected (0.83125ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 67.112333
++zsh:1> node --experimental-transform-types conformance/business/github-source-oracle.mjs --check
+(node:93772) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+12 comment, 4 body, 12 mention, 9 address, 11 delivery, 2 CI, 7 account-metadata Source oracle fixtures verified.
++zsh:1> node --experimental-transform-types conformance/business/github-read-oracle.mjs --check
+(node:93773) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+19 original GitHub read/Commands executable cases verified.
++zsh:1> node --experimental-transform-types conformance/business/transcript-oracle.mjs --check
+(node:93764) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+5 original public transcript projections verified.

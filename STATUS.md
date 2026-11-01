@@ -157,3 +157,27 @@ workspace 测试。新代码的跨平台CI另以其精确提交检查，不复�
 7个主角色工具、完整推断/来源/配置API/UI，以及后台/停止/恢复和部署回退。
 Goal继续活动；没有全域JS/UTF-16迁移、新依赖、付费调用或线上服务变更。
 详见[读取边界](docs/superagent/business-read.md)与 `docs/business-read-verification.json`。
+
+
+## B2 业务配置与提示词（最新，完整对齐仍未完成）
+
+settings_save/prompts_save 已接同一 Client/SQL/Native owner；主9/Worker6应用工具，
+尚缺主5注册及各工具完整业务分支。块版本、冲突/no-op、panel-only环境/账号guard、
+实际模型选择、Prompt预览/版本/next-request和团队技能加载已走正式工具路径。
+正式入口过去未安装组件中的 Skill Manager；本批接入真实内置包、可发现目录及
+scoped skill 工具，不把内部注册成功冒充模型可用。全局权限和默认工具未放宽。
+
+新增4条实际入口场景，现20条通过：配置、Prompt/技能、暂停/恢复、SQL策略保存
+切点回滚；2条资源安装组件检查不算部署签收。暂停能记录决定，但挂起Worker和
+回复，恢复后才真正执行；不是错误地禁止整个主会话决策。
+
+最后一次 workspace fmt/check/严格Clippy、10个选定crate回归通过，不是全工作区。
+保留真实反例：新模型默认逻辑一度把 null selector 的 Worker 走到主默认；现已
+保存原始分角色默认，旧 product_native 断言未改。前一53fb02b CI两平台通过，
+不能代替新head，也未消除WZU旧飞书部署前置问题。
+
+当前业务清单5组离线通过、9组部分推进、9组未运行，不是功能完成率。
+Note/三个eval/policy_sync、完整来源、API/UI、后台/停止/恢复/部署继续在活动Goal。
+无新依赖、付费调用、真实GitHub评论/生产部署或JS/UTF-16全域迁移。
+见[配置边界](docs/superagent/business-configuration.md)与
+`docs/business-configuration-verification.json`。

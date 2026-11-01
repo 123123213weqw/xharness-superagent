@@ -1,0 +1,23 @@
++ export PATH=/home/wzu/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ PATH=/home/wzu/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ root=/home/wzu/codex-build/x-harness-rs-superagent-validation
+++ cat /home/wzu/codex-build/x-harness-rs-superagent-validation/.superagent-goal-owner
++ test 01a1923a-5b0a-79a0-9675-4638cf37b624 = 01a1923a-5b0a-79a0-9675-4638cf37b624
++ cd <owned-source>
+++ cat .superagent-goal-owner
++ test 01a1923a-5b0a-79a0-9675-4638cf37b624-business = 01a1923a-5b0a-79a0-9675-4638cf37b624-business
++ export CARGO_TARGET_DIR=<owned-target>
++ CARGO_TARGET_DIR=<owned-target>
++ cargo fmt --all
++ cargo check --locked --workspace --all-targets --features xharness-superagent/conformance
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+error[E0425]: cannot find function `key` in this scope
+  --> crates/xharness-superagent/src/native_sessions/prompts/skills.rs:51:23
+   |
+51 |         let package = key(&["bundled-skills-v1", packaged[0].1, packaged[1].1])?;
+   |                       ^^^ not found in this scope
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `xharness-superagent` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `xharness-superagent` (lib test) due to 1 previous error

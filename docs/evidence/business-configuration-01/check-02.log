@@ -1,0 +1,44 @@
++ export PATH=/home/wzu/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ PATH=/home/wzu/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ root=/home/wzu/codex-build/x-harness-rs-superagent-validation
+++ cat /home/wzu/codex-build/x-harness-rs-superagent-validation/.superagent-goal-owner
++ test 01a1923a-5b0a-79a0-9675-4638cf37b624 = 01a1923a-5b0a-79a0-9675-4638cf37b624
++ cd <owned-source>
+++ cat .superagent-goal-owner
++ test 01a1923a-5b0a-79a0-9675-4638cf37b624-business = 01a1923a-5b0a-79a0-9675-4638cf37b624-business
++ export CARGO_TARGET_DIR=<owned-target>
++ CARGO_TARGET_DIR=<owned-target>
++ cargo fmt --all
++ cargo check --locked --workspace --all-targets --features xharness-superagent/conformance
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.28s
++ cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.04s
++ cargo test --locked -p xharness-superagent --test product_entry configuration:: -- --test-threads=1 --nocapture
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.43s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-085c7a183df671db)
+
+running 2 tests
+test configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions ... 
+thread 'configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions' (3195863) panicked at crates/xharness-superagent/tests/product_entry/configuration.rs:405:5:
+assertion failed: worker.to_string().contains("dsh-superagent-team-guide")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model ... 
+thread 'configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model' (3196156) panicked at crates/xharness-superagent/tests/product_entry/configuration.rs:205:9:
+assertion `left == right` failed: 19: {"status":"sent"}
+  left: Null
+ right: false
+FAILED
+
+failures:
+
+failures:
+    configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions
+    configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 16 filtered out; finished in 5.86s
+
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`

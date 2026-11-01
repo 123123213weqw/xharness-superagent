@@ -145,6 +145,22 @@
           ],
           "actual_product_path": true,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "33f66be321b859f56c6fab0b4e0cdc4e92bf0f14",
+          "verified_subset": "Two actual main configuration tools, block revisions/guards/noop/model selection, Prompt versions/previews/next-request and actual team skill, pause dispatch/reply hold and SQLite policy cut rollback; remaining full branches and API/UI not signed off.",
+          "entry_and_command": "Formal executable in product_entry + product_entry/configuration.rs/configuration_lifecycle.rs; WZU remote regression-02.log commands",
+          "environment": "Explicit offline external HTTP/SSE and gh protocol boundaries; actual leased product/SQL/Native/tools/outbox",
+          "full_log": "docs/evidence/business-configuration-01/regression-02.log",
+          "business_assertions": "docs/business-configuration-verification.json",
+          "tests": [
+            "configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model",
+            "configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions",
+            "configuration_lifecycle::formal_pause_records_decisions_but_holds_worker_and_replies_until_resume",
+            "configuration_lifecycle::formal_policy_save_rolls_back_history_effects_and_authority_on_sql_cut"
+          ],
+          "actual_product_path": true,
+          "not_signed_off": true
         }
       ]
     },
@@ -177,6 +193,22 @@
           ],
           "actual_product_path": true,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "33f66be321b859f56c6fab0b4e0cdc4e92bf0f14",
+          "verified_subset": "Two actual main configuration tools, block revisions/guards/noop/model selection, Prompt versions/previews/next-request and actual team skill, pause dispatch/reply hold and SQLite policy cut rollback; remaining full branches and API/UI not signed off.",
+          "entry_and_command": "Formal executable in product_entry + product_entry/configuration.rs/configuration_lifecycle.rs; WZU remote regression-02.log commands",
+          "environment": "Explicit offline external HTTP/SSE and gh protocol boundaries; actual leased product/SQL/Native/tools/outbox",
+          "full_log": "docs/evidence/business-configuration-01/regression-02.log",
+          "business_assertions": "docs/business-configuration-verification.json",
+          "tests": [
+            "configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model",
+            "configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions",
+            "configuration_lifecycle::formal_pause_records_decisions_but_holds_worker_and_replies_until_resume",
+            "configuration_lifecycle::formal_policy_save_rolls_back_history_effects_and_authority_on_sql_cut"
+          ],
+          "actual_product_path": true,
+          "not_signed_off": true
         }
       ]
     },
@@ -184,8 +216,25 @@
       "id": "PROMPT-01",
       "milestone": "B2",
       "title": "主角色、Worker、研判的Prompt和skills随配置/任务正确组装",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "33f66be321b859f56c6fab0b4e0cdc4e92bf0f14",
+          "verified_subset": "Two actual main configuration tools, block revisions/guards/noop/model selection, Prompt versions/previews/next-request and actual team skill, pause dispatch/reply hold and SQLite policy cut rollback; remaining full branches and API/UI not signed off.",
+          "entry_and_command": "Formal executable in product_entry + product_entry/configuration.rs/configuration_lifecycle.rs; WZU remote regression-02.log commands",
+          "environment": "Explicit offline external HTTP/SSE and gh protocol boundaries; actual leased product/SQL/Native/tools/outbox",
+          "full_log": "docs/evidence/business-configuration-01/regression-02.log",
+          "business_assertions": "docs/business-configuration-verification.json",
+          "tests": [
+            "configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model",
+            "configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions",
+            "configuration_lifecycle::formal_pause_records_decisions_but_holds_worker_and_replies_until_resume",
+            "configuration_lifecycle::formal_policy_save_rolls_back_history_effects_and_authority_on_sql_cut"
+          ],
+          "actual_product_path": true,
+          "not_signed_off": true
+        }
+      ]
     },
     {
       "id": "WORK-01",
@@ -322,8 +371,25 @@
       "id": "CFG-01",
       "milestone": "B4",
       "title": "模型/策略/授权/Prompt配置保存、历史、冲突和重启生效",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "33f66be321b859f56c6fab0b4e0cdc4e92bf0f14",
+          "verified_subset": "Two actual main configuration tools, block revisions/guards/noop/model selection, Prompt versions/previews/next-request and actual team skill, pause dispatch/reply hold and SQLite policy cut rollback; remaining full branches and API/UI not signed off.",
+          "entry_and_command": "Formal executable in product_entry + product_entry/configuration.rs/configuration_lifecycle.rs; WZU remote regression-02.log commands",
+          "environment": "Explicit offline external HTTP/SSE and gh protocol boundaries; actual leased product/SQL/Native/tools/outbox",
+          "full_log": "docs/evidence/business-configuration-01/regression-02.log",
+          "business_assertions": "docs/business-configuration-verification.json",
+          "tests": [
+            "configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model",
+            "configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions",
+            "configuration_lifecycle::formal_pause_records_decisions_but_holds_worker_and_replies_until_resume",
+            "configuration_lifecycle::formal_policy_save_rolls_back_history_effects_and_authority_on_sql_cut"
+          ],
+          "actual_product_path": true,
+          "not_signed_off": true
+        }
+      ]
     },
     {
       "id": "API-01",
@@ -355,20 +421,20 @@
     }
   ],
   "implementation_progress": {
-    "status": "B2_read_and_source_subset_in_progress_full_product_alignment_incomplete",
-    "evidence": "docs/business-read-verification.json",
+    "status": "B2_configuration_and_prompt_subset_in_progress_full_product_alignment_incomplete",
+    "evidence": "docs/business-configuration-verification.json",
     "full_business_groups_passed": 5,
-    "business_groups_in_progress": 7,
-    "business_groups_not_run": 11,
+    "business_groups_in_progress": 9,
+    "business_groups_not_run": 9,
     "validation_environment": "offline_protocol_fixture",
-    "formal_entry_tests_passed": 16,
+    "formal_entry_tests_passed": 20,
     "application_tool_registrations": {
-      "main": 7,
+      "main": 9,
       "worker": 6,
       "required_main": 14,
       "required_worker": 6
     },
-    "workspace_test_gate": "current_selected10_passed_not_full_workspace; previous7e5_CI_both_passed_with_existing_gates; current_exact_head_CI_separate; legacy_WZU_Feishu_deployment_not_cleared",
+    "workspace_test_gate": "current_selected10_passed_not_full_workspace; previous53fb02b_CI_both_passed_with_existing_gates; new_exact_head_CI_separate; legacy_WZU_Feishu_deployment_not_cleared",
     "resource_backing_components": {
       "evidence": "docs/business-resources-verification.json",
       "sql_checks": 7,
@@ -384,8 +450,19 @@
       "new_rendering_cache_checks": 4,
       "new_full_business_groups_passed": 0,
       "full_source_and_tool_branches_complete": false
+    },
+    "configuration_tools": {
+      "evidence": "docs/business-configuration-verification.json",
+      "new_formal_entry_tests": 4,
+      "asset_component_checks": 2,
+      "registered": [
+        "orchestrator_settings_save",
+        "orchestrator_prompts_save"
+      ],
+      "full_api_ui_sync_restart_complete": false,
+      "new_full_business_groups_passed": 0
     }
   },
-  "updated_at_utc": "2026-11-01T20:38:19.526126+00:00",
+  "updated_at_utc": "2026-11-01T21:23:02.734889+00:00",
   "validation_note": "passed denotes the listed complete product scenario in an explicitly offline protocol environment, not real GitHub/model service approval, universal parity or release readiness. Unexecuted branches remain open."
 }

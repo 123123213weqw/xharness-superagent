@@ -19,9 +19,9 @@
 - XHarness 原生会话/JSONL 接入组件、队列/followup/steer/inject、观察与关闭。
 - 部分 Prompt/skills、输入准备、重试健康和崩溃恢复组件。
 - 固定原版源码及组件差分验证设施。
-- Application/Native 装配及11个应用工具子集（主角色6个、Worker5个）。
-  离线夹具可实际启动 Worker 写文件并经 Outbox 回复；详见
-  [当前接线及边界](docs/superagent/business-native.md)，不冒充正式 Source/CLI 验收。
+- Application/Native 装配及15个应用工具子集（主角色9个、Worker6个）。
+  名字已注册不代表所有分支完成；正式入口离线协议夹具可实际启动 Worker 写文件
+  并经 Outbox 回复，不冒充真实外部服务或完整产品验收。
 - GitHub Source 的通知/评论/PR/CI 轮询、稳定事件和 marker 回复库已接到 Native；
   [接入进展与验证边界](docs/superagent/business-github.md)。
 
@@ -34,8 +34,11 @@
 - [未完成工单恢复](docs/superagent/business-recovery.md)：等待工单重启后处理新输入、
   Worker 进程中断后的恢复 assignment、目录丢失时保留输入与可观察错误。
   只验证所列场景，不代表全部后台任务/崩溃切点和部署恢复完成。
-- [业务读取组件](docs/superagent/business-resources.md)：权限/脱敏/分页与不唤醒 Worker
-  的已有会话读取接口已实现；完整 `orchestrator_read` 的端口和正式工具接线仍未完成。
+- [业务读取](docs/superagent/business-read.md)：实际 SQL/Source/Native 读取、权限/脱敏、
+  分页快照及不唤醒 Worker 的历史读取已接入两角色；完整来源分支仍未完成。
+- [业务配置与提示词](docs/superagent/business-configuration.md)：块版本/冲突/来源与
+  执行环境 guard、暂停/恢复、角色默认模型、Prompt preview/版本和实际团队技能。
+  管理 API/UI、panel 保存与完整同步/重启仍是缺口。
 
 ## 尚未完成
 

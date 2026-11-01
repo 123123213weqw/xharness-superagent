@@ -121,3 +121,14 @@ CI 失败均保留，当前精确 head 的 CI 仍须另验。见 `docs/business-
 见[读取说明](superagent/business-read.md)与 `docs/business-read-verification.json`。
 剩余主7工具、推断、完整GitHub/飞书、多来源、API/UI、后台/完整停止/恢复/部署
 继续在同一个活动Goal中；不恢复取消的全域语言迁移。
+
+
+## B2 实际配置/Prompt 工具（当前，全部目标继续保留）
+
+主9/Worker6应用工具；settings_save/prompts_save 的块事务、角色/账号/环境guard、
+暂停/恢复、Prompt预览与版本、实际团队技能已接入正式入口。新4条场景使入口
+测试达到20条；没有把2条安装组件测试计为部署或全场景验收。5通过/9部分推进/9
+未运行，仅所列离线外部协议环境。
+主Note、3个eval、policy_sync仍未注册；完整来源、配置API/UI、后台/停止/恢复/
+部署回退均继续同一活动Goal。见[配置边界](superagent/business-configuration.md)和
+`docs/business-configuration-verification.json`。
