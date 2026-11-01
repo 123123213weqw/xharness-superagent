@@ -15,3 +15,13 @@
 - 固定参考 216 文件及 11 步/86 路径 Runtime 溯源检查通过。
 - 本次没有执行完整 workspace 测试；GitHub CI 会执行，不预先宣称通过。
 - 不代表完整产品验收。详见 [验证记录](docs/verification-2026-11-01.json)。
+
+## 业务 Goal / B1 进行中
+
+新增 Application 库级装配：状态目录独占锁、SQL/Driver/Passes、四类持久化派发、
+Outbox 与统一关闭。5 个新增组合测试及产品模块回归、workspace check、产品模块
+严格 Clippy 已在独立远程目录通过。
+
+当前外部服务仍为显式注入端口，尚未安装真实 Native Assessor/Executor、产品工具
+和 Source，不能当作完整启动入口或端到端产品通过。下一步接上这些实际服务。
+新 23 个业务场景仍未验收，详见 [组合验证](docs/business-application-verification.json)。

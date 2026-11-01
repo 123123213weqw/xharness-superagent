@@ -1,0 +1,60 @@
+{
+  "date": "2026-11-01",
+  "milestone": "B1",
+  "status": "application_composition_component_verified_not_product_accepted",
+  "profile_sha256": "9c78a961aa4af0e28ed3291bb3e795141e3cdd7781d325ea138c344de6088913",
+  "profile_files": 659,
+  "local_remote_source_equal": true,
+  "host": "WZU_Server",
+  "isolated_build": true,
+  "local_rust_compilation": false,
+  "commands": [
+    {
+      "command": "cargo fmt --all -- --check",
+      "exit": 0
+    },
+    {
+      "command": "cargo check --locked --workspace --all-targets --features xharness-superagent/conformance",
+      "exit": 0
+    },
+    {
+      "command": "cargo test --locked -p xharness-superagent-core -p xharness-superagent --all-targets --features xharness-superagent/conformance",
+      "exit": 0
+    },
+    {
+      "command": "cargo clippy --locked -p xharness-superagent --all-targets --features conformance -- -D warnings",
+      "exit": 0
+    }
+  ],
+  "new_application_tests": 5,
+  "regression_unfiltered_result_rows": 36,
+  "regression_passed_excluding_filtered_child_runs": 213,
+  "behaviors_verified": [
+    "exclusive process lease before SQLite open",
+    "unconfigured startup/admission has no dispatched action",
+    "SQL commands connect to assessment/launch/Outbox handlers",
+    "source-off leaves durable pending receipt and respects retry time after reopening",
+    "stopped or obsolete assignments do not launch",
+    "idempotent teardown joins both dispatch and pass coordinator, then retires the permanent runner"
+  ],
+  "not_proved": [
+    "Native Assessor/Executor tool and session wiring",
+    "formal startup binary",
+    "GitHub/Feishu event and reply adapters",
+    "actual model/tool product loop",
+    "API/UI/deployment and full new business acceptance"
+  ],
+  "business_acceptance_cases_passed": 0,
+  "failed_attempts_retained_locally": [
+    "first: runner never reached EOF after shutdown",
+    "second: test expected reply before retained backoff elapsed",
+    "third: strict Clippy callback type complexity",
+    "final: new fixture needed a mutable cloned SQL repository"
+  ],
+  "source_files": {
+    "crates/xharness-superagent/src/application.rs": "fa584d3407df07a68cfd677b61508980908f9a8425f89c903bc9f47884c8a9f7",
+    "crates/xharness-superagent/src/lib.rs": "82fdb1c789548f7208f0742594f09365e8e0b48b3fe18a31f7adffdfc98e562d",
+    "crates/xharness-superagent/tests/application.rs": "4924fa64492a3e489f7411c190056e2ba3e9044bbcd17173b49aa3cc37552b97"
+  },
+  "full_log_sha256": "af435a7144f7a14fa01616b195601bbf0aaf96749a4d61ea5b3a408de1c1df3e"
+}

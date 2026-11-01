@@ -16,6 +16,18 @@
     "status": "historical_not_current_release_gate"
   },
   "current_snapshot_remote_verification": {
+    "status": "application_component_gate_passed",
+    "report": "docs/business-application-verification.json",
+    "new_component_tests": 5,
+    "full_workspace_check": true,
+    "full_workspace_strict_clippy": false,
+    "product_owned_all_targets_strict_clippy": true,
+    "product_acceptance": false
+  },
+  "production_mutations": 0,
+  "paid_model_calls": 0,
+  "local_rust_compile_commands_run": 0,
+  "publication_baseline_verification": {
     "status": "component_gate_passed",
     "report": "docs/verification-2026-11-01.json",
     "passed": 470,
@@ -24,7 +36,10 @@
     "full_workspace_tests_run": false,
     "product_acceptance": false
   },
-  "production_mutations": 0,
-  "paid_model_calls": 0,
-  "local_rust_compile_commands_run": 0
+  "active_goal": {
+    "scope": "product_logic",
+    "milestone": "B1",
+    "plan": "docs/business-alignment-goal.md",
+    "business_cases_passed": 0
+  }
 }

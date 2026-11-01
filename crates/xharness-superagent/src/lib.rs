@@ -1,4 +1,5 @@
 //! Product-owned persistence and dispatch; no legacy host loops or permissions change.
+pub mod application;
 pub mod commands;
 pub mod delivery;
 pub mod driver;
@@ -17,6 +18,8 @@ pub mod store;
 use xharness_superagent_core::engine::DomainError;
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
+    #[error(transparent)]
+    StateLease(#[from] xharness_agent::LeaseError),
     #[error(transparent)]
     PromptUser(#[from] xharness_superagent_core::errors::UserError),
     #[error("{}", prompts::IssuesDisplay(.0))]
