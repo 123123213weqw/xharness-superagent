@@ -1,0 +1,7 @@
+# Passive observation of loaded agents
+
+`DurableLoopAgentRuntime.observe_loaded_session` returns subscriptions only for an already loaded durable actor. It never resolves/creates/activates, admits input, wakes, changes permissions or retries, or takes a controlling RunningTurn. An unknown ID returns None, including with an existing but unloaded journal. This differs from the existing master controlling SessionObservation API; no existing observer/control semantics change.
+
+`AgentObservation` contains an event receiver and a dedicated content-free activity watch. It contains neither an activation nor the private WorkerState receiver/control Sender. Keeping an observation alive does not keep the worker/lease alive. AgentActivity carries worker generation, availability and optional status: starting/unavailable/closed never masquerade as idle. The supervisor publishes lifecycle after actual generation ownership transitions, and Ready status handoff is ordered with live publishers. Old generations cannot publish new activity.
+
+Subscribe before reading the authoritative Session. Broadcast lag requires a new journal cut. Use activity.borrow_and_update before an asynchronous journal read and activity.has_changed afterwards; equal Idle snapshots can hide an Idle/Running/Idle ABA. Drop any watch borrow before awaiting. A passive observer does not certify physical lease release; only the owner shutdown/lease audit does.

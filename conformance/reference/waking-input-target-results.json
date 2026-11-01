@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "upstream_source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+  "runtime_base_commit": "2147ff270fe55c2c739e5063a5bfacefd01dc38a",
+  "canonical_source_patch_sha256": "9704604066bc132d6c0c1737f5d6acfb9c5946f649ae87b1cf180bb6698033b2",
+  "controlled_sync_paths": 11,
+  "imported_existing_rust_files_changed": 6,
+  "new_kernel_tests": {
+    "actor_loop_barrier": 9,
+    "metadata_unit": 3,
+    "unsupported_runtime": 2,
+    "total": 14
+  },
+  "native_sessions_tests": 30,
+  "native_new_tests": 8,
+  "owned_unique_component_tests": 119,
+  "source_exact_upstream_validation": {
+    "affected_packages": [
+      "xharness-agent",
+      "xharness-session",
+      "xharness-host",
+      "xharness-schedule",
+      "xharness-core"
+    ],
+    "fmt_check_clippy_all_targets_tests_exit": 0,
+    "source_files": 647,
+    "source_combined_sha256": "889a5219a44f3930447510b77f023392843fea0f02125b0bf8148a97a601c2da",
+    "initial_stale_remote_files_preserved_not_deleted": 4
+  },
+  "architecture_mutation_tests": 34,
+  "actual_remote_negative_compiler_cases": {
+    "cases": [
+      {
+        "path": "crates/xharness-agent/src/input_dispatch.rs",
+        "mutation": "unsafe",
+        "compiler_rejected_forbid_override": true,
+        "exit": 101
+      },
+      {
+        "path": "crates/xharness-agent/src/input_dispatch.rs",
+        "mutation": "unwrap",
+        "compiler_rejected_forbid_override": true,
+        "exit": 101
+      },
+      {
+        "path": "crates/xharness-agent/src/input_dispatch.rs",
+        "mutation": "expect",
+        "compiler_rejected_forbid_override": true,
+        "exit": 101
+      },
+      {
+        "path": "crates/xharness-agent/src/input_dispatch.rs",
+        "mutation": "discard",
+        "compiler_rejected_forbid_override": true,
+        "exit": 101
+      },
+      {
+        "path": "crates/xharness-agent/src/driver/follow_step.rs",
+        "mutation": "unsafe",
+        "compiler_rejected_forbid_override": true,
+        "exit": 101
+      },
+      {
+        "path": "crates/xharness-agent/src/driver/follow_step.rs",
+        "mutation": "unwrap",
+        "compiler_rejected_forbid_override": true,
+        "exit": 101
+      },
+      {
+        "path": "crates/xharness-agent/src/driver/follow_step.rs",
+        "mutation": "expect",
+        "compiler_rejected_forbid_override": true,
+        "exit": 101
+      },
+      {
+        "path": "crates/xharness-agent/src/driver/follow_step.rs",
+        "mutation": "discard",
+        "compiler_rejected_forbid_override": true,
+        "exit": 101
+      }
+    ],
+    "negative_cases": 8,
+    "all_rejected": true,
+    "source_restored": true,
+    "restored_production_clippy_passed": true
+  },
+  "reference_archive_mode_reproduction": {
+    "explicit_restore_after_git_apply": "node conformance/restore-reference-modes.mjs",
+    "passed_tests": 10,
+    "failed_tests": 0,
+    "all216source_bytes_and_verifier_unchanged": true,
+    "reason": "Git preserves executable bits,not archive group-write bits;restore only verified held vendored-file descriptors",
+    "evidence": "steer-reference-mode-restoration.json"
+  },
+  "session_struct_schema_unchanged": true,
+  "new_required_rust_struct_fields": 0,
+  "legacy_interrupting_steer_or_queue_defaults_intentionally_changed": false,
+  "legacy_interrupt_timeout_root_cause_resolved": false,
+  "metadata_is_human_authority": false,
+  "reference_target_delivery_replay": 39,
+  "reference_target_passes_replay": 23,
+  "real_followup_noninterrupting_steer_passive_inject_primitives": true,
+  "complete_agent_delivery_callback_facade": false,
+  "complete_runtime_product": false,
+  "source_provenance_verifier_is_semantic_release_approval": false,
+  "scope": "explicit new actor/Runtime primitives,controlled backport and actual JSONL NativeSessions followup/steer/inject with pre-admission input observers and owner queue editing. Offline provider/barrier probes only; not complete product or whole DSH machine comparison.",
+  "behavior": [
+    "nearest-step delivery does not cancel the held model; cancelled active turn redirects to next-turn at actor boundary",
+    "idle waking step remains non-human,does not create a Goal,closed automatic gate stays closed",
+    "starting capacity claim groups nearest-step input before ordinary input; passive context remains non-waking",
+    "cold replay keeps intent but activation does not wake; producer retry reconstructs observer before wake",
+    "normal followup owns a separate turn; both current-step input/result observers settle",
+    "holds uses current+consumed+live-inject seen; owner removal also evicts prepared observer and permits changed unconsumed redelivery",
+    "legacy RPC label is retained but an internal retry cannot use it to reopen paused worker"
+  ],
+  "unaccepted": [
+    "full native AgentDelivery authorize/accepted/finalflush/abort and actual I/O fault ordering; cold retry is not a filesystem-failure test",
+    "full approval/human-request provenance and per-request Prompt/model/policy/skills/budget retry; Inbox.is_user_authored is not proof of all tool authority",
+    "legacy Runtime98 controls are not master ScopedControl; stale observer/Assignment epoch cancellation needs product guards",
+    "foreign/corrupt metadata reserved-namespace collisions,unknown source/UTF16/JSON/null/depth",
+    "MasterAssessor/DshExecutor,20tools,slots/jobs/children/worktree/handback,Root/Setup/Source/API/UI/deployment",
+    "first full workspace subagent.interrupt 10s timeout not reproduced in50 isolated repetitions/full24-suite; root cause still unresolved,not dismissed as pre-existing/flaky",
+    "64future-zone/55migration encodings,old TSstreamhealth and2existingFeishu deployment failures"
+  ],
+  "evidence": [
+    "steer-upstream-exact-full.log",
+    "steer-upstream-architecture-final.log",
+    "steer-architecture-mutations.log",
+    "steer-compiler-mutations.log",
+    "steer-controlled-apply.log",
+    "steer-final-waking-input-contracts.log",
+    "steer-final-native-session-contracts.log",
+    "steer-final-rust.log",
+    "steer-final-rust-first.log",
+    "steer-interrupt-isolated.log",
+    "steer-interrupt-repetitions.log"
+  ],
+  "source_sha256": {
+    "crates/xharness-superagent/src/native_sessions.rs": "95a5c29079d6379b11a4a189590def60591a6c2806f1df3bb55f3ad6bb8393c9",
+    "crates/xharness-superagent/tests/native_sessions.rs": "75d4a015f0faaf2b02674419b7946668f4d8a0d5ce254309ff626cc2b9abfba9",
+    "conformance/verify-upstream.mjs": "34a9f83db2307df37f8ad9a3a8011d96e9cf508b014265ca9a262e25a4425670",
+    "conformance/restore-reference-modes.mjs": "5c484b1670032c4282f37592c686d5addfa3ab1128bdec16e91c720360ba3c42"
+  },
+  "historical_milestone_snapshot": true,
+  "latest_replay_native_tests": 32,
+  "latest_replay_log": "models-final-waking-input-contracts.log",
+  "latest_full_component_report": "conformance/reference/models-target-results.json"
+}

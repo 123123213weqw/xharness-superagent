@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "source_file": "tests/migration.spec.ts",
+  "source_sha256": "5c8fa242dc206ddfca61d3d2aee84ff1e462f64d6f950c7f50730a20be0ef7b1",
+  "unmodified_test_declarations_replayed": 19,
+  "passed": 19,
+  "rust_rpc_calls": 483,
+  "independent_snapshot_scenarios": 9,
+  "generic_raw_encoding_differences": 55,
+  "scope": "unchanged migration.spec.ts assertions through actual Rust schema-10 conversion and basis/reason/copy helpers; original JS Prompts composition/history and model controls are consumers, not native Prompt/Runtime/source coverage",
+  "remaining": [
+    "generic raw encoding D07",
+    "64 future-zone differences",
+    "complete upgrade and deployment rollback",
+    "production Runtime/Source recovery"
+  ],
+  "result_files": [
+    "migration-original-vitest.json",
+    "migration-original-rpc.json",
+    "migration-snapshot-differential.json",
+    "migration-final-migration-contracts.log"
+  ],
+  "declarations": [
+    {
+      "title": "refuses a database older than schema 10 and asks for a new state directory",
+      "status": "passed"
+    },
+    {
+      "title": "writes a schema 10 database in its current shape once, so nothing reads an older shape",
+      "status": "passed"
+    },
+    {
+      "title": "keeps each message as a receipt of what became of it, with why one was dropped by the code the panel words it by",
+      "status": "passed"
+    },
+    {
+      "title": "changes nothing when one step fails: the database stays at schema 10 as it was",
+      "status": "passed"
+    },
+    {
+      "title": "reads every basis an earlier gate recorded in the current shape",
+      "status": "passed"
+    },
+    {
+      "title": "writes a prompt version saved before the team sections in them, keeping its skills and auto-merge threshold, and marks it",
+      "status": "passed"
+    },
+    {
+      "title": "writes saved team sections and skills under current names: earlier project names, the tools that became reads and the routing tools",
+      "status": "passed"
+    },
+    {
+      "title": "writes the removed auto-merge threshold and member identities into the prompts as one new version, unless an earlier version did",
+      "status": "passed"
+    },
+    {
+      "title": "reads a current prompt version that does not read as the one before it, keeping what it said",
+      "status": "passed"
+    },
+    {
+      "title": "opens a database the last schema 10 build left, adds what this version keeps alongside, and migrates it",
+      "status": "passed"
+    },
+    {
+      "title": "writes the Sources' records in their current shape once, so no Source converts an earlier one when it reads it",
+      "status": "passed"
+    },
+    {
+      "title": "keeps each fact of a ticket once: its end, its latest report, and no worker Session it can derive",
+      "status": "passed"
+    },
+    {
+      "title": "reads the reasons earlier versions stored in words as codes, and keeps any other words as written",
+      "status": "passed"
+    },
+    {
+      "title": "dates each Thread from its Triggers, and keeps every Trigger's time in the one form stored times take",
+      "status": "passed"
+    },
+    {
+      "title": "names the ticket it stopped at when a ticket does not read, and leaves the database at schema 10 as it was",
+      "status": "passed"
+    },
+    {
+      "title": "makes the newest saved revision the current settings when it holds them, and moves a lagging pointer to it",
+      "status": "passed"
+    },
+    {
+      "title": "reads the reasons a Trigger's filter and an Assignment's end stored in words as codes, and keeps an end's reason once",
+      "status": "passed"
+    },
+    {
+      "title": "marks a ticket's Channel to a direct Feishu chat as direct, and links a Thread in the Lark brand when Lark links are stored",
+      "status": "passed"
+    },
+    {
+      "title": "delivers the candidate of an Eval in progress at the upgrade again, so its deadline starts and it can expire",
+      "status": "passed"
+    }
+  ]
+}

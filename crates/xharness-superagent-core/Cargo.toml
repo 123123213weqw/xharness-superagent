@@ -1,0 +1,39 @@
+[package]
+name = "xharness-superagent-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Pure SuperAgent product domain, independent of host, network, and wall clock"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+ryu-js = "=1.0.3"
+chrono.workspace = true
+chrono-tz.workspace = true
+iana-time-zone = "=0.1.65"
+
+[[bin]]
+name = "superagent-primitives"
+path = "src/bin/primitives.rs"
+
+[[bin]]
+name = "superagent-policy"
+path = "src/bin/policy.rs"
+
+[[bin]]
+name = "superagent-engine"
+path = "src/bin/engine.rs"
+
+[[bin]]
+name = "superagent-engine-bridge"
+path = "src/bin/engine_bridge.rs"
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[[bin]]
+name = "superagent-skill-catalog-bridge"
+path = "src/bin/skill_catalog_bridge.rs"

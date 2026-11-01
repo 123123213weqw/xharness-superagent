@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "reference_source": "tests/core-engine.spec.ts",
+  "reference_source_sha256": "e29358c139a2dbb1a2877e980e043f34cf39bca1905fb10ee14e0b4866bc1a6b",
+  "unchanged_original_tests": 113,
+  "additional_advancing_clock_and_walk_tests": 14,
+  "passed": 127,
+  "failed": 0,
+  "rust_commands": 2586,
+  "backend": "native SqlRepository + generic Rust Engine",
+  "scope": "unchanged core-engine.spec.ts against actual Rust Engine and native SqlRepository; test-only full fixture import/export, Policy/Scope/Clock/observational ports and model helper controls remain JS; no production async Runtime or Source claim",
+  "scale_datasets": [
+    0,
+    256,
+    25000
+  ],
+  "tables_per_dataset": 6,
+  "point_selected_records": 2,
+  "point_aggregate_writes": 1,
+  "point_fullscan_steps": 0,
+  "point_read_vm_steps": 26,
+  "native_repository_tests": 7,
+  "corrupt_shape_tests_are_reference_parity": false,
+  "evidence": [
+    "sql-driver-sql-engine-target-vitest.json",
+    "sql-driver-sql-engine-target.json",
+    "sql-driver-sql-engine-target-clock.json",
+    "sql-driver-repository-scale.json",
+    "sql-driver-guarded-repository-contracts.log"
+  ]
+}

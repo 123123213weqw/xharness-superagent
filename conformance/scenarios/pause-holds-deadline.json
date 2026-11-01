@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "pause-holds-deadline",
+  "commands": [
+    {
+      "op": "receive",
+      "trigger": {
+        "id": "t1"
+      }
+    },
+    {
+      "op": "evaluate_due"
+    },
+    {
+      "op": "delivered",
+      "trigger": "t1"
+    },
+    {
+      "op": "set_settings",
+      "patch": {
+        "paused": true
+      }
+    },
+    {
+      "op": "evaluate_due"
+    },
+    {
+      "op": "advance",
+      "milliseconds": 300000
+    },
+    {
+      "op": "evaluate_due"
+    },
+    {
+      "op": "set_settings",
+      "patch": {
+        "paused": false
+      }
+    },
+    {
+      "op": "evaluate_due"
+    }
+  ],
+  "expected_summary": {
+    "decisions": 0,
+    "tickets": 0
+  }
+}

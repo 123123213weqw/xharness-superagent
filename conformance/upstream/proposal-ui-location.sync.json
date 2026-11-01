@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "status": "applied",
+  "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+  "runtime_base_commit": "2147ff270fe55c2c739e5063a5bfacefd01dc38a",
+  "depends_on_source_patch_sha256": "d7d5fb26ded5a3202c9d77179af8353ca4ec56be76b0fbf3776c5542da571808",
+  "depends_on_controlled_sync_sha256": "b63a60ef2f1267c9b781e42e2b319ee7f81d41c98f138bc05f4f622e8b2e126a",
+  "source_patch_file": "conformance/upstream/proposal-ui-location.source.patch.gz",
+  "source_patch_sha256": "42e8347593f136ad65e3331b51dd2c95b99d492023f0311ec18480389a8d7499",
+  "runtime_apply_patch_file": "conformance/upstream/proposal-ui-location.runtime-apply.patch.gz",
+  "runtime_apply_patch_sha256": "1320a9f1b4b76e299673d1ee4bb738df4d14aa09c3264d39c1de928ce6450d50",
+  "source_profile_before": "57224094f0f14f53bd3f6f3f4b4cdead9dad87728427ede37d498625d9bf11b9",
+  "source_profile_after": "463b13741b2e218d047d4162784053341118c392cf3ee8521193004ac835bcd2",
+  "files": {
+    "crates/xharness-projection/src/lib.rs": {
+      "runtime_before_sha256": "7a2845e582dee1bceac60ad387e211e279402e6bc00ace80169573675ef44e98",
+      "upstream_before_sha256": "eefb839fd6b6bbb7b8ecc092b12b8c36f941821f7a0511ad41a6f80beb4ef80d",
+      "runtime_after_sha256": "7ef5115add24a2a772da7d91eb06eefc1bbabe7faf0a99a273172f15d6aeadd8",
+      "upstream_after_sha256": "bcb2c83eb45b8bdfe80a69f8836d4865df63e9b9ca1656b1a04faa08894d48c4"
+    },
+    "docs/architecture/owned-input-decisions.md": {
+      "runtime_before_sha256": "73daf6a6e341a25108a1d7457d1fd0f98320523e3f9fc6f8d159107c29b31716",
+      "upstream_before_sha256": "73daf6a6e341a25108a1d7457d1fd0f98320523e3f9fc6f8d159107c29b31716",
+      "runtime_after_sha256": "aa43ccba7b957e1a0ca30f35d400e9e679228234c03f78369ddc7a531f53465b",
+      "upstream_after_sha256": "aa43ccba7b957e1a0ca30f35d400e9e679228234c03f78369ddc7a531f53465b"
+    }
+  },
+  "canonical_only_policy_review_paths": [
+    "config/architecture-changes/superagent-proposal-ui-location.json",
+    "config/architecture-changes/superagent-step-input.json"
+  ],
+  "changed_lines_exact": true,
+  "context_adaptations": [],
+  "unstarted_UI_audit_has_proposedStep_not_active_step": true,
+  "persisted_InputProposal_step_unchanged": true,
+  "raw_candidate_body_never_projected": true,
+  "counterexample_preserved": "owned-input-zero-step-ui-probe.log",
+  "canonical_actual_projection_to_UI_cases_passed": 3,
+  "runtime_validation": "not_run_at_import",
+  "native_product_catalog_consumer_installed": false,
+  "UTF16_transport_complete": false,
+  "semantic_or_release_approval": false
+}

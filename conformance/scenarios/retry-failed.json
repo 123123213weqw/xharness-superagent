@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "id": "retry-failed",
+  "initial": {},
+  "commands": [
+    {
+      "op": "receive",
+      "trigger": {
+        "id": "t1"
+      }
+    },
+    {
+      "op": "evaluate_due"
+    },
+    {
+      "op": "decide",
+      "trigger": "t1",
+      "outcome": {
+        "kind": "accept",
+        "title": "Fix typo",
+        "scope": "Correct only one typo",
+        "reason": "Explicit correction request",
+        "acknowledgement": "I will correct the typo."
+      },
+      "as": "one"
+    },
+    {
+      "op": "settle"
+    },
+    {
+      "op": "report",
+      "ticket": "$one",
+      "report": {
+        "state": "failed",
+        "summary": "Build failed"
+      }
+    },
+    {
+      "op": "advance",
+      "milliseconds": 1000
+    },
+    {
+      "op": "retry",
+      "ticket": "$one"
+    },
+    {
+      "op": "settle"
+    }
+  ],
+  "expected_summary": {
+    "tickets": 1,
+    "ended": 0,
+    "outbox": 1
+  }
+}

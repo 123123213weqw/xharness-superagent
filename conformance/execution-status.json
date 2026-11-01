@@ -1,0 +1,30 @@
+{
+  "schema_version": 2,
+  "updated_at": "2026-11-01",
+  "repository": "123123213weqw/xharness-superagent",
+  "stage": "development",
+  "complete_product_available": false,
+  "product_end_to_end_accepted": false,
+  "scope_policy": "docs/superagent/product-scope.md",
+  "language_full_equivalence_required": false,
+  "canonical_UTF16_migration_included": false,
+  "tool_order_experiment_included": false,
+  "SDK_model_tool_failure_inference": "retracted_wrong_boundary",
+  "legacy_strict_rubric": {
+    "total": 96,
+    "verified_pass": 0,
+    "status": "historical_not_current_release_gate"
+  },
+  "current_snapshot_remote_verification": {
+    "status": "component_gate_passed",
+    "report": "docs/verification-2026-11-01.json",
+    "passed": 470,
+    "failed": 0,
+    "ignored": 0,
+    "full_workspace_tests_run": false,
+    "product_acceptance": false
+  },
+  "production_mutations": 0,
+  "paid_model_calls": 0,
+  "local_rust_compile_commands_run": 0
+}

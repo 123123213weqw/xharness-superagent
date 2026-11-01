@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "reference_source": "conformance/reference/upstream/src/app/delivery.ts",
+  "reference_source_sha256": "2a4f531e6ceca4fc98ed0203247f4abeaa10776e5b26909eb93f347b479f7a73",
+  "original_test_source": "conformance/reference/upstream/tests/delivery.spec.ts",
+  "original_test_source_sha256": "506cf7183fb1b1cceca58961de5fe1687e9256b8293a92f16ae05064da3b0d74",
+  "unchanged_original_tests": 15,
+  "additional_independent_reference_target_tests": 24,
+  "reference_target_tests_passed": 39,
+  "reference_target_tests_failed": 0,
+  "native_protocol_integration_tests": 16,
+  "native_protocol_integration_passed": 16,
+  "native_protocol_unit_tests": 1,
+  "native_protocol_unit_passed": 1,
+  "reference_core_algorithm_implemented_in_js": false,
+  "target_accepts_oracle_results": false,
+  "default_features_include_test_bridge": false,
+  "real_native_three_modes_integrated": false,
+  "native_passive_notice_implemented": true,
+  "native_passive_notice_new_tests": 5,
+  "native_session_total_tests": 32,
+  "scope": "Rust-owned AgentDelivery protocol with real callback/failure identity and local Runner lifetime, against original/independent host recording ports. Not a production NativeSessions three-mode adapter, full DSH machine, real model or Source test.",
+  "fixed_owner_retention": "Force-stopping Runner retained in-flight shared history read in the live Session cache. Clearing loaders on owner drop + immediate key cleanup releases the RAII reader; red/green kept. Normal close remains awaited.",
+  "key_layer": "AgentDelivery uses raw request strings; Sessions.prompt hashes first, notices use raw notice:name:key(JSON.stringify(payload)).",
+  "native_gaps": [
+    "full native AgentDelivery authorize/accepted/finalflush/abort and actual I/O fault ordering; cold retry is not a filesystem-failure test",
+    "full approval/human-request provenance and per-request Prompt/model/policy/skills/budget retry; Inbox.is_user_authored is not proof of all tool authority",
+    "legacy Runtime98 controls are not master ScopedControl; stale observer/Assignment epoch cancellation needs product guards",
+    "foreign/corrupt metadata reserved-namespace collisions,unknown source/UTF16/JSON/null/depth",
+    "MasterAssessor/DshExecutor,20tools,slots/jobs/children/worktree/handback,Root/Setup/Source/API/UI/deployment",
+    "first full workspace subagent.interrupt 10s timeout not reproduced in50 isolated repetitions/full24-suite; root cause still unresolved,not dismissed as pre-existing/flaky",
+    "64future-zone/55migration encodings,old TSstreamhealth and2existingFeishu deployment failures"
+  ],
+  "sdk_audit": {
+    "schema_version": 1,
+    "scope": "source audit of npm-published SDK versions, not executed whole DSH Agent machine or inference test",
+    "packages": [
+      {
+        "package": "@deepseek-ai/dsh-agent-loop",
+        "version": "0.2.1-alpha.2",
+        "archive_integrity": "sha512-bw5s6A/w9TJXHautNxherVEvLGc/hQzNG2FDmbMGTo5dAB1aeOY6ELES/Xv2tI6qC9jGmnC2fkejtDneiqtmcg==",
+        "archive_verified": true,
+        "entry_sha256": "cf57e3ecd487ac5c2553455aaa5cef2c6fb41e6bd61be5aa455675d1d7193033",
+        "entry_delivery_methods": "\tsend(message, target, wakeup) {\n\t\tconst wakingAfterAbort = wakeup && this.phase.kind !== \"idle\" && this.phase.abort.signal.aborted;\n\t\tconst resolvedTarget = wakingAfterAbort ? \"next-turn\" : target;\n\t\tthis.inbox.splice(resolvedTarget, Infinity, 0, [message]);\n\t\tif (wakeup) this.wakeDriver(wakingAfterAbort);\n\t}\n\tfollowup(input) {\n\t\tthis.send(input, \"next-turn\", true);\n\t}\n\tsteer(input) {\n\t\tthis.send(input, \"next-step\", true);\n\t}\n\tinject(input) {\n\t\tthis.send(input, \"next-step\", false);\n\t}\n",
+        "license": "MIT"
+      },
+      {
+        "package": "@deepseek-ai/dsh-agent-loop",
+        "version": "0.2.1-rc.3",
+        "archive_integrity": "sha512-H9fuiuaBv/IBvw2Ja3G+EZmUC+nwvOEXUH2BJtQNVs4bSEtb2L+f/eqFsX2pWXGFR6ptUQBteJzGLFzEQJgFSg==",
+        "archive_verified": true,
+        "entry_sha256": "cf57e3ecd487ac5c2553455aaa5cef2c6fb41e6bd61be5aa455675d1d7193033",
+        "entry_delivery_methods": "\tsend(message, target, wakeup) {\n\t\tconst wakingAfterAbort = wakeup && this.phase.kind !== \"idle\" && this.phase.abort.signal.aborted;\n\t\tconst resolvedTarget = wakingAfterAbort ? \"next-turn\" : target;\n\t\tthis.inbox.splice(resolvedTarget, Infinity, 0, [message]);\n\t\tif (wakeup) this.wakeDriver(wakingAfterAbort);\n\t}\n\tfollowup(input) {\n\t\tthis.send(input, \"next-turn\", true);\n\t}\n\tsteer(input) {\n\t\tthis.send(input, \"next-step\", true);\n\t}\n\tinject(input) {\n\t\tthis.send(input, \"next-step\", false);\n\t}\n",
+        "license": "MIT"
+      }
+    ]
+  },
+  "unaccepted": [
+    "production three-mode integration; only non-interrupting steer+idle-wake needs an upstream capability, not passive inject",
+    "native notice requires setup/configured role route and trusted scope; unavailable-model/ill-typed/collision/fault equivalence not proven",
+    "arbitrary Promise/inter-owner/provider interleavings, forced-shutdown exact semantics and full lifecycle",
+    "ill-typed source/UTF16/depth and JSON encoding; all pre-existing64future-zone/55migration differences",
+    "MasterAssessor/DshExecutor,role prompts/skills/budget retry/exact20tools/Source/API/UI/deployment"
+  ],
+  "evidence": [
+    "delivery-final-delivery-contracts.log",
+    "delivery-final-native-session-contracts.log",
+    "delivery-raw-reports/delivery-target-vitest.json",
+    "delivery-raw-reports/delivery-target.json",
+    "delivery-owner-history-red.log",
+    "delivery-owner-history-green.log",
+    "delivery-sdk-audit.json"
+  ],
+  "source_sha256": {
+    "crates/xharness-superagent/src/delivery.rs": "ec1e0ef4596bc9da4d3b9dab8402a61d7cd832a95f294decdc84d0854a5e4c70",
+    "crates/xharness-superagent/src/bin/delivery_bridge.rs": "0113b54cc55bfd608b40551425d778140f737cd265634da013974d9594b486a1",
+    "crates/xharness-superagent/tests/delivery.rs": "407dcf60fa7adbcc50c7fc2216ca4c09cf686df8a2826ed1b299ed3159823e06",
+    "conformance/reference/delivery-target-adapter.ts": "dfd8ab8b9c09f1a3cd12aec5170fdaa7d942e255c059e9b43d5195bb5996fcb3",
+    "conformance/reference/delivery-differential.spec.ts": "57df817f48e12361ceb1db5dc17d860db5e37d7ffa33acdff0ca668023a10ea6",
+    "crates/xharness-superagent/src/native_sessions.rs": "a38e3931db0ab5b70e58403f31fc7ef21a828ec9bd6c57ae69a5ab16c15258e5",
+    "crates/xharness-superagent/tests/native_sessions.rs": "95049ada0c7c45fbfb261ba1f1577b3d0ba7f664a79d0efdfed541e787dc7683"
+  },
+  "latest_replay_log": "models-final-delivery-contracts.log"
+}

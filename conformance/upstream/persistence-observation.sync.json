@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "status": "applied",
+  "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+  "runtime_base_commit": "2147ff270fe55c2c739e5063a5bfacefd01dc38a",
+  "source_before_tree": "99b7ac63a90d09225098771a5a44c3ffa503c15a",
+  "runtime_before_tree": "31b22631dc1a8c08836a9411504fada245cb7318",
+  "depends_on_source_patch_sha256": "ce5dfcae4fc7652e8335b3628c89af86a4687913c62653088df4ffe3493d6cca",
+  "depends_on_controlled_sync_sha256": "74fc5932c1c03768a15dc0778e83bff695d8058d0a5126a6e596f26579187d73",
+  "source_patch_file": "conformance/upstream/persistence-observation.source.patch.gz",
+  "source_patch_sha256": "e479550e69cc0d19bbf6e2ed46ae9d8c3b427f2d45caca6328156a26606fec04",
+  "excluded_source_paths": [
+    "config/architecture-changes/superagent-persistence-observation.json",
+    "scripts/regression/check-architecture.py"
+  ],
+  "files": {
+    "crates/xharness-agent/src/driver.rs": {
+      "runtime_before_sha256": "41c08c33827841d592aca4f88ba9c53f7a8599ee2cc78ef689835593fa607a7b",
+      "upstream_before_sha256": "9e1e41fe369b6fcecdb01ea9e0a9d199b83f32244df4612b614993a052f5b9ee",
+      "upstream_after_sha256": "163d48d6410cebad2e06c00db1d00dfae1186f89109c0327a93fb2b99bf833e9",
+      "runtime_after_sha256": "333c42b4c89215b154155a9e88af7fb69ff38218e61591b04ef0adac01031b49"
+    },
+    "crates/xharness-agent/src/driver/prepared_flush.rs": {
+      "runtime_before_sha256": "b2ee8cb979532d7fea6fb278d7aa5e2d0761cddb65f23d18eea5af80223b01c9",
+      "upstream_before_sha256": "b2ee8cb979532d7fea6fb278d7aa5e2d0761cddb65f23d18eea5af80223b01c9",
+      "upstream_after_sha256": "d6e1312bc659705c3e97faab6e18deebfab87d569de115e8b7263f83654631bf",
+      "runtime_after_sha256": "d6e1312bc659705c3e97faab6e18deebfab87d569de115e8b7263f83654631bf"
+    },
+    "crates/xharness-agent/src/driver/prepared_input.rs": {
+      "runtime_before_sha256": "4c4c800805ff131d0c9a93772866b666a2bca65d0ae40dadf0b09bb4cca053c4",
+      "upstream_before_sha256": "4c4c800805ff131d0c9a93772866b666a2bca65d0ae40dadf0b09bb4cca053c4",
+      "upstream_after_sha256": "074e52b30ffe48aba33685f1f152d5440410ead3280d2d9bed62b7aa29f1d275",
+      "runtime_after_sha256": "074e52b30ffe48aba33685f1f152d5440410ead3280d2d9bed62b7aa29f1d275"
+    },
+    "crates/xharness-agent/src/inbox.rs": {
+      "runtime_before_sha256": "67a3a0c72bc98a825ddb5c0228a15db029edcb0df301a4d588b33107cde49ee8",
+      "upstream_before_sha256": "67a3a0c72bc98a825ddb5c0228a15db029edcb0df301a4d588b33107cde49ee8",
+      "upstream_after_sha256": "dbee5a7578a755d54e60dc3688f315b91463861092f6806fd3a45cb2943de10a",
+      "runtime_after_sha256": "dbee5a7578a755d54e60dc3688f315b91463861092f6806fd3a45cb2943de10a"
+    },
+    "crates/xharness-agent/src/input_admission.rs": {
+      "runtime_before_sha256": "db3ff443b620c93e86b1b2ba3843af88454ce37acb630a77ad0861017e8ed4fa",
+      "upstream_before_sha256": "db3ff443b620c93e86b1b2ba3843af88454ce37acb630a77ad0861017e8ed4fa",
+      "upstream_after_sha256": "4375e9aa02f9166a7024c9220217b8a26110b704e79aae96076201d5f8a7081d",
+      "runtime_after_sha256": "4375e9aa02f9166a7024c9220217b8a26110b704e79aae96076201d5f8a7081d"
+    },
+    "crates/xharness-agent/src/input_completion.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "fad43a22af4cf0dc84c30ffc970c9afc9d1e8a2e454a9f7fdeab5c00435a5722",
+      "runtime_after_sha256": "fad43a22af4cf0dc84c30ffc970c9afc9d1e8a2e454a9f7fdeab5c00435a5722"
+    },
+    "crates/xharness-agent/src/lib.rs": {
+      "runtime_before_sha256": "ed5d9e43b8ad3f684865bb396239e428263bc3e34a968e48b121588dec8d7c5c",
+      "upstream_before_sha256": "ed5d9e43b8ad3f684865bb396239e428263bc3e34a968e48b121588dec8d7c5c",
+      "upstream_after_sha256": "4410fcab80ec07756891959d6e56b7c30646e56161f169da3510bf4528b31ab9",
+      "runtime_after_sha256": "4410fcab80ec07756891959d6e56b7c30646e56161f169da3510bf4528b31ab9"
+    },
+    "crates/xharness-agent/src/prepared_input.rs": {
+      "runtime_before_sha256": "9bf16997f13994f4baae79c61c689b025ecb4ef1e20cf7513dea5fc13be82613",
+      "upstream_before_sha256": "9bf16997f13994f4baae79c61c689b025ecb4ef1e20cf7513dea5fc13be82613",
+      "upstream_after_sha256": "14493e15c14230257ee68795ec264ee9d9b7ddbd481191e634b4e5987d6900e1",
+      "runtime_after_sha256": "14493e15c14230257ee68795ec264ee9d9b7ddbd481191e634b4e5987d6900e1"
+    },
+    "crates/xharness-host/tests/persistence_input.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "5cf9a2bb3b398bb55f95124e930bbc623ec3f8d2bc44f13a9b32a4d3f9b60b07",
+      "runtime_after_sha256": "5cf9a2bb3b398bb55f95124e930bbc623ec3f8d2bc44f13a9b32a4d3f9b60b07"
+    },
+    "docs/architecture/persistence-input-observation.md": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "40ebff05cb96d63d1a15506b00a9e0224b53e08044c0c7cd83d573c7c2d2775b",
+      "runtime_after_sha256": "40ebff05cb96d63d1a15506b00a9e0224b53e08044c0c7cd83d573c7c2d2775b"
+    }
+  },
+  "source_profile_after": "4dc21b9f1b9f2ba7a89bde34d0377c5283c5f146740935b52674202999b2d0e7",
+  "reviewed_conflicts": 0,
+  "old_full_finish_and_legacy_observed_semantics_preserved": true,
+  "source_and_target_persisted_schema_and_cargo_lock_unchanged": true,
+  "master_restart_scoped_control_watchdog_imported": false,
+  "semantic_or_release_approval": false,
+  "full_sdk_agent_facade_or_all_global_flush_parity_accepted": false,
+  "no_new_commit_ref_push": true
+}

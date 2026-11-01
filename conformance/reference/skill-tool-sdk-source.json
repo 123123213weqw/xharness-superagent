@@ -1,0 +1,10 @@
+{
+  "name": "@deepseek-ai/dsh-tool-skill",
+  "version": "0.2.1-alpha.2",
+  "integrity": "sha512-MGLuCEHwpGlRiCiWVyMGHDaXs8FRsV/47e09BG+iVBW1Qpff1JXHlO94CEprrWpJFqfLfafkr3RmSaOXc2GZIw==",
+  "tarball_sha256": "6ec8c7b6aff0d1f03a95a60e41e787b8603d2f50ad211ecd348853a579b06839",
+  "basis": "supplemental exact alpha.2 plugin named in pinned cordis.patch.yml;not independently locked in prototypepnpm lock",
+  "source_sha256": "a77aaf64ae67383da4a7d47422e1d5e86ac3ab27e604967b00c2c57b00f68180",
+  "license": "MIT License\n\nCopyright (c) 2026 DeepSeek\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n",
+  "scope": "Supplemental actual tool plugin named by fixed prototype patch;version is not independently pinned by prototype lock. No installed package scripts."
+}

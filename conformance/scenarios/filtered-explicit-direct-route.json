@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "filtered-explicit-direct-route",
+  "initial": {},
+  "commands": [
+    {
+      "op": "receive",
+      "trigger": {
+        "id": "t1",
+        "meta": {
+          "blocked": true
+        }
+      }
+    },
+    {
+      "op": "decide",
+      "trigger": "t1",
+      "outcome": {
+        "kind": "accept",
+        "title": "Fix typo",
+        "scope": "Correct only one typo",
+        "reason": "Explicit correction request",
+        "acknowledgement": "I will correct the typo."
+      },
+      "as": "one"
+    },
+    {
+      "op": "settle"
+    }
+  ],
+  "expected_summary": {
+    "tickets": 1,
+    "decisions": 1,
+    "outbox": 1,
+    "ended": 0,
+    "decisionKinds": [
+      "accept"
+    ]
+  }
+}

@@ -1,0 +1,3440 @@
+{
+  "schema_version": 1,
+  "title": "XHarness SuperAgent 行为对齐 Rubric",
+  "created_at": "2026-10-31",
+  "timezone": "Asia/Shanghai",
+  "baseline_lock": {
+    "superagent": {
+      "repository": "deepseek-ai/dsh-superagent-prototype",
+      "ref": "main",
+      "sha": "6337fc823ce20251c8de8085948165c81aaa701e"
+    },
+    "runtime": {
+      "repository": "123123213weqw/xharness-runtime",
+      "ref": "main",
+      "sha": "2147ff270fe55c2c739e5063a5bfacefd01dc38a"
+    },
+    "xharness": {
+      "repository": "123123213weqw/x-harness-rs",
+      "ref": "master",
+      "sha": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b"
+    }
+  },
+  "reference_defaults": {
+    "accept_mode": "observe",
+    "enabled_rules": [
+      "copy",
+      "visual"
+    ],
+    "eval_timeout_seconds": 120,
+    "max_workers": 3,
+    "human_extra_slots": 1,
+    "github_poll_seconds": 60,
+    "prepare_timeout_seconds": 600,
+    "worker_foreground_seconds": 5,
+    "background_turn_grace_seconds": 1800,
+    "context_max_pages": 10,
+    "context_timeout_ms": 15000,
+    "prompt_max_chars": 100000,
+    "github_observe_all_switches": false
+  },
+  "rubric_items_not_test_cases": true,
+  "release_gate": {
+    "all_required_items_pass": true,
+    "p0_failures_allowed": 0,
+    "not_run_counts_as_pass": false,
+    "skip_counts_as_pass": false,
+    "approved_deviation_is_strict_parity": false,
+    "model_output_byte_equality_required": false
+  },
+  "status_vocabulary": [
+    "not_run",
+    "pass",
+    "fail",
+    "blocked",
+    "approved_deviation"
+  ],
+  "reference_test_suite_inventory": [
+    "tests/admission-context.spec.ts",
+    "tests/assessment.spec.ts",
+    "tests/background.spec.ts",
+    "tests/bundle-patch.spec.ts",
+    "tests/cache.spec.ts",
+    "tests/cards.spec.ts",
+    "tests/class-docs.spec.ts",
+    "tests/client.spec.tsx",
+    "tests/commands.spec.ts",
+    "tests/controls.spec.tsx",
+    "tests/core-engine.spec.ts",
+    "tests/delivery.spec.ts",
+    "tests/deployment.spec.ts",
+    "tests/docs.spec.ts",
+    "tests/draft.spec.ts",
+    "tests/effects.spec.ts",
+    "tests/environment.spec.ts",
+    "tests/feishu-image.spec.ts",
+    "tests/feishu-read.spec.ts",
+    "tests/followups.spec.ts",
+    "tests/github-read.spec.ts",
+    "tests/health.spec.ts",
+    "tests/http.spec.ts",
+    "tests/index.spec.ts",
+    "tests/locales.spec.ts",
+    "tests/markdown.spec.ts",
+    "tests/marks.spec.ts",
+    "tests/migration.spec.ts",
+    "tests/model-surface.spec.ts",
+    "tests/navigation.spec.ts",
+    "tests/outbox.spec.ts",
+    "tests/panel-deployment.spec.tsx",
+    "tests/panel-eval.spec.tsx",
+    "tests/panel-execution.spec.tsx",
+    "tests/panel-overview.spec.tsx",
+    "tests/panel-panel.spec.tsx",
+    "tests/panel-prompts.spec.tsx",
+    "tests/panel-settings.spec.tsx",
+    "tests/panel-source.spec.tsx",
+    "tests/panel-trigger.spec.tsx",
+    "tests/passes.spec.ts",
+    "tests/policy.spec.ts",
+    "tests/prompt-config.spec.ts",
+    "tests/prompts.spec.ts",
+    "tests/queue.spec.ts",
+    "tests/registry.spec.ts",
+    "tests/retry-health.spec.ts",
+    "tests/role-models.spec.ts",
+    "tests/runtime-concurrency.spec.ts",
+    "tests/runtime.spec.ts",
+    "tests/service-script.spec.ts",
+    "tests/settings.spec.ts",
+    "tests/sources.spec.ts",
+    "tests/stage.spec.ts",
+    "tests/store.spec.ts",
+    "tests/styles.spec.ts",
+    "tests/timeline.spec.ts",
+    "tests/tools.spec.ts",
+    "tests/views.spec.ts"
+  ],
+  "reference_suite_group_mapping": {
+    "SRC": [
+      "tests/admission-context.spec.ts",
+      "tests/sources.spec.ts",
+      "tests/registry.spec.ts",
+      "tests/github-read.spec.ts",
+      "tests/feishu-read.spec.ts",
+      "tests/feishu-image.spec.ts",
+      "tests/cache.spec.ts"
+    ],
+    "AUTH": [
+      "tests/policy.spec.ts",
+      "tests/assessment.spec.ts",
+      "tests/followups.spec.ts"
+    ],
+    "DOM": [
+      "tests/core-engine.spec.ts",
+      "tests/stage.spec.ts",
+      "tests/store.spec.ts",
+      "tests/passes.spec.ts",
+      "tests/queue.spec.ts"
+    ],
+    "RUN": [
+      "tests/runtime.spec.ts",
+      "tests/runtime-concurrency.spec.ts",
+      "tests/background.spec.ts",
+      "tests/role-models.spec.ts",
+      "tests/delivery.spec.ts",
+      "tests/retry-health.spec.ts"
+    ],
+    "TOOL": [
+      "tests/tools.spec.ts",
+      "tests/model-surface.spec.ts",
+      "tests/commands.spec.ts",
+      "tests/environment.spec.ts",
+      "tests/bundle-patch.spec.ts",
+      "tests/index.spec.ts"
+    ],
+    "PRM": [
+      "tests/prompts.spec.ts",
+      "tests/prompt-config.spec.ts",
+      "tests/settings.spec.ts"
+    ],
+    "DEL": [
+      "tests/outbox.spec.ts",
+      "tests/effects.spec.ts",
+      "tests/health.spec.ts"
+    ],
+    "REC": [
+      "tests/migration.spec.ts",
+      "tests/store.spec.ts",
+      "tests/delivery.spec.ts",
+      "tests/queue.spec.ts",
+      "tests/runtime-concurrency.spec.ts",
+      "tests/timeline.spec.ts"
+    ],
+    "CFG": [
+      "tests/deployment.spec.ts",
+      "tests/http.spec.ts",
+      "tests/settings.spec.ts"
+    ],
+    "UI": [
+      "tests/client.spec.tsx",
+      "tests/controls.spec.tsx",
+      "tests/draft.spec.ts",
+      "tests/cards.spec.ts",
+      "tests/marks.spec.ts",
+      "tests/views.spec.ts",
+      "tests/locales.spec.ts",
+      "tests/markdown.spec.ts",
+      "tests/navigation.spec.ts",
+      "tests/styles.spec.ts",
+      "tests/panel-deployment.spec.tsx",
+      "tests/panel-eval.spec.tsx",
+      "tests/panel-execution.spec.tsx",
+      "tests/panel-overview.spec.tsx",
+      "tests/panel-panel.spec.tsx",
+      "tests/panel-prompts.spec.tsx",
+      "tests/panel-settings.spec.tsx",
+      "tests/panel-source.spec.tsx",
+      "tests/panel-trigger.spec.tsx",
+      "tests/timeline.spec.ts"
+    ],
+    "DEP": [
+      "tests/service-script.spec.ts",
+      "tests/docs.spec.ts",
+      "tests/class-docs.spec.ts",
+      "tests/index.spec.ts"
+    ]
+  },
+  "rubrics": [
+    {
+      "id": "SRC-01",
+      "area": "事件来源",
+      "priority": "P0",
+      "title": "输入事件持久化与去重",
+      "assertion": "相同 Source 事件重复送达只形成一个 Trigger；Source 游标不得先于事件落盘推进。",
+      "primary_phase": "M4",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "src/sources/github.ts",
+        "src/sources/feishu.ts"
+      ],
+      "reference_suites": [
+        "tests/admission-context.spec.ts",
+        "tests/sources.spec.ts",
+        "tests/registry.spec.ts",
+        "tests/github-read.spec.ts",
+        "tests/feishu-read.spec.ts",
+        "tests/feishu-image.spec.ts",
+        "tests/cache.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/src-01.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "SRC-02",
+      "area": "事件来源",
+      "priority": "P1",
+      "title": "GitHub 接收范围",
+      "assertion": "对齐 notifications、订阅 Issue/PR、CI、关闭合并及四个 observe 开关；编辑旧正文增加 mention 不冒充新通知。",
+      "primary_phase": "M4",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "src/sources/github.ts",
+        "src/sources/feishu.ts"
+      ],
+      "reference_suites": [
+        "tests/admission-context.spec.ts",
+        "tests/sources.spec.ts",
+        "tests/registry.spec.ts",
+        "tests/github-read.spec.ts",
+        "tests/feishu-read.spec.ts",
+        "tests/feishu-image.spec.ts",
+        "tests/cache.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/src-02.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "SRC-03",
+      "area": "事件来源",
+      "priority": "P0",
+      "title": "忽略自身与范围外事件",
+      "assertion": "自身机器人消息和未监听会话在进入接单域前过滤，保留可解释的 disposition。",
+      "primary_phase": "M4",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "src/sources/github.ts",
+        "src/sources/feishu.ts"
+      ],
+      "reference_suites": [
+        "tests/admission-context.spec.ts",
+        "tests/sources.spec.ts",
+        "tests/registry.spec.ts",
+        "tests/github-read.spec.ts",
+        "tests/feishu-read.spec.ts",
+        "tests/feishu-image.spec.ts",
+        "tests/cache.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/src-03.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "SRC-04",
+      "area": "事件来源",
+      "priority": "P0",
+      "title": "订阅扇出与上下文",
+      "assertion": "已订阅线程的消息送达全部相关工单；context-only 订阅不授权、不恢复已结束工单。",
+      "primary_phase": "M4",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "src/sources/github.ts",
+        "src/sources/feishu.ts"
+      ],
+      "reference_suites": [
+        "tests/admission-context.spec.ts",
+        "tests/sources.spec.ts",
+        "tests/registry.spec.ts",
+        "tests/github-read.spec.ts",
+        "tests/feishu-read.spec.ts",
+        "tests/feishu-image.spec.ts",
+        "tests/cache.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/src-04.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_differential",
+          "artifact": "records-differential.json",
+          "cases": 3279,
+          "scope": "ownership/reachability/settlement and error helpers only; complete command lifecycle is not implemented",
+          "full_requirement_verified": false
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "SRC-05",
+      "area": "事件来源",
+      "priority": "P1",
+      "title": "飞书接收与历史恢复",
+      "assertion": "配置群、其他群、私信、mentions/all、历史补读和断线恢复与参考一致。",
+      "primary_phase": "M4",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "src/sources/github.ts",
+        "src/sources/feishu.ts"
+      ],
+      "reference_suites": [
+        "tests/admission-context.spec.ts",
+        "tests/sources.spec.ts",
+        "tests/registry.spec.ts",
+        "tests/github-read.spec.ts",
+        "tests/feishu-read.spec.ts",
+        "tests/feishu-image.spec.ts",
+        "tests/cache.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/src-05.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "SRC-06",
+      "area": "事件来源",
+      "priority": "P1",
+      "title": "来源上下文分页和图片",
+      "assertion": "原消息、根消息、回复关系、分页游标、图片引用和有界读取保持可追溯，不伪造完整内容。",
+      "primary_phase": "M4",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "src/sources/github.ts",
+        "src/sources/feishu.ts"
+      ],
+      "reference_suites": [
+        "tests/admission-context.spec.ts",
+        "tests/sources.spec.ts",
+        "tests/registry.spec.ts",
+        "tests/github-read.spec.ts",
+        "tests/feishu-read.spec.ts",
+        "tests/feishu-image.spec.ts",
+        "tests/cache.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/src-06.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "SRC-07",
+      "area": "事件来源",
+      "priority": "P0",
+      "title": "来源身份隔离",
+      "assertion": "GitHub login 和飞书 open_id 分别判断；跨来源身份说明只作为知识，不自动合并授权。",
+      "primary_phase": "M4",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "src/sources/github.ts",
+        "src/sources/feishu.ts"
+      ],
+      "reference_suites": [
+        "tests/admission-context.spec.ts",
+        "tests/sources.spec.ts",
+        "tests/registry.spec.ts",
+        "tests/github-read.spec.ts",
+        "tests/feishu-read.spec.ts",
+        "tests/feishu-image.spec.ts",
+        "tests/cache.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/src-07.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "SRC-08",
+      "area": "事件来源",
+      "priority": "P1",
+      "title": "来源故障与健康状态",
+      "assertion": "按参考的逐线程失败、退避、连续失败计数和不可达会话处理；短暂错误不能直接判定永久失效。",
+      "primary_phase": "M4",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "src/sources/github.ts",
+        "src/sources/feishu.ts"
+      ],
+      "reference_suites": [
+        "tests/admission-context.spec.ts",
+        "tests/sources.spec.ts",
+        "tests/registry.spec.ts",
+        "tests/github-read.spec.ts",
+        "tests/feishu-read.spec.ts",
+        "tests/feishu-image.spec.ts",
+        "tests/cache.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/src-08.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "AUTH-01",
+      "area": "接单与授权",
+      "priority": "P0",
+      "title": "明确请求路径",
+      "assertion": "允许名单中的人明确提及或私信 Agent 时走 explicit 路径；该路径在 off、observe、auto 均可工作。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/002-authorization.md",
+        "src/policy.ts"
+      ],
+      "reference_suites": [
+        "tests/policy.spec.ts",
+        "tests/assessment.spec.ts",
+        "tests/followups.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/auth-01.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_differential",
+          "artifact": "policy-differential.json",
+          "cases": 41694,
+          "scope": "settings, admission, bot lists, revalidation, assessment conversion and policy-change classification with scripted SourceScope ports",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "original_assertion_replay",
+          "artifact": "policy-original-target.json",
+          "scope": "unchanged policy.spec.ts; Rust boundary calls verified, SourceRegistry and migration controls remain TS",
+          "full_requirement_verified": false
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "AUTH-02",
+      "area": "接单与授权",
+      "priority": "P0",
+      "title": "准入表组合",
+      "assertion": "逐格覆盖 listed/unlisted、addressed/unaddressed、接收范围和 explicit/inferred/ignore；保留显式准入例外。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/002-authorization.md",
+        "src/policy.ts"
+      ],
+      "reference_suites": [
+        "tests/policy.spec.ts",
+        "tests/assessment.spec.ts",
+        "tests/followups.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/auth-02.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_differential",
+          "artifact": "policy-differential.json",
+          "cases": 41694,
+          "scope": "settings, admission, bot lists, revalidation, assessment conversion and policy-change classification with scripted SourceScope ports",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "original_assertion_replay",
+          "artifact": "policy-original-target.json",
+          "scope": "unchanged policy.spec.ts; Rust boundary calls verified, SourceRegistry and migration controls remain TS",
+          "full_requirement_verified": false
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "AUTH-03",
+      "area": "接单与授权",
+      "priority": "P0",
+      "title": "机器人不能形成明确授权",
+      "assertion": "只有配置 bot list 的机器人可形成 inferred 候选；机器人不能明确派活或停止工单。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/002-authorization.md",
+        "src/policy.ts"
+      ],
+      "reference_suites": [
+        "tests/policy.spec.ts",
+        "tests/assessment.spec.ts",
+        "tests/followups.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/auth-03.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_differential",
+          "artifact": "policy-differential.json",
+          "cases": 41694,
+          "scope": "settings, admission, bot lists, revalidation, assessment conversion and policy-change classification with scripted SourceScope ports",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "original_assertion_replay",
+          "artifact": "policy-original-target.json",
+          "scope": "unchanged policy.spec.ts; Rust boundary calls verified, SourceRegistry and migration controls remain TS",
+          "full_requirement_verified": false
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "AUTH-04",
+      "area": "接单与授权",
+      "priority": "P0",
+      "title": "off 模式",
+      "assertion": "拒绝所有 inferred 新候选，不影响合法 explicit 请求；不能把 off 误实现为全局暂停。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/002-authorization.md",
+        "src/policy.ts"
+      ],
+      "reference_suites": [
+        "tests/policy.spec.ts",
+        "tests/assessment.spec.ts",
+        "tests/followups.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/auth-04.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_differential",
+          "artifact": "policy-differential.json",
+          "cases": 41694,
+          "scope": "settings, admission, bot lists, revalidation, assessment conversion and policy-change classification with scripted SourceScope ports",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "original_assertion_replay",
+          "artifact": "policy-original-target.json",
+          "scope": "unchanged policy.spec.ts; Rust boundary calls verified, SourceRegistry and migration controls remain TS",
+          "full_requirement_verified": false
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "AUTH-05",
+      "area": "接单与授权",
+      "priority": "P0",
+      "title": "observe 模式",
+      "assertion": "正向研判只记录 would_accept 和提案，不创建工单、不启动 Worker、不发送接单确认。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/002-authorization.md",
+        "src/policy.ts"
+      ],
+      "reference_suites": [
+        "tests/policy.spec.ts",
+        "tests/assessment.spec.ts",
+        "tests/followups.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/auth-05.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_differential",
+          "artifact": "policy-differential.json",
+          "cases": 41694,
+          "scope": "settings, admission, bot lists, revalidation, assessment conversion and policy-change classification with scripted SourceScope ports",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "original_assertion_replay",
+          "artifact": "policy-original-target.json",
+          "scope": "unchanged policy.spec.ts; Rust boundary calls verified, SourceRegistry and migration controls remain TS",
+          "full_requirement_verified": false
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "AUTH-06",
+      "area": "接单与授权",
+      "priority": "P0",
+      "title": "auto 模式和逐规则研判",
+      "assertion": "主动接单至少命中一条启用规则；每条启用规则恰评一次，重复、遗漏和过期研判不得接单。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/002-authorization.md",
+        "src/policy.ts"
+      ],
+      "reference_suites": [
+        "tests/policy.spec.ts",
+        "tests/assessment.spec.ts",
+        "tests/followups.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/auth-06.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_differential",
+          "artifact": "policy-differential.json",
+          "cases": 41694,
+          "scope": "settings, admission, bot lists, revalidation, assessment conversion and policy-change classification with scripted SourceScope ports",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "original_assertion_replay",
+          "artifact": "policy-original-target.json",
+          "scope": "unchanged policy.spec.ts; Rust boundary calls verified, SourceRegistry and migration controls remain TS",
+          "full_requirement_verified": false
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "AUTH-07",
+      "area": "接单与授权",
+      "priority": "P0",
+      "title": "策略版本变化",
+      "assertion": "过期 Eval 丢弃并重新排队；只给受影响工单发策略通知，不直接粗暴取消全部运行工单。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/002-authorization.md",
+        "src/policy.ts"
+      ],
+      "reference_suites": [
+        "tests/policy.spec.ts",
+        "tests/assessment.spec.ts",
+        "tests/followups.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/auth-07.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_differential",
+          "artifact": "policy-differential.json",
+          "cases": 41694,
+          "scope": "settings, admission, bot lists, revalidation, assessment conversion and policy-change classification with scripted SourceScope ports",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "original_assertion_replay",
+          "artifact": "policy-original-target.json",
+          "scope": "unchanged policy.spec.ts; Rust boundary calls verified, SourceRegistry and migration controls remain TS",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "component_engine_replay",
+          "path": "conformance/reference/engine-target-results.json",
+          "scope": "113 unchanged original core Engine tests passed against Rust Engine; prepared/observational callbacks remain fixture JS. Includes rollback, follow-up ownership, stop/retry, PR close and read receipts; no SQL/Runtime/source/worker-directory acceptance."
+        },
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "AUTH-08",
+      "area": "接单与授权",
+      "priority": "P0",
+      "title": "Mandate 作用域",
+      "assertion": "消息、引用、模型输出、跨工单 note 和订阅都不能扩大 Mandate；扩大任务范围需新授权工单。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/002-authorization.md",
+        "src/policy.ts"
+      ],
+      "reference_suites": [
+        "tests/policy.spec.ts",
+        "tests/assessment.spec.ts",
+        "tests/followups.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/auth-08.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_differential",
+          "artifact": "policy-differential.json",
+          "cases": 41694,
+          "scope": "settings, admission, bot lists, revalidation, assessment conversion and policy-change classification with scripted SourceScope ports",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "original_assertion_replay",
+          "artifact": "policy-original-target.json",
+          "scope": "unchanged policy.spec.ts; Rust boundary calls verified, SourceRegistry and migration controls remain TS",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "component_engine_replay",
+          "path": "conformance/reference/engine-target-results.json",
+          "scope": "113 unchanged original core Engine tests passed against Rust Engine; prepared/observational callbacks remain fixture JS. Includes rollback, follow-up ownership, stop/retry, PR close and read receipts; no SQL/Runtime/source/worker-directory acceptance."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "AUTH-09",
+      "area": "接单与授权",
+      "priority": "P0",
+      "title": "恢复时重新校验",
+      "assertion": "已结束工单恢复前检查当前来源范围与 Mandate；规则或身份不再有效时记录撤销，不偷偷继续。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/002-authorization.md",
+        "src/policy.ts"
+      ],
+      "reference_suites": [
+        "tests/policy.spec.ts",
+        "tests/assessment.spec.ts",
+        "tests/followups.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/auth-09.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_differential",
+          "artifact": "policy-differential.json",
+          "cases": 41694,
+          "scope": "settings, admission, bot lists, revalidation, assessment conversion and policy-change classification with scripted SourceScope ports",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "original_assertion_replay",
+          "artifact": "policy-original-target.json",
+          "scope": "unchanged policy.spec.ts; Rust boundary calls verified, SourceRegistry and migration controls remain TS",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "component_engine_replay",
+          "path": "conformance/reference/engine-target-results.json",
+          "scope": "113 unchanged original core Engine tests passed against Rust Engine; prepared/observational callbacks remain fixture JS. Includes rollback, follow-up ownership, stop/retry, PR close and read receipts; no SQL/Runtime/source/worker-directory acceptance."
+        },
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "AUTH-10",
+      "area": "接单与授权",
+      "priority": "P0",
+      "title": "默认规则与默认值",
+      "assertion": "默认 copy、visual 两条规则及原文、observe、120 秒研判超时、3 个 Worker 与空名单默认准入行为保持一致。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/002-authorization.md",
+        "src/policy.ts"
+      ],
+      "reference_suites": [
+        "tests/policy.spec.ts",
+        "tests/assessment.spec.ts",
+        "tests/followups.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/auth-10.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_differential",
+          "artifact": "policy-differential.json",
+          "cases": 41694,
+          "scope": "settings, admission, bot lists, revalidation, assessment conversion and policy-change classification with scripted SourceScope ports",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "original_assertion_replay",
+          "artifact": "policy-original-target.json",
+          "scope": "unchanged policy.spec.ts; Rust boundary calls verified, SourceRegistry and migration controls remain TS",
+          "full_requirement_verified": false
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "DOM-01",
+      "area": "工单领域状态",
+      "priority": "P0",
+      "title": "线程内研判串行",
+      "assertion": "同 Thread 最多一个 Eval；处理中到达的事件进入下一批，不并发作出互相覆盖的判断。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "docs/003-execution.md",
+        "src/core/ports.ts"
+      ],
+      "reference_suites": [
+        "tests/core-engine.spec.ts",
+        "tests/stage.spec.ts",
+        "tests/store.spec.ts",
+        "tests/passes.spec.ts",
+        "tests/queue.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/dom-01.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_engine_replay",
+          "path": "conformance/reference/engine-target-results.json",
+          "scope": "113 unchanged original core Engine tests passed against Rust Engine; prepared/observational callbacks remain fixture JS. Includes rollback, follow-up ownership, stop/retry, PR close and read receipts; no SQL/Runtime/source/worker-directory acceptance."
+        },
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "DOM-02",
+      "area": "工单领域状态",
+      "priority": "P0",
+      "title": "同线程多个工单",
+      "assertion": "Thread 与 Ticket 多对多，不能用 repo+issue 或 chat_id 直接替代 Ticket 身份。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "docs/003-execution.md",
+        "src/core/ports.ts"
+      ],
+      "reference_suites": [
+        "tests/core-engine.spec.ts",
+        "tests/stage.spec.ts",
+        "tests/store.spec.ts",
+        "tests/passes.spec.ts",
+        "tests/queue.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/dom-02.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_engine_replay",
+          "path": "conformance/reference/engine-target-results.json",
+          "scope": "113 unchanged original core Engine tests passed against Rust Engine; prepared/observational callbacks remain fixture JS. Includes rollback, follow-up ownership, stop/retry, PR close and read receipts; no SQL/Runtime/source/worker-directory acceptance."
+        },
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "DOM-03",
+      "area": "工单领域状态",
+      "priority": "P0",
+      "title": "接单原子性",
+      "assertion": "Decision、Mandate、Ticket、Assignment、初始订阅和接单消息意图原子提交。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "docs/003-execution.md",
+        "src/core/ports.ts"
+      ],
+      "reference_suites": [
+        "tests/core-engine.spec.ts",
+        "tests/stage.spec.ts",
+        "tests/store.spec.ts",
+        "tests/passes.spec.ts",
+        "tests/queue.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/dom-03.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_engine_replay",
+          "path": "conformance/reference/engine-target-results.json",
+          "scope": "113 unchanged original core Engine tests passed against Rust Engine; prepared/observational callbacks remain fixture JS. Includes rollback, follow-up ownership, stop/retry, PR close and read receipts; no SQL/Runtime/source/worker-directory acceptance."
+        },
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "DOM-04",
+      "area": "工单领域状态",
+      "priority": "P0",
+      "title": "派工独立生命周期",
+      "assertion": "Assignment 的 pending/running/ended 与 Ticket 的 open/ended 独立；重试保留工单与工作成果。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "docs/003-execution.md",
+        "src/core/ports.ts"
+      ],
+      "reference_suites": [
+        "tests/core-engine.spec.ts",
+        "tests/stage.spec.ts",
+        "tests/store.spec.ts",
+        "tests/passes.spec.ts",
+        "tests/queue.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/dom-04.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_differential",
+          "artifact": "records-differential.json",
+          "cases": 3279,
+          "scope": "ownership/reachability/settlement and error helpers only; complete command lifecycle is not implemented",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "component_engine_replay",
+          "path": "conformance/reference/engine-target-results.json",
+          "scope": "113 unchanged original core Engine tests passed against Rust Engine; prepared/observational callbacks remain fixture JS. Includes rollback, follow-up ownership, stop/retry, PR close and read receipts; no SQL/Runtime/source/worker-directory acceptance."
+        },
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "DOM-05",
+      "area": "工单领域状态",
+      "priority": "P0",
+      "title": "结束后人类续办",
+      "assertion": "满足 Mandate 的原任务可由所属线程的人类跟进恢复；机器人和 CI 不唤醒 ended 工单。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "docs/003-execution.md",
+        "src/core/ports.ts"
+      ],
+      "reference_suites": [
+        "tests/core-engine.spec.ts",
+        "tests/stage.spec.ts",
+        "tests/store.spec.ts",
+        "tests/passes.spec.ts",
+        "tests/queue.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/dom-05.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_engine_replay",
+          "path": "conformance/reference/engine-target-results.json",
+          "scope": "113 unchanged original core Engine tests passed against Rust Engine; prepared/observational callbacks remain fixture JS. Includes rollback, follow-up ownership, stop/retry, PR close and read receipts; no SQL/Runtime/source/worker-directory acceptance."
+        },
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "DOM-06",
+      "area": "工单领域状态",
+      "priority": "P0",
+      "title": "人工停止不可自动恢复",
+      "assertion": "stop 撤回 Mandate、终止自动输入；后续普通消息、CI、重启均不能偷偷恢复旧工单。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "docs/003-execution.md",
+        "src/core/ports.ts"
+      ],
+      "reference_suites": [
+        "tests/core-engine.spec.ts",
+        "tests/stage.spec.ts",
+        "tests/store.spec.ts",
+        "tests/passes.spec.ts",
+        "tests/queue.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/dom-06.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_engine_replay",
+          "path": "conformance/reference/engine-target-results.json",
+          "scope": "113 unchanged original core Engine tests passed against Rust Engine; prepared/observational callbacks remain fixture JS. Includes rollback, follow-up ownership, stop/retry, PR close and read receipts; no SQL/Runtime/source/worker-directory acceptance."
+        },
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        },
+        {
+          "kind": "sql_repository_native_driver_component",
+          "path": "conformance/reference/driver-target-results.json",
+          "scope": "127Engine SQL replays,7repository and13native Future/control tests. Not complete role/JSONL/Source/provider/stop recovery acceptance."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "DOM-07",
+      "area": "工单领域状态",
+      "priority": "P0",
+      "title": "跟进所有权和退回",
+      "assertion": "Worker 先决定自己拥有的跟进；全部拥有者 handback 或未读释放后才重入 Eval，Router 不重复接单。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "docs/003-execution.md",
+        "src/core/ports.ts"
+      ],
+      "reference_suites": [
+        "tests/core-engine.spec.ts",
+        "tests/stage.spec.ts",
+        "tests/store.spec.ts",
+        "tests/passes.spec.ts",
+        "tests/queue.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/dom-07.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_differential",
+          "artifact": "records-differential.json",
+          "cases": 3279,
+          "scope": "ownership/reachability/settlement and error helpers only; complete command lifecycle is not implemented",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "component_engine_replay",
+          "path": "conformance/reference/engine-target-results.json",
+          "scope": "113 unchanged original core Engine tests passed against Rust Engine; prepared/observational callbacks remain fixture JS. Includes rollback, follow-up ownership, stop/retry, PR close and read receipts; no SQL/Runtime/source/worker-directory acceptance."
+        },
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "DOM-08",
+      "area": "工单领域状态",
+      "priority": "P0",
+      "title": "PR 结束条件",
+      "assertion": "有 PR 的 ready 只表示等待评审；按所拥有/跟随 PR 的关闭合并及尚未处理的跟进决定真正结束。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "docs/003-execution.md",
+        "src/core/ports.ts"
+      ],
+      "reference_suites": [
+        "tests/core-engine.spec.ts",
+        "tests/stage.spec.ts",
+        "tests/store.spec.ts",
+        "tests/passes.spec.ts",
+        "tests/queue.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/dom-08.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_engine_replay",
+          "path": "conformance/reference/engine-target-results.json",
+          "scope": "113 unchanged original core Engine tests passed against Rust Engine; prepared/observational callbacks remain fixture JS. Includes rollback, follow-up ownership, stop/retry, PR close and read receipts; no SQL/Runtime/source/worker-directory acceptance."
+        },
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "DOM-09",
+      "area": "工单领域状态",
+      "priority": "P1",
+      "title": "无 PR 交付和无需处理",
+      "assertion": "无 PR 的 ready 与 dropped 按参考结束；dropped 默认安静，不能伪装为失败或已实现。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "docs/003-execution.md",
+        "src/core/ports.ts"
+      ],
+      "reference_suites": [
+        "tests/core-engine.spec.ts",
+        "tests/stage.spec.ts",
+        "tests/store.spec.ts",
+        "tests/passes.spec.ts",
+        "tests/queue.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/dom-09.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_engine_replay",
+          "path": "conformance/reference/engine-target-results.json",
+          "scope": "113 unchanged original core Engine tests passed against Rust Engine; prepared/observational callbacks remain fixture JS. Includes rollback, follow-up ownership, stop/retry, PR close and read receipts; no SQL/Runtime/source/worker-directory acceptance."
+        },
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "DOM-10",
+      "area": "工单领域状态",
+      "priority": "P0",
+      "title": "独立会话和工作目录",
+      "assertion": "每 Ticket 一会话一目录；prepare 首次执行、10 分钟上限、失败与重试、分支/PR 归属规则一致。",
+      "primary_phase": "M2",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/001-domain.md",
+        "docs/003-execution.md",
+        "src/core/ports.ts"
+      ],
+      "reference_suites": [
+        "tests/core-engine.spec.ts",
+        "tests/stage.spec.ts",
+        "tests/store.spec.ts",
+        "tests/passes.spec.ts",
+        "tests/queue.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/dom-10.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_engine_replay",
+          "path": "conformance/reference/engine-target-results.json",
+          "scope": "113 unchanged original core Engine tests passed against Rust Engine; prepared/observational callbacks remain fixture JS. Includes rollback, follow-up ownership, stop/retry, PR close and read receipts; no SQL/Runtime/source/worker-directory acceptance."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "RUN-01",
+      "area": "运行时适配",
+      "priority": "P0",
+      "title": "三种消息语义",
+      "assertion": "queue/followup、steer、inject 分别对齐后续 Turn、Step 输入、仅上下文不唤醒；不能统一成 start_turn。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/sessions.ts",
+        "src/app/delivery.ts",
+        "src/executor/dsh.ts"
+      ],
+      "reference_suites": [
+        "tests/runtime.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/background.spec.ts",
+        "tests/role-models.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/retry-health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/run-01.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "sql_repository_native_driver_component",
+          "path": "conformance/reference/driver-target-results.json",
+          "scope": "127Engine SQL replays,7repository and13native Future/control tests. Not complete role/JSONL/Source/provider/stop recovery acceptance."
+        },
+        {
+          "kind": "native_session_component",
+          "path": "conformance/reference/native-session-target-results.json",
+          "scope": "17 actual kernel/JSONL/lease/queue/role/observer component tests with explicit offline probes; not full three delivery modes,20tools,Source/provider or product lifecycle acceptance."
+        },
+        {
+          "kind": "native_passes_component",
+          "path": "conformance/reference/passes-target-results.json",
+          "scope": "23Passes reference/target tests+16native including actual2s SQL/effect retry/commit-prefix integration; not full Runtime/Source/delivery/tool/lifetime acceptance."
+        },
+        {
+          "kind": "agent_delivery_protocol_component",
+          "path": "conformance/reference/delivery-target-results.json",
+          "scope": "39AgentDelivery reference/target+17native protocol+5new actual native notice tests,SDK source audit and reader-owner red/green. Not actual native three-mode or final Runtime acceptance."
+        },
+        {
+          "kind": "real_waking_input_primitives",
+          "path": "conformance/reference/waking-input-target-results.json",
+          "scope": "actual three native primitives/input observers,14newkernel/30Native/119owned tests and controlled source proof;not full callback/authority/fault/lifecycle product acceptance"
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "RUN-02",
+      "area": "运行时适配",
+      "priority": "P0",
+      "title": "持久准入收据",
+      "assertion": "稳定 message_id 在准入 Flush 后才确认；区分已排队、已领取、已结算，重试不重复送给模型。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/sessions.ts",
+        "src/app/delivery.ts",
+        "src/executor/dsh.ts"
+      ],
+      "reference_suites": [
+        "tests/runtime.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/background.spec.ts",
+        "tests/role-models.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/retry-health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/run-02.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "native_session_component",
+          "path": "conformance/reference/native-session-target-results.json",
+          "scope": "17 actual kernel/JSONL/lease/queue/role/observer component tests with explicit offline probes; not full three delivery modes,20tools,Source/provider or product lifecycle acceptance."
+        },
+        {
+          "kind": "agent_delivery_protocol_component",
+          "path": "conformance/reference/delivery-target-results.json",
+          "scope": "39AgentDelivery reference/target+17native protocol+5new actual native notice tests,SDK source audit and reader-owner red/green. Not actual native three-mode or final Runtime acceptance."
+        },
+        {
+          "kind": "real_waking_input_primitives",
+          "path": "conformance/reference/waking-input-target-results.json",
+          "scope": "actual three native primitives/input observers,14newkernel/30Native/119owned tests and controlled source proof;not full callback/authority/fault/lifecycle product acceptance"
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "RUN-03",
+      "area": "运行时适配",
+      "priority": "P0",
+      "title": "先订阅再唤醒",
+      "assertion": "新会话与恢复会话先挂接事件观察者再唤醒，避免遗漏开始/结束事件。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/sessions.ts",
+        "src/app/delivery.ts",
+        "src/executor/dsh.ts"
+      ],
+      "reference_suites": [
+        "tests/runtime.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/background.spec.ts",
+        "tests/role-models.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/retry-health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/run-03.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "native_session_component",
+          "path": "conformance/reference/native-session-target-results.json",
+          "scope": "17 actual kernel/JSONL/lease/queue/role/observer component tests with explicit offline probes; not full three delivery modes,20tools,Source/provider or product lifecycle acceptance."
+        },
+        {
+          "kind": "native_passes_component",
+          "path": "conformance/reference/passes-target-results.json",
+          "scope": "23Passes reference/target tests+16native including actual2s SQL/effect retry/commit-prefix integration; not full Runtime/Source/delivery/tool/lifetime acceptance."
+        },
+        {
+          "kind": "agent_delivery_protocol_component",
+          "path": "conformance/reference/delivery-target-results.json",
+          "scope": "39AgentDelivery reference/target+17native protocol+5new actual native notice tests,SDK source audit and reader-owner red/green. Not actual native three-mode or final Runtime acceptance."
+        },
+        {
+          "kind": "real_waking_input_primitives",
+          "path": "conformance/reference/waking-input-target-results.json",
+          "scope": "actual three native primitives/input observers,14newkernel/30Native/119owned tests and controlled source proof;not full callback/authority/fault/lifecycle product acceptance"
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "RUN-04",
+      "area": "运行时适配",
+      "priority": "P0",
+      "title": "按输入归属观察结果",
+      "assertion": "结果绑定 input/turn/assignment，不以整个 Agent 的 idle 或上一轮缓存推测本次请求完成。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/sessions.ts",
+        "src/app/delivery.ts",
+        "src/executor/dsh.ts"
+      ],
+      "reference_suites": [
+        "tests/runtime.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/background.spec.ts",
+        "tests/role-models.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/retry-health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/run-04.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "native_session_component",
+          "path": "conformance/reference/native-session-target-results.json",
+          "scope": "17 actual kernel/JSONL/lease/queue/role/observer component tests with explicit offline probes; not full three delivery modes,20tools,Source/provider or product lifecycle acceptance."
+        },
+        {
+          "kind": "native_passes_component",
+          "path": "conformance/reference/passes-target-results.json",
+          "scope": "23Passes reference/target tests+16native including actual2s SQL/effect retry/commit-prefix integration; not full Runtime/Source/delivery/tool/lifetime acceptance."
+        },
+        {
+          "kind": "real_waking_input_primitives",
+          "path": "conformance/reference/waking-input-target-results.json",
+          "scope": "actual three native primitives/input observers,14newkernel/30Native/119owned tests and controlled source proof;not full callback/authority/fault/lifecycle product acceptance"
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "RUN-05",
+      "area": "运行时适配",
+      "priority": "P1",
+      "title": "角色模型选择",
+      "assertion": "Router 与 Worker 使用各自配置；已有会话不被新工单默认模型设置悄悄覆盖，显式用户选择继续有效。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/sessions.ts",
+        "src/app/delivery.ts",
+        "src/executor/dsh.ts"
+      ],
+      "reference_suites": [
+        "tests/runtime.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/background.spec.ts",
+        "tests/role-models.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/retry-health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/run-05.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "native_session_component",
+          "path": "conformance/reference/native-session-target-results.json",
+          "scope": "17 actual kernel/JSONL/lease/queue/role/observer component tests with explicit offline probes; not full three delivery modes,20tools,Source/provider or product lifecycle acceptance."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "RUN-06",
+      "area": "运行时适配",
+      "priority": "P0",
+      "title": "每次请求前装配上下文",
+      "assertion": "模型请求前安装正确角色、当次 Prompt revision、Mandate、AGENTS 与工具集，不混入另一角色默认人格。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/sessions.ts",
+        "src/app/delivery.ts",
+        "src/executor/dsh.ts"
+      ],
+      "reference_suites": [
+        "tests/runtime.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/background.spec.ts",
+        "tests/role-models.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/retry-health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/run-06.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "native_session_component",
+          "path": "conformance/reference/native-session-target-results.json",
+          "scope": "17 actual kernel/JSONL/lease/queue/role/observer component tests with explicit offline probes; not full three delivery modes,20tools,Source/provider or product lifecycle acceptance."
+        },
+        {
+          "kind": "production_prompt_service_component",
+          "artifact": "prompt-service-final-validation.json",
+          "scope": "actualRustPromptservice+SQLite/18originalassertions/independent180roleRows+13saves+77schemaInputs+15bases+8filebytes;Nativeperrequestwire/skills/Rootnotinstalled",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "optional_request_prompt_kernel_component",
+          "artifact": "request-prompt-final-validation.json",
+          "scope": "actual generic provider wire/header plus pause/steer/cancel/default/raw-base contracts;Native role/Mandate/skills/Session revisions/Root and retry/summary refresh not installed",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "actual_native_request_prompt_component",
+          "artifact": "native-prompt-final-validation.json",
+          "scope": "actualMain2/Worker3requests+physicalHarness snapshots vs originalPrompts/Mandate/environment andrealSDKrenderer;provided dynamicHostbase,not actualfilesystemAGENTS/liveSkills/Root/allphase",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "native_decoration_acknowledgement_component",
+          "artifact": "decoration-final-validation.json",
+          "scope": "actual Native2new lifecycle cuts vs original Sessions.decorate/Prompts/realrenderer;passiveepoch private units. Not live skills/service/tool/catalog, actualAGENTS/Root or full lifecycle",
+          "full_requirement_verified": false
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "RUN-07",
+      "area": "运行时适配",
+      "priority": "P0",
+      "title": "并发和人类优先槽位",
+      "assertion": "默认 3 个普通 Worker 槽，加一个供人类消息/状态请求使用的槽；prepare 和后台工作占槽语义一致。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/sessions.ts",
+        "src/app/delivery.ts",
+        "src/executor/dsh.ts"
+      ],
+      "reference_suites": [
+        "tests/runtime.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/background.spec.ts",
+        "tests/role-models.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/retry-health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/run-07.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "RUN-08",
+      "area": "运行时适配",
+      "priority": "P0",
+      "title": "后台工作不等于空闲",
+      "assertion": "Turn 结束仍有 jobs/subagents 时继续 working；结果自动送回，不能提前等待或释放槽位。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/sessions.ts",
+        "src/app/delivery.ts",
+        "src/executor/dsh.ts"
+      ],
+      "reference_suites": [
+        "tests/runtime.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/background.spec.ts",
+        "tests/role-models.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/retry-health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/run-08.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "RUN-09",
+      "area": "运行时适配",
+      "priority": "P0",
+      "title": "交接和后台寿命",
+      "assertion": "交人工时子 Agent 停止，供评审的 shell 作业按参考保留；Assignment 结束统一回收，不影响别的工单。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/sessions.ts",
+        "src/app/delivery.ts",
+        "src/executor/dsh.ts"
+      ],
+      "reference_suites": [
+        "tests/runtime.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/background.spec.ts",
+        "tests/role-models.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/retry-health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/run-09.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "RUN-10",
+      "area": "运行时适配",
+      "priority": "P0",
+      "title": "停止与清队列语义",
+      "assertion": "产品 stop、Assignment 取消、人工暂停、宿主关闭分别实现；显式处理 DSH 清 Inbox 与 XHarness 默认保留输入的差异。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/sessions.ts",
+        "src/app/delivery.ts",
+        "src/executor/dsh.ts"
+      ],
+      "reference_suites": [
+        "tests/runtime.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/background.spec.ts",
+        "tests/role-models.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/retry-health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/run-10.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "native_session_component",
+          "path": "conformance/reference/native-session-target-results.json",
+          "scope": "17 actual kernel/JSONL/lease/queue/role/observer component tests with explicit offline probes; not full three delivery modes,20tools,Source/provider or product lifecycle acceptance."
+        },
+        {
+          "kind": "native_passes_component",
+          "path": "conformance/reference/passes-target-results.json",
+          "scope": "23Passes reference/target tests+16native including actual2s SQL/effect retry/commit-prefix integration; not full Runtime/Source/delivery/tool/lifetime acceptance."
+        },
+        {
+          "kind": "agent_delivery_protocol_component",
+          "path": "conformance/reference/delivery-target-results.json",
+          "scope": "39AgentDelivery reference/target+17native protocol+5new actual native notice tests,SDK source audit and reader-owner red/green. Not actual native three-mode or final Runtime acceptance."
+        },
+        {
+          "kind": "real_waking_input_primitives",
+          "path": "conformance/reference/waking-input-target-results.json",
+          "scope": "actual three native primitives/input observers,14newkernel/30Native/119owned tests and controlled source proof;not full callback/authority/fault/lifecycle product acceptance"
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "TOOL-01",
+      "area": "模型工具协议",
+      "priority": "P0",
+      "title": "Router 的十四个应用工具",
+      "assertion": "工具名称、JSON Schema、description、结果形状和批量路由的逐项拒绝行为逐项对齐。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/tools/main.ts",
+        "src/app/tools/executor.ts",
+        "cordis.patch.yml"
+      ],
+      "reference_suites": [
+        "tests/tools.spec.ts",
+        "tests/model-surface.spec.ts",
+        "tests/commands.spec.ts",
+        "tests/environment.spec.ts",
+        "tests/bundle-patch.spec.ts",
+        "tests/index.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/tool-01.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "TOOL-02",
+      "area": "模型工具协议",
+      "priority": "P0",
+      "title": "Worker 的六个应用工具",
+      "assertion": "read、ack、report、thread_unrelated、thread_follow、trigger_handback 的授权检查和结果一致。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/tools/main.ts",
+        "src/app/tools/executor.ts",
+        "cordis.patch.yml"
+      ],
+      "reference_suites": [
+        "tests/tools.spec.ts",
+        "tests/model-surface.spec.ts",
+        "tests/commands.spec.ts",
+        "tests/environment.spec.ts",
+        "tests/bundle-patch.spec.ts",
+        "tests/index.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/tool-02.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "TOOL-03",
+      "area": "模型工具协议",
+      "priority": "P0",
+      "title": "基础工具与角色边界",
+      "assertion": "对齐角色工具白名单；覆盖 Factory 和 Host 二次注册入口；不能用全部 coding-tools 替代受限工具集。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/tools/main.ts",
+        "src/app/tools/executor.ts",
+        "cordis.patch.yml"
+      ],
+      "reference_suites": [
+        "tests/tools.spec.ts",
+        "tests/model-surface.spec.ts",
+        "tests/commands.spec.ts",
+        "tests/environment.spec.ts",
+        "tests/bundle-patch.spec.ts",
+        "tests/index.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/tool-03.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "native_session_component",
+          "path": "conformance/reference/native-session-target-results.json",
+          "scope": "17 actual kernel/JSONL/lease/queue/role/observer component tests with explicit offline probes; not full three delivery modes,20tools,Source/provider or product lifecycle acceptance."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "TOOL-04",
+      "area": "模型工具协议",
+      "priority": "P0",
+      "title": "结束工单的工具门禁",
+      "assertion": "ended 工单拒绝新工作工具；blocked/failed 工单仍允许人类直接在会话中恢复。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/tools/main.ts",
+        "src/app/tools/executor.ts",
+        "cordis.patch.yml"
+      ],
+      "reference_suites": [
+        "tests/tools.spec.ts",
+        "tests/model-surface.spec.ts",
+        "tests/commands.spec.ts",
+        "tests/environment.spec.ts",
+        "tests/bundle-patch.spec.ts",
+        "tests/index.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/tool-04.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "TOOL-05",
+      "area": "模型工具协议",
+      "priority": "P1",
+      "title": "工具参数和返回契约",
+      "assertion": "严格校验、长度/大小限制、错误 code/values、图片附件和分页资源指针一致，不靠自由文本猜结构化状态。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/tools/main.ts",
+        "src/app/tools/executor.ts",
+        "cordis.patch.yml"
+      ],
+      "reference_suites": [
+        "tests/tools.spec.ts",
+        "tests/model-surface.spec.ts",
+        "tests/commands.spec.ts",
+        "tests/environment.spec.ts",
+        "tests/bundle-patch.spec.ts",
+        "tests/index.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/tool-05.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "TOOL-06",
+      "area": "模型工具协议",
+      "priority": "P0",
+      "title": "可信身份绑定",
+      "assertion": "调用者、父子关系、工单、来源身份由 Host 绑定，模型不能通过参数自选权限、路径或授权身份。",
+      "primary_phase": "M3",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "src/app/tools/main.ts",
+        "src/app/tools/executor.ts",
+        "cordis.patch.yml"
+      ],
+      "reference_suites": [
+        "tests/tools.spec.ts",
+        "tests/model-surface.spec.ts",
+        "tests/commands.spec.ts",
+        "tests/environment.spec.ts",
+        "tests/bundle-patch.spec.ts",
+        "tests/index.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/tool-06.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "native_session_component",
+          "path": "conformance/reference/native-session-target-results.json",
+          "scope": "17 actual kernel/JSONL/lease/queue/role/observer component tests with explicit offline probes; not full three delivery modes,20tools,Source/provider or product lifecycle acceptance."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "PRM-01",
+      "area": "提示词与模型输入",
+      "priority": "P1",
+      "title": "提示词顺序",
+      "assertion": "对齐 shared/role、团队三段、订阅回复、dispatch/work、admission、handoff、environment、policy 顺序和角色差别。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/004-prompts.md",
+        "src/app/prompts.ts",
+        "prompts/shared.md"
+      ],
+      "reference_suites": [
+        "tests/prompts.spec.ts",
+        "tests/prompt-config.spec.ts",
+        "tests/settings.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/prm-01.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "production_prompt_service_component",
+          "artifact": "prompt-service-final-validation.json",
+          "scope": "actualRustPromptservice+SQLite/18originalassertions/independent180roleRows+13saves+77schemaInputs+15bases+8filebytes;Nativeperrequestwire/skills/Rootnotinstalled",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "optional_request_prompt_kernel_component",
+          "artifact": "request-prompt-final-validation.json",
+          "scope": "actual generic provider wire/header plus pause/steer/cancel/default/raw-base contracts;Native role/Mandate/skills/Session revisions/Root and retry/summary refresh not installed",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "actual_native_request_prompt_component",
+          "artifact": "native-prompt-final-validation.json",
+          "scope": "actualMain2/Worker3requests+physicalHarness snapshots vs originalPrompts/Mandate/environment andrealSDKrenderer;provided dynamicHostbase,not actualfilesystemAGENTS/liveSkills/Root/allphase",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "native_decoration_acknowledgement_component",
+          "artifact": "decoration-final-validation.json",
+          "scope": "actual Native2new lifecycle cuts vs original Sessions.decorate/Prompts/realrenderer;passiveepoch private units. Not live skills/service/tool/catalog, actualAGENTS/Root or full lifecycle",
+          "full_requirement_verified": false
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "PRM-02",
+      "area": "提示词与模型输入",
+      "priority": "P1",
+      "title": "默认文本和语义约束",
+      "assertion": "固定英文默认文本与工具说明；Routing note、消息字数、review 轮次、真实截图/验证要求不得无意删改。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/004-prompts.md",
+        "src/app/prompts.ts",
+        "prompts/shared.md"
+      ],
+      "reference_suites": [
+        "tests/prompts.spec.ts",
+        "tests/prompt-config.spec.ts",
+        "tests/settings.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/prm-02.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "production_prompt_service_component",
+          "artifact": "prompt-service-final-validation.json",
+          "scope": "actualRustPromptservice+SQLite/18originalassertions/independent180roleRows+13saves+77schemaInputs+15bases+8filebytes;Nativeperrequestwire/skills/Rootnotinstalled",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "optional_request_prompt_kernel_component",
+          "artifact": "request-prompt-final-validation.json",
+          "scope": "actual generic provider wire/header plus pause/steer/cancel/default/raw-base contracts;Native role/Mandate/skills/Session revisions/Root and retry/summary refresh not installed",
+          "full_requirement_verified": false
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "PRM-03",
+      "area": "提示词与模型输入",
+      "priority": "P0",
+      "title": "版本保存与生效边界",
+      "assertion": "每次保存不可变版本与 CAS；每次模型请求读最新 revision，保存本身不唤醒、不取消、不重启会话。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/004-prompts.md",
+        "src/app/prompts.ts",
+        "prompts/shared.md"
+      ],
+      "reference_suites": [
+        "tests/prompts.spec.ts",
+        "tests/prompt-config.spec.ts",
+        "tests/settings.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/prm-03.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "production_prompt_service_component",
+          "artifact": "prompt-service-final-validation.json",
+          "scope": "actualRustPromptservice+SQLite/18originalassertions/independent180roleRows+13saves+77schemaInputs+15bases+8filebytes;Nativeperrequestwire/skills/Rootnotinstalled",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "optional_request_prompt_kernel_component",
+          "artifact": "request-prompt-final-validation.json",
+          "scope": "actual generic provider wire/header plus pause/steer/cancel/default/raw-base contracts;Native role/Mandate/skills/Session revisions/Root and retry/summary refresh not installed",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "actual_native_request_prompt_component",
+          "artifact": "native-prompt-final-validation.json",
+          "scope": "actualMain2/Worker3requests+physicalHarness snapshots vs originalPrompts/Mandate/environment andrealSDKrenderer;provided dynamicHostbase,not actualfilesystemAGENTS/liveSkills/Root/allphase",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "native_decoration_acknowledgement_component",
+          "artifact": "decoration-final-validation.json",
+          "scope": "actual Native2new lifecycle cuts vs original Sessions.decorate/Prompts/realrenderer;passiveepoch private units. Not live skills/service/tool/catalog, actualAGENTS/Root or full lifecycle",
+          "full_requirement_verified": false
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "PRM-04",
+      "area": "提示词与模型输入",
+      "priority": "P0",
+      "title": "上下文不成为授权",
+      "assertion": "外部文本、技能、用户可编辑 prompt 不能修改 Host gate、Mandate 或工具检查。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/004-prompts.md",
+        "src/app/prompts.ts",
+        "prompts/shared.md"
+      ],
+      "reference_suites": [
+        "tests/prompts.spec.ts",
+        "tests/prompt-config.spec.ts",
+        "tests/settings.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/prm-04.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "PRM-05",
+      "area": "提示词与模型输入",
+      "priority": "P1",
+      "title": "资源有界读取",
+      "assertion": "Trigger 窗口、截断、分页、图片、原始来源和 prompt revision 读取权限逐项匹配参考。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/004-prompts.md",
+        "src/app/prompts.ts",
+        "prompts/shared.md"
+      ],
+      "reference_suites": [
+        "tests/prompts.spec.ts",
+        "tests/prompt-config.spec.ts",
+        "tests/settings.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/prm-05.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "PRM-06",
+      "area": "提示词与模型输入",
+      "priority": "P1",
+      "title": "覆盖与升级",
+      "assertion": "覆盖保留 base、模板必需占位符校验、默认变化比较、保留或采用新默认、历史恢复均对齐。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/004-prompts.md",
+        "src/app/prompts.ts",
+        "prompts/shared.md"
+      ],
+      "reference_suites": [
+        "tests/prompts.spec.ts",
+        "tests/prompt-config.spec.ts",
+        "tests/settings.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/prm-06.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "production_prompt_service_component",
+          "artifact": "prompt-service-final-validation.json",
+          "scope": "actualRustPromptservice+SQLite/18originalassertions/independent180roleRows+13saves+77schemaInputs+15bases+8filebytes;Nativeperrequestwire/skills/Rootnotinstalled",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "optional_request_prompt_kernel_component",
+          "artifact": "request-prompt-final-validation.json",
+          "scope": "actual generic provider wire/header plus pause/steer/cancel/default/raw-base contracts;Native role/Mandate/skills/Session revisions/Root and retry/summary refresh not installed",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "actual_native_request_prompt_component",
+          "artifact": "native-prompt-final-validation.json",
+          "scope": "actualMain2/Worker3requests+physicalHarness snapshots vs originalPrompts/Mandate/environment andrealSDKrenderer;provided dynamicHostbase,not actualfilesystemAGENTS/liveSkills/Root/allphase",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "native_decoration_acknowledgement_component",
+          "artifact": "decoration-final-validation.json",
+          "scope": "actual Native2new lifecycle cuts vs original Sessions.decorate/Prompts/realrenderer;passiveepoch private units. Not live skills/service/tool/catalog, actualAGENTS/Root or full lifecycle",
+          "full_requirement_verified": false
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "DEL-01",
+      "area": "沟通和交付",
+      "priority": "P0",
+      "title": "接单确认恰一次意图",
+      "assertion": "对每个新请求确认对象与交付物；抑制规则有效；不因重试重复生成确认意图。",
+      "primary_phase": "M4",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/004-prompts.md",
+        "src/app/outbox.ts",
+        "src/core/replies.ts"
+      ],
+      "reference_suites": [
+        "tests/outbox.spec.ts",
+        "tests/effects.spec.ts",
+        "tests/health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/del-01.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "DEL-02",
+      "area": "沟通和交付",
+      "priority": "P0",
+      "title": "回到原讨论",
+      "assertion": "确认、问题、结果路由到正确原消息/线程；绑定的 reply purpose 不能越权选择目标。",
+      "primary_phase": "M4",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/004-prompts.md",
+        "src/app/outbox.ts",
+        "src/core/replies.ts"
+      ],
+      "reference_suites": [
+        "tests/outbox.spec.ts",
+        "tests/effects.spec.ts",
+        "tests/health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/del-02.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "DEL-03",
+      "area": "沟通和交付",
+      "priority": "P1",
+      "title": "低干扰和结构化问题",
+      "assertion": "工作过程安静；human_action 一次一个具体问题，Router 原样转达，允许其他已授权工作继续。",
+      "primary_phase": "M4",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/004-prompts.md",
+        "src/app/outbox.ts",
+        "src/core/replies.ts"
+      ],
+      "reference_suites": [
+        "tests/outbox.spec.ts",
+        "tests/effects.spec.ts",
+        "tests/health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/del-03.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "DEL-04",
+      "area": "沟通和交付",
+      "priority": "P0",
+      "title": "持久 Outbox 和消息顺序",
+      "assertion": "每条外发消息独立身份，同工单同会话保序，并匹配前序连续失败三次后的放行例外；不能用单评论槽覆盖所有沟通。",
+      "primary_phase": "M4",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/004-prompts.md",
+        "src/app/outbox.ts",
+        "src/core/replies.ts"
+      ],
+      "reference_suites": [
+        "tests/outbox.spec.ts",
+        "tests/effects.spec.ts",
+        "tests/health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/del-04.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "DEL-05",
+      "area": "沟通和交付",
+      "priority": "P1",
+      "title": "不可达目标与来源关闭",
+      "assertion": "来源 off 时等待；会话永久不存在或移出监听范围才 dropped，保留原因和审计。",
+      "primary_phase": "M4",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/004-prompts.md",
+        "src/app/outbox.ts",
+        "src/core/replies.ts"
+      ],
+      "reference_suites": [
+        "tests/outbox.spec.ts",
+        "tests/effects.spec.ts",
+        "tests/health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/del-05.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "DEL-06",
+      "area": "沟通和交付",
+      "priority": "P1",
+      "title": "PR 交付与评审规则",
+      "assertion": "草稿不报 ready；按参考证据、已验证/未验证、评审解决/拒绝、重复工作退出规则交付。",
+      "primary_phase": "M4",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/004-prompts.md",
+        "src/app/outbox.ts",
+        "src/core/replies.ts"
+      ],
+      "reference_suites": [
+        "tests/outbox.spec.ts",
+        "tests/effects.spec.ts",
+        "tests/health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/del-06.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "DEL-07",
+      "area": "沟通和交付",
+      "priority": "P0",
+      "title": "人工合并与自动合并",
+      "assertion": "默认人工合并；开启自动合并时保留指定账号、head 审批、少于 200 行、新 revision 撤回等参考条件和现有用户授权。",
+      "primary_phase": "M4",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/004-prompts.md",
+        "src/app/outbox.ts",
+        "src/core/replies.ts"
+      ],
+      "reference_suites": [
+        "tests/outbox.spec.ts",
+        "tests/effects.spec.ts",
+        "tests/health.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/del-07.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "REC-01",
+      "area": "故障与恢复",
+      "priority": "P0",
+      "title": "先记账再副作用",
+      "assertion": "launch、delivery、assessment、relay、notice、reply 先持久排队；回滚事务不得执行取消等外部副作用。",
+      "primary_phase": "M6",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/003-execution.md",
+        "src/app/effects.ts",
+        "src/app/delivery.ts"
+      ],
+      "reference_suites": [
+        "tests/migration.spec.ts",
+        "tests/store.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/queue.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/timeline.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/rec-01.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        },
+        {
+          "kind": "schema10_migration_component",
+          "path": "conformance/reference/migration-target-results.json",
+          "scope": "19 unchanged original migration assertions, 9 independent logical/schema/identity snapshots and 6 native migration/crash/replay tests. Generic encodings, future-zone, production Runtime/source/upgrade and rollback remain unaccepted; not a final product pass."
+        },
+        {
+          "kind": "sql_repository_native_driver_component",
+          "path": "conformance/reference/driver-target-results.json",
+          "scope": "127Engine SQL replays,7repository and13native Future/control tests. Not complete role/JSONL/Source/provider/stop recovery acceptance."
+        },
+        {
+          "kind": "native_passes_component",
+          "path": "conformance/reference/passes-target-results.json",
+          "scope": "23Passes reference/target tests+16native including actual2s SQL/effect retry/commit-prefix integration; not full Runtime/Source/delivery/tool/lifetime acceptance."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "REC-02",
+      "area": "故障与恢复",
+      "priority": "P0",
+      "title": "崩溃切点矩阵",
+      "assertion": "在输入、接单、派工、工具调用/结果、结算、外发、回执等持久切点杀进程，恢复后不丢任务或重放未知副作用。",
+      "primary_phase": "M6",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/003-execution.md",
+        "src/app/effects.ts",
+        "src/app/delivery.ts"
+      ],
+      "reference_suites": [
+        "tests/migration.spec.ts",
+        "tests/store.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/queue.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/timeline.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/rec-02.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        },
+        {
+          "kind": "schema10_migration_component",
+          "path": "conformance/reference/migration-target-results.json",
+          "scope": "19 unchanged original migration assertions, 9 independent logical/schema/identity snapshots and 6 native migration/crash/replay tests. Generic encodings, future-zone, production Runtime/source/upgrade and rollback remain unaccepted; not a final product pass."
+        },
+        {
+          "kind": "sql_repository_native_driver_component",
+          "path": "conformance/reference/driver-target-results.json",
+          "scope": "127Engine SQL replays,7repository and13native Future/control tests. Not complete role/JSONL/Source/provider/stop recovery acceptance."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "REC-03",
+      "area": "故障与恢复",
+      "priority": "P0",
+      "title": "暂态失败分类与退避",
+      "assertion": "408/429/5xx 与连接类暂态错误按参考有界重试；prepare 失败不冒充可自动重试的模型错误。",
+      "primary_phase": "M6",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/003-execution.md",
+        "src/app/effects.ts",
+        "src/app/delivery.ts"
+      ],
+      "reference_suites": [
+        "tests/migration.spec.ts",
+        "tests/store.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/queue.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/timeline.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/rec-03.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "REC-04",
+      "area": "故障与恢复",
+      "priority": "P0",
+      "title": "失败后的自动门禁",
+      "assertion": "blocked/failed 后只记录自动反馈不唤醒；明确人类输入、合法 retry 或有效后续报告才能解除。",
+      "primary_phase": "M6",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/003-execution.md",
+        "src/app/effects.ts",
+        "src/app/delivery.ts"
+      ],
+      "reference_suites": [
+        "tests/migration.spec.ts",
+        "tests/store.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/queue.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/timeline.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/rec-04.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "component_differential",
+          "artifact": "records-differential.json",
+          "cases": 3279,
+          "scope": "ownership/reachability/settlement and error helpers only; complete command lifecycle is not implemented",
+          "full_requirement_verified": false
+        },
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "REC-05",
+      "area": "故障与恢复",
+      "priority": "P0",
+      "title": "重启保持状态",
+      "assertion": "保留会话、目录、订阅、未读输入和输入消费收据；仅给中断 Assignment 新建恢复派工，不重做已结算工作。",
+      "primary_phase": "M6",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/003-execution.md",
+        "src/app/effects.ts",
+        "src/app/delivery.ts"
+      ],
+      "reference_suites": [
+        "tests/migration.spec.ts",
+        "tests/store.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/queue.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/timeline.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/rec-05.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        },
+        {
+          "kind": "schema10_migration_component",
+          "path": "conformance/reference/migration-target-results.json",
+          "scope": "19 unchanged original migration assertions, 9 independent logical/schema/identity snapshots and 6 native migration/crash/replay tests. Generic encodings, future-zone, production Runtime/source/upgrade and rollback remain unaccepted; not a final product pass."
+        },
+        {
+          "kind": "sql_repository_native_driver_component",
+          "path": "conformance/reference/driver-target-results.json",
+          "scope": "127Engine SQL replays,7repository and13native Future/control tests. Not complete role/JSONL/Source/provider/stop recovery acceptance."
+        },
+        {
+          "kind": "native_passes_component",
+          "path": "conformance/reference/passes-target-results.json",
+          "scope": "23Passes reference/target tests+16native including actual2s SQL/effect retry/commit-prefix integration; not full Runtime/Source/delivery/tool/lifetime acceptance."
+        },
+        {
+          "kind": "agent_delivery_protocol_component",
+          "path": "conformance/reference/delivery-target-results.json",
+          "scope": "39AgentDelivery reference/target+17native protocol+5new actual native notice tests,SDK source audit and reader-owner red/green. Not actual native three-mode or final Runtime acceptance."
+        },
+        {
+          "kind": "real_waking_input_primitives",
+          "path": "conformance/reference/waking-input-target-results.json",
+          "scope": "actual three native primitives/input observers,14newkernel/30Native/119owned tests and controlled source proof;not full callback/authority/fault/lifecycle product acceptance"
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "REC-06",
+      "area": "故障与恢复",
+      "priority": "P0",
+      "title": "全局处理暂停",
+      "assertion": "暂停调度、Eval 超时和自动投递/回复，来源仍可记账；正在执行的 Turn 不被粗暴取消；恢复时按当前授权处理。",
+      "primary_phase": "M6",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/003-execution.md",
+        "src/app/effects.ts",
+        "src/app/delivery.ts"
+      ],
+      "reference_suites": [
+        "tests/migration.spec.ts",
+        "tests/store.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/queue.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/timeline.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/rec-06.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "REC-07",
+      "area": "故障与恢复",
+      "priority": "P1",
+      "title": "来源暂态不可读",
+      "assertion": "单线程/单 PR 读失败不丢失其他来源；GitHub 404 可能为权限问题，不立即认定永久删除。",
+      "primary_phase": "M6",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/003-execution.md",
+        "src/app/effects.ts",
+        "src/app/delivery.ts"
+      ],
+      "reference_suites": [
+        "tests/migration.spec.ts",
+        "tests/store.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/queue.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/timeline.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/rec-07.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        },
+        {
+          "kind": "native_passes_component",
+          "path": "conformance/reference/passes-target-results.json",
+          "scope": "23Passes reference/target tests+16native including actual2s SQL/effect retry/commit-prefix integration; not full Runtime/Source/delivery/tool/lifetime acceptance."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "REC-08",
+      "area": "故障与恢复",
+      "priority": "P0",
+      "title": "外发结果不确定",
+      "assertion": "外发已生效但收据丢失时先回查/对账；不能无条件重发，也不宣称平台间完整 exactly-once。",
+      "primary_phase": "M6",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/003-execution.md",
+        "src/app/effects.ts",
+        "src/app/delivery.ts"
+      ],
+      "reference_suites": [
+        "tests/migration.spec.ts",
+        "tests/store.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/queue.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/timeline.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/rec-08.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "REC-09",
+      "area": "故障与恢复",
+      "priority": "P0",
+      "title": "双实例与并发写入",
+      "assertion": "同 stateDir 单实例锁、同会话 Lease 和事务写入所有权有效；过期代事件不覆盖新派工。",
+      "primary_phase": "M6",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/003-execution.md",
+        "src/app/effects.ts",
+        "src/app/delivery.ts"
+      ],
+      "reference_suites": [
+        "tests/migration.spec.ts",
+        "tests/store.spec.ts",
+        "tests/delivery.spec.ts",
+        "tests/queue.spec.ts",
+        "tests/runtime-concurrency.spec.ts",
+        "tests/timeline.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/rec-09.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "sqlite_queue_component",
+          "path": "conformance/reference/store-target-results.json",
+          "scope": "Fresh schema-11 transaction/queue/receipt protocol plus native process crash cuts; original migration and production Runtime/source/recovery behavior remain unverified. Not a final product pass."
+        },
+        {
+          "kind": "native_session_component",
+          "path": "conformance/reference/native-session-target-results.json",
+          "scope": "17 actual kernel/JSONL/lease/queue/role/observer component tests with explicit offline probes; not full three delivery modes,20tools,Source/provider or product lifecycle acceptance."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "CFG-01",
+      "area": "配置与控制接口",
+      "priority": "P0",
+      "title": "本地 API 调用边界",
+      "assertion": "兼容管理 API 头、Host/Origin 校验、账号检查与权限，不把新管理端点变成未经授权的执行入口。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/006-deployment.md",
+        "src/app/api.ts",
+        "src/app/settings.ts"
+      ],
+      "reference_suites": [
+        "tests/deployment.spec.ts",
+        "tests/http.spec.ts",
+        "tests/settings.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/cfg-01.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "CFG-02",
+      "area": "配置与控制接口",
+      "priority": "P0",
+      "title": "版本化配置保存",
+      "assertion": "settings 分块整块值与 revision、prompts baseRevision、400/404/409 等响应语义一致；冲突保留草稿。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/006-deployment.md",
+        "src/app/api.ts",
+        "src/app/settings.ts"
+      ],
+      "reference_suites": [
+        "tests/deployment.spec.ts",
+        "tests/http.spec.ts",
+        "tests/settings.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/cfg-02.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "CFG-03",
+      "area": "配置与控制接口",
+      "priority": "P0",
+      "title": "配置变更生效与重启",
+      "assertion": "账号/仓库变更先探测后保存，必要时重启产品服务；模型、并发、pause 等不错误改变 Policy version。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/006-deployment.md",
+        "src/app/api.ts",
+        "src/app/settings.ts"
+      ],
+      "reference_suites": [
+        "tests/deployment.spec.ts",
+        "tests/http.spec.ts",
+        "tests/settings.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/cfg-03.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "CFG-04",
+      "area": "配置与控制接口",
+      "priority": "P1",
+      "title": "非法配置可诊断",
+      "assertion": "未知键、模板缺失、无效限制、缺模型/账号使 setup 明确不可用，不截断、不默认假成功。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/006-deployment.md",
+        "src/app/api.ts",
+        "src/app/settings.ts"
+      ],
+      "reference_suites": [
+        "tests/deployment.spec.ts",
+        "tests/http.spec.ts",
+        "tests/settings.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/cfg-04.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "CFG-05",
+      "area": "配置与控制接口",
+      "priority": "P0",
+      "title": "配置权限分层",
+      "assertion": "面板能改执行环境和账号；Router 工具不能修改这些部署事实。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/006-deployment.md",
+        "src/app/api.ts",
+        "src/app/settings.ts"
+      ],
+      "reference_suites": [
+        "tests/deployment.spec.ts",
+        "tests/http.spec.ts",
+        "tests/settings.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/cfg-05.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "CFG-06",
+      "area": "配置与控制接口",
+      "priority": "P1",
+      "title": "允许名单同步",
+      "assertion": "飞书群成员同步在启动与显式 Sync now 按参考运行，版本变化与运行中策略通知一致。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/006-deployment.md",
+        "src/app/api.ts",
+        "src/app/settings.ts"
+      ],
+      "reference_suites": [
+        "tests/deployment.spec.ts",
+        "tests/http.spec.ts",
+        "tests/settings.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/cfg-06.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "CFG-07",
+      "area": "配置与控制接口",
+      "priority": "P0",
+      "title": "受控执行环境",
+      "assertion": "专用凭据、git 身份、wrapper、执行变量与 blocked commands 保留；不把密钥注入模型上下文。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/006-deployment.md",
+        "src/app/api.ts",
+        "src/app/settings.ts"
+      ],
+      "reference_suites": [
+        "tests/deployment.spec.ts",
+        "tests/http.spec.ts",
+        "tests/settings.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/cfg-07.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "UI-01",
+      "area": "管理面板",
+      "priority": "P1",
+      "title": "总览优先人工事项",
+      "assertion": "先显示待回答/评审/故障，再显示健康和历史；健康空状态不刷屏。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/005-panel.md",
+        "src/client/index.tsx"
+      ],
+      "reference_suites": [
+        "tests/client.spec.tsx",
+        "tests/controls.spec.tsx",
+        "tests/draft.spec.ts",
+        "tests/cards.spec.ts",
+        "tests/marks.spec.ts",
+        "tests/views.spec.ts",
+        "tests/locales.spec.ts",
+        "tests/markdown.spec.ts",
+        "tests/navigation.spec.ts",
+        "tests/styles.spec.ts",
+        "tests/panel-deployment.spec.tsx",
+        "tests/panel-eval.spec.tsx",
+        "tests/panel-execution.spec.tsx",
+        "tests/panel-overview.spec.tsx",
+        "tests/panel-panel.spec.tsx",
+        "tests/panel-prompts.spec.tsx",
+        "tests/panel-settings.spec.tsx",
+        "tests/panel-source.spec.tsx",
+        "tests/panel-trigger.spec.tsx",
+        "tests/timeline.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/ui-01.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "UI-02",
+      "area": "管理面板",
+      "priority": "P1",
+      "title": "六个主标签和过滤",
+      "assertion": "Overview、Source、Trigger、Eval、Execution、Settings 的数据、计数、链接和状态一致。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/005-panel.md",
+        "src/client/index.tsx"
+      ],
+      "reference_suites": [
+        "tests/client.spec.tsx",
+        "tests/controls.spec.tsx",
+        "tests/draft.spec.ts",
+        "tests/cards.spec.ts",
+        "tests/marks.spec.ts",
+        "tests/views.spec.ts",
+        "tests/locales.spec.ts",
+        "tests/markdown.spec.ts",
+        "tests/navigation.spec.ts",
+        "tests/styles.spec.ts",
+        "tests/panel-deployment.spec.tsx",
+        "tests/panel-eval.spec.tsx",
+        "tests/panel-execution.spec.tsx",
+        "tests/panel-overview.spec.tsx",
+        "tests/panel-panel.spec.tsx",
+        "tests/panel-prompts.spec.tsx",
+        "tests/panel-settings.spec.tsx",
+        "tests/panel-source.spec.tsx",
+        "tests/panel-trigger.spec.tsx",
+        "tests/timeline.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/ui-02.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "UI-03",
+      "area": "管理面板",
+      "priority": "P0",
+      "title": "操作真实生效",
+      "assertion": "retry、stop、reevaluate、unsubscribe、pause、sync、check again 调用真实控制面，拒绝和确认可见。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/005-panel.md",
+        "src/client/index.tsx"
+      ],
+      "reference_suites": [
+        "tests/client.spec.tsx",
+        "tests/controls.spec.tsx",
+        "tests/draft.spec.ts",
+        "tests/cards.spec.ts",
+        "tests/marks.spec.ts",
+        "tests/views.spec.ts",
+        "tests/locales.spec.ts",
+        "tests/markdown.spec.ts",
+        "tests/navigation.spec.ts",
+        "tests/styles.spec.ts",
+        "tests/panel-deployment.spec.tsx",
+        "tests/panel-eval.spec.tsx",
+        "tests/panel-execution.spec.tsx",
+        "tests/panel-overview.spec.tsx",
+        "tests/panel-panel.spec.tsx",
+        "tests/panel-prompts.spec.tsx",
+        "tests/panel-settings.spec.tsx",
+        "tests/panel-source.spec.tsx",
+        "tests/panel-trigger.spec.tsx",
+        "tests/timeline.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/ui-03.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "UI-04",
+      "area": "管理面板",
+      "priority": "P1",
+      "title": "历史与会话跳转",
+      "assertion": "能从工单进入对应 Worker，追踪 Trigger→Eval→Ticket→Assignment；搜索 id、链接、文本和线程。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/005-panel.md",
+        "src/client/index.tsx"
+      ],
+      "reference_suites": [
+        "tests/client.spec.tsx",
+        "tests/controls.spec.tsx",
+        "tests/draft.spec.ts",
+        "tests/cards.spec.ts",
+        "tests/marks.spec.ts",
+        "tests/views.spec.ts",
+        "tests/locales.spec.ts",
+        "tests/markdown.spec.ts",
+        "tests/navigation.spec.ts",
+        "tests/styles.spec.ts",
+        "tests/panel-deployment.spec.tsx",
+        "tests/panel-eval.spec.tsx",
+        "tests/panel-execution.spec.tsx",
+        "tests/panel-overview.spec.tsx",
+        "tests/panel-panel.spec.tsx",
+        "tests/panel-prompts.spec.tsx",
+        "tests/panel-settings.spec.tsx",
+        "tests/panel-source.spec.tsx",
+        "tests/panel-trigger.spec.tsx",
+        "tests/timeline.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/ui-04.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "UI-05",
+      "area": "管理面板",
+      "priority": "P1",
+      "title": "草稿和 Prompt 比较",
+      "assertion": "版本冲突不丢草稿；查看完整 prompt、版本历史、Default updated、恢复默认等入口完整。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/005-panel.md",
+        "src/client/index.tsx"
+      ],
+      "reference_suites": [
+        "tests/client.spec.tsx",
+        "tests/controls.spec.tsx",
+        "tests/draft.spec.ts",
+        "tests/cards.spec.ts",
+        "tests/marks.spec.ts",
+        "tests/views.spec.ts",
+        "tests/locales.spec.ts",
+        "tests/markdown.spec.ts",
+        "tests/navigation.spec.ts",
+        "tests/styles.spec.ts",
+        "tests/panel-deployment.spec.tsx",
+        "tests/panel-eval.spec.tsx",
+        "tests/panel-execution.spec.tsx",
+        "tests/panel-overview.spec.tsx",
+        "tests/panel-panel.spec.tsx",
+        "tests/panel-prompts.spec.tsx",
+        "tests/panel-settings.spec.tsx",
+        "tests/panel-source.spec.tsx",
+        "tests/panel-trigger.spec.tsx",
+        "tests/timeline.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/ui-05.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "UI-06",
+      "area": "管理面板",
+      "priority": "P1",
+      "title": "状态可达与双语",
+      "assertion": "中英文状态、固定错误说明、键盘和窄屏关键操作可达；不要求像素复刻 DSH UI。",
+      "primary_phase": "M5",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "docs/005-panel.md",
+        "src/client/index.tsx"
+      ],
+      "reference_suites": [
+        "tests/client.spec.tsx",
+        "tests/controls.spec.tsx",
+        "tests/draft.spec.ts",
+        "tests/cards.spec.ts",
+        "tests/marks.spec.ts",
+        "tests/views.spec.ts",
+        "tests/locales.spec.ts",
+        "tests/markdown.spec.ts",
+        "tests/navigation.spec.ts",
+        "tests/styles.spec.ts",
+        "tests/panel-deployment.spec.tsx",
+        "tests/panel-eval.spec.tsx",
+        "tests/panel-execution.spec.tsx",
+        "tests/panel-overview.spec.tsx",
+        "tests/panel-panel.spec.tsx",
+        "tests/panel-prompts.spec.tsx",
+        "tests/panel-settings.spec.tsx",
+        "tests/panel-source.spec.tsx",
+        "tests/panel-trigger.spec.tsx",
+        "tests/timeline.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/ui-06.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "DEP-01",
+      "area": "部署与运维",
+      "priority": "P0",
+      "title": "独立服务生命周期",
+      "assertion": "独立配置与状态目录、端口、单实例、start/status/stop/restart；不停止用户其他会话。",
+      "primary_phase": "M7",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "SETUP.md",
+        "docs/006-deployment.md",
+        "scripts/dsh-superagent"
+      ],
+      "reference_suites": [
+        "tests/service-script.spec.ts",
+        "tests/docs.spec.ts",
+        "tests/class-docs.spec.ts",
+        "tests/index.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/dep-01.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "DEP-02",
+      "area": "部署与运维",
+      "priority": "P0",
+      "title": "账号和可选来源",
+      "assertion": "GitHub 专用用户账号不是 App；飞书为可选 bot-only 配置；缺飞书不能拖垮 GitHub。",
+      "primary_phase": "M7",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "SETUP.md",
+        "docs/006-deployment.md",
+        "scripts/dsh-superagent"
+      ],
+      "reference_suites": [
+        "tests/service-script.spec.ts",
+        "tests/docs.spec.ts",
+        "tests/class-docs.spec.ts",
+        "tests/index.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/dep-02.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "DEP-03",
+      "area": "部署与运维",
+      "priority": "P1",
+      "title": "状态码与修复引导",
+      "assertion": "对应 0 正常、1 服务故障、2 部分组件故障、3 待设置，界面指向实际可操作修复。",
+      "primary_phase": "M7",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "SETUP.md",
+        "docs/006-deployment.md",
+        "scripts/dsh-superagent"
+      ],
+      "reference_suites": [
+        "tests/service-script.spec.ts",
+        "tests/docs.spec.ts",
+        "tests/class-docs.spec.ts",
+        "tests/index.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/dep-03.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "DEP-04",
+      "area": "部署与运维",
+      "priority": "P0",
+      "title": "人工停止优先",
+      "assertion": "自动健康检查尊重手动停止；不会反复重启缺账号/配置的服务；无生产模型不得静默切 mock。",
+      "primary_phase": "M7",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "SETUP.md",
+        "docs/006-deployment.md",
+        "scripts/dsh-superagent"
+      ],
+      "reference_suites": [
+        "tests/service-script.spec.ts",
+        "tests/docs.spec.ts",
+        "tests/class-docs.spec.ts",
+        "tests/index.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/dep-04.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "DEP-05",
+      "area": "部署与运维",
+      "priority": "P0",
+      "title": "升级和回滚",
+      "assertion": "备份业务库与会话日志，版本迁移可验证；旧二进制不能强读新 schema，回滚恢复匹配快照。",
+      "primary_phase": "M7",
+      "source_repository": "deepseek-ai/dsh-superagent-prototype",
+      "source_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+      "source_files": [
+        "SETUP.md",
+        "docs/006-deployment.md",
+        "scripts/dsh-superagent"
+      ],
+      "reference_suites": [
+        "tests/service-script.spec.ts",
+        "tests/docs.spec.ts",
+        "tests/class-docs.spec.ts",
+        "tests/index.spec.ts"
+      ],
+      "planned_fixture": "conformance/scenarios/dep-05.json",
+      "verification_status": "not_run",
+      "implementation_status": "partial",
+      "evidence": [
+        {
+          "kind": "schema10_migration_component",
+          "path": "conformance/reference/migration-target-results.json",
+          "scope": "19 unchanged original migration assertions, 9 independent logical/schema/identity snapshots and 6 native migration/crash/replay tests. Generic encodings, future-zone, production Runtime/source/upgrade and rollback remain unaccepted; not a final product pass."
+        }
+      ],
+      "deviation_id": null
+    },
+    {
+      "id": "XH-01",
+      "area": "XHarness 现有行为不回退",
+      "priority": "P0",
+      "title": "既有入口默认不变",
+      "assertion": "新产品默认关闭或显式独立入口；原桌面/Web、gh-host/feishu-host 协议和现有会话无静默迁移。",
+      "primary_phase": "M6",
+      "source_repository": "123123213weqw/x-harness-rs",
+      "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+      "source_files": [
+        "docs/specs/agent.md",
+        "docs/specs/agent-delegation.md",
+        "AGENTS.md"
+      ],
+      "reference_suites": [],
+      "planned_fixture": "conformance/scenarios/xh-01.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "XH-02",
+      "area": "XHarness 现有行为不回退",
+      "priority": "P0",
+      "title": "JSONL 是会话唯一真源",
+      "assertion": "新业务库只管产品状态；不得复制聊天历史形成第二会话真源，UI 和结果仍依据持久输入收据。",
+      "primary_phase": "M6",
+      "source_repository": "123123213weqw/x-harness-rs",
+      "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+      "source_files": [
+        "docs/specs/agent.md",
+        "docs/specs/agent-delegation.md",
+        "AGENTS.md"
+      ],
+      "reference_suites": [],
+      "planned_fixture": "conformance/scenarios/xh-02.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "XH-03",
+      "area": "XHarness 现有行为不回退",
+      "priority": "P0",
+      "title": "持久准入和原子 Claim",
+      "assertion": "保留 admit_turn Flush、Inbox Claim 与 turn/start 原子追加、跨列表 message_id 去重和恢复顺序。",
+      "primary_phase": "M6",
+      "source_repository": "123123213weqw/x-harness-rs",
+      "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+      "source_files": [
+        "docs/specs/agent.md",
+        "docs/specs/agent-delegation.md",
+        "AGENTS.md"
+      ],
+      "reference_suites": [],
+      "planned_fixture": "conformance/scenarios/xh-03.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "XH-04",
+      "area": "XHarness 现有行为不回退",
+      "priority": "P0",
+      "title": "未知工具副作用不重放",
+      "assertion": "已写 Tool Call、无 Tool Result 的不确定执行不得自动重跑；审批恢复不伪造工具已执行。",
+      "primary_phase": "M6",
+      "source_repository": "123123213weqw/x-harness-rs",
+      "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+      "source_files": [
+        "docs/specs/agent.md",
+        "docs/specs/agent-delegation.md",
+        "AGENTS.md"
+      ],
+      "reference_suites": [],
+      "planned_fixture": "conformance/scenarios/xh-04.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "XH-05",
+      "area": "XHarness 现有行为不回退",
+      "priority": "P0",
+      "title": "可信来源与失败门禁",
+      "assertion": "内部通知不是人类输入；失败后的自动派发、人工停止和源身份边界不被产品适配绕过。",
+      "primary_phase": "M6",
+      "source_repository": "123123213weqw/x-harness-rs",
+      "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+      "source_files": [
+        "docs/specs/agent.md",
+        "docs/specs/agent-delegation.md",
+        "AGENTS.md"
+      ],
+      "reference_suites": [],
+      "planned_fixture": "conformance/scenarios/xh-05.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "XH-06",
+      "area": "XHarness 现有行为不回退",
+      "priority": "P0",
+      "title": "监督关闭和进程回收",
+      "assertion": "保留 Lease、代际所有权、单一 Supervisor、取消收据、结构化 shutdown 与真实后台任务回收。",
+      "primary_phase": "M6",
+      "source_repository": "123123213weqw/x-harness-rs",
+      "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+      "source_files": [
+        "docs/specs/agent.md",
+        "docs/specs/agent-delegation.md",
+        "AGENTS.md"
+      ],
+      "reference_suites": [],
+      "planned_fixture": "conformance/scenarios/xh-06.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "XH-07",
+      "area": "XHarness 现有行为不回退",
+      "priority": "P0",
+      "title": "模型路由和预算",
+      "assertion": "保持 Chat/Responses 显式协议、有效部署上下文窗口、TokenGuard、压缩和模型选择约束。",
+      "primary_phase": "M6",
+      "source_repository": "123123213weqw/x-harness-rs",
+      "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+      "source_files": [
+        "docs/specs/agent.md",
+        "docs/specs/agent-delegation.md",
+        "AGENTS.md"
+      ],
+      "reference_suites": [],
+      "planned_fixture": "conformance/scenarios/xh-07.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "XH-08",
+      "area": "XHarness 现有行为不回退",
+      "priority": "P0",
+      "title": "子 Agent 原有授权",
+      "assertion": "不放宽父子身份、目录、权限、模型切换人工授权；新产品能力须显式配置且原有语义不变。",
+      "primary_phase": "M6",
+      "source_repository": "123123213weqw/x-harness-rs",
+      "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+      "source_files": [
+        "docs/specs/agent.md",
+        "docs/specs/agent-delegation.md",
+        "AGENTS.md"
+      ],
+      "reference_suites": [],
+      "planned_fixture": "conformance/scenarios/xh-08.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "XH-09",
+      "area": "XHarness 现有行为不回退",
+      "priority": "P0",
+      "title": "平台和工具边界",
+      "assertion": "保留平台沙箱、文件/进程所有权与审批；兼容上游工具名不等于放开全部平台能力。",
+      "primary_phase": "M6",
+      "source_repository": "123123213weqw/x-harness-rs",
+      "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+      "source_files": [
+        "docs/specs/agent.md",
+        "docs/specs/agent-delegation.md",
+        "AGENTS.md"
+      ],
+      "reference_suites": [],
+      "planned_fixture": "conformance/scenarios/xh-09.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "XH-10",
+      "area": "XHarness 现有行为不回退",
+      "priority": "P0",
+      "title": "架构和业务错误门禁",
+      "assertion": "保持 forbid unsafe、recoverable error guards、架构变异测试和真实编译器门禁，不以 grep 代替。",
+      "primary_phase": "M6",
+      "source_repository": "123123213weqw/x-harness-rs",
+      "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+      "source_files": [
+        "docs/specs/agent.md",
+        "docs/specs/agent-delegation.md",
+        "AGENTS.md"
+      ],
+      "reference_suites": [],
+      "planned_fixture": "conformance/scenarios/xh-10.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "XH-11",
+      "area": "XHarness 现有行为不回退",
+      "priority": "P0",
+      "title": "Rust 远程编译",
+      "assertion": "全部 Rust 构建、检查、测试、Clippy 先同步未提交源码后在 WZU_Server 或已配置远程 CI 执行，绝不本机回退。",
+      "primary_phase": "M6",
+      "source_repository": "123123213weqw/x-harness-rs",
+      "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+      "source_files": [
+        "docs/specs/agent.md",
+        "docs/specs/agent-delegation.md",
+        "AGENTS.md"
+      ],
+      "reference_suites": [],
+      "planned_fixture": "conformance/scenarios/xh-11.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    },
+    {
+      "id": "XH-12",
+      "area": "XHarness 现有行为不回退",
+      "priority": "P0",
+      "title": "原测试和原生平台覆盖",
+      "assertion": "受影响原测试、全工作区、进程单线程回归及所声明平台原生远程 CI 继续过门；跳过不计通过。",
+      "primary_phase": "M6",
+      "source_repository": "123123213weqw/x-harness-rs",
+      "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+      "source_files": [
+        "docs/specs/agent.md",
+        "docs/specs/agent-delegation.md",
+        "AGENTS.md"
+      ],
+      "reference_suites": [],
+      "planned_fixture": "conformance/scenarios/xh-12.json",
+      "verification_status": "not_run",
+      "implementation_status": "not_assessed",
+      "evidence": [],
+      "deviation_id": null
+    }
+  ]
+}

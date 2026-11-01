@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "id": "ready-pr-merge",
+  "initial": {},
+  "commands": [
+    {
+      "op": "receive",
+      "trigger": {
+        "id": "t1"
+      }
+    },
+    {
+      "op": "evaluate_due"
+    },
+    {
+      "op": "decide",
+      "trigger": "t1",
+      "outcome": {
+        "kind": "accept",
+        "title": "Fix typo",
+        "scope": "Correct only one typo",
+        "reason": "Explicit correction request",
+        "acknowledgement": "I will correct the typo."
+      },
+      "as": "one"
+    },
+    {
+      "op": "settle"
+    },
+    {
+      "op": "bind",
+      "ticket": "$one",
+      "thread": {
+        "source": "github",
+        "id": "pr:2"
+      },
+      "own": true
+    },
+    {
+      "op": "report",
+      "ticket": "$one",
+      "report": {
+        "state": "ready",
+        "summary": "PR ready"
+      }
+    },
+    {
+      "op": "advance",
+      "milliseconds": 1000
+    },
+    {
+      "op": "close",
+      "thread": {
+        "source": "github",
+        "id": "pr:2"
+      },
+      "outcome": "merged"
+    }
+  ],
+  "expected_summary": {
+    "tickets": 1,
+    "ended": 1,
+    "outbox": 1
+  }
+}

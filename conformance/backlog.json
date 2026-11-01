@@ -1,0 +1,1491 @@
+{
+  "schema_version": 1,
+  "baseline_lock": {
+    "superagent": {
+      "repository": "deepseek-ai/dsh-superagent-prototype",
+      "ref": "main",
+      "sha": "6337fc823ce20251c8de8085948165c81aaa701e"
+    },
+    "runtime": {
+      "repository": "123123213weqw/xharness-runtime",
+      "ref": "main",
+      "sha": "2147ff270fe55c2c739e5063a5bfacefd01dc38a"
+    },
+    "xharness": {
+      "repository": "123123213weqw/x-harness-rs",
+      "ref": "master",
+      "sha": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b"
+    }
+  },
+  "tasks": [
+    {
+      "id": "M0-01",
+      "phase": "M0",
+      "title": "冻结三个 SHA 和完整源码清单",
+      "deliverable": "生成 baseline.lock、默认值/Prompt/工具/状态/API/时限清单及引用许可证。",
+      "depends_on": [],
+      "status": "in_progress",
+      "phase_exit_gate": "基线、契约、冲突和现有回归清单全部登记；不允许用未核实的接口开始改循环。",
+      "rubric_ids": [],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false,
+      "component_evidence": [
+        "conformance/reference/waking-input-target-results.json",
+        "conformance/reference/models-target-results.json"
+      ]
+    },
+    {
+      "id": "M0-02",
+      "phase": "M0",
+      "title": "建立 XHarness 原行为基线",
+      "deliverable": "按远程规则跑受影响既有测试和 CI 门禁；保存失败、跳过、环境条件，不把原有红灯藏掉。",
+      "depends_on": [
+        "M0-01"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "基线、契约、冲突和现有回归清单全部登记；不允许用未核实的接口开始改循环。",
+      "rubric_ids": [],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M0-03",
+      "phase": "M0",
+      "title": "逐项登记参考测试",
+      "deliverable": "将参考全部测试文件和核心断言映射到 rubric；文档与源码差异由实际可观察行为裁决。",
+      "depends_on": [
+        "M0-02"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "基线、契约、冲突和现有回归清单全部登记；不允许用未核实的接口开始改循环。",
+      "rubric_ids": [],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M0-04",
+      "phase": "M0",
+      "title": "关闭兼容决策",
+      "deliverable": "处理停止/队列、嵌套子 Agent、角色模型选择、沙箱权限、JSONL 与业务库边界，不默认放宽旧权限。",
+      "depends_on": [
+        "M0-03"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "基线、契约、冲突和现有回归清单全部登记；不允许用未核实的接口开始改循环。",
+      "rubric_ids": [],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M0-05",
+      "phase": "M0",
+      "title": "建立同步与所有权规则",
+      "deliverable": "新增自有 crate 加入 OWNED_CRATES；固定同步来源 SHA 的受控方式，禁止本机执行含 cargo check 的同步脚本。",
+      "depends_on": [
+        "M0-04"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "基线、契约、冲突和现有回归清单全部登记；不允许用未核实的接口开始改循环。",
+      "rubric_ids": [],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M1-01",
+      "phase": "M1",
+      "title": "搭建 TypeScript 参考适配器",
+      "deliverable": "保留官方核心与校验器；通过测试端口运行命令，不以手写期望替代上游实际输出。",
+      "depends_on": [
+        "M0-05"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "同一夹具可驱动参考实现并产出标准轨迹；比较器能发现故意注入的错接单、重复执行和越权。",
+      "rubric_ids": [],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M1-02",
+      "phase": "M1",
+      "title": "定义标准事件和快照",
+      "deliverable": "统一 Trigger、Decision、Ticket、Assignment、输入收据、模型请求、工具调用和 Outbox 事实。",
+      "depends_on": [
+        "M1-01"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "同一夹具可驱动参考实现并产出标准轨迹；比较器能发现故意注入的错接单、重复执行和越权。",
+      "rubric_ids": [],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M1-03",
+      "phase": "M1",
+      "title": "加入脚本化模型与工具",
+      "deliverable": "确定性 Provider、时钟、ID、GitHub/飞书响应和进程任务；默认不消耗真实 API。",
+      "depends_on": [
+        "M1-02"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "同一夹具可驱动参考实现并产出标准轨迹；比较器能发现故意注入的错接单、重复执行和越权。",
+      "rubric_ids": [],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M1-04",
+      "phase": "M1",
+      "title": "实现差分与变异测试",
+      "deliverable": "仅规范化无业务意义的 ID/绝对时间；保留身份关系、因果、消息次数、错误和授权，错误注入必须红灯。",
+      "depends_on": [
+        "M1-03"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "同一夹具可驱动参考实现并产出标准轨迹；比较器能发现故意注入的错接单、重复执行和越权。",
+      "rubric_ids": [],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false,
+      "component_evidence": [
+        "conformance/reference/migration-target-results.json",
+        "docs/superagent/time-compatibility.md"
+      ],
+      "component_scope_note": "Atomic schema-10 migration component and native crash proofs added. Production async driver, bounded repository, Runtime/source integration and retained JSON/future-zone differences prevent phase/product acceptance."
+    },
+    {
+      "id": "M1-05",
+      "phase": "M1",
+      "title": "固化证据格式",
+      "deliverable": "每次记录代码 SHA、夹具 SHA、环境、结果、日志与 diff；not_run/skip 不计 pass。",
+      "depends_on": [
+        "M1-04"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "同一夹具可驱动参考实现并产出标准轨迹；比较器能发现故意注入的错接单、重复执行和越权。",
+      "rubric_ids": [],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M2-01",
+      "phase": "M2",
+      "title": "实现纯领域模型",
+      "deliverable": "新增产品核心 crate，移植 Thread/Ticket/Mandate/Assignment/Subscription，业务核心不依赖 Host、网络或 UI。",
+      "depends_on": [
+        "M1-05"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "AUTH、DOM 及持久 Effects 的确定性轨迹逐项一致，事务/幂等/恢复测试通过。",
+      "rubric_ids": [
+        "AUTH-01",
+        "AUTH-02",
+        "AUTH-03",
+        "AUTH-04",
+        "AUTH-05",
+        "AUTH-06",
+        "AUTH-07",
+        "AUTH-08",
+        "AUTH-09",
+        "AUTH-10",
+        "DOM-01",
+        "DOM-02",
+        "DOM-03",
+        "DOM-04",
+        "DOM-05",
+        "DOM-06",
+        "DOM-07",
+        "DOM-08",
+        "DOM-09",
+        "DOM-10"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M2-02",
+      "phase": "M2",
+      "title": "实现准入和策略版本",
+      "deliverable": "移植确定性 gate、admission table、observe/auto、规则结果验证及 Mandate revalidation。",
+      "depends_on": [
+        "M2-01"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "AUTH、DOM 及持久 Effects 的确定性轨迹逐项一致，事务/幂等/恢复测试通过。",
+      "rubric_ids": [
+        "AUTH-01",
+        "AUTH-02",
+        "AUTH-03",
+        "AUTH-04",
+        "AUTH-05",
+        "AUTH-06",
+        "AUTH-07",
+        "AUTH-08",
+        "AUTH-09",
+        "AUTH-10",
+        "DOM-01",
+        "DOM-02",
+        "DOM-03",
+        "DOM-04",
+        "DOM-05",
+        "DOM-06",
+        "DOM-07",
+        "DOM-08",
+        "DOM-09",
+        "DOM-10"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M2-03",
+      "phase": "M2",
+      "title": "实现跟进和结束状态机",
+      "deliverable": "所有权、handback、上下文订阅、PR 结束、人类恢复、stop 分支全部覆盖。",
+      "depends_on": [
+        "M2-02"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "AUTH、DOM 及持久 Effects 的确定性轨迹逐项一致，事务/幂等/恢复测试通过。",
+      "rubric_ids": [
+        "AUTH-01",
+        "AUTH-02",
+        "AUTH-03",
+        "AUTH-04",
+        "AUTH-05",
+        "AUTH-06",
+        "AUTH-07",
+        "AUTH-08",
+        "AUTH-09",
+        "AUTH-10",
+        "DOM-01",
+        "DOM-02",
+        "DOM-03",
+        "DOM-04",
+        "DOM-05",
+        "DOM-06",
+        "DOM-07",
+        "DOM-08",
+        "DOM-09",
+        "DOM-10"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M2-04",
+      "phase": "M2",
+      "title": "实现 SQLite 和 Effects",
+      "deliverable": "领域事务、持久副作用队列、外发意图与收据、版本化 schema；会话内容仍只存 JSONL。",
+      "depends_on": [
+        "M2-03"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "AUTH、DOM 及持久 Effects 的确定性轨迹逐项一致，事务/幂等/恢复测试通过。",
+      "rubric_ids": [
+        "AUTH-01",
+        "AUTH-02",
+        "AUTH-03",
+        "AUTH-04",
+        "AUTH-05",
+        "AUTH-06",
+        "AUTH-07",
+        "AUTH-08",
+        "AUTH-09",
+        "AUTH-10",
+        "DOM-01",
+        "DOM-02",
+        "DOM-03",
+        "DOM-04",
+        "DOM-05",
+        "DOM-06",
+        "DOM-07",
+        "DOM-08",
+        "DOM-09",
+        "DOM-10"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false,
+      "component_evidence": [
+        "conformance/reference/repository-target-results.json",
+        "conformance/reference/driver-target-results.json",
+        "docs/superagent/repository-and-driver.md"
+      ],
+      "component_scope_note": "Direct SQL and native Future driver implemented; actual role/session/Inbox/tool/Source integration and complete phase exit gates remain unverified."
+    },
+    {
+      "id": "M2-05",
+      "phase": "M2",
+      "title": "跑领域差分矩阵",
+      "deliverable": "将已映射上游断言和参数化组合送入双引擎；任何差异先登记，不修改 goldens 迁就实现。",
+      "depends_on": [
+        "M2-04"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "AUTH、DOM 及持久 Effects 的确定性轨迹逐项一致，事务/幂等/恢复测试通过。",
+      "rubric_ids": [
+        "AUTH-01",
+        "AUTH-02",
+        "AUTH-03",
+        "AUTH-04",
+        "AUTH-05",
+        "AUTH-06",
+        "AUTH-07",
+        "AUTH-08",
+        "AUTH-09",
+        "AUTH-10",
+        "DOM-01",
+        "DOM-02",
+        "DOM-03",
+        "DOM-04",
+        "DOM-05",
+        "DOM-06",
+        "DOM-07",
+        "DOM-08",
+        "DOM-09",
+        "DOM-10"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M3-01",
+      "phase": "M3",
+      "title": "实现产品运行时端口",
+      "deliverable": "ensure/restore、followup/steer/inject、observe/cancel、jobs/subagents、角色工具和 Prompt 接口。",
+      "depends_on": [
+        "M2-05"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "RUN、TOOL 的消息/生命周期/作用域契约及第一条脚本化完整任务通过。",
+      "rubric_ids": [
+        "RUN-01",
+        "RUN-02",
+        "RUN-03",
+        "RUN-04",
+        "RUN-05",
+        "RUN-06",
+        "RUN-07",
+        "RUN-08",
+        "RUN-09",
+        "RUN-10",
+        "TOOL-01",
+        "TOOL-02",
+        "TOOL-03",
+        "TOOL-04",
+        "TOOL-05",
+        "TOOL-06"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false,
+      "component_evidence": [
+        "conformance/reference/native-session-target-results.json",
+        "docs/superagent/native-sessions.md",
+        "conformance/reference/passes-target-results.json",
+        "conformance/reference/delivery-target-results.json",
+        "conformance/reference/waking-input-target-results.json",
+        "conformance/reference/retry-health-target-results.json",
+        "conformance/reference/models-target-results.json",
+        "prompt-service-final-validation.json",
+        "request-prompt-final-validation.json",
+        "native-prompt-final-validation.json",
+        "decoration-final-validation.json"
+      ],
+      "component_scope_note": "Real native three-mode primitives and input observers implemented after tested canonical upstream + controlled backport. Full delivery facade/authority/context/tools/jobs/Source/API/UI/lifetime phase gate incomplete."
+    },
+    {
+      "id": "M3-02",
+      "phase": "M3",
+      "title": "绑定持久输入与事件",
+      "deliverable": "先订阅后唤醒，输入稳定 ID 和 receipt；事件绑定到 assignment/turn，正确处理消费者重挂接。",
+      "depends_on": [
+        "M3-01"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "RUN、TOOL 的消息/生命周期/作用域契约及第一条脚本化完整任务通过。",
+      "rubric_ids": [
+        "RUN-01",
+        "RUN-02",
+        "RUN-03",
+        "RUN-04",
+        "RUN-05",
+        "RUN-06",
+        "RUN-07",
+        "RUN-08",
+        "RUN-09",
+        "RUN-10",
+        "TOOL-01",
+        "TOOL-02",
+        "TOOL-03",
+        "TOOL-04",
+        "TOOL-05",
+        "TOOL-06"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false,
+      "component_evidence": [
+        "conformance/reference/native-session-target-results.json",
+        "docs/superagent/native-sessions.md",
+        "conformance/reference/retry-health-target-results.json",
+        "conformance/reference/models-target-results.json"
+      ],
+      "component_scope_note": "Real native queue/receipt/role/observer/lease component implemented; complete followup/steer/inject,assignment/jobs/tools/Source/API/UI and phase exit remain unverified."
+    },
+    {
+      "id": "M3-03",
+      "phase": "M3",
+      "title": "实现二十个应用工具",
+      "deliverable": "主会话 14 个与 Worker 6 个；复用同名 read 按角色分权；兼容基础工具 Schema，约束 Host 注入工具。",
+      "depends_on": [
+        "M3-02"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "RUN、TOOL 的消息/生命周期/作用域契约及第一条脚本化完整任务通过。",
+      "rubric_ids": [
+        "RUN-01",
+        "RUN-02",
+        "RUN-03",
+        "RUN-04",
+        "RUN-05",
+        "RUN-06",
+        "RUN-07",
+        "RUN-08",
+        "RUN-09",
+        "RUN-10",
+        "TOOL-01",
+        "TOOL-02",
+        "TOOL-03",
+        "TOOL-04",
+        "TOOL-05",
+        "TOOL-06"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false,
+      "component_scope_note": "Tool order prerequisite and SDK defect inference withdrawn. Actual 20 application handlers and Root composition remain unimplemented."
+    },
+    {
+      "id": "M3-04",
+      "phase": "M3",
+      "title": "实现工单执行资源",
+      "deliverable": "每工单工作树、prepare、并发槽、5 秒前台转后台、后台结果唤醒、30 分钟与交接回收规则。",
+      "depends_on": [
+        "M3-03"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "RUN、TOOL 的消息/生命周期/作用域契约及第一条脚本化完整任务通过。",
+      "rubric_ids": [
+        "RUN-01",
+        "RUN-02",
+        "RUN-03",
+        "RUN-04",
+        "RUN-05",
+        "RUN-06",
+        "RUN-07",
+        "RUN-08",
+        "RUN-09",
+        "RUN-10",
+        "TOOL-01",
+        "TOOL-02",
+        "TOOL-03",
+        "TOOL-04",
+        "TOOL-05",
+        "TOOL-06"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M3-05",
+      "phase": "M3",
+      "title": "补齐必要底层能力",
+      "deliverable": "若需修改同步过来的核心，先在 x-harness-rs 单独实现并验证，再受控同步；不直接修改副本漂移。",
+      "depends_on": [
+        "M3-04"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "RUN、TOOL 的消息/生命周期/作用域契约及第一条脚本化完整任务通过。",
+      "rubric_ids": [
+        "RUN-01",
+        "RUN-02",
+        "RUN-03",
+        "RUN-04",
+        "RUN-05",
+        "RUN-06",
+        "RUN-07",
+        "RUN-08",
+        "RUN-09",
+        "RUN-10",
+        "TOOL-01",
+        "TOOL-02",
+        "TOOL-03",
+        "TOOL-04",
+        "TOOL-05",
+        "TOOL-06"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false,
+      "component_evidence": [
+        "conformance/reference/models-target-results.json"
+      ]
+    },
+    {
+      "id": "M4-01",
+      "phase": "M4",
+      "title": "实现 GitHub Source",
+      "deliverable": "通知与 observe 事件、线程订阅、PR/CI/关闭、游标和授权；旧 /xh review 入口继续可用。",
+      "depends_on": [
+        "M3-05"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "GitHub 和飞书完整来源语义、持久 Outbox、PR 及跟进闭环通过；旧入口回归通过。",
+      "rubric_ids": [
+        "SRC-01",
+        "SRC-02",
+        "SRC-03",
+        "SRC-04",
+        "SRC-05",
+        "SRC-06",
+        "SRC-07",
+        "SRC-08",
+        "DEL-01",
+        "DEL-02",
+        "DEL-03",
+        "DEL-04",
+        "DEL-05",
+        "DEL-06",
+        "DEL-07"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M4-02",
+      "phase": "M4",
+      "title": "实现飞书 Source",
+      "deliverable": "机器人事件、历史补读、群/私信准入、消息/图片/回复上下文和身份同步。",
+      "depends_on": [
+        "M4-01"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "GitHub 和飞书完整来源语义、持久 Outbox、PR 及跟进闭环通过；旧入口回归通过。",
+      "rubric_ids": [
+        "SRC-01",
+        "SRC-02",
+        "SRC-03",
+        "SRC-04",
+        "SRC-05",
+        "SRC-06",
+        "SRC-07",
+        "SRC-08",
+        "DEL-01",
+        "DEL-02",
+        "DEL-03",
+        "DEL-04",
+        "DEL-05",
+        "DEL-06",
+        "DEL-07"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M4-03",
+      "phase": "M4",
+      "title": "实现来源专用账号适配",
+      "deliverable": "以专用 gh/lark-cli 身份提供参考兼容路径；不假设现有原生 client 与官方账号语义天然一致。",
+      "depends_on": [
+        "M4-02"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "GitHub 和飞书完整来源语义、持久 Outbox、PR 及跟进闭环通过；旧入口回归通过。",
+      "rubric_ids": [
+        "SRC-01",
+        "SRC-02",
+        "SRC-03",
+        "SRC-04",
+        "SRC-05",
+        "SRC-06",
+        "SRC-07",
+        "SRC-08",
+        "DEL-01",
+        "DEL-02",
+        "DEL-03",
+        "DEL-04",
+        "DEL-05",
+        "DEL-06",
+        "DEL-07"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M4-04",
+      "phase": "M4",
+      "title": "实现可靠回写",
+      "deliverable": "每 OutboundMessage 一个幂等身份、持久重试、顺序与 dropped；未知结果先对账，不覆盖同会话的其他消息。",
+      "depends_on": [
+        "M4-03"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "GitHub 和飞书完整来源语义、持久 Outbox、PR 及跟进闭环通过；旧入口回归通过。",
+      "rubric_ids": [
+        "SRC-01",
+        "SRC-02",
+        "SRC-03",
+        "SRC-04",
+        "SRC-05",
+        "SRC-06",
+        "SRC-07",
+        "SRC-08",
+        "DEL-01",
+        "DEL-02",
+        "DEL-03",
+        "DEL-04",
+        "DEL-05",
+        "DEL-06",
+        "DEL-07"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M4-05",
+      "phase": "M4",
+      "title": "验证真实交付生命周期",
+      "deliverable": "明确请求、修复、测试证据、PR、review follow-up、CI、合并/关闭与最终通知，默认不自动合并。",
+      "depends_on": [
+        "M4-04"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "GitHub 和飞书完整来源语义、持久 Outbox、PR 及跟进闭环通过；旧入口回归通过。",
+      "rubric_ids": [
+        "SRC-01",
+        "SRC-02",
+        "SRC-03",
+        "SRC-04",
+        "SRC-05",
+        "SRC-06",
+        "SRC-07",
+        "SRC-08",
+        "DEL-01",
+        "DEL-02",
+        "DEL-03",
+        "DEL-04",
+        "DEL-05",
+        "DEL-06",
+        "DEL-07"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M5-01",
+      "phase": "M5",
+      "title": "实现管理接口兼容层",
+      "deliverable": "保留稳定 /orchestrator/api 契约、revision、错误码、Origin 和权限；UI 私有接口按版本管理。",
+      "depends_on": [
+        "M4-05"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "PRM、CFG、UI 全部有真实链路，非截图或空壳；配置和 Prompt 冲突/升级可恢复。",
+      "rubric_ids": [
+        "PRM-01",
+        "PRM-02",
+        "PRM-03",
+        "PRM-04",
+        "PRM-05",
+        "PRM-06",
+        "CFG-01",
+        "CFG-02",
+        "CFG-03",
+        "CFG-04",
+        "CFG-05",
+        "CFG-06",
+        "CFG-07",
+        "UI-01",
+        "UI-02",
+        "UI-03",
+        "UI-04",
+        "UI-05",
+        "UI-06"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M5-02",
+      "phase": "M5",
+      "title": "实现 Prompt 与技能版本",
+      "deliverable": "角色装配、原文默认值、每请求生效、占位符、覆盖、base 差异和历史恢复。",
+      "depends_on": [
+        "M5-01"
+      ],
+      "status": "in_progress",
+      "phase_exit_gate": "PRM、CFG、UI 全部有真实链路，非截图或空壳；配置和 Prompt 冲突/升级可恢复。",
+      "rubric_ids": [
+        "PRM-01",
+        "PRM-02",
+        "PRM-03",
+        "PRM-04",
+        "PRM-05",
+        "PRM-06",
+        "CFG-01",
+        "CFG-02",
+        "CFG-03",
+        "CFG-04",
+        "CFG-05",
+        "CFG-06",
+        "CFG-07",
+        "UI-01",
+        "UI-02",
+        "UI-03",
+        "UI-04",
+        "UI-05",
+        "UI-06"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false,
+      "component_evidence": [
+        "prompt-service-final-validation.json",
+        "request-prompt-final-validation.json",
+        "native-prompt-final-validation.json",
+        "decoration-final-validation.json"
+      ]
+    },
+    {
+      "id": "M5-03",
+      "phase": "M5",
+      "title": "实现完整管理面板",
+      "deliverable": "六主标签、总览、搜索、工单详情、会话跳转、所有控制操作、中文英文与可访问性。",
+      "depends_on": [
+        "M5-02"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "PRM、CFG、UI 全部有真实链路，非截图或空壳；配置和 Prompt 冲突/升级可恢复。",
+      "rubric_ids": [
+        "PRM-01",
+        "PRM-02",
+        "PRM-03",
+        "PRM-04",
+        "PRM-05",
+        "PRM-06",
+        "CFG-01",
+        "CFG-02",
+        "CFG-03",
+        "CFG-04",
+        "CFG-05",
+        "CFG-06",
+        "CFG-07",
+        "UI-01",
+        "UI-02",
+        "UI-03",
+        "UI-04",
+        "UI-05",
+        "UI-06"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M5-04",
+      "phase": "M5",
+      "title": "实现设置向导和服务运维",
+      "deliverable": "账号探测、Setup readiness、状态码、独立生命周期、人工停止和健康检查。",
+      "depends_on": [
+        "M5-03"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "PRM、CFG、UI 全部有真实链路，非截图或空壳；配置和 Prompt 冲突/升级可恢复。",
+      "rubric_ids": [
+        "PRM-01",
+        "PRM-02",
+        "PRM-03",
+        "PRM-04",
+        "PRM-05",
+        "PRM-06",
+        "CFG-01",
+        "CFG-02",
+        "CFG-03",
+        "CFG-04",
+        "CFG-05",
+        "CFG-06",
+        "CFG-07",
+        "UI-01",
+        "UI-02",
+        "UI-03",
+        "UI-04",
+        "UI-05",
+        "UI-06"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M5-05",
+      "phase": "M5",
+      "title": "实现升级回滚流程",
+      "deliverable": "数据库版本、会话兼容性、默认更新、备份恢复及显式导入；不自动迁移用户旧会话。",
+      "depends_on": [
+        "M5-04"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "PRM、CFG、UI 全部有真实链路，非截图或空壳；配置和 Prompt 冲突/升级可恢复。",
+      "rubric_ids": [
+        "PRM-01",
+        "PRM-02",
+        "PRM-03",
+        "PRM-04",
+        "PRM-05",
+        "PRM-06",
+        "CFG-01",
+        "CFG-02",
+        "CFG-03",
+        "CFG-04",
+        "CFG-05",
+        "CFG-06",
+        "CFG-07",
+        "UI-01",
+        "UI-02",
+        "UI-03",
+        "UI-04",
+        "UI-05",
+        "UI-06"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M6-01",
+      "phase": "M6",
+      "title": "执行完整差分套件",
+      "deliverable": "参考测试全映射、参数化边界、工具/Prompt wire、领域状态和界面行为报告。",
+      "depends_on": [
+        "M5-05"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "所有必需 rubric 和 XHarness 既有门禁通过；故障矩阵、真实环境、跨平台证据无未解释缺口。",
+      "rubric_ids": [
+        "REC-01",
+        "REC-02",
+        "REC-03",
+        "REC-04",
+        "REC-05",
+        "REC-06",
+        "REC-07",
+        "REC-08",
+        "REC-09",
+        "XH-01",
+        "XH-02",
+        "XH-03",
+        "XH-04",
+        "XH-05",
+        "XH-06",
+        "XH-07",
+        "XH-08",
+        "XH-09",
+        "XH-10",
+        "XH-11",
+        "XH-12"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M6-02",
+      "phase": "M6",
+      "title": "执行故障并发矩阵",
+      "deliverable": "真实杀进程、双实例、收据丢失、策略热更、任务停止、背景结束等切点组合。",
+      "depends_on": [
+        "M6-01"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "所有必需 rubric 和 XHarness 既有门禁通过；故障矩阵、真实环境、跨平台证据无未解释缺口。",
+      "rubric_ids": [
+        "REC-01",
+        "REC-02",
+        "REC-03",
+        "REC-04",
+        "REC-05",
+        "REC-06",
+        "REC-07",
+        "REC-08",
+        "REC-09",
+        "XH-01",
+        "XH-02",
+        "XH-03",
+        "XH-04",
+        "XH-05",
+        "XH-06",
+        "XH-07",
+        "XH-08",
+        "XH-09",
+        "XH-10",
+        "XH-11",
+        "XH-12"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false,
+      "component_evidence": [
+        "conformance/reference/migration-target-results.json",
+        "docs/superagent/time-compatibility.md"
+      ],
+      "component_scope_note": "Atomic schema-10 migration component and native crash proofs added. Production async driver, bounded repository, Runtime/source integration and retained JSON/future-zone differences prevent phase/product acceptance."
+    },
+    {
+      "id": "M6-03",
+      "phase": "M6",
+      "title": "执行 XHarness 原有门禁",
+      "deliverable": "远程 fmt/check/tests/Clippy、架构变异和实际编译器变异；声明平台需原生远程 CI。",
+      "depends_on": [
+        "M6-02"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "所有必需 rubric 和 XHarness 既有门禁通过；故障矩阵、真实环境、跨平台证据无未解释缺口。",
+      "rubric_ids": [
+        "REC-01",
+        "REC-02",
+        "REC-03",
+        "REC-04",
+        "REC-05",
+        "REC-06",
+        "REC-07",
+        "REC-08",
+        "REC-09",
+        "XH-01",
+        "XH-02",
+        "XH-03",
+        "XH-04",
+        "XH-05",
+        "XH-06",
+        "XH-07",
+        "XH-08",
+        "XH-09",
+        "XH-10",
+        "XH-11",
+        "XH-12"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M6-04",
+      "phase": "M6",
+      "title": "执行受预算约束的真实模型回归",
+      "deliverable": "相同 Provider/模型/参数与任务集；记录采样差异和置信区间，决策/副作用违约均调查。",
+      "depends_on": [
+        "M6-03"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "所有必需 rubric 和 XHarness 既有门禁通过；故障矩阵、真实环境、跨平台证据无未解释缺口。",
+      "rubric_ids": [
+        "REC-01",
+        "REC-02",
+        "REC-03",
+        "REC-04",
+        "REC-05",
+        "REC-06",
+        "REC-07",
+        "REC-08",
+        "REC-09",
+        "XH-01",
+        "XH-02",
+        "XH-03",
+        "XH-04",
+        "XH-05",
+        "XH-06",
+        "XH-07",
+        "XH-08",
+        "XH-09",
+        "XH-10",
+        "XH-11",
+        "XH-12"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M6-05",
+      "phase": "M6",
+      "title": "完成全部阻塞差异清单",
+      "deliverable": "记录每项 pass/fail/not_run/approved_deviation；偏差不能作为严格全面对齐通过。",
+      "depends_on": [
+        "M6-04"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "所有必需 rubric 和 XHarness 既有门禁通过；故障矩阵、真实环境、跨平台证据无未解释缺口。",
+      "rubric_ids": [
+        "REC-01",
+        "REC-02",
+        "REC-03",
+        "REC-04",
+        "REC-05",
+        "REC-06",
+        "REC-07",
+        "REC-08",
+        "REC-09",
+        "XH-01",
+        "XH-02",
+        "XH-03",
+        "XH-04",
+        "XH-05",
+        "XH-06",
+        "XH-07",
+        "XH-08",
+        "XH-09",
+        "XH-10",
+        "XH-11",
+        "XH-12"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M7-01",
+      "phase": "M7",
+      "title": "影子回放",
+      "deliverable": "两边读同样历史事件，影子输出只进假外部客户端；只有一个主实例有写权限。",
+      "depends_on": [
+        "M6-05"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "影子验证、受控真实试点、回滚演练和最终 evidence bundle 完整；仅此时宣称全面行为对齐。",
+      "rubric_ids": [
+        "DEP-01",
+        "DEP-02",
+        "DEP-03",
+        "DEP-04",
+        "DEP-05"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M7-02",
+      "phase": "M7",
+      "title": "GitHub 明确派活灰度",
+      "deliverable": "一个测试仓库、短允许名单、人工合并；确认不是 mock provider，原会话不受影响。",
+      "depends_on": [
+        "M7-01"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "影子验证、受控真实试点、回滚演练和最终 evidence bundle 完整；仅此时宣称全面行为对齐。",
+      "rubric_ids": [
+        "DEP-01",
+        "DEP-02",
+        "DEP-03",
+        "DEP-04",
+        "DEP-05"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M7-03",
+      "phase": "M7",
+      "title": "飞书和主动模式分级开放",
+      "deliverable": "先飞书明确派活，再 observe 复核；auto 和自动合并由操作者分别显式开启。",
+      "depends_on": [
+        "M7-02"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "影子验证、受控真实试点、回滚演练和最终 evidence bundle 完整；仅此时宣称全面行为对齐。",
+      "rubric_ids": [
+        "DEP-01",
+        "DEP-02",
+        "DEP-03",
+        "DEP-04",
+        "DEP-05"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M7-04",
+      "phase": "M7",
+      "title": "生成发布证据和运维交接",
+      "deliverable": "锁定最终 SHA、构建哈希、rubric/test 结果、部署配置、已批准差异和下一步操作。",
+      "depends_on": [
+        "M7-03"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "影子验证、受控真实试点、回滚演练和最终 evidence bundle 完整；仅此时宣称全面行为对齐。",
+      "rubric_ids": [
+        "DEP-01",
+        "DEP-02",
+        "DEP-03",
+        "DEP-04",
+        "DEP-05"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    },
+    {
+      "id": "M7-05",
+      "phase": "M7",
+      "title": "演练停服回滚",
+      "deliverable": "尊重手动停止、等待结算、备份、恢复兼容快照；未知副作用必须对账后再恢复。",
+      "depends_on": [
+        "M7-04"
+      ],
+      "status": "planned",
+      "phase_exit_gate": "影子验证、受控真实试点、回滚演练和最终 evidence bundle 完整；仅此时宣称全面行为对齐。",
+      "rubric_ids": [
+        "DEP-01",
+        "DEP-02",
+        "DEP-03",
+        "DEP-04",
+        "DEP-05"
+      ],
+      "required_evidence": [
+        "commit_sha",
+        "command_and_environment",
+        "test_result",
+        "full_log",
+        "rubric_diff"
+      ],
+      "rust_execution_host": "WZU_Server",
+      "local_rust_compile_allowed": false
+    }
+  ],
+  "phase_gates": [
+    {
+      "phase": "M0",
+      "title": "锁定基线与差异",
+      "depends_on": [],
+      "gate": "基线、契约、冲突和现有回归清单全部登记；不允许用未核实的接口开始改循环。"
+    },
+    {
+      "phase": "M1",
+      "title": "可执行行为参考与比较器",
+      "depends_on": [
+        "M0"
+      ],
+      "gate": "同一夹具可驱动参考实现并产出标准轨迹；比较器能发现故意注入的错接单、重复执行和越权。"
+    },
+    {
+      "phase": "M2",
+      "title": "Rust 工单核心与持久存储",
+      "depends_on": [
+        "M1"
+      ],
+      "gate": "AUTH、DOM 及持久 Effects 的确定性轨迹逐项一致，事务/幂等/恢复测试通过。"
+    },
+    {
+      "phase": "M3",
+      "title": "接入 XHarness 运行时",
+      "depends_on": [
+        "M2"
+      ],
+      "gate": "RUN、TOOL 的消息/生命周期/作用域契约及第一条脚本化完整任务通过。"
+    },
+    {
+      "phase": "M4",
+      "title": "完整来源接入与交付",
+      "depends_on": [
+        "M3"
+      ],
+      "gate": "GitHub 和飞书完整来源语义、持久 Outbox、PR 及跟进闭环通过；旧入口回归通过。"
+    },
+    {
+      "phase": "M5",
+      "title": "Prompt 配置控制面与界面",
+      "depends_on": [
+        "M4"
+      ],
+      "gate": "PRM、CFG、UI 全部有真实链路，非截图或空壳；配置和 Prompt 冲突/升级可恢复。"
+    },
+    {
+      "phase": "M6",
+      "title": "全量一致性与非回归验收",
+      "depends_on": [
+        "M5"
+      ],
+      "gate": "所有必需 rubric 和 XHarness 既有门禁通过；故障矩阵、真实环境、跨平台证据无未解释缺口。"
+    },
+    {
+      "phase": "M7",
+      "title": "灰度发布和可回退交接",
+      "depends_on": [
+        "M6"
+      ],
+      "gate": "影子验证、受控真实试点、回滚演练和最终 evidence bundle 完整；仅此时宣称全面行为对齐。"
+    }
+  ],
+  "current_scope": {
+    "policy": "../docs/superagent/product-scope.md",
+    "legacy_plan": true,
+    "language_full_equivalence_required": false,
+    "cancelled_is_not_pass": true
+  }
+}

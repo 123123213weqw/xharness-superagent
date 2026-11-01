@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rust:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node conformance/verify-reference.mjs
+      - run: node conformance/verify-upstream.mjs
+      # coding-tools 的 glob/grep 真实依赖 ripgrep;2026-10 起 GitHub 镜像不再预装
+      # bubblewrap:沙箱测试真实依赖它。装着才验证得了 bash 越界与断网两条断言,
+      # 没装会走 require_bwrap! 跳过 —— 那等于没覆盖,所以 CI 必须装上。
+      - if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y ripgrep bubblewrap
+      - if: runner.os == 'macOS'
+        run: brew install ripgrep
+      - uses: dtolnay/rust-toolchain@1.99.0
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo fmt --check --all
+      - run: cargo check --locked --workspace --all-targets --features xharness-superagent/conformance
+      - run: cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings
+      - run: cargo test --locked --workspace --all-targets --features xharness-superagent/conformance
+      # 进程组回收测试依赖真实子进程生命周期,必须单线程跑(沿袭上游纪律)
+      - run: cargo test --locked -p xharness-process --test process dropping_ -- --test-threads=1

@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "status": "applied",
+  "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+  "runtime_base_commit": "2147ff270fe55c2c739e5063a5bfacefd01dc38a",
+  "depends_on_source_patch_sha256": "9854eef81e119033ba212d59b8c41423b0b4865e4acc8088684669104d88d45e",
+  "depends_on_controlled_sync_sha256": "9d6f6cb9914d0dae2dcdd0ec7394e87ba6806385ededd9c33166912c716aeed3",
+  "source_patch_file": "conformance/upstream/step-input.source.patch.gz",
+  "source_patch_sha256": "6aec468c801bd18684c55b5c5dde08dacc3752ca51b3554d36d86e1635208385",
+  "runtime_apply_patch_file": "conformance/upstream/step-input.runtime-apply.patch.gz",
+  "runtime_apply_patch_sha256": "f3cb289e7e85a3e1cc51af29f62805761810db14c0ba3e6136eb73b756c50050",
+  "source_profile_before": "8a68335da72c3d6fa0570468716ef79b6cf961ff58a920ab71e8664c6ad89474",
+  "source_profile_after": "51a226205e58314eb63c08d6468ac0e920d948d04350a1343653eaa15b5d61d2",
+  "files": {
+    "Cargo.lock": {
+      "runtime_before_sha256": "2ffcc3b6fb7fccb621e1fd421db7bcd7c39173e423b02efefacc2f5787bd887b",
+      "upstream_before_sha256": "84e8a3608bb4084545e60788196be885206f70ca5cde0fd351a91f855b1b14fb",
+      "upstream_after_sha256": "2e238bbb5c071b2f02bb46fa1abc3b9f5a93473579bc688601ecb35d8c6842f7",
+      "runtime_after_sha256": "c6b9762efb75979bc88737319a0f81e432cd6d590314b6cb929db133c83a7b7f"
+    },
+    "crates/xharness-context/Cargo.toml": {
+      "runtime_before_sha256": "05f95510e0d2262e3c1d29a813e438f788c2b346ac3d29236d0b934859d0c217",
+      "upstream_before_sha256": "05f95510e0d2262e3c1d29a813e438f788c2b346ac3d29236d0b934859d0c217",
+      "upstream_after_sha256": "c83cb92334009d39e0495cf099665f4b57997e6a668a463c4e6ca09788ffd522",
+      "runtime_after_sha256": "c83cb92334009d39e0495cf099665f4b57997e6a668a463c4e6ca09788ffd522"
+    },
+    "crates/xharness-context/src/lib.rs": {
+      "runtime_before_sha256": "c5e696c7636b92637aacea19be82a172bd7591b8b8c183cd2775c4f9543b27ce",
+      "upstream_before_sha256": "9bfcc2afc7678aff1c5be8d63289973a1983bb80a8805b48928b8caae27bc289",
+      "upstream_after_sha256": "5480e8ab50029206630984292e9780ad08a5fe1b9df916bed70428ebb50713a6",
+      "runtime_after_sha256": "3ca5bf5da429fac06def28c044946aeedae30c9bca4c042f6d59b74b12e070f0"
+    },
+    "crates/xharness-context/src/step_input.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "c8fd0e1b27824c0fc231d3cd9680ff14fddc4136044edd112cdce67f961eefea",
+      "runtime_after_sha256": "c8fd0e1b27824c0fc231d3cd9680ff14fddc4136044edd112cdce67f961eefea"
+    },
+    "crates/xharness-core/src/lib.rs": {
+      "runtime_before_sha256": "16a249fabff52a5035d375ba2aae2a70f6c682f7cc58f6716430238ae376f127",
+      "upstream_before_sha256": "805ed754e0063a602f922b021196c6281716eb6e08e0a2b44e2dfcdeb5fe0f52",
+      "upstream_after_sha256": "f01a95205a435c8f8b7665162996da160f5b1968afc318d5499c23d080e1d01d",
+      "runtime_after_sha256": "01e0239ef83d612a573fcc989257c7da2ec1d5923370bc57bfecfdd517c8dfe1"
+    },
+    "crates/xharness-core/src/engine.rs": {
+      "runtime_before_sha256": "3658191455d4d10b993a60c9f61d6405e9b15a178b82bebd5401618a8603d4f1",
+      "upstream_before_sha256": "2af6110fc895bd6504005295f2999ba2ad533f82e93f3df3e4c98e10020729a0",
+      "upstream_after_sha256": "cdf746f1ab3b6e2b6087d30c357565533ba46c7327ea45895a624f9fc6bd5eb0",
+      "runtime_after_sha256": "8b9b912e0ff0ca368039649fc37c27355dd085a0320a6f8d29ff8eb9f60e2d65"
+    },
+    "crates/xharness-core/src/engine/step_input.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "e6ae65f5036ffd1996df8f8ee9457c72261b9c5d250f64ff87ababe5eaaeb46d",
+      "runtime_after_sha256": "e6ae65f5036ffd1996df8f8ee9457c72261b9c5d250f64ff87ababe5eaaeb46d"
+    },
+    "crates/xharness-core/src/context_composition.rs": {
+      "runtime_before_sha256": "27dc10adf64d9ee76c744b1a409a68b940d68ca7e9fd6dc6272bc73cbc1181f0",
+      "upstream_before_sha256": "27dc10adf64d9ee76c744b1a409a68b940d68ca7e9fd6dc6272bc73cbc1181f0",
+      "upstream_after_sha256": "03bd407ba456fa095c24d57341c8db5df4fe380af8987c3694921fa86035b9de",
+      "runtime_after_sha256": "03bd407ba456fa095c24d57341c8db5df4fe380af8987c3694921fa86035b9de"
+    },
+    "crates/xharness-core/src/context_working_set.rs": {
+      "runtime_before_sha256": "3e2fea5fc514f2b514e65dfa35d974fc908ae89bcb140220a7835a828f789d28",
+      "upstream_before_sha256": "ff7977c4495906a94907a6e238f75b9a8c26d7364f9343e81089ff517f7af19b",
+      "upstream_after_sha256": "5f094922ddb2fdbff9d735d24378a4950b8dd7d8e7144f438a2c61bf9e97ad21",
+      "runtime_after_sha256": "7ebc187e32ca1a19b4aed20dbb0ad584389a4ec6e924aecd0ca3d84860502283"
+    },
+    "crates/xharness-core/tests/loop.rs": {
+      "runtime_before_sha256": "8a5201dc8a0d152ab1c8d115888e6103ebb99c5869d68ae09e917cc9f2e54e8d",
+      "upstream_before_sha256": "03ac4835c1ff462e90624264acb4c978a04684eca1dc80739635fb6c205b3c3c",
+      "upstream_after_sha256": "abaf81afca382b0619cb7eebe7a1cd48d26180aeb7948877e42159e4fa144d31",
+      "runtime_after_sha256": "1cd8c37c914f07dff2ab2e13053b6504e8f7f8da40607792a6514c9e182c5a9d"
+    },
+    "crates/xharness-core/tests/cases/step_input.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "492805f4a51ffecd5c5a22d2fd86e0396ba80204813473136e90319ab95638c8",
+      "runtime_after_sha256": "492805f4a51ffecd5c5a22d2fd86e0396ba80204813473136e90319ab95638c8"
+    },
+    "crates/xharness-session/src/event.rs": {
+      "runtime_before_sha256": "252aff89dc54acded0e0cb5559921612c5fec2cd002cf8d4c93944f9e8684d00",
+      "upstream_before_sha256": "7f880bf328b3ab19ac9e569fa3ed34f622afe22457f71d31248992b52f8c3803",
+      "upstream_after_sha256": "d3cfd9bab091f0f8fb1009dc4c47814feb5a0ab239068bbead9142e4701bc7f4",
+      "runtime_after_sha256": "f5ea30906b99da3c03fd1014d711e966a33353e9fcb633ff4296da5b99996265"
+    },
+    "crates/xharness-session/src/session.rs": {
+      "runtime_before_sha256": "46b170e62f2f6a2158cf7d774d65522cc93897f0f1f8f4d2b0ced7445be713d9",
+      "upstream_before_sha256": "66427641145c3b641ffbf95ffcbb35c4268fb99b9a4f9c8196ac6661074ba4f4",
+      "upstream_after_sha256": "3b9ad59be7afa7919ccad5cff7d087c8328e4316d371afe1d17dcf3b4d6fdf92",
+      "runtime_after_sha256": "27eb7a9d7bf91390d688ef93f487ed1fd5a699cd1a47eed7643dd9d0be538f38"
+    },
+    "crates/xharness-session/tests/context_input.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "79e311f55b773ce07e817677461ecf6cb0423fa45257fe4c58ee407ff9654dbd",
+      "runtime_after_sha256": "79e311f55b773ce07e817677461ecf6cb0423fa45257fe4c58ee407ff9654dbd"
+    },
+    "crates/xharness-session-jsonl/src/history_index.rs": {
+      "runtime_before_sha256": "13d7eae4c282c5f34c8fc8ac5483f427020038e971f138648b12dd315fc3700e",
+      "upstream_before_sha256": "13d7eae4c282c5f34c8fc8ac5483f427020038e971f138648b12dd315fc3700e",
+      "upstream_after_sha256": "c19ae9611b598f5345112c42fd3abd6d8e9a8da35ae7c3599d68ff1528c53294",
+      "runtime_after_sha256": "c19ae9611b598f5345112c42fd3abd6d8e9a8da35ae7c3599d68ff1528c53294"
+    },
+    "crates/xharness-session-jsonl/tests/jsonl.rs": {
+      "runtime_before_sha256": "c555c2c2147322c483e416086a7d359deb6424e282749359f3abcc7d205b81b8",
+      "upstream_before_sha256": "5c9c71a5d4af0bbbd85237e0d548a72b2d0db5aa746c965c44a2df403bd0667b",
+      "upstream_after_sha256": "fc9f7090f79119b044f72d5726adf5da0dad4e20232f51e6292b4b04803e35d5",
+      "runtime_after_sha256": "96ece55f605c506ec37a4528135b82be9a804c7971448f121d34ddcba283ed23"
+    },
+    "crates/xharness-projection/src/lib.rs": {
+      "runtime_before_sha256": "0bdb62eb901eee7a96fc7f602c32aa92d09ff16f2de93ee1abf05ff8ce47b7d0",
+      "upstream_before_sha256": "383b271620993891d805e7004c1652165184febbc54982ff3bcf2696555d415e",
+      "upstream_after_sha256": "11372c17a26603488c9f850b2a17ba5abff31b6aeacf375889201af47533fe1f",
+      "runtime_after_sha256": "99ee5d00191b703d32f8dc1063869f38bcc64a2b91b86563454673228e93b6b6"
+    },
+    "crates/xharness-projection/src/metrics.rs": {
+      "runtime_before_sha256": "4bd23804437b0b79b58bd8343d703465d133bc6efe550d1673cc7d99c367a56e",
+      "upstream_before_sha256": "4bd23804437b0b79b58bd8343d703465d133bc6efe550d1673cc7d99c367a56e",
+      "upstream_after_sha256": "a2a80e86051a5febe0888d3131f021691607244c1a4fac3dff73a3f1b69602c6",
+      "runtime_after_sha256": "a2a80e86051a5febe0888d3131f021691607244c1a4fac3dff73a3f1b69602c6"
+    },
+    "crates/xharness-projection/src/tail_update.rs": {
+      "runtime_before_sha256": "bc31d58f7eb51525cc7591e30bdf631e8cdbbb77483ad019bcadcc594a2c5ce9",
+      "upstream_before_sha256": "eb25bd6e8025ff29acb921a8736576d7d8be2581f3879cd913c4dd09de16ee39",
+      "upstream_after_sha256": "2b0328e501a271fb66893d2dec8a49ccb4e1bcdc2e839dee516b39da17c3bb6b",
+      "runtime_after_sha256": "34d8b514d46023bb5cf769245b31f98c1551bb7f9760d28d652d043207477361"
+    },
+    "docs/architecture/step-input-contributions.md": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "172d9fc767bea531b0e61ff662d1e63e37956fba758a984a058dc87b5d3cf6d4",
+      "runtime_after_sha256": "172d9fc767bea531b0e61ff662d1e63e37956fba758a984a058dc87b5d3cf6d4"
+    }
+  },
+  "canonical_only_policy_review_paths": [
+    "config/architecture-dependencies.json",
+    "scripts/regression/check-architecture.py",
+    "config/architecture-changes/superagent-persistence-observation.json",
+    "config/architecture-changes/superagent-request-prompt.json",
+    "config/architecture-changes/superagent-step-input.json"
+  ],
+  "context_adaptations": [
+    {
+      "path": "crates/xharness-context/src/lib.rs",
+      "reason": "Insert exact module/reexports and optional getter; do not import canonical-only visual_history."
+    },
+    {
+      "path": "crates/xharness-core/tests/loop.rs",
+      "reason": "Append exact new case include; preserve absence of unrelated canonical compaction/multimodal includes."
+    },
+    {
+      "path": "crates/xharness-projection/src/tail_update.rs",
+      "reason": "Replace only the existing ModelReception arm with the identical canonical ContextMessage addition; preserve Runtime absence of canonical local-inbox/UserMessage fast paths."
+    }
+  ],
+  "external_locked_versions_sources_checksums_unchanged": true,
+  "default_no_resolver_no_new_journal_or_awaited_host_boundary": true,
+  "durable_context_never_genuine_human": true,
+  "product_skill_catalog_installed": false,
+  "full_pre_step_candidate_transform_installed": false,
+  "UTF16_transport_complete": false,
+  "semantic_or_release_approval": false,
+  "no_new_commit_ref_push": true
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "native_driver_tests": 13,
+  "passed": 13,
+  "failed": 0,
+  "real_rust_futures": true,
+  "js_promise_scheduling_used_by_native_driver_tests": false,
+  "implicit_model_or_source": false,
+  "new_retry_timer": false,
+  "committed_prefix_fault_fixture": true,
+  "scope": "single-owner native Future scheduler + SQL command/control integration; no complete role/session/Inbox/provider/Source or deployment acceptance",
+  "evidence": [
+    "sql-driver-guarded-driver-contracts.log",
+    "sql-driver-guarded-repository-contracts.log"
+  ],
+  "boundaries": [
+    "LocalSet/single SQLite owner; local non-Send commit callbacks",
+    "weak handler/commit ownership",
+    "core evaluateDue loop is split into per-thread committed Driver.pass units",
+    "Passes coordinator still needs configured/closing gates, 2000ms interval and explicit kick, like pinned app/passes.ts"
+  ]
+}

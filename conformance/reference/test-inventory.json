@@ -1,0 +1,3834 @@
+[
+  {
+    "path": "tests/admission-context.spec.ts",
+    "groups": [
+      "SRC"
+    ],
+    "sha256": "10d4febfefb890dcef404e3119bb1b4a27c78ff913c8d5b178170ef7be92c12d",
+    "lexical_test_titles": [
+      {
+        "line": 14,
+        "title": "returns the thread opening and trigger neighbors with exact internal and trailing gaps"
+      },
+      {
+        "line": 21,
+        "title": "deduplicates overlapping windows and reports an absent source without inventing neighbors"
+      },
+      {
+        "line": 26,
+        "title": "retains pagination limits and exact loaded counts rather than claiming complete history"
+      },
+      {
+        "line": 38,
+        "title": "gives a message outside a topic the five chat messages before it, and says it read the chat"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/assessment.spec.ts",
+    "groups": [
+      "AUTH"
+    ],
+    "sha256": "3d1c5c2dd12bfd5ae2e7545d602231e0145dc66d3cc135b0eee76283a26d9a60",
+    "lexical_test_titles": [
+      {
+        "line": 66,
+        "title": "keeps nothing for an Eval once it is decided, as for one that timed out"
+      },
+      {
+        "line": 84,
+        "title": "keeps nothing from a context read that finishes after its Eval was decided"
+      },
+      {
+        "line": 96,
+        "title": "reads the context of a Trigger through its Source, and none for a Source that gives none"
+      },
+      {
+        "line": 114,
+        "title": "routes an explicit candidate instead of assessing it: each eval tool names the routing tools"
+      },
+      {
+        "line": 125,
+        "title": "asks the assessment only for decisions its tool accepts, which no longer include reopen or stop"
+      },
+      {
+        "line": 134,
+        "title": "loads a window without the assessment instructions: the trigger once, cut messages with their length, and stubs for the rest"
+      },
+      {
+        "line": 160,
+        "title": "lets the main Session read on from the cursor its loaded window ends with, and points a cut batch message at its whole text"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/background.spec.ts",
+    "groups": [
+      "RUN"
+    ],
+    "sha256": "d74c22ea95a8596523c6f87815e86e50bb015526766a6fdbae832e4c90e45dbf",
+    "lexical_test_titles": [
+      {
+        "line": 19,
+        "title": "is not quiet when an end during the subagent check woke the worker, whose own idle looks again"
+      },
+      {
+        "line": 29,
+        "title": "stops waiting for subagents that never settle once the host stops"
+      },
+      {
+        "line": 41,
+        "title": "looks at the jobs only when one ends, not at each output of a noisy one"
+      },
+      {
+        "line": 54,
+        "title": "joins a worker\\'s subagents once for the looks that wait on them, as DSH cannot cancel the join"
+      },
+      {
+        "line": 65,
+        "title": "gives up a release of subagents that does not end within 10 seconds, and cancels the turn their ends woke"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/bundle-patch.spec.ts",
+    "groups": [
+      "TOOL"
+    ],
+    "sha256": "308b71e4ae4096b03ad18541e5775a86e44979987f081ad8c1b679a3c517af35",
+    "lexical_test_titles": [
+      {
+        "line": 29,
+        "title": "defines the worker preset Executor Sessions run under, with a shell that moves long commands to the background"
+      },
+      {
+        "line": 54,
+        "title": "defines the router preset the main Session runs under: the worker\\'s 5-second shell and job waits, and only the tools it uses"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/cache.spec.ts",
+    "groups": [
+      "SRC"
+    ],
+    "sha256": "3f3d3170ad71d91d1e776bdefdc4ba454f5c136c78a9a17b6e6e4f1677c699b0",
+    "lexical_test_titles": [
+      {
+        "line": 4,
+        "title": "drops the least recently used texts once they exceed the limit, but never the text just set"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/cards.spec.ts",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "cc5a8b75490bef2f91af7f6ccfe58a9093b13d815277a6886bbcd8ddb21041e7",
+    "lexical_test_titles": [
+      {
+        "line": 114,
+        "title": "keeps each role\\'s own instructions short"
+      },
+      {
+        "line": 129,
+        "title": "shows a trigger and a ticket as cards with a short preview and references to their bodies"
+      },
+      {
+        "line": 158,
+        "title": "shows a ticket card\\'s state from a closed set: the open ticket\\'s stage, the ended ticket\\'s outcome"
+      },
+      {
+        "line": 174,
+        "title": "shows a decision with snake_case keys and a reference to its details"
+      },
+      {
+        "line": 184,
+        "title": "summarizes threads with their subscriptions and assessment state"
+      },
+      {
+        "line": 193,
+        "title": "keeps what a model reads in a preview as written: code, angle brackets and link targets"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/class-docs.spec.ts",
+    "groups": [
+      "DEP"
+    ],
+    "sha256": "a48777f613c42ab1be33c16ebf09f51a344bdfa86fc732a055d5d62b44fb69fd",
+    "lexical_test_titles": [
+      {
+        "line": 9,
+        "title": "gives every class declaration in src a JSDoc block right before it"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/client.spec.tsx",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "d461100292003de600d2154c5273212cb07e571c03870ff5200b95c205fca99e",
+    "lexical_test_titles": [
+      {
+        "line": 52,
+        "title": "registers a localized main panel, sidebar entry and Plugin Manager row page, and no settings section"
+      },
+      {
+        "line": 62,
+        "title": "opens a listed Session through the workspace from the main panel"
+      },
+      {
+        "line": 71,
+        "title": "reports a Session missing from the catalog in the interface language"
+      },
+      {
+        "line": 81,
+        "title": "polls one request at a time, keeps the data while new dependencies load, and polls less while hidden"
+      },
+      {
+        "line": 123,
+        "title": "tells a dsh-superagent that does not answer from a record it does not have, and words each failure by what failed"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/commands.spec.ts",
+    "groups": [
+      "TOOL"
+    ],
+    "sha256": "1737430c702b23685c4820fc0878354b615f8b885c69faccdaaa52a9e352b1fb",
+    "lexical_test_titles": [
+      {
+        "line": 19,
+        "title": "uses the agent account\\'s GitHub CLI and preserves literal shell metacharacters in argv"
+      },
+      {
+        "line": 24,
+        "title": "runs every command with its environment over the process environment, where undefined removes a variable"
+      },
+      {
+        "line": 32,
+        "title": "refuses Feishu commands when the deployment has no Feishu bot"
+      },
+      {
+        "line": 35,
+        "title": "reconciles an uncertain GitHub send with its stable marker"
+      },
+      {
+        "line": 41,
+        "title": "posts the reply as the model wrote it, only to the fixed repository"
+      },
+      {
+        "line": 50,
+        "title": "routes review-comment replies to the root review comment"
+      },
+      {
+        "line": 56,
+        "title": "uses Feishu bot identity and one idempotency key on retries"
+      },
+      {
+        "line": 63,
+        "title": "reports Feishu failures with their code and without command arguments"
+      },
+      {
+        "line": 72,
+        "title": "drop a Feishu reply to a recalled message or one Feishu no longer finds, and say how to add the bot to a chat"
+      },
+      {
+        "line": 86,
+        "title": "keep a Feishu reply whose command timed out for a retry, whatever its text says"
+      },
+      {
+        "line": 92,
+        "title": "drop a GitHub reply to an Issue that is deleted or locked, and keep others for a retry"
+      },
+      {
+        "line": 106,
+        "title": "reply on the PR\\'s conversation when the review comment a reply points at is gone"
+      },
+      {
+        "line": 116,
+        "title": "link each address to its page with its label"
+      },
+      {
+        "line": 132,
+        "title": "go only to paths inside the configured repository, and validate what GitHub answers"
+      },
+      {
+        "line": 149,
+        "title": "read every page of a list, and skip and count an item that does not validate"
+      },
+      {
+        "line": 163,
+        "title": "says how to add the bot to a chat when Feishu answers that it is not a member, and keeps the code"
+      },
+      {
+        "line": 172,
+        "title": "names only the program and how it ended when a command prints no diagnostics, never its arguments"
+      },
+      {
+        "line": 184,
+        "title": "reports failures as CliError with the code the CLI names and the exit status"
+      },
+      {
+        "line": 202,
+        "title": "stops a running command when the signal of its work aborts, or the lifetime, and leaves the other work running"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/controls.spec.tsx",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "ce04bb9da35f61cb2de567326d0d65231b0893468af3ab0ccd5b5f17b7140c23",
+    "lexical_test_titles": [
+      {
+        "line": 12,
+        "title": "imports no DSH client runtime package, only React and type declarations"
+      },
+      {
+        "line": 21,
+        "title": "imports each module of the panel only from modules that do not import it back"
+      },
+      {
+        "line": 36,
+        "title": "describes the management API in a module the panel can bundle, which imports types only"
+      },
+      {
+        "line": 41,
+        "title": "closes the dialog on Escape and returns focus to the opener"
+      },
+      {
+        "line": 59,
+        "title": "keeps the focus inside the dialog when its parent re-renders, and Tab and Shift+Tab wrap within it"
+      },
+      {
+        "line": 83,
+        "title": "moves the tab selection with arrow keys and wraps at the ends"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/core-engine.spec.ts",
+    "groups": [
+      "DOM"
+    ],
+    "sha256": "e29358c139a2dbb1a2877e980e043f34cf39bca1905fb10ee14e0b4866bc1a6b",
+    "lexical_test_titles": [
+      {
+        "line": 75,
+        "title": "stores a trigger once and records source filtering"
+      },
+      {
+        "line": 83,
+        "title": "records correlation for a trigger on several threads and evaluates only on the primary one"
+      },
+      {
+        "line": 91,
+        "title": "ignores at the gate without an assessor when nothing is admissible"
+      },
+      {
+        "line": 98,
+        "title": "releases the assessor\\'s state for every eval that ends, decided or not"
+      },
+      {
+        "line": 104,
+        "title": "serializes evals per thread and debounces triggers that arrive meanwhile"
+      },
+      {
+        "line": 115,
+        "title": "accept creates a ticket with a mandate, subscribes the thread, queues the acknowledgement and starts an assignment"
+      },
+      {
+        "line": 127,
+        "title": "refuses to decide an eval that a later eval replaced, and decides the later one"
+      },
+      {
+        "line": 136,
+        "title": "records an accept with its ticket, subscriptions and acknowledgement together, or none of them"
+      },
+      {
+        "line": 146,
+        "title": "records unavailable when the policy version changed during assessment"
+      },
+      {
+        "line": 154,
+        "title": "starts every pending eval in one step, so a second pump starts none of them again"
+      },
+      {
+        "line": 161,
+        "title": "counts an Eval\\'s deadline from its delivery, queues its Triggers again twice when it expires, then records it unavailable"
+      },
+      {
+        "line": 187,
+        "title": "delivers a person\\'s later message on a subscribed thread to the live ticket as context, and not to Eval"
+      },
+      {
+        "line": 206,
+        "title": "keeps inputs undelivered until an assignment is running, and asks to launch one whose launch failed again"
+      },
+      {
+        "line": 219,
+        "title": "does not hand a bot\\'s message to an ended ticket, and still assesses it"
+      },
+      {
+        "line": 228,
+        "title": "resumes once however often it pumps, with the resume note ahead of the message, and drops what waited when the policy no longer holds the mandate"
+      },
+      {
+        "line": 243,
+        "title": "takes delivery reports only from the assignment that still runs the open ticket"
+      },
+      {
+        "line": 262,
+        "title": "unsubscribing a thread stops fan-out until a new decision subscribes it"
+      },
+      {
+        "line": 269,
+        "title": "lets an Executor drop a thread attached to its ticket, keeping the thread\\'s other tickets, but not its own threads"
+      },
+      {
+        "line": 296,
+        "title": "resumes an ended ticket on any person\\'s message on its thread, under the same mandate and without a Decision"
+      },
+      {
+        "line": 312,
+        "title": "resumes an ended ticket an earlier version left with a person\\'s message waiting, on the next pass"
+      },
+      {
+        "line": 323,
+        "title": "resumes an ended ticket at once when a person attaches a message to it"
+      },
+      {
+        "line": 331,
+        "title": "keeps a ticket a person stopped ended: the stop withdrew its mandate"
+      },
+      {
+        "line": 339,
+        "title": "keeps a ticket ended when its mandate no longer passes the current policy"
+      },
+      {
+        "line": 346,
+        "title": "stops a live ticket only on an explicit instruction and ends it by the human"
+      },
+      {
+        "line": 360,
+        "title": "takes a follow-up an older version queued out of the queue without a Decision, and keeps one sent to Eval again"
+      },
+      {
+        "line": 372,
+        "title": "decides a follow-up in a gate-only Eval beside the Eval its Thread has in progress, which goes on"
+      },
+      {
+        "line": 383,
+        "title": "leaves the Thread free for a later request that reaches no ticket"
+      },
+      {
+        "line": 395,
+        "title": "queues a message that reached a ticket for a fresh Eval with the gate\\'s strength, once per ticket, and keeps the subscription"
+      },
+      {
+        "line": 412,
+        "title": "queues again no message the ticket did not decide: one a person sent to Eval, a bot\\'s, or one on a Thread followed for context"
+      },
+      {
+        "line": 427,
+        "title": "leaves a message the main Session attached to a ticket to its worker, whose hand-back sends it to Eval"
+      },
+      {
+        "line": 440,
+        "title": "fans a Thread followed for context out to the live ticket, resumes no ended ticket from it, unless it was attached"
+      },
+      {
+        "line": 458,
+        "title": "counts a message on a Thread a ticket follows only for context as none of its follow-ups, and lifts no block with it"
+      },
+      {
+        "line": 474,
+        "title": "sends a message to Eval when the ticket it reached cannot resume and only a ticket following its Thread for context is left"
+      },
+      {
+        "line": 485,
+        "title": "gives an open ticket\\'s worker a note as an Input of its own, held like automatic Input, and refuses one for an ended ticket"
+      },
+      {
+        "line": 504,
+        "title": "lets the main Session take a follow-up as new work once it stopped the ticket on it"
+      },
+      {
+        "line": 516,
+        "title": "sends a follow-up its worker never received to Eval when the ticket ends, by a report or a stop"
+      },
+      {
+        "line": 529,
+        "title": "sends a follow-up its worker got since its last report to Eval when the ticket ends, unless it acknowledged it"
+      },
+      {
+        "line": 541,
+        "title": "keeps a ticket open after its pull request merged while its worker is on a person\\'s message it took up after its last report"
+      },
+      {
+        "line": 560,
+        "title": "gives a follow-up its ended ticket let go to that ticket again when the main Session attaches it there"
+      },
+      {
+        "line": 578,
+        "title": "wakes an ended ticket for a message attached to it that its worker read only for context or before its last report"
+      },
+      {
+        "line": 594,
+        "title": "counts a question the final report answers as taken up, so it does not come back as a candidate beside its answer"
+      },
+      {
+        "line": 602,
+        "title": "sends to Eval a message attached after its Eval was unavailable, once its ticket ends without taking it up"
+      },
+      {
+        "line": 611,
+        "title": "counts an acknowledgement an earlier version queued without recording it on the message as taking the message up"
+      },
+      {
+        "line": 620,
+        "title": "counts a message that resumed a ticket as taken up by the report that ends it again, unlike one that came later"
+      },
+      {
+        "line": 633,
+        "title": "sends a follow-up its ticket let go to Eval after a stop on it was refused, but not the one a stop ended it on"
+      },
+      {
+        "line": 645,
+        "title": "sends the message a stop ended a ticket on to Eval once another ticket it reached ends without taking it up"
+      },
+      {
+        "line": 655,
+        "title": "hands the follow-ups on a thread a worker found unrelated back to Eval, with its reason"
+      },
+      {
+        "line": 671,
+        "title": "keeps a follow-up two tickets reached with the one that did not hand it back, and queues it once neither decides it"
+      },
+      {
+        "line": 688,
+        "title": "lets an Eval an earlier version started on a follow-up decide it"
+      },
+      {
+        "line": 702,
+        "title": "starts an Assignment interrupted mid-work again with a note, and hands one that waits what waits for it"
+      },
+      {
+        "line": 723,
+        "title": "starts again a worker that reported but then got a person\\'s message, which it was working on"
+      },
+      {
+        "line": 735,
+        "title": "lets no Eval expire while processing is paused, and moves its deadline on by the pause\\'s length"
+      },
+      {
+        "line": 755,
+        "title": "tells only the live tickets a change bears on how it does, and restarts in-flight evals under the new version"
+      },
+      {
+        "line": 771,
+        "title": "does not start evals while paused"
+      },
+      {
+        "line": 779,
+        "title": "asks, keeps, replaces and clears the question for a person, and says which question a report replaced"
+      },
+      {
+        "line": 795,
+        "title": "ends the ticket on a final report: dropped drops it, ready completes it unless it follows a Source\\'s Thread that is open"
+      },
+      {
+        "line": 822,
+        "title": "refuses a question with a result or an answer, and questions or answers that name no person\\'s message of the ticket"
+      },
+      {
+        "line": 835,
+        "title": "refuses a report on an ended ticket"
+      },
+      {
+        "line": 843,
+        "title": "records how a ticket ended"
+      },
+      {
+        "line": 853,
+        "title": "sends the routing note for a message the worker has, ends an Eval that holds only that message, and refuses a ticket a person stopped or the Policy no longer holds"
+      },
+      {
+        "line": 881,
+        "title": "ends the batch Eval of a message attached to a ticket and assesses the rest again, leaving the message to that ticket"
+      },
+      {
+        "line": 893,
+        "title": "names missing things apart from refusals and fills in the values"
+      },
+      {
+        "line": 899,
+        "title": "decides an explicit request no Eval holds in a direct Eval, refuses a proactive accept without matched rules, and accepts a Trigger once"
+      },
+      {
+        "line": 919,
+        "title": "accepts an inferred candidate only on rules the Policy admits, whoever names them"
+      },
+      {
+        "line": 927,
+        "title": "ends the Eval of a replayed Trigger that started a ticket, and returns that ticket\\'s Decision for it"
+      },
+      {
+        "line": 940,
+        "title": "keeps a replayed Trigger that started a ticket out of the Eval of the Triggers queued with it"
+      },
+      {
+        "line": 951,
+        "title": "starts a ticket from a request accepted beside a replayed one, with its own origin and acknowledgement"
+      },
+      {
+        "line": 965,
+        "title": "holds back automatic Input from a worker that reported blocked or failed until a person\\'s message arrives"
+      },
+      {
+        "line": 979,
+        "title": "stops waiting for a person on a person\\'s message, a later report that is neither blocked nor failed, or a retry"
+      },
+      {
+        "line": 998,
+        "title": "launches a failed launch again for a person\\'s message, but not for a Policy change"
+      },
+      {
+        "line": 1011,
+        "title": "acknowledges a person\\'s message that reached an open ticket once, and refuses others"
+      },
+      {
+        "line": 1026,
+        "title": "sends an answer only after the worker reported it, a result only for a ready ticket, and attention only for its current question"
+      },
+      {
+        "line": 1053,
+        "title": "ends a ticket by the same rule on a close and on a ready report: once no PR it opened is open, as the latest of them ended"
+      },
+      {
+        "line": 1077,
+        "title": "stops following a Thread whose Subscription a person removes"
+      },
+      {
+        "line": 1087,
+        "title": "follows a Source\\'s Threads, and ends once no Thread of its own is open, unless resumed work has not finished"
+      },
+      {
+        "line": 1118,
+        "title": "retries a ticket that reported failed with a new Assignment, and asks only a waiting worker for its status"
+      },
+      {
+        "line": 1135,
+        "title": "forgets a failed delivery once a new Assignment takes over or the ticket ends"
+      },
+      {
+        "line": 1152,
+        "title": "dismisses the problem an unavailable Decision shows, and only such a Decision"
+      },
+      {
+        "line": 1163,
+        "title": "starts a new Assignment for a ticket whose Input keeps failing to reach its worker, which takes the Input"
+      },
+      {
+        "line": 1180,
+        "title": "queues an Eval\\'s batch again when it is decided under an older Policy, such as after an upgrade changed the version"
+      },
+      {
+        "line": 1191,
+        "title": "queues a person\\'s message for Eval when the only ticket it reached cannot resume under the Policy now, and says it reached none"
+      },
+      {
+        "line": 1201,
+        "title": "queues a person\\'s message that waited out a pause for Eval when the ticket it reached cannot resume once the pause lifts"
+      },
+      {
+        "line": 1212,
+        "title": "takes a new ticket\\'s origin and acknowledgement from the admissible Trigger that gave its batch its strength"
+      },
+      {
+        "line": 1224,
+        "title": "takes a mixed batch\\'s strength, actor and basis from its strongest admissible Trigger, the latest of equal strength"
+      },
+      {
+        "line": 1241,
+        "title": "changes nothing and delivers nothing on a late start of an Assignment a retry replaced"
+      },
+      {
+        "line": 1253,
+        "title": "records a stop that names an unknown or ended ticket as ignored"
+      },
+      {
+        "line": 1263,
+        "title": "refuses a direct decision on a Trigger the gate does not admit, and leaves the queue as it was"
+      },
+      {
+        "line": 1271,
+        "title": "refuses to retry a ticket a person stopped after its failed report"
+      },
+      {
+        "line": 1278,
+        "title": "answers a question once, sends a result only for finished work, and the same result once"
+      },
+      {
+        "line": 1300,
+        "title": "keeps an Eval\\'s deadline on a repeated delivery, refuses to queue a held Trigger again, and puts expired Triggers first"
+      },
+      {
+        "line": 1317,
+        "title": "ignores an Eval an earlier version left holding only a Trigger that started a ticket, instead of recording it unavailable"
+      },
+      {
+        "line": 1330,
+        "title": "clears the count of expired Evals when the gate ignores what a Thread queued"
+      },
+      {
+        "line": 1340,
+        "title": "tells a worker of each Policy change that bears on its ticket, also of one that repeats an earlier transition"
+      },
+      {
+        "line": 1349,
+        "title": "lets a worker acknowledge or ask no one on a Thread it follows only for context"
+      },
+      {
+        "line": 1359,
+        "title": "records a Source\\'s close time in the canonical form, and keeps the ticket\\'s updatedAt moving forward"
+      },
+      {
+        "line": 1374,
+        "title": "resumes an ended ticket only on a person\\'s message, not on a bot\\'s that is attached to it"
+      },
+      {
+        "line": 1388,
+        "title": "lets a merge send to Eval only the messages its worker had no turn to read after its ready report"
+      },
+      {
+        "line": 1400,
+        "title": "keeps a ticket open at a merge while its worker works on a message it took up, also after a progress report"
+      },
+      {
+        "line": 1412,
+        "title": "ends a ticket whose close it deferred as the close did when its worker then drops the work"
+      },
+      {
+        "line": 1423,
+        "title": "sends a message another ticket handed back to Eval when a stop on it ends the ticket that kept it"
+      },
+      {
+        "line": 1433,
+        "title": "gives a live ticket\\'s worker again a message it had that a person sent to Eval and the main Session attached back"
+      },
+      {
+        "line": 1444,
+        "title": "lets a stop send to Eval a message that waited for delivery when a turn ended, and reached the worker after"
+      },
+      {
+        "line": 1459,
+        "title": "lets a stop send to Eval a message that came before the worker\\'s waiting report but reached the worker after it"
+      },
+      {
+        "line": 1473,
+        "title": "records two stops of one follow-up that reached two tickets, made in the same moment, as two Decisions"
+      },
+      {
+        "line": 1498,
+        "title": "sends to Eval a message that woke a ticket and reached its worker only after a progress report, at a dropped report"
+      },
+      {
+        "line": 1509,
+        "title": "counts a message that woke a ticket as read by a later dropped report once its worker\\'s Session took it into a step"
+      },
+      {
+        "line": 1518,
+        "title": "sends to Eval at a merge a message that reached the worker after its last step, which no step took before its turn ended"
+      },
+      {
+        "line": 1528,
+        "title": "counts a message a retry delivered after a failure and a turn end as read by a dropped report only once a step took it"
+      },
+      {
+        "line": 1540,
+        "title": "counts a message a step took before a restart cut its turn off as read only once the restarted worker reports"
+      },
+      {
+        "line": 1555,
+        "title": "gives a retry\\'s Assignment the messages the failed one had delivered but no step of its worker took"
+      },
+      {
+        "line": 1568,
+        "title": "gives a retry only what the Assignment it replaces had delivered and no step took, not what an earlier end let go of"
+      },
+      {
+        "line": 1585,
+        "title": "gives a restart\\'s Assignment what the replaced one had delivered and no step took, and a retry of it gets it again"
+      },
+      {
+        "line": 1603,
+        "title": "marks the ignore of an inferred candidate that no assessment judged, unlike an assessed one or an explicit candidate\\'s"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/delivery.spec.ts",
+    "groups": [
+      "RUN",
+      "REC"
+    ],
+    "sha256": "506cf7183fb1b1cceca58961de5fe1687e9256b8293a92f16ae05064da3b0d74",
+    "lexical_test_titles": [
+      {
+        "line": 89,
+        "title": "retries a failed durability barrier without another delivery and permits concurrent retries"
+      },
+      {
+        "line": 99,
+        "title": "retries history failures and reads past the first page"
+      },
+      {
+        "line": 109,
+        "title": "keeps consumption that happens during the initial history read"
+      },
+      {
+        "line": 117,
+        "title": "does not dispatch when cancelled or disposed during history loading"
+      },
+      {
+        "line": 128,
+        "title": "injects a notice once, as dsh-superagent\\'s notice with its summary, without waking the agent"
+      },
+      {
+        "line": 137,
+        "title": "tells whether the Session holds a message: one waiting in its inbox, one it took, and one in its stored history"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/deployment.spec.ts",
+    "groups": [
+      "CFG"
+    ],
+    "sha256": "8fcb5c03a8ff3212850c3d1c668f8506413e0e73ba0233d5b7f5320024496e55",
+    "lexical_test_titles": [
+      {
+        "line": 43,
+        "title": "requires only the state directory and reads the editable fields through references"
+      },
+      {
+        "line": 53,
+        "title": "names keys the configuration does not define, and where the values of older keys live now"
+      },
+      {
+        "line": 60,
+        "title": "reads the repository from the GitHub Source and the accounts from their CLIs, skipping the worker shims"
+      },
+      {
+        "line": 68,
+        "title": "names what setup needs and where it is set"
+      },
+      {
+        "line": 86,
+        "title": "reads the Feishu bot from a bot-only lark-cli, or finds none when the Feishu Source names no CLI"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/docs.spec.ts",
+    "groups": [
+      "DEP"
+    ],
+    "sha256": "097b973c5fc8c5a7496f8aed66f11da2e612f0af36c5bcd2f8bfbebc64d96b03",
+    "lexical_test_titles": [
+      {
+        "line": 38,
+        "title": "numbers documents consecutively from 000"
+      },
+      {
+        "line": 41,
+        "title": "links numbered documents only to earlier numbered documents"
+      },
+      {
+        "line": 50,
+        "title": "resolves every local link"
+      },
+      {
+        "line": 55,
+        "title": "leaves no merge conflict markers in any document"
+      },
+      {
+        "line": 58,
+        "title": "lists every module of src in the module table of 007 Architecture, and only files that exist"
+      },
+      {
+        "line": 63,
+        "title": "lists every test in the test table of 007 Architecture, and only files that exist"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/draft.spec.ts",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "a16a8df0bece6c42733e5e56dcb811aa17f6748a488a86d29d91ac9587178caf",
+    "lexical_test_titles": [
+      {
+        "line": 8,
+        "title": "takes each key from the side that changed it, through nested records"
+      },
+      {
+        "line": 15,
+        "title": "keeps mine where both sides changed a key, and names it by its path"
+      },
+      {
+        "line": 21,
+        "title": "removes a key one side removed, unless the other side changed it"
+      },
+      {
+        "line": 27,
+        "title": "merges lists of named elements element by element, in their order, with what each side added"
+      },
+      {
+        "line": 41,
+        "title": "merges a list without names as a whole"
+      },
+      {
+        "line": 56,
+        "title": "saves an edit and shows it until its revision is read back, holding edits and other revisions while the save runs"
+      },
+      {
+        "line": 68,
+        "title": "merges another saved revision into a draft, tells a merge from a conflict, and keeps only the conflict across an edit"
+      },
+      {
+        "line": 81,
+        "title": "keeps a refused save as a draft with why, and words a restored draft unless its block words its drafts itself"
+      },
+      {
+        "line": 95,
+        "title": "waits for the revision its save made, keeping the value it sent, while an older revision arrives"
+      },
+      {
+        "line": 104,
+        "title": "keeps editing when the browser cannot store the draft, and says so"
+      },
+      {
+        "line": 111,
+        "title": "removes an element of a named list that mine deleted and theirs changed, and names the conflict"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/effects.spec.ts",
+    "groups": [
+      "DEL"
+    ],
+    "sha256": "2f43ec3af1da76c933aba941f4bf6525c973308646cd0ea9811bb9cc5b0ffb3b",
+    "lexical_test_titles": [
+      {
+        "line": 29,
+        "title": "runs an effect queued inside a transaction once it commits, and none from a transaction that rolled back"
+      },
+      {
+        "line": 39,
+        "title": "keeps one effect per key with the latest payload, and runs it again when a new payload arrives while it runs"
+      },
+      {
+        "line": 51,
+        "title": "runs a kind oldest first, as many at once as its limit allows, and holds it while the limit is 0"
+      },
+      {
+        "line": 70,
+        "title": "keeps an effect\\'s place in its queue when it is queued again with a new payload"
+      },
+      {
+        "line": 85,
+        "title": "retries a failed effect after a delay that doubles up to its maximum, and reports the kind in error after three failures"
+      },
+      {
+        "line": 105,
+        "title": "starts nothing once drained, keeps what waits and what shutdown cut short, and runs it after the next start"
+      },
+      {
+        "line": 122,
+        "title": "lets a handler defer an effect without a failure, until a later dispatch after its first delay"
+      },
+      {
+        "line": 137,
+        "title": "runs an ordered kind one at a time in the order queued, and holds the later effects while an earlier one fails"
+      },
+      {
+        "line": 150,
+        "title": "keeps a quiet kind\\'s failures out of its health, and asks no limit while nothing is due"
+      },
+      {
+        "line": 160,
+        "title": "keeps an effect cancelled and queued again while its first run goes on, which the first run does not end"
+      },
+      {
+        "line": 174,
+        "title": "queues an effect after a restart behind the ones that waited, for a kind that keeps its order"
+      },
+      {
+        "line": 192,
+        "title": "reports a failure of the queue itself under its kind, until a dispatch of that kind succeeds again"
+      },
+      {
+        "line": 204,
+        "title": "refuses a second handler for a kind"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/environment.spec.ts",
+    "groups": [
+      "TOOL"
+    ],
+    "sha256": "4d1ae4142389b47aa816b87bccd2ffa43401dddb12a4eaf6a12aaf25035bd423",
+    "lexical_test_titles": [
+      {
+        "line": 26,
+        "title": "run a wrapper that calls `gh` by name without reaching the shim again, and keep the caller\\'s other PATH entries"
+      },
+      {
+        "line": 35,
+        "title": "make `lark-cli` fail without a Feishu bot and each blocked command fail with the agent\\'s login"
+      },
+      {
+        "line": 41,
+        "title": "keep `gh` and `lark-cli` working, and shim no `git`, when the blocked commands name the commands workers need"
+      },
+      {
+        "line": 49,
+        "title": "replace only what dsh-superagent wrote and refuse anything else in its places"
+      },
+      {
+        "line": 64,
+        "title": "replaces the files it wrote under the project\\'s earlier names"
+      },
+      {
+        "line": 75,
+        "title": "ignores the operator\\'s global and system git configuration, also after DSH drops credential-shaped variables"
+      },
+      {
+        "line": 99,
+        "title": "fails instead of asking the operator\\'s askpass helpers when the agent\\'s credential helper has no answer"
+      },
+      {
+        "line": 114,
+        "title": "removes every spelling of a directory from PATH and keeps the other entries"
+      },
+      {
+        "line": 139,
+        "title": "passes a directory whose repository adds no credentials, and one outside any repository"
+      },
+      {
+        "line": 146,
+        "title": "names the credential settings of the repository\\'s own configuration"
+      },
+      {
+        "line": 151,
+        "title": "fails when git cannot read the repository\\'s configuration, instead of passing it"
+      },
+      {
+        "line": 156,
+        "title": "reports a failed command\\'s exit status"
+      },
+      {
+        "line": 165,
+        "title": "is left alone by the tests\\' git and named in no worker\\'s environment, as when they run inside `git rebase --exec`"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/feishu-image.spec.ts",
+    "groups": [
+      "SRC"
+    ],
+    "sha256": "3bc0e9b4a6cc06c492a161506994c8686167cbfb903c15a5aecc5f715a1ff7e4",
+    "lexical_test_titles": [
+      {
+        "line": 39,
+        "title": "retains the source-message pairing, commits an image reference and removes temporary files"
+      },
+      {
+        "line": 46,
+        "title": "rejects arbitrary keys and non-visual models before downloading"
+      },
+      {
+        "line": 53,
+        "title": "cleans up refused attachments and failed downloads without returning an image"
+      },
+      {
+        "line": 61,
+        "title": "refuses escaped output paths, oversize files and unsupported types"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/feishu-read.spec.ts",
+    "groups": [
+      "SRC"
+    ],
+    "sha256": "e94c7759e4ab1fa95b2f4f550e327840d6c9664b9479077ca1368719ccfb7c13",
+    "lexical_test_titles": [
+      {
+        "line": 11,
+        "title": "resolves legacy source metadata and reads merged forwards without embedding automatic thread expansion"
+      },
+      {
+        "line": 20,
+        "title": "paginates source thread messages with opaque cursors and retains authors and edited timestamps"
+      },
+      {
+        "line": 28,
+        "title": "skips and counts a topic message it cannot read, and reads the others"
+      },
+      {
+        "line": 35,
+        "title": "rejects unrelated paths, missing sources, cross-chat results, and incomplete pagination"
+      },
+      {
+        "line": 47,
+        "title": "reports absent parent/thread and deleted content explicitly"
+      },
+      {
+        "line": 55,
+        "title": "reads only the source message link and rejects absent, deleted or cross-chat results"
+      },
+      {
+        "line": 65,
+        "title": "reads a topic page as messages a model reads: id, author, ISO time, text and the message each answers"
+      },
+      {
+        "line": 73,
+        "title": "reads the chat around a message by time: five before it, the message and five after, then earlier pages"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/followups.spec.ts",
+    "groups": [
+      "AUTH"
+    ],
+    "sha256": "22e8ba70885a70a1673a1ddfd9f17d491308dc6a586b3a0e114b1106de9e093d",
+    "lexical_test_titles": [
+      {
+        "line": 14,
+        "title": "delivers a follow-up to the worker and tells the main Session with a card, without an Eval"
+      },
+      {
+        "line": 35,
+        "title": "sends a person\\'s message that reaches no ticket, such as only one a person stopped, to Eval as before"
+      },
+      {
+        "line": 47,
+        "title": "leaves a delivered follow-up to its ticket\\'s worker: the main Session may stop the ticket on it, and route it only once handed back"
+      },
+      {
+        "line": 103,
+        "title": "costs the main Session one model call for a burst of follow-ups while it works, and two while it idles"
+      },
+      {
+        "line": 118,
+        "title": "keeps a follow-up\\'s notice in the effect queue until the main Session takes it, and sends it once"
+      },
+      {
+        "line": 135,
+        "title": "relays a message a worker handed back as a candidate with the worker\\'s reason"
+      },
+      {
+        "line": 157,
+        "title": "lets a worker follow a related thread for context, which the main Session hears of without waking, and notes a ticket"
+      },
+      {
+        "line": 179,
+        "title": "takes the message a follow-up answers from its Source kind, whichever kind it is"
+      },
+      {
+        "line": 190,
+        "title": "tells the main Session of a follow-up to an ended ticket once the ticket resumes, and not when it cannot"
+      },
+      {
+        "line": 207,
+        "title": "tells the main Session nothing of a message it attached to an ended ticket, which resumes for it"
+      },
+      {
+        "line": 219,
+        "title": "tells the main Session of a follow-up an earlier version queued for Eval, when the queue lets it go"
+      },
+      {
+        "line": 235,
+        "title": "sends a request on a thread a worker follows only for context to Eval, and marks the worker\\'s copy as context"
+      },
+      {
+        "line": 250,
+        "title": "shows a candidate\\'s message as its workers would read it, with the message it answers"
+      },
+      {
+        "line": 264,
+        "title": "keeps a listed member\\'s request on a ticket\\'s thread to that ticket, so it is not done twice"
+      },
+      {
+        "line": 284,
+        "title": "leaves a follow-up to its ticket\\'s worker after the main Session drops the subscriptions of its thread"
+      },
+      {
+        "line": 297,
+        "title": "tells a worker it may hand back a message beyond its ticket or for another one, also when the message resumed it"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/github-read.spec.ts",
+    "groups": [
+      "SRC"
+    ],
+    "sha256": "237fcef412823686fb1c3f1f509377039b73ae932a64ae197e92a2346b3ad239",
+    "lexical_test_titles": [
+      {
+        "line": 9,
+        "title": "reads a bounded comment page and exposes the next page reference"
+      },
+      {
+        "line": 15,
+        "title": "rejects unsupported or escaping paths without making a request"
+      },
+      {
+        "line": 23,
+        "title": "reads checks across pages and canonicalizes the latest status per context"
+      },
+      {
+        "line": 31,
+        "title": "reads any requested PR’s CI on demand without restricting the author"
+      },
+      {
+        "line": 46,
+        "title": "reads a page of review comments as messages: id, author, time, text, the comment each answers, and the file and line"
+      },
+      {
+        "line": 54,
+        "title": "reads a review thread from any of its comments, the first with its file, line and diff lines"
+      },
+      {
+        "line": 62,
+        "title": "reads an Issue or PR as its author, time, title, state, description and a PR\\'s branches"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/health.spec.ts",
+    "groups": [
+      "DEL"
+    ],
+    "sha256": "afae82f2f5699e5c420542436c6bd0456f743f2a52eaea55c8f512633f4116ea",
+    "lexical_test_titles": [
+      {
+        "line": 18,
+        "title": "reports a relay in error once it failed three times, clears it once the relay reached the main Session, and leaves the runtime ready"
+      },
+      {
+        "line": 30,
+        "title": "keeps a failing relay\\'s error while replies recover, and a failing reply\\'s error while relays recover"
+      },
+      {
+        "line": 51,
+        "title": "reports a notice the main Session did not receive three times, until one reaches it, and injects each notice once"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/http.spec.ts",
+    "groups": [
+      "CFG"
+    ],
+    "sha256": "3d6d8d222d67f3903a882914edca981bde03cce5015a620ccc4451d3765e0ada",
+    "lexical_test_titles": [
+      {
+        "line": 28,
+        "title": "answers each kind of failure with its own status"
+      },
+      {
+        "line": 55,
+        "title": "decodes path parameters and parses each route\\'s query"
+      },
+      {
+        "line": 70,
+        "title": "answers only a same-origin request from the panel on the loopback address"
+      },
+      {
+        "line": 83,
+        "title": "answers a prompt save that lost a race with 409, and a settings body over 128 KiB with 400"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/index.spec.ts",
+    "groups": [
+      "TOOL",
+      "DEP"
+    ],
+    "sha256": "35e540ddfbd679ba458d4f42bea7e96891b1df4f2fdbebf1dc4377fe82d364f5",
+    "lexical_test_titles": [
+      {
+        "line": 31,
+        "title": "reads a limit DSH commits a new value of without a restart, and asks DSH to generate no settings page"
+      },
+      {
+        "line": 44,
+        "title": "asks DSH to read its settings entry again once a restart it started finished"
+      },
+      {
+        "line": 57,
+        "title": "refuses keys of the previous configuration before registering anything"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/locales.spec.ts",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "18d918f19e0fa5c129f51027d13fc1b7980f751bd31cbbe5b5db1e5e60684545",
+    "lexical_test_titles": [
+      {
+        "line": 9,
+        "title": "names the same placeholders in both languages"
+      },
+      {
+        "line": 15,
+        "title": "words a reason by its code with its values, each of a batch, and words a person or an assessor wrote as written"
+      },
+      {
+        "line": 27,
+        "title": "names every health entry of dsh-superagent itself, which the overview shows when it fails"
+      },
+      {
+        "line": 35,
+        "title": "words every refusal the host words by code, in both languages"
+      },
+      {
+        "line": 40,
+        "title": "has words for every reason code the core records"
+      },
+      {
+        "line": 44,
+        "title": "words the reasons agents read in the glossary\\'s words: a sender on the list, a Thread"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/markdown.spec.ts",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "099ae419c0000432ef13e83f7383a6c74297cd7f8f6f6d70949caa1a22fa8af9",
+    "lexical_test_titles": [
+      {
+        "line": 4,
+        "title": "reads headings, paragraphs and lists, a list ending at a blank line or at an item of the other kind"
+      },
+      {
+        "line": 10,
+        "title": "reads bold, inline code and links, and shows a bare address by its host and a short path"
+      },
+      {
+        "line": 20,
+        "title": "keeps a link to anything but a web address as text, and leaves the punctuation after a bare address out of it"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/marks.spec.ts",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "22cf8ea8cf16d80389d12946828d110af12820dda9a2b18d6fbb0e312b7759ef",
+    "lexical_test_titles": [
+      {
+        "line": 8,
+        "title": "marks each Ticket stage by whom it waits for, and an ended Ticket by its outcome"
+      },
+      {
+        "line": 25,
+        "title": "marks each Thread stage, Source state and Decision outcome"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/migration.spec.ts",
+    "groups": [
+      "REC"
+    ],
+    "sha256": "5c8fa242dc206ddfca61d3d2aee84ff1e462f64d6f950c7f50730a20be0ef7b1",
+    "lexical_test_titles": [
+      {
+        "line": 40,
+        "title": "refuses a database older than schema 10 and asks for a new state directory"
+      },
+      {
+        "line": 48,
+        "title": "writes a schema 10 database in its current shape once, so nothing reads an older shape"
+      },
+      {
+        "line": 176,
+        "title": "keeps each message as a receipt of what became of it, with why one was dropped by the code the panel words it by"
+      },
+      {
+        "line": 199,
+        "title": "changes nothing when one step fails: the database stays at schema 10 as it was"
+      },
+      {
+        "line": 212,
+        "title": "reads every basis an earlier gate recorded in the current shape"
+      },
+      {
+        "line": 243,
+        "title": "writes a prompt version saved before the team sections in them, keeping its skills and auto-merge threshold, and marks it"
+      },
+      {
+        "line": 262,
+        "title": "writes saved team sections and skills under current names: earlier project names, the tools that became reads and the routing tools"
+      },
+      {
+        "line": 275,
+        "title": "writes the removed auto-merge threshold and member identities into the prompts as one new version, unless an earlier version did"
+      },
+      {
+        "line": 300,
+        "title": "reads a current prompt version that does not read as the one before it, keeping what it said"
+      },
+      {
+        "line": 350,
+        "title": "opens a database the last schema 10 build left, adds what this version keeps alongside, and migrates it"
+      },
+      {
+        "line": 370,
+        "title": "writes the Sources\\' records in their current shape once, so no Source converts an earlier one when it reads it"
+      },
+      {
+        "line": 424,
+        "title": "keeps each fact of a ticket once: its end, its latest report, and no worker Session it can derive"
+      },
+      {
+        "line": 437,
+        "title": "reads the reasons earlier versions stored in words as codes, and keeps any other words as written"
+      },
+      {
+        "line": 458,
+        "title": "dates each Thread from its Triggers, and keeps every Trigger\\'s time in the one form stored times take"
+      },
+      {
+        "line": 474,
+        "title": "names the ticket it stopped at when a ticket does not read, and leaves the database at schema 10 as it was"
+      },
+      {
+        "line": 485,
+        "title": "makes the newest saved revision the current settings when it holds them, and moves a lagging pointer to it"
+      },
+      {
+        "line": 496,
+        "title": "reads the reasons a Trigger\\'s filter and an Assignment\\'s end stored in words as codes, and keeps an end\\'s reason once"
+      },
+      {
+        "line": 514,
+        "title": "marks a ticket\\'s Channel to a direct Feishu chat as direct, and links a Thread in the Lark brand when Lark links are stored"
+      },
+      {
+        "line": 527,
+        "title": "delivers the candidate of an Eval in progress at the upgrade again, so its deadline starts and it can expire"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/model-surface.spec.ts",
+    "groups": [
+      "TOOL"
+    ],
+    "sha256": "aa1226f72359a42764c2c58f1681b93693e6909a9e2f9ea521cf47e1ee778114",
+    "lexical_test_titles": [
+      {
+        "line": 350,
+        "title": "collects both roles\\' tools, prompts, skills and inputs"
+      },
+      {
+        "line": 369,
+        "title": "names only registered tools, schema options, environment variables and glossary words, with the enforced word limits"
+      },
+      {
+        "line": 377,
+        "title": "enforces the word limits the text states"
+      },
+      {
+        "line": 399,
+        "title": "keeps the routing rules in dispatch, which says the main Session may accept the rest of a stop message as new work"
+      },
+      {
+        "line": 407,
+        "title": "lists in the main Session\\'s Policy section exactly the enabled rules, as the drive\\'s save left them"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/navigation.spec.ts",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "d0e6190ef0a7831c793d0776a951015c918cf5777c4e3e1b79fc1683eab282ae",
+    "lexical_test_titles": [
+      {
+        "line": 16,
+        "title": "waits for initial catalog hydration before opening the linked master"
+      },
+      {
+        "line": 24,
+        "title": "opens known Sessions without another network refresh"
+      },
+      {
+        "line": 29,
+        "title": "reports unavailable targets without calling the throwing Session selector"
+      },
+      {
+        "line": 36,
+        "title": "does not navigate after the panel unmounts or a newer request supersedes it"
+      },
+      {
+        "line": 42,
+        "title": "reopens the page this tab showed last, and the overview for a route that no longer exists"
+      },
+      {
+        "line": 53,
+        "title": "reads each page a tab remembered with the parameters it takes, and leaves out what it does not know"
+      },
+      {
+        "line": 63,
+        "title": "opens the settings that fix each setup problem: the Deployment group, or the card of the Source it names"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/outbox.spec.ts",
+    "groups": [
+      "DEL"
+    ],
+    "sha256": "a06314b88277b6db5d24debc38dca291a73641945b1b4e931c0d700db42a1973",
+    "lexical_test_titles": [
+      {
+        "line": 17,
+        "title": "holds every message while processing is paused, and sends it once processing resumes"
+      },
+      {
+        "line": 30,
+        "title": "keeps a message for a Source that is not installed waiting, and sends it once the Source\\'s kind registers"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/panel-deployment.spec.tsx",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "7635cf0906d308ced62532dc2b5e80e8c227a3d1f347364f5397c06365b8421c",
+    "lexical_test_titles": [
+      {
+        "line": 12,
+        "title": "saves this machine\\'s settings in the Deployment settings through DSH\\'s configuration form, without a restart"
+      },
+      {
+        "line": 33,
+        "title": "keeps a refused Deployment change as a draft, and shows the settings read-only without a writable form"
+      },
+      {
+        "line": 52,
+        "title": "merges a Deployment draft into the values another page saved meanwhile, and writes only what it changed"
+      },
+      {
+        "line": 67,
+        "title": "renders the Deployment page with the derived accounts in the Plugin Manager, and no summary"
+      },
+      {
+        "line": 95,
+        "title": "tells a dsh-superagent that is starting from a browser that cannot write on the Deployment page"
+      },
+      {
+        "line": 112,
+        "title": "reads the state every second after a setup check, until dsh-superagent stopped answering and answers again"
+      },
+      {
+        "line": 133,
+        "title": "ends a restart that never stopped answering after half a minute, and reads the state every five seconds again"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/panel-eval.spec.tsx",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "c082a28400a3dc29c26ee1be8f699d57400d21e7ec655df3b446c13b685f91c4",
+    "lexical_test_titles": [
+      {
+        "line": 10,
+        "title": "opens the Decisions under Policy from the flow line with their reasons, Decisions that start work first, filterable by kind"
+      },
+      {
+        "line": 27,
+        "title": "keeps a Policy draft across remounts, and merges another save into it sender by sender and rule by rule"
+      },
+      {
+        "line": 60,
+        "title": "keeps the Policy to its rules and each Source\\'s part, in that Source\\'s own identities"
+      },
+      {
+        "line": 75,
+        "title": "opens the rule list for an invalid field inside it only"
+      },
+      {
+        "line": 87,
+        "title": "syncs a Source\\'s list from where the Source keeps it, but not while a Policy draft is unsaved"
+      },
+      {
+        "line": 101,
+        "title": "adds, copies, renames, disables and deletes rules in Policy without touching Eval"
+      },
+      {
+        "line": 118,
+        "title": "shows the current Policy version once, explains what makes it up, and opens a Mandate\\'s version in the Policy history"
+      },
+      {
+        "line": 137,
+        "title": "sets the Feishu admission table per receiving scope, offering only the cells a scope can receive, and warns when anyone may originate work"
+      },
+      {
+        "line": 160,
+        "title": "lists each Source\\'s bots next to its people and saves them, and sets the GitHub admission table by its receiving scopes"
+      },
+      {
+        "line": 193,
+        "title": "shows the GitHub Source\\'s switches for what it receives across the repository, and the admission rows they open, in English"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/panel-execution.spec.tsx",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "081dcef113d52003adb61b6ac1a6cc910344416e77086452e4188e7d728252ba",
+    "lexical_test_titles": [
+      {
+        "line": 10,
+        "title": "lists Tickets under Execution by who they wait on, with the Executor state and its pause as an action"
+      },
+      {
+        "line": 43,
+        "title": "stops an open Ticket from its page after confirmation"
+      },
+      {
+        "line": 53,
+        "title": "shows a Ticket with its stage, its Mandate details with the Trigger and Decision behind it, its Threads, and the rest behind disclosures"
+      },
+      {
+        "line": 78,
+        "title": "reports a missing Ticket instead of rendering an empty page"
+      },
+      {
+        "line": 84,
+        "title": "links a question to its Channel, folds consecutive automated messages among Inputs, and shows field explanations in a hover tooltip"
+      },
+      {
+        "line": 111,
+        "title": "offers a Ticket awaiting review its review place and Session in the page head"
+      },
+      {
+        "line": 122,
+        "title": "keeps what a person types in the Execution settings, converting it once on save"
+      },
+      {
+        "line": 142,
+        "title": "says why an Input was not delivered on its Ticket\\'s page, in either language"
+      },
+      {
+        "line": 159,
+        "title": "tells a Ticket or Thread that does not exist from a dsh-superagent that is not answering"
+      },
+      {
+        "line": 175,
+        "title": "gives a Ticket a bot\\'s message started its basis, marks a Thread it follows for context, and an Input it handed back"
+      },
+      {
+        "line": 198,
+        "title": "words an ended Ticket by its outcome, on its row and its page, with a person\\'s reason after it"
+      },
+      {
+        "line": 217,
+        "title": "sends one stop for a double click on Confirm"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/panel-overview.spec.tsx",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "7f8a9c395aa9577702b90e18c756c06fbb0a12f205f85ce78c36c2c7ac2bf1ce",
+    "lexical_test_titles": [
+      {
+        "line": 9,
+        "title": "leads the overview with the pending Tickets, then problems, the last day and the Executor, each linking to its stage"
+      },
+      {
+        "line": 29,
+        "title": "re-evaluates or dismisses an unjudged Eval from the problem list"
+      },
+      {
+        "line": 38,
+        "title": "opens the Thread of an unjudged Eval at its Trigger from the problem list"
+      },
+      {
+        "line": 45,
+        "title": "follows the last day\\'s counts to the status of each stage"
+      },
+      {
+        "line": 56,
+        "title": "offers each Ticket that needs a person its actions on the overview: answer in its Channel, retry or open a failed worker, and stop"
+      },
+      {
+        "line": 73,
+        "title": "shows paused processing as a system problem with its resume action, and says so on the Policy records"
+      },
+      {
+        "line": 87,
+        "title": "offers the step that fixes a settings problem as a button on the overview"
+      },
+      {
+        "line": 97,
+        "title": "counts the messages not sent in the last day, linking to the Source status, and shows nothing when there are none"
+      },
+      {
+        "line": 109,
+        "title": "names a failing part of dsh-superagent itself by its label"
+      },
+      {
+        "line": 116,
+        "title": "words a refused retry in the interface language by its code"
+      },
+      {
+        "line": 126,
+        "title": "shows the overview in English"
+      },
+      {
+        "line": 135,
+        "title": "lists the unavailable Evals one by one, without the health entry that counts them as a failure of dsh-superagent"
+      },
+      {
+        "line": 142,
+        "title": "says when no Source is on, an Eval is past its deadline or a message keeps failing, each with the way to it"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/panel-panel.spec.tsx",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "6adbde04601057e2cc513374f46e58609e17c4d1eb766eb0f2211e0b3a6ee913",
+    "lexical_test_titles": [
+      {
+        "line": 10,
+        "title": "states why a filtered search result has no Thread instead of opening an empty one"
+      },
+      {
+        "line": 21,
+        "title": "opens a search result older than the newest page around its Trigger"
+      },
+      {
+        "line": 32,
+        "title": "explains what can be searched when nothing matches"
+      },
+      {
+        "line": 39,
+        "title": "returns to the exact page after a remount of the main panel"
+      },
+      {
+        "line": 46,
+        "title": "shows domain terms in the interface language only and lists both languages in the (?) glossary"
+      },
+      {
+        "line": 60,
+        "title": "says dsh-superagent is not answering when its routes are gone, as while it restarts"
+      },
+      {
+        "line": 67,
+        "title": "closes search results on Escape and on a click outside the search"
+      },
+      {
+        "line": 81,
+        "title": "shows the answer to the latest search only"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/panel-prompts.spec.tsx",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "d2bc0198f2fa5f0ee69a94f341e6b1787aad08bf1a179e1b9ef32ae727c7a932",
+    "lexical_test_titles": [
+      {
+        "line": 11,
+        "title": "lists the team sections, then the built-in parts, edits and saves them separately from settings, and resets one section"
+      },
+      {
+        "line": 33,
+        "title": "keeps a conflicting prompt draft, rebases it onto the newer version and saves on retry"
+      },
+      {
+        "line": 45,
+        "title": "shows a built-in skill with the CLI notes in the full prompt, editable as a built-in part, and adds a team skill but no skill under a built-in name"
+      },
+      {
+        "line": 63,
+        "title": "loads all defaults into the draft from the history without saving them"
+      },
+      {
+        "line": 75,
+        "title": "keeps the Prompts save bar hidden while a preview loads for an unchanged draft"
+      },
+      {
+        "line": 87,
+        "title": "marks team sections that differ from the defaults, and shows a draft as a diff against the saved version or the defaults"
+      },
+      {
+        "line": 103,
+        "title": "discards a prompt draft by reading the saved version again"
+      },
+      {
+        "line": 114,
+        "title": "edits a built-in part as an override of its built-in text, marks it changed, and resets it to the built-in text"
+      },
+      {
+        "line": 136,
+        "title": "says which placeholders a template keeps"
+      },
+      {
+        "line": 144,
+        "title": "marks an override whose built-in text an upgrade changed, shows how it changed, and keeps the team\\'s text or takes the new one"
+      },
+      {
+        "line": 173,
+        "title": "shows the team\\'s text against the new default when the default it was edited from is not known, or is another one"
+      },
+      {
+        "line": 190,
+        "title": "keeps both sides\\' first overrides when a draft moves onto a version saved meanwhile"
+      },
+      {
+        "line": 204,
+        "title": "shows a draft\\'s template of a generated part filled, and names a part by its label when a save is refused"
+      },
+      {
+        "line": 219,
+        "title": "lists the overrides of parts this version no longer has, which the next save drops"
+      },
+      {
+        "line": 226,
+        "title": "loads a version from the history without its overrides of parts this version no longer has, so it saves"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/panel-settings.spec.tsx",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "927742c31e22e769fd5d8cfc6419b2cf9233086054cee19efea5b13683fc7dd5",
+    "lexical_test_titles": [
+      {
+        "line": 12,
+        "title": "keeps a person\\'s own value where another save changed the same setting, and says so"
+      },
+      {
+        "line": 26,
+        "title": "saves the Eval block on the Policy settings and the Executor with its execution environment on the Execution settings, each against its own revision"
+      },
+      {
+        "line": 63,
+        "title": "loads configuration history on demand with localized changes, Source field labels and notified Tickets"
+      },
+      {
+        "line": 77,
+        "title": "shows save and discard only while a settings block has edits, at the end of that block"
+      },
+      {
+        "line": 111,
+        "title": "gives the focus back to the field that had it once a block\\'s save ends"
+      },
+      {
+        "line": 127,
+        "title": "lists the settings groups stages first, opens each stage\\'s group from its status, and returns to the last group opened"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/panel-source.spec.tsx",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "d4fa5c3d4bbcf2189021824f08be4d7aaca9006711995aa86fc63f93f75049a7",
+    "lexical_test_titles": [
+      {
+        "line": 10,
+        "title": "shows each Source\\'s state on the Source status and opens its settings from a setup problem"
+      },
+      {
+        "line": 28,
+        "title": "folds more than six chats into a line of their names"
+      },
+      {
+        "line": 38,
+        "title": "rereads the chats the bot has joined on request and says which are new, keeping unsaved edits"
+      },
+      {
+        "line": 62,
+        "title": "renders each Source\\'s settings from its kind\\'s fields and saves one Source against its own revision"
+      },
+      {
+        "line": 96,
+        "title": "shows the account each CLI signs in as, and keeps a saved CLI on screen while dsh-superagent restarts"
+      },
+      {
+        "line": 123,
+        "title": "points a setup problem at the settings that fix it"
+      },
+      {
+        "line": 155,
+        "title": "shows a failed Feishu bot check as a problem of the Feishu Source only, with a check after a fix outside dsh-superagent"
+      },
+      {
+        "line": 175,
+        "title": "leaves Feishu out of a GitHub-only deployment"
+      },
+      {
+        "line": 185,
+        "title": "shows the Sources waiting for the deployment check, and the problem on the Source that fixes it, with its link"
+      },
+      {
+        "line": 198,
+        "title": "shows a Source\\'s health in the interface language, and a diagnostic as reported"
+      },
+      {
+        "line": 210,
+        "title": "shows a refused Source save with the output of the tool that failed on its own line"
+      },
+      {
+        "line": 220,
+        "title": "shows a setup problem on its Source card within one read of the settings, which the settings groups share"
+      },
+      {
+        "line": 235,
+        "title": "lists the messages a Source did not send in the last day under it, newest first, with why and where they belong"
+      },
+      {
+        "line": 262,
+        "title": "takes no space for messages that were all sent"
+      },
+      {
+        "line": 268,
+        "title": "reads the settings again as soon as dsh-superagent answers after a save restarted it"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/panel-trigger.spec.tsx",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "27da19a6a9dad80967215a5dc3efb847e8ae1b4af277b4ff92b355299f7b548f",
+    "lexical_test_titles": [
+      {
+        "line": 10,
+        "title": "walks a Thread timeline newest first with dispositions as tags and its Decisions, requeues a filtered Trigger, pages backwards and returns"
+      },
+      {
+        "line": 30,
+        "title": "offers to send a person\\'s message that reached a ticket to Eval, for one its worker neither did nor handed back"
+      },
+      {
+        "line": 39,
+        "title": "filters the Thread list by activity, and unsubscribes from a Thread page after confirmation"
+      },
+      {
+        "line": 52,
+        "title": "folds consecutive automated messages from one sender on a Thread, showing the newest with its text"
+      },
+      {
+        "line": 68,
+        "title": "reads the page around a link\\'s target once, also for a Trigger the Thread does not have, while it polls the newest page"
+      },
+      {
+        "line": 78,
+        "title": "shows a follow-up delivered to its Ticket without an Eval, a hand-back with why, and a Ticket that follows the Thread for context"
+      },
+      {
+        "line": 117,
+        "title": "reads back the Triggers between the newest page and the earlier ones it shows, once more arrive than a page holds"
+      },
+      {
+        "line": 137,
+        "title": "shows a link\\'s target far back with every Trigger after it"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/passes.spec.ts",
+    "groups": [
+      "DOM"
+    ],
+    "sha256": "08f2b57d4676672aaa3dd9e5896c1654fe16a6c42ff3323d4d8f3ed3296b5743",
+    "lexical_test_titles": [
+      {
+        "line": 17,
+        "title": "reports a failed pass as an error of the runtime, which the next pass that succeeds clears"
+      },
+      {
+        "line": 28,
+        "title": "runs the passes asked for during a pass as one pass after it"
+      },
+      {
+        "line": 36,
+        "title": "refuses a Trigger while dsh-superagent stops, before the Engine stores anything, and starts a pass for one it stored"
+      },
+      {
+        "line": 47,
+        "title": "starts no timer once stopped, as a start-up that ends after a stop asks"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/policy.spec.ts",
+    "groups": [
+      "AUTH"
+    ],
+    "sha256": "a558a71492d90c200cc9dd59926ab6255894816c7e29f2eb177bdcf9d7654214",
+    "lexical_test_titles": [
+      {
+        "line": 32,
+        "title": "listens to configured chats, reads every message only where configured, and follows the direct-message switch"
+      },
+      {
+        "line": 40,
+        "title": "listens to nothing from a configured Source whose plugin is not loaded, and keeps an invalid stored configuration disabled"
+      },
+      {
+        "line": 49,
+        "title": "filters everything from a disabled Source"
+      },
+      {
+        "line": 54,
+        "title": "grants explicit strength when the sender is allowed in its Source\\'s part and the Source marked the Trigger addressed"
+      },
+      {
+        "line": 60,
+        "title": "checks each Source\\'s own list: a Feishu id allows nothing on GitHub"
+      },
+      {
+        "line": 67,
+        "title": "assesses follow-ups on Threads with Tickets, explicit from an allowed sender and inferred from anyone else"
+      },
+      {
+        "line": 76,
+        "title": "infers strength for allowed senders\\' messages the Source observes, unless Eval is off"
+      },
+      {
+        "line": 81,
+        "title": "admits no direct message from a sender the Source\\'s part does not allow, not even as a follow-up"
+      },
+      {
+        "line": 84,
+        "title": "rejects automated messages, unknown senders without a Thread, and allowed senders who did not address the agent"
+      },
+      {
+        "line": 102,
+        "title": "reproduces the behaviour before the table with every cell unset"
+      },
+      {
+        "line": 109,
+        "title": "makes an unlisted sender\\'s mention explicit or inferred as the row says, and an inferred one waits for a mode that assesses"
+      },
+      {
+        "line": 117,
+        "title": "ignores a listed sender\\'s unaddressed message where the row says so, and never reads the table for messages the chat does not receive"
+      },
+      {
+        "line": 123,
+        "title": "listens to mentions in chats that are not listed, as the row other, only when the Feishu card says so"
+      },
+      {
+        "line": 130,
+        "title": "admits no inferred follow-up while Eval is off, as no other inferred candidate, and still a listed sender\\'s"
+      },
+      {
+        "line": 137,
+        "title": "makes an explicit request of an unlisted sender\\'s message whose cell is explicit, also on a Thread with Tickets, in every mode"
+      },
+      {
+        "line": 148,
+        "title": "keeps follow-ups on a Thread with Tickets outside the table"
+      },
+      {
+        "line": 153,
+        "title": "invalidates a Mandate once its cell gives less than the strength it was accepted with, and keeps it while the cell holds"
+      },
+      {
+        "line": 162,
+        "title": "changes the Policy version when a cell changes"
+      },
+      {
+        "line": 206,
+        "title": "keeps explicit Mandates while the sender stays allowed and the Source still listens, and rule Mandates only while auto mode and the rules hold"
+      },
+      {
+        "line": 224,
+        "title": "changes the Policy version for rules, accept mode and the Sources\\' parts, not for pause, concurrency, models or Source configuration"
+      },
+      {
+        "line": 233,
+        "title": "moves each member\\'s identity into each Source\\'s part of the Policy and drops the fields prompts and the execution environment replaced"
+      },
+      {
+        "line": 249,
+        "title": "moves pre-domain chat lists into the Feishu Source, the pause into a setting of its own, and members into the Sources\\' parts"
+      },
+      {
+        "line": 261,
+        "title": "leaves chats that were observed only while admission was off outside the Feishu Source"
+      },
+      {
+        "line": 267,
+        "title": "renames the variables a stored prepare command reads from earlier project names to the current one"
+      },
+      {
+        "line": 272,
+        "title": "reads a stored GitHub Source configuration that names a merge account without it"
+      },
+      {
+        "line": 287,
+        "title": "accepts an inferred candidate on its matched rules in auto mode only, and the Policy admits only enabled matched rules"
+      },
+      {
+        "line": 306,
+        "title": "refuses an explicit cell for messages that do not address the agent, in the settings and in a submitted Policy"
+      },
+      {
+        "line": 315,
+        "title": "accepts an explicit candidate whatever the accept mode, which bears only on inferred ones"
+      },
+      {
+        "line": 326,
+        "title": "admits a listed bot that mentions the agent where the Source does not observe its messages, as a listed person\\'s mention needs none"
+      },
+      {
+        "line": 335,
+        "title": "refuses an assessment that judges one enabled rule twice and leaves another unjudged"
+      },
+      {
+        "line": 354,
+        "title": "tells a ticket how a change bears on it, and leaves the others alone"
+      },
+      {
+        "line": 366,
+        "title": "tells an inferred ticket that inferred work is no longer accepted when the accept mode leaves auto, and names a bot it is for"
+      },
+      {
+        "line": 379,
+        "title": "keeps an inferred follow-up\\'s Mandate only while candidates become work and its rules are on, as any inferred one"
+      },
+      {
+        "line": 391,
+        "title": "revokes an inferred ticket whose cell weakens or whose candidates no longer become work, and reports a deleted rule disabled"
+      },
+      {
+        "line": 420,
+        "title": "admits a bot on its Source\\'s list as an inferred candidate where the Source observes its scope, and no other bot"
+      },
+      {
+        "line": 433,
+        "title": "keeps a bot candidate\\'s Mandate while the bot stays on its list and candidates may become work"
+      },
+      {
+        "line": 442,
+        "title": "admits the default branch\\'s CI through its row once observed and set, and never a PR\\'s CI"
+      },
+      {
+        "line": 453,
+        "title": "admits a Feishu bot on its list in a chat the Source observes"
+      },
+      {
+        "line": 464,
+        "title": "says on the GitHub bot list when a listed bot\\'s comment is received: when it mentions the agent, or comments are observed"
+      },
+      {
+        "line": 471,
+        "title": "names a GitHub Trigger\\'s receiving scope, which the Source observes where its switch is on"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/prompt-config.spec.ts",
+    "groups": [
+      "PRM"
+    ],
+    "sha256": "e21dd7f2add599536aef767056ff10ab4ba3e06399f10f0ec814463e21e5d4af",
+    "lexical_test_titles": [
+      {
+        "line": 6,
+        "title": "reads and writes a configuration by section, and lists the sections two configurations differ in"
+      },
+      {
+        "line": 16,
+        "title": "diffs two texts by line, folding a long unchanged run to its ends, and reads a team part with another text"
+      },
+      {
+        "line": 24,
+        "title": "overrides a built-in part, keeping the built-in text it was edited from until re-based, and drops an override equal to the built-in text"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/prompts.spec.ts",
+    "groups": [
+      "PRM"
+    ],
+    "sha256": "5c9e26761d1fde35f7153a3fb95e89f72ab69e5eb97c52413f53838210ef4f40",
+    "lexical_test_titles": [
+      {
+        "line": 24,
+        "title": "saves team sections and skills as versions that survive a restart, with history and rollback"
+      },
+      {
+        "line": 47,
+        "title": "assembles every role from fixed sections around the team sections, whatever the configuration says"
+      },
+      {
+        "line": 60,
+        "title": "reads a prompt file whatever its line ends and blank lines, and names a missing or empty one"
+      },
+      {
+        "line": 73,
+        "title": "leaves the UI before-and-after evidence to the delivery requirements, which a team can change"
+      },
+      {
+        "line": 93,
+        "title": "rejects unknown keys, built-in skill names and oversized configuration before persisting"
+      },
+      {
+        "line": 105,
+        "title": "lists a ticket\\'s execution environment in its prompt, and says setup is incomplete before setup finished"
+      },
+      {
+        "line": 115,
+        "title": "registers the built-in Source skills, Feishu only with a Feishu bot, before the team skills"
+      },
+      {
+        "line": 130,
+        "title": "compose in place of the built-in texts, for the roles that read each, the handoff per role and the Source skills"
+      },
+      {
+        "line": 147,
+        "title": "fill the templates of the generated parts with the data, which stays generated"
+      },
+      {
+        "line": 164,
+        "title": "refuses an unknown part and a template that drops a placeholder, and drops an override equal to the built-in text"
+      },
+      {
+        "line": 178,
+        "title": "records the built-in text an override was edited from, and lists the overrides whose built-in text changed since"
+      },
+      {
+        "line": 196,
+        "title": "reads a configuration saved before overrides existed unchanged"
+      },
+      {
+        "line": 204,
+        "title": "drops an override of a part a later version no longer has, which the saved version holds, and lists it as removed"
+      },
+      {
+        "line": 216,
+        "title": "keeps the base of the saved override of a part when a save omits it, and shows a re-based override as a change"
+      },
+      {
+        "line": 227,
+        "title": "refuses a part an object\\'s prototype names, and empty text, and fills no placeholder a prototype names"
+      },
+      {
+        "line": 240,
+        "title": "keeps the environment heading as it was, naming the prepare command"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/queue.spec.ts",
+    "groups": [
+      "DOM",
+      "REC"
+    ],
+    "sha256": "3271c31da2e00b9d5bc41dd602b3239ca87336c424bef3e45377d9967d2e044d",
+    "lexical_test_titles": [
+      {
+        "line": 10,
+        "title": "delivers the relays, subscription changes and notifications that a version before the effect queue kept, once the migration queued them"
+      },
+      {
+        "line": 28,
+        "title": "keeps only the latest settings notice while the main Session cannot take one"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/registry.spec.ts",
+    "groups": [
+      "SRC"
+    ],
+    "sha256": "2eb3101a681ff53508c748bff53c9283d3d14421609866e8f1ab27079c097d8c",
+    "lexical_test_titles": [
+      {
+        "line": 23,
+        "title": "lists every installed kind with defaults, in id order, followed by stored instances whose kind is not installed"
+      },
+      {
+        "line": 34,
+        "title": "validates submitted instances with the kind schema and refuses kinds that are not installed"
+      },
+      {
+        "line": 41,
+        "title": "sends, links and reads a kind\\'s Threads through its own channel and context, and nothing for a kind without them"
+      },
+      {
+        "line": 76,
+        "title": "refuses a kind that declares a health entry another kind or dsh-superagent itself reports, and gives up its entries at unregister"
+      },
+      {
+        "line": 101,
+        "title": "names the Trigger whose message a Trigger\\'s message answers, where its kind can"
+      },
+      {
+        "line": 110,
+        "title": "finds what a search query names in each kind\\'s terms"
+      },
+      {
+        "line": 119,
+        "title": "refuses a second registration of one kind and forgets a kind after its disposer runs"
+      },
+      {
+        "line": 126,
+        "title": "validates each Source\\'s part of the Policy with its kind, keeping parts of kinds that are not installed as stored"
+      },
+      {
+        "line": 137,
+        "title": "allows a reply only on a Channel whose Source still listens to its chat"
+      },
+      {
+        "line": 148,
+        "title": "delivers a reply to a direct message under the default settings"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/retry-health.spec.ts",
+    "groups": [
+      "RUN"
+    ],
+    "sha256": "a549241ee55f456e7e82676039dd9669d534f43f70655587b5c4a698ba0e4053",
+    "lexical_test_titles": [
+      {
+        "line": 17,
+        "title": "projects native retry schedules without exposing failure text or policy data"
+      },
+      {
+        "line": 51,
+        "title": "ignores quoted assistant/user text and failed attempts without a scheduled retry"
+      },
+      {
+        "line": 59,
+        "title": "keeps independent sessions and starts a fresh status for a new provider or chain"
+      },
+      {
+        "line": 73,
+        "title": "does not let duplicate, out-of-order or previous-step events replace or clear the active wait"
+      },
+      {
+        "line": 89,
+        "title": "does not treat interrupted assistant output as success"
+      },
+      {
+        "line": 98,
+        "title": "clears when the active request now retries a different failure, not when the retry starts"
+      },
+      {
+        "line": 119,
+        "title": "reconstructs only the active wait from a restored snapshot and permits idle cleanup"
+      },
+      {
+        "line": 132,
+        "title": "bounds counters and provider labels and exposes detached status values only"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/role-models.spec.ts",
+    "groups": [
+      "RUN"
+    ],
+    "sha256": "5143e10b5b10556e53eac202584501248d4d648a9568c67cd8f47032a9e6c0b5",
+    "lexical_test_titles": [
+      {
+        "line": 24,
+        "title": "keeps prompt variables and initial routing on the role model without saving the host default"
+      },
+      {
+        "line": 38,
+        "title": "lets a later explicit selection win without changing the in-flight assembled step"
+      },
+      {
+        "line": 57,
+        "title": "inherits the host when unset and fails unavailable routes before recording a selection"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/runtime-concurrency.spec.ts",
+    "groups": [
+      "RUN",
+      "REC"
+    ],
+    "sha256": "c29f5528381a30f27d9ee9bbf4af451dd32eeed8b2e66ab049137d87a02c0d2a",
+    "lexical_test_titles": [
+      {
+        "line": 31,
+        "title": "evaluates a message that arrives on a thread while an earlier candidate\\'s card waits for its link, in the thread\\'s next Eval"
+      },
+      {
+        "line": 51,
+        "title": "delivers nothing to a ticket a person stopped while an earlier ticket\\'s delivery waited"
+      },
+      {
+        "line": 69,
+        "title": "drops a delivery whose ticket a person stopped while it waited for the worker Session"
+      },
+      {
+        "line": 84,
+        "title": "runs prepare commands in the background, side by side, while accepts, intake and passes go on"
+      },
+      {
+        "line": 108,
+        "title": "keeps a launch that a pause cut short queued, and finishes it once processing resumes"
+      },
+      {
+        "line": 128,
+        "title": "wakes an idle worker for a bot\\'s Input only when a worker slot is free, and creates a worker Session someone deleted again"
+      },
+      {
+        "line": 146,
+        "title": "wakes an idle worker for a person\\'s message at once, in the slot kept beyond the limit"
+      },
+      {
+        "line": 158,
+        "title": "counts a launch under way against maxWorkers, so a bot\\'s Input for an idle worker waits for the slot"
+      },
+      {
+        "line": 179,
+        "title": "records on the ticket that its worker Session could not be created again"
+      },
+      {
+        "line": 191,
+        "title": "lets a worker go on after a passing provider failure, three times, before its ticket fails"
+      },
+      {
+        "line": 214,
+        "title": "starts the count of passing failures again once its turn ends as turns do"
+      },
+      {
+        "line": 230,
+        "title": "waits while processing is paused, and goes on once it resumes"
+      },
+      {
+        "line": 245,
+        "title": "drops its timer when the host stops within the backoff"
+      },
+      {
+        "line": 264,
+        "title": "stays busy while its shell job runs, holding its slot, and reports waiting once the job ended and its turn ends"
+      },
+      {
+        "line": 281,
+        "title": "stays busy while a subagent of it works, and reports waiting once the turn its end woke it for ends"
+      },
+      {
+        "line": 292,
+        "title": "kills its shell jobs and releases its subagents when its ticket stops, whose ends wake no one, and lets it start new ones"
+      },
+      {
+        "line": 307,
+        "title": "reports waiting for the Assignment that replaced one whose idle still waited for its subagents"
+      },
+      {
+        "line": 352,
+        "title": "frees the slot of a worker that reports blocked, stopping its subagents and leaving its jobs, whose end wakes no one"
+      },
+      {
+        "line": 355,
+        "title": "keeps a failed worker from being woken by a job it left, and from failing again"
+      },
+      {
+        "line": 358,
+        "title": "frees the slot of a worker that reports ready on a ticket that follows its pull request"
+      },
+      {
+        "line": 361,
+        "title": "frees the slot of a worker that asks a person a question with a progress report"
+      },
+      {
+        "line": 364,
+        "title": "leaves the background work of a turn a person started in the worker\\'s Session after a hand-off to that turn"
+      },
+      {
+        "line": 381,
+        "title": "leaves the jobs a worker left to a person out of a later turn\\'s background work, and does not kill them at the limit"
+      },
+      {
+        "line": 397,
+        "title": "records each end of a worker\\'s turn on its Assignment, also after its ready report"
+      },
+      {
+        "line": 406,
+        "title": "shows no turn end on a running Assignment whose worker works again, whatever turn ends were recorded"
+      },
+      {
+        "line": 414,
+        "title": "keeps a ticket open at a merge while its worker does in the background a message it acknowledged"
+      },
+      {
+        "line": 432,
+        "title": "keeps a worker busy with what it started after a message reached its ready ticket"
+      },
+      {
+        "line": 452,
+        "title": "gives each idle of a worker its own 30 minutes, not counting the turns that ends of its background work wake it for"
+      },
+      {
+        "line": 475,
+        "title": "kills the jobs that run 30 minutes after the turn ended, leaving its subagents, and reports waiting after the worker\\'s words"
+      },
+      {
+        "line": 497,
+        "title": "says a worker\\'s subagents still run when only they ran 30 minutes after the turn ended"
+      },
+      {
+        "line": 505,
+        "title": "holds a delivery that reached a worker while a hand-off stopped its subagents until the stop ended"
+      },
+      {
+        "line": 529,
+        "title": "keeps an Input a restart found handed over to a settled worker, and delivers a waiting one once its subagents stopped"
+      },
+      {
+        "line": 558,
+        "title": "collects the end of a job left to a person until dsh-superagent stopped its workers"
+      },
+      {
+        "line": 573,
+        "title": "stops every worker\\'s jobs and subagents when dsh-superagent stops, before it releases their tool limits"
+      },
+      {
+        "line": 580,
+        "title": "cancels no worker for a subagent that ended before, and cancels the turn a release woke also when the release fails"
+      },
+      {
+        "line": 597,
+        "title": "stops the jobs and the turn of a worker a restart in this process left running, before its Assignment starts again"
+      },
+      {
+        "line": 605,
+        "title": "stops a ticket whose worker Session was never created without a health error, and goes on past a failing kill"
+      },
+      {
+        "line": 656,
+        "title": "sends to Eval a message that woke a ticket and that a retry delivered after a progress report, at a dropped report"
+      },
+      {
+        "line": 670,
+        "title": "counts a delivered message as read only once its step took it into the Session, not when a cut-off step claimed it"
+      },
+      {
+        "line": 681,
+        "title": "keeps a note waiting in a worker\\'s Session across an in-process restart, for the next Assignment\\'s first step"
+      },
+      {
+        "line": 693,
+        "title": "delivers once a message a crash left waiting in a worker\\'s Session, which the restart puts back for the next Assignment"
+      },
+      {
+        "line": 710,
+        "title": "gives the Assignment an in-process restart starts a message a cut-off step had claimed, once"
+      },
+      {
+        "line": 722,
+        "title": "counts a message that woke a ticket as read by a later dropped report once a step of its worker took it"
+      },
+      {
+        "line": 732,
+        "title": "counts a message a retry delivered to its idle worker as read by the report of the turn it woke"
+      },
+      {
+        "line": 747,
+        "title": "sends to Eval at a merge a message that reached the worker after its last step, which no step took before its turn ended"
+      },
+      {
+        "line": 765,
+        "title": "reports nothing for a worker whose turn ends while it waits out the backoff of a passing failure"
+      },
+      {
+        "line": 777,
+        "title": "wakes an idle worker for a status request in the slot kept for a person, while every other slot is taken"
+      },
+      {
+        "line": 791,
+        "title": "tells a passing failure of the provider or the network from one that a later try would meet again"
+      },
+      {
+        "line": 800,
+        "title": "reports a worker waiting when its turn ends after a person answered its blocked report"
+      },
+      {
+        "line": 813,
+        "title": "resumes an ended ticket a person wrote to during a pause once it lifts, under the Policy then"
+      },
+      {
+        "line": 842,
+        "title": "ends a worker\\'s turn only when the stop that ended its Assignment commits"
+      },
+      {
+        "line": 853,
+        "title": "holds one worker slot per ticket that runs or starts, and lets launches take the slots no worker or wake holds"
+      },
+      {
+        "line": 868,
+        "title": "wakes a worker for a person\\'s message in the one slot beyond the limit, and ahead of launches once a slot frees up"
+      },
+      {
+        "line": 883,
+        "title": "words an assignment, and the limits an inferred mandate sets, from the ticket alone"
+      },
+      {
+        "line": 904,
+        "title": "renders each kind of Input as its worker reads it, inline, and no reopen Input"
+      },
+      {
+        "line": 932,
+        "title": "relays a worker\\'s question, result or answer to the main Session, and keeps its progress internal"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/runtime.spec.ts",
+    "groups": [
+      "RUN"
+    ],
+    "sha256": "e3c0cfb494307adca014d6c958f5c0f92ffcaaccdfb13b5dba2fb28ef6472752",
+    "lexical_test_titles": [
+      {
+        "line": 219,
+        "title": "relays an explicit member mention as a candidate and creates the ticket, acknowledgement, subscription and worker on accept"
+      },
+      {
+        "line": 243,
+        "title": "fans a person\\'s later thread message out to the live worker as context and tells the orchestrator, without an Eval"
+      },
+      {
+        "line": 265,
+        "title": "assesses a proactive observation in the orchestrator Session and creates the ticket only on a positive auto-mode decision"
+      },
+      {
+        "line": 295,
+        "title": "accepts silently under a rule that says so, gives the worker the rule procedure, and closes it as dropped when nothing is left for a human"
+      },
+      {
+        "line": 320,
+        "title": "records worker reports, binds the task PR, ends the ticket on ready without a PR, and relays attention"
+      },
+      {
+        "line": 353,
+        "title": "lists each ticket with the Threads it subscribes to, as their Sources describe them"
+      },
+      {
+        "line": 364,
+        "title": "shows a message that carries JSON, with or without a label, as its label and values on lines"
+      },
+      {
+        "line": 372,
+        "title": "ends a ticket on ready when no PR is bound"
+      },
+      {
+        "line": 379,
+        "title": "stops a ticket on a person\\'s instruction for good, and resumes an ended one on any person\\'s message on its thread"
+      },
+      {
+        "line": 408,
+        "title": "tells live workers about policy changes instead of revoking them and restarts in-flight assessments"
+      },
+      {
+        "line": 434,
+        "title": "attaches an event to an existing open task through orchestrator_route"
+      },
+      {
+        "line": 445,
+        "title": "acknowledges a follow-up from the worker once and rejects events outside the task"
+      },
+      {
+        "line": 457,
+        "title": "treats GitHub comments through the same gate: mentions by members are explicit, others need an existing task"
+      },
+      {
+        "line": 474,
+        "title": "relays an allowed sender\\'s mention in a new Issue as an explicit candidate from the poll that reads its notification"
+      },
+      {
+        "line": 489,
+        "title": "ignores an allowed sender\\'s new Issue that does not mention the agent, and an unlisted sender\\'s mention, from the poll that reads them"
+      },
+      {
+        "line": 510,
+        "title": "keeps Issue Triggers stored before Issues arrived through notifications readable on their Thread"
+      },
+      {
+        "line": 523,
+        "title": "relaunches running assignments after a restart with a recovery note"
+      },
+      {
+        "line": 538,
+        "title": "projects read models for the management page and removes thread subscriptions from the Web surface"
+      },
+      {
+        "line": 567,
+        "title": "lets an Executor drop only its own ticket from a thread it finds unrelated, but not the thread it started on or its pull request\\'s"
+      },
+      {
+        "line": 586,
+        "title": "reports a Source that was switched on as starting until its next pass reports its health"
+      },
+      {
+        "line": 600,
+        "title": "records each settings save with its policy change and the open tickets told about it"
+      },
+      {
+        "line": 619,
+        "title": "refuses an accept through orchestrator_route for inferred candidates so proactive work always goes through Eval"
+      },
+      {
+        "line": 626,
+        "title": "syncs a Source\\'s list once its plugin loads after dsh-superagent started"
+      },
+      {
+        "line": 634,
+        "title": "syncs the Feishu part of the Policy from its sync chat in place, and keeps the Policy version when only the order the chat lists changes"
+      },
+      {
+        "line": 651,
+        "title": "describes rule edits in the Policy history and skips Policy syncs that change nothing"
+      },
+      {
+        "line": 662,
+        "title": "records an admission table change in the Policy history as one line for its Source, with a new Policy version"
+      },
+      {
+        "line": 670,
+        "title": "retries only a failed, blocked or undelivered ticket with a new assignment, and finds tickets by title in search, and reports unavailable Evals as a problem"
+      },
+      {
+        "line": 717,
+        "title": "links Channels and Threads for people, finds tickets by a bare PR number, and keeps ended subscriptions out of the default Thread filter"
+      },
+      {
+        "line": 735,
+        "title": "counts every step of the day\\'s flow over the same arriving messages and lists the same accepted Decisions"
+      },
+      {
+        "line": 745,
+        "title": "queues a requeued trigger visibly and tells the orchestrator"
+      },
+      {
+        "line": 754,
+        "title": "asks a question where the human message that raised it was written, not in the ticket\\'s original conversation"
+      },
+      {
+        "line": 771,
+        "title": "finds triggers by #PR number, GitHub link prefix and Feishu message id"
+      },
+      {
+        "line": 781,
+        "title": "keeps pages of Source reads, prompt previews and Feishu message links in memory, outside the kv area"
+      },
+      {
+        "line": 795,
+        "title": "reads resources recorded under the pre-vocabulary names"
+      },
+      {
+        "line": 801,
+        "title": "leaves waiting and blocked assignments alone after a restart and keeps blocked workers paused"
+      },
+      {
+        "line": 813,
+        "title": "waits for setup without the agent\\'s GitHub CLI: the panel works, and nothing is polled, assessed or dispatched"
+      },
+      {
+        "line": 843,
+        "title": "reports each setup problem where the operator fixes it, and checks the agent CLI the way worker shells run it"
+      },
+      {
+        "line": 871,
+        "title": "reports a failure to write the agent environment as environmentFailed and leaves this process\\'s environment as it was"
+      },
+      {
+        "line": 884,
+        "title": "checks only the account a Source save changes, so a problem setup has elsewhere does not refuse it"
+      },
+      {
+        "line": 897,
+        "title": "lets only the panel change the execution environment, since it decides what runs as a shell command and which CLIs workers reach"
+      },
+      {
+        "line": 909,
+        "title": "checks a changed account CLI before saving it, restarts after the save, and lets only the panel change it"
+      },
+      {
+        "line": 936,
+        "title": "lists Tickets that wait on a person with where to answer them, as the overview does"
+      },
+      {
+        "line": 942,
+        "title": "pauses and resumes processing as its own action, a setting outside every block, which keeps an Executor settings draft valid"
+      },
+      {
+        "line": 957,
+        "title": "runs setup again while the Feishu bot check failed, and restores the process environment when git fails its check"
+      },
+      {
+        "line": 973,
+        "title": "writes worker shims and the agent environment from the configuration only, and restores the environment on stop"
+      },
+      {
+        "line": 993,
+        "title": "waits for setup when the shim directory holds a file dsh-superagent did not write, and leaves the file alone"
+      },
+      {
+        "line": 1003,
+        "title": "rewrites the blocked-command shims when the Executor settings change them, without a restart"
+      },
+      {
+        "line": 1015,
+        "title": "tells both roles the execution environment through a generated prompt section, and each worker its own ticket\\'s"
+      },
+      {
+        "line": 1033,
+        "title": "lets a worker read the prompt version it works under and the ones it worked under before, also after a restart, and no other"
+      },
+      {
+        "line": 1055,
+        "title": "passes team text with template braces to every Session literally, without reading them as prompt variables"
+      },
+      {
+        "line": 1067,
+        "title": "leaves auto-merge to the delivery requirements, with the agent\\'s own gh and the line threshold"
+      },
+      {
+        "line": 1079,
+        "title": "runs the prepare command once for a new ticket, under the execution root with the ticket\\'s environment, and fails the ticket with its output"
+      },
+      {
+        "line": 1099,
+        "title": "counts a ticket whose directory the host prepared before prepare commands existed as prepared"
+      },
+      {
+        "line": 1113,
+        "title": "runs a GitHub-only deployment: the GitHub part of the Policy decides alone, and the Feishu part has nothing to sync"
+      },
+      {
+        "line": 1134,
+        "title": "credits each human reviewer once in the default delivery requirements on every commit of the PR, never with an empty commit"
+      },
+      {
+        "line": 1143,
+        "title": "shows a failed reply as a problem with its attempts, an error of the reply effects after three, until it is withdrawn"
+      },
+      {
+        "line": 1182,
+        "title": "sends a Ticket\\'s later result after its acknowledgement that failed once, and holds no other Ticket\\'s message in the chat"
+      },
+      {
+        "line": 1196,
+        "title": "stops holding a Ticket\\'s later messages behind one that failed three times, which the overview shows"
+      },
+      {
+        "line": 1210,
+        "title": "keeps the receipt of a message withdrawn while it went out, so its id is not queued again"
+      },
+      {
+        "line": 1219,
+        "title": "resumes several ended tickets on one thread from one message without the launch waiting on itself"
+      },
+      {
+        "line": 1235,
+        "title": "attaches a message to an ended ticket and so resumes it"
+      },
+      {
+        "line": 1245,
+        "title": "rereads a Source\\'s display names on request, reports the new ones and keeps the list when the read fails"
+      },
+      {
+        "line": 1257,
+        "title": "drops a message only when its conversation is gone or not listened to, newest drop first, and keeps it while its Source is off"
+      },
+      {
+        "line": 1289,
+        "title": "reports a dropped acknowledgement as dropped, with its Ticket on the Source status and in the last day\\'s flow"
+      },
+      {
+        "line": 1301,
+        "title": "refuses a settings save with an unknown model or a Source kind that is not installed, an oversized prompt, an unknown revision and a malformed path with 4xx"
+      },
+      {
+        "line": 1327,
+        "title": "records a report, the PR it binds and its relay together, or none of them"
+      },
+      {
+        "line": 1346,
+        "title": "tells the main Session of each requeue of the same Trigger"
+      },
+      {
+        "line": 1358,
+        "title": "keeps replies and acknowledgements to an IM conversation within the IM limit"
+      },
+      {
+        "line": 1368,
+        "title": "refuses a second process on the same state directory before it opens the database, so it migrates nothing"
+      },
+      {
+        "line": 1380,
+        "title": "applies a changed prompt size limit to the next save and request without a restart"
+      },
+      {
+        "line": 1404,
+        "title": "releases the database and the state directory lock when it fails to start, so it can start again in this process"
+      },
+      {
+        "line": 1420,
+        "title": "tells the conversation that the PR merged when work a restart recovered ends with it later"
+      },
+      {
+        "line": 1443,
+        "title": "restarts a worker that was mid-work when the host stopped with the recovery note, and records no end of its turn"
+      },
+      {
+        "line": 1463,
+        "title": "keeps the report of a blocked, failed or ready worker whose turn ends, and relays nothing more"
+      },
+      {
+        "line": 1477,
+        "title": "relays the status-request hint when a worker\\'s turn ends with no text and no report"
+      },
+      {
+        "line": 1487,
+        "title": "fails a ticket at once on a worker error that is not passing, and relays it"
+      },
+      {
+        "line": 1494,
+        "title": "refuses the main Session a bash command that runs sleep and a long job wait, as reports arrive by themselves, and no worker"
+      },
+      {
+        "line": 1532,
+        "title": "reads the main Session\\'s preset from a registry with or without presetForSession, and takes standard\\'s caps when it cannot"
+      },
+      {
+        "line": 1558,
+        "title": "refuses an ended ticket\\'s worker its tools, and restricts the main Session to the tools it may use"
+      },
+      {
+        "line": 1569,
+        "title": "gives an explicit ticket\\'s worker a prompt without the limits of an inferred Mandate"
+      },
+      {
+        "line": 1575,
+        "title": "runs a launch that fails for a passing reason again on the launch backoff three times, then fails its ticket; a failed prepare fails at once"
+      },
+      {
+        "line": 1619,
+        "title": "launches a queued Assignment once when the host resumes, and gives a failed launch\\'s slot back"
+      },
+      {
+        "line": 1642,
+        "title": "shows the settings history when one revision holds values its Source kind no longer accepts, without that revision\\'s changes"
+      },
+      {
+        "line": 1656,
+        "title": "restarts a worker whose shell job the host stop ended with the recovery note, as a worker mid-work"
+      },
+      {
+        "line": 1675,
+        "title": "creates an Executor Session under the bundle\\'s worker preset, and the main Session under its router preset"
+      },
+      {
+        "line": 1682,
+        "title": "selects its own preset again for a main Session or worker a person switched before its first turn, and not after it"
+      },
+      {
+        "line": 1713,
+        "title": "gives a subagent of a worker only the worker\\'s work tools, and none once the ticket ended"
+      },
+      {
+        "line": 1732,
+        "title": "gives a subagent of a worker\\'s subagent the same work tools and guard"
+      },
+      {
+        "line": 1747,
+        "title": "gives the Assignment a restart starts the messages the replaced one had delivered but no step took, once"
+      },
+      {
+        "line": 1762,
+        "title": "ends the main Session\\'s prompt with its Policy section, each rule on one line, and says orchestrator_eval holds no rules"
+      },
+      {
+        "line": 1776,
+        "title": "keeps the Policy the main Session judges by in its prompt, after admission and the rest, as the latest save left it"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/service-script.spec.ts",
+    "groups": [
+      "DEP"
+    ],
+    "sha256": "57bf507d5bb7e8fd98beb6d250c7f459ff042eacbc39491d678138e07beaa84d",
+    "lexical_test_titles": [
+      {
+        "line": 69,
+        "title": "refuses to stop when two processes serve the profile, before it writes the stop marker"
+      },
+      {
+        "line": 74,
+        "title": "keeps a stop per profile"
+      },
+      {
+        "line": 81,
+        "title": "takes no `dsh plugin` command of the profile for its service"
+      },
+      {
+        "line": 87,
+        "title": "records the service PID at start, and still refuses a second instance the scan finds"
+      },
+      {
+        "line": 107,
+        "title": "waits only for the process it stopped"
+      },
+      {
+        "line": 113,
+        "title": "keeps only the newest logs it wrote for the profile"
+      },
+      {
+        "line": 135,
+        "title": "reports a service whose Feishu bot setup could not check as running, and reads an answer with keys missing"
+      },
+      {
+        "line": 145,
+        "title": "exits 2 while a part such as a Source reports an error, which a restart does not fix, and prints what it reports"
+      },
+      {
+        "line": 155,
+        "title": "exits 3 while the service waits for setup, from status and from start, which a restart does not fix"
+      },
+      {
+        "line": 164,
+        "title": "restarts the service, and a restart whose graceful stop timed out does not keep recovery off"
+      },
+      {
+        "line": 182,
+        "title": "refuses a second control operation while one holds the profile\\'s lock"
+      },
+      {
+        "line": 195,
+        "title": "refuses to start a service while no process runs it but something answers at its URL"
+      },
+      {
+        "line": 202,
+        "title": "starts the service in a new window of the profile\\'s tmux session when the session exists"
+      },
+      {
+        "line": 214,
+        "title": "exits 1 when the started service does not answer in time, and leaves its process running"
+      },
+      {
+        "line": 222,
+        "title": "does not signal a process that took the recorded service PID, and keeps a stop that timed out"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/settings.spec.ts",
+    "groups": [
+      "PRM",
+      "CFG"
+    ],
+    "sha256": "119d7c86e03c5a14f585f58d257f3d590ee02dc3564391ecde2560107b8d7079",
+    "lexical_test_titles": [
+      {
+        "line": 18,
+        "title": "refuses a save of a block that another save changed during its model or account check, and saves nothing of it"
+      },
+      {
+        "line": 44,
+        "title": "refuses a Policy sync that a Policy save outran, reports it on sync:feishu, and keeps the save"
+      },
+      {
+        "line": 60,
+        "title": "syncs a Policy part again after a failed sync, a minute later and then after a wait that doubles, until it succeeds"
+      },
+      {
+        "line": 88,
+        "title": "records nothing for a pause that changes nothing, refuses a sync while setup waits, and names an unknown block"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/sources.spec.ts",
+    "groups": [
+      "SRC"
+    ],
+    "sha256": "81fe3decc59db85f2fc792a9a6d7026ed26f38a9d282c0f85cd7123155798d78",
+    "lexical_test_titles": [
+      {
+        "line": 93,
+        "title": "registers its kind without a bot, and names on its health what setup still needs"
+      },
+      {
+        "line": 115,
+        "title": "translates live events into triggers keyed by root message, and drops the bot\\'s own messages"
+      },
+      {
+        "line": 125,
+        "title": "polls subscribed threads and stores unseen replies as triggers on that thread"
+      },
+      {
+        "line": 151,
+        "title": "translates a polled topic reply as the event consumer translates the live event"
+      },
+      {
+        "line": 179,
+        "title": "reads message times given as epoch milliseconds or as local times, and refuses others"
+      },
+      {
+        "line": 184,
+        "title": "polls a subscribed topic while a live ticket follows it or it had a message in the last two weeks"
+      },
+      {
+        "line": 200,
+        "title": "keeps a quiet topic in history recovery while a subscribed Thread that is polled follows it"
+      },
+      {
+        "line": 217,
+        "title": "refuses a history page with a message outside its chat or topic, and a page token that does not advance"
+      },
+      {
+        "line": 239,
+        "title": "stops reading a polled topic at the first message it knew, once the topic\\'s first poll ran"
+      },
+      {
+        "line": 261,
+        "title": "recovers the topics of a chat while they had a message in the last two weeks, and forgets quieter ones"
+      },
+      {
+        "line": 289,
+        "title": "skips and counts a history message it cannot read, and takes in the others"
+      },
+      {
+        "line": 304,
+        "title": "waits a second before restarting the event consumer after a run that stayed up for a minute, and backs off otherwise"
+      },
+      {
+        "line": 310,
+        "title": "syncs its part of the Policy from the sync chat: people who left are removed, names follow the chat, new people are appended"
+      },
+      {
+        "line": 328,
+        "title": "normalizes comments and reviews into triggers with review-thread channels, and marks only GitHub Apps and machine accounts as automated"
+      },
+      {
+        "line": 344,
+        "title": "reads the address of an Issue, a PR or a review comment of the repository, and nothing else"
+      },
+      {
+        "line": 355,
+        "title": "matches a branch to a ticket by its short name as the last path segment"
+      },
+      {
+        "line": 361,
+        "title": "describes CI as one fact: failed checks first, then unfinished ones, otherwise passed"
+      },
+      {
+        "line": 368,
+        "title": "starts a review comment\\'s text with its file, line and diff lines, and keeps them and the comment it answers"
+      },
+      {
+        "line": 376,
+        "title": "gives an assessment of a review comment the earlier comments of its review thread"
+      },
+      {
+        "line": 391,
+        "title": "starts a CI Trigger\\'s text with what failed or still runs, so its preview says it"
+      },
+      {
+        "line": 403,
+        "title": "binds a PR to the unique live ticket on its branch and ends tickets when the PR closes"
+      },
+      {
+        "line": 436,
+        "title": "keeps a ticket working on its other open PR when one of its PRs merges"
+      },
+      {
+        "line": 453,
+        "title": "follows a PR it opened again when it reopens, while another PR it opened is open"
+      },
+      {
+        "line": 461,
+        "title": "ends a ticket when its own PR merges, though the PR it started from is still open"
+      },
+      {
+        "line": 470,
+        "title": "writes the terminal notice in English for a request without Han characters"
+      },
+      {
+        "line": 480,
+        "title": "polls subscribed PR threads since their checkpoint and skips the bot\\'s own comments"
+      },
+      {
+        "line": 497,
+        "title": "polls a subscribed Thread for two weeks after the Ticket that follows it ended"
+      },
+      {
+        "line": 514,
+        "title": "polls a subscribed Thread while a live ticket follows it or its last Trigger is under two weeks old"
+      },
+      {
+        "line": 534,
+        "title": "takes in a review decision without a body and skips a plain review comment without one"
+      },
+      {
+        "line": 548,
+        "title": "reads each PR once per round and takes its end, auto-merge and CI from that read"
+      },
+      {
+        "line": 575,
+        "title": "reads each notified Issue alone and reads a failed one again next round, from where it was"
+      },
+      {
+        "line": 602,
+        "title": "drops an Issue GitHub reports as deleted after recording it, and reads one it answers 404 for again"
+      },
+      {
+        "line": 623,
+        "title": "skips and counts a notification or comment it cannot read, and names the count in the health"
+      },
+      {
+        "line": 636,
+        "title": "reads every page of the notifications when GitHub says there are more, and waits as long as GitHub asks"
+      },
+      {
+        "line": 658,
+        "title": "drops a notified Issue whose reads fail for a day, so the Source leaves the error, and keeps its read position"
+      },
+      {
+        "line": 683,
+        "title": "polls the PRs of open tickets and subscribed Threads although the notifications fail, and then fails the round"
+      },
+      {
+        "line": 696,
+        "title": "takes in the description of a notified PR someone opened since the cursor, as a new PR\\'s stream does"
+      },
+      {
+        "line": 717,
+        "title": "reads a subscribed default-branch CI Thread as no Issue, and keeps no poll error on it"
+      },
+      {
+        "line": 728,
+        "title": "drops an Issue or a ticket\\'s PR that GitHub answers 410 for, and keeps a failed PR read on its Thread"
+      },
+      {
+        "line": 762,
+        "title": "waits for setup, pauses while the Source is off, and counts only consecutive failed polls towards an error"
+      },
+      {
+        "line": 805,
+        "title": "reports a failure that escapes the polling loop as its health instead of an unhandled rejection"
+      },
+      {
+        "line": 834,
+        "title": "takes in a new Issue from its notification as a Trigger with its body, addressed to the agent when the body mentions it"
+      },
+      {
+        "line": 852,
+        "title": "takes in a comment on an earlier Issue from its notification, without the Issue body"
+      },
+      {
+        "line": 866,
+        "title": "keeps one body Trigger for an Issue that a later poll reads again"
+      },
+      {
+        "line": 877,
+        "title": "takes in an Issue without a mention as a Trigger that is not addressed, and a bot\\'s Issue as automated"
+      },
+      {
+        "line": 890,
+        "title": "keeps an Issue body the unclaimed-Issue Source stored before as the one Trigger of that body"
+      },
+      {
+        "line": 903,
+        "title": "takes in an Issue body only when the Issue was opened since the cursor, not when an edit or a comment changed it"
+      },
+      {
+        "line": 913,
+        "title": "reads a PR that a notification names by its Issue address as the PR"
+      },
+      {
+        "line": 928,
+        "title": "moves no read position when the Source is turned off during a read"
+      },
+      {
+        "line": 943,
+        "title": "lets a ticket follow its source PR or the agent\\'s PR from its branch, and refuses others"
+      },
+      {
+        "line": 974,
+        "title": "gives each kind the setup problem whose place it is"
+      },
+      {
+        "line": 983,
+        "title": "lets a kind report only its own health entries"
+      },
+      {
+        "line": 991,
+        "title": "patches a Thread\\'s meta as it is now, so a change another writer made meanwhile stays"
+      },
+      {
+        "line": 1005,
+        "title": "reads the configuration of an instance that is on, removes a record set to undefined, and merges ticket meta"
+      },
+      {
+        "line": 1021,
+        "title": "reports GitHub as failing only after the configured number of consecutive failed polls"
+      },
+      {
+        "line": 1089,
+        "title": "takes in the event lines it reads, records each chat as direct or not, and reports a malformed line without stopping"
+      },
+      {
+        "line": 1100,
+        "title": "drops the events it reads once the Source is off"
+      },
+      {
+        "line": 1112,
+        "title": "keeps a chat\\'s history cursor when its read fails, and recovers known direct chats only while direct messages are on"
+      },
+      {
+        "line": 1146,
+        "title": "reports an error when the consumer is not ready within 45 seconds"
+      },
+      {
+        "line": 1158,
+        "title": "reports a warning the consumer prints as an error"
+      },
+      {
+        "line": 1164,
+        "title": "stops the consumer within five seconds once the Source is off"
+      },
+      {
+        "line": 1176,
+        "title": "starts the consumer again after it exits, and is ready once the next run listens"
+      },
+      {
+        "line": 1216,
+        "title": "takes in the new Issues and PRs from when it started observing them, and asks again with the ETag while nothing is newer"
+      },
+      {
+        "line": 1247,
+        "title": "takes in the repository\\'s conversation and review comments, on the Issue or PR each is on"
+      },
+      {
+        "line": 1269,
+        "title": "fails the round for a stream whose read fails, keeps its cursor, and still reads the other streams"
+      },
+      {
+        "line": 1292,
+        "title": "reads a stream whose cursor is older than the polling horizon from the horizon, without the ETag of the older request"
+      },
+      {
+        "line": 1308,
+        "title": "starts the default branch\\'s CI afresh when the default branch is renamed, without a Trigger"
+      },
+      {
+        "line": 1320,
+        "title": "takes in new PRs only from when their switch turned on, apart from when new Issues were"
+      },
+      {
+        "line": 1337,
+        "title": "keeps a stream\\'s cursor five seconds before its newest item, and a stale cursor on the hour, so the ETag is sent again"
+      },
+      {
+        "line": 1357,
+        "title": "gives each change of the default branch\\'s CI its own id, also when one commit fails, passes and fails again"
+      },
+      {
+        "line": 1382,
+        "title": "tells of the default branch\\'s CI when its failed checks change and once it passes again, after a first look"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/stage.spec.ts",
+    "groups": [
+      "DOM"
+    ],
+    "sha256": "3df130eae87d70643f0c924caf66fbca8cb27ced50467e0c7283dee0a39436be",
+    "lexical_test_titles": [
+      {
+        "line": 56,
+        "title": "offers a retry in each person stage a new Assignment remedies"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/store.spec.ts",
+    "groups": [
+      "DOM",
+      "REC"
+    ],
+    "sha256": "525d1b144c8e395917008043d68723933900f9ddbc661ff6f744c8c88f37494f",
+    "lexical_test_titles": [
+      {
+        "line": 18,
+        "title": "refuses databases newer than this build and rolls back failed atomic work"
+      },
+      {
+        "line": 26,
+        "title": "finds triggers by thread"
+      },
+      {
+        "line": 48,
+        "title": "reads the working sets alone, in SQLite as in memory, and follows each save"
+      },
+      {
+        "line": 75,
+        "title": "adds the working sets to a database that predates them, from the rows it holds"
+      },
+      {
+        "line": 89,
+        "title": "names a thread by its first human trigger"
+      },
+      {
+        "line": 99,
+        "title": "counts triggers per Source and lists them newest first, optionally only the filtered ones"
+      },
+      {
+        "line": 113,
+        "title": "links a Thread to the page its Source named, or else to the message that started it"
+      },
+      {
+        "line": 124,
+        "title": "sets and removes a Source\\'s keys in a Thread\\'s meta"
+      },
+      {
+        "line": 133,
+        "title": "spells every kv key in KV alone, so each record is named by its entry there"
+      },
+      {
+        "line": 147,
+        "title": "runs what waits for a commit once the outermost transaction commits, and never what a rolled back one queued"
+      },
+      {
+        "line": 164,
+        "title": "reports an action that fails after a commit, runs the others, and keeps what committed"
+      },
+      {
+        "line": 181,
+        "title": "closes a database it cannot open as this version\\'s, so a later attempt can open it"
+      },
+      {
+        "line": 192,
+        "title": "keeps the settings as versions: the current settings are the snapshot of the current revision, kept nowhere else"
+      },
+      {
+        "line": 203,
+        "title": "replaces a working-set column an earlier build defined otherwise, and drops one this version no longer has"
+      },
+      {
+        "line": 220,
+        "title": "lists in the same order in SQLite and in memory, and undoes a failed nested transaction alone in both"
+      },
+      {
+        "line": 249,
+        "title": "creates the state directory for its owner alone, and the database readable by its owner alone"
+      },
+      {
+        "line": 255,
+        "title": "reads `%` and `_` in a key prefix and a search query as written, not as patterns"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/styles.spec.ts",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "d36eeb02ac1c72f4e3ef77a1821eb5eedd277dc2978f3d3032b0df5c4f812e95",
+    "lexical_test_titles": [
+      {
+        "line": 9,
+        "title": "styles only classes a component uses"
+      },
+      {
+        "line": 17,
+        "title": "writes one rule per line, each selector once within its block"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/timeline.spec.ts",
+    "groups": [
+      "REC",
+      "UI"
+    ],
+    "sha256": "d7a66e76f09ed1021645fa8af26aaf25f36e447f53489ed15d983efbb91295d8",
+    "lexical_test_titles": [
+      {
+        "line": 33,
+        "title": "pages a thread by time and then id, so a Trigger of the same second as a page\\'s oldest one shows on the next page"
+      },
+      {
+        "line": 44,
+        "title": "shows the page around a GitHub comment with that comment, though GitHub writes its time in whole seconds"
+      },
+      {
+        "line": 54,
+        "title": "finds the Triggers before and after one among Triggers of the same time"
+      },
+      {
+        "line": 60,
+        "title": "stores every received Trigger\\'s time in the one form stored times take"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/tools.spec.ts",
+    "groups": [
+      "TOOL"
+    ],
+    "sha256": "44b163705d397c18ec8fda277ed0bf6f91aea1228a47c6e15cc1918a87ff55a5",
+    "lexical_test_titles": [
+      {
+        "line": 19,
+        "title": "reads the lists, a ticket, a decision, the settings, the prompts and the models as resources"
+      },
+      {
+        "line": 59,
+        "title": "lists in prompts the built-in parts whose text changed since the team overrode them, and the built-in parts in prompts/defaults"
+      },
+      {
+        "line": 75,
+        "title": "saves with the prompt save tool an override without its base, refuses a part no version has, and drops a removed one read back"
+      },
+      {
+        "line": 94,
+        "title": "keeps the main Session\\'s resources from an Executor Session, which lists only its own"
+      },
+      {
+        "line": 107,
+        "title": "answers every routing tool in one shape: the decision it recorded, why, and the ticket card"
+      },
+      {
+        "line": 136,
+        "title": "routes several triggers in one call, in order, and answers a refused or failed item without undoing the others"
+      },
+      {
+        "line": 166,
+        "title": "refuses alone an item that lacks a field its kind needs or breaks a field\\'s limit, naming the field, and ignores unused fields"
+      },
+      {
+        "line": 190,
+        "title": "decides a candidate\\'s batch with its card\\'s trigger: a second accept keeps the first, and no other decision contradicts it"
+      },
+      {
+        "line": 211,
+        "title": "states each routing field\\'s limit in its description, which the schema leaves to the item\\'s check"
+      },
+      {
+        "line": 219,
+        "title": "stops one follow-up for each ticket it reached, in one call"
+      },
+      {
+        "line": 233,
+        "title": "ignores a proactive candidate from its card beside other decisions, marked so, and leaves accepting one to an assessment"
+      },
+      {
+        "line": 249,
+        "title": "returns where a reply stands: sent, or dropped when its conversation can no longer receive it"
+      },
+      {
+        "line": 258,
+        "title": "checks an acknowledgement against the IM word limit, not a character count"
+      },
+      {
+        "line": 266,
+        "title": "saves a settings block by name, a Source\\'s block with the Source\\'s id"
+      },
+      {
+        "line": 277,
+        "title": "previews a prompt configuration without saving it, and saves one only against the revision it edits"
+      },
+      {
+        "line": 293,
+        "title": "releases the tools it registered for a Session once its agent is disposed, and leaves the other Sessions\\' tools"
+      },
+      {
+        "line": 304,
+        "title": "reads a thread by the key cards show: its label, tickets, latest decisions and triggers, newest first, also for its own worker"
+      },
+      {
+        "line": 320,
+        "title": "reads a ticket with the ids it is tied to, its reports by assignment, and its assignments and inputs a page at a time, each by the name its line gives or by its id"
+      },
+      {
+        "line": 355,
+        "title": "reads a trigger once with the message it replies to and the messages around it on its thread, without the CI runs"
+      },
+      {
+        "line": 373,
+        "title": "shows a candidate with its thread\\'s tickets open first, the tickets it reached, those its text names, and a short next step"
+      },
+      {
+        "line": 402,
+        "title": "relays a worker\\'s report with its ticket card and the start of its summary, and a question with the card alone"
+      },
+      {
+        "line": 420,
+        "title": "tells the main Session of the settings, prompts, requeues and unsubscriptions others made, never of its own"
+      },
+      {
+        "line": 440,
+        "title": "answers a policy sync with the counts and what changed, not the whole list"
+      },
+      {
+        "line": 445,
+        "title": "shows an Executor Session no id it cannot read: no Decision, no other ticket, no Trigger its ticket did not reach"
+      },
+      {
+        "line": 465,
+        "title": "marks the threads a worker follows for context apart from those a Source bound its ticket to"
+      },
+      {
+        "line": 474,
+        "title": "gives a worker the other messages of the request its ticket was accepted from, in its first message and on its ticket"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  },
+  {
+    "path": "tests/views.spec.ts",
+    "groups": [
+      "UI"
+    ],
+    "sha256": "d9a149c90e71ee5718237bfa33858ff584c892a672f26b098c99516565fb576d",
+    "lexical_test_titles": [
+      {
+        "line": 38,
+        "title": "names the Thread of each dropped message: the one of the Trigger its Channel answers, or the Channel\\'s own"
+      },
+      {
+        "line": 69,
+        "title": "names each sender as the Policy lists it, by its id where the id is readable, and as its kind names one it does not list"
+      },
+      {
+        "line": 84,
+        "title": "classifies a Thread by what it is doing, and offers a filtered Trigger of a person to Eval again"
+      },
+      {
+        "line": 101,
+        "title": "states each Source by the first state that holds"
+      },
+      {
+        "line": 115,
+        "title": "follows the Ticket\\'s stage: a blocked Ticket a person answered since is working, with no retry, note or turn end"
+      },
+      {
+        "line": 136,
+        "title": "does not show a follow-up that reached a ticket as waiting for an Eval, though an older version queued it"
+      },
+      {
+        "line": 158,
+        "title": "lists an Eval past its deadline, and as dsh-superagent\\'s own errors only parts no Source or Policy sync reports"
+      },
+      {
+        "line": 178,
+        "title": "says no Source runs when every Source is off, and states a Source missing or off"
+      },
+      {
+        "line": 189,
+        "title": "sends text without HTML, entity-encoded tags included, and with images named"
+      },
+      {
+        "line": 196,
+        "title": "words each settings save by what it changed from the one before, and nothing after a gap in the history"
+      },
+      {
+        "line": 223,
+        "title": "names a listed bot as the Policy lists it, and gives a bot\\'s Mandate a basis fact of its own"
+      },
+      {
+        "line": 233,
+        "title": "shows a follow-up that reached a ticket as delivered, the tickets that handed a Trigger back with why, and the Threads a ticket follows for context"
+      },
+      {
+        "line": 263,
+        "title": "names a bot\\'s Mandate as a bot once the Policy no longer lists it"
+      },
+      {
+        "line": 273,
+        "title": "offers a person to send a follow-up to Eval while a ticket decides it, or once nothing did"
+      },
+      {
+        "line": 302,
+        "title": "reads each ticket a page\\'s follow-ups reached once, and nothing for a message no ticket can decide"
+      }
+    ],
+    "assertion_level_mapping": "pending",
+    "lexical_inventory_is_not_exhaustive": true
+  }
+]

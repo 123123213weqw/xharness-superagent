@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "applied",
+  "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+  "runtime_base_commit": "2147ff270fe55c2c739e5063a5bfacefd01dc38a",
+  "source_before_tree": "252e0b79dc794f2d5c7b4be9aabe792bb1e6a875",
+  "runtime_before_tree": "7660d9e4ddead053e37735ab2ac46daa79e78482",
+  "depends_on_source_patch_sha256": "e479550e69cc0d19bbf6e2ed46ae9d8c3b427f2d45caca6328156a26606fec04",
+  "depends_on_controlled_sync_sha256": "a24c5e1bc1753071d5cf27ae03004cc41e571b39d8b3a511c19b1f861f5b5f8c",
+  "source_patch_file": "conformance/upstream/global-flush-release.source.patch.gz",
+  "source_patch_sha256": "b45030c1882e04f7a492133ac7d6a2638051e0c2fa4332afbac1760e695bf7b6",
+  "files": {
+    "crates/xharness-agent/src/input_admission.rs": {
+      "runtime_before_sha256": "4375e9aa02f9166a7024c9220217b8a26110b704e79aae96076201d5f8a7081d",
+      "upstream_before_sha256": "4375e9aa02f9166a7024c9220217b8a26110b704e79aae96076201d5f8a7081d",
+      "upstream_after_sha256": "cf4da4b62851a8a46458b6295b77031f77af88c8aa4c9931b1cc272574f2b43b",
+      "runtime_after_sha256": "cf4da4b62851a8a46458b6295b77031f77af88c8aa4c9931b1cc272574f2b43b"
+    },
+    "crates/xharness-host/tests/persistence_input.rs": {
+      "runtime_before_sha256": "5cf9a2bb3b398bb55f95124e930bbc623ec3f8d2bc44f13a9b32a4d3f9b60b07",
+      "upstream_before_sha256": "5cf9a2bb3b398bb55f95124e930bbc623ec3f8d2bc44f13a9b32a4d3f9b60b07",
+      "upstream_after_sha256": "fcd42c7b0e509448ff23b1276a82c2d39c97e9935d67cecfd73c874080f78d8f",
+      "runtime_after_sha256": "fcd42c7b0e509448ff23b1276a82c2d39c97e9935d67cecfd73c874080f78d8f"
+    },
+    "docs/architecture/persistence-input-observation.md": {
+      "runtime_before_sha256": "40ebff05cb96d63d1a15506b00a9e0224b53e08044c0c7cd83d573c7c2d2775b",
+      "upstream_before_sha256": "40ebff05cb96d63d1a15506b00a9e0224b53e08044c0c7cd83d573c7c2d2775b",
+      "upstream_after_sha256": "290528d81a272960fee90cfb8bfb788b7a32f43f4cee70fe0e0996a5ac2d9a36",
+      "runtime_after_sha256": "290528d81a272960fee90cfb8bfb788b7a32f43f4cee70fe0e0996a5ac2d9a36"
+    }
+  },
+  "source_profile_after": "9e05b37392f36ba0d58680ed0cafa8fe9b4cc994e176d8da5d69520684bb3ba0",
+  "reviewed_conflicts": 0,
+  "additive_synchronous_release_only_no_ticket_success_without_observation": true,
+  "old_full_finish_and_legacy_observed_semantics_preserved": true,
+  "source_and_target_persisted_schema_and_cargo_lock_unchanged": true,
+  "master_restart_scoped_control_watchdog_imported": false,
+  "semantic_or_release_approval": false,
+  "full_sdk_agent_facade_or_all_global_flush_parity_accepted": false,
+  "no_new_commit_ref_push": true
+}

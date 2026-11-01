@@ -1,0 +1,65 @@
+{
+  "date": "2026-11-01",
+  "host": "WZU_Server",
+  "isolated_build_directory": true,
+  "compiled_source_profile_sha256": "7e3ce7c4fa8cd363a848ee6e9c7bd6353bfa87c085911448d52d7186abe38eca",
+  "profile_files": 657,
+  "local_and_remote_profile_identical": true,
+  "commands": [
+    {
+      "command": "cargo fmt --all -- --check",
+      "exit": 0
+    },
+    {
+      "command": "cargo check --locked --workspace --all-targets --features xharness-superagent/conformance",
+      "exit": 0
+    },
+    {
+      "command": "cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings",
+      "exit": 0
+    },
+    {
+      "command": "cargo test --locked -p xharness-superagent-core -p xharness-superagent -p xharness-tools -p xharness-core --all-targets --features xharness-superagent/conformance",
+      "exit": 0
+    }
+  ],
+  "component_tests": {
+    "packages": [
+      "xharness-superagent-core",
+      "xharness-superagent",
+      "xharness-tools",
+      "xharness-core"
+    ],
+    "cargo_targets": 39,
+    "passed": 470,
+    "failed": 0,
+    "ignored": 0
+  },
+  "reference_integrity": {
+    "files": 216,
+    "failures": 0
+  },
+  "controlled_runtime_provenance": {
+    "steps": 11,
+    "paths": 86,
+    "pass": true
+  },
+  "full_workspace_test_suite_executed": false,
+  "product_end_to_end_accepted": false,
+  "legacy_rubrics_accepted": 0,
+  "normal_unicode_must_work": true,
+  "all_path_UTF16_type_migration_included": false,
+  "all_JS_language_equivalence_required": false,
+  "secret_pattern_scan": {
+    "unreviewed_findings": 0,
+    "reviewed_test_fixture_URL_matches": 3,
+    "private_environment_or_key_files_included": false
+  },
+  "full_remote_log_sha256": "f7dbf9cf68ff5e823a06b3eaaa459459f0363d83d5baa4e7153a4d9243d3d1fa",
+  "notes": [
+    "This is component verification, not whole-product parity.",
+    "Full workspace tests remain a separate GitHub CI gate; no unexecuted gate is marked passing.",
+    "Existing local parser/codec helpers are retained; cancelled language-wide migration is not published.",
+    "Inherited whitespace in fixed reference/assets and three baseline manifests is preserved, not counted as a clean git diff whitespace check."
+  ]
+}

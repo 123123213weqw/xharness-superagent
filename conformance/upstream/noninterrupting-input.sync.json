@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "status": "applied",
+  "source_repository": "123123213weqw/x-harness-rs",
+  "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+  "source_tree": "cfed35798db9a4f7b278f99312d63eabcccf176e",
+  "runtime_base_commit": "2147ff270fe55c2c739e5063a5bfacefd01dc38a",
+  "source_patch_sha256": "9704604066bc132d6c0c1737f5d6acfb9c5946f649ae87b1cf180bb6698033b2",
+  "files": {
+    "crates/xharness-agent/src/dispatch.rs": {
+      "runtime_before_sha256": "2b0ff5ca58cfab9ee2406b396d32d81bddc6426532a81a277d3c32384d05e48d",
+      "upstream_before_sha256": "2b0ff5ca58cfab9ee2406b396d32d81bddc6426532a81a277d3c32384d05e48d",
+      "upstream_after_sha256": "ae1743ba392c1b34ea1f5e7f9d1b0f1fab65516821aa2a5fe7e8f348dc6c5b1c",
+      "runtime_after_sha256": "ae1743ba392c1b34ea1f5e7f9d1b0f1fab65516821aa2a5fe7e8f348dc6c5b1c"
+    },
+    "crates/xharness-agent/src/driver.rs": {
+      "runtime_before_sha256": "fc767d0443b607666403caf4fee66400c4cffb802d1daf6272934d97b9f0cf3a",
+      "upstream_before_sha256": "c5529e132fff8d60e3c5b4d62b7a91a9e0fc5a43137b1cd5796246e80708f411",
+      "upstream_after_sha256": "8e6c91abb126e16574f4119cc267c36dfe928eaf209b9b2ca3e87155e7e321ab",
+      "runtime_after_sha256": "f255c6676f08ed449db6de7b69dad83bd895ea7af0be3f94f47344e4a17f8cee"
+    },
+    "crates/xharness-agent/src/driver/follow_step.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "efbdb18ee0093dfaeb31b8057dbb272fd718acc18c80c1b2a7314c694bd01ea1",
+      "runtime_after_sha256": "efbdb18ee0093dfaeb31b8057dbb272fd718acc18c80c1b2a7314c694bd01ea1"
+    },
+    "crates/xharness-agent/src/inbox.rs": {
+      "runtime_before_sha256": "8a56d916a77d3d8df04676cd82b0c62af5cc277aeecbb9079a1d6377f00af6d0",
+      "upstream_before_sha256": "4592b1105fbfdc14800feddf301bd566ff8377d52fe2833f631a66387db2fd28",
+      "upstream_after_sha256": "9a771630f449892f9110161f0c31a0b99aa2880f2f803ec1ed4357ec545b823b",
+      "runtime_after_sha256": "7081e05e4747f97ac0e1cdfb5b83486c4bccb375fc8e5976c24dd4829be3b0ce"
+    },
+    "crates/xharness-agent/src/input_dispatch.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "bf4f37d7047568778e38e95c00bf67a25e592786b0df9428ef02b20a345199b4",
+      "runtime_after_sha256": "bf4f37d7047568778e38e95c00bf67a25e592786b0df9428ef02b20a345199b4"
+    },
+    "crates/xharness-agent/src/lib.rs": {
+      "runtime_before_sha256": "3bdcb18c03f6d2387733d4b347b971a1ee6bf235b2acf2be2baecefe00141cbc",
+      "upstream_before_sha256": "3bdcb18c03f6d2387733d4b347b971a1ee6bf235b2acf2be2baecefe00141cbc",
+      "upstream_after_sha256": "7fa734077f53c37089c2a28733b011260ccf5e3083d1da28ec7644187e3e2ad7",
+      "runtime_after_sha256": "7fa734077f53c37089c2a28733b011260ccf5e3083d1da28ec7644187e3e2ad7"
+    },
+    "crates/xharness-agent/tests/noninterrupting_step.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "699edfe9d538831373e54aeb9c0adcf216c59175ac05e12526836bcd260c1120",
+      "runtime_after_sha256": "699edfe9d538831373e54aeb9c0adcf216c59175ac05e12526836bcd260c1120"
+    },
+    "crates/xharness-core/src/engine.rs": {
+      "runtime_before_sha256": "7100b082e9c3062f908e734334acfc13006da3c6954d02e535bc0c40bb19db93",
+      "upstream_before_sha256": "9db9d360dc7f14822bbe773e44c16221387c9861d85695df999ed518263c5087",
+      "upstream_after_sha256": "acbb20c47cc631c44ab8a76ff26c1f96d885e70123dcef88762e1bc5c54fc169",
+      "runtime_after_sha256": "2c4b326f1caa05e956209994aac9a6d564b1c9568cf31930c89cb40cdf8f3bf9"
+    },
+    "crates/xharness-host/src/runtime.rs": {
+      "runtime_before_sha256": "a9666eefce1fe35e0f27321d5569a5e4cb0b81e4bc845a60fb1dea8591c748bb",
+      "upstream_before_sha256": "c395bc1dc5e865c4a75d94fc758a150b727d9ef4a40845b9b609e24c889b7a48",
+      "upstream_after_sha256": "6c43235ac8aa2f4d3a82d38e52945c76c033b7ec40a48810159b5a79d2e6d49d",
+      "runtime_after_sha256": "0d7b2b6973067d0838f0b136b30d279194d9dc5d2f86c09959df13754b63a8ca"
+    },
+    "crates/xharness-host/tests/noninterrupting_admission.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "214c7a7e5efb87e35d0e18bdf59af06d852448871369a97928a454eb498d604e",
+      "runtime_after_sha256": "214c7a7e5efb87e35d0e18bdf59af06d852448871369a97928a454eb498d604e"
+    },
+    "docs/architecture/noninterrupting-delivery.md": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "817097ccbdc49de56e2446bcb875b2725f35625ae1ddb45347ed9c77b722f03e",
+      "runtime_after_sha256": "817097ccbdc49de56e2446bcb875b2725f35625ae1ddb45347ed9c77b722f03e"
+    }
+  },
+  "all_existing_target_paths_clean_before_apply": true,
+  "persistence_schema_unchanged": true,
+  "new_rust_required_struct_fields": 0,
+  "new_commits_or_push": false,
+  "source_patch_file": "conformance/upstream/noninterrupting-input.source.patch.gz",
+  "source_patch_encoding": "gzip; SHA-256 binds exact decompressed git diff bytes"
+}

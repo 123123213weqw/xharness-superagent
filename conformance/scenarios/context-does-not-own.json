@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "id": "context-does-not-own",
+  "initial": {},
+  "commands": [
+    {
+      "op": "receive",
+      "trigger": {
+        "id": "t1"
+      }
+    },
+    {
+      "op": "evaluate_due"
+    },
+    {
+      "op": "decide",
+      "trigger": "t1",
+      "outcome": {
+        "kind": "accept",
+        "title": "Fix typo",
+        "scope": "Correct only one typo",
+        "reason": "Explicit correction request",
+        "acknowledgement": "I will correct the typo."
+      },
+      "as": "one"
+    },
+    {
+      "op": "settle"
+    },
+    {
+      "op": "context",
+      "ticket": "$one",
+      "thread": {
+        "source": "github",
+        "id": "issue:other"
+      }
+    },
+    {
+      "op": "receive",
+      "trigger": {
+        "id": "t2",
+        "threads": [
+          {
+            "source": "github",
+            "id": "issue:other"
+          }
+        ]
+      }
+    },
+    {
+      "op": "evaluate_due"
+    }
+  ],
+  "expected_summary": {
+    "tickets": 1,
+    "decisions": 1,
+    "outbox": 1
+  }
+}

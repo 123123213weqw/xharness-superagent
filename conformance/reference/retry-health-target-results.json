@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "original_reference_assertions_unchanged": true,
+  "original_reference_target_tests": 29,
+  "independent_reference_target_tests": 48,
+  "reference_target_passed": 77,
+  "reference_target_failed": 0,
+  "rust_retry_health_tests": 3,
+  "actual_native_budget_retry_new_tests": 1,
+  "native_session_total_tests": 32,
+  "owned_crate_unique_tests": 136,
+  "owned_product_component_tests_excluding_legacy_probes": 131,
+  "legacy_control_probe_tests": 5,
+  "legacy_control_stress_iterations_per_probe_run": 1024,
+  "legacy_baseline_basic_host_tests": 24,
+  "legacy_timeout_root_cause_resolved": false,
+  "live_sessions_installer_or_models_ui_complete": false,
+  "new_retry_policy_or_timer": false,
+  "new_provider_fallback": false,
+  "second_session_history": false,
+  "js_transport_computes_decisions": false,
+  "non_default_conformance_binary": true,
+  "native_provenance": "Actual turn/step request/header joins,not current model fallback; missing header cannot certify assistant recovery; actual real JSONL same-provider recovery observed before turn/end",
+  "json_scope": "Bounded8192UTF16-unit diagnostic substring,iterative grammar validation with only root/error type/code predicates;not general JSON/UTF16/persistence parity",
+  "source_sha256": {
+    "crates/xharness-superagent/src/retry_health.rs": "21d4562d7ebdba849e46a91724dc6103633e1ed6451b1da7cd3a98056f6ba8dd",
+    "crates/xharness-superagent/src/retry_health/budget_body.rs": "db6a664c60657032c581f6ab9e915d72082e146339461e45bb4cf26ac2d44c95",
+    "crates/xharness-superagent/src/retry_health/native.rs": "1d97552c217617a1c6e7614f2afd950a0c57f991007300ca298b283b8c9de835",
+    "crates/xharness-superagent/src/bin/retry_health_bridge.rs": "3f325aaa328d99517d3d86a6a236f6ebe8e8d6af8a46acf3b5d5140368fa22cb",
+    "crates/xharness-superagent/tests/retry_health.rs": "3ead970dc4f7eb54c824855169d54cad750920b5889032e59207467f15c104a5",
+    "crates/xharness-superagent/tests/legacy_control_boundaries.rs": "cb5ef1945cfb746cd5b8d82b8e5fed1c988747d65ebd07450a160f4780b65295",
+    "crates/xharness-superagent/tests/native_sessions.rs": "676e5f55a0dc44a1fae67b55764629e50bcc470b8a3caf34dbe78dbb613edce9"
+  },
+  "evidence": [
+    "models-final-retry-health-contracts.log",
+    "models-final-models-contracts.log"
+  ],
+  "unaccepted": [
+    "unexplained first subagent.interrupt timeout REGRESSION-INTERRUPT-001;finite boundary probes and passing retries are not causal closure",
+    "live Sessions lifetime/idle/dispose subscription,models HealthEntry/UI and production budget retry policy",
+    "full native AgentDelivery authorize/accepted/finalflush/abort and actual filesystem faults",
+    "per-request role Prompt/revision/skills/authority and Assignment control epochs,20tools/worktree/jobs/children/Root/Source/API/UI/deployment",
+    "global foreign JSON/UTF16/corrupt stores,64future zones,55migration encodings,old TSstreamhealth and2Feishu deployment failures"
+  ],
+  "managed_model_health_automatic_on_native_admission": true,
+  "latest_full_report": "conformance/reference/models-target-results.json"
+}

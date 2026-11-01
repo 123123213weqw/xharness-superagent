@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "status": "applied",
+  "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+  "runtime_base_commit": "2147ff270fe55c2c739e5063a5bfacefd01dc38a",
+  "source_before_tree": "ef789bc18a8ca6a0f2ddfe5fba0b9bb9966aea7d",
+  "runtime_before_tree": "1d435a3eade77fd802bed3b38717fb1b57e7cbf5",
+  "depends_on_source_patch_sha256": "b45030c1882e04f7a492133ac7d6a2638051e0c2fa4332afbac1760e695bf7b6",
+  "depends_on_controlled_sync_sha256": "1a8b793fb43690607b164b37e1d8dbf4697cfa424806d63972b29cdcee47fede",
+  "source_patch_file": "conformance/upstream/request-prompt.source.patch.gz",
+  "source_patch_sha256": "9375a55ac5234515eb8bcd363df526365ceb66020cdd4e94b42245a9c83a27fc",
+  "full_source_delta_file": "conformance/upstream/request-prompt.canonical-delta.patch.gz",
+  "full_source_delta_sha256": "3b1116afdb943794695191c545058f6c03802c438731386b49e6b5118a435e2f",
+  "full_source_delta_paths": [
+    "Cargo.lock",
+    "config/architecture-changes/superagent-persistence-observation.json",
+    "config/architecture-changes/superagent-request-prompt.json",
+    "config/architecture-dependencies.json",
+    "crates/xharness-context/Cargo.toml",
+    "crates/xharness-context/src/lib.rs",
+    "crates/xharness-context/src/request_prompt.rs",
+    "crates/xharness-core/src/engine.rs",
+    "crates/xharness-core/src/engine/request_prompt.rs",
+    "crates/xharness-core/src/lib.rs",
+    "crates/xharness-core/tests/request_prompt.rs",
+    "crates/xharness-prompt/src/lib.rs",
+    "docs/architecture/request-prompt-resolution.md",
+    "scripts/regression/check-architecture.py"
+  ],
+  "runtime_apply_patch_file": "conformance/upstream/request-prompt.runtime-apply.patch.gz",
+  "runtime_apply_patch_sha256": "619ae695ce801e739181a68b1cc0c7cf8ebdadc63efd24004e4aed6ab6a1311e",
+  "context_adaptations": [
+    {
+      "path": "crates/xharness-context/src/lib.rs",
+      "reason": "Pinned Runtime lacks canonical visual_history context. Insert only the exact new resolver module/reexport and canonical default getter around its existing working_set; no visual_history or other master behavior.",
+      "new_getter_literal_sha256": "f8f90b51f19e01e7ec0ca8a772471a9094afa38b041df39f398ccea0d12ddf6d",
+      "unrelated_visual_history_imported": false
+    },
+    {
+      "path": "Cargo.lock",
+      "reason": "Canonical contains two thiserror versions and disambiguates its existing dependency as thiserror 2.0.20; Runtime has one and spells it thiserror. Preserve Runtime package identities, versions, checksum, source and existing dependency spellings byte-for-byte; add only tokio-util and xharness-prompt to the local context package.",
+      "existing_external_versions_sources_checksums_and_other_packages_unchanged": true
+    }
+  ],
+  "canonical_only_policy_review_paths": [
+    "config/architecture-changes/superagent-persistence-observation.json",
+    "config/architecture-changes/superagent-request-prompt.json",
+    "config/architecture-dependencies.json",
+    "scripts/regression/check-architecture.py"
+  ],
+  "canonical_only_exclusion_reason": "Runtime closure does not contain the canonical architecture checker/configuration tree; retain the complete guarded source delta separately, do not install a nonfunctional checker copy.",
+  "files": {
+    "Cargo.lock": {
+      "runtime_before_sha256": "e8235a9609874fbb08c3b8e3427361c72f96d5ecf3e51be5c73dc2b46a4824c8",
+      "upstream_before_sha256": "4eb71cbbdc0518d36843dd2adbcd805e5780d53c18d5002c2e0fec4a4e9b6338",
+      "upstream_after_sha256": "84e8a3608bb4084545e60788196be885206f70ca5cde0fd351a91f855b1b14fb",
+      "runtime_after_sha256": "2ffcc3b6fb7fccb621e1fd421db7bcd7c39173e423b02efefacc2f5787bd887b"
+    },
+    "crates/xharness-context/Cargo.toml": {
+      "runtime_before_sha256": "c4eb6fc08849ec89622e145ab2156b5504d74f7f8259658aa2de98704936452e",
+      "upstream_before_sha256": "c4eb6fc08849ec89622e145ab2156b5504d74f7f8259658aa2de98704936452e",
+      "upstream_after_sha256": "05f95510e0d2262e3c1d29a813e438f788c2b346ac3d29236d0b934859d0c217",
+      "runtime_after_sha256": "05f95510e0d2262e3c1d29a813e438f788c2b346ac3d29236d0b934859d0c217"
+    },
+    "crates/xharness-context/src/lib.rs": {
+      "runtime_before_sha256": "be8dda79d37ecf01341b8ad7253d28413ed2f002626f0b874ea2360caacc8530",
+      "upstream_before_sha256": "66a4a5877ba0fa8b93079cca4a627ee6a5148bdc100b107fabeefed25dbaaaa9",
+      "upstream_after_sha256": "9bfcc2afc7678aff1c5be8d63289973a1983bb80a8805b48928b8caae27bc289",
+      "runtime_after_sha256": "c5e696c7636b92637aacea19be82a172bd7591b8b8c183cd2775c4f9543b27ce"
+    },
+    "crates/xharness-context/src/request_prompt.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "967aa5254b99143e85dc17b78fa0975ef7dc08da583c282a0121e2a9fb57e9bb",
+      "runtime_after_sha256": "967aa5254b99143e85dc17b78fa0975ef7dc08da583c282a0121e2a9fb57e9bb"
+    },
+    "crates/xharness-core/src/engine.rs": {
+      "runtime_before_sha256": "36cbf690de1740b58f84e32e724a804cedae55c907b34ad8f5f32a187f0b6258",
+      "upstream_before_sha256": "21fec25193396cf93074a23c16416815a1e6d6a93d8d27822a2e02cc5c7871cb",
+      "upstream_after_sha256": "96a6179e55f18acab53e89c80941673d8253b67ccd298aa6acff0292adfe2f26",
+      "runtime_after_sha256": "ad97bdac80964e386ca0d0a6e1b7717a8be04db0dd056ab54d87cb73909b1fb8"
+    },
+    "crates/xharness-core/src/engine/request_prompt.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "6952fc981cec39777b92df9f77da17d4507855343f199274133213515ab2d42e",
+      "runtime_after_sha256": "6952fc981cec39777b92df9f77da17d4507855343f199274133213515ab2d42e"
+    },
+    "crates/xharness-core/src/lib.rs": {
+      "runtime_before_sha256": "2fae30d98bba08c4884e990718be583d256c89aa899ab61fccef286be66c7527",
+      "upstream_before_sha256": "995bfbb5cecce6877e851c96793a56156037d6019d65bbd7c814a2cba2b79956",
+      "upstream_after_sha256": "805ed754e0063a602f922b021196c6281716eb6e08e0a2b44e2dfcdeb5fe0f52",
+      "runtime_after_sha256": "16a249fabff52a5035d375ba2aae2a70f6c682f7cc58f6716430238ae376f127"
+    },
+    "crates/xharness-core/tests/request_prompt.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "b709a879f1890cda7eacc23e545373cec6dca263cb8fde1e3e4792ccba2bd693",
+      "runtime_after_sha256": "b709a879f1890cda7eacc23e545373cec6dca263cb8fde1e3e4792ccba2bd693"
+    },
+    "crates/xharness-prompt/src/lib.rs": {
+      "runtime_before_sha256": "e1ef09a3fca94af51ead817d9bd766ac41069e7be66b9e763ad138241c44719d",
+      "upstream_before_sha256": "e1ef09a3fca94af51ead817d9bd766ac41069e7be66b9e763ad138241c44719d",
+      "upstream_after_sha256": "05cc5fd659cf72bb2fcf2412729e8c429c2808269fc3da94620f5f0ba031fd3e",
+      "runtime_after_sha256": "05cc5fd659cf72bb2fcf2412729e8c429c2808269fc3da94620f5f0ba031fd3e"
+    },
+    "docs/architecture/request-prompt-resolution.md": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "5c174cc059ea22bc6da146e8dde16c09150077f84711f487efedb5bb1b331dab",
+      "runtime_after_sha256": "5c174cc059ea22bc6da146e8dde16c09150077f84711f487efedb5bb1b331dab"
+    }
+  },
+  "source_profile_before": "9e05b37392f36ba0d58680ed0cafa8fe9b4cc994e176d8da5d69520684bb3ba0",
+  "source_profile_after": "b01a87a67b834302aca1e6938b9ee53a732dd246e38e8ab080740562413ad55f",
+  "reviewed_conflicts": 0,
+  "default_sync_getter_none_no_new_legacy_async_boundary": true,
+  "legacy_assembler_trim_unchanged": true,
+  "external_locked_versions_checksums_unchanged": true,
+  "session_schema_permissions_models_leases_unchanged": true,
+  "master_restart_scoped_control_watchdog_imported": false,
+  "user_index_unchanged_by_worktree_apply": true,
+  "no_new_commit_ref_push": true,
+  "semantic_or_release_approval": false,
+  "per_transport_retry_or_summary_refresh_accepted": false,
+  "native_product_installer_or_final_rubrics_accepted": false
+}

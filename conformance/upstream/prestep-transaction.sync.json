@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "status": "applied",
+  "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+  "runtime_base_commit": "2147ff270fe55c2c739e5063a5bfacefd01dc38a",
+  "depends_on_source_patch_sha256": "6aec468c801bd18684c55b5c5dde08dacc3752ca51b3554d36d86e1635208385",
+  "depends_on_controlled_sync_sha256": "8c7da652aaf84dc164796840f22153d047636de2e1d76e86060563c3d7caad5a",
+  "source_patch_file": "conformance/upstream/prestep-transaction.source.patch.gz",
+  "source_patch_sha256": "3b2a47b7d6c731c5dcdf8f8b639145ad5e484db11ee1bdfe2456786b1ae7b813",
+  "runtime_apply_patch_file": "conformance/upstream/prestep-transaction.runtime-apply.patch.gz",
+  "runtime_apply_patch_sha256": "40af3aa5e4c337e0c20d96e1946f81cd0f617cecf33222928e9942533888fda7",
+  "source_profile_before": "51a226205e58314eb63c08d6468ac0e920d948d04350a1343653eaa15b5d61d2",
+  "source_profile_after": "9e0ff7fd4a5529e370d91ee11e31eef59949a1fdeaf756bcd5b935172c140d28",
+  "files": {
+    "crates/xharness-context/src/step_input.rs": {
+      "runtime_before_sha256": "c8fd0e1b27824c0fc231d3cd9680ff14fddc4136044edd112cdce67f961eefea",
+      "upstream_before_sha256": "c8fd0e1b27824c0fc231d3cd9680ff14fddc4136044edd112cdce67f961eefea",
+      "upstream_after_sha256": "0b443da5e96c87c394451bf466c921158d181937a8a7e8a8191e05bfd70109ee",
+      "runtime_after_sha256": "0b443da5e96c87c394451bf466c921158d181937a8a7e8a8191e05bfd70109ee"
+    },
+    "crates/xharness-core/src/engine.rs": {
+      "runtime_before_sha256": "8b9b912e0ff0ca368039649fc37c27355dd085a0320a6f8d29ff8eb9f60e2d65",
+      "upstream_before_sha256": "cdf746f1ab3b6e2b6087d30c357565533ba46c7327ea45895a624f9fc6bd5eb0",
+      "upstream_after_sha256": "99c128070c7da1850da76482888ec6278a497794bc2f8e87e79fb6dcec8ee051",
+      "runtime_after_sha256": "ffc396b46beea27fb0f4e28292303a0aeac812be0945a30b6e18ed6a45416b6d"
+    },
+    "crates/xharness-core/src/engine/step_input.rs": {
+      "runtime_before_sha256": "e6ae65f5036ffd1996df8f8ee9457c72261b9c5d250f64ff87ababe5eaaeb46d",
+      "upstream_before_sha256": "e6ae65f5036ffd1996df8f8ee9457c72261b9c5d250f64ff87ababe5eaaeb46d",
+      "upstream_after_sha256": "e82e48d35d3140a37d457934b5250fc64b2558b2feee3a4825a36440ddee6e63",
+      "runtime_after_sha256": "e82e48d35d3140a37d457934b5250fc64b2558b2feee3a4825a36440ddee6e63"
+    },
+    "crates/xharness-core/tests/cases/step_input.rs": {
+      "runtime_before_sha256": "492805f4a51ffecd5c5a22d2fd86e0396ba80204813473136e90319ab95638c8",
+      "upstream_before_sha256": "492805f4a51ffecd5c5a22d2fd86e0396ba80204813473136e90319ab95638c8",
+      "upstream_after_sha256": "846c0d36de8d8ae1bcc276618764311a91ea537e7d37ac7db3c12b46848c260b",
+      "runtime_after_sha256": "846c0d36de8d8ae1bcc276618764311a91ea537e7d37ac7db3c12b46848c260b"
+    },
+    "docs/architecture/step-input-contributions.md": {
+      "runtime_before_sha256": "172d9fc767bea531b0e61ff662d1e63e37956fba758a984a058dc87b5d3cf6d4",
+      "upstream_before_sha256": "172d9fc767bea531b0e61ff662d1e63e37956fba758a984a058dc87b5d3cf6d4",
+      "upstream_after_sha256": "dd7d157c0667114fb9b5e465575d0e134e2e1dc81d9093228542362d6ce282dd",
+      "runtime_after_sha256": "dd7d157c0667114fb9b5e465575d0e134e2e1dc81d9093228542362d6ce282dd"
+    }
+  },
+  "canonical_only_policy_review_paths": [],
+  "context_adaptations": [
+    {
+      "path": "crates/xharness-core/src/engine.rs",
+      "reason": "Apply exact canonical hunks; generated Runtime diff differs only by the pre-existing engine line offset 842 versus 897. Preserve unrelated compaction/verification behavior."
+    }
+  ],
+  "canonical_hunks_exact_ignoring_coordinates": true,
+  "canonical_patch_replayed_on_frozen_runtime_matches_actual": true,
+  "recovered_after_already_applied_patch": true,
+  "no_applied_patch_replayed_on_runtime": true,
+  "preparation_before_StepStart": true,
+  "StepStart_and_contributions_same_CAS": true,
+  "abandoned_proposal_consumes_no_step_budget": true,
+  "default_no_resolver_path_unchanged": true,
+  "external_locked_packages_unchanged": true,
+  "product_skill_catalog_installed": false,
+  "full_pre_step_candidate_transform_installed": false,
+  "UTF16_transport_complete": false,
+  "semantic_or_release_approval": false,
+  "no_new_commit_ref_push": true
+}

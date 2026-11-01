@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "stopped-no-resume",
+  "initial": {},
+  "commands": [
+    {
+      "op": "receive",
+      "trigger": {
+        "id": "t1"
+      }
+    },
+    {
+      "op": "evaluate_due"
+    },
+    {
+      "op": "decide",
+      "trigger": "t1",
+      "outcome": {
+        "kind": "accept",
+        "title": "Fix typo",
+        "scope": "Correct only one typo",
+        "reason": "Explicit correction request",
+        "acknowledgement": "I will correct the typo."
+      },
+      "as": "one"
+    },
+    {
+      "op": "settle"
+    },
+    {
+      "op": "stop",
+      "ticket": "$one",
+      "reason": "User stop"
+    },
+    {
+      "op": "receive",
+      "trigger": {
+        "id": "t2"
+      }
+    },
+    {
+      "op": "evaluate_due"
+    },
+    {
+      "op": "settle"
+    }
+  ],
+  "expected_summary": {
+    "tickets": 1,
+    "ended": 1,
+    "outbox": 1
+  }
+}

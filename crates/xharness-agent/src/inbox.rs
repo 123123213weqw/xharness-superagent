@@ -1,0 +1,863 @@
+use std::collections::HashSet;
+use std::sync::Arc;
+
+use tokio::sync::Mutex;
+use xharness_session::{
+    AppendReceipt, EventData, InboxMessage, InboxSpliceOutcome, InboxTarget, Revision, Session,
+    SessionEvent, SessionHeader, Store, StoreError,
+};
+
+const MAX_CAS_RETRIES: usize = 16;
+
+/// Read-only projection reconstructed exclusively from inbox splice events.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct InboxProjection {
+    next_turn: Vec<InboxMessage>,
+    next_step: Vec<InboxMessage>,
+}
+
+impl InboxProjection {
+    /// Replay a validated session snapshot into its two pending-input lists.
+    pub fn from_session(session: &Session) -> Result<Self, InboxError> {
+        let pending = PendingInbox::from_session(session)?;
+        Ok(Self {
+            next_turn: pending.next_turn.into_iter().cloned().collect(),
+            next_step: pending.next_step.into_iter().cloned().collect(),
+        })
+    }
+
+    pub fn next_turn(&self) -> &[InboxMessage] {
+        &self.next_turn
+    }
+
+    pub fn next_step(&self) -> &[InboxMessage] {
+        &self.next_step
+    }
+
+    pub fn has_pending(&self) -> bool {
+        !self.next_turn.is_empty() || !self.next_step.is_empty()
+    }
+
+    fn list(&self, target: InboxTarget) -> &[InboxMessage] {
+        match target {
+            InboxTarget::NextTurn => &self.next_turn,
+            InboxTarget::NextStep => &self.next_step,
+        }
+    }
+
+    fn locate(&self, message_id: &str) -> Option<(InboxTarget, usize)> {
+        for target in [InboxTarget::NextTurn, InboxTarget::NextStep] {
+            if let Some(index) = self
+                .list(target)
+                .iter()
+                .position(|message| message.id == message_id)
+            {
+                return Some((target, index));
+            }
+        }
+        None
+    }
+}
+
+/// Transient replay indexes borrow immutable journal payloads. Materialize
+/// only messages still pending at the final cut, not every historical body.
+#[derive(Default)]
+struct PendingInbox<'a> {
+    next_turn: Vec<&'a InboxMessage>,
+    next_step: Vec<&'a InboxMessage>,
+}
+
+impl<'a> PendingInbox<'a> {
+    fn from_session(session: &'a Session) -> Result<Self, InboxError> {
+        let mut pending = Self::default();
+        for logged in session.events() {
+            if let EventData::AgentInboxSpliced {
+                target,
+                start,
+                removed_count,
+                inserted,
+                ..
+            } = logged.data()
+            {
+                pending.apply(*target, *start, *removed_count, inserted)?;
+            }
+        }
+        Ok(pending)
+    }
+
+    fn apply(
+        &mut self,
+        target: InboxTarget,
+        start: usize,
+        removed_count: usize,
+        inserted: &'a [InboxMessage],
+    ) -> Result<(), InboxError> {
+        let list = match target {
+            InboxTarget::NextTurn => &mut self.next_turn,
+            InboxTarget::NextStep => &mut self.next_step,
+        };
+        let end = start
+            .checked_add(removed_count)
+            .ok_or(InboxError::ProjectionCorrupt)?;
+        if start > list.len() || end > list.len() {
+            return Err(InboxError::ProjectionCorrupt);
+        }
+        list.splice(start..end, inserted.iter());
+        Ok(())
+    }
+}
+
+/// A claim proposal bound to one exact session revision.
+///
+/// The deletion events must be committed atomically with the turn/step facts
+/// that consume `messages`; otherwise a crash could remove input without
+/// recording where it went.
+#[derive(Clone, Debug)]
+pub struct PreparedClaim {
+    pub expected_revision: Revision,
+    pub messages: Vec<InboxMessage>,
+    deletion_events: Vec<SessionEvent>,
+}
+
+impl PreparedClaim {
+    pub fn is_empty(&self) -> bool {
+        self.messages.is_empty()
+    }
+
+    /// Split the claim for a Loop request whose journal start commits the
+    /// deletion events beside `turn/start` and the returned messages.
+    pub fn into_loop_parts(self) -> (Revision, Vec<InboxMessage>, Vec<SessionEvent>) {
+        (self.expected_revision, self.messages, self.deletion_events)
+    }
+}
+
+/// Result of atomically transferring pending messages into a durable turn.
+#[derive(Clone, Debug)]
+pub struct ClaimReceipt {
+    pub messages: Vec<InboxMessage>,
+    pub append: AppendReceipt,
+}
+
+#[derive(Clone, Debug, thiserror::Error)]
+pub enum InboxError {
+    #[error(transparent)]
+    Store(#[from] StoreError),
+    #[error("session {session_id:?} disappeared")]
+    SessionDisappeared { session_id: String },
+    #[error("inbox message id must not be empty")]
+    EmptyMessageId,
+    #[error("inbox message {message_id:?} is already pending")]
+    DuplicateMessage { message_id: String },
+    #[error("inbox message {message_id:?} was already admitted with different contents")]
+    ConflictingMessage { message_id: String },
+    #[error("inbox projection is inconsistent with the validated session log")]
+    ProjectionCorrupt,
+    #[error("inbox mutation could not converge after {attempts} revision conflicts")]
+    Contended { attempts: usize },
+}
+
+/// Durable, replayable inbox for one session.
+///
+/// Mutations are serialized per handle and use Store CAS for independent
+/// handles/processes. Every accepted public mutation is flushed before return.
+#[derive(Clone)]
+pub struct DurableInbox {
+    session_id: String,
+    store: Arc<dyn Store>,
+    local_gate: Arc<Mutex<()>>,
+}
+
+impl DurableInbox {
+    /// Open an existing session or atomically create it from `header`.
+    pub async fn open(store: Arc<dyn Store>, header: SessionHeader) -> Result<Self, InboxError> {
+        let session_id = header.id.clone();
+        match store.load(&session_id).await? {
+            Some(_) => {}
+            None => match store.create(header).await {
+                Ok(_) | Err(StoreError::AlreadyExists { .. }) => {}
+                Err(error) => return Err(error.into()),
+            },
+        }
+        Ok(Self {
+            session_id,
+            store,
+            local_gate: Arc::new(Mutex::new(())),
+        })
+    }
+
+    pub fn session_id(&self) -> &str {
+        &self.session_id
+    }
+
+    pub fn store(&self) -> Arc<dyn Store> {
+        Arc::clone(&self.store)
+    }
+
+    pub(crate) async fn prepare_logical_input(
+        &self,
+    ) -> Result<
+        (
+            tokio::sync::OwnedMutexGuard<()>,
+            Arc<dyn xharness_session::LogicalJournal>,
+        ),
+        crate::InputAdmissionError,
+    > {
+        let gate = self.local_gate.clone().lock_owned().await;
+        let journal = self
+            .store
+            .prepare_logical_journal(&self.session_id)
+            .await
+            .map_err(InboxError::from)?
+            .ok_or(crate::InputAdmissionError::LogicalJournalUnavailable)?;
+        if journal.snapshot().map_err(InboxError::from)?.header().id != self.session_id {
+            return Err(InboxError::ProjectionCorrupt.into());
+        }
+        Ok((gate, journal))
+    }
+
+    pub async fn snapshot(&self) -> Result<InboxProjection, InboxError> {
+        let session = self.load().await?;
+        InboxProjection::from_session(&session)
+    }
+
+    /// Append a new identified message to one pending list.
+    pub async fn append(
+        &self,
+        target: InboxTarget,
+        mut message: InboxMessage,
+    ) -> Result<AppendReceipt, InboxError> {
+        crate::input_dispatch::clear_step_wake(&mut message);
+        self.insert_at(target, InsertPosition::Back, message).await
+    }
+
+    /// Only the actor's explicit FollowStep command can create wake metadata.
+    /// Ordinary/public queue operations strip it rather than trusting JSON.
+    pub(crate) async fn append_waking_step(
+        &self,
+        mut message: InboxMessage,
+    ) -> Result<AppendReceipt, InboxError> {
+        crate::input_dispatch::mark_step_wake(&mut message);
+        self.insert_at(InboxTarget::NextStep, InsertPosition::Back, message)
+            .await
+    }
+
+    /// Atomically promote queued input to steering, or admit fresh steering.
+    /// Returns true only when Core needs a new delivery. Repeated, consumed or
+    /// explicitly removed identities never get injected/executed a second time.
+    pub async fn admit_steering(&self, mut message: InboxMessage) -> Result<bool, InboxError> {
+        crate::input_dispatch::clear_step_wake(&mut message);
+        if message.id.is_empty() {
+            return Err(InboxError::EmptyMessageId);
+        }
+        let _guard = self.local_gate.lock().await;
+        for _ in 0..MAX_CAS_RETRIES {
+            let session = self.load().await?;
+            let projection = InboxProjection::from_session(&session)?;
+            let mut events = Vec::new();
+            let consumed = session.events().iter().any(|event| matches!(event.data(),
+                EventData::UserMessage { message: used, .. } if used.id.as_deref() == Some(message.id.as_str())
+            ));
+            let mut deliver = true;
+            if let Some((target, index)) = projection.locate(&message.id) {
+                if consumed {
+                    events.push(splice(target, index, 1, Vec::new(), None));
+                    deliver = false;
+                } else {
+                    if projection.list(target)[index] != message {
+                        return Err(InboxError::ConflictingMessage {
+                            message_id: message.id.clone(),
+                        });
+                    }
+                    if target == InboxTarget::NextStep {
+                        self.store.flush(&self.session_id).await?;
+                        return Ok(false);
+                    }
+                    events.push(splice(target, index, 1, Vec::new(), None));
+                }
+            } else {
+                // The first insertion is the receipt even after a queue edit.
+                if let Some(original) =
+                    session
+                        .events()
+                        .iter()
+                        .find_map(|event| match event.data() {
+                            EventData::AgentInboxSpliced { inserted, .. } => {
+                                inserted.iter().find(|input| input.id == message.id)
+                            }
+                            _ => None,
+                        })
+                {
+                    if original != &message {
+                        return Err(InboxError::ConflictingMessage {
+                            message_id: message.id.clone(),
+                        });
+                    }
+                    self.store.flush(&self.session_id).await?;
+                    return Ok(false);
+                }
+                if consumed {
+                    self.store.flush(&self.session_id).await?;
+                    return Ok(false);
+                }
+            }
+            if deliver {
+                events.push(splice(
+                    InboxTarget::NextStep,
+                    projection.next_step.len(),
+                    0,
+                    vec![message.clone()],
+                    None,
+                ));
+            }
+            match self
+                .store
+                .append(&self.session_id, session.revision(), events)
+                .await
+            {
+                Ok(_) => {
+                    self.store.flush(&self.session_id).await?;
+                    return Ok(deliver);
+                }
+                Err(StoreError::RevisionConflict { .. }) => continue,
+                Err(error) => return Err(error.into()),
+            }
+        }
+        Err(InboxError::Contended {
+            attempts: MAX_CAS_RETRIES,
+        })
+    }
+
+    /// Prepend a new identified message to one pending list.
+    pub async fn prepend(
+        &self,
+        target: InboxTarget,
+        mut message: InboxMessage,
+    ) -> Result<AppendReceipt, InboxError> {
+        crate::input_dispatch::clear_step_wake(&mut message);
+        self.insert_at(target, InsertPosition::Front, message).await
+    }
+
+    /// Replace a still-pending message in place.
+    pub async fn replace(
+        &self,
+        message_id: &str,
+        replacement: InboxMessage,
+    ) -> Result<Option<AppendReceipt>, InboxError> {
+        self.mutate(|projection| {
+            let Some((target, index)) = projection.locate(message_id) else {
+                return Ok(None);
+            };
+            let mut replacement = replacement.clone();
+            crate::input_dispatch::clear_step_wake(&mut replacement);
+            if crate::is_waking_step(&projection.list(target)[index]) {
+                crate::input_dispatch::mark_step_wake(&mut replacement);
+            }
+            validate_insert(projection, &replacement, Some(message_id))?;
+            Ok(Some(splice(
+                target,
+                index,
+                1,
+                vec![replacement.clone()],
+                Some(InboxSpliceOutcome::Cancelled),
+            )))
+        })
+        .await
+    }
+
+    /// Cancel a still-pending message.
+    pub async fn remove(&self, message_id: &str) -> Result<Option<AppendReceipt>, InboxError> {
+        self.mutate(|projection| {
+            Ok(projection.locate(message_id).map(|(target, index)| {
+                splice(
+                    target,
+                    index,
+                    1,
+                    Vec::new(),
+                    Some(InboxSpliceOutcome::Cancelled),
+                )
+            }))
+        })
+        .await
+    }
+
+    /// Cancel all next-step work before ordinary queued turns, matching the
+    /// upstream agent's observable mutation order.
+    pub async fn clear(&self) -> Result<Vec<AppendReceipt>, InboxError> {
+        let mut receipts = Vec::new();
+        for target in [InboxTarget::NextStep, InboxTarget::NextTurn] {
+            if let Some(receipt) = self
+                .mutate(|projection| {
+                    let count = projection.list(target).len();
+                    Ok((count > 0).then(|| {
+                        splice(
+                            target,
+                            0,
+                            count,
+                            Vec::new(),
+                            Some(InboxSpliceOutcome::Cancelled),
+                        )
+                    }))
+                })
+                .await?
+            {
+                receipts.push(receipt);
+            }
+        }
+        Ok(receipts)
+    }
+
+    /// Remove pending identities that already have a durable `user/message`.
+    /// This closes the crash window where a live steering message reached its
+    /// model step but the later inbox deletion did not execute.
+    pub async fn reconcile_consumed(&self) -> Result<Option<AppendReceipt>, InboxError> {
+        let _guard = self.local_gate.lock().await;
+        for _ in 0..MAX_CAS_RETRIES {
+            let session = self.load().await?;
+            let consumed = session
+                .events()
+                .iter()
+                .filter_map(|event| match event.data() {
+                    EventData::UserMessage { message, .. } => message.id.as_deref(),
+                    _ => None,
+                })
+                .collect::<HashSet<_>>();
+            let projection = InboxProjection::from_session(&session)?;
+            let mut events = Vec::new();
+            for target in [InboxTarget::NextStep, InboxTarget::NextTurn] {
+                // Delete from the back so each recorded splice remains valid
+                // after all earlier events in this same batch are applied.
+                for index in (0..projection.list(target).len()).rev() {
+                    if consumed.contains(projection.list(target)[index].id.as_str()) {
+                        events.push(splice(target, index, 1, Vec::new(), None));
+                    }
+                }
+            }
+            if events.is_empty() {
+                return Ok(None);
+            }
+            match self
+                .store
+                .append(&self.session_id, session.revision(), events)
+                .await
+            {
+                Ok(receipt) => {
+                    self.store.flush(&self.session_id).await?;
+                    return Ok(Some(receipt));
+                }
+                Err(StoreError::RevisionConflict { .. }) => continue,
+                Err(error) => return Err(error.into()),
+            }
+        }
+        Err(InboxError::Contended {
+            attempts: MAX_CAS_RETRIES,
+        })
+    }
+
+    /// Prepare the complete batch for a model step without mutating storage.
+    /// Next-step messages are ordered before at most one next-turn message.
+    pub async fn prepare_claim(&self, target: InboxTarget) -> Result<PreparedClaim, InboxError> {
+        self.prepare_claim_inner(target, false).await
+    }
+
+    /// Reopen a failed/stopped agent only for real user input. The resume fact
+    /// and this revision-bound claim are committed together by the turn executor.
+    /// Earlier runtime reports stay pending, not discarded or executed first.
+    pub async fn prepare_user_claim(&self) -> Result<PreparedClaim, InboxError> {
+        self.prepare_claim_inner(InboxTarget::NextTurn, true).await
+    }
+
+    /// Freeze the derived failure gate across explicit input-free maintenance.
+    /// A maintenance completion is not permission to execute pending receipts.
+    pub(crate) async fn preserve_dispatch_pause(&self) -> Result<(), InboxError> {
+        self.mutate(|_| Ok(Some(EventData::AgentDispatchPaused { paused: true }.into())))
+            .await?;
+        Ok(())
+    }
+
+    async fn prepare_claim_inner(
+        &self,
+        target: InboxTarget,
+        require_user: bool,
+    ) -> Result<PreparedClaim, InboxError> {
+        let _guard = self.local_gate.lock().await;
+        let session = self.load().await?;
+        let projection = InboxProjection::from_session(&session)?;
+        if require_user
+            && !projection
+                .next_turn
+                .iter()
+                .chain(&projection.next_step)
+                .any(InboxMessage::is_user_authored)
+        {
+            return Ok(PreparedClaim {
+                expected_revision: session.revision(),
+                messages: Vec::new(),
+                deletion_events: Vec::new(),
+            });
+        }
+        let mut messages = projection.next_step.clone();
+        let mut deletion_events = Vec::new();
+        if !projection.next_step.is_empty() {
+            deletion_events.push(splice(
+                InboxTarget::NextStep,
+                0,
+                projection.next_step.len(),
+                Vec::new(),
+                None,
+            ));
+        }
+        if target == InboxTarget::NextTurn {
+            let goal = xharness_session::goal::execution_state(&session);
+            let goal_id = goal
+                .as_ref()
+                .and_then(|s| s.pending.as_ref())
+                .map(|p| p.message_id.as_str());
+            let user = projection.next_turn.iter().position(|m| {
+                !crate::goal::is_goal_message(m) && (!require_user || m.is_user_authored())
+            });
+            let index = user.or_else(|| {
+                if require_user
+                    || !messages.is_empty()
+                    || !goal.as_ref().is_some_and(|s| {
+                        s.definition.execution_enabled
+                            && s.definition.snapshot.phase == xharness_session::GoalPhase::Active
+                    })
+                {
+                    return None;
+                }
+                projection
+                    .next_turn
+                    .iter()
+                    .position(|m| Some(m.id.as_str()) == goal_id)
+            });
+            if let Some((index, message)) =
+                index.and_then(|i| projection.next_turn.get(i).map(|m| (i, m)))
+            {
+                messages.push(message.clone());
+                deletion_events.push(splice(InboxTarget::NextTurn, index, 1, Vec::new(), None));
+            }
+        }
+        if require_user {
+            deletion_events.insert(0, EventData::AgentDispatchPaused { paused: false }.into());
+        }
+        Ok(PreparedClaim {
+            expected_revision: session.revision(),
+            messages,
+            deletion_events,
+        })
+    }
+
+    /// Atomically commit a prepared claim with its consuming lifecycle facts.
+    /// The claim deletions are placed between caller-supplied prefix/suffix.
+    pub async fn commit_claim(
+        &self,
+        claim: PreparedClaim,
+        mut prefix: Vec<SessionEvent>,
+        suffix: Vec<SessionEvent>,
+    ) -> Result<ClaimReceipt, InboxError> {
+        let _guard = self.local_gate.lock().await;
+        prefix.extend(claim.deletion_events);
+        prefix.extend(suffix);
+        let append = self
+            .store
+            .append(&self.session_id, claim.expected_revision, prefix)
+            .await?;
+        self.store.flush(&self.session_id).await?;
+        Ok(ClaimReceipt {
+            messages: claim.messages,
+            append,
+        })
+    }
+
+    async fn insert_at(
+        &self,
+        target: InboxTarget,
+        position: InsertPosition,
+        message: InboxMessage,
+    ) -> Result<AppendReceipt, InboxError> {
+        self.insert_observed(target, position, message, None).await
+    }
+
+    /// Crate-private: only the actor may select scheduling intent/target and
+    /// offer this explicitly non-durable receipt. Public mutations still flush.
+    pub(crate) async fn append_observed(
+        &self,
+        target: InboxTarget,
+        message: InboxMessage,
+        barrier: crate::input_admission::AppendBarrier,
+    ) -> Result<AppendReceipt, InboxError> {
+        self.insert_observed(target, InsertPosition::Back, message, Some(barrier))
+            .await
+    }
+
+    async fn insert_observed(
+        &self,
+        target: InboxTarget,
+        position: InsertPosition,
+        message: InboxMessage,
+        barrier: Option<crate::input_admission::AppendBarrier>,
+    ) -> Result<AppendReceipt, InboxError> {
+        self.mutate_observed(
+            |projection| {
+                validate_insert(projection, &message, None)?;
+                let start = match position {
+                    InsertPosition::Front => 0,
+                    InsertPosition::Back => projection.list(target).len(),
+                };
+                Ok(Some(splice(target, start, 0, vec![message.clone()], None)))
+            },
+            barrier,
+        )
+        .await?
+        .ok_or(InboxError::ProjectionCorrupt)
+    }
+
+    async fn mutate<F>(&self, mut build: F) -> Result<Option<AppendReceipt>, InboxError>
+    where
+        F: FnMut(&InboxProjection) -> Result<Option<SessionEvent>, InboxError>,
+    {
+        self.mutate_observed(&mut build, None).await
+    }
+
+    async fn mutate_observed<F>(
+        &self,
+        mut build: F,
+        mut barrier: Option<crate::input_admission::AppendBarrier>,
+    ) -> Result<Option<AppendReceipt>, InboxError>
+    where
+        F: FnMut(&InboxProjection) -> Result<Option<SessionEvent>, InboxError>,
+    {
+        let _guard = self.local_gate.lock().await;
+        for _ in 0..MAX_CAS_RETRIES {
+            let session = self.load().await?;
+            let projection = InboxProjection::from_session(&session)?;
+            let Some(event) = build(&projection)? else {
+                return Ok(None);
+            };
+            match self
+                .store
+                .append(&self.session_id, session.revision(), vec![event])
+                .await
+            {
+                Ok(receipt) => {
+                    if let Some(barrier) = barrier.take() {
+                        barrier.wait(receipt.clone()).await;
+                    }
+                    self.store.flush(&self.session_id).await?;
+                    return Ok(Some(receipt));
+                }
+                Err(StoreError::RevisionConflict { .. }) => continue,
+                Err(error) => return Err(error.into()),
+            }
+        }
+        Err(InboxError::Contended {
+            attempts: MAX_CAS_RETRIES,
+        })
+    }
+
+    async fn load(&self) -> Result<Session, InboxError> {
+        self.store
+            .load(&self.session_id)
+            .await?
+            .ok_or_else(|| InboxError::SessionDisappeared {
+                session_id: self.session_id.clone(),
+            })
+    }
+}
+
+/// Same canonical insertion validation and CAS as the awaited API; only an
+/// actor-prepared hot Store capability can enter this non-durable boundary.
+pub(crate) fn append_logical(
+    journal: &dyn xharness_session::LogicalJournal,
+    target: InboxTarget,
+    message: &InboxMessage,
+) -> Result<AppendReceipt, InboxError> {
+    for _ in 0..MAX_CAS_RETRIES {
+        let session = journal.snapshot()?;
+        let projection = InboxProjection::from_session(&session)?;
+        validate_insert(&projection, message, None)?;
+        let event = splice(
+            target,
+            projection.list(target).len(),
+            0,
+            vec![message.clone()],
+            None,
+        );
+        match journal.append(session.revision(), vec![event]) {
+            Ok(receipt) => return Ok(receipt),
+            Err(StoreError::RevisionConflict { .. }) => continue,
+            Err(error) => return Err(error.into()),
+        }
+    }
+    Err(InboxError::Contended {
+        attempts: MAX_CAS_RETRIES,
+    })
+}
+
+/// Verify the exact accepted splice origin, not just an equal/reused ID/body.
+/// Both references borrow the SAME immutable canonical Session snapshot. This
+/// reuses the Inbox's validated borrowed replay; it creates no second history.
+pub(crate) fn logical_input_is_pending(
+    session: &Session,
+    revision: Revision,
+    target: InboxTarget,
+    message: &InboxMessage,
+) -> Result<bool, InboxError> {
+    let original = session
+        .events()
+        .iter()
+        .filter(|e| e.revision == revision)
+        .find_map(|e| match e.data() {
+            EventData::AgentInboxSpliced {
+                target: inserted_target,
+                inserted,
+                ..
+            } if *inserted_target == target => inserted.iter().find(|m| *m == message),
+            _ => None,
+        })
+        .ok_or(InboxError::ProjectionCorrupt)?;
+    let pending = PendingInbox::from_session(session)?;
+    let list = match target {
+        InboxTarget::NextTurn => &pending.next_turn,
+        InboxTarget::NextStep => &pending.next_step,
+    };
+    Ok(list.iter().any(|m| std::ptr::eq(*m, original)) && !session.events().iter().any(|e| matches!(e.data(), EventData::UserMessage { message: used, .. } if used.id.as_deref() == Some(message.id.as_str()))))
+}
+
+#[derive(Clone, Copy)]
+enum InsertPosition {
+    Front,
+    Back,
+}
+
+fn validate_insert(
+    projection: &InboxProjection,
+    message: &InboxMessage,
+    replacing: Option<&str>,
+) -> Result<(), InboxError> {
+    if message.id.is_empty() {
+        return Err(InboxError::EmptyMessageId);
+    }
+    if projection.locate(&message.id).is_some() && replacing != Some(message.id.as_str()) {
+        return Err(InboxError::DuplicateMessage {
+            message_id: message.id.clone(),
+        });
+    }
+    Ok(())
+}
+
+fn splice(
+    target: InboxTarget,
+    start: usize,
+    removed_count: usize,
+    inserted: Vec<InboxMessage>,
+    outcome: Option<InboxSpliceOutcome>,
+) -> SessionEvent {
+    EventData::AgentInboxSpliced {
+        target,
+        start,
+        removed_count,
+        inserted,
+        outcome,
+    }
+    .into()
+}
+
+#[cfg(test)]
+mod projection_replay_tests {
+    use super::*;
+    #[test]
+    fn historical_bodies_are_borrowed_and_only_final_pending_inputs_are_materialized() {
+        let mut session = Session::new(SessionHeader::new("borrowed-inbox")).unwrap();
+        let mut events = Vec::new();
+        for n in 0..1000 {
+            let target = if n % 2 == 0 {
+                InboxTarget::NextTurn
+            } else {
+                InboxTarget::NextStep
+            };
+            events.push(splice(
+                target,
+                0,
+                0,
+                vec![InboxMessage::user(format!("past-{n}"), "Δ".repeat(8192))],
+                None,
+            ));
+            events.push(splice(
+                target,
+                0,
+                1,
+                vec![],
+                Some(InboxSpliceOutcome::Cancelled),
+            ));
+        }
+        let mut last = InboxMessage::user("last", "final next-turn");
+        last.source = Some(serde_json::json!({"kind":"agent-settlement"}));
+        let step = InboxMessage::user("step", "final next-step");
+        events.push(splice(
+            InboxTarget::NextTurn,
+            0,
+            0,
+            vec![last.clone()],
+            None,
+        ));
+        events.push(splice(
+            InboxTarget::NextStep,
+            0,
+            0,
+            vec![step.clone()],
+            None,
+        ));
+        session.append_batch(Revision::ZERO, events).unwrap();
+        let refs = PendingInbox::from_session(&session).unwrap();
+        assert_eq!(refs.next_turn.len(), 1);
+        assert_eq!(refs.next_step.len(), 1);
+        for (at, expected) in [(2000, refs.next_turn[0]), (2001, refs.next_step[0])] {
+            let EventData::AgentInboxSpliced { inserted, .. } = session.events()[at].data() else {
+                panic!("fixture event")
+            };
+            assert!(
+                std::ptr::eq(expected, &inserted[0]),
+                "replay must borrow the exact source, not clone historical payloads"
+            );
+        }
+        let owned = InboxProjection::from_session(&session).unwrap();
+        assert_eq!(owned.next_turn(), &[last]);
+        assert_eq!(owned.next_step(), &[step]);
+        assert_eq!(
+            session.events().len(),
+            2002,
+            "complete durable history remains intact"
+        );
+    }
+
+    #[test]
+    fn borrowed_projection_keeps_splice_bounds_and_order() {
+        let messages = [InboxMessage::user("a", "a"), InboxMessage::user("b", "b")];
+        let replacement = [InboxMessage::user("c", "c")];
+        let mut pending = PendingInbox::default();
+        pending
+            .apply(InboxTarget::NextTurn, 0, 0, &messages)
+            .unwrap();
+        pending
+            .apply(InboxTarget::NextTurn, 1, 1, &replacement)
+            .unwrap();
+        assert_eq!(
+            pending
+                .next_turn
+                .iter()
+                .map(|m| m.id.as_str())
+                .collect::<Vec<_>>(),
+            ["a", "c"]
+        );
+        for (start, count) in [(3, 0), (0, 3), (usize::MAX, 1)] {
+            assert!(matches!(
+                pending.apply(InboxTarget::NextTurn, start, count, &[]),
+                Err(InboxError::ProjectionCorrupt)
+            ));
+            assert_eq!(pending.next_turn.len(), 2);
+        }
+        pending.apply(InboxTarget::NextTurn, 0, 2, &[]).unwrap();
+        assert!(pending.next_turn.is_empty());
+    }
+}

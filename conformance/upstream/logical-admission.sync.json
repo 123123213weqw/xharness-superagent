@@ -1,0 +1,236 @@
+{
+  "source_before_tree": "33a4fa902c1d49878ba9916aa9eac60bab5840ef",
+  "runtime_before_tree": "9bd64d34b086feb0c6a02940248f281868933639",
+  "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+  "runtime_base_commit": "2147ff270fe55c2c739e5063a5bfacefd01dc38a",
+  "depends_on_source_patch_sha256": "fc98603f9aa4195ead69542529311d2902674cbeb301ed426ba4d5bac8a612c4",
+  "source_patch_sha256": "ce5dfcae4fc7652e8335b3628c89af86a4687913c62653088df4ffe3493d6cca",
+  "excluded_source_paths": [
+    "config/architecture-changes/superagent-buffered-logical-journal.json"
+  ],
+  "files": {
+    "crates/xharness-agent/src/driver.rs": {
+      "runtime_before_sha256": "defbca65adff84e104f0a6e3e0e342e78cee87d2545e6e071314012b4fb9eb47",
+      "upstream_before_sha256": "e9add720b6065ff1761a47f887d6da68421c6daa8fb7e3b99be66706c951c74f",
+      "upstream_after_sha256": "9e1e41fe369b6fcecdb01ea9e0a9d199b83f32244df4612b614993a052f5b9ee",
+      "runtime_after_sha256": "41c08c33827841d592aca4f88ba9c53f7a8599ee2cc78ef689835593fa607a7b"
+    },
+    "crates/xharness-agent/src/driver/observed_input.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "f92500cb9d5fad9dd1867143aeea1091b0130b80476205d29e08e810902e0f6a",
+      "runtime_after_sha256": "f92500cb9d5fad9dd1867143aeea1091b0130b80476205d29e08e810902e0f6a"
+    },
+    "crates/xharness-agent/src/driver/prepared_flush.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "b2ee8cb979532d7fea6fb278d7aa5e2d0761cddb65f23d18eea5af80223b01c9",
+      "runtime_after_sha256": "b2ee8cb979532d7fea6fb278d7aa5e2d0761cddb65f23d18eea5af80223b01c9"
+    },
+    "crates/xharness-agent/src/driver/prepared_input.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "4c4c800805ff131d0c9a93772866b666a2bca65d0ae40dadf0b09bb4cca053c4",
+      "runtime_after_sha256": "4c4c800805ff131d0c9a93772866b666a2bca65d0ae40dadf0b09bb4cca053c4"
+    },
+    "crates/xharness-agent/src/inbox.rs": {
+      "runtime_before_sha256": "7081e05e4747f97ac0e1cdfb5b83486c4bccb375fc8e5976c24dd4829be3b0ce",
+      "upstream_before_sha256": "9a771630f449892f9110161f0c31a0b99aa2880f2f803ec1ed4357ec545b823b",
+      "upstream_after_sha256": "67a3a0c72bc98a825ddb5c0228a15db029edcb0df301a4d588b33107cde49ee8",
+      "runtime_after_sha256": "67a3a0c72bc98a825ddb5c0228a15db029edcb0df301a4d588b33107cde49ee8"
+    },
+    "crates/xharness-agent/src/input_admission.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "db3ff443b620c93e86b1b2ba3843af88454ce37acb630a77ad0861017e8ed4fa",
+      "runtime_after_sha256": "db3ff443b620c93e86b1b2ba3843af88454ce37acb630a77ad0861017e8ed4fa"
+    },
+    "crates/xharness-agent/src/lib.rs": {
+      "runtime_before_sha256": "c35da234201f5ae0290dc43a8452fe43286caddc7f9c31b24ec7c8fa8a68aa19",
+      "upstream_before_sha256": "c35da234201f5ae0290dc43a8452fe43286caddc7f9c31b24ec7c8fa8a68aa19",
+      "upstream_after_sha256": "ed5d9e43b8ad3f684865bb396239e428263bc3e34a968e48b121588dec8d7c5c",
+      "runtime_after_sha256": "ed5d9e43b8ad3f684865bb396239e428263bc3e34a968e48b121588dec8d7c5c"
+    },
+    "crates/xharness-agent/src/prepared_input.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "9bf16997f13994f4baae79c61c689b025ecb4ef1e20cf7513dea5fc13be82613",
+      "runtime_after_sha256": "9bf16997f13994f4baae79c61c689b025ecb4ef1e20cf7513dea5fc13be82613"
+    },
+    "crates/xharness-core/src/engine.rs": {
+      "runtime_before_sha256": "2c4b326f1caa05e956209994aac9a6d564b1c9568cf31930c89cb40cdf8f3bf9",
+      "upstream_before_sha256": "acbb20c47cc631c44ab8a76ff26c1f96d885e70123dcef88762e1bc5c54fc169",
+      "upstream_after_sha256": "21fec25193396cf93074a23c16416815a1e6d6a93d8d27822a2e02cc5c7871cb",
+      "runtime_after_sha256": "36cbf690de1740b58f84e32e724a804cedae55c907b34ad8f5f32a187f0b6258"
+    },
+    "crates/xharness-host/tests/buffered_input.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "d8e479eb6b2930a24361d290ddd28cda47e7d2d23a330638b1182f36cb14c369",
+      "runtime_after_sha256": "d8e479eb6b2930a24361d290ddd28cda47e7d2d23a330638b1182f36cb14c369"
+    },
+    "crates/xharness-host/tests/observed_input.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "676f8dc716591fde7a28c6bf063ecfc55938376ef336a8f321fbddd923f88ec8",
+      "runtime_after_sha256": "676f8dc716591fde7a28c6bf063ecfc55938376ef336a8f321fbddd923f88ec8"
+    },
+    "crates/xharness-host/tests/prepared_input.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "88f90d645800071d4d0146ef84ed14b1246b86429b58d2905830b6a7b8d573de",
+      "runtime_after_sha256": "88f90d645800071d4d0146ef84ed14b1246b86429b58d2905830b6a7b8d573de"
+    },
+    "crates/xharness-session-jsonl/src/buffered.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "32460439806a181fa58068bb23da7122607ed1364458faa419100ac7226fd7b5",
+      "runtime_after_sha256": "32460439806a181fa58068bb23da7122607ed1364458faa419100ac7226fd7b5"
+    },
+    "crates/xharness-session-jsonl/src/buffered/materialize.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "f4c75345d9cf12f661bb8fca83ca02316d820c00fdc43d97e554db05a36f7df7",
+      "runtime_after_sha256": "f4c75345d9cf12f661bb8fca83ca02316d820c00fdc43d97e554db05a36f7df7"
+    },
+    "crates/xharness-session-jsonl/src/buffered/ports.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "8033ddccd4030362d55e4492755afc81338193a60f5dc5150a7394f3e26d1a14",
+      "runtime_after_sha256": "8033ddccd4030362d55e4492755afc81338193a60f5dc5150a7394f3e26d1a14"
+    },
+    "crates/xharness-session-jsonl/src/lib.rs": {
+      "runtime_before_sha256": "3808dd7105746055269e59bbdec0fdee4ab6dac7ef0f36408451ac7a6ea6b4f7",
+      "upstream_before_sha256": "3808dd7105746055269e59bbdec0fdee4ab6dac7ef0f36408451ac7a6ea6b4f7",
+      "upstream_after_sha256": "e16a579e172f9f19bba8a78ad770963cecdb88e5c3bf67e741db72b014e6f351",
+      "runtime_after_sha256": "e16a579e172f9f19bba8a78ad770963cecdb88e5c3bf67e741db72b014e6f351"
+    },
+    "crates/xharness-session-jsonl/tests/buffered.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "d8dc87f5ba18e069e190ffcdcb95f428c034473578bd58e51044f620c97ac28e",
+      "runtime_after_sha256": "d8dc87f5ba18e069e190ffcdcb95f428c034473578bd58e51044f620c97ac28e"
+    },
+    "crates/xharness-session/src/lib.rs": {
+      "runtime_before_sha256": "755c4614418a0a10156630d43a0a65c1d4f04cae343f4330247a07766eefde29",
+      "upstream_before_sha256": "fbe045f81221a43a1c63692217adfed60de2932a21854b0d3373cdaa3a241e07",
+      "upstream_after_sha256": "d645ff3f590efc73223cbc08fed48e8a2e86a43a8e0d16a110c99d59235241dd",
+      "runtime_after_sha256": "58a541b294fd8407c02a47be90d1f17f6d56fcc9986b613d626b8e2b7a5eca12"
+    },
+    "crates/xharness-session/src/logical_journal.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "6c6dbba101cf9a17fe3cd3bc39abc59396133c539c43092e927c78e4bdff1107",
+      "runtime_after_sha256": "6c6dbba101cf9a17fe3cd3bc39abc59396133c539c43092e927c78e4bdff1107"
+    },
+    "crates/xharness-session/src/store.rs": {
+      "runtime_before_sha256": "c89750657ed46a2cfa04f3b1d1b96f7a6342dab4f02049ff5672f44d1b9036b7",
+      "upstream_before_sha256": "c89750657ed46a2cfa04f3b1d1b96f7a6342dab4f02049ff5672f44d1b9036b7",
+      "upstream_after_sha256": "0c5522cf4925eaec1948fcf92dd707acf59842a73b8bf4a3ddb2914688fe897e",
+      "runtime_after_sha256": "0c5522cf4925eaec1948fcf92dd707acf59842a73b8bf4a3ddb2914688fe897e"
+    },
+    "docs/architecture/buffered-logical-journal.md": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "0232c8c1bd448148f8a8f41dc8cc6fbf294b917c88b1be95bcecd38e521331cd",
+      "runtime_after_sha256": "0232c8c1bd448148f8a8f41dc8cc6fbf294b917c88b1be95bcecd38e521331cd"
+    },
+    "docs/architecture/concurrent-logical-admission.md": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "8e784d28398e355917c33dd3c7ee47e959fa5ee6a62241f7d5e6084c61b53851",
+      "runtime_after_sha256": "8e784d28398e355917c33dd3c7ee47e959fa5ee6a62241f7d5e6084c61b53851"
+    },
+    "docs/architecture/observed-input-admission.md": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "5f1bd91c33688bda75b05b713904916b84d97503addc5fdafbdb329a2718892e",
+      "runtime_after_sha256": "5f1bd91c33688bda75b05b713904916b84d97503addc5fdafbdb329a2718892e"
+    },
+    "docs/architecture/prepared-logical-input.md": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "60067ab8b51530e69d32c11660e6086580a1501035e2d4bb03caf96b4f4a920f",
+      "runtime_after_sha256": "60067ab8b51530e69d32c11660e6086580a1501035e2d4bb03caf96b4f4a920f"
+    },
+    "crates/xharness-core/src/lib.rs": {
+      "runtime_before_sha256": "6fc2e803a31cc89c8430934dae509f1a873af6e3cf161eb385c5a0bb9a80702e",
+      "upstream_before_sha256": "995bfbb5cecce6877e851c96793a56156037d6019d65bbd7c814a2cba2b79956",
+      "upstream_after_sha256": "995bfbb5cecce6877e851c96793a56156037d6019d65bbd7c814a2cba2b79956",
+      "runtime_after_sha256": "2fae30d98bba08c4884e990718be583d256c89aa899ab61fccef286be66c7527"
+    },
+    ".clippy.toml": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": "6eb7ba482053bc900c261b685ed68e274258c88b31cdd3b0b962b2a8a80f7b37",
+      "upstream_after_sha256": "6eb7ba482053bc900c261b685ed68e274258c88b31cdd3b0b962b2a8a80f7b37",
+      "runtime_after_sha256": "6eb7ba482053bc900c261b685ed68e274258c88b31cdd3b0b962b2a8a80f7b37"
+    }
+  },
+  "borrowed_prerequisite": {
+    "path": "crates/xharness-agent/src/inbox.rs",
+    "patch_sha256": "c469e9ae911e6b9e8c0cfabc74e38efb5b6c9185ee2627e01cceb5e69a928685",
+    "runtime_before_sha256": "7081e05e4747f97ac0e1cdfb5b83486c4bccb375fc8e5976c24dd4829be3b0ce",
+    "after_sha256": "9a771630f449892f9110161f0c31a0b99aa2880f2f803ec1ed4357ec545b823b",
+    "after_equals_canonical_before": true,
+    "canonical_source_before_tree": "33a4fa902c1d49878ba9916aa9eac60bab5840ef",
+    "reason": "Exact canonical borrowed replay and two projection regressions are required for immutable-source origin checking. No Session/schema/default dispatch changes;not a whole file/head upgrade."
+  },
+  "user_index_unchanged_by_3way": true,
+  "schema_version": 1,
+  "status": "applied",
+  "source_repository": "123123213weqw/x-harness-rs",
+  "source_patch_file": "conformance/upstream/logical-admission.source.patch.gz",
+  "source_patch_encoding": "gzip;SHA-256 binds decompressed literal canonical git diff",
+  "borrowed_prerequisite_patch_file": "conformance/upstream/logical-admission.borrowed-prerequisite.patch.gz",
+  "borrowed_prerequisite_patch_encoding": "gzip;exact target-before to canonical-before borrowed replay and two regressions,not a schema change",
+  "preserved_previous_target_chain": true,
+  "master_restart_scoped_control_watchdog_imported": false,
+  "reviewed_conflict_resolution": {
+    "conflict_count": 3,
+    "resolutions": [
+      {
+        "kind": "constructor adjacent master restart context",
+        "kept": "old generation>1 recovery default plus new owned operations collection"
+      },
+      {
+        "kind": "unit worker result vs master restart WorkerExit",
+        "kept": "original unit result and returns;add exact drain ownership wrapper without restart machinery"
+      },
+      {
+        "kind": "master-only restart boundary change",
+        "kept": "only exclusive dispatch_decision receiver;do not import restart_boundary"
+      }
+    ],
+    "master_restart_scoped_control_or_watchdog_imported": false,
+    "existing_unit_worker_and_recovery_default_preserved": true,
+    "no_new_commit_ref_push": true
+  },
+  "source_and_target_persistence_schema_unchanged": true,
+  "cargo_dependencies_lock_unchanged": true,
+  "semantic_or_release_approval": false,
+  "live_product_store_or_full_native_agentdelivery_installed": false,
+  "no_new_commit_ref_push": true,
+  "core_control_prerequisite": {
+    "patch_file": "conformance/upstream/logical-admission.core-control-prerequisite.patch.gz",
+    "patch_sha256": "cdcd06ecf974e4a53e2608256dba2a9ba711046aac2580c1e6cc5236e6c8b8e7",
+    "canonical_source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+    "canonical_source_before_tree": "33a4fa902c1d49878ba9916aa9eac60bab5840ef",
+    "definition_exact_source_sha256": "9c86023c984c13ef38cdb6a10b1758785a4ba525021e90d41e2701a152e661f5",
+    "getter_exact_source_sha256": "a160ee5b11f43405acc03eb79dbbb380c6071dc2ec91713fb57cf1746765234b",
+    "definition_and_getter_copied_exactly": true,
+    "source_patch_path_count": 24,
+    "record_path_count_including_prerequisites": 25,
+    "reason": "A cloneable command face for one exact LoopRun is already present in canonical base. Runtime previously lacked it. It retains no event cursor/Agent activation and never addresses a later run. No master Agent ScopedControl/restart/watchdog or print_stderr policy imported."
+  },
+  "test_lint_prerequisite": {
+    "path": ".clippy.toml",
+    "patch_file": "conformance/upstream/logical-admission.test-lint-prerequisite.patch.gz",
+    "patch_sha256": "2473e66ccf9391f51becf832f218389a20e7837ed70c63cf2286dbc4c90456ba",
+    "canonical_config_sha256": "6eb7ba482053bc900c261b685ed68e274258c88b31cdd3b0b962b2a8a80f7b37",
+    "copied_exactly": true,
+    "test_only_unwrap_expect_allowances": true,
+    "constant_exemptions_both_false": true,
+    "non_test_forbid_unchanged": true,
+    "reason": "Strict Clippy of canonical prepared-input unit assertions needs the canonical base test settings. No code/test assertions or production forbid fences changed; no test failure suppression."
+  }
+}

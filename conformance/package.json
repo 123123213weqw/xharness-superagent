@@ -1,0 +1,17 @@
+{
+  "name": "xharness-superagent-conformance",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "oracle": "node --experimental-transform-types reference/driver.mjs",
+    "test:oracle": "node --experimental-transform-types --test test/oracle.test.mjs",
+    "snapshot": "node --experimental-transform-types reference/snapshot.mjs"
+  },
+  "dependencies": {
+    "zod": "4.4.3"
+  }
+}

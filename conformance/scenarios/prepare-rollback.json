@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "id": "prepare-rollback",
+  "initial": {
+    "prepare_fails": true
+  },
+  "commands": [
+    {
+      "op": "receive",
+      "trigger": {
+        "id": "t1"
+      }
+    },
+    {
+      "op": "evaluate_due"
+    },
+    {
+      "op": "decide",
+      "trigger": "t1",
+      "outcome": {
+        "kind": "accept",
+        "title": "Fix typo",
+        "scope": "Correct only one typo",
+        "reason": "Explicit correction request",
+        "acknowledgement": "I will correct the typo."
+      },
+      "as": "one",
+      "expect_error": "fixture_prepare_failure"
+    }
+  ],
+  "expected_summary": {
+    "tickets": 0,
+    "decisions": 0,
+    "outbox": 0
+  }
+}

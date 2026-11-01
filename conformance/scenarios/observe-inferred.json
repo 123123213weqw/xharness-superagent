@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "id": "observe-inferred",
+  "initial": {},
+  "commands": [
+    {
+      "op": "receive",
+      "trigger": {
+        "id": "t1",
+        "addressed": null
+      }
+    },
+    {
+      "op": "evaluate_due"
+    },
+    {
+      "op": "decide",
+      "trigger": "t1",
+      "assessment": {
+        "decision": "accept",
+        "rule_assessments": [
+          {
+            "rule_id": "copy",
+            "reason": "Explicit typo fix",
+            "matched": true
+          },
+          {
+            "rule_id": "visual",
+            "reason": "No styling change",
+            "matched": false
+          }
+        ],
+        "direction": {
+          "implementation_requested": true,
+          "target_basis": "specified",
+          "requires_design_decision": false,
+          "evidence": "Correct teh to the"
+        },
+        "title": "Fix typo",
+        "scope": "Correct teh to the",
+        "reason": "Settled typo correction",
+        "intent_evidence": "Please correct teh to the",
+        "acknowledgement": "I will fix the typo."
+      }
+    }
+  ],
+  "expected_summary": {
+    "tickets": 0,
+    "decisions": 1,
+    "outbox": 0,
+    "decisionKinds": [
+      "ignore"
+    ]
+  }
+}

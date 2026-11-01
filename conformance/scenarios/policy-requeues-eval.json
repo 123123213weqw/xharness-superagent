@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "policy-requeues-eval",
+  "commands": [
+    {
+      "op": "receive",
+      "trigger": {
+        "id": "t1"
+      }
+    },
+    {
+      "op": "evaluate_due"
+    },
+    {
+      "op": "set_settings",
+      "patch": {
+        "eval": {
+          "mode": "auto"
+        }
+      }
+    },
+    {
+      "op": "evaluate_due"
+    }
+  ],
+  "expected_summary": {
+    "decisions": 1,
+    "decisionKinds": [
+      "unavailable"
+    ],
+    "tickets": 0
+  }
+}

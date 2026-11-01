@@ -1,0 +1,12 @@
+{
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "scope": "unchanged policy.spec.ts assertions; Rust policy/settings boundaries checked; SourceRegistry/migration controls remain TS",
+  "rust_calls": {
+    "settings": 1042,
+    "gate": 50,
+    "revalidate": 308,
+    "assessment": 11,
+    "admit": 4,
+    "effects": 15
+  }
+}

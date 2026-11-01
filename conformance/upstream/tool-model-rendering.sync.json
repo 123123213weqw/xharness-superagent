@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "status": "applied",
+  "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+  "runtime_base_commit": "2147ff270fe55c2c739e5063a5bfacefd01dc38a",
+  "depends_on_source_patch_sha256": "9375a55ac5234515eb8bcd363df526365ceb66020cdd4e94b42245a9c83a27fc",
+  "depends_on_controlled_sync_sha256": "5903a4070ef9f388f7a10904246d9e0aaabdf1271286cdefd3f47289345c9adf",
+  "source_patch_file": "conformance/upstream/tool-model-rendering.source.patch.gz",
+  "source_patch_sha256": "9854eef81e119033ba212d59b8c41423b0b4865e4acc8088684669104d88d45e",
+  "runtime_apply_patch_file": "conformance/upstream/tool-model-rendering.runtime-apply.patch.gz",
+  "runtime_apply_patch_sha256": "ad983a75627fde47e0e5469e3d57b507d230779fa31b08ea3dabe11cda51a3ab",
+  "source_profile_before": "b01a87a67b834302aca1e6938b9ee53a732dd246e38e8ab080740562413ad55f",
+  "source_profile_after": "8a68335da72c3d6fa0570468716ef79b6cf961ff58a920ab71e8664c6ad89474",
+  "canonical_only_policy_review_paths": [
+    "config/architecture-changes/superagent-tool-rendering.json"
+  ],
+  "context_adaptations": [
+    {
+      "path": "crates/xharness-core/tests/loop.rs",
+      "reason": "Append only the exact new test include. Pinned Runtime lacks unrelated canonical multimodal/metering/compaction case includes; do not import them."
+    }
+  ],
+  "files": {
+    "crates/xharness-tools/src/definition.rs": {
+      "runtime_before_sha256": "c2bd376eeb5810aac7e71e2464cd08dfb658f02dd63fe1ab46ad1418f9d83189",
+      "upstream_before_sha256": "c2bd376eeb5810aac7e71e2464cd08dfb658f02dd63fe1ab46ad1418f9d83189",
+      "runtime_after_sha256": "5c3b1a0b580c01698bbc853e214f01312dd35aa102af78c909922e3911090140",
+      "upstream_after_sha256": "5c3b1a0b580c01698bbc853e214f01312dd35aa102af78c909922e3911090140"
+    },
+    "crates/xharness-core/src/tool.rs": {
+      "runtime_before_sha256": "6cc8dd48dcb863d8e7ff2593769b7754d56ac559412720c335643aafc67581c7",
+      "upstream_before_sha256": "6cc8dd48dcb863d8e7ff2593769b7754d56ac559412720c335643aafc67581c7",
+      "runtime_after_sha256": "de10248711ff18a4be448ca313068d319f1deb91965e7a574e57ce928996d677",
+      "upstream_after_sha256": "de10248711ff18a4be448ca313068d319f1deb91965e7a574e57ce928996d677"
+    },
+    "crates/xharness-core/src/engine.rs": {
+      "runtime_before_sha256": "ad97bdac80964e386ca0d0a6e1b7717a8be04db0dd056ab54d87cb73909b1fb8",
+      "upstream_before_sha256": "96a6179e55f18acab53e89c80941673d8253b67ccd298aa6acff0292adfe2f26",
+      "runtime_after_sha256": "3658191455d4d10b993a60c9f61d6405e9b15a178b82bebd5401618a8603d4f1",
+      "upstream_after_sha256": "2af6110fc895bd6504005295f2999ba2ad533f82e93f3df3e4c98e10020729a0"
+    },
+    "crates/xharness-core/tests/loop.rs": {
+      "runtime_before_sha256": "2b68f2184ef8e23fe38a59f88147d0e58d802b35228a26d8acc46fe19e97a957",
+      "upstream_before_sha256": "4d8ac6c80b083585473bf5038b7f9f47169b658b7d2ad52af5cacdaec4c28c0f",
+      "runtime_after_sha256": "8a5201dc8a0d152ab1c8d115888e6103ebb99c5869d68ae09e917cc9f2e54e8d",
+      "upstream_after_sha256": "03ac4835c1ff462e90624264acb4c978a04684eca1dc80739635fb6c205b3c3c"
+    },
+    "crates/xharness-core/tests/cases/tool_model_rendering.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "runtime_after_sha256": "57f6b359ca99827a6382d60170f7f8e5fbb5efc2112aca0bec7325a9d339408c",
+      "upstream_after_sha256": "57f6b359ca99827a6382d60170f7f8e5fbb5efc2112aca0bec7325a9d339408c"
+    },
+    "docs/architecture/tool-model-rendering.md": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "runtime_after_sha256": "96d6eadec869d9f82327a1599594bd40612233ccaae11ffb873896779c52d533",
+      "upstream_after_sha256": "96d6eadec869d9f82327a1599594bd40612233ccaae11ffb873896779c52d533"
+    }
+  },
+  "default_json_envelope_unchanged": true,
+  "trusted_registration_not_metadata": true,
+  "session_schema_and_permissions_unchanged": true,
+  "no_new_commit_ref_push": true,
+  "semantic_or_release_approval": false,
+  "oversize_and_error_sdk_parity_accepted": false
+}

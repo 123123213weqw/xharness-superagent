@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "status": "applied",
+  "source_repository": "123123213weqw/x-harness-rs",
+  "source_commit": "4ab403e0bb671b69fe56c5355bcf10dad7010c0b",
+  "runtime_base_commit": "2147ff270fe55c2c739e5063a5bfacefd01dc38a",
+  "source_before_tree": "af6d0b0e5020b136f4c54a21959e0c47ad68a68e",
+  "source_before_tree_basis": "exact pinned upstream commit plus audited prior noninterrupting patch;Git tree snapshot,NOT new commit",
+  "depends_on_source_patch_sha256": "9704604066bc132d6c0c1737f5d6acfb9c5946f649ae87b1cf180bb6698033b2",
+  "source_patch_sha256": "fc98603f9aa4195ead69542529311d2902674cbeb301ed426ba4d5bac8a612c4",
+  "source_patch_file": "conformance/upstream/passive-observation.source.patch.gz",
+  "source_patch_encoding": "gzip;hash binds decompressed literal git diff",
+  "files": {
+    "crates/xharness-agent/src/driver.rs": {
+      "runtime_before_sha256": "f255c6676f08ed449db6de7b69dad83bd895ea7af0be3f94f47344e4a17f8cee",
+      "upstream_before_sha256": "8e6c91abb126e16574f4119cc267c36dfe928eaf209b9b2ca3e87155e7e321ab",
+      "upstream_after_sha256": "e9add720b6065ff1761a47f887d6da68421c6daa8fb7e3b99be66706c951c74f",
+      "runtime_after_sha256": "defbca65adff84e104f0a6e3e0e342e78cee87d2545e6e071314012b4fb9eb47"
+    },
+    "crates/xharness-agent/src/lib.rs": {
+      "runtime_before_sha256": "7fa734077f53c37089c2a28733b011260ccf5e3083d1da28ec7644187e3e2ad7",
+      "upstream_before_sha256": "7fa734077f53c37089c2a28733b011260ccf5e3083d1da28ec7644187e3e2ad7",
+      "upstream_after_sha256": "c35da234201f5ae0290dc43a8452fe43286caddc7f9c31b24ec7c8fa8a68aa19",
+      "runtime_after_sha256": "c35da234201f5ae0290dc43a8452fe43286caddc7f9c31b24ec7c8fa8a68aa19"
+    },
+    "crates/xharness-agent/src/observation.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "a64eb937955f1f56bd0caeb77d738e37b50b267590b3443d388eecd9c216c141",
+      "runtime_after_sha256": "a64eb937955f1f56bd0caeb77d738e37b50b267590b3443d388eecd9c216c141"
+    },
+    "crates/xharness-agent/tests/observation.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "d5d74bd7c64d834084ba2ba8f7db5a89c15f85f96626879b16c15a7615ee9900",
+      "runtime_after_sha256": "d5d74bd7c64d834084ba2ba8f7db5a89c15f85f96626879b16c15a7615ee9900"
+    },
+    "crates/xharness-host/src/runtime.rs": {
+      "runtime_before_sha256": "0d7b2b6973067d0838f0b136b30d279194d9dc5d2f86c09959df13754b63a8ca",
+      "upstream_before_sha256": "6c43235ac8aa2f4d3a82d38e52945c76c033b7ec40a48810159b5a79d2e6d49d",
+      "upstream_after_sha256": "d32cb979862ff348512ff17cac20f018d51b64febc75dfec0cdd169136947a0b",
+      "runtime_after_sha256": "5f3bb3858608a9956e5f0db6c6ad56287f3619cad28cf8a43ba9bd64aaa76c64"
+    },
+    "crates/xharness-host/tests/loaded_observation.rs": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "f5751d7a75ddb1fe376c0ccab805ef62daf0b97fe9b81504fa9d08c42b0cf193",
+      "runtime_after_sha256": "f5751d7a75ddb1fe376c0ccab805ef62daf0b97fe9b81504fa9d08c42b0cf193"
+    },
+    "docs/architecture/passive-observation.md": {
+      "runtime_before_sha256": null,
+      "upstream_before_sha256": null,
+      "upstream_after_sha256": "1625bf5d03e33d8d4c75c9c4bfd14d2cb7f1e0796b4c2adf0b3b10e528f17758",
+      "runtime_after_sha256": "1625bf5d03e33d8d4c75c9c4bfd14d2cb7f1e0796b4c2adf0b3b10e528f17758"
+    }
+  },
+  "preserved_existing_target_modifications_verified_against_prior_chain": true,
+  "user_index_unchanged_by_3way_apply": true,
+  "no_new_commits_or_refs_or_push": true,
+  "persistence_schema_unchanged": true,
+  "reviewed_conflict_resolution": {
+    "path": "crates/xharness-agent/src/driver.rs",
+    "reason": "Git3way included pre-existing master restart_reply context in adjacent conflict;Runtime98 has no restart facility. Insert ONLY canonical new activity Ready handoff block verbatim;preserve old Runtime cancellation/restart defaults,do not import unrelated master context.",
+    "canonical_insert_sha256": "2ba8e4140dbbf2ea402ff9e7fe25b0a0f8bffa8187bfc87ac74f568c2966e8a2",
+    "insert_is_exact_upstream_bytes": true,
+    "conflict_count": 1,
+    "unrelated_master_restart_code_imported": false
+  }
+}

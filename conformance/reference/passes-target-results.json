@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "reference_source": "conformance/reference/upstream/src/app/passes.ts",
+  "reference_source_sha256": "79688aeb8c43396b9f122b3feba0ce1c422f1bfbca3b32919cd764a217b67ea9",
+  "unchanged_original_tests": 4,
+  "original_test_source": "conformance/reference/upstream/tests/passes.spec.ts",
+  "original_test_source_sha256": "08f2b57d4676672aaa3dd9e5896c1654fe16a6c42ff3323d4d8f3ed3296b5743",
+  "additional_independent_reference_target_tests": 19,
+  "reference_target_tests_passed": 23,
+  "reference_target_tests_failed": 0,
+  "native_tests": 16,
+  "native_passed": 16,
+  "native_failed": 0,
+  "real_sql_driver_integration": true,
+  "real_two_second_sql_timer_test": true,
+  "periodic_native_effect_retry_test": true,
+  "later_sql_thread_failure_retains_prefix": true,
+  "await_visible_health_boundary_fixed": true,
+  "cold_oracle_result_used_by_target": false,
+  "target_pump_health_timer_algorithm_implemented_in_js": false,
+  "js_controls": [
+    "original host observational callbacks and vi mocks",
+    "paused/fake clock driver, not native pump decisions",
+    "test-only FIFO transport and external promise settlement"
+  ],
+  "default_product_features_include_test_bridge": false,
+  "stop_is_closing_or_effects_drain": false,
+  "reference_repeated_start_latest_timer_only_stop_retained": true,
+  "scope": "complete Passes method/coalescing/health/timer coordinator against recording ports plus real SQL/Effects native integration; not complete product Runtime,Source,tool,provider or all arbitrary Promise interleavings",
+  "unaccepted": [
+    "all arbitrary microtask/Promise/clock interleavings and full multi-owner Runtime ordering",
+    "full Runtime install/root lock/Setup/Source/session shutdown order",
+    "followup/steer/passive inject,role prompts/skills,MasterAssessor/DshExecutor and exact20tools",
+    "jobs/children/slots/worktree/handback/cancel and real provider/Source/API/UI/deployment",
+    "existing64future-zone and55generic migration encoding boundaries,JSON/UTF16/null/depth/corrupt rows"
+  ],
+  "evidence": [
+    "passes-final-passes-contracts.log",
+    "passes-raw-reports/passes-target-vitest.json",
+    "passes-raw-reports/passes-target.json",
+    "passes-await-boundary-red.log",
+    "passes-await-boundary-fix1.log",
+    "passes-await-boundary-fix3.log"
+  ],
+  "source_sha256": {
+    "crates/xharness-superagent/src/passes.rs": "7b6db30954ca54350cb872288a08a72465af7391eb8f78cf1826e9bff0374ca2",
+    "crates/xharness-superagent/tests/passes.rs": "98af6750a6c3f3bc6b1e3cf2f059ab36f41c3b9ca4d8a9468d628854c11aa8be",
+    "crates/xharness-superagent/src/bin/passes_bridge.rs": "7bc8e0a2b840ee5593a21fd8348bc6afbe99958d62b748cd5409e54438830ecd"
+  }
+}

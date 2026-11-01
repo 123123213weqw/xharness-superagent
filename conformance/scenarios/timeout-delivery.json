@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "id": "timeout-delivery",
+  "initial": {},
+  "commands": [
+    {
+      "op": "receive",
+      "trigger": {
+        "id": "t1"
+      }
+    },
+    {
+      "op": "evaluate_due"
+    },
+    {
+      "op": "advance",
+      "milliseconds": 500000
+    },
+    {
+      "op": "evaluate_due"
+    },
+    {
+      "op": "delivered",
+      "trigger": "t1"
+    },
+    {
+      "op": "advance",
+      "milliseconds": 120001
+    },
+    {
+      "op": "evaluate_due"
+    },
+    {
+      "op": "delivered",
+      "trigger": "t1"
+    },
+    {
+      "op": "advance",
+      "milliseconds": 120001
+    },
+    {
+      "op": "evaluate_due"
+    },
+    {
+      "op": "delivered",
+      "trigger": "t1"
+    },
+    {
+      "op": "advance",
+      "milliseconds": 120001
+    },
+    {
+      "op": "evaluate_due"
+    }
+  ],
+  "expected_summary": {
+    "tickets": 0,
+    "decisions": 1,
+    "decisionKinds": [
+      "unavailable"
+    ]
+  }
+}

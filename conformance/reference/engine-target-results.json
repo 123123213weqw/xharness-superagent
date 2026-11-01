@@ -1,0 +1,692 @@
+{
+  "schema_version": 1,
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "source_file": "tests/core-engine.spec.ts",
+  "source_sha256": "e29358c139a2dbb1a2877e980e043f34cf39bca1905fb10ee14e0b4866bc1a6b",
+  "reference_ast_expect_calls": 405,
+  "unmodified_test_declarations_replayed": 113,
+  "scope": "All original Engine test bodies run with only the Engine class replaced by the actual Rust Engine. JS Policy/Scope/Clock/prepare/observational ports, fixture MemoryRepositories projection and imported helper controls remain original. Not SQL/Runtime or complete rubric acceptance.",
+  "target_report": "engine-target-vitest.json",
+  "transport_report": "engine-target.json",
+  "declarations": [
+    {
+      "reference_line": 75,
+      "title": "stores a trigger once and records source filtering",
+      "executed_full_name": "intake stores a trigger once and records source filtering",
+      "status": "passed"
+    },
+    {
+      "reference_line": 83,
+      "title": "records correlation for a trigger on several threads and evaluates only on the primary one",
+      "executed_full_name": "intake records correlation for a trigger on several threads and evaluates only on the primary one",
+      "status": "passed"
+    },
+    {
+      "reference_line": 91,
+      "title": "ignores at the gate without an assessor when nothing is admissible",
+      "executed_full_name": "eval ignores at the gate without an assessor when nothing is admissible",
+      "status": "passed"
+    },
+    {
+      "reference_line": 98,
+      "title": "releases the assessor's state for every eval that ends, decided or not",
+      "executed_full_name": "eval releases the assessor's state for every eval that ends, decided or not",
+      "status": "passed"
+    },
+    {
+      "reference_line": 104,
+      "title": "serializes evals per thread and debounces triggers that arrive meanwhile",
+      "executed_full_name": "eval serializes evals per thread and debounces triggers that arrive meanwhile",
+      "status": "passed"
+    },
+    {
+      "reference_line": 115,
+      "title": "accept creates a ticket with a mandate, subscribes the thread, queues the acknowledgement and starts an assignment",
+      "executed_full_name": "eval accept creates a ticket with a mandate, subscribes the thread, queues the acknowledgement and starts an assignment",
+      "status": "passed"
+    },
+    {
+      "reference_line": 127,
+      "title": "refuses to decide an eval that a later eval replaced, and decides the later one",
+      "executed_full_name": "eval refuses to decide an eval that a later eval replaced, and decides the later one",
+      "status": "passed"
+    },
+    {
+      "reference_line": 136,
+      "title": "records an accept with its ticket, subscriptions and acknowledgement together, or none of them",
+      "executed_full_name": "eval records an accept with its ticket, subscriptions and acknowledgement together, or none of them",
+      "status": "passed"
+    },
+    {
+      "reference_line": 146,
+      "title": "records unavailable when the policy version changed during assessment",
+      "executed_full_name": "eval records unavailable when the policy version changed during assessment",
+      "status": "passed"
+    },
+    {
+      "reference_line": 154,
+      "title": "starts every pending eval in one step, so a second pump starts none of them again",
+      "executed_full_name": "eval starts every pending eval in one step, so a second pump starts none of them again",
+      "status": "passed"
+    },
+    {
+      "reference_line": 161,
+      "title": "counts an Eval's deadline from its delivery, queues its Triggers again twice when it expires, then records it unavailable",
+      "executed_full_name": "eval counts an Eval's deadline from its delivery, queues its Triggers again twice when it expires, then records it unavailable",
+      "status": "passed"
+    },
+    {
+      "reference_line": 187,
+      "title": "delivers a person's later message on a subscribed thread to the live ticket as context, and not to Eval",
+      "executed_full_name": "subscription fan-out delivers a person's later message on a subscribed thread to the live ticket as context, and not to Eval",
+      "status": "passed"
+    },
+    {
+      "reference_line": 206,
+      "title": "keeps inputs undelivered until an assignment is running, and asks to launch one whose launch failed again",
+      "executed_full_name": "subscription fan-out keeps inputs undelivered until an assignment is running, and asks to launch one whose launch failed again",
+      "status": "passed"
+    },
+    {
+      "reference_line": 219,
+      "title": "does not hand a bot's message to an ended ticket, and still assesses it",
+      "executed_full_name": "subscription fan-out does not hand a bot's message to an ended ticket, and still assesses it",
+      "status": "passed"
+    },
+    {
+      "reference_line": 228,
+      "title": "resumes once however often it pumps, with the resume note ahead of the message, and drops what waited when the policy no longer holds the mandate",
+      "executed_full_name": "subscription fan-out resumes once however often it pumps, with the resume note ahead of the message, and drops what waited when the policy no longer holds the mandate",
+      "status": "passed"
+    },
+    {
+      "reference_line": 243,
+      "title": "takes delivery reports only from the assignment that still runs the open ticket",
+      "executed_full_name": "subscription fan-out takes delivery reports only from the assignment that still runs the open ticket",
+      "status": "passed"
+    },
+    {
+      "reference_line": 262,
+      "title": "unsubscribing a thread stops fan-out until a new decision subscribes it",
+      "executed_full_name": "subscription fan-out unsubscribing a thread stops fan-out until a new decision subscribes it",
+      "status": "passed"
+    },
+    {
+      "reference_line": 269,
+      "title": "lets an Executor drop a thread attached to its ticket, keeping the thread's other tickets, but not its own threads",
+      "executed_full_name": "subscription fan-out lets an Executor drop a thread attached to its ticket, keeping the thread's other tickets, but not its own threads",
+      "status": "passed"
+    },
+    {
+      "reference_line": 296,
+      "title": "resumes an ended ticket on any person's message on its thread, under the same mandate and without a Decision",
+      "executed_full_name": "resume and stop resumes an ended ticket on any person's message on its thread, under the same mandate and without a Decision",
+      "status": "passed"
+    },
+    {
+      "reference_line": 312,
+      "title": "resumes an ended ticket an earlier version left with a person's message waiting, on the next pass",
+      "executed_full_name": "resume and stop resumes an ended ticket an earlier version left with a person's message waiting, on the next pass",
+      "status": "passed"
+    },
+    {
+      "reference_line": 323,
+      "title": "resumes an ended ticket at once when a person attaches a message to it",
+      "executed_full_name": "resume and stop resumes an ended ticket at once when a person attaches a message to it",
+      "status": "passed"
+    },
+    {
+      "reference_line": 331,
+      "title": "keeps a ticket a person stopped ended: the stop withdrew its mandate",
+      "executed_full_name": "resume and stop keeps a ticket a person stopped ended: the stop withdrew its mandate",
+      "status": "passed"
+    },
+    {
+      "reference_line": 339,
+      "title": "keeps a ticket ended when its mandate no longer passes the current policy",
+      "executed_full_name": "resume and stop keeps a ticket ended when its mandate no longer passes the current policy",
+      "status": "passed"
+    },
+    {
+      "reference_line": 346,
+      "title": "stops a live ticket only on an explicit instruction and ends it by the human",
+      "executed_full_name": "resume and stop stops a live ticket only on an explicit instruction and ends it by the human",
+      "status": "passed"
+    },
+    {
+      "reference_line": 360,
+      "title": "takes a follow-up an older version queued out of the queue without a Decision, and keeps one sent to Eval again",
+      "executed_full_name": "follow-ups takes a follow-up an older version queued out of the queue without a Decision, and keeps one sent to Eval again",
+      "status": "passed"
+    },
+    {
+      "reference_line": 372,
+      "title": "decides a follow-up in a gate-only Eval beside the Eval its Thread has in progress, which goes on",
+      "executed_full_name": "follow-ups decides a follow-up in a gate-only Eval beside the Eval its Thread has in progress, which goes on",
+      "status": "passed"
+    },
+    {
+      "reference_line": 383,
+      "title": "leaves the Thread free for a later request that reaches no ticket",
+      "executed_full_name": "follow-ups leaves the Thread free for a later request that reaches no ticket",
+      "status": "passed"
+    },
+    {
+      "reference_line": 395,
+      "title": "queues a message that reached a ticket for a fresh Eval with the gate's strength, once per ticket, and keeps the subscription",
+      "executed_full_name": "hand-back queues a message that reached a ticket for a fresh Eval with the gate's strength, once per ticket, and keeps the subscription",
+      "status": "passed"
+    },
+    {
+      "reference_line": 412,
+      "title": "queues again no message the ticket did not decide: one a person sent to Eval, a bot's, or one on a Thread followed for context",
+      "executed_full_name": "hand-back queues again no message the ticket did not decide: one a person sent to Eval, a bot's, or one on a Thread followed for context",
+      "status": "passed"
+    },
+    {
+      "reference_line": 427,
+      "title": "leaves a message the main Session attached to a ticket to its worker, whose hand-back sends it to Eval",
+      "executed_full_name": "hand-back leaves a message the main Session attached to a ticket to its worker, whose hand-back sends it to Eval",
+      "status": "passed"
+    },
+    {
+      "reference_line": 440,
+      "title": "fans a Thread followed for context out to the live ticket, resumes no ended ticket from it, unless it was attached",
+      "executed_full_name": "context threads and notes fans a Thread followed for context out to the live ticket, resumes no ended ticket from it, unless it was attached",
+      "status": "passed"
+    },
+    {
+      "reference_line": 458,
+      "title": "counts a message on a Thread a ticket follows only for context as none of its follow-ups, and lifts no block with it",
+      "executed_full_name": "context threads and notes counts a message on a Thread a ticket follows only for context as none of its follow-ups, and lifts no block with it",
+      "status": "passed"
+    },
+    {
+      "reference_line": 474,
+      "title": "sends a message to Eval when the ticket it reached cannot resume and only a ticket following its Thread for context is left",
+      "executed_full_name": "context threads and notes sends a message to Eval when the ticket it reached cannot resume and only a ticket following its Thread for context is left",
+      "status": "passed"
+    },
+    {
+      "reference_line": 485,
+      "title": "gives an open ticket's worker a note as an Input of its own, held like automatic Input, and refuses one for an ended ticket",
+      "executed_full_name": "context threads and notes gives an open ticket's worker a note as an Input of its own, held like automatic Input, and refuses one for an ended ticket",
+      "status": "passed"
+    },
+    {
+      "reference_line": 504,
+      "title": "lets the main Session take a follow-up as new work once it stopped the ticket on it",
+      "executed_full_name": "follow-up owners lets the main Session take a follow-up as new work once it stopped the ticket on it",
+      "status": "passed"
+    },
+    {
+      "reference_line": 516,
+      "title": "sends a follow-up its worker never received to Eval when the ticket ends, by a report or a stop",
+      "executed_full_name": "follow-up owners sends a follow-up its worker never received to Eval when the ticket ends, by a report or a stop",
+      "status": "passed"
+    },
+    {
+      "reference_line": 529,
+      "title": "sends a follow-up its worker got since its last report to Eval when the ticket ends, unless it acknowledged it",
+      "executed_full_name": "follow-up owners sends a follow-up its worker got since its last report to Eval when the ticket ends, unless it acknowledged it",
+      "status": "passed"
+    },
+    {
+      "reference_line": 541,
+      "title": "keeps a ticket open after its pull request merged while its worker is on a person's message it took up after its last report",
+      "executed_full_name": "follow-up owners keeps a ticket open after its pull request merged while its worker is on a person's message it took up after its last report",
+      "status": "passed"
+    },
+    {
+      "reference_line": 560,
+      "title": "gives a follow-up its ended ticket let go to that ticket again when the main Session attaches it there",
+      "executed_full_name": "follow-up owners gives a follow-up its ended ticket let go to that ticket again when the main Session attaches it there",
+      "status": "passed"
+    },
+    {
+      "reference_line": 578,
+      "title": "wakes an ended ticket for a message attached to it that its worker read only for context or before its last report",
+      "executed_full_name": "follow-up owners wakes an ended ticket for a message attached to it that its worker read only for context or before its last report",
+      "status": "passed"
+    },
+    {
+      "reference_line": 594,
+      "title": "counts a question the final report answers as taken up, so it does not come back as a candidate beside its answer",
+      "executed_full_name": "follow-up owners counts a question the final report answers as taken up, so it does not come back as a candidate beside its answer",
+      "status": "passed"
+    },
+    {
+      "reference_line": 602,
+      "title": "sends to Eval a message attached after its Eval was unavailable, once its ticket ends without taking it up",
+      "executed_full_name": "follow-up owners sends to Eval a message attached after its Eval was unavailable, once its ticket ends without taking it up",
+      "status": "passed"
+    },
+    {
+      "reference_line": 611,
+      "title": "counts an acknowledgement an earlier version queued without recording it on the message as taking the message up",
+      "executed_full_name": "follow-up owners counts an acknowledgement an earlier version queued without recording it on the message as taking the message up",
+      "status": "passed"
+    },
+    {
+      "reference_line": 620,
+      "title": "counts a message that resumed a ticket as taken up by the report that ends it again, unlike one that came later",
+      "executed_full_name": "follow-up owners counts a message that resumed a ticket as taken up by the report that ends it again, unlike one that came later",
+      "status": "passed"
+    },
+    {
+      "reference_line": 633,
+      "title": "sends a follow-up its ticket let go to Eval after a stop on it was refused, but not the one a stop ended it on",
+      "executed_full_name": "follow-up owners sends a follow-up its ticket let go to Eval after a stop on it was refused, but not the one a stop ended it on",
+      "status": "passed"
+    },
+    {
+      "reference_line": 645,
+      "title": "sends the message a stop ended a ticket on to Eval once another ticket it reached ends without taking it up",
+      "executed_full_name": "follow-up owners sends the message a stop ended a ticket on to Eval once another ticket it reached ends without taking it up",
+      "status": "passed"
+    },
+    {
+      "reference_line": 655,
+      "title": "hands the follow-ups on a thread a worker found unrelated back to Eval, with its reason",
+      "executed_full_name": "follow-up owners hands the follow-ups on a thread a worker found unrelated back to Eval, with its reason",
+      "status": "passed"
+    },
+    {
+      "reference_line": 671,
+      "title": "keeps a follow-up two tickets reached with the one that did not hand it back, and queues it once neither decides it",
+      "executed_full_name": "follow-up owners keeps a follow-up two tickets reached with the one that did not hand it back, and queues it once neither decides it",
+      "status": "passed"
+    },
+    {
+      "reference_line": 688,
+      "title": "lets an Eval an earlier version started on a follow-up decide it",
+      "executed_full_name": "follow-up owners lets an Eval an earlier version started on a follow-up decide it",
+      "status": "passed"
+    },
+    {
+      "reference_line": 702,
+      "title": "starts an Assignment interrupted mid-work again with a note, and hands one that waits what waits for it",
+      "executed_full_name": "interrupted assignments starts an Assignment interrupted mid-work again with a note, and hands one that waits what waits for it",
+      "status": "passed"
+    },
+    {
+      "reference_line": 723,
+      "title": "starts again a worker that reported but then got a person's message, which it was working on",
+      "executed_full_name": "interrupted assignments starts again a worker that reported but then got a person's message, which it was working on",
+      "status": "passed"
+    },
+    {
+      "reference_line": 735,
+      "title": "lets no Eval expire while processing is paused, and moves its deadline on by the pause's length",
+      "executed_full_name": "pause lets no Eval expire while processing is paused, and moves its deadline on by the pause's length",
+      "status": "passed"
+    },
+    {
+      "reference_line": 755,
+      "title": "tells only the live tickets a change bears on how it does, and restarts in-flight evals under the new version",
+      "executed_full_name": "policy change tells only the live tickets a change bears on how it does, and restarts in-flight evals under the new version",
+      "status": "passed"
+    },
+    {
+      "reference_line": 771,
+      "title": "does not start evals while paused",
+      "executed_full_name": "policy change does not start evals while paused",
+      "status": "passed"
+    },
+    {
+      "reference_line": 779,
+      "title": "asks, keeps, replaces and clears the question for a person, and says which question a report replaced",
+      "executed_full_name": "worker reports asks, keeps, replaces and clears the question for a person, and says which question a report replaced",
+      "status": "passed"
+    },
+    {
+      "reference_line": 795,
+      "title": "ends the ticket on a final report: dropped drops it, ready completes it unless it follows a Source's Thread that is open",
+      "executed_full_name": "worker reports ends the ticket on a final report: dropped drops it, ready completes it unless it follows a Source's Thread that is open",
+      "status": "passed"
+    },
+    {
+      "reference_line": 822,
+      "title": "refuses a question with a result or an answer, and questions or answers that name no person's message of the ticket",
+      "executed_full_name": "worker reports refuses a question with a result or an answer, and questions or answers that name no person's message of the ticket",
+      "status": "passed"
+    },
+    {
+      "reference_line": 835,
+      "title": "refuses a report on an ended ticket",
+      "executed_full_name": "worker reports refuses a report on an ended ticket",
+      "status": "passed"
+    },
+    {
+      "reference_line": 843,
+      "title": "records how a ticket ended",
+      "executed_full_name": "outcomes records how a ticket ended",
+      "status": "passed"
+    },
+    {
+      "reference_line": 853,
+      "title": "sends the routing note for a message the worker has, ends an Eval that holds only that message, and refuses a ticket a person stopped or the Policy no longer holds",
+      "executed_full_name": "attach sends the routing note for a message the worker has, ends an Eval that holds only that message, and refuses a ticket a person stopped or the Policy no longer holds",
+      "status": "passed"
+    },
+    {
+      "reference_line": 881,
+      "title": "ends the batch Eval of a message attached to a ticket and assesses the rest again, leaving the message to that ticket",
+      "executed_full_name": "attach ends the batch Eval of a message attached to a ticket and assesses the rest again, leaving the message to that ticket",
+      "status": "passed"
+    },
+    {
+      "reference_line": 893,
+      "title": "names missing things apart from refusals and fills in the values",
+      "executed_full_name": "attach names missing things apart from refusals and fills in the values",
+      "status": "passed"
+    },
+    {
+      "reference_line": 899,
+      "title": "decides an explicit request no Eval holds in a direct Eval, refuses a proactive accept without matched rules, and accepts a Trigger once",
+      "executed_full_name": "direct decisions decides an explicit request no Eval holds in a direct Eval, refuses a proactive accept without matched rules, and accepts a Trigger once",
+      "status": "passed"
+    },
+    {
+      "reference_line": 919,
+      "title": "accepts an inferred candidate only on rules the Policy admits, whoever names them",
+      "executed_full_name": "direct decisions accepts an inferred candidate only on rules the Policy admits, whoever names them",
+      "status": "passed"
+    },
+    {
+      "reference_line": 927,
+      "title": "ends the Eval of a replayed Trigger that started a ticket, and returns that ticket's Decision for it",
+      "executed_full_name": "direct decisions ends the Eval of a replayed Trigger that started a ticket, and returns that ticket's Decision for it",
+      "status": "passed"
+    },
+    {
+      "reference_line": 940,
+      "title": "keeps a replayed Trigger that started a ticket out of the Eval of the Triggers queued with it",
+      "executed_full_name": "direct decisions keeps a replayed Trigger that started a ticket out of the Eval of the Triggers queued with it",
+      "status": "passed"
+    },
+    {
+      "reference_line": 951,
+      "title": "starts a ticket from a request accepted beside a replayed one, with its own origin and acknowledgement",
+      "executed_full_name": "direct decisions starts a ticket from a request accepted beside a replayed one, with its own origin and acknowledgement",
+      "status": "passed"
+    },
+    {
+      "reference_line": 965,
+      "title": "holds back automatic Input from a worker that reported blocked or failed until a person's message arrives",
+      "executed_full_name": "automatic input holds back automatic Input from a worker that reported blocked or failed until a person's message arrives",
+      "status": "passed"
+    },
+    {
+      "reference_line": 979,
+      "title": "stops waiting for a person on a person's message, a later report that is neither blocked nor failed, or a retry",
+      "executed_full_name": "automatic input stops waiting for a person on a person's message, a later report that is neither blocked nor failed, or a retry",
+      "status": "passed"
+    },
+    {
+      "reference_line": 998,
+      "title": "launches a failed launch again for a person's message, but not for a Policy change",
+      "executed_full_name": "automatic input launches a failed launch again for a person's message, but not for a Policy change",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1011,
+      "title": "acknowledges a person's message that reached an open ticket once, and refuses others",
+      "executed_full_name": "replies acknowledges a person's message that reached an open ticket once, and refuses others",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1026,
+      "title": "sends an answer only after the worker reported it, a result only for a ready ticket, and attention only for its current question",
+      "executed_full_name": "replies sends an answer only after the worker reported it, a result only for a ready ticket, and attention only for its current question",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1053,
+      "title": "ends a ticket by the same rule on a close and on a ready report: once no PR it opened is open, as the latest of them ended",
+      "executed_full_name": "ticket commands ends a ticket by the same rule on a close and on a ready report: once no PR it opened is open, as the latest of them ended",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1077,
+      "title": "stops following a Thread whose Subscription a person removes",
+      "executed_full_name": "ticket commands stops following a Thread whose Subscription a person removes",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1087,
+      "title": "follows a Source's Threads, and ends once no Thread of its own is open, unless resumed work has not finished",
+      "executed_full_name": "ticket commands follows a Source's Threads, and ends once no Thread of its own is open, unless resumed work has not finished",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1118,
+      "title": "retries a ticket that reported failed with a new Assignment, and asks only a waiting worker for its status",
+      "executed_full_name": "ticket commands retries a ticket that reported failed with a new Assignment, and asks only a waiting worker for its status",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1135,
+      "title": "forgets a failed delivery once a new Assignment takes over or the ticket ends",
+      "executed_full_name": "failed deliveries forgets a failed delivery once a new Assignment takes over or the ticket ends",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1152,
+      "title": "dismisses the problem an unavailable Decision shows, and only such a Decision",
+      "executed_full_name": "problems dismisses the problem an unavailable Decision shows, and only such a Decision",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1163,
+      "title": "starts a new Assignment for a ticket whose Input keeps failing to reach its worker, which takes the Input",
+      "executed_full_name": "retry after a failed delivery starts a new Assignment for a ticket whose Input keeps failing to reach its worker, which takes the Input",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1180,
+      "title": "queues an Eval's batch again when it is decided under an older Policy, such as after an upgrade changed the version",
+      "executed_full_name": "Evals across Policy versions, revoked Mandates and mixed batches queues an Eval's batch again when it is decided under an older Policy, such as after an upgrade changed the version",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1191,
+      "title": "queues a person's message for Eval when the only ticket it reached cannot resume under the Policy now, and says it reached none",
+      "executed_full_name": "Evals across Policy versions, revoked Mandates and mixed batches queues a person's message for Eval when the only ticket it reached cannot resume under the Policy now, and says it reached none",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1201,
+      "title": "queues a person's message that waited out a pause for Eval when the ticket it reached cannot resume once the pause lifts",
+      "executed_full_name": "Evals across Policy versions, revoked Mandates and mixed batches queues a person's message that waited out a pause for Eval when the ticket it reached cannot resume once the pause lifts",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1212,
+      "title": "takes a new ticket's origin and acknowledgement from the admissible Trigger that gave its batch its strength",
+      "executed_full_name": "Evals across Policy versions, revoked Mandates and mixed batches takes a new ticket's origin and acknowledgement from the admissible Trigger that gave its batch its strength",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1224,
+      "title": "takes a mixed batch's strength, actor and basis from its strongest admissible Trigger, the latest of equal strength",
+      "executed_full_name": "gaps takes a mixed batch's strength, actor and basis from its strongest admissible Trigger, the latest of equal strength",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1241,
+      "title": "changes nothing and delivers nothing on a late start of an Assignment a retry replaced",
+      "executed_full_name": "gaps changes nothing and delivers nothing on a late start of an Assignment a retry replaced",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1253,
+      "title": "records a stop that names an unknown or ended ticket as ignored",
+      "executed_full_name": "gaps records a stop that names an unknown or ended ticket as ignored",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1263,
+      "title": "refuses a direct decision on a Trigger the gate does not admit, and leaves the queue as it was",
+      "executed_full_name": "gaps refuses a direct decision on a Trigger the gate does not admit, and leaves the queue as it was",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1271,
+      "title": "refuses to retry a ticket a person stopped after its failed report",
+      "executed_full_name": "gaps refuses to retry a ticket a person stopped after its failed report",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1278,
+      "title": "answers a question once, sends a result only for finished work, and the same result once",
+      "executed_full_name": "gaps answers a question once, sends a result only for finished work, and the same result once",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1300,
+      "title": "keeps an Eval's deadline on a repeated delivery, refuses to queue a held Trigger again, and puts expired Triggers first",
+      "executed_full_name": "gaps keeps an Eval's deadline on a repeated delivery, refuses to queue a held Trigger again, and puts expired Triggers first",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1317,
+      "title": "ignores an Eval an earlier version left holding only a Trigger that started a ticket, instead of recording it unavailable",
+      "executed_full_name": "final review ignores an Eval an earlier version left holding only a Trigger that started a ticket, instead of recording it unavailable",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1330,
+      "title": "clears the count of expired Evals when the gate ignores what a Thread queued",
+      "executed_full_name": "final review clears the count of expired Evals when the gate ignores what a Thread queued",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1340,
+      "title": "tells a worker of each Policy change that bears on its ticket, also of one that repeats an earlier transition",
+      "executed_full_name": "final review: Policy transitions tells a worker of each Policy change that bears on its ticket, also of one that repeats an earlier transition",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1349,
+      "title": "lets a worker acknowledge or ask no one on a Thread it follows only for context",
+      "executed_full_name": "final review: Threads followed for context lets a worker acknowledge or ask no one on a Thread it follows only for context",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1359,
+      "title": "records a Source's close time in the canonical form, and keeps the ticket's updatedAt moving forward",
+      "executed_full_name": "final review: close times records a Source's close time in the canonical form, and keeps the ticket's updatedAt moving forward",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1374,
+      "title": "resumes an ended ticket only on a person's message, not on a bot's that is attached to it",
+      "executed_full_name": "model-surface review resumes an ended ticket only on a person's message, not on a bot's that is attached to it",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1388,
+      "title": "lets a merge send to Eval only the messages its worker had no turn to read after its ready report",
+      "executed_full_name": "follow-up review: turn ends lets a merge send to Eval only the messages its worker had no turn to read after its ready report",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1400,
+      "title": "keeps a ticket open at a merge while its worker works on a message it took up, also after a progress report",
+      "executed_full_name": "follow-up review: turn ends keeps a ticket open at a merge while its worker works on a message it took up, also after a progress report",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1412,
+      "title": "ends a ticket whose close it deferred as the close did when its worker then drops the work",
+      "executed_full_name": "follow-up review: turn ends ends a ticket whose close it deferred as the close did when its worker then drops the work",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1423,
+      "title": "sends a message another ticket handed back to Eval when a stop on it ends the ticket that kept it",
+      "executed_full_name": "follow-up review: turn ends sends a message another ticket handed back to Eval when a stop on it ends the ticket that kept it",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1433,
+      "title": "gives a live ticket's worker again a message it had that a person sent to Eval and the main Session attached back",
+      "executed_full_name": "follow-up review: turn ends gives a live ticket's worker again a message it had that a person sent to Eval and the main Session attached back",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1444,
+      "title": "lets a stop send to Eval a message that waited for delivery when a turn ended, and reached the worker after",
+      "executed_full_name": "follow-up review: turn ends and deliveries lets a stop send to Eval a message that waited for delivery when a turn ended, and reached the worker after",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1459,
+      "title": "lets a stop send to Eval a message that came before the worker's waiting report but reached the worker after it",
+      "executed_full_name": "follow-up review: delivery times lets a stop send to Eval a message that came before the worker's waiting report but reached the worker after it",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1473,
+      "title": "records two stops of one follow-up that reached two tickets, made in the same moment, as two Decisions",
+      "executed_full_name": "routing review records two stops of one follow-up that reached two tickets, made in the same moment, as two Decisions",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1498,
+      "title": "sends to Eval a message that woke a ticket and reached its worker only after a progress report, at a dropped report",
+      "executed_full_name": "what a worker read sends to Eval a message that woke a ticket and reached its worker only after a progress report, at a dropped report",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1509,
+      "title": "counts a message that woke a ticket as read by a later dropped report once its worker's Session took it into a step",
+      "executed_full_name": "what a worker read counts a message that woke a ticket as read by a later dropped report once its worker's Session took it into a step",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1518,
+      "title": "sends to Eval at a merge a message that reached the worker after its last step, which no step took before its turn ended",
+      "executed_full_name": "what a worker read sends to Eval at a merge a message that reached the worker after its last step, which no step took before its turn ended",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1528,
+      "title": "counts a message a retry delivered after a failure and a turn end as read by a dropped report only once a step took it",
+      "executed_full_name": "what a worker read counts a message a retry delivered after a failure and a turn end as read by a dropped report only once a step took it",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1540,
+      "title": "counts a message a step took before a restart cut its turn off as read only once the restarted worker reports",
+      "executed_full_name": "what a worker read counts a message a step took before a restart cut its turn off as read only once the restarted worker reports",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1555,
+      "title": "gives a retry's Assignment the messages the failed one had delivered but no step of its worker took",
+      "executed_full_name": "read claims review gives a retry's Assignment the messages the failed one had delivered but no step of its worker took",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1568,
+      "title": "gives a retry only what the Assignment it replaces had delivered and no step took, not what an earlier end let go of",
+      "executed_full_name": "read claims review: retries gives a retry only what the Assignment it replaces had delivered and no step took, not what an earlier end let go of",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1585,
+      "title": "gives a restart's Assignment what the replaced one had delivered and no step took, and a retry of it gets it again",
+      "executed_full_name": "read claims review: restarts gives a restart's Assignment what the replaced one had delivered and no step took, and a retry of it gets it again",
+      "status": "passed"
+    },
+    {
+      "reference_line": 1603,
+      "title": "marks the ignore of an inferred candidate that no assessment judged, unlike an assessed one or an explicit candidate's",
+      "executed_full_name": "ignores from the card marks the ignore of an inferred candidate that no assessment judged, unlike an assessed one or an explicit candidate's",
+      "status": "passed"
+    }
+  ],
+  "requirement_assertion_review": "incomplete; component evidence does not establish every clause of a product rubric"
+}
