@@ -1,0 +1,251 @@
+{
+  "created_at_utc": "2026-11-01T20:38:19.526126+00:00",
+  "source_commit": "24a34de1dbc9d7a544b42b0a5a73e6a050049175",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "status": "read_tool_registered_and_offline_formal_subset_verified_full_business_goal_incomplete",
+  "host": "WZU_Server",
+  "isolated_owned_validation_directory": true,
+  "local_rust_compilation": false,
+  "profile_sha256": "8a4020267a82bacdf2f45c28ea7aebc0faf14fb50267a958879d8318f47d1cfa",
+  "profile_files": 712,
+  "profile_manifest": "docs/business-read-source-profile.json",
+  "local_remote_source_equal": true,
+  "new_runtime_dependencies": [],
+  "cargo_lock_changed": false,
+  "application_tools": {
+    "main": 7,
+    "worker": 6,
+    "required_main": 14,
+    "required_worker": 6,
+    "remaining_registrations": 7,
+    "worker_names_registered_not_all_branches_verified": true
+  },
+  "formal_entry": {
+    "tests_passed": 16,
+    "new_tests": [
+      "formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history",
+      "interrupt_joins_inflight_read_cli_before_lease_release_without_completion"
+    ],
+    "environment": "Explicit offline model HTTP/SSE + managed gh executable; actual formal binary, existing OpenAI adapter, Source/Client/SQL/Native/CodingToolBundle/Outbox, no paid/live services.",
+    "actual_product_path": true
+  },
+  "business_assertions": [
+    "Actual main read/settings/models/prompts/SQL and worker own-ticket/trigger/prompt/Source/transcript calls occur through formal executable and actual HTTP/SSE adapter; no internal Plan serialized as success.",
+    "Missing offset defaults to zero; unknown forged ticket_id rejected before handler; worker global/foreign ticket, defaults, settings and models reads refused; no raw model credential exposed.",
+    "Long Chinese/emoji Source body is bounded at initial delivery and read in full; source page continuation is session-scoped and does not repeat CLI GET; main cannot reuse worker Source snapshot.",
+    "Original JSONL genuinely contains private reasoning, while readable transcript omits it and keeps public tool invocation name/canonical ID/raw arguments; no ensure/prepare/wake or second conversation store.",
+    "Actual result.txt write, ready report, SQL ticket end and two marker replies (ack/result) after reads; stopped in-flight CLI is joined before lease release, no file/result reply/completion invented.",
+    "Existing14 formal boot/authorization/control/retry/recovery/duplicate tests remain exercised with shared input renderer."
+  ],
+  "component_oracles_not_full_product_acceptance": {
+    "original_source_cases": 57,
+    "original_read_github_commands_executable_cases": 19,
+    "original_standalone_transcript_function_cases": 5,
+    "new_rust_rendering_cache_tests": 4,
+    "read_transport_test_declarations": 1,
+    "reference_files": 216,
+    "audited_runtime_steps": 11,
+    "audited_runtime_paths": 86,
+    "declared_overlays": 2,
+    "negative_import_guards": 6
+  },
+  "explicit_adaptations": [
+    "Eight existing disjoint primitive/null metadata unions retained. Only the two read tools project Zod OUTPUT required offset into INPUT optional offset with default0; all numeric/other constraints retained, no kernel validator/default changes.",
+    "Same CI check name/status string conclusion precedes null, proved by original executable counterexample; no case/assertion removed and no global collation/V8 migration.",
+    "Public Native tool_calls mapped to tool-call content blocks, preserving raw arguments including malformed JSON; private provider envelopes and reasoning omitted.",
+    "Existing settings/Prompt identity value stringify reused at read/save boundary, not a global JSON/string type migration."
+  ],
+  "commands": [
+    {
+      "command": "cargo fmt --all -- --check",
+      "exit": 0
+    },
+    {
+      "command": "cargo check --locked --workspace --all-targets --features xharness-superagent/conformance",
+      "exit": 0
+    },
+    {
+      "command": "cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings",
+      "exit": 0
+    },
+    {
+      "command": "unset XH_GH_LIVE; cargo test --locked -p xharness-superagent-core -p xharness-superagent -p xharness-agent -p xharness-host -p xharness-core -p xharness-provider-openai -p xharness-coding-tools -p xharness-platform -p xharness-gh --all-targets --features xharness-superagent/conformance --no-fail-fast",
+      "exit": 0
+    },
+    {
+      "command": "cargo test --locked -p xharness-process --all-targets -- --test-threads=1",
+      "exit": 0
+    }
+  ],
+  "final_full_log": "docs/evidence/business-read-01/regression-03.log",
+  "regression_scope": {
+    "tested_crates": 10,
+    "full_workspace_tests_on_this_increment": false,
+    "ignored_or_early_capability_return_not_business_pass": true,
+    "aggregate_count_omitted": "Do not count nested subprocess result rows, repeats or capability early returns as distinct product checks.",
+    "existing_cancelled_language_tests": "Unmodified historical workspace regression only, not newly accepted business language work.",
+    "prior_wzu_failures_not_cleared": "Legacy Feishu dedicated UID/egress deployment assertions were not rerun/cleared by this selected regression; no host/user/firewall/service changes."
+  },
+  "prior_published_ci": {
+    "head": "7e5b60aa7e06a7da8f9c761894ffd601274d4ab0",
+    "run_url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41343416409",
+    "linux": "success",
+    "macos": "success",
+    "not_current_increment_evidence": true,
+    "existing_ignored_or_capability_gates_not_business_acceptance": true
+  },
+  "current_head_ci": "Inspect the precise newly published PR head; prior green is not current-code sign-off.",
+  "failures_retained": [
+    {
+      "log": "check-01.log",
+      "failure": "Session.events exposes LoggedEvent, not SessionEvent; compile error corrected without suppression."
+    },
+    {
+      "log": "check-02.log",
+      "failure": "Strict Clippy match simplified for deliberate disabled-source schema-default projection."
+    },
+    {
+      "log": "check-03.log",
+      "failure": "Original CI check ordering counterexample: null vs string conclusion. Fixed product sorting, retained expected values."
+    },
+    {
+      "log": "check-04.log",
+      "failure": "Existing JsValue is not Deserialize; used existing conversion API instead of new global type work."
+    },
+    {
+      "log": "check-05.log",
+      "failure": "Strict Clippy redundant String conversion removed."
+    },
+    {
+      "log": "check-06.log",
+      "failure": "Actual formal reads rejected for missing offset by output JSONSchema; responder then panicked on missing continuation and cleanup. Fixed explicit read input default projection; no success fixture injected."
+    },
+    {
+      "log": "regression-02.log",
+      "failure": "New transcript test constructed integer instead of existing Revision newtype; corrected test construction."
+    },
+    {
+      "log": "transcript-01.log",
+      "failure": "Whole context module import needs unrelated SDK graph absent from conformance. Execute byte-unchanged standalone transcriptEntry with Node built-in TS erasure and record original-function hash; no dependency/stubs."
+    }
+  ],
+  "remaining_scope": [
+    "Seven main registrations: ticket_note, eval/eval_read/eval_decide, settings_save/policy_sync/prompts_save; inferred admission and configuration side effects.",
+    "Full Source links/reply-to context, GitHub PR ownership/report and event branches, Feishu conversations/attachments/replies and multi-source.",
+    "Prompt save previews, seen-version transitions, full configuration/model management API and UI.",
+    "Worker stop/background/subagent settling, full slots/timeouts/retry and every crash/outbox cut.",
+    "Independent deploy/health/backup/restore/rollback and necessary release regression; no auto-merge or production deployment."
+  ],
+  "business_groups": {
+    "passed": 5,
+    "in_progress": 7,
+    "not_run": 11,
+    "validation_environment": "offline_protocol_fixture",
+    "not_completion_percentage": true
+  },
+  "global_language_migration": false,
+  "paid_live_model_calls": false,
+  "real_github_comments_or_service_deployments": false,
+  "goal_complete": false,
+  "logs": [
+    {
+      "path": "docs/evidence/business-read-01/check-01.log",
+      "raw_sha256": "a21436e6b22ef4f5dbddf88199d8359816ad4832c19460148ec0bbcaf5fcf378",
+      "public_sha256": "7055d197c098b3f1493f48f0b0fda48f6e197f2bc410eff1b6f11bb1c27387a0",
+      "normalization": "Absolute owned source/cache prefixes only; output/errors/assertions not edited."
+    },
+    {
+      "path": "docs/evidence/business-read-01/check-02.log",
+      "raw_sha256": "bcfd474cf811d057e314f341981c71e31132f3cf10ed776670d354016a919613",
+      "public_sha256": "faff9b17ebcdd1f878f3b6dbf833aff55e7543f022870a78c434126fbad258d6",
+      "normalization": "Absolute owned source/cache prefixes only; output/errors/assertions not edited."
+    },
+    {
+      "path": "docs/evidence/business-read-01/check-03.log",
+      "raw_sha256": "f1f892a794a99493705bdf95600b33226dbf94d5a357b4846f0b76d8f033d46f",
+      "public_sha256": "49d1a112d0c49247d8a8b4f1efe983f5d621503524fe8606580188dfc4228110",
+      "normalization": "Absolute owned source/cache prefixes only; output/errors/assertions not edited."
+    },
+    {
+      "path": "docs/evidence/business-read-01/check-04.log",
+      "raw_sha256": "9dfc120444a57d8871c9a9257121c3bc244ebf4afb8feb2d28590f2d1249e954",
+      "public_sha256": "504d36de67c2a0a677e06e7f938608ec0b08fdbff50df51fee2c35fea01d2346",
+      "normalization": "Absolute owned source/cache prefixes only; output/errors/assertions not edited."
+    },
+    {
+      "path": "docs/evidence/business-read-01/check-05.log",
+      "raw_sha256": "db8eb2355abdcf19fe15617cda5ff172985e562d835ea3d3613f69722c5f46a9",
+      "public_sha256": "78d271cbedabea62eb30fae021f4dc40cef1394687a09152ac6da8ce0a8c2085",
+      "normalization": "Absolute owned source/cache prefixes only; output/errors/assertions not edited."
+    },
+    {
+      "path": "docs/evidence/business-read-01/check-06.log",
+      "raw_sha256": "a6c2cd41a177a64ae52a3063a934d4811eddbbe6aa8aaab39a390e099126a99d",
+      "public_sha256": "737b012eda52cd59d51ff504640e3435b419845aaa3c1da657fa1d45ca313b47",
+      "normalization": "Absolute owned source/cache prefixes only; output/errors/assertions not edited."
+    },
+    {
+      "path": "docs/evidence/business-read-01/check-07.log",
+      "raw_sha256": "e12ff29ef911863f4aa18e901efb83c9bf534d88835fb4ef223f0b87ffc08d25",
+      "public_sha256": "d785bf9270722629405d8bd416a6d5df8572d58f1455092ea00b5a74cca307f4",
+      "normalization": "Absolute owned source/cache prefixes only; output/errors/assertions not edited."
+    },
+    {
+      "path": "docs/evidence/business-read-01/node-01.log",
+      "raw_sha256": "7b607d4fa7ece89c63a794157064bde259eaf5ea777cf733a73e08cd9b38c040",
+      "public_sha256": "7b607d4fa7ece89c63a794157064bde259eaf5ea777cf733a73e08cd9b38c040",
+      "normalization": "Absolute owned source/cache prefixes only; output/errors/assertions not edited."
+    },
+    {
+      "path": "docs/evidence/business-read-01/node-02.log",
+      "raw_sha256": "153515c54e01a76c83b8c8ab33b5bf830560de53d563781516fd780ef0a87edf",
+      "public_sha256": "153515c54e01a76c83b8c8ab33b5bf830560de53d563781516fd780ef0a87edf",
+      "normalization": "Absolute owned source/cache prefixes only; output/errors/assertions not edited."
+    },
+    {
+      "path": "docs/evidence/business-read-01/node-03.log",
+      "raw_sha256": "f34f6a4b62a9a0fef229f4c15f051c4ffcd11fb1a54806208402121d33da0381",
+      "public_sha256": "f34f6a4b62a9a0fef229f4c15f051c4ffcd11fb1a54806208402121d33da0381",
+      "normalization": "Absolute owned source/cache prefixes only; output/errors/assertions not edited."
+    },
+    {
+      "path": "docs/evidence/business-read-01/regression-01.log",
+      "raw_sha256": "fec7bc21faf938f2c918410a749d47ab46c27a7f6403c7ec6e81d4b1941b22ec",
+      "public_sha256": "2016c344a13815620cc38c707ba8061e09089ad440db866d29f9a531de37845a",
+      "normalization": "Absolute owned source/cache prefixes only; output/errors/assertions not edited."
+    },
+    {
+      "path": "docs/evidence/business-read-01/regression-02.log",
+      "raw_sha256": "e615d82be52c6a3dae91900655f8496377a88b9ffb958ecc7fbe1923dd4f10b9",
+      "public_sha256": "bc075c0818ba160876584b6bfd59715ff718b2ec355f1ff40473fe11074f8e2d",
+      "normalization": "Absolute owned source/cache prefixes only; output/errors/assertions not edited."
+    },
+    {
+      "path": "docs/evidence/business-read-01/regression-03.log",
+      "raw_sha256": "6525ff6d9a4ac2e5c1df83b9ee3cd13138c3beda47c76aa738beb5805331774c",
+      "public_sha256": "21cab3babce4dd956f7021ad8cdd15fa1a9ca7906bb51fb4d17e622384064773",
+      "normalization": "Absolute owned source/cache prefixes only; output/errors/assertions not edited."
+    },
+    {
+      "path": "docs/evidence/business-read-01/transcript-01.log",
+      "raw_sha256": "8dde0cf09a99b008e1f09294026355cdb92d2a386e5ce039914639a0287fcfc7",
+      "public_sha256": "0d94fcf1f5fd661ebfc0d44da1fe3485e080210f4ca778670e59814bbe22e105",
+      "normalization": "Absolute owned source/cache prefixes only; output/errors/assertions not edited."
+    },
+    {
+      "path": "docs/evidence/business-read-01/transcript-02.log",
+      "raw_sha256": "c0ad48c25051063dee129ddb468f75558e6e11c47a31194d446538d47aea3c4f",
+      "public_sha256": "c0ad48c25051063dee129ddb468f75558e6e11c47a31194d446538d47aea3c4f",
+      "normalization": "Absolute owned source/cache prefixes only; output/errors/assertions not edited."
+    }
+  ],
+  "historical_intermediate_regression": {
+    "log": "docs/evidence/business-read-01/regression-01.log",
+    "status": "pass_before_final_public_tool_call_projection_and_stronger_assertions",
+    "profile_sha256": "77fa553e18aad99bc30ef274aae43d7dbc05c03cc53e480f82df973512d162dc",
+    "profile_files": 710,
+    "profile_manifest": "docs/business-read-preprojection-source-profile.json",
+    "not_current_code_signoff": true,
+    "current_code_signoff_log": "docs/evidence/business-read-01/regression-03.log"
+  }
+}

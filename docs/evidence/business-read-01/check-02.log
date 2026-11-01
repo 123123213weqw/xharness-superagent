@@ -1,0 +1,20 @@
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 7.88s
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+error: match can be simplified with `.unwrap_or_default()`
+   --> crates/xharness-superagent/src/application/github.rs:159:18
+    |
+159 |       let config = match parsed {
+    |  __________________^
+160 | |         Ok(config) => config,
+161 | |         Err(_) => Config::default(),
+162 | |     };
+    | |_____^ help: replace it with: `parsed.unwrap_or_default()`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#manual_unwrap_or_default
+    = note: `-D clippy::manual-unwrap-or-default` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::manual_unwrap_or_default)]`
+
+error: could not compile `xharness-superagent` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `xharness-superagent` (lib test) due to 1 previous error

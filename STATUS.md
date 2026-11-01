@@ -137,3 +137,23 @@ workspace 测试。新代码的跨平台CI另以其精确提交检查，不复�
 
 完整业务工具、推断研判、飞书/多来源、配置 API/UI、后台/停止/完整恢复与部署回退
 继续在活动 Goal 内。没有全局语言类型迁移、新依赖、付费调用或线上服务变更。
+
+
+## B2 模型侧资源读取（最新，仍非完整业务对齐）
+
+主/Worker 的 `orchestrator_read` 已接同一 SQL/Native/Source owner，不再返回内部计划。
+主7/Worker6应用工具已注册；Worker名字齐全不代表 PR/飞书/后台等分支已经完成。
+长消息补读、会话隔离快照、实际模型/设置/Prompt、公开会话历史（保留工具调用，
+移除推理/私有provider数据）以及读取中 CLI 关闭回收已通过正式入口离线协议路径。
+
+16条正式入口测试通过，本批新增2条；19个原 readGithub+Commands 样本、5个原
+独立 transcriptEntry 投影及4个renderer/cache组件检查不单算整产品通过。
+明确适配 Zod 的 offset=0 输入默认，未修改通用工具校验器或固定参考文件。
+最终源码 workspace fmt/check/严格Clippy、10个选定crate回归通过，不是全工作区；
+忽略/能力早退和历史语言回归不算新的业务验收。前一7e5b60a CI双平台通过，
+不能拿来给新head背书，也未消除WZU旧飞书部署前置失败。
+
+业务清单仍5组离线通过，7组部分推进、11组未运行；不是功能完成率。下一步是
+7个主角色工具、完整推断/来源/配置API/UI，以及后台/停止/恢复和部署回退。
+Goal继续活动；没有全域JS/UTF-16迁移、新依赖、付费调用或线上服务变更。
+详见[读取边界](docs/superagent/business-read.md)与 `docs/business-read-verification.json`。

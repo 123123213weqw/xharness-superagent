@@ -110,3 +110,14 @@ CI 失败均保留，当前精确 head 的 CI 仍须另验。见 `docs/business-
 下一步必须完成真实会话投影/输入/Source/配置端口及缓存，再验证正式模型工具调用；
 不把内部待解析 Plan、mock 或组件检查当成功产品响应。当前证据见
 `docs/business-resources-verification.json`，完整 Goal 范围不变。
+
+
+## B2 实际读取工具（当前）
+
+`orchestrator_read` 已对两个角色注册，实际解析 SQL/Native/Source/配置资源；
+主7/Worker6，但全部Worker业务分支仍非完成。新增2条正式入口场景验证有界补读、
+会话隔离、角色权限/历史推理过滤和读CLI关闭回收；16条入口测试通过。
+业务验收5通过/7部分推进/11未运行，仅所列离线协议环境，不增加全场景签收。
+见[读取说明](superagent/business-read.md)与 `docs/business-read-verification.json`。
+剩余主7工具、推断、完整GitHub/飞书、多来源、API/UI、后台/完整停止/恢复/部署
+继续在同一个活动Goal中；不恢复取消的全域语言迁移。

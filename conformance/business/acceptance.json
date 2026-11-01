@@ -131,6 +131,20 @@
           "business_assertions": "docs/business-controls-verification.json",
           "actual_product_path": true,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "24a34de1dbc9d7a544b42b0a5a73e6a050049175",
+          "verified_subset": "Actual role-scoped read tool, Source snapshot continuation and filtered Native history; in-flight read CLI cancellation/join. main7/worker6 registered, full branches remain open.",
+          "entry_and_command": "Formal xharness-superagent executable; remote regression-03.log commands",
+          "environment": "WZU_Server isolated directory; explicit offline external-service HTTP/SSE and gh protocol fixtures",
+          "full_log": "docs/evidence/business-read-01/regression-03.log",
+          "business_assertions": "docs/business-read-verification.json",
+          "tests": [
+            "formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history",
+            "interrupt_joins_inflight_read_cli_before_lease_release_without_completion"
+          ],
+          "actual_product_path": true,
+          "not_signed_off": true
         }
       ]
     },
@@ -147,6 +161,20 @@
           "environment": "WZU_Server owned directory; explicit offline external-service protocol fixtures",
           "full_log": "docs/evidence/business-controls-01/entry-04.log",
           "business_assertions": "docs/business-controls-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "24a34de1dbc9d7a544b42b0a5a73e6a050049175",
+          "verified_subset": "Actual role-scoped read tool, Source snapshot continuation and filtered Native history; in-flight read CLI cancellation/join. main7/worker6 registered, full branches remain open.",
+          "entry_and_command": "Formal xharness-superagent executable; remote regression-03.log commands",
+          "environment": "WZU_Server isolated directory; explicit offline external-service HTTP/SSE and gh protocol fixtures",
+          "full_log": "docs/evidence/business-read-01/regression-03.log",
+          "business_assertions": "docs/business-read-verification.json",
+          "tests": [
+            "formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history",
+            "interrupt_joins_inflight_read_cli_before_lease_release_without_completion"
+          ],
           "actual_product_path": true,
           "not_signed_off": true
         }
@@ -258,8 +286,23 @@
       "id": "GH-01",
       "milestone": "B3",
       "title": "GitHub事件过滤、游标、上下文读取与回复在Source边界正确",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "24a34de1dbc9d7a544b42b0a5a73e6a050049175",
+          "verified_subset": "Actual role-scoped read tool, Source snapshot continuation and filtered Native history; in-flight read CLI cancellation/join. main7/worker6 registered, full branches remain open.",
+          "entry_and_command": "Formal xharness-superagent executable; remote regression-03.log commands",
+          "environment": "WZU_Server isolated directory; explicit offline external-service HTTP/SSE and gh protocol fixtures",
+          "full_log": "docs/evidence/business-read-01/regression-03.log",
+          "business_assertions": "docs/business-read-verification.json",
+          "tests": [
+            "formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history",
+            "interrupt_joins_inflight_read_cli_before_lease_release_without_completion"
+          ],
+          "actual_product_path": true,
+          "not_signed_off": true
+        }
+      ]
     },
     {
       "id": "GH-02",
@@ -312,28 +355,37 @@
     }
   ],
   "implementation_progress": {
-    "status": "B2_and_recovery_in_progress_full_product_alignment_incomplete",
-    "evidence": "docs/business-recovery-verification.json",
+    "status": "B2_read_and_source_subset_in_progress_full_product_alignment_incomplete",
+    "evidence": "docs/business-read-verification.json",
     "full_business_groups_passed": 5,
-    "business_groups_in_progress": 6,
-    "business_groups_not_run": 12,
+    "business_groups_in_progress": 7,
+    "business_groups_not_run": 11,
     "validation_environment": "offline_protocol_fixture",
-    "formal_entry_tests_passed": 14,
+    "formal_entry_tests_passed": 16,
     "application_tool_registrations": {
-      "main": 6,
-      "worker": 5,
+      "main": 7,
+      "worker": 6,
       "required_main": 14,
       "required_worker": 6
     },
-    "workspace_test_gate": "previous_full_workspace_and_prior_CI_failures_unresolved_this_run_selected9passed",
+    "workspace_test_gate": "current_selected10_passed_not_full_workspace; previous7e5_CI_both_passed_with_existing_gates; current_exact_head_CI_separate; legacy_WZU_Feishu_deployment_not_cleared",
     "resource_backing_components": {
       "evidence": "docs/business-resources-verification.json",
       "sql_checks": 7,
       "native_passive_history_checks": 2,
-      "read_tool_registered": false,
+      "read_tool_registered": true,
       "new_business_cases_passed": 0
+    },
+    "read_tool": {
+      "evidence": "docs/business-read-verification.json",
+      "new_formal_entry_tests": 2,
+      "original_read_transport_cases": 19,
+      "original_standalone_transcript_cases": 5,
+      "new_rendering_cache_checks": 4,
+      "new_full_business_groups_passed": 0,
+      "full_source_and_tool_branches_complete": false
     }
   },
-  "updated_at_utc": "2026-11-01T19:45:33.021365+00:00",
+  "updated_at_utc": "2026-11-01T20:38:19.526126+00:00",
   "validation_note": "passed denotes the listed complete product scenario in an explicitly offline protocol environment, not real GitHub/model service approval, universal parity or release readiness. Unexecuted branches remain open."
 }
