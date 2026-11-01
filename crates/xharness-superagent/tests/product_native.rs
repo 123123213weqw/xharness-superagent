@@ -247,10 +247,19 @@ struct Fixture {
     main: Arc<Provider>,
     worker: Arc<Provider>,
     sent: Rc<RefCell<Vec<Value>>>,
+    clock: Arc<AtomicI64>,
 }
 impl Fixture {
     fn table(&self, table: &str) -> Vec<Value> {
-        assert!(["thread", "disposition", "decision", "effect", "ticket"].contains(&table));
+        assert!([
+            "thread",
+            "disposition",
+            "decision",
+            "effect",
+            "ticket",
+            "trigger"
+        ]
+        .contains(&table));
         let db = rusqlite::Connection::open_with_flags(
             self.dir.0.join("state/orchestrator.sqlite"),
             rusqlite::OpenFlags::SQLITE_OPEN_READ_ONLY,
@@ -304,9 +313,17 @@ impl Fixture {
                 ..Provider::default()
             }),
             sent: Rc::new(RefCell::new(Vec::new())),
+            clock: Arc::new(AtomicI64::new(1793404800000)),
         }
     }
     async fn open(&self) -> (Product, tokio::task::JoinHandle<Result<()>>) {
+        self.open_with_sources(None, json!({})).await
+    }
+    async fn open_with_sources(
+        &self,
+        sources: Option<Sources>,
+        source_config: Value,
+    ) -> (Product, tokio::task::JoinHandle<Result<()>>) {
         let mut models = ModelRegistry::new();
         for (name, provider) in [("main", self.main.clone()), ("worker", self.worker.clone())] {
             models
@@ -316,8 +333,8 @@ impl Fixture {
                 ))
                 .unwrap();
         }
-        let settings=Settings::parse(&JsValue::parse(r#"{"sources":{"github":{"enabled":true,"config":{}}},"policy":{"sources":{"github":{"allowed":[{"id":"alice"}]}}}}"#).unwrap()).unwrap();
-        let clock = Arc::new(AtomicI64::new(1793404800000));
+        let settings=Settings::parse(&JsValue::from_serializable(&json!({"sources":{"github":{"enabled":true,"config":source_config}},"policy":{"sources":{"github":{"allowed":[{"id":"alice"}]}}}})).unwrap()).unwrap();
+        let clock = self.clock.clone();
         let now = clock.clone();
         let queue = clock.clone();
         let sent = self.sent.clone();
@@ -342,7 +359,7 @@ impl Fixture {
             context_policy: Arc::new(IdentityContextPolicy),
             prompts: Rc::new(PromptInputs),
             initial_settings: Some(settings),
-            sources: Sources {
+            sources: sources.unwrap_or_else(|| Sources {
                 scope: Arc::new(|settings, source, _| {
                     ScopeResult::listening(
                         settings
@@ -355,14 +372,14 @@ impl Fixture {
                         Some("comments".into()),
                     )
                 }),
-                enabled: Rc::new(|source| Ok(source == "github")),
+                enabled: Rc::new(|_, source| Ok(source == "github")),
                 channel_allowed: Rc::new(|_| Ok(true)),
                 validate_message: Arc::new(|_| Ok(())),
                 send: Rc::new(move |receipt| {
                     sent.borrow_mut().push(receipt);
                     async { Ok(Sent::Sent) }.boxed_local()
                 }),
-            },
+            }),
             prepare_workspace: Rc::new(|ticket| {
                 async move {
                     let execution = ticket.execution.expect("test ticket has execution");
@@ -383,6 +400,9 @@ impl Fixture {
         (product, task)
     }
 }
+
+#[path = "product_native/github.rs"]
+mod github;
 fn trigger(actor: &str) -> Trigger {
     serde_json::from_value(json!({"id":"comment-one","source":"github","threads":[{"source":"github","id":"issue:1"}],"actor":{"source":"github","id":actor},"human":true,"addressed":"mention","at":"2026-10-31T00:00:00.000Z","text":"Create result.txt in the workspace","channel":{"source":"github","thread":"issue:1","address":{"message":"comment-one"}},"meta":{}})).unwrap()
 }

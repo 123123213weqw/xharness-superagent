@@ -13,6 +13,7 @@ pub mod prompts;
 pub mod read;
 pub mod repository;
 pub mod retry_health;
+pub mod sources;
 pub mod store;
 
 use xharness_superagent_core::engine::DomainError;

@@ -48,6 +48,7 @@ use xharness_superagent_core::{
     repository::Repository,
 };
 pub mod client;
+pub mod github;
 pub mod native;
 mod tools;
 

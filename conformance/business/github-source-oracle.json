@@ -1,0 +1,1461 @@
+{
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "scope": "offline unmodified trigger/channel functions; not full Source/CLI/product acceptance",
+  "deployment": {
+    "repository": "owner/repo",
+    "login": "robot",
+    "noreply": "1+robot@users.noreply.github.com"
+  },
+  "comments": [
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": {
+          "login": "alice",
+          "type": "User"
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z"
+      },
+      "reference": {
+        "number": 12,
+        "isPr": false,
+        "url": "https://github.com/owner/repo/issues/12"
+      },
+      "kind": "conversation",
+      "now": "2026-11-02T00:00:00.000Z",
+      "expected": {
+        "id": "504cd3cf543107604edeb2ace5065f8d",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "alice"
+        },
+        "human": true,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "@robot 请修复 😀",
+        "addressed": "mention",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/issues/12#issuecomment-101"
+          }
+        },
+        "url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "meta": {
+          "number": 12,
+          "isPr": false,
+          "commentId": 101,
+          "kind": "conversation"
+        }
+      }
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": null,
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z"
+      },
+      "reference": {
+        "number": 12,
+        "isPr": false,
+        "url": "https://github.com/owner/repo/issues/12"
+      },
+      "kind": "conversation",
+      "now": "2026-11-02T00:00:00.000Z",
+      "expected": {
+        "id": "504cd3cf543107604edeb2ace5065f8d",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "ghost"
+        },
+        "human": true,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "@robot 请修复 😀",
+        "addressed": "mention",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/issues/12#issuecomment-101"
+          }
+        },
+        "url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "meta": {
+          "number": 12,
+          "isPr": false,
+          "commentId": 101,
+          "kind": "conversation"
+        }
+      }
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": {
+          "login": "robot",
+          "type": "User"
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z"
+      },
+      "reference": {
+        "number": 12,
+        "isPr": false,
+        "url": "https://github.com/owner/repo/issues/12"
+      },
+      "kind": "conversation",
+      "now": "2026-11-02T00:00:00.000Z",
+      "expected": {
+        "id": "504cd3cf543107604edeb2ace5065f8d",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "robot"
+        },
+        "human": false,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "@robot 请修复 😀",
+        "addressed": "mention",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/issues/12#issuecomment-101"
+          }
+        },
+        "url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "meta": {
+          "number": 12,
+          "isPr": false,
+          "commentId": 101,
+          "kind": "conversation"
+        }
+      }
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": {
+          "login": "ci[bot]",
+          "type": "User"
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z"
+      },
+      "reference": {
+        "number": 12,
+        "isPr": false,
+        "url": "https://github.com/owner/repo/issues/12"
+      },
+      "kind": "conversation",
+      "now": "2026-11-02T00:00:00.000Z",
+      "expected": {
+        "id": "504cd3cf543107604edeb2ace5065f8d",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "ci[bot]"
+        },
+        "human": false,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "@robot 请修复 😀",
+        "addressed": "mention",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/issues/12#issuecomment-101"
+          }
+        },
+        "url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "meta": {
+          "number": 12,
+          "isPr": false,
+          "commentId": 101,
+          "kind": "conversation"
+        }
+      }
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": {
+          "login": "app",
+          "type": "Bot"
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z"
+      },
+      "reference": {
+        "number": 12,
+        "isPr": false,
+        "url": "https://github.com/owner/repo/issues/12"
+      },
+      "kind": "conversation",
+      "now": "2026-11-02T00:00:00.000Z",
+      "expected": {
+        "id": "504cd3cf543107604edeb2ace5065f8d",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "app"
+        },
+        "human": false,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "@robot 请修复 😀",
+        "addressed": "mention",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/issues/12#issuecomment-101"
+          }
+        },
+        "url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "meta": {
+          "number": 12,
+          "isPr": false,
+          "commentId": 101,
+          "kind": "conversation"
+        }
+      }
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": {
+          "login": "alice",
+          "type": "User"
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:01:00.000Z"
+      },
+      "reference": {
+        "number": 12,
+        "isPr": false,
+        "url": "https://github.com/owner/repo/issues/12"
+      },
+      "kind": "conversation",
+      "now": "2026-11-02T00:00:00.000Z",
+      "expected": {
+        "id": "bc78b011fdc17619df37bccb41404080",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "alice"
+        },
+        "human": true,
+        "at": "2026-11-02T00:01:00.000Z",
+        "text": "@robot 请修复 😀",
+        "addressed": "mention",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/issues/12#issuecomment-101"
+          }
+        },
+        "url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "meta": {
+          "number": 12,
+          "isPr": false,
+          "commentId": 101,
+          "kind": "conversation"
+        }
+      }
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": {
+          "login": "alice",
+          "type": "User"
+        },
+        "html_url": "https://github.com/owner/repo/pull/12#discussion_r101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z",
+        "path": "src/文件.rs",
+        "line": null,
+        "original_line": 8,
+        "diff_hunk": "first\nsecond\nthird\nfourth",
+        "in_reply_to_id": 88
+      },
+      "reference": {
+        "number": 12,
+        "isPr": true,
+        "url": "https://github.com/owner/repo/issues/12",
+        "prAuthor": "bob"
+      },
+      "kind": "inline",
+      "now": "2026-11-02T00:00:00.000Z",
+      "expected": {
+        "id": "bddc5816bb0718231da4186d51ec4ffc",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "alice"
+        },
+        "human": true,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "src/文件.rs:8\nsecond\nthird\nfourth\n\n@robot 请修复 😀",
+        "addressed": "mention",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/pull/12#discussion_r101"
+          }
+        },
+        "url": "https://github.com/owner/repo/pull/12#discussion_r101",
+        "meta": {
+          "number": 12,
+          "isPr": true,
+          "prAuthor": "bob",
+          "commentId": 101,
+          "kind": "inline",
+          "path": "src/文件.rs",
+          "line": 8,
+          "inReplyTo": 88
+        }
+      }
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": null,
+        "user": {
+          "login": "alice",
+          "type": "User"
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z",
+        "path": "a.rs",
+        "diff_hunk": null
+      },
+      "reference": {
+        "number": 12,
+        "isPr": true,
+        "url": "https://github.com/owner/repo/issues/12",
+        "prAuthor": "bob"
+      },
+      "kind": "inline",
+      "now": "2026-11-02T00:00:00.000Z",
+      "expected": {
+        "id": "504cd3cf543107604edeb2ace5065f8d",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "alice"
+        },
+        "human": true,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "a.rs",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/issues/12#issuecomment-101"
+          }
+        },
+        "url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "meta": {
+          "number": 12,
+          "isPr": true,
+          "prAuthor": "bob",
+          "commentId": 101,
+          "kind": "inline",
+          "path": "a.rs",
+          "line": null
+        }
+      }
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": null,
+        "user": {
+          "login": "alice",
+          "type": "User"
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z",
+        "state": "APPROVED",
+        "commit_id": "abcdef0"
+      },
+      "reference": {
+        "number": 12,
+        "isPr": true,
+        "url": "https://github.com/owner/repo/issues/12",
+        "prAuthor": "bob"
+      },
+      "kind": "review",
+      "now": "2026-11-02T00:00:00.000Z",
+      "expected": {
+        "id": "504cd3cf543107604edeb2ace5065f8d",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "alice"
+        },
+        "human": true,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "APPROVED review of commit abcdef0",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/issues/12#issuecomment-101"
+          }
+        },
+        "url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "meta": {
+          "number": 12,
+          "isPr": true,
+          "prAuthor": "bob",
+          "commentId": 101,
+          "kind": "review"
+        }
+      }
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": null,
+        "user": {
+          "login": "alice",
+          "type": "User"
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z",
+        "state": "COMMENTED"
+      },
+      "reference": {
+        "number": 12,
+        "isPr": true,
+        "url": "https://github.com/owner/repo/issues/12",
+        "prAuthor": "bob"
+      },
+      "kind": "review",
+      "now": "2026-11-02T00:00:00.000Z",
+      "expected": {
+        "id": "504cd3cf543107604edeb2ace5065f8d",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "alice"
+        },
+        "human": true,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/issues/12#issuecomment-101"
+          }
+        },
+        "url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "meta": {
+          "number": 12,
+          "isPr": true,
+          "prAuthor": "bob",
+          "commentId": 101,
+          "kind": "review"
+        }
+      }
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": {
+          "login": "alice",
+          "type": "User"
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": null,
+        "updated_at": null,
+        "submitted_at": "2026-11-02T00:00:00.000Z",
+        "state": "CHANGES_REQUESTED",
+        "commit_id": null
+      },
+      "reference": {
+        "number": 12,
+        "isPr": true,
+        "url": "https://github.com/owner/repo/issues/12",
+        "prAuthor": "bob"
+      },
+      "kind": "review",
+      "now": "2026-11-02T00:00:00.000Z",
+      "expected": {
+        "id": "504cd3cf543107604edeb2ace5065f8d",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "alice"
+        },
+        "human": true,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "CHANGES_REQUESTED review of commit unknown\n\n@robot 请修复 😀",
+        "addressed": "mention",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/issues/12#issuecomment-101"
+          }
+        },
+        "url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "meta": {
+          "number": 12,
+          "isPr": true,
+          "prAuthor": "bob",
+          "commentId": 101,
+          "kind": "review"
+        }
+      }
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": {
+          "login": "alice",
+          "type": "User"
+        },
+        "html_url": null,
+        "created_at": null,
+        "updated_at": null
+      },
+      "reference": {
+        "number": 12,
+        "isPr": false,
+        "url": "https://github.com/owner/repo/issues/12"
+      },
+      "kind": "conversation",
+      "now": "2026-11-02T00:00:00.000Z",
+      "expected": {
+        "id": "1c048c5570a7d29dd5e89a6c4e761bc7",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "alice"
+        },
+        "human": true,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "@robot 请修复 😀",
+        "addressed": "mention",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12"
+          }
+        },
+        "url": "https://github.com/owner/repo/issues/12",
+        "meta": {
+          "number": 12,
+          "isPr": false,
+          "commentId": 101,
+          "kind": "conversation"
+        }
+      }
+    }
+  ],
+  "issues": [
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": {
+          "login": "alice",
+          "type": "User"
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z",
+        "number": 12,
+        "title": "Fix copy",
+        "state": "open"
+      },
+      "expected": {
+        "id": "bb5ff665ff31195d0bb3afaf446dfa9d",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "alice"
+        },
+        "human": true,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "Fix copy\n\n@robot 请修复 😀",
+        "addressed": "mention",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/issues/12#issuecomment-101"
+          }
+        },
+        "url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "meta": {
+          "number": 12,
+          "isPr": false,
+          "kind": "issue"
+        }
+      }
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "body",
+        "user": {
+          "login": "alice",
+          "type": "User"
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z",
+        "number": 12,
+        "title": "@robot title",
+        "state": "open"
+      },
+      "expected": {
+        "id": "bb5ff665ff31195d0bb3afaf446dfa9d",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "alice"
+        },
+        "human": true,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "@robot title\n\nbody",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/issues/12#issuecomment-101"
+          }
+        },
+        "url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "meta": {
+          "number": 12,
+          "isPr": false,
+          "kind": "issue"
+        }
+      }
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": {
+          "login": "alice",
+          "type": "User"
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z",
+        "number": 12,
+        "title": "Fix copy",
+        "state": "open",
+        "pull_request": {
+          "url": "https://api.github.com/repos/owner/repo/pulls/12"
+        }
+      },
+      "expected": {
+        "id": "bb5ff665ff31195d0bb3afaf446dfa9d",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "alice"
+        },
+        "human": true,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "Fix copy\n\n@robot 请修复 😀",
+        "addressed": "mention",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/issues/12#issuecomment-101"
+          }
+        },
+        "url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "meta": {
+          "number": 12,
+          "isPr": true,
+          "prAuthor": "alice",
+          "kind": "pull"
+        }
+      }
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "body",
+        "user": {
+          "login": "alice",
+          "type": "User"
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z",
+        "number": 12,
+        "title": "@robot title",
+        "state": "open",
+        "pull_request": {
+          "url": "https://api.github.com/repos/owner/repo/pulls/12"
+        }
+      },
+      "expected": {
+        "id": "bb5ff665ff31195d0bb3afaf446dfa9d",
+        "source": "github",
+        "threads": [
+          {
+            "source": "github",
+            "id": "12"
+          }
+        ],
+        "actor": {
+          "source": "github",
+          "id": "alice"
+        },
+        "human": true,
+        "at": "2026-11-02T00:00:00.000Z",
+        "text": "@robot title\n\nbody",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/issues/12#issuecomment-101"
+          }
+        },
+        "url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "meta": {
+          "number": 12,
+          "isPr": true,
+          "prAuthor": "alice",
+          "kind": "pull"
+        }
+      }
+    }
+  ],
+  "mentions": [
+    {
+      "text": "@robot",
+      "expected": true
+    },
+    {
+      "text": "hello @ROBOT!",
+      "expected": true
+    },
+    {
+      "text": "中文@robot。",
+      "expected": true
+    },
+    {
+      "text": "x@robot",
+      "expected": false
+    },
+    {
+      "text": "@@robot",
+      "expected": false
+    },
+    {
+      "text": "@robot-foo",
+      "expected": false
+    },
+    {
+      "text": "@robot_name",
+      "expected": false
+    },
+    {
+      "text": "@robot1",
+      "expected": false
+    },
+    {
+      "text": "@rob",
+      "expected": false
+    },
+    {
+      "text": "`@robot`",
+      "expected": true
+    },
+    {
+      "text": "😀@robot",
+      "expected": true
+    },
+    {
+      "text": "@robot/yes",
+      "expected": true
+    }
+  ],
+  "addresses": [
+    {
+      "url": "https://github.com/owner/repo/pull/12#discussion_r101",
+      "expected": {
+        "number": 12,
+        "pr": true,
+        "discussion": 101
+      }
+    },
+    {
+      "url": "https://api.github.com/repos/OWNER/REPO/pulls/12/",
+      "expected": {
+        "number": 12,
+        "pr": true
+      }
+    },
+    {
+      "url": "https://github.com/owner/repo/issues/12#",
+      "expected": {
+        "number": 12,
+        "pr": false
+      }
+    },
+    {
+      "url": "https://github.com/owner/repo/pull/12#DiScUsSiOn_r101",
+      "expected": {
+        "number": 12,
+        "pr": true,
+        "discussion": 101
+      }
+    },
+    {
+      "url": "https://github.com/owner/repo/pull/12#discussion_rabc",
+      "expected": {
+        "number": 12,
+        "pr": true
+      }
+    },
+    {
+      "url": "https://github.com/other/repo/pull/12",
+      "expected": null
+    },
+    {
+      "url": "https://github.com/owner/repo/issues/12?q=1",
+      "expected": null
+    },
+    {
+      "url": "http://github.com/owner/repo/issues/12",
+      "expected": null
+    },
+    {
+      "url": "https://github.com/owner/repo/issues/12/extra",
+      "expected": null
+    }
+  ],
+  "channels": [
+    {
+      "kind": "top",
+      "message": {
+        "id": "receipt-1",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12"
+          }
+        },
+        "text": "已完成 😀"
+      },
+      "expected": {
+        "state": "sent"
+      },
+      "trace": [
+        {
+          "op": "pages",
+          "path": "issues/12/comments"
+        },
+        {
+          "op": "api",
+          "path": "issues/12/comments",
+          "flags": [
+            "--method",
+            "POST",
+            "-f",
+            "body=已完成 😀\n\n<!-- dsh-superagent:receipt-1 -->"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "duplicate",
+      "message": {
+        "id": "receipt-1",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12"
+          }
+        },
+        "text": "已完成 😀"
+      },
+      "expected": {
+        "state": "sent"
+      },
+      "trace": [
+        {
+          "op": "pages",
+          "path": "issues/12/comments"
+        }
+      ]
+    },
+    {
+      "kind": "other-account",
+      "message": {
+        "id": "receipt-1",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12"
+          }
+        },
+        "text": "已完成 😀"
+      },
+      "expected": {
+        "state": "sent"
+      },
+      "trace": [
+        {
+          "op": "pages",
+          "path": "issues/12/comments"
+        },
+        {
+          "op": "api",
+          "path": "issues/12/comments",
+          "flags": [
+            "--method",
+            "POST",
+            "-f",
+            "body=已完成 😀\n\n<!-- dsh-superagent:receipt-1 -->"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "inline",
+      "message": {
+        "id": "receipt-1",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/pull/12#discussion_r101"
+          }
+        },
+        "text": "已完成 😀"
+      },
+      "expected": {
+        "state": "sent"
+      },
+      "trace": [
+        {
+          "op": "api",
+          "path": "pulls/comments/101",
+          "flags": []
+        },
+        {
+          "op": "pages",
+          "path": "pulls/12/comments"
+        },
+        {
+          "op": "api",
+          "path": "pulls/12/comments/88/replies",
+          "flags": [
+            "--method",
+            "POST",
+            "-f",
+            "body=已完成 😀\n\n<!-- dsh-superagent:receipt-1 -->"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "inline-other-root",
+      "message": {
+        "id": "receipt-1",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/pull/12#discussion_r101"
+          }
+        },
+        "text": "已完成 😀"
+      },
+      "expected": {
+        "state": "sent"
+      },
+      "trace": [
+        {
+          "op": "api",
+          "path": "pulls/comments/101",
+          "flags": []
+        },
+        {
+          "op": "pages",
+          "path": "pulls/12/comments"
+        },
+        {
+          "op": "api",
+          "path": "pulls/12/comments/88/replies",
+          "flags": [
+            "--method",
+            "POST",
+            "-f",
+            "body=已完成 😀\n\n<!-- dsh-superagent:receipt-1 -->"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "deleted-inline",
+      "message": {
+        "id": "receipt-1",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/pull/12#discussion_r101"
+          }
+        },
+        "text": "已完成 😀"
+      },
+      "expected": {
+        "state": "sent"
+      },
+      "trace": [
+        {
+          "op": "api",
+          "path": "pulls/comments/101",
+          "flags": []
+        },
+        {
+          "op": "pages",
+          "path": "issues/12/comments"
+        },
+        {
+          "op": "api",
+          "path": "issues/12/comments",
+          "flags": [
+            "--method",
+            "POST",
+            "-f",
+            "body=已完成 😀\n\n<!-- dsh-superagent:receipt-1 -->"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "inline-gone",
+      "message": {
+        "id": "receipt-1",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12",
+            "url": "https://github.com/owner/repo/pull/12#discussion_r101"
+          }
+        },
+        "text": "已完成 😀"
+      },
+      "expected": {
+        "state": "sent"
+      },
+      "trace": [
+        {
+          "op": "api",
+          "path": "pulls/comments/101",
+          "flags": []
+        },
+        {
+          "op": "pages",
+          "path": "issues/12/comments"
+        },
+        {
+          "op": "api",
+          "path": "issues/12/comments",
+          "flags": [
+            "--method",
+            "POST",
+            "-f",
+            "body=已完成 😀\n\n<!-- dsh-superagent:receipt-1 -->"
+          ]
+        }
+      ]
+    },
+    {
+      "kind": "not-found",
+      "message": {
+        "id": "receipt-1",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12"
+          }
+        },
+        "text": "已完成 😀"
+      },
+      "expected": {
+        "error": "Not Found",
+        "code": 404
+      },
+      "trace": [
+        {
+          "op": "pages",
+          "path": "issues/12/comments"
+        }
+      ]
+    },
+    {
+      "kind": "gone",
+      "message": {
+        "id": "receipt-1",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12"
+          }
+        },
+        "text": "已完成 😀"
+      },
+      "expected": {
+        "state": "gone"
+      },
+      "trace": [
+        {
+          "op": "pages",
+          "path": "issues/12/comments"
+        }
+      ]
+    },
+    {
+      "kind": "locked",
+      "message": {
+        "id": "receipt-1",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12"
+          }
+        },
+        "text": "已完成 😀"
+      },
+      "expected": {
+        "state": "gone"
+      },
+      "trace": [
+        {
+          "op": "pages",
+          "path": "issues/12/comments"
+        }
+      ]
+    },
+    {
+      "kind": "forbidden",
+      "message": {
+        "id": "receipt-1",
+        "channel": {
+          "source": "github",
+          "thread": "github:12",
+          "address": {
+            "number": "12"
+          }
+        },
+        "text": "已完成 😀"
+      },
+      "expected": {
+        "error": "Permission denied",
+        "code": 403
+      },
+      "trace": [
+        {
+          "op": "pages",
+          "path": "issues/12/comments"
+        }
+      ]
+    }
+  ],
+  "ci": [
+    {
+      "id": "77932f3c41d7858607fe4fcd4f926435",
+      "source": "github",
+      "threads": [
+        {
+          "source": "github",
+          "id": "12"
+        }
+      ],
+      "actor": {
+        "source": "github",
+        "id": ""
+      },
+      "human": false,
+      "at": "2026-11-02T00:00:00.000Z",
+      "text": "CI failed",
+      "channel": {
+        "source": "github",
+        "thread": "github:12",
+        "address": {
+          "number": "12"
+        }
+      },
+      "url": "https://github.com/owner/repo/pull/12",
+      "meta": {
+        "number": 12,
+        "isPr": true,
+        "prAuthor": "bob",
+        "ci": true,
+        "revision": 3
+      }
+    },
+    {
+      "id": "b7aae6f6cbbda6d1dab9292de975425c",
+      "source": "github",
+      "threads": [
+        {
+          "source": "github",
+          "id": "ci:main"
+        }
+      ],
+      "actor": {
+        "source": "github",
+        "id": ""
+      },
+      "human": false,
+      "at": "2026-11-02T00:00:00.000Z",
+      "text": "CI recovered",
+      "url": "https://github.com/owner/repo/commit/abcdef",
+      "meta": {
+        "ci": true,
+        "branch": "main",
+        "sha": "abcdef",
+        "revision": 4
+      }
+    }
+  ],
+  "validity": [
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": {
+          "login": "alice",
+          "type": null
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z"
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": {
+          "login": "alice"
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": null,
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": {},
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z"
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": [],
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z"
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": {
+          "login": null
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z"
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "id": 101,
+        "body": "@robot 请修复 😀",
+        "user": {
+          "login": "app",
+          "type": "Bot"
+        },
+        "html_url": "https://github.com/owner/repo/issues/12#issuecomment-101",
+        "created_at": "2026-11-02T00:00:00.000Z",
+        "updated_at": "2026-11-02T00:00:00.000Z"
+      },
+      "expected": true
+    }
+  ]
+}

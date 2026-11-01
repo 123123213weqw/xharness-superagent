@@ -3019,6 +3019,7 @@ dependencies = [
  "xharness-core",
  "xharness-host",
  "xharness-jobs",
+ "xharness-process",
  "xharness-prompt",
  "xharness-session",
  "xharness-session-jsonl",

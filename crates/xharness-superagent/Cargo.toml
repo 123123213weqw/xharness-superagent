@@ -32,6 +32,7 @@ xharness-session = { path = "../xharness-session" }
 xharness-session-jsonl = { path = "../xharness-session-jsonl" }
 xharness-tools = { path = "../xharness-tools" }
 xharness-jobs = { path = "../xharness-jobs" }
+xharness-process = { path = "../xharness-process" }
 regex = { version = "=1.13.1", default-features = false, features = ["std", "perf"] }
 
 [[bin]]

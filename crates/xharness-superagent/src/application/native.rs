@@ -18,7 +18,7 @@
 )]
 use super::{
     tools::{self, Binding, Bindings, Scope},
-    Application, ChannelAllowed, Services, SourceEnabled,
+    Application, ChannelAllowed, Services,
 };
 use crate::{
     commands::{Context, PostCommit, ValidateMessage},
@@ -65,9 +65,10 @@ use xharness_superagent_core::{
 };
 
 pub type PrepareWorkspace = Rc<dyn Fn(Ticket) -> LocalBoxFuture<'static, Result<()>>>;
+pub type ConfiguredSourceEnabled = Rc<dyn Fn(&Settings, &str) -> Result<bool>>;
 pub struct Sources {
     pub scope: Arc<ConfiguredScope>,
-    pub enabled: SourceEnabled,
+    pub enabled: ConfiguredSourceEnabled,
     pub channel_allowed: ChannelAllowed,
     pub validate_message: Arc<ValidateMessage>,
     pub send: Rc<dyn Fn(Value) -> super::ServiceFuture<Sent>>,
@@ -205,6 +206,8 @@ impl Product {
         let scope_settings = snapshot.clone();
         let source_scope = config.sources.scope.clone();
         let prepare_settings = snapshot.clone();
+        let enabled_settings = snapshot.clone();
+        let source_enabled = config.sources.enabled;
         let state_dir = config.state_dir.clone();
         let context = Context {
             policy: Arc::new(move || {
@@ -281,7 +284,9 @@ impl Product {
                         .control(action)
                 }),
                 send: config.sources.send,
-                source_enabled: config.sources.enabled,
+                source_enabled: Rc::new(move |source| {
+                    source_enabled(&enabled_settings.borrow(), source)
+                }),
                 channel_allowed: config.sources.channel_allowed,
                 shutdown: Rc::new(move || {
                     let backend = stop.get().cloned();
