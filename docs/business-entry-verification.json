@@ -54,7 +54,6 @@
   "reference_differential_boundary": "Expected business facts are checked against the pinned runtime/executor/source contracts; 57 original Source function samples are rerun. This is not two full original/target products running the same SDK end-to-end.",
   "formal_entry_test_declarations": 8,
   "formal_entry_test_names": [
-    "run",
     "formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate",
     "check_is_read_only_for_external_services_and_releases_state_lease",
     "invalid_saved_model_and_missing_configuration_never_fall_back",
@@ -241,5 +240,49 @@
     "default sandbox actual networked coding or all deploy/service/SIGTERM/backup/rollback scenarios",
     "all reference poll branches and legacy CI fingerprint/special-sort migration",
     "full workspace regression or cross-platform CI for this new commit"
+  ],
+  "business_assertions": [
+    {
+      "case": "BOOT-01",
+      "assertions": [
+        "Missing explicit configuration or model credential exits nonzero before dispatch.",
+        "Invalid saved model fails instead of using a different default provider/model.",
+        "Account setup failure is visible and releases the live state owner.",
+        "Check mode performs only read-only account/repository probes, without model requests or comments."
+      ]
+    },
+    {
+      "case": "BOOT-02",
+      "assertions": [
+        "A second formal process cannot obtain the active state lease.",
+        "Interrupt joins watch before the state can be reopened.",
+        "Once-mode interrupt cancels a model withholding its first SSE byte and returns stopped.",
+        "Normal restart loads the persisted ticket facts."
+      ]
+    },
+    {
+      "case": "FLOW-01",
+      "assertions": [
+        "An allowed human mention of the resolved agent account becomes an explicit candidate.",
+        "Exactly one authorized Ticket is created and Native worker calls actual CodingToolBundle write.",
+        "Parent traversal write fails with the real filesystem error and leaves no outside file.",
+        "The actual result file preserves Chinese and emoji; the separate seed file came from explicit prepare command.",
+        "Ready report persists; no-PR Ticket ends.",
+        "Exactly acknowledgement and result are posted with receipt HTML markers.",
+        "Actual main requests expose the two current application tools, not worker coding tools; worker exposes coding/report/ack, not main route or network-bypassing web tools."
+      ]
+    },
+    {
+      "case": "FLOW-02",
+      "assertions": [
+        "An authorized candidate routed to ignore creates no Ticket, Worker request or reply."
+      ]
+    },
+    {
+      "case": "REC-01",
+      "assertions": [
+        "The stable comment replayed after normal restart creates no additional Ticket, model request, file work or reply."
+      ]
+    }
   ]
 }

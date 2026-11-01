@@ -60,3 +60,23 @@ Worker 实际写文件 → 报告/回复的协议夹具场景已执行，不再�
 本批在独立远程目录通过 workspace check/严格 Clippy/格式检查；5个选定 crate 的
 回归906通过、0失败、8个已有忽略项（不计通过），不是整个 workspace 测试。
 新增14个 Source/协议/组合检查及57个原版函数样本；当前主/Worker应用工具仍是4个子集。
+
+## 正式入口 / B1 第一条闭环已执行
+
+已有独立 `xharness-superagent` 产品二进制：显式配置 → 实际 gh 子进程 Source →
+策略/SQL/Native → 实际 CodingToolBundle write → report/reply/marker Outbox。
+外部模型与 GitHub 服务使用明确离线协议夹具，未调用付费模型或在线发评论。
+8个正式入口测试通过；新增入口不内置假模型/假文件写入处理器。
+
+本批业务记录5组通过（仅所列离线协议环境）、1组授权场景部分完成、17组未运行，
+不是5/23的功能完成率或真实服务验收。当前主/Worker应用工具仍只有4个子集。
+参考期望、实际断言与完整日志见 [本批证据](docs/business-entry-verification.json)，
+配置/权限和缺口见 [入口说明](docs/superagent/business-entry.md)。
+
+WZU_Server 独立目录：workspace fmt/check/严格 Clippy 通过；9个选定 crate 回归
+1286通过、0失败、17个已有忽略（不计通过，含真实/付费模型及诊断项），不是整个
+workspace 测试。新代码的跨平台CI另以其精确提交检查，不复用历史绿色状态。
+
+下一优先项：主14/Worker6余下业务工具、bounded read/context 和完整 inferred 研判，
+然后飞书/多来源、配置 API/UI、完整停止/追加/重试/后台/崩溃恢复与部署/回退。
+这些都留在活动 Goal 内，不把第一条闭环误记成全部业务对齐。
