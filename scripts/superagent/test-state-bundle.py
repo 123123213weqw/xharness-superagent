@@ -13,6 +13,10 @@ class Tests(unittest.TestCase):
   self.snapshot();r=b.restore(self.bundle,self.root/'restored');self.assertTrue(r['verified']);self.assertEqual(b.fingerprint(self.source),b.fingerprint(self.root/'restored'/'object-0'))
  def test_replace_and_keep_prior_tree_for_undo(self):
   self.snapshot();(self.source/'config.json').write_text('changed');r=b.restore(self.bundle,replace_originals=True);self.assertEqual((self.source/'config.json').read_text(),'{"model":"configured"}');self.assertEqual((Path(r['prior_trees_retained'][0])/'config.json').read_text(),'changed')
+ def test_prior_session_tree_is_retained_outside_the_runtime_scan_directory(self):
+  scan=self.root/'runtime-sessions';scan.mkdir();workspace=scan/'workspace';workspace.mkdir();(workspace/'session.jsonl').write_text('header-bound-to-canonical-workspace')
+  b.snapshot([workspace],self.bundle);(workspace/'session.jsonl').write_text('prior-state');r=b.restore(self.bundle,replace_originals=True)
+  self.assertEqual(list(scan.iterdir()),[workspace]);self.assertTrue(all(scan not in Path(p).parents for p in r['prior_trees_retained']));self.assertEqual((workspace/'session.jsonl').read_text(),'header-bound-to-canonical-workspace')
  def test_tamper_refused_before_any_restore(self):
   self.snapshot();(self.bundle/'object-0'/'config.json').write_text('tampered');self.assertRaises(ValueError,b.restore,self.bundle,self.root/'restored');self.assertFalse((self.root/'restored').exists())
  def test_overlapping_live_wal_and_existing_bundle_are_refused(self):

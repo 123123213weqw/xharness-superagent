@@ -49,7 +49,16 @@ pub fn import_snapshot(source: &Path, destination: &Path) -> Result<Value> {
     }
     let bytes = fs::read(source)?;
     let digest = format!("{:x}", Sha256::digest(&bytes));
-    let db = Connection::open_with_flags(source, OpenFlags::SQLITE_OPEN_READ_ONLY)?;
+    // This is an explicitly quiesced standalone snapshot, never a live WAL
+    // database. SQLite "read only" alone can still create WAL/SHM sidecars in
+    // its writable parent and invalidate an otherwise immutable backup bundle.
+    let mut uri =
+        url::Url::from_file_path(source).map_err(|_| invalid("Invalid snapshot file URI"))?;
+    uri.set_query(Some("mode=ro&immutable=1"));
+    let db = Connection::open_with_flags(
+        uri.as_str(),
+        OpenFlags::SQLITE_OPEN_READ_ONLY | OpenFlags::SQLITE_OPEN_URI,
+    )?;
     db.execute_batch("PRAGMA query_only=ON;BEGIN")?;
     let check: String = db.query_row("PRAGMA integrity_check", [], |r| r.get(0))?;
     if check != "ok" {

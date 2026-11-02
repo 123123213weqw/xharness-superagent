@@ -82,39 +82,56 @@ def verify(bundle):
     if set(p.name for p in bundle.iterdir())!=objects|{'manifest.json','manifest.sha256'}:raise ValueError('Unexpected bundle files')
     return m
 
-def restore(bundle,into=None,replace_originals=False):
+def restore(bundle,into=None,replace_originals=False,quarantine_roots=None):
     bundle=safe_absolute(bundle);m=verify(bundle)
     if (into is None)==(not replace_originals):raise ValueError('Choose --into or --replace-originals')
     if into is not None:
         into=safe_absolute(into)
         if into.exists():raise ValueError('Relocated restore directory must be new')
         into.mkdir(mode=0o700)
-    staged=[];installed=[];quarantine=[]
+    staged=[];installed=[];quarantine=[];private_roots={}
+    # Keep prior trees OUTSIDE runtime-scanned directories (e.g. DSH sessions).
+    # Rename remains atomic: each explicit quarantine root must be on the same
+    # filesystem as its destination. Missing routes fail before installation.
+    roots=[safe_absolute(p) for p in (quarantine_roots or [bundle.parent])]
+    for root in roots:
+        if not root.is_dir():raise ValueError('Quarantine root must be an existing private directory')
     try:
         for i,e in enumerate(m['entries']):
             target=(into/e['object']) if into else safe_absolute(e['source'])
             if target==bundle or bundle in target.parents or target in bundle.parents:raise ValueError('Restore overlaps the bundle')
-            for old,_,_ in staged:
+            for old,_,_,_ in staged:
                 if target==old or target in old.parents or old in target.parents:raise ValueError('Overlapping restore targets')
             target.parent.mkdir(parents=True,exist_ok=True)
+            device=target.parent.stat().st_dev
+            root=next((p for p in roots if p.stat().st_dev==device),None)
+            if root is None:raise ValueError('No same-filesystem external quarantine root for '+str(target))
+            if device not in private_roots:
+                private=root/('.xharness-prior-'+str(os.getpid())+'-'+str(time.time_ns()))
+                for entry in m['entries']:
+                    source=safe_absolute(entry['source'])
+                    if private==source or source in private.parents:raise ValueError('Quarantine overlaps a restored tree')
+                if private==bundle or bundle in private.parents:raise ValueError('Quarantine overlaps the backup bundle')
+                private.mkdir(mode=0o700);private_roots[device]=private
+            prior=private_roots[device]/('object-'+str(i))
             stage=target.parent/('.'+target.name+'-restore-'+str(os.getpid())+'-'+str(time.time_ns()))
-            staged.append((target,stage,e))
+            staged.append((target,stage,e,prior))
             copy(bundle/e['object'],stage)
             if fingerprint(stage)!=e['fingerprint']:raise ValueError('Staged restore verification failed')
-        for target,stage,e in staged:
-            old=None
+        for target,stage,e,prior in staged:
             if target.exists() or target.is_symlink():
-                old=target.parent/('.'+target.name+'-before-restore-'+str(os.getpid())+'-'+str(time.time_ns()))
-                os.replace(target,old);quarantine.append((target,old))
+                os.replace(target,prior);quarantine.append((target,prior))
             os.replace(stage,target);installed.append(target)
             if fingerprint(target)!=e['fingerprint']:raise ValueError('Installed restore verification failed')
         return {'restored':len(installed),'verified':True,'prior_trees_retained':[str(q) for _,q in quarantine]}
     except BaseException:
         for target in reversed(installed):remove(target)
         for target,old in reversed(quarantine):os.replace(old,target)
-        for _,stage,_ in staged:
+        for _,stage,_,_ in staged:
             if stage.exists() or stage.is_symlink():remove(stage)
         if into and into.exists() and not any(into.iterdir()):into.rmdir()
+        for root in private_roots.values():
+            if root.exists() and not any(root.iterdir()):root.rmdir()
         raise
 
 def main():
@@ -122,11 +139,11 @@ def main():
     p=argparse.ArgumentParser(description=__doc__);sub=p.add_subparsers(dest='command',required=True)
     s=sub.add_parser('snapshot');s.add_argument('--quiesced',action='store_true',required=True);s.add_argument('--path',action='append',required=True);s.add_argument('--bundle',required=True)
     v=sub.add_parser('verify');v.add_argument('--bundle',required=True)
-    r=sub.add_parser('restore');r.add_argument('--quiesced',action='store_true',required=True);r.add_argument('--bundle',required=True);g=r.add_mutually_exclusive_group(required=True);g.add_argument('--into');g.add_argument('--replace-originals',action='store_true')
+    r=sub.add_parser('restore');r.add_argument('--quiesced',action='store_true',required=True);r.add_argument('--bundle',required=True);r.add_argument('--quarantine-root',action='append',help='Existing private directory outside runtime scans, on each destination filesystem; defaults to bundle parent');g=r.add_mutually_exclusive_group(required=True);g.add_argument('--into');g.add_argument('--replace-originals',action='store_true')
     a=p.parse_args()
     if a.command=='snapshot':result=snapshot(a.path,Path(a.bundle))
     elif a.command=='verify':m=verify(Path(a.bundle));result={'verified':True,'objects':len(m['entries'])}
-    else:result=restore(Path(a.bundle),Path(a.into) if a.into else None,a.replace_originals)
+    else:result=restore(Path(a.bundle),Path(a.into) if a.into else None,a.replace_originals,a.quarantine_root)
     print(json.dumps(result))
 if __name__=='__main__':
     try:main()

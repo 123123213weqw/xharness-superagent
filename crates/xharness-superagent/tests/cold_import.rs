@@ -74,6 +74,12 @@ fn cold_import_keeps_ids_cursors_receipts_settings_order_and_never_resumes_old_w
     assert!(raw.find("\"z\"").unwrap() < raw.find("\"a\"").unwrap());
     n.close().unwrap();
     assert_eq!(std::fs::read(f.snapshot()).unwrap(), before);
+    for suffix in ["-wal", "-shm"] {
+        assert!(
+            !PathBuf::from(format!("{}{suffix}", f.snapshot().display())).exists(),
+            "Read-only snapshot verification must not create auxiliary files in the backup"
+        );
+    }
     assert!(import_snapshot(&f.snapshot(), &dest).is_err());
 }
 #[test]
