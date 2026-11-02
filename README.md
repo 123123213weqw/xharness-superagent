@@ -6,7 +6,18 @@
 **状态：开发版。已有正式入口和 GitHub/飞书文本的离线协议整链路，另完成了 GitHub 的真实模型/文件/回帖及受限 Draft PR 交付验收；
 不是完整可部署的 SuperAgent 替代品，也不宣称已完整业务对齐。**
 
-## 最新 checkout 更新（2026-11-02）
+## 冷拉取修复（2026-11-02）
+
+- 先前用校验后的旧对象缓存绕过超时，不计冷拉取成功。现已用独立空目录/空缓存
+  真实验收：RS 产品 checkout **17.35 秒**，pi-rs **4.45 秒**；普通 Worker 环境
+  Git 冷 clone **10.35 秒**，全部 SHA 与远端一致，不复制旧对象。
+- 新增显式 Git-only 网络配置；RS 使用独立服务端出口，入口地址启动时取自 GitHub
+  官方元数据并正常验证 TLS，不依赖笔记本隧道、不修改共享代理。
+- 修复已灰度部署 RS，GitHub/飞书 ready，任务/回执/94份会话日志保留。
+  396 项选定 Rust 回归、严格 Clippy 和20项运维 Python 测试通过；不等同全仓 CI。
+- [本次源码、冷拉取与生产核对证据](docs/cold-checkout-verification.json)。
+
+## 前一批 checkout 更新（2026-11-02）
 
 - 新增独立 `workspace.checkout` 配置：仓库/账号取自 Source，默认分支动态查询，
   GitHub PR 自动使用 head；可显式指定分支、提交或 PR，不再依赖 RS 专用 clone 包装器。

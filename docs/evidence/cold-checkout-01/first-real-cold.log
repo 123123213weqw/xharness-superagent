@@ -1,0 +1,8 @@
+
+running 1 test
+test live_github_configured_repositories_use_same_generic_implementation has been running for over 60 seconds
+GENERIC_CHECKOUT_LIVE [{"attempt":0,"elapsedMs":96328,"receipt":{"cacheHit":false,"commit":"a3c97f182e62d4ff4c7c02f987719062d060d9ca","repository":"123123213weqw/x-harness-rs","revision":{"kind":"branch","name":"master"}}},{"attempt":1,"elapsedMs":4407,"receipt":{"cacheHit":true,"commit":"a3c97f182e62d4ff4c7c02f987719062d060d9ca","repository":"123123213weqw/x-harness-rs","revision":{"kind":"branch","name":"master"}}},{"attempt":0,"elapsedMs":11456,"receipt":{"cacheHit":false,"commit":"cc28444e25f40e787fad21981be61aba9fe1e25f","repository":"123123213weqw/pi-rs","revision":{"kind":"branch","name":"main"}}},{"attempt":1,"elapsedMs":2505,"receipt":{"cacheHit":true,"commit":"cc28444e25f40e787fad21981be61aba9fe1e25f","repository":"123123213weqw/pi-rs","revision":{"kind":"branch","name":"main"}}}]
+test live_github_configured_repositories_use_same_generic_implementation ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 119.31s
+

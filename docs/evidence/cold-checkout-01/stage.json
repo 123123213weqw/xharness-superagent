@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "2ce546472630-74a1377ebf43",
+  "sourceCommit": "2ce5464726308db68f200568b5169420b68ec6a5",
+  "sourceFingerprint": "082f5ceed2876e8c6f9b70b6b0e48d8bab407a5e1d7ccea252c9b7724d88e937",
+  "binarySha256": "74a1377ebf437737046b7bec5d23e69e682be16247420b9bbe36cc17b680e9c8",
+  "evidenceSha256": "37f87e172c1cc56603c77fbca25e7a3b3c4a3907fa4723baec094e6fc0ec534e",
+  "stateSchema": 11,
+  "rollbackCompatibility": "same-schema-and-events",
+  "createdAt": 1793627981.449038
+}

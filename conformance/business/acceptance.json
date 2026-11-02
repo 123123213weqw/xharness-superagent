@@ -758,6 +758,16 @@
           "actual_product_path": true,
           "partial_not_full_group_pass": true,
           "remaining_scope": "PR head checkout/cache only; not full PR continuation/publishing acceptance, not a new Feishu human Worker task, not all-instance replacement"
+        },
+        {
+          "source_commit": "2ce5464726308db68f200568b5169420b68ec6a5",
+          "entry_and_command": "Remote 3-package/all-target cargo tests and strict Clippy; cold-required ignored GitHub transport test on two repositories; fresh ordinary Git clone in the production Worker environment; guarded single-RS fleet upgrade",
+          "environment": "Real empty Git roots, authenticated GitHub/Git, standalone owned Git-only loopback route with normal TLS; offline boundaries only for regression fixture model/trigger traffic",
+          "full_log": "docs/evidence/cold-checkout-01/owned-route-real-cold.log",
+          "business_assertions": "docs/cold-checkout-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Cold checkout/network gap closed for tested RS/pi repositories; not all PR continuation/publishing or a new human Feishu task"
         }
       ]
     },

@@ -1,0 +1,112 @@
+{
+  "unit": "xharness-superagent-rs-github-route.service",
+  "state": {
+    "MainPID": "757949",
+    "NRestarts": "0",
+    "ActiveState": "active"
+  },
+  "bootEnabledAfterColdAcceptance": true,
+  "sourceScriptSha256": "80263214f8e53df5a9ba3933c31f158e4ddd6e847b983a431b3365091ef3b7c9",
+  "unitSha256": "f6e3810e044d6c8094cbe95466c8a2bd7175178fa4ad37d7ce524f59ce9738ba",
+  "existingMihomoBinarySha256": "c0c38819f35aca7773bb2bc26846bb196f29ac47fc20ec3dacb91a9d68a9be5c",
+  "loopbackOnly": true,
+  "gitHubOnly": true,
+  "publicMetadataEndpoint": "https://api.github.com/meta",
+  "tlsVerificationDisabled": false,
+  "addressesAreRuntimeDataNotSourceLiterals": true,
+  "health": {
+    "generatedAt": 1793627853.341765,
+    "officialMetadataSha256": "b1a715e946da41b50439595a1a304dc1f8b2e553c3d9412290cacda4c93e3c4d",
+    "candidatesProbed": 35,
+    "healthyEndpoints": [
+      {
+        "address": "20.27.177.113",
+        "elapsedMs": 637
+      },
+      {
+        "address": "20.200.245.247",
+        "elapsedMs": 873
+      },
+      {
+        "address": "4.237.22.38",
+        "elapsedMs": 948
+      },
+      {
+        "address": "172.182.252.133",
+        "elapsedMs": 1025
+      },
+      {
+        "address": "20.29.134.23",
+        "elapsedMs": 1054
+      },
+      {
+        "address": "4.225.11.194",
+        "elapsedMs": 1126
+      },
+      {
+        "address": "20.207.73.82",
+        "elapsedMs": 1150
+      },
+      {
+        "address": "4.208.26.197",
+        "elapsedMs": 1150
+      },
+      {
+        "address": "20.26.156.215",
+        "elapsedMs": 1193
+      },
+      {
+        "address": "20.233.83.145",
+        "elapsedMs": 1232
+      },
+      {
+        "address": "20.250.119.67",
+        "elapsedMs": 1278
+      },
+      {
+        "address": "4.249.131.164",
+        "elapsedMs": 1305
+      },
+      {
+        "address": "20.217.135.5",
+        "elapsedMs": 1326
+      },
+      {
+        "address": "20.87.245.0",
+        "elapsedMs": 1393
+      },
+      {
+        "address": "48.204.201.5",
+        "elapsedMs": 1411
+      },
+      {
+        "address": "48.202.248.40",
+        "elapsedMs": 1651
+      },
+      {
+        "address": "4.228.31.150",
+        "elapsedMs": 1745
+      },
+      {
+        "address": "20.199.39.232",
+        "elapsedMs": 1885
+      },
+      {
+        "address": "20.175.192.147",
+        "elapsedMs": 2319
+      }
+    ],
+    "selected": [
+      "20.27.177.113"
+    ],
+    "bind": "127.0.0.1",
+    "tlsVerified": true,
+    "githubOnly": true,
+    "requiresLaptopTunnel": false,
+    "sharedProxyChanged": false
+  },
+  "requiresLaptopTunnel": false,
+  "globalGitConfigurationUnchanged": true,
+  "sharedProxyConfigurationsOrSelectionsChanged": false,
+  "endpointRefresh": "restart only this owned helper to resolve/probe fresh official endpoint data"
+}
