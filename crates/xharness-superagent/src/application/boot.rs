@@ -898,10 +898,21 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
                 tokio::select! {result=product.idle()=>result?,_=stop.cancelled()=>()}
             }
             Mode::Watch => {
-                let (github, feishu) = futures::join!(
-                    source.run(source_stop.clone()),
-                    feishu_source.run(source_stop.clone())
-                );
+                let github = async {
+                    let result = source.run(source_stop.clone()).await;
+                    if result.is_err() {
+                        source_stop.cancel();
+                    }
+                    result
+                };
+                let feishu = async {
+                    let result = feishu_source.run(source_stop.clone()).await;
+                    if result.is_err() {
+                        source_stop.cancel();
+                    }
+                    result
+                };
+                let (github, feishu) = futures::join!(github, feishu);
                 github.map_err(display)?;
                 feishu?;
             }

@@ -407,6 +407,15 @@ async fn active_core_may_flush_prefix_but_cannot_consume_held_step_before_actor_
     })
     .await
     .unwrap();
+    // Logical TurnEnd visibility does not acknowledge the subsequent flush.
+    // Wait for that independent progress while the producer still holds input.
+    tokio::time::timeout(Duration::from_secs(5), async {
+        while s.flushes.load(Ordering::SeqCst) <= before {
+            tokio::task::yield_now().await;
+        }
+    })
+    .await
+    .unwrap();
     assert!(s.flushes.load(Ordering::SeqCst) > before); // not a global Store fsync freeze
     assert_eq!(p.calls.load(Ordering::SeqCst), 1);
     assert!(!journal.events().iter().any(|e| matches!(e.data(), EventData::UserMessage { message, .. } if message.id.as_deref() == Some("second"))));

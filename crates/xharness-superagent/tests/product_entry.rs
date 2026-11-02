@@ -1646,3 +1646,37 @@ async fn interrupt_joins_inflight_read_cli_before_lease_release_without_completi
         "acknowledgement is not completion"
     );
 }
+
+#[tokio::test]
+async fn formal_sigterm_cancels_model_wait_and_releases_the_lease() {
+    let server = Server::new(false);
+    server.block.store(true, Ordering::SeqCst);
+    let fixture = Fixture::new(&server.url);
+    let child = fixture
+        .command("--once")
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped())
+        .spawn()
+        .unwrap();
+    let id = child.id().unwrap();
+    tokio::time::timeout(Duration::from_secs(20), async {
+        while server.requests().is_empty() {
+            tokio::time::sleep(Duration::from_millis(10)).await;
+        }
+    })
+    .await
+    .unwrap();
+    assert!(Command::new("kill")
+        .args(["-TERM", &id.to_string()])
+        .status()
+        .await
+        .unwrap()
+        .success());
+    let output = tokio::time::timeout(Duration::from_secs(10), child.wait_with_output())
+        .await
+        .unwrap()
+        .unwrap();
+    assert_eq!(success(&output)["state"], "stopped");
+    assert!(fixture.posts().is_empty());
+    assert_eq!(success(&fixture.run("--check").await)["state"], "checked");
+}

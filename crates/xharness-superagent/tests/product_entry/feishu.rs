@@ -592,3 +592,102 @@ async fn formal_feishu_history_confines_pages_keeps_failed_cursor_and_recovers_w
         .timestamp();
     assert_eq!(saved,end-5,"only a complete round advances the overlap-safe cursor five seconds before its actual start");
 }
+
+async fn gone(root: &std::path::Path, marker: &str) -> bool {
+    let pid = std::fs::read_to_string(root.join(marker)).unwrap();
+    !Command::new("kill")
+        .args(["-0", pid.trim()])
+        .stdout(std::process::Stdio::null())
+        .stderr(std::process::Stdio::null())
+        .status()
+        .await
+        .unwrap()
+        .success()
+}
+#[tokio::test]
+async fn formal_sigterm_joins_feishu_consumer_tree_before_state_reopen() {
+    let server = Server::with_responder(ignore_answer);
+    let mut fixture = Fixture::new(&server.url);
+    let root = setup(&mut fixture);
+    let child = command(&fixture, &root, "")
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped())
+        .spawn()
+        .unwrap();
+    wait_for(|| root.join("consumer-child").exists()).await;
+    let pid = child.id().unwrap();
+    assert!(Command::new("kill")
+        .args(["-TERM", &pid.to_string()])
+        .status()
+        .await
+        .unwrap()
+        .success());
+    let output = tokio::time::timeout(Duration::from_secs(12), child.wait_with_output())
+        .await
+        .unwrap()
+        .unwrap();
+    assert_eq!(success(&output)["state"], "stopped");
+    assert!(gone(&root, "consumer-pid").await);
+    assert!(gone(&root, "consumer-child").await);
+    assert_eq!(
+        success(&command(&fixture, &root, "--check").output().await.unwrap())["state"],
+        "checked"
+    );
+    assert!(fixture.table("ticket").is_empty());
+    assert!(posts(&root).is_empty());
+    assert!(server.requests().is_empty());
+}
+#[tokio::test]
+async fn formal_source_owner_sql_failure_exits_and_joins_consumer_instead_of_hanging() {
+    let server = Server::with_responder(ignore_answer);
+    let mut fixture = Fixture::new(&server.url);
+    let root = setup(&mut fixture);
+    let child = command(&fixture, &root, "")
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped())
+        .spawn()
+        .unwrap();
+    wait_for(|| root.join("consumer-child").exists()).await;
+    let path = fixture.directory.join("state/orchestrator.sqlite");
+    let db = rusqlite::Connection::open(&path).unwrap();
+    db.busy_timeout(Duration::from_secs(2)).unwrap();
+    let mut rows = db.prepare("SELECT key,value FROM kv").unwrap();
+    let saved = rows
+        .query_map([], |r| Ok((r.get::<_, String>(0)?, r.get::<_, String>(1)?)))
+        .unwrap()
+        .collect::<std::result::Result<Vec<_>, _>>()
+        .unwrap();
+    drop(rows);
+    // This is only the disposable fixture database. It forces the live Source
+    // monitor's real owner read to fail, not a recording transport error.
+    db.execute_batch("DROP TABLE kv").unwrap();
+    let output = tokio::time::timeout(Duration::from_secs(12), child.wait_with_output())
+        .await
+        .unwrap()
+        .unwrap();
+    assert!(
+        !output.status.success(),
+        "a fatal owner read cannot be a stopped/idle success"
+    );
+    assert!(
+        String::from_utf8_lossy(&output.stderr).contains("kv"),
+        "{}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    assert!(gone(&root, "consumer-pid").await);
+    assert!(gone(&root, "consumer-child").await);
+    db.execute_batch("CREATE TABLE kv (key TEXT PRIMARY KEY,value TEXT NOT NULL)")
+        .unwrap();
+    for (key, value) in saved {
+        db.execute("INSERT INTO kv(key,value) VALUES (?,?)", [key, value])
+            .unwrap();
+    }
+    drop(db);
+    assert_eq!(
+        success(&command(&fixture, &root, "--check").output().await.unwrap())["state"],
+        "checked"
+    );
+    assert!(fixture.table("ticket").is_empty());
+    assert!(posts(&root).is_empty());
+    assert!(server.requests().is_empty());
+}

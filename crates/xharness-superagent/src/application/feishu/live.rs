@@ -219,7 +219,7 @@ impl Source {
                 }
             };
             futures::pin_mut!(monitor);
-            let outcome = tokio::select! {biased;_=stop.cancelled()=>{running.cancel();work.await.map_err(failure)},result=&mut monitor=>{running.cancel();let joined=work.await;result.and(joined.map_err(failure))},result=&mut work=>result.map_err(failure)};
+            let outcome = tokio::select! {biased;_=stop.cancelled()=>{running.cancel();work.await.map_err(failure)},result=&mut monitor=>{running.cancel();let joined=work.await;result?;joined.map_err(failure)},result=&mut work=>result.map_err(failure)};
             if let Err(e) = outcome {
                 if !running.is_cancelled() {
                     self.report("feishu", "error", e.to_string(), None, false);
@@ -782,11 +782,32 @@ impl Source {
         names
     }
     pub async fn run(&self, stop: CancellationToken) -> Result<()> {
-        let (watch, history, names) = futures::join!(
-            self.watch(stop.clone()),
-            self.history_loop(stop.clone()),
-            self.names_loop(stop)
-        );
+        // Normal CLI failures are retried by their own loops. A fatal owner/
+        // SQL/configuration error instead stops siblings and joins their work;
+        // it must not disappear behind an infinite healthy sibling.
+        let scope = stop.child_token();
+        let watch = async {
+            let result = self.watch(scope.clone()).await;
+            if result.is_err() {
+                scope.cancel();
+            }
+            result
+        };
+        let history = async {
+            let result = self.history_loop(scope.clone()).await;
+            if result.is_err() {
+                scope.cancel();
+            }
+            result
+        };
+        let names = async {
+            let result = self.names_loop(scope.clone()).await;
+            if result.is_err() {
+                scope.cancel();
+            }
+            result
+        };
+        let (watch, history, names) = futures::join!(watch, history, names);
         watch?;
         history?;
         names

@@ -34,6 +34,7 @@ jobs:
       - run: node conformance/verify-upstream.mjs
       - run: node conformance/business/verify-tool-manifest.mjs
       - run: node --test conformance/business/host-input-observer.test.mjs
+      - run: node --test conformance/business/flush-observation.test.mjs
       - run: node --test conformance/business/product-cargo-overlay.test.mjs
       - run: node --test conformance/business/business-word-cargo-overlay.test.mjs
       - run: node --test conformance/business/feishu-cargo-overlay.test.mjs

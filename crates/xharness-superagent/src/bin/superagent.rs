@@ -6,6 +6,21 @@ use xharness_superagent::{
     application::boot::{self, Config, Mode},
     Error, Result,
 };
+// Service managers normally send SIGTERM, while foreground users send SIGINT.
+// Both paths cancel the same product owner and await its existing shutdown.
+#[cfg(unix)]
+async fn shutdown_signal() -> Result<()> {
+    let mut terminate = tokio::signal::unix::signal(tokio::signal::unix::SignalKind::terminate())?;
+    tokio::select! {
+        signal=tokio::signal::ctrl_c()=>{signal?;Ok(())},
+        signal=terminate.recv()=>signal.map(|_|()).ok_or_else(||Error::Message("SIGTERM listener closed".into())),
+    }
+}
+#[cfg(not(unix))]
+async fn shutdown_signal() -> Result<()> {
+    tokio::signal::ctrl_c().await?;
+    Ok(())
+}
 async fn execute() -> Result<()> {
     let mut path = None;
     let mut mode = Mode::Watch;
@@ -47,7 +62,7 @@ async fn execute() -> Result<()> {
     let stop = CancellationToken::new();
     let run = boot::run(config, mode, stop.clone());
     tokio::pin!(run);
-    let result = tokio::select! {result=&mut run=>result,signal=tokio::signal::ctrl_c()=>{signal?;stop.cancel();run.await}}?;
+    let result = tokio::select! {result=&mut run=>result,signal=shutdown_signal()=>{stop.cancel();let joined=run.await;signal?;joined}}?;
     println!("{}", serde_json::to_string(&result)?);
     Ok(())
 }
