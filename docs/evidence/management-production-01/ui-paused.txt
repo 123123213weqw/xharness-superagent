@@ -1,0 +1,88 @@
+Browser tab: 1, Title: "XHarness SuperAgent 管理", URL: "http://127.0.0.1:13092/orchestrator/".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 8, 12, 15-16
++	56 text 更新于 13:28:33
++		57 text {
+  "paused": true,
+  "health": {
+    "runtime": {
+      "at": "2026-11-02T05:28:16.745Z",
+      "detail": "Orchestrator is ready",
+      "state": "ready"
+    }
+  },
+  "load": {
+    "idle": 0,
+    "maxWorkers": 1,
+    "queued": 0,
+    "running": 0
+  },
+  "accounts": {
+    "agent": "btlqql",
+    "feishu": null,
+    "repository": "123123213weqw/xharness-superagent"
+  }
+}
++		58 text [
+  {
+    "enabled": false,
+    "health": [
+      {
+        "code": "feishuCliUnset",
+        "detail": "The Source is on, and its bot lark-cli is not set",
+        "name": "feishu",
+        "state": "paused"
+      },
+      {
+        "code": "feishuBotMissing",
+        "detail": "Waiting for the Feishu bot",
+        "name": "history",
+        "state": "paused"
+      }
+    ],
+    "id": "feishu",
+    "installed": true,
+    "state": "off",
+    "stats": {
+      "filtered": 0,
+      "lastAt": "",
+      "received": 0
+    },
+    "title": {
+      "en": "feishu",
+      "zh": "feishu"
+    }
+  },
+  {
+    "enabled": false,
+    "health": [
+      {
+        "code": "sourceOff",
+        "detail": "Off",
+        "name": "github",
+        "state": "paused"
+      }
+    ],
+    "id": "github",
+    "installed": true,
+    "state": "off",
+    "stats": {
+      "filtered": 0,
+      "lastAt": "",
+      "received": 0
+    },
+    "title": {
+      "en": "github",
+      "zh": "github"
+    }
+  }
+]
++		59 text [
+  {
+    "kind": "no-source"
+  },
+  {
+    "kind": "executor-paused"
+  }
+]
+The focused UI element is 6 button 暂停接单, ID: pause

@@ -204,3 +204,17 @@ API/UI、后台/停止/并发/恢复和部署回退。完整 Goal 活动，不�
 本批新增SIGTERM/来源致命SQL故障3条正式场景，总46条；CI观察修正保留全部原断言。
 详见[文本生产化](superagent/production-text-release.md)。完整业务范围不缩减，不把
 当前部分门槛通过当作六实例替代或整个 Goal 完成。
+
+## 文本管理 API 与人工控制（2026-11-02，部分验收）
+
+新增 opt-in loopback HTTP 与基础管理页，同一 Client/SQL owner 提供状态、来源、
+版本化配置/Prompt、工单查看与停止/追加/重试等人工操作。4条新增正式入口测试通过，
+当前完整正式入口51条；另在独立空状态以现有授权 GitHub 账号做只读 API/浏览器验证。
+准确代码、完整成功/失败日志、源码指纹与边界见
+[管理接线](superagent/business-management.md) 和 `docs/business-management-verification.json`。
+
+只将 API-01、UI-01、WORK-01 的已执行子集记录为 in_progress，不签收整个大组。
+23组目前5 passed / 14 in_progress / 4 not_run，不是完成功能比例。
+账号热切明确拒绝；完整原版查询视图/路由/面板仍未完成。Worker代码交付、六实例配置、
+冷切去重、完整备份/守护/回退与生产切换继续未完成。飞书不再要求用户重复手测，
+但不会把接入冒烟虚记为真实 Worker/回复闭环。没有重启取消的全域语言兼容工作。

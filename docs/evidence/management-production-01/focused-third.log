@@ -1,0 +1,32 @@
+MANAGEMENT VALIDATION focused-third 2026-11-02T05:20:26Z
+    Checking xharness-superagent v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.40s
+    Checking xharness-superagent v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.27s
+   Compiling xharness-superagent v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 12.49s
+     Running tests/product_entry.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_entry-e63082d92e636d98)
+
+running 3 tests
+test management::formal_management_reads_real_state_guards_requests_and_joins_slow_body ... FAILED
+test management::formal_management_saves_cas_environment_prompts_and_pause_without_tool_escalation ... 
+thread 'management::formal_management_reads_real_state_guards_requests_and_joins_slow_body' (1954166) panicked at crates/xharness-superagent/tests/product_entry/management.rs:95:9:
+assertion `left == right` failed: settings
+  left: 500
+ right: 200
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'management::formal_management_saves_cas_environment_prompts_and_pause_without_tool_escalation' (1954174) panicked at crates/xharness-superagent/tests/product_entry/management.rs:205:72:
+called `Option::unwrap()` on a `None` value
+FAILED
+test management::formal_management_stops_existing_worker_and_preserves_assignment_history ... ok
+
+failures:
+
+failures:
+    management::formal_management_reads_real_state_guards_requests_and_joins_slow_body
+    management::formal_management_saves_cas_environment_prompts_and_pause_without_tool_escalation
+
+test result: FAILED. 1 passed; 2 failed; 0 ignored; 0 measured; 47 filtered out; finished in 1.21s
+
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`

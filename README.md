@@ -38,7 +38,7 @@
   分页快照及不唤醒 Worker 的历史读取已接入两角色；完整来源分支仍未完成。
 - [业务配置与提示词](docs/superagent/business-configuration.md)：块版本/冲突/来源与
   执行环境 guard、暂停/恢复、角色默认模型、Prompt preview/版本和实际团队技能。
-  管理 API/UI、panel 保存与完整同步/重启仍是缺口。
+  该页为历史接线；最新人工保存/API/UI 子集见下方管理入口，完整同步/重启仍未完成。
 
 - [主动研判业务](docs/superagent/business-assessment.md)：候选上下文、作用域补读、规则与方向/意图校验、auto/observe、超时及取消回收；正式离线链路已验证，完整业务仍未完成。
 
@@ -51,6 +51,9 @@
 - [飞书文本正式入口](docs/superagent/business-feishu-live.md)：实际事件、历史补拉、正文/上下文/链接、Worker 执行与 bot 回复，新增6条正式场景（总43条）；图片/附件、完整 Source 矩阵及线上联调仍未完成。
 
 - [文本生产化推进](docs/superagent/production-text-release.md)：SIGTERM统一回收、来源致命SQL错误退出及CI观察竞争修正；正式入口46条。允许冷切不等于已经可替换现网。
+
+- [真实文本验收](docs/superagent/real-text-acceptance.md)：真实 GitHub Issue/追加评论 → Worker文件操作 → 回帖/重放；Messages 模型与飞书消费者分别保留验证边界。
+- [文本管理入口](docs/superagent/business-management.md)：可选 loopback API/基础页面、人工版本保存/停止/暂停，正式入口现51条；完整原版 API/UI 与生产替代仍未完成。
 
 ## 尚未完成
 

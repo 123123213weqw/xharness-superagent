@@ -1,0 +1,71 @@
+{
+  "exit": 0,
+  "operations": [
+    {
+      "operation": "GET state",
+      "success": true
+    },
+    {
+      "operation": "GET overview",
+      "success": true
+    },
+    {
+      "operation": "GET sources",
+      "success": true
+    },
+    {
+      "operation": "GET settings",
+      "success": true
+    },
+    {
+      "operation": "GET models",
+      "success": true
+    },
+    {
+      "operation": "GET tickets",
+      "success": true
+    },
+    {
+      "operation": "GET prompts",
+      "success": true
+    }
+  ],
+  "scope": "read_only_account_and_HTTP_UI_plus_local_pause_control_only"
+}
+{
+  "pid": 2022333,
+  "port": 13092,
+  "stage": "ready",
+  "binary_sha256": "614aa9ba50ae92a0bce400c082d10e93899260ba791ff7686840435b57844092",
+  "operations": [
+    {
+      "operation": "GET state",
+      "success": true
+    },
+    {
+      "operation": "GET overview",
+      "success": true
+    },
+    {
+      "operation": "GET sources",
+      "success": true
+    },
+    {
+      "operation": "GET settings",
+      "success": true
+    },
+    {
+      "operation": "GET models",
+      "success": true
+    },
+    {
+      "operation": "GET tickets",
+      "success": true
+    },
+    {
+      "operation": "GET prompts",
+      "success": true
+    }
+  ],
+  "scope": "real_existing_GitHub_account_read_only_plus_new_HTTP_UI_no_model_or_source_events"
+}

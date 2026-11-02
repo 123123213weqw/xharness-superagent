@@ -402,8 +402,25 @@
       "id": "WORK-01",
       "milestone": "B5",
       "title": "停止工单取消相应活动/排队/后台工作且不产生后续新执行",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "3405a724dbf1ef878b77cd07689320bc8eee75b8",
+          "entry_and_command": "Formal executable plus actual management HTTP/browser; exact commands and boundaries in docs/business-management-verification.json",
+          "environment": "Owned WZU_Server; formal loopback protocol fixtures plus separately authorized existing-account read-only API/UI smoke; no production cutover",
+          "full_log": "docs/business-management-verification.json",
+          "business_assertions": "docs/business-management-verification.json",
+          "tests": [
+            "management::formal_management_bind_error_drains_owner_and_check_never_binds",
+            "management::formal_management_reads_real_state_guards_requests_and_joins_slow_body",
+            "management::formal_management_saves_cas_environment_prompts_pause_and_restart",
+            "management::formal_management_stops_existing_worker_and_preserves_assignment_history"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Full grouped API/UI/stop/deployment coverage and Worker delivery are still unfinished. See acceptance_boundaries; no full group promoted to passed."
+        }
+      ]
     },
     {
       "id": "WORK-02",
@@ -768,6 +785,22 @@
           "actual_product_path": true,
           "full_feishu_event_loop": false,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "3405a724dbf1ef878b77cd07689320bc8eee75b8",
+          "entry_and_command": "Formal executable plus actual management HTTP/browser; exact commands and boundaries in docs/business-management-verification.json",
+          "environment": "Owned WZU_Server; formal loopback protocol fixtures plus separately authorized existing-account read-only API/UI smoke; no production cutover",
+          "full_log": "docs/business-management-verification.json",
+          "business_assertions": "docs/business-management-verification.json",
+          "tests": [
+            "management::formal_management_bind_error_drains_owner_and_check_never_binds",
+            "management::formal_management_reads_real_state_guards_requests_and_joins_slow_body",
+            "management::formal_management_saves_cas_environment_prompts_pause_and_restart",
+            "management::formal_management_stops_existing_worker_and_preserves_assignment_history"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Full grouped API/UI/stop/deployment coverage and Worker delivery are still unfinished. See acceptance_boundaries; no full group promoted to passed."
         }
       ]
     },
@@ -775,15 +808,49 @@
       "id": "API-01",
       "milestone": "B4",
       "title": "业务查询与控制API覆盖原版业务能力，输入错误可观察",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "3405a724dbf1ef878b77cd07689320bc8eee75b8",
+          "entry_and_command": "Formal executable plus actual management HTTP/browser; exact commands and boundaries in docs/business-management-verification.json",
+          "environment": "Owned WZU_Server; formal loopback protocol fixtures plus separately authorized existing-account read-only API/UI smoke; no production cutover",
+          "full_log": "docs/business-management-verification.json",
+          "business_assertions": "docs/business-management-verification.json",
+          "tests": [
+            "management::formal_management_bind_error_drains_owner_and_check_never_binds",
+            "management::formal_management_reads_real_state_guards_requests_and_joins_slow_body",
+            "management::formal_management_saves_cas_environment_prompts_pause_and_restart",
+            "management::formal_management_stops_existing_worker_and_preserves_assignment_history"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Full grouped API/UI/stop/deployment coverage and Worker delivery are still unfinished. See acceptance_boundaries; no full group promoted to passed."
+        }
+      ]
     },
     {
       "id": "UI-01",
       "milestone": "B4",
       "title": "管理面板可完成配置、任务查看、停止/追加/重试和错误定位",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "3405a724dbf1ef878b77cd07689320bc8eee75b8",
+          "entry_and_command": "Formal executable plus actual management HTTP/browser; exact commands and boundaries in docs/business-management-verification.json",
+          "environment": "Owned WZU_Server; formal loopback protocol fixtures plus separately authorized existing-account read-only API/UI smoke; no production cutover",
+          "full_log": "docs/business-management-verification.json",
+          "business_assertions": "docs/business-management-verification.json",
+          "tests": [
+            "management::formal_management_bind_error_drains_owner_and_check_never_binds",
+            "management::formal_management_reads_real_state_guards_requests_and_joins_slow_body",
+            "management::formal_management_saves_cas_environment_prompts_pause_and_restart",
+            "management::formal_management_stops_existing_worker_and_preserves_assignment_history"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Full grouped API/UI/stop/deployment coverage and Worker delivery are still unfinished. See acceptance_boundaries; no full group promoted to passed."
+        }
+      ]
     },
     {
       "id": "DEPLOY-01",
@@ -814,6 +881,22 @@
           "business_assertions": "docs/live-text-acceptance-verification.json",
           "actual_product_path": true,
           "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
+        },
+        {
+          "source_commit": "3405a724dbf1ef878b77cd07689320bc8eee75b8",
+          "entry_and_command": "Formal executable plus actual management HTTP/browser; exact commands and boundaries in docs/business-management-verification.json",
+          "environment": "Owned WZU_Server; formal loopback protocol fixtures plus separately authorized existing-account read-only API/UI smoke; no production cutover",
+          "full_log": "docs/business-management-verification.json",
+          "business_assertions": "docs/business-management-verification.json",
+          "tests": [
+            "management::formal_management_bind_error_drains_owner_and_check_never_binds",
+            "management::formal_management_reads_real_state_guards_requests_and_joins_slow_body",
+            "management::formal_management_saves_cas_environment_prompts_pause_and_restart",
+            "management::formal_management_stops_existing_worker_and_preserves_assignment_history"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Full grouped API/UI/stop/deployment coverage and Worker delivery are still unfinished. See acceptance_boundaries; no full group promoted to passed."
         }
       ]
     },
