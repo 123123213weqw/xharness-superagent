@@ -20,6 +20,14 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
+    # Full workspace binaries exceed the hosted Linux disk with debug info and
+    # incremental copies. Keep assertions/test selection unchanged; this only
+    # removes compiler debug data and limits simultaneous build resources.
+    env:
+      CARGO_INCREMENTAL: "0"
+      CARGO_PROFILE_DEV_DEBUG: "0"
+      CARGO_PROFILE_TEST_DEBUG: "0"
+      CARGO_BUILD_JOBS: "2"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -60,9 +68,13 @@ jobs:
         with:
           components: rustfmt, clippy
       - uses: Swatinem/rust-cache@v2
+        with:
+          prefix-key: v1-slim-workspace
       - run: cargo fmt --check --all
       - run: cargo check --locked --workspace --all-targets --features xharness-superagent/conformance
       - run: cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings
       - run: cargo test --locked --workspace --all-targets --features xharness-superagent/conformance
       # 进程组回收测试依赖真实子进程生命周期,必须单线程跑(沿袭上游纪律)
       - run: cargo test --locked -p xharness-process --test process dropping_ -- --test-threads=1
+      - if: always()
+        run: df -h .; du -sh target 2>/dev/null || test ! -d target
