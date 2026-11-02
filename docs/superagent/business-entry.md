@@ -126,3 +126,29 @@ ready/ended 状态、ack/result回执、角色工具隔离、重复事件/重启
 不要把模型 API key、GitHub token 写进这份配置或 Prompt。子进程仍清除凭据环境变量、
 保留取消/超时/后台任务回收；full-access 并不阻止进程读取同一系统账号有权读取的文件。
 网络权限开放也不代表批量 Git 传输、已有 PR 续改等业务流程已经验收。
+
+
+## 统一的 DeepSeek Search API（与推理模型独立）
+
+在启动配置中显式加入：
+
+```json
+"webSearch": {
+  "provider": "deepseek-search-api",
+  "apiKeyEnv": "DEEPSEEK_API_KEY"
+}
+```
+
+它使用官方 `POST https://api.deepseek.com/v1/tools/search`，不是调用另一个聊天模型
+生成“搜索答案”。主角色与所有 Worker 共用一个 SearchProvider；DeepSeek、GLM 或
+其他已注册的推理模型切换不会改变搜索后端和搜索账号。仅引用操作者已有的 DeepSeek
+凭据环境变量，密钥不写入 JSON/Prompt/会话或子进程。不会尝试拿 GLM 的模型 key 充当
+DeepSeek 搜索 key；明确开启却缺失凭据时启动失败，不伪装成搜索成功。
+
+显式开启搜索只给主角色增加 `web_search`，不增加文件、进程或 Host 控制工具。
+Worker 即使保留 WorkspaceWrite/NetworkDeny 也可使用该受限搜索工具；不会给 bash
+开放网络或改变文件权限。没有这份配置时保持原行为。查询最多128个 Unicode 字符，
+结果和响应有上限，失败有限重试并响应取消。搜索结果是外部数据，不是执行指令。
+
+接口与鉴权依据：[DeepSeek 官方 Search 文档](https://api-docs.deepseek.com/api/search/)。
+多实例更新与版本管理见 [部署说明](../../deploy/superagent/README.md)。

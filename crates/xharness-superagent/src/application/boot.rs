@@ -133,6 +133,8 @@ struct Document {
     #[serde(default)]
     worker_access: WorkerAccess,
     #[serde(default)]
+    web_search: Option<super::search::Config>,
+    #[serde(default)]
     main_directory: Option<PathBuf>,
     #[serde(default = "prompt_limit")]
     prompt_max_chars: usize,
@@ -154,6 +156,9 @@ impl Config {
             timeout: Duration::from_millis(document.admission_context_timeout_ms),
         }
         .validate()?;
+        if let Some(search) = &document.web_search {
+            search.validate()?;
+        }
         if let Some(management) = &document.management {
             management.validate()?;
         }
@@ -638,10 +643,11 @@ impl SessionToolFactory for Coding {
         .with_process_environment(environment)?;
         let registry = Arc::new(ToolRegistry::new());
         for spec in bundle.specs() {
-            // Web bypasses process sandboxing: advertise only for the explicit
-            // network-enabled Worker policy, never for the restricted default.
+            // Search has a separate explicit provider opt-in and grants no
+            // process egress. Anonymous fetch still follows the Worker policy.
             if self.access == WorkerAccess::WorkspaceWrite
-                && matches!(spec.definition.name.as_str(), "web_fetch" | "web_search")
+                && (spec.definition.name == "web_fetch"
+                    || (spec.definition.name == "web_search" && !self.web.has_search_provider()))
             {
                 continue;
             }
@@ -856,11 +862,18 @@ async fn run_once(
     restart: CancellationToken,
 ) -> Result<Summary> {
     let models = config.models()?;
+    // One provider/credential/connection pool for every role and model route.
+    // Never infer the search key from the selected model (e.g. GLM).
+    let web = Arc::new(match &config.document.web_search {
+        Some(search) => search.runtime()?,
+        None => WebRuntime::default(),
+    });
     let management_config = config.document.management.clone();
     let prompt_max_chars = config.document.prompt_max_chars;
     let machine = serde_json::json!({"stateDir":config.document.state_dir,
         "promptMaxChars":config.document.prompt_max_chars,
         "workerAccess":config.document.worker_access,
+        "webSearch":config.document.web_search,
         "admissionContextMaxPages":config.document.admission_context_max_pages,
         "admissionContextTimeoutMs":config.document.admission_context_timeout_ms});
     let route = config.document.default_model.route();
@@ -874,7 +887,7 @@ async fn run_once(
         github: prepared.clone(),
         feishu: feishu.clone(),
         jobs: Arc::new(JobRegistry::new(JobRegistryConfig::default())),
-        web: Arc::new(WebRuntime::default()),
+        web: web.clone(),
         delivery: config.document.repository_delivery.clone(),
         read_only_roots: config.document.worker_read_only_roots.clone(),
         access: config.document.worker_access,
@@ -895,6 +908,14 @@ async fn run_once(
         .document
         .main_directory
         .unwrap_or(std::env::current_dir()?);
+    let main_tools: Arc<dyn SessionToolFactory> = if web.has_search_provider() {
+        Arc::new(super::search::Factory {
+            web,
+            client: client.clone(),
+        })
+    } else {
+        Arc::new(NoTools)
+    };
     let worker_access = config.document.worker_access;
     let (product, runner) = Product::open_with_worker_access(
         native::Config {
@@ -910,7 +931,7 @@ async fn run_once(
                 worker: route,
             },
             base_tools: RoleFactories {
-                orchestrator: Arc::new(NoTools),
+                orchestrator: main_tools,
                 worker: coding,
             },
             context_policy: Arc::new(IdentityContextPolicy),

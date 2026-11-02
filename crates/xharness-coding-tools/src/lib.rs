@@ -865,40 +865,7 @@ impl CodingToolBundle {
     }
 
     fn web_search_spec(&self) -> ToolSpec {
-        let web = Arc::clone(&self.web);
-        ToolSpec::new(
-            definition(
-                "web_search",
-                "Search the Web using the explicitly configured search provider.",
-                json!({
-                    "type": "object",
-                    "properties": {
-                        "query": {"type": "string"},
-                        "limit": {"type": "integer"}
-                    },
-                    "required": ["query"],
-                    "additionalProperties": false
-                }),
-            ),
-            move |context| {
-                let web = Arc::clone(&web);
-                async move {
-                    let result = web
-                        .search(
-                            &required_string(&context, "query")?,
-                            optional_u64(&context, "limit")
-                                .and_then(|value| usize::try_from(value).ok()),
-                            &context.cancellation,
-                        )
-                        .await
-                        .map_err(handler_error)?;
-                    Ok(json_output(
-                        serde_json::to_value(result).map_err(handler_error)?,
-                    ))
-                }
-            },
-        )
-        .with_concurrency(ToolConcurrency::Parallel)
+        web_search_spec(Arc::clone(&self.web))
     }
 
     fn web_fetch_spec(&self) -> ToolSpec {
@@ -1143,6 +1110,44 @@ fn native_shell_description(shell: &Result<Shell, ShellError>) -> String {
         ),
     };
     format!("Run one managed process under the active session permission policy. Provide exactly one of command (shell script) or program (direct executable with literal args). {selection} Preserve build/test exit status before filtering logs: grep returns 1 for no matches, and head can cause SIGPIPE. Do not hide real failures with blanket || true. Inspect installed dependency APIs before guessing methods. For long-running non-interactive work that begins now prefer run_in_background=true: the call returns a job id immediately; collect it with job_output and stop it with job_kill. Use automation for user-requested future reminders (mode=reminder) and delayed tasks (mode=task). Native interactive/existing sessions need status, logs, and stop method; detached processes may not survive Host shutdown/cancellation. No shell state persists between calls. A failed invocation is never replayed in another interpreter.")
+}
+
+/// Standalone model-independent search tool. Grants no filesystem, process,
+/// session-control or model-routing capabilities to a search-only role.
+pub fn web_search_spec(web: Arc<WebRuntime>) -> ToolSpec {
+    ToolSpec::new(
+        definition(
+            "web_search",
+            "Search the Web using the explicitly configured search provider.",
+            json!({
+                "type": "object",
+                "properties": {
+                    "query": {"type": "string"},
+                    "limit": {"type": "integer"}
+                },
+                "required": ["query"],
+                "additionalProperties": false
+            }),
+        ),
+        move |context| {
+            let web = Arc::clone(&web);
+            async move {
+                let result = web
+                    .search(
+                        &required_string(&context, "query")?,
+                        optional_u64(&context, "limit")
+                            .and_then(|value| usize::try_from(value).ok()),
+                        &context.cancellation,
+                    )
+                    .await
+                    .map_err(handler_error)?;
+                Ok(json_output(
+                    serde_json::to_value(result).map_err(handler_error)?,
+                ))
+            }
+        },
+    )
+    .with_concurrency(ToolConcurrency::Parallel)
 }
 
 struct ProcessInvocation {

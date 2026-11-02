@@ -9,6 +9,7 @@ StartLimitBurst=5
 Type=simple
 WorkingDirectory=%h/.local/lib/xharness-superagent/%i
 ExecStart=%h/.local/lib/xharness-superagent/%i/bin/xharness-superagent --config %h/.config/xharness-superagent/%i/config.json
+EnvironmentFile=-%h/.config/xharness-superagent/shared-search.environment
 EnvironmentFile=-%h/.config/xharness-superagent/%i/environment
 UMask=0077
 NoNewPrivileges=yes

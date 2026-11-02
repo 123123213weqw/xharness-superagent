@@ -60,6 +60,7 @@ pub mod management;
 mod messages;
 pub mod native;
 pub mod resources;
+mod search;
 pub mod text;
 mod tools;
 

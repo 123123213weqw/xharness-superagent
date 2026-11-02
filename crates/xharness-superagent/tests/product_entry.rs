@@ -37,6 +37,8 @@ mod management;
 mod note;
 #[path = "product_entry/policy_sync.rs"]
 mod policy_sync;
+#[path = "product_entry/search.rs"]
+mod search;
 struct Fixture {
     directory: PathBuf,
     config: Value,
