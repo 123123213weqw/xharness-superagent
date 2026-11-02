@@ -57,7 +57,7 @@ API 保留原版同源门禁：Host 必须是所配端口的 `127.0.0.1` 或 `lo
 
 1. 真实状态/来源/配置查询；缺 header、恶意 Origin/Host、坏路径、过大 body 拒绝；
    慢 body 期间 SIGTERM 退出，端口关闭后状态租约可重开。
-2. 人工修改 executor，旧 revision409且不覆盖；伪造 origin 拒绝，账号热切明确拒绝；
+2. 人工修改 executor，旧 revision409且不覆盖；伪造 origin 拒绝，账号变化改为只读预验证后受控重启（不是活动 Worker 热切）；
    pause/Prompt/技能顺序持久化并重启生效。
 3. 已有 waiting Worker 的实际停止：原 assignment ID 保留且 ended，不另建工单；
    结束工单不能重试，历史分页能读到相同工单。

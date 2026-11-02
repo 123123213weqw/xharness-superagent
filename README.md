@@ -6,6 +6,22 @@
 **状态：开发版。已有正式入口和 GitHub/飞书文本的离线协议整链路，另完成了 GitHub 的真实模型/文件/回帖及受限 Draft PR 交付验收；
 不是完整可部署的 SuperAgent 替代品，也不宣称已完整业务对齐。**
 
+## 最新执行节点（2026-11-02）
+
+- 新工作区可由产品以固定仓库/分支完成可信 checkout；真实 C1 已运行离线 workspace
+  check、独立 Rust 正向/负对照测试，并创建 [Draft PR #7](https://github.com/123123213weqw/xharness-superagent/pull/7)。
+- 管理查询/历史/标签、账号预验证和 join-before-restart 已接入；不是完整原版 UI 签收。
+- 单 canary 完成8对象/11000文件完整备份、冷导入、原端口隔离启动和完整原路径回退，
+  原版恢复 ready；六个原版实例仍在运行。没有把隔离演练写成全量生产切换。
+- 新产品全 targets 316 passed / 2 ignored（忽略不计通过），正式入口61项通过，
+  workspace 严格 Clippy 和备份工具6项通过。完整 V100 workspace 仍在两个旧飞书
+  UID/iptables 部署断言失败；最新发布 head 的 CI 单独验，不引用旧绿灯。
+- systemd 独立单元验证了 Root SIGKILL、同 cgroup 的 setsid 子进程清理、自动重启和
+  人工停止不重启；这不是活动 Worker 或远程 SSH 取消的全矩阵验收。
+
+[本批源码绑定、失败记录和剩余门槛](docs/business-completion-verification.json)。
+全23组仍为5 passed / 17 in_progress / 1 not_run；不把局部通过当完整 Goal 完成。
+
 ## 复刻什么
 
 对齐任务、授权、角色、工具、会话控制、回复、配置和恢复等产品逻辑；

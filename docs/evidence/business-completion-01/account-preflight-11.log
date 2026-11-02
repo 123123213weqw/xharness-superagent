@@ -1,0 +1,18 @@
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 16.72s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-d606baa5494bbb9a)
+
+running 6 tests
+test management::formal_management_account_save_restarts_sources_after_cas_without_replaying_work ... ok
+test management::formal_management_bind_error_drains_owner_and_check_never_binds ... ok
+test management::formal_management_queries_nonempty_history_timeline_and_restart_without_duplicate_work ... ok
+test management::formal_management_reads_real_state_guards_requests_and_joins_slow_body ... ok
+test management::formal_management_saves_cas_environment_prompts_pause_and_restart ... ok
+test management::formal_management_stops_existing_worker_and_preserves_assignment_history ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 55 filtered out; finished in 3.97s
+
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 6.01s
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 16.04s

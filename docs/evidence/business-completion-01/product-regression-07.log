@@ -1,0 +1,171 @@
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.71s
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.90s
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 34.58s
+     Running unittests src/lib.rs (<owned-target>/debug/deps/xharness_superagent-a7e8a767cfea4d77)
+
+running 52 tests
+test application::controls::tests::context_follow_unrelated_and_main_unsubscribe_never_transfer_ticket_authority ... ok
+test application::controls::tests::requeue_waits_for_worker_handback_and_sql_errors_never_become_absent_owners ... ok
+test application::controls::tests::status_only_requests_an_idle_worker_and_retry_creates_a_new_assignment ... ok
+test application::delivery::tests::paths_and_refs_reject_traversal_metadata_workflows_and_ambiguous_names ... ok
+test application::management::tests::origin_requires_exact_host_marker_and_optional_matching_origin ... ok
+test application::management::tests::path_decode_preserves_literal_plus_and_rejects_malformed_utf8 ... ok
+test application::messages::tests::live_messages_tool_and_opaque_replay ... ignored, Real external model calls; requires explicit existing route and credential authorization
+test application::messages::tests::messages_cancellation_before_headers_has_no_success ... ok
+test application::messages::tests::messages_do_not_relocate_system_or_drop_media_or_override_routing ... ok
+test application::messages::tests::messages_preserve_system_schema_ceiling_and_explicit_reasoning ... ok
+test application::messages::tests::messages_real_http_sse_preserve_unicode_and_complete_only_at_stop ... ok
+test application::messages::tests::messages_reject_blocks_after_terminal_and_mismatched_terminal_reason ... ok
+test application::messages::tests::messages_reject_orphan_duplicate_results_and_foreign_provider_state ... ok
+test application::messages::tests::messages_require_closed_valid_json_blocks_and_message_stop ... ok
+test application::messages::tests::messages_retain_thinking_signature_and_tool_ids_for_stateless_replay ... ok
+test application::messages::tests::messages_truncated_http_stream_and_http_error_never_become_success ... ok
+test application::native::cancellation_tests::only_exact_terminal_cancel_acknowledgements_are_idempotent ... ok
+test application::native::policy_sync::tests::notice_paths_include_normal_unicode_names_and_are_bounded ... ok
+test application::native::policy_sync::tests::retries_double_cap_and_success_removes_wait ... ok
+test application::resources::tests::actual_sql_errors_and_corrupt_records_never_become_absence_or_empty_pages ... ok
+test application::resources::tests::list_and_ticket_pages_are_bounded_newest_first_with_copyable_offsets ... ok
+test application::resources::tests::live_plans_retain_trusted_scope_and_never_return_fake_transcripts_or_source_success ... ok
+test application::resources::tests::ordinary_unicode_pages_reconstruct_content_without_cutting_emoji_or_stalling ... ok
+test application::resources::tests::strict_read_request_normalizes_only_legacy_prefixes_and_rejects_forged_scope ... ok
+test application::resources::tests::trigger_reads_allow_origin_delivery_context_and_bound_threads_but_redact_fanout_and_neighbours ... ok
+test application::resources::tests::worker_own_ticket_and_shared_thread_do_not_expose_other_tickets_or_decisions ... ok
+test delivery::tests::session_key_drop_releases_the_seen_cache_immediately ... ok
+test native_sessions::delivery::authority::tests::cancelled_catalogue_restore_keeps_the_new_warm_epoch_unavailable ... ok
+test native_sessions::delivery::authority::tests::failed_catalogue_restore_revokes_warm_scopes_until_successful_rebuild ... ok
+test native_sessions::delivery::authority::tests::original_creation_witness_checks_all_fields_of_valid_mutation_records ... ok
+test native_sessions::delivery::authority::tests::overlapping_catalogue_rebuilds_serialize_before_replacing_warm_epochs ... ok
+test native_sessions::delivery::authority::tests::warm_creation_witness_cannot_address_an_identically_recreated_session_generation ... ok
+test native_sessions::delivery::authority::tests::warm_creation_witness_does_not_certify_or_flush_a_later_logical_prefix ... ok
+test native_sessions::delivery::authority::tests::warm_creation_witness_rejects_other_owner_changed_role_and_changed_workspace ... ok
+test native_sessions::delivery::tests::old_scope_drop_does_not_clear_the_later_preparation_on_the_same_object ... ok
+test native_sessions::persistence::tests::flush_collects_original_typed_failures_in_writer_order_and_attempts_later_healthy_writer ... ok
+test native_sessions::persistence::tests::global_writer_drain_includes_logical_appends_while_its_first_physical_cut_is_blocked ... ok
+test native_sessions::persistence::tests::retired_storage_generation_is_replaced_at_end_without_flushing_a_replacement_by_id ... ok
+test native_sessions::persistence::tests::writer_order_is_registration_not_id_and_snapshot_excludes_late_or_unmanaged_owners ... ok
+test native_sessions::prompts::decoration::epoch_tests::closed_supervisor_or_disconnected_watch_is_not_a_live_decoration ... ok
+test native_sessions::prompts::decoration::epoch_tests::explicit_retry_on_sql_owner_does_not_invalidate_an_earlier_generic_render ... ok
+test native_sessions::prompts::decoration::epoch_tests::passive_channel_identity_survives_step_counters_and_worker_restarts_but_not_actor_replacement ... ok
+test native_sessions::prompts::decoration::epoch_tests::preflight_failure_replies_with_the_same_original_error_owned_by_the_report ... ok
+test native_sessions::prompts::owner_tests::cancelled_queued_decoration_never_acknowledges_or_binds_a_revision ... ok
+test native_sessions::prompts::owner_tests::cancelled_queued_request_never_binds_a_revision ... ok
+test native_sessions::prompts::owner_tests::closing_barrier_never_relabels_real_errors_as_cancellation ... ok
+test native_sessions::prompts::owner_tests::late_sql_failure_is_owned_once_with_original_type_even_after_reply_disappears ... ok
+test native_sessions::prompts::skills::tests::foreign_same_name_tool_is_a_real_shadow_and_is_never_overwritten ... ok
+test native_sessions::prompts::skills::tests::handler_infrastructure_failure_keeps_the_original_owner_diagnostic_once ... ok
+test native_sessions::prompts::skills::tests::retired_actor_tool_cannot_read_replacement_skills_and_old_entries_are_released ... ok
+test sources::feishu::consumer::tests::multiline_diagnostic_keeps_the_actual_error_and_bounds_unicode ... ok
+test sources::feishu::consumer::tests::oversized_lines_are_discarded_once_and_crlf_and_later_lines_survive ... ok
+
+test result: ok. 51 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.38s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/cold_import.rs (<owned-target>/debug/deps/superagent_cold_import-68f8ca4167267b90)
+     Running unittests src/bin/delivery_bridge.rs (<owned-target>/debug/deps/superagent_delivery_bridge-6fc226f02ce654bb)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 5 tests
+test composition_dispatches_candidate_launch_and_receipt_backed_reply ... ok
+test exclusive_owner_precedes_sql_and_unconfigured_never_dispatches ...      Running unittests src/bin/durability_probe.rs (<owned-target>/debug/deps/superagent_durability_probe-aa1b36c213d73ee3)
+     Running unittests src/bin/migration_probe.rs (<owned-target>/debug/deps/superagent_migration_probe-529ca2f42c4e41c2)
+     Running unittests src/bin/native_session_probe.rs (<owned-target>/debug/deps/superagent_native_session_probe-c19843957fadfb63)
+     Running unittests src/bin/passes_bridge.rs (<owned-target>/debug/deps/superagent_passes_bridge-cbf53ab8ea26e16f)
+     Running unittests src/bin/retry_health_bridge.rs (<owned-target>/debug/deps/superagent_retry_health_bridge-f4b482a216274c5b)
+     Running unittests src/bin/sql_engine_bridge.rs (<owned-target>/debug/deps/superagent_sql_engine_bridge-a4aa95d82d84b4dc)
+     Running unittests src/bin/store_bridge.rs (<owned-target>/debug/deps/superagent_store_bridge-fbcfc81b667ac3ec)
+     Running unittests src/bin/superagent.rs (<owned-target>/debug/deps/xharness_superagent-066267dc2b4bd095)
+     Running tests/application.rs (<owned-target>/debug/deps/application-0a74575cf9dbbd0a)
+ok
+test source_off_retains_pending_reply_without_claiming_send_success ... ok
+test stale_launch_does_not_select_an_older_pending_assignment ... ok
+test stopped_ticket_cannot_launch_its_previously_queued_assignment ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+
+running 3 tests
+test admission_repeated_cursor_is_an_error_not_complete_or_partial_success ... ok
+test normal_chinese_english_word_limits_match_executed_business_samples ...      Running tests/assessment_context.rs (<owned-target>/debug/deps/assessment_context-5cc6b9b882ac353f)
+ok
+test original_github_context_repository_and_admission_outputs_and_paths_match ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+
+running 2 tests
+test cold_import_keeps_ids_cursors_receipts_settings_order_and_never_resumes_old_work ...      Running tests/cold_import.rs (<owned-target>/debug/deps/cold_import-970fe76f552ba8e2)
+FAILED
+test cold_import_refuses_pending_effects_requests_replies_and_live_wal ... FAILED
+
+failures:
+
+---- cold_import_keeps_ids_cursors_receipts_settings_order_and_never_resumes_old_work stdout ----
+
+thread 'cold_import_keeps_ids_cursors_receipts_settings_order_and_never_resumes_old_work' (2601031) panicked at crates/xharness-superagent/tests/cold_import.rs:49:10:
+called `Result::unwrap()` on an `Err` value: Message("Unknown aggregate table")
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+---- cold_import_refuses_pending_effects_requests_replies_and_live_wal stdout ----
+
+thread 'cold_import_refuses_pending_effects_requests_replies_and_live_wal' (2601032) panicked at crates/xharness-superagent/tests/cold_import.rs:83:69:
+called `Result::unwrap()` on an `Err` value: Message("Unknown aggregate table")
+
+
+failures:
+    cold_import_keeps_ids_cursors_receipts_settings_order_and_never_resumes_old_work
+    cold_import_refuses_pending_effects_requests_replies_and_live_wal
+
+test result: FAILED. 0 passed; 2 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+error: test failed, to rerun pass `-p xharness-superagent --test cold_import`

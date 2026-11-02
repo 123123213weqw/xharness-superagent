@@ -46,7 +46,7 @@ PR已关闭、所有权/分支被人修改或历史有歧义时明确报错，�
 - 1–16个常规 UTF-8 文本文件，每文件64 KiB，合计256 KiB；NUL/二进制拒绝。
 - 不删除文件，不改可执行位，不替换 symlink/submodule/目录或非目录祖先。
 - 拒绝绝对路径、路径穿越、`.git`元数据和 `.github/workflows/`。
-- 不提供完整 checkout/clone、自由 git 命令、任意网络、远程 SSH 或依赖安装。
+- 可选的可信准备器现已提供固定仓库/分支 checkout；仍不提供自由 clone/git 命令、任意网络、远程 SSH 或依赖安装。
 - 不把助手自己经 SSH 运行 Cargo 当成 Worker 已有远程编译能力。
 - Checks/reviews读取成功不等于 CI完成或外部评审通过。
 - 本工具是主动声明的产品能力扩展，不宣称与参考 SDK 的shell工具逐字等价。
@@ -80,3 +80,5 @@ Worker 网络。V100 内的 Worker 可以直接执行该服务器的工具链，
 完整 Review 后续处理及跨机 SSH 仍需分别验收，不因 clone 测试通过就整组签收。
 
 Checkout 的单次有界超时为300秒，常规 GitHub API 仍为90秒；超时/取消继续 join 整个本地 CLI 进程组后清理未发布目录，不自动换协议、忽略 TLS 或向 Worker 开放网络。
+
+`inspect.checkout` 表示当前可信 checkout 配置是否启用；不是 Worker 修改目录后重新运行特权 Git 得到的证明。实际 C1 发现该字段曾硬编码 false，现已修复并由正式入口工具结果断言覆盖。

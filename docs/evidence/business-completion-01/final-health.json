@@ -1,0 +1,60 @@
+{
+  "originals": [
+    {
+      "port": 3092,
+      "ready": true,
+      "load": {
+        "running": 0,
+        "queued": 0,
+        "maxWorkers": 3
+      }
+    },
+    {
+      "port": 3093,
+      "ready": true,
+      "load": {
+        "running": 0,
+        "queued": 0,
+        "maxWorkers": 3
+      }
+    },
+    {
+      "port": 3094,
+      "ready": true,
+      "load": {
+        "running": 0,
+        "queued": 0,
+        "maxWorkers": 3
+      }
+    },
+    {
+      "port": 3095,
+      "ready": true,
+      "load": {
+        "running": 0,
+        "queued": 0,
+        "maxWorkers": 3
+      }
+    },
+    {
+      "port": 3096,
+      "ready": true,
+      "load": {
+        "running": 0,
+        "queued": 0,
+        "maxWorkers": 3
+      }
+    },
+    {
+      "port": 3097,
+      "ready": true,
+      "load": {
+        "running": 0,
+        "queued": 0,
+        "maxWorkers": 3
+      }
+    }
+  ],
+  "owned_C1_worker_processes_live": [],
+  "temporary_supervision_unit_removed": true
+}

@@ -2,6 +2,22 @@
 
 **尚未完成生产替换，也没有把六个原版实例全部切走。** 本次不再只做离线夹具。
 
+## 最新执行节点（2026-11-02）
+
+- 新工作区可由产品以固定仓库/分支完成可信 checkout；真实 C1 已运行离线 workspace
+  check、独立 Rust 正向/负对照测试，并创建 [Draft PR #7](https://github.com/123123213weqw/xharness-superagent/pull/7)。
+- 管理查询/历史/标签、账号预验证和 join-before-restart 已接入；不是完整原版 UI 签收。
+- 单 canary 完成8对象/11000文件完整备份、冷导入、原端口隔离启动和完整原路径回退，
+  原版恢复 ready；六个原版实例仍在运行。没有把隔离演练写成全量生产切换。
+- 新产品全 targets 316 passed / 2 ignored（忽略不计通过），正式入口61项通过，
+  workspace 严格 Clippy 和备份工具6项通过。完整 V100 workspace 仍在两个旧飞书
+  UID/iptables 部署断言失败；最新发布 head 的 CI 单独验，不引用旧绿灯。
+- systemd 独立单元验证了 Root SIGKILL、同 cgroup 的 setsid 子进程清理、自动重启和
+  人工停止不重启；这不是活动 Worker 或远程 SSH 取消的全矩阵验收。
+
+[本批源码绑定、失败记录和剩余门槛](../business-completion-verification.json)。
+全23组仍为5 passed / 17 in_progress / 1 not_run；不把局部通过当完整 Goal 完成。
+
 ## 已实测
 
 - [GitHub #2](https://github.com/123123213weqw/xharness-superagent/issues/2)：真实 Issue 和后续真实评论，均经正式入口、DeepSeek、授权/Ticket、Native Worker、实际文件/读取/校验、回执发送及 GitHub 回读。后续评论在同一 Ticket 建立第二个 assignment；重启后仍为一个 Ticket、四份 sent 回执、零待办。

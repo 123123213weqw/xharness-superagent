@@ -1,0 +1,138 @@
+{
+  "ticket": {
+    "assignments": [
+      {
+        "createdAt": "2026-11-02T07:53:26.239Z",
+        "endedAt": "2026-11-02T07:55:06.526Z",
+        "endedReason": "retried",
+        "id": "3ac6426ab59a1752207105ee075212cc",
+        "report": {
+          "at": "2026-11-02T07:54:58.445Z",
+          "state": "failed",
+          "summary": "GitHub CLI timed out after 90 s"
+        },
+        "state": "ended"
+      },
+      {
+        "createdAt": "2026-11-02T07:55:06.526Z",
+        "endedAt": "2026-11-02T07:56:52.591Z",
+        "endedReason": "retried",
+        "id": "9c730fb06d640eb07328c6a1c1e8ce2e",
+        "report": {
+          "at": "2026-11-02T07:56:37.720Z",
+          "state": "failed",
+          "summary": "GitHub CLI timed out after 90 s"
+        },
+        "state": "ended"
+      },
+      {
+        "createdAt": "2026-11-02T07:56:52.591Z",
+        "endedAt": "2026-11-02T08:35:13.381Z",
+        "endedReason": "hostRestarted",
+        "id": "9c5a4eaafd1ef37fea5dee4c293aa968",
+        "idleAt": "2026-11-02T08:33:21.881Z",
+        "report": {
+          "at": "2026-11-02T08:16:14.030Z",
+          "state": "progress",
+          "summary": "Draft PR #7 opened (https://github.com/123123213weqw/xharness-superagent/pull/7) from ticket branch on base business/product-alignment @ 79d8a123cf4dd24b9e6d21b338f3197258d4ff93, containing only acceptance-checkout/Cargo.toml and acceptance-checkout/src/lib.rs. Offline workspace check exited 0, positive unit test exited 0, negative control exited 101 as expected. Verifying PR/check/review status next."
+        },
+        "startedAt": "2026-11-02T08:14:16.861Z",
+        "state": "ended"
+      },
+      {
+        "createdAt": "2026-11-02T08:35:13.381Z",
+        "deliveredAt": "2026-11-02T08:35:15.950Z",
+        "id": "1c08b4214225d6d8dccf7dab39eff1b7",
+        "idleAt": "2026-11-02T08:35:41.639Z",
+        "report": {
+          "at": "2026-11-02T08:35:39.110Z",
+          "state": "ready",
+          "summary": "C1 subticket closed as requested; no new publish, no second PR, no merge, no auto-merge, no changes to other files or production.\n\nDelivered (Draft PR #7, https://github.com/123123213weqw/xharness-superagent/pull/7, head f1d8c0580e3d389009deeee4a5e38cbe8ed1d78c, base business/product-alignment @ 79d8a123cf4dd24b9e6d21b338f3197258d4ff93; only two files):\n- acceptance-checkout/Cargo.toml — SHA-256 dea5348ee87d532b9cf4c4ec62d5e3bb57907f0ad418476154e342b838547a09\n- acceptance-checkout/src/lib.rs — SHA-256 7c7ec1da60f979523e2da0e67ef2cf1348edc34b3dd9d59ff1ca0590df0c26cc (re-hashed in the worktree after the host restart; unchanged)\n\nReal-checkout evidence (product-prepared clone, verified via git rev-parse HEAD = 79d8a12..., Cargo.toml with 34-crate workspace, README; I did not clone anything myself):\n1. cargo check --locked --offline --workspace --all-targets --features xharness-superagent/conformance → exit 0 (Finished dev profile in 1m 12s, cargo/rustc 1.99.1 from the provided read-only toolchain, .acceptance-cargo Cargo home, target/acceptance-c1).\n2. cargo test --offline --manifest-path acceptance-checkout/Cargo.toml → exit 0, 1 passed / 0 failed / 0 ignored; checkout_completion_message() returns \"仓库构建验收完成 😀\".\n3. cargo test --offline --manifest-path acceptance-checkout/Cargo.toml --features negative_control → exit 101, 1 passed / 1 failed; negative_control_fails_on_purpose panics at assert_eq!(1, 2). The control is a real cfg(feature)-gated test (not #[ignore]) and is preserved in the delivered lib.rs.\n\nPR #7 actual state (read-only, just now): open, draft:true, autoMerge:null; reviews: none (empty review list, no review comments) — no human review has happened; checks: rust (macos-latest) failure, rust (ubuntu-latest) failure, both completed, head f1d8c05. CI failure is unresolved and NOT reported as passing. CI logs are not retrievable from this sandbox (no network; gh has no usable connection/auth), so the failing step is undetermined; the failure is not explained by the two delivered files, since they form their own nested workspace outside the repo workspace: cargo metadata --offline, cargo fmt --check --all (exit 0) and the repo's offline verification scripts (verify-reference, verify-upstream, verify-tool-manifest, three overlay node tests, test-state-bundle.py — all exit 0) run clean locally on the same tree. pnpm/npm-dependent oracle steps could not run offline.\n\nAlso factual: an extra full-workspace `cargo test --locked --workspace --all-targets --features xharness-superagent/conformance` was started before the host restart and was interrupted — its result is unknown/inconclusive and was not rerun per instruction. Local workspace `cargo check` (step 1) is the only full-workspace build evidence.\n\nEnvironment notes: pre-restart failures were caused by gh lacking a usable network/auth path (not logged in; api unreachable), which is why delivery went through repository_delivery inspect/publish instead.\n\nLimitations stated to humans: this confirms only the C1 delivery sub-scenario (real checkout + offline workspace check + isolated positive test + expected-failing negative control + draft PR), not full product/production readiness; checks red, no review, draft not merged."
+        },
+        "startedAt": "2026-11-02T08:35:13.462Z",
+        "state": "running"
+      }
+    ],
+    "channels": [
+      {
+        "address": {
+          "number": "6",
+          "url": "https://github.com/123123213weqw/xharness-superagent/issues/6"
+        },
+        "source": "github",
+        "thread": "github:6"
+      }
+    ],
+    "createdAt": "2026-11-02T07:53:26.236Z",
+    "decisionId": "06edc518604105f9c1a5f2babce45221",
+    "execution": {
+      "assignment": "\nRouting note (not the source request): 仅限本仓库；不合并、不启用 auto-merge、不改现网、不访问其他仓库、不用 SSH/联网、不披露凭据或主机路径；负对照失败必须保留。",
+      "directory": "<owned-acceptance>/state/work/acceptance-offline-rust-bcd332cdf317",
+      "name": "acceptance-offline-rust-bcd332cdf317"
+    },
+    "follows": [
+      {
+        "own": true,
+        "thread": "github:7"
+      }
+    ],
+    "id": "bcd332cdf317fb8d20f9a68231ad2012",
+    "inputs": [
+      {
+        "at": "2026-11-02T08:35:13.381Z",
+        "id": "1d18be7cc37368f4ecff688227480a75",
+        "kind": "text",
+        "text": "The host restarted during this ticket. Inspect the current worktree, git history and GitHub state before continuing. Do not repeat an already completed external operation. Finish the original assignment and report its status."
+      },
+      {
+        "at": "2026-11-02T08:35:15.902Z",
+        "deliveredTo": "1c08b4214225d6d8dccf7dab39eff1b7",
+        "human": true,
+        "id": "41859f4709fdfed136f4d1dee38bac0a",
+        "kind": "trigger",
+        "readAt": null,
+        "triggerId": "493198e7b7c7e399efa2bb94f15d0588"
+      }
+    ],
+    "mandate": {
+      "actor": {
+        "id": "123123213weqw",
+        "source": "github"
+      },
+      "basis": {
+        "addressed": "mention",
+        "row": "issues",
+        "scope": {
+          "isPr": false,
+          "kind": "issue",
+          "number": 6
+        },
+        "sender": "123123213weqw",
+        "source": "github",
+        "via": "addressed"
+      },
+      "policyVersion": "2b89cb5a80cc5cc5683c7b1c66affe08",
+      "scope": "[acceptance C1] Real checkout and sandboxed offline Rust workflow",
+      "strength": "explicit"
+    },
+    "origin": {
+      "triggerId": "88b7f7eb9c745f5ceafb6e8543206bba",
+      "triggerIds": [
+        "88b7f7eb9c745f5ceafb6e8543206bba"
+      ]
+    },
+    "title": "[acceptance C1] Real checkout and sandboxed offline Rust workflow",
+    "undelivered": [],
+    "updatedAt": "2026-11-02T08:35:39.110Z"
+  },
+  "file_hashes": {
+    "acceptance-checkout/Cargo.toml": {
+      "bytes": 175,
+      "sha256": "dea5348ee87d532b9cf4c4ec62d5e3bb57907f0ad418476154e342b838547a09"
+    },
+    "acceptance-checkout/src/lib.rs": {
+      "bytes": 960,
+      "sha256": "7c7ec1da60f979523e2da0e67ef2cf1348edc34b3dd9d59ff1ca0590df0c26cc"
+    }
+  }
+}
