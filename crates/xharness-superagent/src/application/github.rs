@@ -61,6 +61,9 @@ impl Prepared {
     pub fn deployment(&self) -> Result<Deployment> {
         Ok(self.ready()?.deployment)
     }
+    pub(super) fn delivery_transport(&self) -> Result<Arc<dyn Transport>> {
+        Ok(self.ready()?.transport)
+    }
     fn ready(&self) -> Result<Installed> {
         self.installed
             .get()

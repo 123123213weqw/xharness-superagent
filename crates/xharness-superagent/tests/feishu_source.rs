@@ -271,6 +271,21 @@ async fn pid(fixture: &Fixture, name: &str) -> String {
     .unwrap()
 }
 async fn dead(pid: &str) -> bool {
+    // A signalled grandchild can be an orphan zombie until the OS reaper runs.
+    // kill(0) alone cannot distinguish that from an executing process. Match
+    // the ProcessRuntime tests' bounded reap check, not an unbounded sleep.
+    let deadline = tokio::time::Instant::now() + Duration::from_secs(3);
+    loop {
+        if absent(pid).await {
+            return true;
+        }
+        if tokio::time::Instant::now() >= deadline {
+            return false;
+        }
+        tokio::time::sleep(Duration::from_millis(10)).await;
+    }
+}
+async fn absent(pid: &str) -> bool {
     !tokio::process::Command::new("kill")
         .args(["-0", pid])
         .stdout(std::process::Stdio::null())
@@ -281,7 +296,7 @@ async fn dead(pid: &str) -> bool {
         .success()
 }
 #[tokio::test]
-async fn member_read_cancellation_joins_the_real_cli_and_descendant_before_return() {
+async fn member_read_cancellation_joins_the_real_cli_and_terminates_its_descendant() {
     let fixture = Fixture::new();
     let cli = fixture.resolve("block").await.unwrap();
     let cancel = CancellationToken::new();
@@ -298,6 +313,21 @@ async fn member_read_cancellation_joins_the_real_cli_and_descendant_before_retur
     .await
     .unwrap();
     assert!(matches!(result, Err(Error::Cancelled)));
+    assert!(absent(&parent).await, "CLI root was not joined");
+    // At return the descendant must already have exited. A zombie is dead,
+    // but is not ours to waitpid: it has been adopted by the OS reaper.
+    if !absent(&child).await {
+        let state = tokio::process::Command::new("ps")
+            .args(["-o", "stat=", "-p", &child])
+            .output()
+            .await
+            .unwrap();
+        let state = String::from_utf8_lossy(&state.stdout);
+        assert!(
+            state.trim().is_empty() || state.trim().starts_with('Z'),
+            "descendant still executing: {state}"
+        );
+    }
     assert!(dead(&parent).await);
     assert!(dead(&child).await);
 }

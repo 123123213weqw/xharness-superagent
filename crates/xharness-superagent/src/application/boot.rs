@@ -126,6 +126,8 @@ struct Document {
     #[serde(default)]
     management: Option<super::management::Config>,
     #[serde(default)]
+    repository_delivery: Option<super::delivery::Config>,
+    #[serde(default)]
     main_directory: Option<PathBuf>,
     #[serde(default = "prompt_limit")]
     prompt_max_chars: usize,
@@ -148,6 +150,9 @@ impl Config {
         .validate()?;
         if let Some(management) = &document.management {
             management.validate()?;
+        }
+        if let Some(delivery) = &document.repository_delivery {
+            delivery.validate().map_err(display)?;
         }
         if !document.state_dir.is_absolute() {
             return Err(error("stateDir must be an absolute path"));
@@ -490,17 +495,18 @@ struct Coding {
     feishu: super::feishu::Prepared,
     jobs: Arc<JobRegistry>,
     web: Arc<WebRuntime>,
+    delivery: Option<super::delivery::Config>,
 }
 /// Product-only tool authority for an admitted ticket. Generic Host defaults
 /// are unchanged, and native filesystem/process sandbox restrictions remain
 /// independently enforced. It cannot authorize a different ticket or role.
-struct TicketAuthority {
+pub(super) struct TicketAuthority {
     client: Client,
     ticket: String,
     assignment: String,
 }
 impl TicketAuthority {
-    async fn check(&self) -> std::result::Result<(), MiddlewareError> {
+    pub(super) async fn check(&self) -> std::result::Result<(), MiddlewareError> {
         let (ticket, assignment) = (self.ticket.clone(), self.assignment.clone());
         self.client
             .call(move |app| {
@@ -591,7 +597,7 @@ impl SessionToolFactory for Coding {
         let platform =
             Arc::new(NativePlatform::new(PlatformConfig::new(cwd)).map_err(|e| e.to_string())?);
         let bundle = CodingToolBundle::new(
-            platform,
+            platform.clone(),
             self.jobs.clone(),
             self.web.clone(),
             session,
@@ -621,9 +627,27 @@ impl SessionToolFactory for Coding {
         }
         let authority = Arc::new(TicketAuthority {
             client: client.clone(),
-            ticket,
-            assignment,
+            ticket: ticket.clone(),
+            assignment: assignment.clone(),
         });
+        if let Some(config) = &self.delivery {
+            let broker = super::delivery::Broker::new(
+                config.clone(),
+                self.github.deployment().map_err(|e| e.to_string())?,
+                self.github
+                    .delivery_transport()
+                    .map_err(|e| e.to_string())?,
+                platform,
+                session.into(),
+                ticket,
+                assignment,
+                authority.clone(),
+            )?;
+            registry
+                .register(broker.spec())
+                .await
+                .map_err(|e| e.to_string())?;
+        }
         Ok(ToolExecutor::new(registry).with_guards(vec![authority]))
     }
     fn allows_host_tool(&self, _: &str) -> bool {
@@ -787,6 +811,7 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
         feishu: feishu.clone(),
         jobs: Arc::new(JobRegistry::new(JobRegistryConfig::default())),
         web: Arc::new(WebRuntime::default()),
+        delivery: config.document.repository_delivery.clone(),
     });
     let prompt_store = Rc::new(std::cell::OnceCell::new());
     let inputs = Rc::new(PromptInputs {
