@@ -38,7 +38,7 @@ use tokio_util::sync::CancellationToken;
 use xharness_coding_tools::CodingToolBundle;
 use xharness_core::IdentityContextPolicy;
 use xharness_host::{
-    ModelDescriptor, ModelReasoning, ModelReasoningEffort, ModelRegistry, ModelRoute, NoTools,
+    ModelDescriptor, ModelReasoning, ModelReasoningEffort, ModelRegistry, ModelRoute,
     PermissionPreset, RegisteredModel, SessionToolFactory,
 };
 use xharness_jobs::{protocol::JobRun, JobOutputCursor, JobRead, JobRegistry, JobRegistryConfig};
@@ -524,6 +524,7 @@ struct Coding {
     delivery: Option<super::delivery::Config>,
     read_only_roots: Vec<PathBuf>,
     access: WorkerAccess,
+    github_serial: Arc<tokio::sync::Mutex<()>>,
 }
 /// Product-only tool authority for an admitted ticket. Generic Host defaults
 /// are unchanged, and the explicitly selected filesystem/process policy is
@@ -675,6 +676,17 @@ impl SessionToolFactory for Coding {
             ticket: ticket.clone(),
             assignment: assignment.clone(),
         });
+        for spec in super::explore::specs(
+            self.github.clone(),
+            client.clone(),
+            authority.clone(),
+            self.github_serial.clone(),
+        ) {
+            registry
+                .register(spec)
+                .await
+                .map_err(|error| error.to_string())?;
+        }
         if let Some(config) = &self.delivery {
             let broker = super::delivery::Broker::new(
                 config.clone(),
@@ -899,6 +911,7 @@ async fn run_once(
     let feishu = super::feishu::Prepared::default();
     let state_dir = config.document.state_dir.clone();
     let client: Arc<OnceLock<Client>> = Arc::new(OnceLock::new());
+    let github_serial = Arc::new(tokio::sync::Mutex::new(()));
     let coding = Arc::new(Coding {
         client: client.clone(),
         github: prepared.clone(),
@@ -908,6 +921,7 @@ async fn run_once(
         delivery: config.document.repository_delivery.clone(),
         read_only_roots: config.document.worker_read_only_roots.clone(),
         access: config.document.worker_access,
+        github_serial: github_serial.clone(),
     });
     let prompt_store = Rc::new(std::cell::OnceCell::new());
     let inputs = Rc::new(PromptInputs {
@@ -930,14 +944,12 @@ async fn run_once(
         .document
         .main_directory
         .unwrap_or(std::env::current_dir()?);
-    let main_tools: Arc<dyn SessionToolFactory> = if web.has_search_provider() {
-        Arc::new(super::search::Factory {
-            web,
-            client: client.clone(),
-        })
-    } else {
-        Arc::new(NoTools)
-    };
+    let main_tools: Arc<dyn SessionToolFactory> = Arc::new(super::search::Factory {
+        web,
+        client: client.clone(),
+        github: prepared.clone(),
+        github_serial,
+    });
     let worker_access = config.document.worker_access;
     let (product, runner) = Product::open_with_worker_access(
         native::Config {

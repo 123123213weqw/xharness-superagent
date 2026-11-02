@@ -54,6 +54,7 @@ pub mod client;
 pub mod configuration;
 mod controls;
 mod delivery;
+mod explore;
 pub mod feishu;
 pub mod github;
 pub mod management;

@@ -21,6 +21,7 @@ pub use checkout::{CheckoutOptions, CheckoutReceipt, CheckoutRevision};
 pub mod channel;
 pub mod ci;
 pub mod context;
+pub mod explore;
 pub mod read;
 pub mod trigger;
 
@@ -208,6 +209,17 @@ impl Deployment {
 #[async_trait]
 pub trait Transport: Send + Sync {
     async fn api(&self, path: &str, flags: &[String], stop: CancellationToken) -> Result<String>;
+    /// Dedicated GET-only search, bound to this transport's verified repository.
+    async fn search_issues(
+        &self,
+        _search: &explore::Search,
+        _pulls: bool,
+        _stop: CancellationToken,
+    ) -> Result<String> {
+        Err(Error::Config(
+            "Repository search is unavailable on this transport".into(),
+        ))
+    }
     /// Trusted pre-Worker operation only. Implementations must not expose an
     /// incomplete checkout at `directory` or execute git in an existing tree.
     async fn checkout(
@@ -567,6 +579,32 @@ impl Cli {
 }
 #[async_trait]
 impl Transport for Cli {
+    async fn search_issues(
+        &self,
+        search: &explore::Search,
+        pulls: bool,
+        stop: CancellationToken,
+    ) -> Result<String> {
+        let query = search.query(&self.deployment.repository, pulls)?;
+        self.run(
+            vec![
+                "api".into(),
+                "search/issues".into(),
+                "--method".into(),
+                "GET".into(),
+                "--include".into(),
+                "-f".into(),
+                format!("q={query}"),
+                "-f".into(),
+                format!("page={}", search.page),
+                "-f".into(),
+                format!("per_page={}", search.per_page),
+            ],
+            stop,
+        )
+        .await
+    }
+
     async fn checkout_with_options(
         &self,
         options: &CheckoutOptions,

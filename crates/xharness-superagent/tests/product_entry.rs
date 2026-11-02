@@ -34,6 +34,8 @@ mod configuration_lifecycle;
 mod delivery;
 #[path = "product_entry/feishu.rs"]
 mod feishu;
+#[path = "product_entry/github_explore.rs"]
+mod github_explore;
 #[path = "product_entry/management.rs"]
 mod management;
 #[path = "product_entry/note.rs"]
@@ -842,7 +844,8 @@ async fn formal_entry_source_native_coding_tools_and_reply_survive_restart_witho
                     .count(),
                 14
             );
-            assert_eq!(tools.len(), 15);
+            assert_eq!(tools.len(), 17);
+            assert!(tools.contains(&"github_discover") && tools.contains(&"github_query"));
             assert!(tools.contains(&"orchestrator_policy_sync"));
             assert!(tools.contains(&"orchestrator_ticket_note"));
             for name in [
