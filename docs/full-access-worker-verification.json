@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-11-02T12:02:41.701106+00:00",
+  "status": "explicit_rs_worker_full_access_deployed_and_read_only_network_verified_not_complete_business_signoff",
+  "source_commit": "ce24642f765da98d4fd3484abfeb2afc08d12888",
+  "source_profile_sha256": "70bbbcd2ae077f165c021cfe15c8503fa9dac25499d9c27659fd098b0ebb0a33",
+  "source_profile_files": 783,
+  "source_profile": "docs/full-access-worker-source-profile.json",
+  "local_remote_source_equal": true,
+  "host": "WZU_Server",
+  "local_rust_compilation": false,
+  "authorization": "User explicitly requested full access for the current RS canary; no other service or account grants changed.",
+  "configuration": {
+    "field": "workerAccess",
+    "default": "workspace-write",
+    "explicit_value": "danger-full-access",
+    "scope": "Worker sessions of one explicitly configured product process only",
+    "orchestrator_coding_tools": false,
+    "generic_host_and_platform_defaults_changed": false
+  },
+  "implementation": [
+    "durable Worker permission/sandbox/approval events before admission in the existing session JSONL",
+    "selected preset checked against operator config by actual product Coding factory",
+    "NativePlatform full_access, including process network and structured filesystem root; no shell-only bypass",
+    "web tools only advertised for the explicit full-access policy",
+    "live TicketAuthority, role bindings, cancellation/timeout/jobs and secret-environment scrub retained",
+    "existing gh/lark account wrappers and Git credential helper in this service environment; no new token/permission grant",
+    "live prompt revision updated through CAS management API to permit network/git/gh and prefer collection reads, retaining no-auto-merge policy"
+  ],
+  "commands": [
+    "remote synchronized source: cargo test --locked --offline -p xharness-superagent --all-targets --features conformance",
+    "remote synchronized source: cargo clippy --locked --offline -p xharness-superagent --all-targets --features conformance -- -D warnings",
+    "remote synchronized source: cargo build --locked --offline -p xharness-superagent --bin xharness-superagent",
+    "remote built product_entry test binary --exact access::full_access_worker_reads_github_with_existing_service_account --ignored --nocapture; explicit existing-account/repository opt-in; service PATH/HOME/Git-config taken from the deployed process, binary SHA checked equal"
+  ],
+  "regression": {
+    "product_tests_passed": 319,
+    "product_tests_failed": 0,
+    "product_tests_ignored": 3,
+    "ignored_is_not_pass": true,
+    "strict_clippy": "passed",
+    "build": "passed",
+    "live_read_probe_executed_separately": true
+  },
+  "actual_worker_probe": {
+    "entry": "formal executable -> fixture Source/admission -> real NativeSessions -> actual CodingToolBundle bash -> real existing gh wrapper -> real GitHub TLS APIs",
+    "model_and_source": "explicit offline protocol fixtures, no real human event and no paid model call; source replies confined to fixture files",
+    "github_requests": [
+      "GET /user",
+      "GET /repos/123123213weqw/x-harness-rs/issues?state=open&per_page=100"
+    ],
+    "account": "btlqql",
+    "returned_open_issues_and_pulls": 13,
+    "exit_code": 0,
+    "secret_environment_scrubbed": true,
+    "new_credentials": false,
+    "external_writes": false
+  },
+  "deployment": {
+    "atUtc": "2026-11-02T12:01:18Z",
+    "workerAccess": "danger-full-access",
+    "pid": 81571,
+    "binarySha256": "377122872641e6afde83bb039341310133323173b194bece6b0943db600f1ed3",
+    "runtime": {
+      "at": "2026-11-02T12:00:40.653Z",
+      "detail": "Orchestrator is ready",
+      "state": "ready"
+    },
+    "load": {
+      "idle": 0,
+      "maxWorkers": 1.0,
+      "queued": 0,
+      "running": 0
+    },
+    "paused": false,
+    "sources": [
+      {
+        "id": "feishu",
+        "state": "ready"
+      },
+      {
+        "id": "github",
+        "state": "ready"
+      }
+    ],
+    "deployedServiceEnvironmentAndBinaryVerified": true,
+    "realGithubWorkerReadPassed": true,
+    "account": "btlqql",
+    "promptRevision": 2,
+    "unitSha256": "3e3975891b4c221d9b68103c6dc056efa8dc0419af509a660e3cd13379c1adca",
+    "other_five_unchanged": true,
+    "old_process_joined": true,
+    "current_state_backup": {
+      "objects": 5,
+      "files": 10497,
+      "verified": true,
+      "private_on_server": true
+    },
+    "same_current_state_preserved": true,
+    "old_pre_cutover_cursor_restored": false,
+    "automatic_merge_enabled": false
+  },
+  "limitations": [
+    "This probe verifies actual Worker networking/list reads, not a new human Feishu task or real model decision after this update.",
+    "Full access uses the existing OS account; it is not root elevation or workspace isolation.",
+    "Bulk Git transport reliability and existing-PR multi-round delivery still require workflow acceptance.",
+    "No full workspace test/CI matrix was rerun in this update; the known unrelated legacy Linux Feishu UID assertion remains recorded separately.",
+    "The full business-alignment goal and unverified grouped acceptance cases are not marked complete."
+  ],
+  "logs": {
+    "docs/evidence/full-access-worker-01/build.log": "d9a27ac4797add5128e86cb6d65a75a95e3b6a0c89e8f82252f055110ed0b52a",
+    "docs/evidence/full-access-worker-01/clippy.log": "8a0f527d5a749a6164458a9304384775f4f04e23fa802e51219813ec643be361",
+    "docs/evidence/full-access-worker-01/deployment.json": "cc08fa53ce8121ba8ae2051476565dfc390803776e30ed84e87b126efecb6745",
+    "docs/evidence/full-access-worker-01/live-worker-read.log": "089f147658fb22eab039a1ce5b135e8b053bdd374ebb8194c27a495a08ba9fef",
+    "docs/evidence/full-access-worker-01/product-tests.log": "b1bd169c61906770ed7f0f0dc4584bbce6a2ce0ec34fae7a4d7ef281fc5ffcef"
+  }
+}

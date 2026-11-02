@@ -270,6 +270,15 @@
           "actual_product_path": true,
           "full_feishu_event_loop": false,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "ce24642f765da98d4fd3484abfeb2afc08d12888",
+          "entry_and_command": "remote synchronized source: cargo test --locked --offline -p xharness-superagent --all-targets --features conformance; remote synchronized source: cargo clippy --locked --offline -p xharness-superagent --all-targets --features conformance -- -D warnings; remote synchronized source: cargo build --locked --offline -p xharness-superagent --bin xharness-superagent; remote built product_entry test binary --exact access::full_access_worker_reads_github_with_existing_service_account --ignored --nocapture; explicit existing-account/repository opt-in; service PATH/HOME/Git-config taken from the deployed process, binary SHA checked equal",
+          "environment": "WZU_Server; 319 offline product regressions plus one explicitly triggered actual Worker real GitHub read; RS-only update with current-state backup",
+          "full_log": "docs/evidence/full-access-worker-01/product-tests.log",
+          "business_assertions": "docs/full-access-worker-verification.json",
+          "actual_product_path": true,
+          "scope_note": "Explicit Worker permission/network/list-read subset; case remains in_progress; no complete PR/goal signoff."
         }
       ]
     },
@@ -1023,6 +1032,15 @@
           "business_assertions": "docs/business-completion-verification.json",
           "actual_product_path": true,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "ce24642f765da98d4fd3484abfeb2afc08d12888",
+          "entry_and_command": "remote synchronized source: cargo test --locked --offline -p xharness-superagent --all-targets --features conformance; remote synchronized source: cargo clippy --locked --offline -p xharness-superagent --all-targets --features conformance -- -D warnings; remote synchronized source: cargo build --locked --offline -p xharness-superagent --bin xharness-superagent; remote built product_entry test binary --exact access::full_access_worker_reads_github_with_existing_service_account --ignored --nocapture; explicit existing-account/repository opt-in; service PATH/HOME/Git-config taken from the deployed process, binary SHA checked equal",
+          "environment": "WZU_Server; 319 offline product regressions plus one explicitly triggered actual Worker real GitHub read; RS-only update with current-state backup",
+          "full_log": "docs/evidence/full-access-worker-01/product-tests.log",
+          "business_assertions": "docs/full-access-worker-verification.json",
+          "actual_product_path": true,
+          "scope_note": "Explicit Worker permission/network/list-read subset; case remains in_progress; no complete PR/goal signoff."
         }
       ]
     },
@@ -1050,6 +1068,15 @@
           "business_assertions": "docs/business-completion-verification.json",
           "actual_product_path": true,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "ce24642f765da98d4fd3484abfeb2afc08d12888",
+          "entry_and_command": "remote synchronized source: cargo test --locked --offline -p xharness-superagent --all-targets --features conformance; remote synchronized source: cargo clippy --locked --offline -p xharness-superagent --all-targets --features conformance -- -D warnings; remote synchronized source: cargo build --locked --offline -p xharness-superagent --bin xharness-superagent; remote built product_entry test binary --exact access::full_access_worker_reads_github_with_existing_service_account --ignored --nocapture; explicit existing-account/repository opt-in; service PATH/HOME/Git-config taken from the deployed process, binary SHA checked equal",
+          "environment": "WZU_Server; 319 offline product regressions plus one explicitly triggered actual Worker real GitHub read; RS-only update with current-state backup",
+          "full_log": "docs/evidence/full-access-worker-01/product-tests.log",
+          "business_assertions": "docs/full-access-worker-verification.json",
+          "actual_product_path": true,
+          "scope_note": "Explicit Worker permission/network/list-read subset; case remains in_progress; no complete PR/goal signoff."
         }
       ]
     }
@@ -1122,8 +1149,16 @@
       "cold_migration_permission_not_acceptance": true,
       "full_product_complete": false
     },
-    "production_fleet_replaced": false
+    "production_fleet_replaced": false,
+    "worker_access_opt_in": {
+      "default": "workspace-write",
+      "explicit": "danger-full-access",
+      "verification": "docs/full-access-worker-verification.json",
+      "scope": "one authorized RS deployment; actual existing-account Worker list/network read; not all PR workflows",
+      "other_five_modified": false,
+      "generic_defaults_changed": false
+    }
   },
-  "updated_at_utc": "2026-11-02T08:36:59.841370+00:00",
+  "updated_at_utc": "2026-11-02T12:02:41.701106+00:00",
   "validation_note": "passed denotes the listed complete product scenario in an explicitly offline protocol environment, not real GitHub/model service approval, universal parity or release readiness. Unexecuted branches remain open."
 }

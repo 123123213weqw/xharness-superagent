@@ -138,3 +138,21 @@ Mac PR7 另暴露飞书 consumer 重启测试在结果回帖后立即停机，�
 HTTP 响应写入竞争，出现 Broken pipe。只给该测试加“最终请求已完整收到后才停机”
 的 barrier；全部 consumer 次数、真实退避时长、Ticket/Trigger/assignment 去重和
 HTTP 错误断言保留，不放宽服务错误处理，也不把传输故障统一吞掉。
+
+
+## 后续：RS 单实例显式 FullAccess（2026-11-02）
+
+操作者随后明确要求 `开 fullacess`，因此只对当前 RS 灰度实例开启
+`workerAccess: danger-full-access`，不是改变通用默认或另外五个实例。
+默认模板仍为 WorkspaceWrite/NetworkDeny。现有账号包装器、Git helper 和 Prompt
+在该服务单独接线；没有新增凭据/仓库授权，没有启用自动合并。
+
+更新前确认无活动/排队 Worker，暂停并 join 原进程，校验当前状态完整备份
+（5对象/10497文件），保留原二进制，以新 inode 安装新版本后恢复运行。
+沿用当前状态与游标，**没有回放切换前旧数据库**。GitHub/飞书均 ready。
+319 项产品回归和严格 Clippy 通过；另外使用同版正式二进制和部署进程的账号环境，
+经过实际 Worker 编码工具成功批量读取真实仓库的13条 open issue/PR。
+模型/触发来源是明确的离线夹具，该网络验证不冒充新的人类消息或真实模型决策。
+
+完整证据见 [Full-access 验证记录](../full-access-worker-verification.json)。
+既有 PR 续改、批量 Git 传输稳定性等完整工作流没有因此自动签收。
