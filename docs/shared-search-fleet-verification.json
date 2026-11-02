@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "at_utc": "2026-11-02T12:39:38.475764+00:00",
+  "status": "rs_shared_search_gray_deployed_and_feature_accepted_five_legacy_instances_not_migrated",
+  "source_commit": "2527f03016b0e7d4dbae151f2189af609c75cb0e",
+  "source_profile_sha256": "3079cd6b4347b3747e437b49814ba77b8035341467ccbfd7858482af05b67504",
+  "source_profile_files": 787,
+  "source_profile": "docs/shared-search-fleet-source-profile.json",
+  "local_remote_source_equal": true,
+  "host": "WZU_Server",
+  "local_rust_compilation": false,
+  "configuration": {
+    "webSearch": {
+      "provider": "deepseek-search-api",
+      "apiKeyEnv": "DEEPSEEK_API_KEY"
+    },
+    "reasoning_model_routes_changed": false,
+    "shared_roles": [
+      "orchestrator",
+      "worker"
+    ],
+    "model_independent": true,
+    "main_does_not_gain_coding_or_host_tools": true,
+    "generic_defaults_changed": false,
+    "existing_key_reused": true,
+    "new_account_or_grants": false
+  },
+  "official_api": "https://api-docs.deepseek.com/api/search/",
+  "api_path": "POST https://api.deepseek.com/v1/tools/search",
+  "search_is_not_a_second_chat_model": true,
+  "credentials_in_prompts_or_source": false,
+  "regression": {
+    "selected_rust_packages": [
+      "xharness-superagent",
+      "xharness-web",
+      "xharness-coding-tools"
+    ],
+    "tests_passed": 382,
+    "tests_failed": 0,
+    "tests_ignored": 11,
+    "ignored_is_not_pass": true,
+    "strict_clippy": "passed",
+    "build": "passed",
+    "fleet_controller_python_tests": 9,
+    "full_workspace_or_cross_platform_matrix_rerun": false
+  },
+  "actual_search_acceptance": {
+    "search_api": "real official DeepSeek Search API with existing authorized key",
+    "roles": [
+      "main",
+      "glm-route worker"
+    ],
+    "reasoning_and_source": "explicit offline HTTP/SSE model/trigger/reply fixtures; not a paid GLM inference or new human Feishu task",
+    "returned_structured_github_results": true,
+    "same_deployed_binary_and_credential_verified": true,
+    "after_deployment_probe_log": "docs/evidence/shared-search-fleet-01/live-search.log",
+    "paid_search_calls_in_this_update": 4,
+    "external_writes": false
+  },
+  "fleet": {
+    "one_source_tree_and_immutable_releases": true,
+    "per_instance_state_config_models_accounts_ports_and_units": true,
+    "inventory_instances": 6,
+    "rust_canary_instances": 1,
+    "legacy_instances": 5,
+    "other_five_not_restarted": true,
+    "implemented_commands": [
+      "inventory",
+      "stage",
+      "plan",
+      "upgrade",
+      "promote",
+      "incident"
+    ],
+    "busy_instance_deferred_without_stopping_task": "observed on the real RS project-sharing task before the successful update",
+    "real_controller_upgrade": "passed; exact unit remained unchanged, current state backed up and preserved",
+    "compatible_baseline_artifact_retained": true,
+    "old_database_restored": false,
+    "promotion_scope": "shared search and one-instance updater feature only, not whole product signoff",
+    "automatic_updates_or_global_restart_enabled": false,
+    "incident_feedback": "version-bound private incident metadata -> sanitized repository regression/fix -> immutable new release -> canary -> explicit promotion -> one-instance-at-a-time rollout",
+    "fault_tests": [
+      "busy before pause never stops service",
+      "work arriving during preflight restores pause without stopping task",
+      "candidate check failure restores old binary/config without old cursor restore",
+      "unknown/changed unit, legacy implementation, shared state/port and unpromoted stable rollout are rejected"
+    ]
+  },
+  "deployment": {
+    "atUtc": "2026-11-02T12:36:51Z",
+    "release": "2527f03016b0-4ca9b78eaa98",
+    "pid": 282231,
+    "binarySha256": "4ca9b78eaa983b419d64a642c420d6092861160fafbe55db5202f4478d370852",
+    "sharedSearch": {
+      "provider": "deepseek-search-api",
+      "apiKeyEnv": "DEEPSEEK_API_KEY"
+    },
+    "runtime": {
+      "at": "2026-11-02T12:35:42.875Z",
+      "detail": "Orchestrator is ready",
+      "state": "ready"
+    },
+    "load": {
+      "idle": 0,
+      "maxWorkers": 1.0,
+      "queued": 0,
+      "running": 0
+    },
+    "paused": false,
+    "actualSearchApiRoleAndGlmRouteProbe": "passed with deployed credential and identical binary; model/Source fixtures, no paid GLM inference",
+    "otherFiveLegacyUntouched": true,
+    "featureCanaryPromoted": true,
+    "schema": 11,
+    "currentStateAndCursorsPreserved": true,
+    "automaticUpdatesEnabled": false
+  },
+  "commands": [
+    "remote cargo test --locked --offline -p xharness-superagent -p xharness-web -p xharness-coding-tools --all-targets --features xharness-superagent/conformance",
+    "remote cargo clippy --locked --offline -p xharness-superagent -p xharness-coding-tools -p xharness-web --all-targets --features xharness-superagent/conformance -- -D warnings",
+    "remote cargo build --locked --offline -p xharness-superagent --bin xharness-superagent",
+    "python3 scripts/superagent/test-fleet-control.py",
+    "remote formal product_entry test binary --exact search::live_deepseek_search_is_shared_with_glm_route_and_main_role --ignored --nocapture; explicitly authorized existing Search key",
+    "remote fleet-control.py stage/plan/upgrade/inventory/promote/incident against the private owned six-profile registry"
+  ],
+  "limitations": [
+    "The other five original Node/DSH profiles are inventoried as legacy, not silently converted or counted as unified Rust deployments.",
+    "GLM model independence is proved with a GLM-named route fixture plus real Search API; no new live GLM model inference was performed.",
+    "Production currently uses the original reasoning route; this update does not change its model catalog/default.",
+    "Updater is manual/operator-controlled and limited to same-schema/event-compatible releases; it is not arbitrary DB migration or crash-atomic distributed rollback.",
+    "No unattended monitoring/auto-patching or automatic public bug publishing was enabled.",
+    "Full repository/PR continuation, whole business parity and complete production fleet replacement remain separately tracked."
+  ],
+  "logs_sha256": {
+    "docs/evidence/shared-search-fleet-01/build.log": "2bc683fb4e4f4f21ee9ee39e2b8ecce2efe20d3b1be57bda5316aa519ab3d30a",
+    "docs/evidence/shared-search-fleet-01/clippy.log": "f4403412cb20dc7d8a0a94c08c9c8853e4bac9b3e8489158834f30512311ed97",
+    "docs/evidence/shared-search-fleet-01/deployment.json": "4e4b774ec30c5fc97beae7a7a9fb028d5acee7ca138a5b93d7788a0774a85a6f",
+    "docs/evidence/shared-search-fleet-01/fleet-tests.log": "1ceb7b0d9164b2d84de8b0e37f2951a4b0fec820f0c6b870e29d37d728caa16a",
+    "docs/evidence/shared-search-fleet-01/live-search.log": "fe3308923fef7bd534580746a50023c7d3f632aa870f0908ad43b1fb87ba45e6",
+    "docs/evidence/shared-search-fleet-01/rust-tests.log": "442147f44f67f2600bf5e9ccea1a4053e20612cc823ffb120e75294d7462de1a",
+    "docs/evidence/shared-search-fleet-01/upgrade.log": "76ce956fa17356df29abffc08c209a3057751955c4999482f9f3a8ff0bc3926f"
+  }
+}
