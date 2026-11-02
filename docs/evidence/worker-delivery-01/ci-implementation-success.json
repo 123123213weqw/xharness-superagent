@@ -1,0 +1,590 @@
+{
+  "conclusion": "success",
+  "headSha": "df6f44f4454872793c1b313ebea959f81d73f770",
+  "jobs": [
+    {
+      "completedAt": "2026-11-02T06:32:16Z",
+      "conclusion": "success",
+      "databaseId": 125129454502,
+      "name": "rust (macos-latest)",
+      "startedAt": "2026-11-02T06:27:01Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-02T06:27:03Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-02T06:27:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:05Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-11-02T06:27:03Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:06Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4",
+          "number": 3,
+          "startedAt": "2026-11-02T06:27:05Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:06Z",
+          "conclusion": "success",
+          "name": "Run node conformance/restore-reference-modes.mjs",
+          "number": 4,
+          "startedAt": "2026-11-02T06:27:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:06Z",
+          "conclusion": "success",
+          "name": "Run node conformance/verify-reference.mjs",
+          "number": 5,
+          "startedAt": "2026-11-02T06:27:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:06Z",
+          "conclusion": "success",
+          "name": "Run node conformance/verify-upstream.mjs",
+          "number": 6,
+          "startedAt": "2026-11-02T06:27:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:06Z",
+          "conclusion": "success",
+          "name": "Run node conformance/business/verify-tool-manifest.mjs",
+          "number": 7,
+          "startedAt": "2026-11-02T06:27:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:06Z",
+          "conclusion": "success",
+          "name": "Run node --test conformance/business/host-input-observer.test.mjs",
+          "number": 8,
+          "startedAt": "2026-11-02T06:27:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:07Z",
+          "conclusion": "success",
+          "name": "Run node --test conformance/business/flush-observation.test.mjs",
+          "number": 9,
+          "startedAt": "2026-11-02T06:27:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:07Z",
+          "conclusion": "success",
+          "name": "Run node --test conformance/business/product-cargo-overlay.test.mjs",
+          "number": 10,
+          "startedAt": "2026-11-02T06:27:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:07Z",
+          "conclusion": "success",
+          "name": "Run node --test conformance/business/business-word-cargo-overlay.test.mjs",
+          "number": 11,
+          "startedAt": "2026-11-02T06:27:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:07Z",
+          "conclusion": "success",
+          "name": "Run node --test conformance/business/feishu-cargo-overlay.test.mjs",
+          "number": 12,
+          "startedAt": "2026-11-02T06:27:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:07Z",
+          "conclusion": "success",
+          "name": "Run node --test conformance/business/messages-cargo-overlay.test.mjs",
+          "number": 13,
+          "startedAt": "2026-11-02T06:27:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:07Z",
+          "conclusion": "success",
+          "name": "Run node --test conformance/business/management-cargo-overlay.test.mjs",
+          "number": 14,
+          "startedAt": "2026-11-02T06:27:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:09Z",
+          "conclusion": "success",
+          "name": "Run npm ci --ignore-scripts --no-audit --no-fund --prefix conformance",
+          "number": 15,
+          "startedAt": "2026-11-02T06:27:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:09Z",
+          "conclusion": "success",
+          "name": "Run node --experimental-transform-types conformance/business/github-source-oracle.mjs --check",
+          "number": 16,
+          "startedAt": "2026-11-02T06:27:09Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:10Z",
+          "conclusion": "success",
+          "name": "Run node --experimental-transform-types conformance/business/feishu-source-oracle.mjs --check",
+          "number": 17,
+          "startedAt": "2026-11-02T06:27:09Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:12Z",
+          "conclusion": "success",
+          "name": "Run node --experimental-transform-types conformance/business/feishu-read-oracle.mjs --check",
+          "number": 18,
+          "startedAt": "2026-11-02T06:27:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:12Z",
+          "conclusion": "success",
+          "name": "Run node --experimental-transform-types conformance/business/github-read-oracle.mjs --check",
+          "number": 19,
+          "startedAt": "2026-11-02T06:27:12Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:13Z",
+          "conclusion": "success",
+          "name": "Run node --experimental-transform-types conformance/business/github-context-oracle.mjs --check",
+          "number": 20,
+          "startedAt": "2026-11-02T06:27:12Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:13Z",
+          "conclusion": "success",
+          "name": "Run node --experimental-transform-types conformance/business/word-limits-oracle.mjs --check",
+          "number": 21,
+          "startedAt": "2026-11-02T06:27:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:13Z",
+          "conclusion": "success",
+          "name": "Run node --experimental-transform-types conformance/business/transcript-oracle.mjs --check",
+          "number": 22,
+          "startedAt": "2026-11-02T06:27:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:13Z",
+          "conclusion": "skipped",
+          "name": "Run sudo apt-get update && sudo apt-get install -y ripgrep bubblewrap",
+          "number": 23,
+          "startedAt": "2026-11-02T06:27:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:18Z",
+          "conclusion": "success",
+          "name": "Run brew install ripgrep",
+          "number": 24,
+          "startedAt": "2026-11-02T06:27:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:24Z",
+          "conclusion": "success",
+          "name": "Run dtolnay/rust-toolchain@1.99.0",
+          "number": 25,
+          "startedAt": "2026-11-02T06:27:18Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:29Z",
+          "conclusion": "success",
+          "name": "Run Swatinem/rust-cache@v2",
+          "number": 26,
+          "startedAt": "2026-11-02T06:27:24Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:32Z",
+          "conclusion": "success",
+          "name": "Run cargo fmt --check --all",
+          "number": 27,
+          "startedAt": "2026-11-02T06:27:29Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:56Z",
+          "conclusion": "success",
+          "name": "Run cargo check --locked --workspace --all-targets --features xharness-superagent/conformance",
+          "number": 28,
+          "startedAt": "2026-11-02T06:27:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:28:20Z",
+          "conclusion": "success",
+          "name": "Run cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings",
+          "number": 29,
+          "startedAt": "2026-11-02T06:27:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:32:10Z",
+          "conclusion": "success",
+          "name": "Run cargo test --locked --workspace --all-targets --features xharness-superagent/conformance",
+          "number": 30,
+          "startedAt": "2026-11-02T06:28:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:32:12Z",
+          "conclusion": "success",
+          "name": "Run cargo test --locked -p xharness-process --test process dropping_ -- --test-threads=1",
+          "number": 31,
+          "startedAt": "2026-11-02T06:32:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:32:12Z",
+          "conclusion": "success",
+          "name": "Post Run Swatinem/rust-cache@v2",
+          "number": 60,
+          "startedAt": "2026-11-02T06:32:12Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:32:12Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4",
+          "number": 61,
+          "startedAt": "2026-11-02T06:32:12Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:32:13Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 62,
+          "startedAt": "2026-11-02T06:32:12Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:32:14Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 63,
+          "startedAt": "2026-11-02T06:32:13Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41399965912/job/125129454502"
+    },
+    {
+      "completedAt": "2026-11-02T06:35:34Z",
+      "conclusion": "success",
+      "databaseId": 125129454704,
+      "name": "rust (ubuntu-latest)",
+      "startedAt": "2026-11-02T06:27:02Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-02T06:27:04Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-02T06:27:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:06Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-11-02T06:27:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:06Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4",
+          "number": 3,
+          "startedAt": "2026-11-02T06:27:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:07Z",
+          "conclusion": "success",
+          "name": "Run node conformance/restore-reference-modes.mjs",
+          "number": 4,
+          "startedAt": "2026-11-02T06:27:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:07Z",
+          "conclusion": "success",
+          "name": "Run node conformance/verify-reference.mjs",
+          "number": 5,
+          "startedAt": "2026-11-02T06:27:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:07Z",
+          "conclusion": "success",
+          "name": "Run node conformance/verify-upstream.mjs",
+          "number": 6,
+          "startedAt": "2026-11-02T06:27:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:07Z",
+          "conclusion": "success",
+          "name": "Run node conformance/business/verify-tool-manifest.mjs",
+          "number": 7,
+          "startedAt": "2026-11-02T06:27:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:07Z",
+          "conclusion": "success",
+          "name": "Run node --test conformance/business/host-input-observer.test.mjs",
+          "number": 8,
+          "startedAt": "2026-11-02T06:27:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:07Z",
+          "conclusion": "success",
+          "name": "Run node --test conformance/business/flush-observation.test.mjs",
+          "number": 9,
+          "startedAt": "2026-11-02T06:27:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:07Z",
+          "conclusion": "success",
+          "name": "Run node --test conformance/business/product-cargo-overlay.test.mjs",
+          "number": 10,
+          "startedAt": "2026-11-02T06:27:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:07Z",
+          "conclusion": "success",
+          "name": "Run node --test conformance/business/business-word-cargo-overlay.test.mjs",
+          "number": 11,
+          "startedAt": "2026-11-02T06:27:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:07Z",
+          "conclusion": "success",
+          "name": "Run node --test conformance/business/feishu-cargo-overlay.test.mjs",
+          "number": 12,
+          "startedAt": "2026-11-02T06:27:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:08Z",
+          "conclusion": "success",
+          "name": "Run node --test conformance/business/messages-cargo-overlay.test.mjs",
+          "number": 13,
+          "startedAt": "2026-11-02T06:27:07Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:08Z",
+          "conclusion": "success",
+          "name": "Run node --test conformance/business/management-cargo-overlay.test.mjs",
+          "number": 14,
+          "startedAt": "2026-11-02T06:27:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:10Z",
+          "conclusion": "success",
+          "name": "Run npm ci --ignore-scripts --no-audit --no-fund --prefix conformance",
+          "number": 15,
+          "startedAt": "2026-11-02T06:27:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:10Z",
+          "conclusion": "success",
+          "name": "Run node --experimental-transform-types conformance/business/github-source-oracle.mjs --check",
+          "number": 16,
+          "startedAt": "2026-11-02T06:27:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:11Z",
+          "conclusion": "success",
+          "name": "Run node --experimental-transform-types conformance/business/feishu-source-oracle.mjs --check",
+          "number": 17,
+          "startedAt": "2026-11-02T06:27:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:13Z",
+          "conclusion": "success",
+          "name": "Run node --experimental-transform-types conformance/business/feishu-read-oracle.mjs --check",
+          "number": 18,
+          "startedAt": "2026-11-02T06:27:11Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:14Z",
+          "conclusion": "success",
+          "name": "Run node --experimental-transform-types conformance/business/github-read-oracle.mjs --check",
+          "number": 19,
+          "startedAt": "2026-11-02T06:27:13Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:15Z",
+          "conclusion": "success",
+          "name": "Run node --experimental-transform-types conformance/business/github-context-oracle.mjs --check",
+          "number": 20,
+          "startedAt": "2026-11-02T06:27:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:15Z",
+          "conclusion": "success",
+          "name": "Run node --experimental-transform-types conformance/business/word-limits-oracle.mjs --check",
+          "number": 21,
+          "startedAt": "2026-11-02T06:27:15Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:15Z",
+          "conclusion": "success",
+          "name": "Run node --experimental-transform-types conformance/business/transcript-oracle.mjs --check",
+          "number": 22,
+          "startedAt": "2026-11-02T06:27:15Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:26Z",
+          "conclusion": "success",
+          "name": "Run sudo apt-get update && sudo apt-get install -y ripgrep bubblewrap",
+          "number": 23,
+          "startedAt": "2026-11-02T06:27:15Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:26Z",
+          "conclusion": "skipped",
+          "name": "Run brew install ripgrep",
+          "number": 24,
+          "startedAt": "2026-11-02T06:27:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:35Z",
+          "conclusion": "success",
+          "name": "Run dtolnay/rust-toolchain@1.99.0",
+          "number": 25,
+          "startedAt": "2026-11-02T06:27:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:43Z",
+          "conclusion": "success",
+          "name": "Run Swatinem/rust-cache@v2",
+          "number": 26,
+          "startedAt": "2026-11-02T06:27:35Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:27:46Z",
+          "conclusion": "success",
+          "name": "Run cargo fmt --check --all",
+          "number": 27,
+          "startedAt": "2026-11-02T06:27:43Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:28:26Z",
+          "conclusion": "success",
+          "name": "Run cargo check --locked --workspace --all-targets --features xharness-superagent/conformance",
+          "number": 28,
+          "startedAt": "2026-11-02T06:27:46Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:29:09Z",
+          "conclusion": "success",
+          "name": "Run cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings",
+          "number": 29,
+          "startedAt": "2026-11-02T06:28:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:35:23Z",
+          "conclusion": "success",
+          "name": "Run cargo test --locked --workspace --all-targets --features xharness-superagent/conformance",
+          "number": 30,
+          "startedAt": "2026-11-02T06:29:09Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:35:26Z",
+          "conclusion": "success",
+          "name": "Run cargo test --locked -p xharness-process --test process dropping_ -- --test-threads=1",
+          "number": 31,
+          "startedAt": "2026-11-02T06:35:23Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:35:26Z",
+          "conclusion": "success",
+          "name": "Post Run Swatinem/rust-cache@v2",
+          "number": 60,
+          "startedAt": "2026-11-02T06:35:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:35:26Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4",
+          "number": 61,
+          "startedAt": "2026-11-02T06:35:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:35:26Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 62,
+          "startedAt": "2026-11-02T06:35:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-02T06:35:26Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 63,
+          "startedAt": "2026-11-02T06:35:26Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41399965912/job/125129454704"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41399965912"
+}

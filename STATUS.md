@@ -306,10 +306,14 @@ D2 修复的是实际接线与引用规则，没有放宽归属检查，也没�
 55条正式入口、选定三crate加17条process回归共报告387通过、2条live默认忽略，
 17条Node guard通过；不把重复focus测试叠加到独立数量，不宣称完整workspace测试。
 代码提交的跨平台CI结果另查，不拿旧成功或运行中结果当最新head通过。
-23组为5通过/16推进/2未运行，不是完成比例。详见
+23组为5通过/17推进/1未运行，不是完成比例。详见
 [完整证据与限制](docs/business-repository-delivery-verification.json)。
 
 六个旧实例本轮只有只读在线SQLite快照/副本完整性与九表摘要校验；不等于完整
 冷切备份/回退，未切换生产。当前仍缺完整checkout/依赖构建/SSH交付、管理矩阵、
 冷切游标和回执边界、quiesced会话/工作区/配置快照与完整回退、真实飞书Worker回复
 及其余完整生命周期/附件验收。取消的JS全语言/UTF-16迁移仍不恢复。
+
+实现提交 `df6f44f` 的 GitHub Ubuntu/macOS CI现均成功，包含workspace check、
+严格workspace Clippy及all-targets测试。后续文档head另验，不把CI成功等同于
+完整产品/现网验收；详见 `docs/evidence/worker-delivery-01/ci-implementation-success.json`。

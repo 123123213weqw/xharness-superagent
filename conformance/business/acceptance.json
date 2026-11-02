@@ -976,8 +976,19 @@
       "id": "REG-01",
       "milestone": "B6",
       "title": "必要workspace回归通过，旧XHarness默认权限/沙箱/会话行为不回退",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "GitHub Actions: workspace check, strict workspace all-targets Clippy, workspace all-targets test with product conformance on Ubuntu and macOS",
+          "environment": "Actual GitHub-hosted Linux/macOS runners, fixed source/reference guards; fixture and live skips retain their declared scopes",
+          "full_log": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41399965912",
+          "business_assertions": "docs/evidence/worker-delivery-01/ci-implementation-success.json",
+          "actual_product_path": false,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Global CI command success is not proof of every skipped/capability-dependent external deployment regression or complete product parity."
+        }
+      ]
     }
   ],
   "implementation_progress": {

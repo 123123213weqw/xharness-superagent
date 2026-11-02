@@ -241,3 +241,7 @@ D2 在同一工单新 assignment 上实际编辑、测试、发布 Draft PR #5�
 [使用和边界](superagent/business-repository-delivery.md)。完整checkout/依赖构建/SSH、
 管理矩阵、冷切游标回执边界、完整快照/回退/首次切换、真实飞书Worker回复及剩余
 生命周期分支继续保留；没有切换六个生产实例，没有重启取消的JS全语言迁移。
+
+实现提交 `df6f44f` 的 GitHub Ubuntu/macOS CI现均成功，包含workspace check、
+严格workspace Clippy及all-targets测试。后续文档head另验，不把CI成功等同于
+完整产品/现网验收；详见 `docs/evidence/worker-delivery-01/ci-implementation-success.json`。

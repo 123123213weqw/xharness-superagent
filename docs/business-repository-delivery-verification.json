@@ -216,6 +216,11 @@
       "path": "docs/evidence/worker-delivery-01/real-d2-sql-facts.json",
       "sha256": "a643b93d742d70576e8939aeb672aba05fcba50583613b5bd02368607f9a4cca",
       "transformation": "Selected SQL facts from read-only transaction, no database or credential files; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/ci-implementation-success.json",
+      "sha256": "21c22d3dd6688fe1f9cdf8db18f3bcbfb0065f13797c701f1a7b00df460f790b",
+      "transformation": "Complete GitHub run metadata for exact implementation commit; not model/product acceptance"
     }
   ],
   "CI_snapshot": {
@@ -223,6 +228,17 @@
     "source_code_head": "df6f44f4454872793c1b313ebea959f81d73f770",
     "status_at_capture": "in_progress",
     "not_latest_doc_head_approval": true,
-    "previous_head_failure": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41394801317"
+    "previous_head_failure": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41394801317",
+    "implementation_terminal": {
+      "status": "success",
+      "head": "df6f44f4454872793c1b313ebea959f81d73f770",
+      "url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41399965912",
+      "platforms": [
+        "ubuntu-latest",
+        "macos-latest"
+      ],
+      "workspace_check_clippy_all_targets_test_commands_succeeded": true,
+      "latest_documentation_head_not_claimed": true
+    }
   }
 }
