@@ -6,7 +6,16 @@
 **状态：开发版。已有正式入口和 GitHub/飞书文本的离线协议整链路，另完成了 GitHub 的真实模型/文件/回帖及受限 Draft PR 交付验收；
 不是完整可部署的 SuperAgent 替代品，也不宣称已完整业务对齐。**
 
-## 最新执行节点（2026-11-02）
+## 最新 checkout 更新（2026-11-02）
+
+- 新增独立 `workspace.checkout` 配置：仓库/账号取自 Source，默认分支动态查询，
+  GitHub PR 自动使用 head；可显式指定分支、提交或 PR，不再依赖 RS 专用 clone 包装器。
+- 可选实例私有缓存，按仓库/账号隔离；每个任务有独立工作目录和 Git 对象。
+  每次解析远端 SHA，缓存损坏重建，失败不返回旧版本；保留现有任务工作区。
+- [配置及升级说明](deploy/superagent/README.md#generic-repository-checkout)。
+  PR head checkout 不等同于完整 PR 多轮续改验收。
+
+## 此前验收记录（2026-11-02；历史批次，非本次新增验收）
 
 - 新工作区可由产品以固定仓库/分支完成可信 checkout；真实 C1 已运行离线 workspace
   check、独立 Rust 正向/负对照测试，并创建 [Draft PR #7](https://github.com/123123213weqw/xharness-superagent/pull/7)。

@@ -1,7 +1,7 @@
 //! Actual pre-Worker clone, Git HEAD verification, preparation and sandboxed build.
 //! External GitHub/model calls alone use an explicit offline protocol fixture.
 use super::*;
-fn fixture(url: &str) -> Fixture {
+pub(super) fn fixture(url: &str) -> Fixture {
     let mut f = Fixture::new(url);
     std::fs::write(
         f.directory.join("base-gh.py"),
@@ -40,7 +40,7 @@ fn fixture(url: &str) -> Fixture {
     f.config["repositoryDelivery"] = json!({"baseBranch":"main","checkout":true});
     f
 }
-fn response(request: &Value) -> ModelReply {
+pub(super) fn response(request: &Value) -> ModelReply {
     if request["model"] != "worker" {
         return answer(request, false);
     }

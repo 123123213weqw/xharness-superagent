@@ -63,6 +63,7 @@ pub mod resources;
 mod search;
 pub mod text;
 mod tools;
+mod workspace;
 
 pub type ServiceFuture<T> = LocalBoxFuture<'static, std::result::Result<T, HandlerError>>;
 pub type Shutdown = Shared<LocalBoxFuture<'static, std::result::Result<(), Rc<Error>>>>;

@@ -82,12 +82,19 @@ class Tests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'Unit changed'):self.fleet.plan('rs',self.release)
 
     def test_plan_cannot_change_state_models_accounts_or_sources(self):
-        for key,value in [('stateDir','/tmp/other-state'),('models',[{'model':'other-model'}])]:
+        for key,value in [('stateDir','/tmp/other-state'),('models',[{'model':'other-model'}]),('settings',{'sources':{'github':{'config':{'repository':'other/repo'}}}}),('repositoryDelivery',{'baseBranch':'changed'})]:
             cfg=json.loads(self.config.read_text());cfg[key]=value;candidate=self.instance/'next.json';candidate.write_text(json.dumps(cfg))
             with patch.object(fleet,'api',side_effect=self.api):
                 with self.assertRaises(ValueError):self.fleet.plan('rs',self.release,candidate)
         self.fleet.instances['rs']['channel']='stable'
         with self.assertRaisesRegex(ValueError,'promotion'):self.fleet.plan('rs',self.release)
+
+    def test_workspace_config_update_preserves_accounts_and_state(self):
+        cfg=json.loads(self.config.read_text());cfg['workspace']={'checkout':{'enabled':True,'cache':True,'revision':{'kind':'auto'}}}
+        candidate=self.instance/'workspace-next.json';candidate.write_text(json.dumps(cfg))
+        result=self.controlled_upgrade(candidate)
+        self.assertEqual(result['status'],'deployed');self.assertEqual(json.loads(self.config.read_text())['workspace'],cfg['workspace'])
+        self.assertEqual((self.state/'orchestrator.sqlite').read_bytes(),b'CURRENT_CURSOR_NEW_RECEIPT')
 
     def test_busy_instance_is_deferred_without_pause_or_service_stop(self):
         self.busy=True

@@ -65,7 +65,7 @@ The operator-only `scripts/superagent/fleet-control.py` provides:
 - `plan`: verify exact owned unit/binary/config, isolated state/port and release
   compatibility. Legacy instances cannot receive a Rust binary without a
   separately authorized cold migration. Model/account/source changes are not
-  smuggled into an update; only binary and explicit search config can change.
+  smuggled into an update; only binary, explicit search and workspace policy can change.
 - `upgrade`: serialize upgrades under a fleet lock; defer if workers are active,
   waiting or queued; pause, recheck, stop/join **one** service, verify a full
   current-state backup, atomically install a new binary inode and run `--check`.
@@ -136,3 +136,40 @@ not a database migration framework, an unattended auto-updater, a crash-atomic
 multi-file transaction, a cross-host SSH canceller or a guarantee that external
 side effects can be undone. All legacy profiles remain visibly `legacy` until
 cold-migrated and separately accepted; an inventory is not a completed rollout.
+
+## Generic repository checkout
+
+Opt in independently of the bounded `repository_delivery` tool:
+
+```json
+{"workspace":{"checkout":{"enabled":true,"cache":true,"revision":{"kind":"auto"}}}}
+```
+
+Repository and account always come from the verified GitHub Source; never copy
+another instance's working checkout or cache. `auto` checks out a trusted GitHub
+PR trigger's current head; other tasks resolve the repository's default branch
+through GitHub. Explicit revision kinds are `default_branch`, `branch` (`name`),
+`commit` (full `sha`) and `pull_request` (positive `number`). No main/master guess.
+This checks out a PR head; it does not by itself implement every PR continuation
+or publishing workflow. Publisher policy/base configuration remains separate.
+
+Each task has a new independent `.git` and writable working directory. The
+optional disposable bare cache lives below that instance's
+`stateDir/repository-cache`, keyed by canonical repository and verified account
+identity (not a token). It stores no credential helper/token, never uses borrowed
+alternates or hardlinks, and is protected by an OS lock. GitHub resolves the
+expected SHA on every checkout; a fetch must match it exactly. API/fetch failure
+never silently serves a stale checkout. Invalid cache identity/connectivity is
+quarantined and rebuilt; retained quarantine/snapshots require operator disk
+maintenance while no checkout is running (no automatic GC in this release).
+Cancellation joins subprocesses, removes unpublished task staging and releases
+the lock. Existing task work is never reset by checkout. A workspace already
+prepared before a later preparation-command failure is preserved, not silently
+replaced; reconcile it through the existing retry/recovery flow.
+
+Omitting `workspace` preserves the legacy `repositoryDelivery.checkout` path.
+An explicit workspace policy overrides it, including `enabled:false`. `cache`
+defaults false. Ordinary Worker permissions, model routes, account grants and
+per-instance data are unchanged. Example: `config/superagent.workspace.example.json`.
+Existing persisted Source CLI settings must be changed through the human
+management CAS endpoint; editing first-boot `settings` is not a live migration.

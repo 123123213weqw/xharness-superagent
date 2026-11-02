@@ -23,6 +23,9 @@ mod access;
 mod assessment;
 #[path = "product_entry/checkout.rs"]
 mod checkout;
+#[path = "support/checkout.rs"]
+#[allow(dead_code)]
+mod checkout_support;
 #[path = "product_entry/configuration.rs"]
 mod configuration;
 #[path = "product_entry/configuration_lifecycle.rs"]
@@ -39,6 +42,8 @@ mod note;
 mod policy_sync;
 #[path = "product_entry/search.rs"]
 mod search;
+#[path = "product_entry/workspace.rs"]
+mod workspace;
 struct Fixture {
     directory: PathBuf,
     config: Value,

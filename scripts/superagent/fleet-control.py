@@ -142,7 +142,7 @@ class Fleet:
         if Path(cfg['stateDir']).resolve()!=Path(p['state']).resolve() or cfg.get('management',{}).get('port')!=p['port']:raise ValueError('Upgrade cannot change state ownership or management port')
         current=json.loads(Path(p['config']).read_text())
         # Model/account/source changes belong to their own explicit migration.
-        if {k:v for k,v in cfg.items() if k!='webSearch'}!={k:v for k,v in current.items() if k!='webSearch'}:raise ValueError('This rolling updater permits only binary and webSearch configuration changes')
+        if {k:v for k,v in cfg.items() if k not in ['webSearch','workspace']}!={k:v for k,v in current.items() if k not in ['webSearch','workspace']}:raise ValueError('This rolling updater permits only binary, webSearch and workspace configuration changes')
         if p.get('channel')!='canary' and not (self.root/'promotions'/(release+'.json')).is_file():raise ValueError('Stable rollout requires accepted canary promotion')
         state=api(p,'state');busy=any(state.get('load',{}).get(k,0) for k in ['running','queued','idle'])
         return {'instance':name,'release':release,'binarySha256':m['binarySha256'],'busy':bool(busy),'noOp':sha(p['binary'])==m['binarySha256'] and candidate.read_bytes()==Path(p['config']).read_bytes(),'previousPaused':state['paused'],'ready':state['health']['runtime']['state']=='ready'}

@@ -129,6 +129,8 @@ struct Document {
     #[serde(default)]
     repository_delivery: Option<super::delivery::Config>,
     #[serde(default)]
+    workspace: Option<super::workspace::Config>,
+    #[serde(default)]
     worker_read_only_roots: Vec<PathBuf>,
     #[serde(default)]
     worker_access: WorkerAccess,
@@ -156,6 +158,9 @@ impl Config {
             timeout: Duration::from_millis(document.admission_context_timeout_ms),
         }
         .validate()?;
+        if let Some(workspace) = &document.workspace {
+            workspace.validate()?;
+        }
         if let Some(search) = &document.web_search {
             search.validate()?;
         }
@@ -733,12 +738,13 @@ async fn prepare_workspace(
     feishu: super::feishu::Prepared,
     ticket: Ticket,
     delivery: Option<super::delivery::Config>,
+    workspace: Option<super::workspace::Plan>,
     stop: CancellationToken,
 ) -> Result<()> {
     let deployment = github.deployment().map_err(display)?;
     let feishu = feishu.deployment()?;
     let id = ticket.id.clone();
-    let (command, environment) = client
+    let (command, environment, trigger) = client
         .call(move |app| {
             app.state.require_open()?;
             let ticket = app
@@ -753,14 +759,15 @@ async fn prepare_workspace(
                 .ok_or_else(|| error("Missing executor.prepare"))?
                 .trim()
                 .to_owned();
+            let trigger = trigger_for(app, &ticket)?;
             let env = executor_environment(
                 &ticket,
                 &settings,
                 &deployment,
                 feishu.as_ref(),
-                trigger_for(app, &ticket)?.as_ref(),
+                trigger.as_ref(),
             );
-            Ok((command, env))
+            Ok((command, env, trigger))
         })
         .await?;
     let directory = PathBuf::from(
@@ -775,7 +782,16 @@ async fn prepare_workspace(
         .parent()
         .ok_or_else(|| error("Ticket has no workspace parent"))?;
     tokio::fs::create_dir_all(parent).await?;
-    if let Some(config) = delivery.filter(|c| c.checkout) {
+    if let Some(plan) = workspace {
+        if let Some(options) = plan.options(trigger.as_ref())? {
+            github
+                .delivery_transport()
+                .map_err(display)?
+                .checkout_with_options(&options, &directory, stop.clone())
+                .await
+                .map_err(display)?;
+        }
+    } else if let Some(config) = delivery.filter(|c| c.checkout) {
         github
             .delivery_transport()
             .map_err(display)?
@@ -874,6 +890,7 @@ async fn run_once(
         "promptMaxChars":config.document.prompt_max_chars,
         "workerAccess":config.document.worker_access,
         "webSearch":config.document.web_search,
+        "workspace":config.document.workspace,
         "admissionContextMaxPages":config.document.admission_context_max_pages,
         "admissionContextTimeoutMs":config.document.admission_context_timeout_ms});
     let route = config.document.default_model.route();
@@ -904,6 +921,11 @@ async fn run_once(
     let prepare_feishu = feishu.clone();
     let prepare_stop = source_stop.clone();
     let prepare_delivery = config.document.repository_delivery.clone();
+    let prepare_workspace_plan = config
+        .document
+        .workspace
+        .as_ref()
+        .map(|c| c.plan(&state_dir));
     let main_directory = config
         .document
         .main_directory
@@ -948,6 +970,7 @@ async fn run_once(
                 let feishu = prepare_feishu.clone();
                 let stop = prepare_stop.clone();
                 let delivery = prepare_delivery.clone();
+                let workspace = prepare_workspace_plan.clone();
                 async move {
                     prepare_workspace(
                         client.ok_or_else(|| error("Workspace owner not installed"))?,
@@ -955,6 +978,7 @@ async fn run_once(
                         feishu,
                         ticket,
                         delivery,
+                        workspace,
                         stop,
                     )
                     .await

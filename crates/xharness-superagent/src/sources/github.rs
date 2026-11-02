@@ -16,6 +16,8 @@ use xharness_process::{ProcessRuntime, SpawnSpec, TerminationReason};
 use xharness_superagent_core::{
     js_json::JsValue, model::Metadata, policy::ScopeResult, settings::Settings,
 };
+mod checkout;
+pub use checkout::{CheckoutOptions, CheckoutReceipt, CheckoutRevision};
 pub mod channel;
 pub mod ci;
 pub mod context;
@@ -216,6 +218,18 @@ pub trait Transport: Send + Sync {
     ) -> Result<String> {
         Err(Error::Config(
             "Repository checkout is unavailable on this transport".into(),
+        ))
+    }
+    /// Opt-in generic checkout; legacy transports keep their branch operation.
+    async fn checkout_with_options(
+        &self,
+        options: &CheckoutOptions,
+        directory: &Path,
+        stop: CancellationToken,
+    ) -> Result<CheckoutReceipt> {
+        let _ = (options, directory, stop);
+        Err(Error::Config(
+            "Generic repository checkout is unavailable on this transport".into(),
         ))
     }
 }
@@ -553,6 +567,15 @@ impl Cli {
 }
 #[async_trait]
 impl Transport for Cli {
+    async fn checkout_with_options(
+        &self,
+        options: &CheckoutOptions,
+        directory: &Path,
+        stop: CancellationToken,
+    ) -> Result<CheckoutReceipt> {
+        self.prepare_checkout(options, directory, stop).await
+    }
+
     async fn checkout(
         &self,
         branch: &str,
