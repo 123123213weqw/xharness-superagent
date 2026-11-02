@@ -62,6 +62,27 @@ jobs:
       # 没装会走 require_bwrap! 跳过 —— 那等于没覆盖,所以 CI 必须装上。
       - if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y ripgrep bubblewrap
+      # Ubuntu's per-application userns profile may be absent even when bwrap
+      # is installed. Repair only this disposable runner's packaged profile;
+      # never disable AppArmor/userns restrictions globally or skip isolation.
+      - if: runner.os == 'Linux'
+        name: Verify real unprivileged bubblewrap isolation
+        shell: bash
+        run: |
+          set -euo pipefail
+          probe() { bwrap --die-with-parent --unshare-all --ro-bind / / --dev /dev --proc /proc -- /bin/true; }
+          if ! probe; then
+            sudo apt-get install -y apparmor-profiles apparmor-utils
+            profile=/usr/share/apparmor/extra-profiles/bwrap-userns-restrict
+            test -f "$profile"
+            if test -e /etc/apparmor.d/bwrap-userns-restrict; then
+              cmp "$profile" /etc/apparmor.d/bwrap-userns-restrict
+            else
+              sudo install -m 0644 "$profile" /etc/apparmor.d/bwrap-userns-restrict
+            fi
+            sudo apparmor_parser -r /etc/apparmor.d/bwrap-userns-restrict
+          fi
+          probe
       - if: runner.os == 'macOS'
         run: brew install ripgrep
       - uses: dtolnay/rust-toolchain@1.99.0

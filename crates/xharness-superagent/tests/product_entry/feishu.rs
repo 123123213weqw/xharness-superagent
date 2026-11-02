@@ -432,7 +432,22 @@ async fn formal_feishu_source_disable_stops_and_joins_consumer_and_drops_read_af
 }
 #[tokio::test]
 async fn formal_feishu_consumer_failure_restarts_after_backoff_without_duplicate_work() {
-    let server = Server::with_responder(answer_feishu);
+    // Hold the final Main request only after the result reply completed and
+    // the fixture has fully read its HTTP body. Shutdown must test consumer
+    // join, not race an unrelated final response write against cancellation.
+    let gate = Arc::new(std::sync::OnceLock::<Arc<AtomicBool>>::new());
+    let blocked = gate.clone();
+    let server = Server::with_responder(move |request| {
+        if request["model"] != "worker"
+            && calls(request)
+                .iter()
+                .any(|c| c["function"]["name"] == "orchestrator_reply")
+        {
+            blocked.get().unwrap().store(true, Ordering::SeqCst);
+        }
+        answer_feishu(request)
+    });
+    gate.set(server.block.clone()).unwrap();
     let mut fixture = Fixture::new(&server.url);
     let root = setup(&mut fixture);
     std::fs::write(root.join("consumer-exit-once"), "").unwrap();
@@ -450,7 +465,7 @@ async fn formal_feishu_consumer_failure_restarts_after_backoff_without_duplicate
     cmd.stdout(std::process::Stdio::piped())
         .stderr(std::process::Stdio::piped());
     let child = cmd.spawn().unwrap();
-    wait_for(|| posts(&root).len() == 2).await;
+    wait_for(|| posts(&root).len() == 2 && server.block.load(Ordering::SeqCst)).await;
     let output = stop(child).await;
     let summary = success(&output);
     assert_eq!(summary["feishu"]["feishu"]["state"], "ready");
