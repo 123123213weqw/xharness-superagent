@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "formal_binary_exit": 0,
+  "tickets_before_after": [
+    2,
+    2
+  ],
+  "current_ticket_assignments_before_after": [
+    2,
+    2
+  ],
+  "current_ticket_receipt_ids": [
+    "38a912b0572d56fd93384980313dc6a2",
+    "4f917f71be80e43d0810370a2efd2c0b",
+    "7c0153772e8b9753b8556929c34e1954",
+    "af0015bf6d84d8529b7d093ca4fd0fe2"
+  ],
+  "all_receipts_sent": true,
+  "new_receipts": 0,
+  "new_PRs": 0,
+  "PR_number": 5,
+  "head_unchanged": true,
+  "pending_effects": 0,
+  "scope": "Restart of same owned state, actual Source CI observation allowed; no claim of byte-identical unrelated metadata or all crash cuts"
+}

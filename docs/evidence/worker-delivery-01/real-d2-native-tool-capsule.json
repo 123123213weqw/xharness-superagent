@@ -1,0 +1,316 @@
+{
+  "scope": "Selected D2 actual Native tool call/result events only, not model/provider transcript; model text/thinking/signatures intentionally excluded",
+  "records": [
+    {
+      "type": "tool/call",
+      "name": "orchestrator_read",
+      "id": "xh-1793600866549-1-1-1-0",
+      "arguments": {
+        "resource": "ticket/f7f318c6ef874339c98a6e50fe3b097d"
+      }
+    },
+    {
+      "type": "tool/call",
+      "name": "orchestrator_read",
+      "id": "xh-1793600866549-1-1-2-1",
+      "arguments": {
+        "resource": "thread/github:3"
+      }
+    },
+    {
+      "type": "tool/result",
+      "name": "orchestrator_read",
+      "call_id": "xh-1793600866549-1-1-1-0",
+      "outcome": "success",
+      "content": "{\"assignment\":\"ticket/f7f318c6ef874339c98a6e50fe3b097d/assignment\",\"assignments\":{\"items\":[{\"at\":\"2026-11-02T06:27:46.442Z\",\"id\":\"abb4eb06d3d4313d3ff9cd10660c2eae\",\"state\":\"running\"},{\"at\":\"2026-11-02T06:16:35.863Z\",\"id\":\"8f9867e5e75a83eac5f5e178737ced0c\",\"report\":{\"at\":\"2026-11-02T06:21:15.641Z\",\"chars\":3363,\"preview\":\"Delivered the D1 acceptance exercise. DRAFT PR: https://github.com/123123213weqw/xharness-superagent\",\"read\":\"ticket/f7f318c6ef874339c98a6e50fe3b097d/report/8f9867e5e75a83eac5f5e178737ced0c\",\"state\":\"ready\"},\"state\":\"ended\"}]},\"directory\":\"<OWNED_WORKSPACE>/.alignment-evidence/real-acceptance-01/state/work/acceptance-repo-delivery-f7f318c6ef87\",\"inputs\":{\"items\":[{\"at\":\"2026-11-02T06:27:46.442Z\",\"kind\":\"resumed\",\"trigger_id\":\"bb8b8625b2cb2a9195549dce97d30572\"},{\"at\":\"2026-11-02T06:27:46.439Z\",\"kind\":\"trigger\",\"trigger_id\":\"bb8b8625b2cb2a9195549dce97d30572\"}]},\"read\":\"ticket/f7f318c6ef874339c98a6e50fe3b097d\",\"requested_by\":\"123123213weqw\",\"result\":\"ticket/f7f318c6ef874339c98a6e50fe3b097d/result\",\"scope\":\"[Acceptance D1] Scoped repository delivery: draft PR with text file and stdlib test\",\"state\":\"working\",\"strength\":\"explicit\",\"threads\":[{\"thread\":\"github:3\"}],\"ticket_id\":\"f7f318c6ef874339c98a6e50fe3b097d\",\"title\":\"[Acceptance D1] Scoped repository delivery: draft PR with text file and stdlib test\",\"transcript\":\"ticket/f7f318c6ef874339c98a6e50fe3b097d/transcript\",\"trigger_id\":\"a15501c1f508f9e84e3578dfa9bf04e8\"}"
+    },
+    {
+      "type": "tool/result",
+      "name": "orchestrator_read",
+      "call_id": "xh-1793600866549-1-1-2-1",
+      "outcome": "success",
+      "content": "{\"items\":[{\"actor\":\"123123213weqw\",\"at\":\"2026-11-02T06:27:36.000Z\",\"chars\":1821,\"human\":true,\"preview\":\"@btlqql Acceptance D2: repeat the scoped publication with the fixed formal binary and prove the PR-to-ticket report binding, in this repository ONLY. D1's file/\",\"read\":\"trigger/bb8b8625b2cb2a9195549dce97d30572\",\"trigger_id\":\"bb8b8625b2cb2a9195549dce97d30572\"},{\"actor\":\"123123213weqw\",\"at\":\"2026-11-02T06:15:44.000Z\",\"chars\":1771,\"human\":true,\"preview\":\"[Acceptance D1] Scoped Worker text test and Draft PR delivery @btlqql Acceptance D1: exercise the new scoped repository delivery capability on this repository O\",\"read\":\"trigger/a15501c1f508f9e84e3578dfa9bf04e8\",\"trigger_id\":\"a15501c1f508f9e84e3578dfa9bf04e8\"}],\"label\":\"#3 [Acceptance D1] Scoped Worker text test and Draft PR delivery\",\"next_offset\":null,\"pending\":0,\"source\":\"github\",\"thread\":\"github:3\"}"
+    },
+    {
+      "type": "tool/call",
+      "name": "orchestrator_read",
+      "id": "xh-1793600866549-1-2-1-0",
+      "arguments": {
+        "resource": "trigger/bb8b8625b2cb2a9195549dce97d30572"
+      }
+    },
+    {
+      "type": "tool/result",
+      "name": "orchestrator_read",
+      "call_id": "xh-1793600866549-1-2-1-0",
+      "outcome": "success",
+      "content": "{\"acknowledgement\":\"not_requested\",\"actor\":\"123123213weqw\",\"around\":{\"before\":{\"actor\":\"123123213weqw\",\"at\":\"2026-11-02T06:15:44.000Z\",\"chars\":1771,\"human\":true,\"preview\":\"[Acceptance D1] Scoped Worker text test and Draft PR delivery @btlqql Acceptance D1: exercise the new scoped repository delivery capability on this repository O\",\"read\":\"trigger/a15501c1f508f9e84e3578dfa9bf04e8\",\"trigger_id\":\"a15501c1f508f9e84e3578dfa9bf04e8\"}},\"at\":\"2026-11-02T06:27:36.000Z\",\"disposition\":{\"delivered_to\":[\"f7f318c6ef874339c98a6e50fe3b097d\"]},\"human\":true,\"next_offset\":null,\"offset\":0,\"resource\":\"trigger/bb8b8625b2cb2a9195549dce97d30572\",\"source\":\"github\",\"source_url\":\"https://github.com/123123213weqw/xharness-superagent/issues/3#issuecomment-6570654085\",\"text\":\"@btlqql Acceptance D2: repeat the scoped publication with the fixed formal binary and prove the PR-to-ticket report binding, in this repository ONLY.\\n\\nD1's file/test/PR #4 were real, but its `orchestrator_report(pr_number=4)` hit an unimplemented Source ownership boundary, so it did NOT bind the PR. That is a recorded acceptance failure, not a reason to omit PR ownership. The new binary installs that Source reader and uses a branch whose last segment is DSH_SUPERAGENT_NAME. Please reopen this ticket for a new assignment. Do not reuse PR #4 or its old branch.\\n\\n1. `repository_delivery` `inspect` for the NEW base SHA of `business/product-alignment`.\\n2. Keep `acceptance-delivery.txt` exactly `xharness repository delivery 😀` plus one LF. Add one comment `# Acceptance D2: actual Source-validated PR report` to `acceptance-delivery-test.py` so this round has a real edit. Actually read both files and run `python3 acceptance-delivery-test.py` again.\\n3. `repository_delivery` `publish` exactly these two files to the new assignment namespace. Draft only; no merge/auto-merge, workflow/permission/service changes, other repos, Feishu, ordinary git/gh, SSH or Cargo. The new tool keeps its own branch scope.\\n4. Call `status` ONCE, then report its current check/review state. Do not sleep or wait for CI: pending is expected and MUST NOT be called success/approval.\\n5. Call `orchestrator_report` with **the actual new `pr_number`**, `state=ready` (the delivery exercise is ready, NOT merged), and an honest summary including real PR URL, head SHA, file hash, test result, CI/review still pending if so. Do NOT silently omit `pr_number`. If binding fails, report that actual failure.\\n6. Reply here with the actual result. Keep the PR draft for review; no production instance cutover is requested in this acceptance task.\\n\",\"thread\":\"github:3\",\"total_chars\":1821,\"trigger_id\":\"bb8b8625b2cb2a9195549dce97d30572\"}"
+    },
+    {
+      "type": "tool/call",
+      "name": "orchestrator_ack",
+      "id": "xh-1793600866549-1-3-1-0",
+      "arguments": {
+        "text": "On it: D2 republish on a fresh assignment branch with the D2 comment added, one `status` read, then `orchestrator_report` with the actual new `pr_number` to prove binding.",
+        "trigger_id": "bb8b8625b2cb2a9195549dce97d30572"
+      }
+    },
+    {
+      "type": "tool/call",
+      "name": "repository_delivery",
+      "id": "xh-1793600866549-1-3-2-1",
+      "arguments": {
+        "action": "inspect"
+      }
+    },
+    {
+      "type": "tool/result",
+      "name": "orchestrator_ack",
+      "call_id": "xh-1793600866549-1-3-1-0",
+      "outcome": "success",
+      "content": "{\"acknowledgement\":\"sent\",\"reused\":false,\"trigger_id\":\"bb8b8625b2cb2a9195549dce97d30572\"}"
+    },
+    {
+      "type": "tool/result",
+      "name": "repository_delivery",
+      "call_id": "xh-1793600866549-1-3-2-1",
+      "outcome": "success",
+      "content": "{\"content\":\"{\\\"baseBranch\\\":\\\"business/product-alignment\\\",\\\"baseSha\\\":\\\"df6f44f4454872793c1b313ebea959f81d73f770\\\",\\\"baseTree\\\":\\\"501c6ad42ef17f75eccf52fcb8d68541b26aa1ee\\\",\\\"checkout\\\":false,\\\"deliveryBranch\\\":\\\"xharness/ticket-f7f318c6ef874339c98a6e50fe3b097d/assignment-abb4eb06d3d4313d3ff9cd10660c2eae/acceptance-repo-delivery-f7f318c6ef87\\\",\\\"repository\\\":\\\"123123213weqw/xharness-superagent\\\",\\\"rootEntries\\\":[{\\\"mode\\\":\\\"100644\\\",\\\"path\\\":\\\".clippy.toml\\\",\\\"sha\\\":\\\"ebb3bc66c74ea2f3771da6647f74c2c1a0141cd9\\\",\\\"size\\\":199,\\\"type\\\":\\\"blob\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/blobs/ebb3bc66c74ea2f3771da6647f74c2c1a0141cd9\\\"},{\\\"mode\\\":\\\"040000\\\",\\\"path\\\":\\\".github\\\",\\\"sha\\\":\\\"fbf9b4e7b2c8f5a51f99458bc45d1c280ceeb3dc\\\",\\\"type\\\":\\\"tree\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/trees/fbf9b4e7b2c8f5a51f99458bc45d1c280ceeb3dc\\\"},{\\\"mode\\\":\\\"100644\\\",\\\"path\\\":\\\".gitignore\\\",\\\"sha\\\":\\\"1c14497760a5ad415b9e7af74a5e004be6d2937d\\\",\\\"size\\\":713,\\\"type\\\":\\\"blob\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/blobs/1c14497760a5ad415b9e7af74a5e004be6d2937d\\\"},{\\\"mode\\\":\\\"100644\\\",\\\"path\\\":\\\"AGENTS.md\\\",\\\"sha\\\":\\\"59cf2117bbb23e0e2012c3902298444e08cb3301\\\",\\\"size\\\":1765,\\\"type\\\":\\\"blob\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/blobs/59cf2117bbb23e0e2012c3902298444e08cb3301\\\"},{\\\"mode\\\":\\\"100644\\\",\\\"path\\\":\\\"Cargo.lock\\\",\\\"sha\\\":\\\"75a98a033af38f8ad1f30afcdf311a247455bb10\\\",\\\"size\\\":77093,\\\"type\\\":\\\"blob\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/blobs/75a98a033af38f8ad1f30afcdf311a247455bb10\\\"},{\\\"mode\\\":\\\"100644\\\",\\\"path\\\":\\\"Cargo.toml\\\",\\\"sha\\\":\\\"5ae8bc478fa957ceec0d437d7e7f67576e648b60\\\",\\\"size\\\":2026,\\\"type\\\":\\\"blob\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/blobs/5ae8bc478fa957ceec0d437d7e7f67576e648b60\\\"},{\\\"mode\\\":\\\"100644\\\",\\\"path\\\":\\\"LICENSE\\\",\\\"sha\\\":\\\"72207b851d32c92fa0e4a3693dfad7c34685278d\\\",\\\"size\\\":9807,\\\"type\\\":\\\"blob\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/blobs/72207b851d32c92fa0e4a3693dfad7c34685278d\\\"},{\\\"mode\\\":\\\"100644\\\",\\\"path\\\":\\\"README.md\\\",\\\"sha\\\":\\\"e016ddbce456d38d7b6b5d5f59b06c2b28db5a6c\\\",\\\"size\\\":7148,\\\"type\\\":\\\"blob\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/blobs/e016ddbce456d38d7b6b5d5f59b06c2b28db5a6c\\\"},{\\\"mode\\\":\\\"100644\\\",\\\"path\\\":\\\"STATUS.md\\\",\\\"sha\\\":\\\"fb37f6d91359f6a27fb1a89874f9858e0d76034f\\\",\\\"size\\\":20995,\\\"type\\\":\\\"blob\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/blobs/fb37f6d91359f6a27fb1a89874f9858e0d76034f\\\"},{\\\"mode\\\":\\\"100644\\\",\\\"path\\\":\\\"THIRD_PARTY_NOTICES.md\\\",\\\"sha\\\":\\\"63afa7d084b8520a96e9f8aa617d09d836d4f723\\\",\\\"size\\\":45662,\\\"type\\\":\\\"blob\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/blobs/63afa7d084b8520a96e9f8aa617d09d836d4f723\\\"},{\\\"mode\\\":\\\"040000\\\",\\\"path\\\":\\\"config\\\",\\\"sha\\\":\\\"74416c57e734f72645d8df4d924ce0f7a3ef2296\\\",\\\"type\\\":\\\"tree\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/trees/74416c57e734f72645d8df4d924ce0f7a3ef2296\\\"},{\\\"mode\\\":\\\"040000\\\",\\\"path\\\":\\\"conformance\\\",\\\"sha\\\":\\\"63081df4502b0f6ad5b688b52b0a1793cfe3515a\\\",\\\"type\\\":\\\"tree\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/trees/63081df4502b0f6ad5b688b52b0a1793cfe3515a\\\"},{\\\"mode\\\":\\\"040000\\\",\\\"path\\\":\\\"crates\\\",\\\"sha\\\":\\\"87f2b6612d7dc30d2f4adff223fe0ac31da078b9\\\",\\\"type\\\":\\\"tree\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/trees/87f2b6612d7dc30d2f4adff223fe0ac31da078b9\\\"},{\\\"mode\\\":\\\"040000\\\",\\\"path\\\":\\\"deploy\\\",\\\"sha\\\":\\\"d1a975ee861b0d77636c745f645a3c65ef6e8d4e\\\",\\\"type\\\":\\\"tree\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/trees/d1a975ee861b0d77636c745f645a3c65ef6e8d4e\\\"},{\\\"mode\\\":\\\"040000\\\",\\\"path\\\":\\\"docs\\\",\\\"sha\\\":\\\"e96e3dd4244fc56c163caea28252b1bee7907a9f\\\",\\\"type\\\":\\\"tree\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/trees/e96e3dd4244fc56c163caea28252b1bee7907a9f\\\"},{\\\"mode\\\":\\\"040000\\\",\\\"path\\\":\\\"experiments\\\",\\\"sha\\\":\\\"7bbad05511b50f9f9e78e2af04b88d5e9ee5c175\\\",\\\"type\\\":\\\"tree\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/trees/7bbad05511b50f9f9e78e2af04b88d5e9ee5c175\\\"},{\\\"mode\\\":\\\"040000\\\",\\\"path\\\":\\\"fixtures\\\",\\\"sha\\\":\\\"a2ac03167e4b1eb80b85804537b076c3e8e53612\\\",\\\"type\\\":\\\"tree\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/trees/a2ac03167e4b1eb80b85804537b076c3e8e53612\\\"},{\\\"mode\\\":\\\"040000\\\",\\\"path\\\":\\\"protocol\\\",\\\"sha\\\":\\\"2268a960de89819294ab2899a0e87e65cfc809fb\\\",\\\"type\\\":\\\"tree\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/trees/2268a960de89819294ab2899a0e87e65cfc809fb\\\"},{\\\"mode\\\":\\\"040000\\\",\\\"path\\\":\\\"runtime\\\",\\\"sha\\\":\\\"d8bf741cf4619c1de69a76a4d8ce12f63d584bfb\\\",\\\"type\\\":\\\"tree\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/trees/d8bf741cf4619c1de69a76a4d8ce12f63d584bfb\\\"},{\\\"mode\\\":\\\"100644\\\",\\\"path\\\":\\\"rust-toolchain.toml\\\",\\\"sha\\\":\\\"b432996f101609389fcd631582395680520eb494\\\",\\\"size\\\":86,\\\"type\\\":\\\"blob\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/blobs/b432996f101609389fcd631582395680520eb494\\\"},{\\\"mode\\\":\\\"040000\\\",\\\"path\\\":\\\"scripts\\\",\\\"sha\\\":\\\"b598035fb549878493011b607fcadd81c80b260a\\\",\\\"type\\\":\\\"tree\\\",\\\"url\\\":\\\"https://api.github.com/repos/123123213weqw/xharness-superagent/git/trees/b598035fb549878493011b607fcadd81c80b260a\\\"}]}\",\"error\":\"\",\"ok\":true,\"truncated\":false}"
+    },
+    {
+      "type": "tool/call",
+      "name": "edit",
+      "id": "xh-1793600866549-1-4-1-0",
+      "arguments": {
+        "path": "acceptance-delivery-test.py",
+        "old": "import hashlib\nimport pathlib\nimport sys",
+        "new": "# Acceptance D2: actual Source-validated PR report\n\nimport hashlib\nimport pathlib\nimport sys"
+      }
+    },
+    {
+      "type": "tool/result",
+      "name": "edit",
+      "call_id": "xh-1793600866549-1-4-1-0",
+      "outcome": "error",
+      "content": "{\"content\":\"\",\"error\":\"refusing to overwrite unread file \\\"acceptance-delivery-test.py\\\"\",\"ok\":false,\"truncated\":false}"
+    },
+    {
+      "type": "tool/call",
+      "name": "read",
+      "id": "xh-1793600866549-1-5-1-0",
+      "arguments": {
+        "path": "acceptance-delivery-test.py"
+      }
+    },
+    {
+      "type": "tool/call",
+      "name": "read",
+      "id": "xh-1793600866549-1-5-2-1",
+      "arguments": {
+        "path": "acceptance-delivery.txt"
+      }
+    },
+    {
+      "type": "tool/result",
+      "name": "read",
+      "call_id": "xh-1793600866549-1-5-1-0",
+      "outcome": "success",
+      "content": "{\"content\":\"{\\n  \\\"bytes_read\\\": 1145,\\n  \\\"captured_bytes\\\": 1145,\\n  \\\"content\\\": \\\"#!/usr/bin/env python3\\\\n\\\\\\\"\\\\\\\"\\\\\\\"Acceptance check for the scoped repository delivery capability.\\\\n\\\\nReads ``acceptance-delivery.txt`` as bytes, asserts it equals the requested\\\\nUTF-8 payload exactly (one trailing newline, no decoding), and prints the\\\\nfile's SHA-256 digest.\\\\n\\\\nStandard library only; run with ``python3 acceptance-delivery-test.py``.\\\\n\\\\\\\"\\\\\\\"\\\\\\\"\\\\n\\\\nimport hashlib\\\\nimport pathlib\\\\nimport sys\\\\n\\\\nTEXT_FILE = pathlib.Path(__file__).with_name(\\\\\\\"acceptance-delivery.txt\\\\\\\")\\\\n\\\\n# \\\\\\\"xharness repository delivery \\\\\\\" + U+1F600 GRINNING FACE + one LF, as UTF-8.\\\\nEXPECTED = \\\\\\\"xharness repository delivery \\\\\\\\U0001F600\\\\\\\\n\\\\\\\".encode(\\\\\\\"utf-8\\\\\\\")\\\\n\\\\n\\\\ndef main() -> int:\\\\n    actual = TEXT_FILE.read_bytes()\\\\n    if actual != EXPECTED:\\\\n        print(f\\\\\\\"FAIL: byte mismatch for {TEXT_FILE.name}\\\\\\\", file=sys.stderr)\\\\n        print(f\\\\\\\"  expected ({len(EXPECTED)} bytes): {EXPECTED!r}\\\\\\\", file=sys.stderr)\\\\n        print(f\\\\\\\"  actual   ({len(actual)} bytes): {actual!r}\\\\\\\", file=sys.stderr)\\\\n        return 1\\\\n\\\\n    print(f\\\\\\\"OK: {TEXT_FILE.name} is exactly {len(EXPECTED)} UTF-8 bytes\\\\\\\")\\\\n    print(\\\\\\\"sha256: \\\\\\\" + hashlib.sha256(actual).hexdigest())\\\\n    return 0\\\\n\\\\n\\\\nif __name__ == \\\\\\\"__main__\\\\\\\":\\\\n    sys.exit(main())\\\\n\\\",\\n  \\\"diagnostics\\\": \\\"[]\\\",\\n  \\\"next_cursor\\\": null,\\n  \\\"page_start_line\\\": 1,\\n  \\\"page_start_offset\\\": 0,\\n  \\\"path\\\": \\\"acceptance-delivery-test.py\\\",\\n  \\\"sha256\\\": \\\"41aaf51aaee9fa4dcdd4f92d8b6eb3046b40a206d2bff2c6c54cd07fb2236296\\\",\\n  \\\"total_bytes\\\": 1145,\\n  \\\"truncated\\\": false\\n}\",\"error\":\"\",\"ok\":true,\"truncated\":false}",
+      "metadata": {
+        "bytes_read": 1145,
+        "captured_bytes": 1145,
+        "content": "#!/usr/bin/env python3\n\"\"\"Acceptance check for the scoped repository delivery capability.\n\nReads ``acceptance-delivery.txt`` as bytes, asserts it equals the requested\nUTF-8 payload exactly (one trailing newline, no decoding), and prints the\nfile's SHA-256 digest.\n\nStandard library only; run with ``python3 acceptance-delivery-test.py``.\n\"\"\"\n\nimport hashlib\nimport pathlib\nimport sys\n\nTEXT_FILE = pathlib.Path(__file__).with_name(\"acceptance-delivery.txt\")\n\n# \"xharness repository delivery \" + U+1F600 GRINNING FACE + one LF, as UTF-8.\nEXPECTED = \"xharness repository delivery \\U0001F600\\n\".encode(\"utf-8\")\n\n\ndef main() -> int:\n    actual = TEXT_FILE.read_bytes()\n    if actual != EXPECTED:\n        print(f\"FAIL: byte mismatch for {TEXT_FILE.name}\", file=sys.stderr)\n        print(f\"  expected ({len(EXPECTED)} bytes): {EXPECTED!r}\", file=sys.stderr)\n        print(f\"  actual   ({len(actual)} bytes): {actual!r}\", file=sys.stderr)\n        return 1\n\n    print(f\"OK: {TEXT_FILE.name} is exactly {len(EXPECTED)} UTF-8 bytes\")\n    print(\"sha256: \" + hashlib.sha256(actual).hexdigest())\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main())\n",
+        "diagnostics": "[]",
+        "next_cursor": null,
+        "page_start_line": 1,
+        "page_start_offset": 0,
+        "path": "acceptance-delivery-test.py",
+        "sha256": "41aaf51aaee9fa4dcdd4f92d8b6eb3046b40a206d2bff2c6c54cd07fb2236296",
+        "total_bytes": 1145,
+        "truncated": false
+      }
+    },
+    {
+      "type": "tool/result",
+      "name": "read",
+      "call_id": "xh-1793600866549-1-5-2-1",
+      "outcome": "success",
+      "content": "{\"content\":\"{\\n  \\\"bytes_read\\\": 34,\\n  \\\"captured_bytes\\\": 34,\\n  \\\"content\\\": \\\"xharness repository delivery 😀\\\\n\\\",\\n  \\\"diagnostics\\\": \\\"[]\\\",\\n  \\\"next_cursor\\\": null,\\n  \\\"page_start_line\\\": 1,\\n  \\\"page_start_offset\\\": 0,\\n  \\\"path\\\": \\\"acceptance-delivery.txt\\\",\\n  \\\"sha256\\\": \\\"4fd783140ea92d3fa7c50054d4493b370a7bc3d7dbdb6b4ef1180e378113566e\\\",\\n  \\\"total_bytes\\\": 34,\\n  \\\"truncated\\\": false\\n}\",\"error\":\"\",\"ok\":true,\"truncated\":false}",
+      "metadata": {
+        "bytes_read": 34,
+        "captured_bytes": 34,
+        "content": "xharness repository delivery 😀\n",
+        "diagnostics": "[]",
+        "next_cursor": null,
+        "page_start_line": 1,
+        "page_start_offset": 0,
+        "path": "acceptance-delivery.txt",
+        "sha256": "4fd783140ea92d3fa7c50054d4493b370a7bc3d7dbdb6b4ef1180e378113566e",
+        "total_bytes": 34,
+        "truncated": false
+      }
+    },
+    {
+      "type": "tool/call",
+      "name": "edit",
+      "id": "xh-1793600866549-1-6-1-0",
+      "arguments": {
+        "new": "# Acceptance D2: actual Source-validated PR report\n\nimport hashlib\nimport pathlib\nimport sys",
+        "old": "import hashlib\nimport pathlib\nimport sys",
+        "path": "acceptance-delivery-test.py"
+      }
+    },
+    {
+      "type": "tool/result",
+      "name": "edit",
+      "call_id": "xh-1793600866549-1-6-1-0",
+      "outcome": "success",
+      "content": "{\"content\":\"{\\n  \\\"bytes_written\\\": 1197,\\n  \\\"path\\\": \\\"acceptance-delivery-test.py\\\",\\n  \\\"sha256\\\": \\\"9c5c7aa20f3353f2a925a9d09ff86f780cf110faafe0b4330db5e3be17995a3a\\\"\\n}\",\"error\":\"\",\"ok\":true,\"truncated\":false}",
+      "metadata": {
+        "bytes_written": 1197,
+        "path": "acceptance-delivery-test.py",
+        "sha256": "9c5c7aa20f3353f2a925a9d09ff86f780cf110faafe0b4330db5e3be17995a3a"
+      }
+    },
+    {
+      "type": "tool/call",
+      "name": "bash",
+      "id": "xh-1793600866549-1-7-1-0",
+      "arguments": {
+        "command": "ls -l\necho '--- test file ---'\ncat -n acceptance-delivery-test.py\necho '--- bytes of txt ---'\nxxd acceptance-delivery.txt\necho '--- run test ---'\npython3 acceptance-delivery-test.py; echo \"exit=$?\"\necho '--- digests ---'\nsha256sum acceptance-delivery.txt acceptance-delivery-test.py\npython3 -V",
+        "cwd": "<OWNED_WORKSPACE>/.alignment-evidence/real-acceptance-01/state/work/acceptance-repo-delivery-f7f318c6ef87",
+        "description": "Read both files and rerun test"
+      }
+    },
+    {
+      "type": "tool/result",
+      "name": "bash",
+      "call_id": "xh-1793600866549-1-7-1-0",
+      "outcome": "success",
+      "content": "{\"content\":\"{\\n  \\\"execution\\\": {\\n    \\\"mode\\\": \\\"shell\\\",\\n    \\\"program\\\": \\\"/bin/bash\\\",\\n    \\\"shell\\\": \\\"Bash\\\"\\n  },\\n  \\\"exit_code\\\": 0,\\n  \\\"kind\\\": \\\"foreground\\\",\\n  \\\"pid\\\": 2384121,\\n  \\\"signal\\\": null,\\n  \\\"stderr\\\": \\\"\\\",\\n  \\\"stderr_bytes\\\": 0,\\n  \\\"stderr_omitted_bytes\\\": 0,\\n  \\\"stderr_truncated\\\": false,\\n  \\\"stdout\\\": \\\"总计 8\\\\n-rw------- 1 wzu wzu 1197 Nov  2 14:28 acceptance-delivery-test.py\\\\n-rw-rw-r-- 1 wzu wzu   34 Nov  2 14:16 acceptance-delivery.txt\\\\n--- test file ---\\\\n     1\\\\t#!/usr/bin/env python3\\\\n     2\\\\t\\\\\\\"\\\\\\\"\\\\\\\"Acceptance check for the scoped repository delivery capability.\\\\n     3\\\\t\\\\n     4\\\\tReads ``acceptance-delivery.txt`` as bytes, asserts it equals the requested\\\\n     5\\\\tUTF-8 payload exactly (one trailing newline, no decoding), and prints the\\\\n     6\\\\tfile's SHA-256 digest.\\\\n     7\\\\t\\\\n     8\\\\tStandard library only; run with ``python3 acceptance-delivery-test.py``.\\\\n     9\\\\t\\\\\\\"\\\\\\\"\\\\\\\"\\\\n    10\\\\t\\\\n    11\\\\t# Acceptance D2: actual Source-validated PR report\\\\n    12\\\\t\\\\n    13\\\\timport hashlib\\\\n    14\\\\timport pathlib\\\\n    15\\\\timport sys\\\\n    16\\\\t\\\\n    17\\\\tTEXT_FILE = pathlib.Path(__file__).with_name(\\\\\\\"acceptance-delivery.txt\\\\\\\")\\\\n    18\\\\t\\\\n    19\\\\t# \\\\\\\"xharness repository delivery \\\\\\\" + U+1F600 GRINNING FACE + one LF, as UTF-8.\\\\n    20\\\\tEXPECTED = \\\\\\\"xharness repository delivery \\\\\\\\U0001F600\\\\\\\\n\\\\\\\".encode(\\\\\\\"utf-8\\\\\\\")\\\\n    21\\\\t\\\\n    22\\\\t\\\\n    23\\\\tdef main() -> int:\\\\n    24\\\\t    actual = TEXT_FILE.read_bytes()\\\\n    25\\\\t    if actual != EXPECTED:\\\\n    26\\\\t        print(f\\\\\\\"FAIL: byte mismatch for {TEXT_FILE.name}\\\\\\\", file=sys.stderr)\\\\n    27\\\\t        print(f\\\\\\\"  expected ({len(EXPECTED)} bytes): {EXPECTED!r}\\\\\\\", file=sys.stderr)\\\\n    28\\\\t        print(f\\\\\\\"  actual   ({len(actual)} bytes): {actual!r}\\\\\\\", file=sys.stderr)\\\\n    29\\\\t        return 1\\\\n    30\\\\t\\\\n    31\\\\t    print(f\\\\\\\"OK: {TEXT_FILE.name} is exactly {len(EXPECTED)} UTF-8 bytes\\\\\\\")\\\\n    32\\\\t    print(\\\\\\\"sha256: \\\\\\\" + hashlib.sha256(actual).hexdigest())\\\\n    33\\\\t    return 0\\\\n    34\\\\t\\\\n    35\\\\t\\\\n    36\\\\tif __name__ == \\\\\\\"__main__\\\\\\\":\\\\n    37\\\\t    sys.exit(main())\\\\n--- bytes of txt ---\\\\n00000000: 7868 6172 6e65 7373 2072 6570 6f73 6974  xharness reposit\\\\n00000010: 6f72 7920 6465 6c69 7665 7279 20f0 9f98  ory delivery ...\\\\n00000020: 800a                                     ..\\\\n--- run test ---\\\\nOK: acceptance-delivery.txt is exactly 34 UTF-8 bytes\\\\nsha256: 4fd783140ea92d3fa7c50054d4493b370a7bc3d7dbdb6b4ef1180e378113566e\\\\nexit=0\\\\n--- digests ---\\\\n4fd783140ea92d3fa7c50054d4493b370a7bc3d7dbdb6b4ef1180e378113566e  acceptance-delivery.txt\\\\n9c5c7aa20f3353f2a925a9d09ff86f780cf110faafe0b4330db5e3be17995a3a  acceptance-delivery-test.py\\\\nPython 3.10.12\\\\n\\\",\\n  \\\"stdout_bytes\\\": 2190,\\n  \\\"stdout_omitted_bytes\\\": 0,\\n  \\\"stdout_truncated\\\": false,\\n  \\\"success\\\": true,\\n  \\\"termination\\\": \\\"exited\\\"\\n}\",\"error\":\"\",\"ok\":true,\"truncated\":false}",
+      "metadata": {
+        "execution": {
+          "mode": "shell",
+          "program": "/bin/bash",
+          "shell": "Bash"
+        },
+        "exit_code": 0,
+        "kind": "foreground",
+        "pid": 2384121,
+        "signal": null,
+        "stderr": "",
+        "stderr_bytes": 0,
+        "stderr_omitted_bytes": 0,
+        "stderr_truncated": false,
+        "stdout": "总计 8\n-rw------- 1 wzu wzu 1197 Nov  2 14:28 acceptance-delivery-test.py\n-rw-rw-r-- 1 wzu wzu   34 Nov  2 14:16 acceptance-delivery.txt\n--- test file ---\n     1\t#!/usr/bin/env python3\n     2\t\"\"\"Acceptance check for the scoped repository delivery capability.\n     3\t\n     4\tReads ``acceptance-delivery.txt`` as bytes, asserts it equals the requested\n     5\tUTF-8 payload exactly (one trailing newline, no decoding), and prints the\n     6\tfile's SHA-256 digest.\n     7\t\n     8\tStandard library only; run with ``python3 acceptance-delivery-test.py``.\n     9\t\"\"\"\n    10\t\n    11\t# Acceptance D2: actual Source-validated PR report\n    12\t\n    13\timport hashlib\n    14\timport pathlib\n    15\timport sys\n    16\t\n    17\tTEXT_FILE = pathlib.Path(__file__).with_name(\"acceptance-delivery.txt\")\n    18\t\n    19\t# \"xharness repository delivery \" + U+1F600 GRINNING FACE + one LF, as UTF-8.\n    20\tEXPECTED = \"xharness repository delivery \\U0001F600\\n\".encode(\"utf-8\")\n    21\t\n    22\t\n    23\tdef main() -> int:\n    24\t    actual = TEXT_FILE.read_bytes()\n    25\t    if actual != EXPECTED:\n    26\t        print(f\"FAIL: byte mismatch for {TEXT_FILE.name}\", file=sys.stderr)\n    27\t        print(f\"  expected ({len(EXPECTED)} bytes): {EXPECTED!r}\", file=sys.stderr)\n    28\t        print(f\"  actual   ({len(actual)} bytes): {actual!r}\", file=sys.stderr)\n    29\t        return 1\n    30\t\n    31\t    print(f\"OK: {TEXT_FILE.name} is exactly {len(EXPECTED)} UTF-8 bytes\")\n    32\t    print(\"sha256: \" + hashlib.sha256(actual).hexdigest())\n    33\t    return 0\n    34\t\n    35\t\n    36\tif __name__ == \"__main__\":\n    37\t    sys.exit(main())\n--- bytes of txt ---\n00000000: 7868 6172 6e65 7373 2072 6570 6f73 6974  xharness reposit\n00000010: 6f72 7920 6465 6c69 7665 7279 20f0 9f98  ory delivery ...\n00000020: 800a                                     ..\n--- run test ---\nOK: acceptance-delivery.txt is exactly 34 UTF-8 bytes\nsha256: 4fd783140ea92d3fa7c50054d4493b370a7bc3d7dbdb6b4ef1180e378113566e\nexit=0\n--- digests ---\n4fd783140ea92d3fa7c50054d4493b370a7bc3d7dbdb6b4ef1180e378113566e  acceptance-delivery.txt\n9c5c7aa20f3353f2a925a9d09ff86f780cf110faafe0b4330db5e3be17995a3a  acceptance-delivery-test.py\nPython 3.10.12\n",
+        "stdout_bytes": 2190,
+        "stdout_omitted_bytes": 0,
+        "stdout_truncated": false,
+        "success": true,
+        "termination": "exited"
+      }
+    },
+    {
+      "type": "tool/call",
+      "name": "repository_delivery",
+      "id": "xh-1793600866549-1-8-1-0",
+      "arguments": {
+        "action": "publish",
+        "baseSha": "df6f44f4454872793c1b313ebea959f81d73f770",
+        "body": "This is by an automated agent, not a human.\n\nAcceptance D2 for the scoped `repository_delivery` capability (issue #3): republish on a fresh assignment branch from the current base, with the D2 edit, and prove the PR-to-ticket report binding. Draft only, not intended for merge; PR #4 and its branch from D1 are not reused.\n\n## Contents\n\n- `acceptance-delivery.txt` — unchanged from D1: exactly `xharness repository delivery 😀` followed by one LF (34 bytes UTF-8).\n- `acceptance-delivery-test.py` — D2 edit: adds the comment line `# Acceptance D2: actual Source-validated PR report`. Still Python standard library only; reads the text file as bytes, asserts byte-for-byte equality with the requested UTF-8 payload, and prints its SHA-256.\n\n## Verification actually run in this round\n\nBoth files were read again, then `python3 acceptance-delivery-test.py` (Python 3.10.12):\n\n```\nOK: acceptance-delivery.txt is exactly 34 UTF-8 bytes\nsha256: 4fd783140ea92d3fa7c50054d4493b370a7bc3d7dbdb6b4ef1180e378113566e\n```\nExit code 0.\n\n## Digests\n\n- `acceptance-delivery.txt`: `4fd783140ea92d3fa7c50054d4493b370a7bc3d7dbdb6b4ef1180e378113566e` (34 bytes)\n- `acceptance-delivery-test.py`: `9c5c7aa20f3353f2a925a9d09ff86f780cf110faafe0b4330db5e3be17995a3a` (1197 bytes; 1145 bytes in D1)\n\n## State at report time\n\nChecks and reviews are reported as they actually stood when read right after publish; nothing pending is claimed as passing or approved. This PR remains a draft for review.\n",
+        "files": [
+          "acceptance-delivery.txt",
+          "acceptance-delivery-test.py"
+        ],
+        "title": "[Acceptance D2] Scoped delivery: Source-bound draft PR with text file + stdlib byte test"
+      }
+    },
+    {
+      "type": "tool/result",
+      "name": "repository_delivery",
+      "call_id": "xh-1793600866549-1-8-1-0",
+      "outcome": "success",
+      "content": "{\"content\":\"{\\\"autoMergeRequested\\\":false,\\\"baseSha\\\":\\\"df6f44f4454872793c1b313ebea959f81d73f770\\\",\\\"branch\\\":\\\"xharness/ticket-f7f318c6ef874339c98a6e50fe3b097d/assignment-abb4eb06d3d4313d3ff9cd10660c2eae/acceptance-repo-delivery-f7f318c6ef87\\\",\\\"clone\\\":false,\\\"draft\\\":true,\\\"headSha\\\":\\\"d7046eb773139220e3d1eb46bcc238d6c340822b\\\",\\\"number\\\":5,\\\"pullRequest\\\":\\\"https://github.com/123123213weqw/xharness-superagent/pull/5\\\",\\\"repository\\\":\\\"123123213weqw/xharness-superagent\\\",\\\"transport\\\":\\\"github_git_database_api\\\"}\",\"error\":\"\",\"ok\":true,\"truncated\":false}"
+    },
+    {
+      "type": "tool/call",
+      "name": "repository_delivery",
+      "id": "xh-1793600866549-1-9-1-0",
+      "arguments": {
+        "action": "status"
+      }
+    },
+    {
+      "type": "tool/result",
+      "name": "repository_delivery",
+      "call_id": "xh-1793600866549-1-9-1-0",
+      "outcome": "success",
+      "content": "{\"content\":\"{\\\"branch\\\":\\\"xharness/ticket-f7f318c6ef874339c98a6e50fe3b097d/assignment-abb4eb06d3d4313d3ff9cd10660c2eae/acceptance-repo-delivery-f7f318c6ef87\\\",\\\"checks\\\":{\\\"check_runs\\\":[{\\\"conclusion\\\":null,\\\"detailsUrl\\\":\\\"https://github.com/123123213weqw/xharness-superagent/actions/runs/41400144944/job/125130012579\\\",\\\"name\\\":\\\"rust (ubuntu-latest)\\\",\\\"status\\\":\\\"queued\\\",\\\"url\\\":\\\"https://github.com/123123213weqw/xharness-superagent/actions/runs/41400144944/job/125130012579\\\"},{\\\"conclusion\\\":null,\\\"detailsUrl\\\":\\\"https://github.com/123123213weqw/xharness-superagent/actions/runs/41400144944/job/125130012445\\\",\\\"name\\\":\\\"rust (macos-latest)\\\",\\\"status\\\":\\\"queued\\\",\\\"url\\\":\\\"https://github.com/123123213weqw/xharness-superagent/actions/runs/41400144944/job/125130012445\\\"}],\\\"total_count\\\":2},\\\"headSha\\\":\\\"d7046eb773139220e3d1eb46bcc238d6c340822b\\\",\\\"pagination\\\":{\\\"checksMayHaveMore\\\":false,\\\"commentsMayHaveMore\\\":false,\\\"perPage\\\":100,\\\"reviewsMayHaveMore\\\":false},\\\"published\\\":true,\\\"pullRequest\\\":{\\\"autoMerge\\\":null,\\\"baseBranch\\\":\\\"business/product-alignment\\\",\\\"draft\\\":true,\\\"headSha\\\":\\\"d7046eb773139220e3d1eb46bcc238d6c340822b\\\",\\\"number\\\":5,\\\"state\\\":\\\"open\\\",\\\"url\\\":\\\"https://github.com/123123213weqw/xharness-superagent/pull/5\\\"},\\\"reviewComments\\\":[],\\\"reviews\\\":[]}\",\"error\":\"\",\"ok\":true,\"truncated\":false}"
+    },
+    {
+      "type": "tool/call",
+      "name": "orchestrator_report",
+      "id": "xh-1793600866549-1-10-1-0",
+      "arguments": {
+        "pr_number": 5,
+        "state": "progress",
+        "summary": "D2: draft PR #5 (https://github.com/123123213weqw/xharness-superagent/pull/5) published from baseSha df6f44f4454872793c1b313ebea959f81d73f770 on branch .../assignment-abb4eb06d3d4313d3ff9cd10660c2eae/acceptance-repo-delivery-f7f318c6ef87, head d7046eb773139220e3d1eb46bcc238d6c340822b. This progress report carries pr_number to check the Source ownership binding; final ready report follows."
+      }
+    },
+    {
+      "type": "tool/result",
+      "name": "orchestrator_report",
+      "call_id": "xh-1793600866549-1-10-1-0",
+      "outcome": "success",
+      "content": "{\"notification\":\"internal_only\",\"reported\":true}"
+    },
+    {
+      "type": "tool/call",
+      "name": "orchestrator_read",
+      "id": "xh-1793600866549-1-11-1-0",
+      "arguments": {
+        "resource": "ticket/f7f318c6ef874339c98a6e50fe3b097d/assignments",
+        "limit": 1
+      }
+    },
+    {
+      "type": "tool/result",
+      "name": "orchestrator_read",
+      "call_id": "xh-1793600866549-1-11-1-0",
+      "outcome": "success",
+      "content": "{\"items\":[{\"at\":\"2026-11-02T06:27:46.442Z\",\"id\":\"abb4eb06d3d4313d3ff9cd10660c2eae\",\"report\":{\"at\":\"2026-11-02T06:29:03.103Z\",\"chars\":391,\"preview\":\"D2: draft PR #5 (https://github.com/123123213weqw/xharness-superagent/pull/5) published from baseSha\",\"read\":\"ticket/f7f318c6ef874339c98a6e50fe3b097d/report/abb4eb06d3d4313d3ff9cd10660c2eae\",\"state\":\"progress\"},\"state\":\"running\"}],\"next_offset\":1}"
+    },
+    {
+      "type": "tool/call",
+      "name": "orchestrator_read",
+      "id": "xh-1793600866549-1-12-1-0",
+      "arguments": {
+        "resource": "ticket/f7f318c6ef874339c98a6e50fe3b097d/report/abb4eb06d3d4313d3ff9cd10660c2eae"
+      }
+    },
+    {
+      "type": "tool/result",
+      "name": "orchestrator_read",
+      "call_id": "xh-1793600866549-1-12-1-0",
+      "outcome": "success",
+      "content": "{\"next_offset\":null,\"offset\":0,\"resource\":\"ticket/f7f318c6ef874339c98a6e50fe3b097d/report/abb4eb06d3d4313d3ff9cd10660c2eae\",\"text\":\"D2: draft PR #5 (https://github.com/123123213weqw/xharness-superagent/pull/5) published from baseSha df6f44f4454872793c1b313ebea959f81d73f770 on branch .../assignment-abb4eb06d3d4313d3ff9cd10660c2eae/acceptance-repo-delivery-f7f318c6ef87, head d7046eb773139220e3d1eb46bcc238d6c340822b. This progress report carries pr_number to check the Source ownership binding; final ready report follows.\",\"total_chars\":391}"
+    },
+    {
+      "type": "tool/call",
+      "name": "orchestrator_report",
+      "id": "xh-1793600866549-1-13-1-0",
+      "arguments": {
+        "pr_number": 5,
+        "state": "ready",
+        "summary": "D2 acceptance exercise delivered, including the PR-to-ticket report binding that D1 failed on.\n\nBinding evidence: `orchestrator_report(pr_number=5, ...)` was ACCEPTED in this round (a progress report first, then this ready report), where the same call with D1's pr_number was rejected with \"PR ownership validation requires the installed GitHub Source\". So the new Source reader validates ownership and PR #5 is attached to ticket f7f318c6ef874339c98a6e50fe3b097d. Nothing was omitted from pr_number.\n\nReal artifacts:\n- New base from `inspect`: business/product-alignment @ df6f44f4454872793c1b313ebea959f81d73f770 (different from D1's 0e1462d6..., so the base really moved), checkout=false.\n- New delivery branch (last segment is DSH_SUPERAGENT_NAME): xharness/ticket-f7f318c6ef874339c98a6e50fe3b097d/assignment-abb4eb06d3d4313d3ff9cd10660c2eae/acceptance-repo-delivery-f7f318c6ef87. PR #4 and its branch were not reused.\n- PR: https://github.com/123123213weqw/xharness-superagent/pull/5, draft=true, state open, autoMerge=null, base business/product-alignment, headSha d7046eb773139220e3d1eb46bcc238d6c340822b, transport=github_git_database_api, exactly the two submitted files.\n- D2 edit present: `# Acceptance D2: actual Source-validated PR report` at line 11 of acceptance-delivery-test.py (file grew 1145 -> 1197 bytes); acceptance-delivery.txt unchanged.\n\nFiles read and test rerun this round (Python 3.10.12): `python3 acceptance-delivery-test.py` exit 0, printing \"OK: acceptance-delivery.txt is exactly 34 UTF-8 bytes\" and \"sha256: 4fd783140ea92d3fa7c50054d4493b370a7bc3d7dbdb6b4ef1180e378113566e\". acceptance-delivery.txt still 34 bytes, `... 79 20 f0 9f 98 80 0a` (payload + one LF), sha256 4fd783140ea92d3fa7c50054d4493b370a7bc3d7dbdb6b4ef1180e378113566e; acceptance-delivery-test.py sha256 9c5c7aa20f3353f2a925a9d09ff86f780cf110faafe0b4330db5e3be17995a3a.\n\n`status` called ONCE, immediately after publish, no waiting: check_runs total_count 2 — \"rust (ubuntu-latest)\" and \"rust (macos-latest)\", both status=queued, conclusion=null, head_sha d7046eb773139220e3d1eb46bcc238d6c340822b; reviews [] and reviewComments [] (none requested). CI has NOT passed and there is NO review approval — both pending, and I am not claiming otherwise.\n\nScope: no merge, auto-merge, workflow/permission/service change, other repository, Feishu, SSH, Cargo build or ordinary git/gh command. The PR is left as a draft for review; no production cutover."
+      }
+    },
+    {
+      "type": "tool/result",
+      "name": "orchestrator_report",
+      "call_id": "xh-1793600866549-1-13-1-0",
+      "outcome": "success",
+      "content": "{\"notification\":\"orchestrator\",\"reported\":true}"
+    }
+  ]
+}

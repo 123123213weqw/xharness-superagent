@@ -218,3 +218,26 @@ API/UI、后台/停止/并发/恢复和部署回退。完整 Goal 活动，不�
 账号热切明确拒绝；完整原版查询视图/路由/面板仍未完成。Worker代码交付、六实例配置、
 冷切去重、完整备份/守护/回退与生产切换继续未完成。飞书不再要求用户重复手测，
 但不会把接入冒烟虚记为真实 Worker/回复闭环。没有重启取消的全域语言兼容工作。
+
+## 2026-11-02：真实 Worker 仓库交付与 PR 报告接线
+
+默认关闭的产品级 `repositoryDelivery` 已提供受限文本快照发布、当前工单/
+assignment独立分支、Draft PR及检查/评审读取，不向通用bash提供网络或凭证。
+主14/Worker6应用工具不变；这是另一个显式启用的编码能力。
+
+真实验收 D1（issue #3 / PR #4）完成文件、实际 Python测试、远端发布和回执，
+但揭示 `pr_number` 报告仍是占位错误，SQL没有绑定PR，保留为部分成功/真实失败。
+据此补了 Source实际读取、归属/唯一所有者校验，以及 PR claim/report/relay 同一
+SQL事务；分支末段也对齐工作区短名称，不通过放宽归属规则强行接纳旧 PR。
+
+D2 在同一工单新 assignment 上实际编辑、测试、发布 Draft PR #5，Source校验报告
+成功，SQL保留 `own=true` 的开放PR，实际回复和重启去重均已核实。
+开放PR仍等待后续处理，不把ready称作合并、CI成功或外部评审通过。
+
+本批 55条正式入口测试、选定三crate及17条process回归为387个报告通过，
+2条默认忽略的live测试不计通过；17条Node guard通过。不是全workspace测试宣称。
+六个旧实例仅做只读在线SQLite快照及副本完整性/九表摘要校验，不是完整回退。
+详见 `docs/business-repository-delivery-verification.json` 与
+[使用和边界](superagent/business-repository-delivery.md)。完整checkout/依赖构建/SSH、
+管理矩阵、冷切游标回执边界、完整快照/回退/首次切换、真实飞书Worker回复及剩余
+生命周期分支继续保留；没有切换六个生产实例，没有重启取消的JS全语言迁移。

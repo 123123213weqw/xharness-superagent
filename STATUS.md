@@ -1,6 +1,6 @@
 # 开发状态
 
-2026-11-02。当前已有正式入口及第一条 GitHub 离线协议整链路，仍未完成全部业务对齐。
+2026-11-02。已有正式入口、GitHub/飞书离线协议整链路，以及 GitHub 实际模型/Worker/文本测试/Draft PR/回帖和重启验证；仍未完成全部业务对齐或生产替代。
 
 最新路径和边界见 [正式入口](docs/superagent/business-entry.md)，当前验收以
 `conformance/business/acceptance.json` 为准。以下逐批记录均是当时的范围/统计，
@@ -290,3 +290,26 @@ Linux另重复该正式路径20次，不提前宣称新head Mac通过。源码�
 一次独立状态/关闭来源的实际账号 --check 通过，只证明来源CLI启动，不证明模型/
 事件/Worker/PR可用。真实代码交付、模型通道、管理API、冷切去重与备份回退仍未齐。
 详见[本批说明](docs/superagent/production-text-release.md)及完整验证记录。
+
+
+## 最新：真实仓库交付与 PR 归属（尚未生产切换）
+
+`df6f44f` 实际 Worker 经 DeepSeek Messages 创建/编辑并测试两个文件，通过限定
+仓库的 Git Database API 发布为 Draft PR #5，再以真实 Source 读取验证 `pr_number`
+归属、绑定工单并发送回执。工作区文件与远端 blob 的字节/hash相同，重启没有增加
+工单、assignment、PR或回复。PR仍开放，不能把它当合并、CI或外部评审批准。
+
+D1 的 PR #4 发布是真的，但 `pr_number` 报告曾失败且 SQL未绑定，作为缺陷证据保留；
+D2 修复的是实际接线与引用规则，没有放宽归属检查，也没有拼接失败阶段冒充通过。
+通道默认关闭，仅支持有界文本快照；主14/Worker6应用工具不变，无新依赖。
+
+55条正式入口、选定三crate加17条process回归共报告387通过、2条live默认忽略，
+17条Node guard通过；不把重复focus测试叠加到独立数量，不宣称完整workspace测试。
+代码提交的跨平台CI结果另查，不拿旧成功或运行中结果当最新head通过。
+23组为5通过/16推进/2未运行，不是完成比例。详见
+[完整证据与限制](docs/business-repository-delivery-verification.json)。
+
+六个旧实例本轮只有只读在线SQLite快照/副本完整性与九表摘要校验；不等于完整
+冷切备份/回退，未切换生产。当前仍缺完整checkout/依赖构建/SSH交付、管理矩阵、
+冷切游标和回执边界、quiesced会话/工作区/配置快照与完整回退、真实飞书Worker回复
+及其余完整生命周期/附件验收。取消的JS全语言/UTF-16迁移仍不恢复。

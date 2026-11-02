@@ -1,0 +1,26 @@
+    Checking xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 9.68s
+    Checking xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 10.92s
+   Compiling xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 23.30s
+     Running tests/product_entry.rs (<OWNED_WORKSPACE>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_entry-e63082d92e636d98)
+
+running 2 tests
+test delivery::formal_delivery_check_is_read_only_and_invalid_opt_in_fails_before_setup ... ok
+test delivery::formal_delivery_publishes_immutable_text_snapshot_reconciles_retry_and_reads_reviews ... 
+thread 'delivery::formal_delivery_publishes_immutable_text_snapshot_reconciles_retry_and_reads_reviews' (2245716) panicked at crates/xharness-superagent/tests/product_entry/delivery.rs:65:5:
+assertion `left == right` failed
+  left: 0
+ right: 1
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    delivery::formal_delivery_publishes_immutable_text_snapshot_reconciles_retry_and_reads_reviews
+
+test result: FAILED. 1 passed; 1 failed; 0 ignored; 0 measured; 51 filtered out; finished in 3.98s
+
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`

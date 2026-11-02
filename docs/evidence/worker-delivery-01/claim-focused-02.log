@@ -1,0 +1,28 @@
+    Checking xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.60s
+    Checking xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.88s
+   Compiling xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.17s
+
+running 4 tests
+test delivery::formal_delivery_check_is_read_only_and_invalid_opt_in_fails_before_setup ...      Running tests/product_entry.rs (<OWNED_WORKSPACE>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_entry-e63082d92e636d98)
+ok
+test delivery::formal_delivery_publishes_immutable_text_snapshot_reconciles_retry_and_reads_reviews ... 
+thread 'delivery::formal_delivery_publishes_immutable_text_snapshot_reconciles_retry_and_reads_reviews' (2360416) panicked at crates/xharness-superagent/tests/product_entry.rs:778:5:
+stdout=
+stderr=1 GitHub reads failed: #31: missing field `id` at line 1 column 714
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test delivery::formal_delivery_rechecks_live_authority_after_inflight_blob_before_ref_or_pr ... ok
+test delivery::formal_delivery_rejects_unsafe_files_and_modes_before_external_mutation ... ok
+
+failures:
+
+failures:
+    delivery::formal_delivery_publishes_immutable_text_snapshot_reconciles_retry_and_reads_reviews
+
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 51 filtered out; finished in 8.74s
+
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`

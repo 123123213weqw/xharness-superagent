@@ -3,7 +3,7 @@
 基于 Rust / XHarness 的主动式 Agent 产品开发项目，参考 DeepSeek SuperAgent
 的产品逻辑：接收 GitHub/飞书事件，评估与授权，创建和执行任务，再将结果回复给用户。
 
-**状态：早期开发版。已有正式可执行入口及 GitHub、飞书文本的离线协议整链路；
+**状态：开发版。已有正式入口和 GitHub/飞书文本的离线协议整链路，另完成了 GitHub 的真实模型/文件/回帖及受限 Draft PR 交付验收；
 不是完整可部署的 SuperAgent 替代品，也不宣称已完整业务对齐。**
 
 ## 复刻什么
@@ -28,7 +28,7 @@
 - 正式 `xharness-superagent --config ... [--check | --once]` 入口及实际 OpenAI 兼容
   HTTP/SSE → Native → CodingToolBundle → GitHub marker 回复闭环。
   [配置、权限和验证边界](docs/superagent/business-entry.md)；外部服务由明确的
-  loopback 模型/gh 协议夹具验证，没有付费调用或真实 GitHub 评论。
+  loopback 模型/gh 协议夹具验证；后续真实服务证据另见下文“真实文本验收”和“仓库交付”。
 - [工单/线程控制](docs/superagent/business-controls.md)：重试、状态查询、重新研判、
   订阅/移除/handback 已接入同一 Native 工具路径；主14/Worker6名字已齐，完整业务分支仍未完成。
 - [未完成工单恢复](docs/superagent/business-recovery.md)：等待工单重启后处理新输入、
@@ -53,7 +53,7 @@
 - [文本生产化推进](docs/superagent/production-text-release.md)：SIGTERM统一回收、来源致命SQL错误退出及CI观察竞争修正；正式入口46条。允许冷切不等于已经可替换现网。
 
 - [真实文本验收](docs/superagent/real-text-acceptance.md)：真实 GitHub Issue/追加评论 → Worker文件操作 → 回帖/重放；Messages 模型与飞书消费者分别保留验证边界。
-- [文本管理入口](docs/superagent/business-management.md)：可选 loopback API/基础页面、人工版本保存/停止/暂停，正式入口现51条；完整原版 API/UI 与生产替代仍未完成。
+- [文本管理入口](docs/superagent/business-management.md)：可选 loopback API/基础页面、人工版本保存/停止/暂停，管理批次51条，现累计55条正式入口测试；完整原版 API/UI 与生产替代仍未完成。
 
 ## 尚未完成
 
@@ -104,3 +104,10 @@ SSH 别名 `WZU_Server`。工作目录独立于现有 Runtime 服务；不复制
 - Rust 代码沿用 Apache-2.0；参考源码与第三方代码保留各自许可证。
   详见 [LICENSE](LICENSE) 和 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
 - 独立社区项目，不是 DeepSeek 官方发行版。
+
+### Worker 仓库交付（显式启用）
+
+见[使用说明](docs/superagent/business-repository-delivery.md)与
+[真实验收和边界](docs/business-repository-delivery-verification.json)。
+支持有界文本快照、Draft PR、Source校验后的工单绑定与报告；
+不是完整 clone/build/SSH 工作流，也不表示已经批准生产切换。

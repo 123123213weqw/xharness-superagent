@@ -1,0 +1,17 @@
+{
+  "head": "9ab3d1d7f67062c130160992dea866b62175059c",
+  "files": [
+    {
+      "path": "acceptance-delivery.txt",
+      "bytes": 34,
+      "sha256": "4fd783140ea92d3fa7c50054d4493b370a7bc3d7dbdb6b4ef1180e378113566e",
+      "actual_workspace_equals_remote_PR_blob": true
+    },
+    {
+      "path": "acceptance-delivery-test.py",
+      "bytes": 1145,
+      "sha256": "41aaf51aaee9fa4dcdd4f92d8b6eb3046b40a206d2bff2c6c54cd07fb2236296",
+      "actual_workspace_equals_remote_PR_blob": true
+    }
+  ]
+}

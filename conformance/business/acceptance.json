@@ -352,6 +352,16 @@
           "actual_product_path": true,
           "partial_not_full_group_pass": true,
           "remaining_scope": "Broad group remains in_progress; see verification remaining_scope."
+        },
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "Owned remote formal binary with actual authorized GitHub bot and DeepSeek Messages; selected regression commands and scopes in verification",
+          "environment": "Actual isolated repository issue/Native Worker/file test/Draft PR/outbox; separate deterministic boundary fixtures and read-only six-instance SQLite backup probe",
+          "full_log": "docs/business-repository-delivery-verification.json",
+          "business_assertions": "docs/business-repository-delivery-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification.remaining; no group promoted to passed"
         }
       ]
     },
@@ -461,6 +471,16 @@
           "business_assertions": "docs/live-text-acceptance-verification.json",
           "actual_product_path": true,
           "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
+        },
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "Owned remote formal binary with actual authorized GitHub bot and DeepSeek Messages; selected regression commands and scopes in verification",
+          "environment": "Actual isolated repository issue/Native Worker/file test/Draft PR/outbox; separate deterministic boundary fixtures and read-only six-instance SQLite backup probe",
+          "full_log": "docs/business-repository-delivery-verification.json",
+          "business_assertions": "docs/business-repository-delivery-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification.remaining; no group promoted to passed"
         }
       ]
     },
@@ -486,8 +506,19 @@
       "id": "WORK-04",
       "milestone": "B5",
       "title": "后台/子任务完成、取消、关闭均可观察且不泄漏资源",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "Owned remote formal binary with actual authorized GitHub bot and DeepSeek Messages; selected regression commands and scopes in verification",
+          "environment": "Actual isolated repository issue/Native Worker/file test/Draft PR/outbox; separate deterministic boundary fixtures and read-only six-instance SQLite backup probe",
+          "full_log": "docs/business-repository-delivery-verification.json",
+          "business_assertions": "docs/business-repository-delivery-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification.remaining; no group promoted to passed"
+        }
+      ]
     },
     {
       "id": "REC-01",
@@ -514,6 +545,16 @@
           "business_assertions": "docs/live-text-acceptance-verification.json",
           "actual_product_path": true,
           "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
+        },
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "Owned remote formal binary with actual authorized GitHub bot and DeepSeek Messages; selected regression commands and scopes in verification",
+          "environment": "Actual isolated repository issue/Native Worker/file test/Draft PR/outbox; separate deterministic boundary fixtures and read-only six-instance SQLite backup probe",
+          "full_log": "docs/business-repository-delivery-verification.json",
+          "business_assertions": "docs/business-repository-delivery-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification.remaining; no group promoted to passed"
         }
       ],
       "validation_environment": "offline_protocol_fixture_and_authorized_live_github_subset"
@@ -643,6 +684,16 @@
           "business_assertions": "docs/live-text-acceptance-verification.json",
           "actual_product_path": true,
           "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
+        },
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "Owned remote formal binary with actual authorized GitHub bot and DeepSeek Messages; selected regression commands and scopes in verification",
+          "environment": "Actual isolated repository issue/Native Worker/file test/Draft PR/outbox; separate deterministic boundary fixtures and read-only six-instance SQLite backup probe",
+          "full_log": "docs/business-repository-delivery-verification.json",
+          "business_assertions": "docs/business-repository-delivery-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification.remaining; no group promoted to passed"
         }
       ]
     },
@@ -650,8 +701,19 @@
       "id": "GH-02",
       "milestone": "B3",
       "title": "Issue/PR/Review线程中的任务和结果归属正确",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "Owned remote formal binary with actual authorized GitHub bot and DeepSeek Messages; selected regression commands and scopes in verification",
+          "environment": "Actual isolated repository issue/Native Worker/file test/Draft PR/outbox; separate deterministic boundary fixtures and read-only six-instance SQLite backup probe",
+          "full_log": "docs/business-repository-delivery-verification.json",
+          "business_assertions": "docs/business-repository-delivery-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification.remaining; no group promoted to passed"
+        }
+      ]
     },
     {
       "id": "FEISHU-01",
@@ -897,6 +959,16 @@
           "actual_product_path": true,
           "partial_not_full_group_pass": true,
           "remaining_scope": "Full grouped API/UI/stop/deployment coverage and Worker delivery are still unfinished. See acceptance_boundaries; no full group promoted to passed."
+        },
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "Owned remote formal binary with actual authorized GitHub bot and DeepSeek Messages; selected regression commands and scopes in verification",
+          "environment": "Actual isolated repository issue/Native Worker/file test/Draft PR/outbox; separate deterministic boundary fixtures and read-only six-instance SQLite backup probe",
+          "full_log": "docs/business-repository-delivery-verification.json",
+          "business_assertions": "docs/business-repository-delivery-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification.remaining; no group promoted to passed"
         }
       ]
     },
