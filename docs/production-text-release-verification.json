@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-11-02T01:44:17.984101+00:00",
+  "scope": "GitHub + Feishu text production-readiness subset; no production cutover or full business approval",
+  "source_commit": "71317c8514f3c42de944661aac609613c845195e",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "source_profile": "docs/production-text-release-source-profile.json",
+  "source_profile_files": 756,
+  "source_profile_sha256": "228f54f7e91184d2fd7e9b205720bdff4659afdff1328eb2206ea946204ce708",
+  "local_remote_and_committed_source_profiles_equal": true,
+  "user_authorized_first_release_scope": "GitHub + Feishu text; old DSH task/session continuity need not be retained. Cold cutover still needs rollback and replay/duplicate boundary. Full business Goal remains intact.",
+  "image_wip": "Saved and isolated locally; not in this source commit, not cancelled from full product scope. No image acceptance claimed.",
+  "formal_entry": {
+    "new_tests": [
+      "formal_sigterm_cancels_model_wait_and_releases_the_lease",
+      "feishu::formal_sigterm_joins_feishu_consumer_tree_before_state_reopen",
+      "feishu::formal_source_owner_sql_failure_exits_and_joins_consumer_instead_of_hanging"
+    ],
+    "new_test_declarations": 3,
+    "total_tests_passed": 46,
+    "environment": "Actual formal binary, loopback model HTTP/SSE and actual managed gh/lark endpoint fixture processes, SQL/Native/Outbox/CodingToolBundle. External services alone are offline fixtures.",
+    "assertions": [
+      "SIGTERM while waiting for model SSE cancels/joins and releases lease; check reopens.",
+      "SIGTERM waits for actual Feishu event consumer and descendant to die, then check reopens; no model/task/reply.",
+      "Real SQL fault only in disposable fixture makes Source ownership fail visibly and process exit nonzero, joining actual consumer/descendant instead of hanging; repaired fixture check reacquires state; no fake task/reply."
+    ],
+    "all_background_stop_or_crash_cuts_accepted": false
+  },
+  "ci_observation_fix": {
+    "previous_head_ci": {
+      "conclusion": "failure",
+      "head_sha": "2dfb14108934def959c3b77a5cc3cf01fe38fab1",
+      "html_url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41369257921",
+      "id": 41369257921,
+      "status": "completed"
+    },
+    "previous_head_platforms": {
+      "ubuntu": "failure at Counting.flushes > before in observed_input",
+      "macos": "success"
+    },
+    "diagnosis": "Logical TurnEnd from load is not an acknowledgement that subsequent independent flush progress has already executed. A controlled50ms delay before Counting.flush reproduces the same assertion failure; bounded progress observation with all original assertions retained passes.",
+    "diagnostic_log": "docs/evidence/production-text-release-01/flush-race-repro.log",
+    "expected_before_exit": 101,
+    "after_probe_passed": true,
+    "extra_normal_repetitions": 30,
+    "original_assertions_byte_identical": true,
+    "runtime_core_host_implementation_changed": false,
+    "frozen_reference_216_files_unchanged": true,
+    "declared_test_overlay": "conformance/business/flush-observation.overlay.json",
+    "reverse_reconstructs_exact_original_import": true,
+    "mutation_guards": 3,
+    "full_new_exact_head_ci": "Must inspect after publication; no cross-platform success is preclaimed."
+  },
+  "regressions": {
+    "workspace_fmt_check": true,
+    "workspace_all_targets_check": true,
+    "workspace_strict_clippy": true,
+    "selected_test_crates": 12,
+    "selected_crates": [
+      "xharness-agent",
+      "xharness-core",
+      "xharness-host",
+      "xharness-session",
+      "xharness-session-jsonl",
+      "xharness-superagent-core",
+      "xharness-superagent",
+      "xharness-tools",
+      "xharness-coding-tools",
+      "xharness-platform",
+      "xharness-sandbox",
+      "xharness-process"
+    ],
+    "cargo_targets": 105,
+    "reported_passed": 1520,
+    "reported_failed": 0,
+    "reported_ignored": 18,
+    "ignored_or_capability_early_returns_are_not_product_acceptance": true,
+    "full_workspace_tests": false,
+    "full_log": "docs/evidence/production-text-release-01/regression-01.log"
+  },
+  "commands": [
+    "cargo fmt --check --all",
+    "cargo check --locked --workspace --all-targets --features xharness-superagent/conformance",
+    "cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings",
+    "cargo test --locked -p xharness-agent -p xharness-core -p xharness-host -p xharness-session -p xharness-session-jsonl -p xharness-superagent-core -p xharness-superagent -p xharness-tools -p xharness-coding-tools -p xharness-platform -p xharness-sandbox --all-targets --features xharness-superagent/conformance",
+    "cargo test --locked -p xharness-process --all-targets -- --test-threads=1"
+  ],
+  "account_preflight": {
+    "entry": "Already-built formal binary --config <new independent source-only config> --check",
+    "scope": "One existing configured GitHub + Feishu CLI pair; production settings read only, independent new state, both Sources disabled, no event loops.",
+    "result": "checked, no Feishu setup error, zero tickets",
+    "binary_sha256": "466a5262caa83cd597ad1cccc60d2f032faf96dff92343d5a95c3885de16075a",
+    "model_endpoint_and_credential_deliberately_nonfunctional": true,
+    "model_requests": 0,
+    "model_or_worker_or_pr_accepted": false,
+    "external_messages": 0,
+    "service_actions": 0,
+    "production_database_modified": false,
+    "full_log": "docs/evidence/production-text-release-01/main-source-preflight.log",
+    "original_profiles_or_secret_values_published": false
+  },
+  "execution": {
+    "rust_host": "WZU_Server owned independent validation source/cache; current uncommitted source synchronized before builds.",
+    "local_rust_compilation": false,
+    "shared_service_changes": false,
+    "paid_model_calls": false,
+    "new_accounts_or_secrets": false,
+    "auto_merge_enabled": false,
+    "sandbox_or_default_permissions_broadened": false,
+    "cargo_lock_unchanged": true,
+    "runtime_controlled_steps": 11,
+    "runtime_controlled_paths": 86,
+    "declared_local_overlays": 5,
+    "node_audit_guards_passed": 13,
+    "node_log": "docs/evidence/production-text-release-01/node-final.log"
+  },
+  "remaining_first_release_gates": [
+    "Actual controlled clone/build/push/PR/review delivery and existing remote execution/CLI behavior; NetworkDeny is not bypassed.",
+    "Actual deployment model transport/streaming/tool/cancel/reasoning validation, including existing Anthropic routes or explicitly verified matching compatible endpoints without billing/provider fallback.",
+    "Management state/overview/sources and human pause/stop/config controls, existing fleet integration and deployment-specific prompt/notification overlays.",
+    "Cold cutover replay/duplicate boundary, service installation/health, actual backup/restore/rollback and authorized real integrations; destructive migration permission is not itself a completed deployment.",
+    "Exact new head CI and all required regressions; selected12 crates are not full workspace/legacy deployment acceptance."
+  ],
+  "logs": [
+    {
+      "path": "docs/evidence/production-text-release-01/audit-first.log",
+      "raw_sha256": "9ad227d5d14141eea301bede5295a340332cc1bad5257a118094320583ac32bd",
+      "public_sha256": "9ad227d5d14141eea301bede5295a340332cc1bad5257a118094320583ac32bd",
+      "normalization": "Only absolute owned source/cache prefixes. Complete output and expected-failure diagnosis retained. No production configuration, credential or private inventory is included."
+    },
+    {
+      "path": "docs/evidence/production-text-release-01/flush-race-repro.log",
+      "raw_sha256": "beacaa94129a0df25d368c40c5eb718a6a64b255f06ccf10a084a767865c7d54",
+      "public_sha256": "60c88c8f3b0dbb939b97cab41f7ab6f3774c809acb2c1b269dd37867c19c4fe2",
+      "normalization": "Only absolute owned source/cache prefixes. Complete output and expected-failure diagnosis retained. No production configuration, credential or private inventory is included."
+    },
+    {
+      "path": "docs/evidence/production-text-release-01/focused-01.log",
+      "raw_sha256": "80c3f5dcd970ae768d1b0bc1fb177a70aa01162fc8092ccfea4b8c80b9087d51",
+      "public_sha256": "0c82acdd7a44b939d27982fd67e374db54c373d2431209e759c32cb6e4b144c5",
+      "normalization": "Only absolute owned source/cache prefixes. Complete output and expected-failure diagnosis retained. No production configuration, credential or private inventory is included."
+    },
+    {
+      "path": "docs/evidence/production-text-release-01/main-source-preflight.log",
+      "raw_sha256": "5d6a252d47cc0d1a87a53d20ca85ff6c5dd3af09c3364492ecf2872f3e001db4",
+      "public_sha256": "5d6a252d47cc0d1a87a53d20ca85ff6c5dd3af09c3364492ecf2872f3e001db4",
+      "normalization": "Only absolute owned source/cache prefixes. Complete output and expected-failure diagnosis retained. No production configuration, credential or private inventory is included."
+    },
+    {
+      "path": "docs/evidence/production-text-release-01/node-final.log",
+      "raw_sha256": "13db60263cb2756a66d0196afc24919a439f39fa84bb5f374c06dd071ab23f02",
+      "public_sha256": "13db60263cb2756a66d0196afc24919a439f39fa84bb5f374c06dd071ab23f02",
+      "normalization": "Only absolute owned source/cache prefixes. Complete output and expected-failure diagnosis retained. No production configuration, credential or private inventory is included."
+    },
+    {
+      "path": "docs/evidence/production-text-release-01/previous-head-ubuntu.log",
+      "raw_sha256": "0e4fb20827239196c02dc13c7b6523f2886673e064a684f880397b159d48f1aa",
+      "public_sha256": "0e4fb20827239196c02dc13c7b6523f2886673e064a684f880397b159d48f1aa",
+      "normalization": "Only absolute owned source/cache prefixes. Complete output and expected-failure diagnosis retained. No production configuration, credential or private inventory is included."
+    },
+    {
+      "path": "docs/evidence/production-text-release-01/regression-01.log",
+      "raw_sha256": "ea9f1c0fd63f9b0803168fa4355bbc43572df46ea0c8a3fc89fd276dd646951d",
+      "public_sha256": "5ffbbb95c4ffe02204bfa22693ba5ad79eea977e04316a2215df40288f50a80b",
+      "normalization": "Only absolute owned source/cache prefixes. Complete output and expected-failure diagnosis retained. No production configuration, credential or private inventory is included."
+    }
+  ],
+  "full_goal_complete": false,
+  "production_replacement_ready": false,
+  "cancelled_global_language_work_restarted": false
+}

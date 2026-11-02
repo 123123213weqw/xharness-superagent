@@ -50,6 +50,8 @@
 
 - [飞书文本正式入口](docs/superagent/business-feishu-live.md)：实际事件、历史补拉、正文/上下文/链接、Worker 执行与 bot 回复，新增6条正式场景（总43条）；图片/附件、完整 Source 矩阵及线上联调仍未完成。
 
+- [文本生产化推进](docs/superagent/production-text-release.md)：SIGTERM统一回收、来源致命SQL错误退出及CI观察竞争修正；正式入口46条。允许冷切不等于已经可替换现网。
+
 ## 尚未完成
 
 - 完整 Assessor/Executor 协作及剩余研判/资源/生命周期分支。

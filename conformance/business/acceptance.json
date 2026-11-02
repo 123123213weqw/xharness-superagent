@@ -525,6 +525,21 @@
           "feishu_text_event_path_executed": true,
           "full_feishu_source_complete": false,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "71317c8514f3c42de944661aac609613c845195e",
+          "entry_and_command": "Formal binary tests in final WZU_Server selected12 regression; source-account-only --check also executed in independent state",
+          "environment": "Actual formal binary, loopback model HTTP/SSE and actual managed gh/lark endpoint fixture processes, SQL/Native/Outbox/CodingToolBundle. External services alone are offline fixtures.",
+          "full_log": "docs/evidence/production-text-release-01/regression-01.log",
+          "business_assertions": "docs/production-text-release-verification.json",
+          "tests": [
+            "formal_sigterm_cancels_model_wait_and_releases_the_lease",
+            "feishu::formal_sigterm_joins_feishu_consumer_tree_before_state_reopen",
+            "feishu::formal_source_owner_sql_failure_exits_and_joins_consumer_instead_of_hanging"
+          ],
+          "actual_product_path": true,
+          "verified_subset": "SIGTERM ownership and persistent SQL-failure exit/reopen, plus actual source-account startup check only; not production cutover/model/Worker PR acceptance",
+          "not_signed_off": true
         }
       ]
     },
@@ -641,6 +656,21 @@
           "feishu_text_event_path_executed": true,
           "full_feishu_source_complete": false,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "71317c8514f3c42de944661aac609613c845195e",
+          "entry_and_command": "Formal binary tests in final WZU_Server selected12 regression; source-account-only --check also executed in independent state",
+          "environment": "Actual formal binary, loopback model HTTP/SSE and actual managed gh/lark endpoint fixture processes, SQL/Native/Outbox/CodingToolBundle. External services alone are offline fixtures.",
+          "full_log": "docs/evidence/production-text-release-01/regression-01.log",
+          "business_assertions": "docs/production-text-release-verification.json",
+          "tests": [
+            "formal_sigterm_cancels_model_wait_and_releases_the_lease",
+            "feishu::formal_sigterm_joins_feishu_consumer_tree_before_state_reopen",
+            "feishu::formal_source_owner_sql_failure_exits_and_joins_consumer_instead_of_hanging"
+          ],
+          "actual_product_path": true,
+          "verified_subset": "SIGTERM ownership and persistent SQL-failure exit/reopen, plus actual source-account startup check only; not production cutover/model/Worker PR acceptance",
+          "not_signed_off": true
         }
       ]
     },
@@ -705,8 +735,24 @@
       "id": "DEPLOY-01",
       "milestone": "B6",
       "title": "独立部署启动/健康/关闭、备份恢复与回退可复现，不改现有服务",
-      "status": "not_run",
-      "evidence": []
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "71317c8514f3c42de944661aac609613c845195e",
+          "entry_and_command": "Formal binary tests in final WZU_Server selected12 regression; source-account-only --check also executed in independent state",
+          "environment": "Actual formal binary, loopback model HTTP/SSE and actual managed gh/lark endpoint fixture processes, SQL/Native/Outbox/CodingToolBundle. External services alone are offline fixtures.",
+          "full_log": "docs/evidence/production-text-release-01/regression-01.log",
+          "business_assertions": "docs/production-text-release-verification.json",
+          "tests": [
+            "formal_sigterm_cancels_model_wait_and_releases_the_lease",
+            "feishu::formal_sigterm_joins_feishu_consumer_tree_before_state_reopen",
+            "feishu::formal_source_owner_sql_failure_exits_and_joins_consumer_instead_of_hanging"
+          ],
+          "actual_product_path": true,
+          "verified_subset": "SIGTERM ownership and persistent SQL-failure exit/reopen, plus actual source-account startup check only; not production cutover/model/Worker PR acceptance",
+          "not_signed_off": true
+        }
+      ]
     },
     {
       "id": "REG-01",
@@ -717,13 +763,13 @@
     }
   ],
   "implementation_progress": {
-    "status": "B2_feishu_text_product_loop_and_read_protocols_verified_full_business_incomplete",
-    "evidence": "docs/business-feishu-live-verification.json",
+    "status": "Text_production_readiness_SIGTERM_and_fatal_source_exit_verified_full_business_and_cutover_incomplete",
+    "evidence": "docs/production-text-release-verification.json",
     "full_business_groups_passed": 5,
-    "business_groups_in_progress": 10,
-    "business_groups_not_run": 8,
+    "business_groups_in_progress": 11,
+    "business_groups_not_run": 7,
     "validation_environment": "offline_protocol_fixture",
-    "formal_entry_tests_passed": 43,
+    "formal_entry_tests_passed": 46,
     "application_tool_registrations": {
       "main": 14,
       "worker": 6,
@@ -732,7 +778,7 @@
       "all_names_registered_not_all_business_branches_complete": true,
       "framework_skill_separate": true
     },
-    "workspace_test_gate": "selected10_passed_not_full_workspace; previous646b6df_Ubuntu_success_Mac_retry_failure; narrow_fix_and20_Linux_retries_verified; new_exact_head_CI_separate; legacy_WZU_Feishu_deployment_not_cleared",
+    "workspace_test_gate": "selected12_passed_not_full_workspace; prior2dfb141_mac_success_ubuntu_flush_observation_failure; bounded_observation_fix_preserves_all_assertions_and30_repetitions; new_exact_CI_separate",
     "resource_backing_components": {
       "evidence": "docs/business-resources-verification.json",
       "sql_checks": 7,
@@ -775,8 +821,16 @@
       "images_or_attachments_accepted": false,
       "new_full_business_groups_passed": 0,
       "full_source_complete": false
+    },
+    "text_production_readiness": {
+      "evidence": "docs/production-text-release-verification.json",
+      "new_formal_tests": 3,
+      "actual_source_account_only_preflight": true,
+      "production_cutover_done": false,
+      "cold_migration_permission_not_acceptance": true,
+      "full_product_complete": false
     }
   },
-  "updated_at_utc": "2026-11-02T00:49:36.623210+00:00",
+  "updated_at_utc": "2026-11-02T01:44:17.984101+00:00",
   "validation_note": "passed denotes the listed complete product scenario in an explicitly offline protocol environment, not real GitHub/model service approval, universal parity or release readiness. Unexecuted branches remain open."
 }

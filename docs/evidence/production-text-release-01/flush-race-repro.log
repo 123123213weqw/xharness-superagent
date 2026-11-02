@@ -1,0 +1,49 @@
+{"diagnostic_fixture": "production_observed_flush_before.rs", "sha256": "ea81965d987795b7232e8721b47605251ba87b30796269ee52e602a7bf4e5c0a", "all_original_assertions_retained": true, "store_flush_scheduled_delay_ms": 50, "not_production_code": true}
+{"diagnostic_fixture": "production_observed_flush_after.rs", "sha256": "2b092a96e248186efd07fd1752f80e56bbc09aab66a842742103d9cacd465eda", "all_original_assertions_retained": true, "store_flush_scheduled_delay_ms": 50, "not_production_code": true}
+   Compiling tokio-util v0.7.19
+   Compiling xharness-control v0.1.0 (<owned-source>/crates/xharness-control)
+   Compiling xharness-tools v0.1.0 (<owned-source>/crates/xharness-tools)
+   Compiling tokio-stream v0.1.19
+   Compiling xharness-api v0.1.0 (<owned-source>/crates/xharness-api)
+   Compiling xharness-interaction v0.1.0 (<owned-source>/crates/xharness-interaction)
+   Compiling xharness-session v0.1.0 (<owned-source>/crates/xharness-session)
+   Compiling xharness-compaction v0.1.0 (<owned-source>/crates/xharness-compaction)
+   Compiling xharness-goal v0.1.0 (<owned-source>/crates/xharness-goal)
+   Compiling xharness-session-import v0.1.0 (<owned-source>/crates/xharness-session-import)
+   Compiling xharness-attachments v0.1.0 (<owned-source>/crates/xharness-attachments)
+   Compiling xharness-session-jsonl v0.1.0 (<owned-source>/crates/xharness-session-jsonl)
+   Compiling xharness-context v0.1.0 (<owned-source>/crates/xharness-context)
+   Compiling xharness-core v0.1.0 (<owned-source>/crates/xharness-core)
+   Compiling xharness-agent v0.1.0 (<owned-source>/crates/xharness-agent)
+   Compiling xharness-projection v0.1.0 (<owned-source>/crates/xharness-projection)
+   Compiling xharness-schedule v0.1.0 (<owned-source>/crates/xharness-schedule)
+   Compiling xharness-host v0.1.0 (<owned-source>/crates/xharness-host)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 45.12s
+     Running tests/production_observed_flush_before.rs (<owned-target>/debug/deps/production_observed_flush_before-f9e3e41f8ec339c2)
+
+running 1 test
+
+thread 'active_core_may_flush_prefix_but_cannot_consume_held_step_before_actor_release' (634787) panicked at crates/xharness-host/tests/production_observed_flush_before.rs:411:5:
+assertion failed: s.flushes.load(Ordering::SeqCst) > before
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test active_core_may_flush_prefix_but_cannot_consume_held_step_before_actor_release ... FAILED
+
+failures:
+
+failures:
+    active_core_may_flush_prefix_but_cannot_consume_held_step_before_actor_release
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 12 filtered out; finished in 0.18s
+
+error: test failed, to rerun pass `-p xharness-host --test production_observed_flush_before`
+EXPECTED_RACE_BEFORE_EXIT=101
+   Compiling xharness-host v0.1.0 (<owned-source>/crates/xharness-host)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.63s
+
+running 1 test
+     Running tests/production_observed_flush_after.rs (<owned-target>/debug/deps/production_observed_flush_after-22c2e94779050442)
+test active_core_may_flush_prefix_but_cannot_consume_held_step_before_actor_release ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 12 filtered out; finished in 0.46s
+
+OBSERVATION_FENCE_PROBE_PASS
