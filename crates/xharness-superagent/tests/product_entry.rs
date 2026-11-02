@@ -254,7 +254,8 @@ fn serve(
         )?;
         return Ok(());
     }
-    if !headers.starts_with("POST /v1/chat/completions ") {
+    let messages_protocol = headers.starts_with("POST /v1/messages ");
+    if !messages_protocol && !headers.starts_with("POST /v1/chat/completions ") {
         return Err(format!(
             "Unexpected model endpoint: {}",
             headers.lines().next().unwrap_or_default()
@@ -263,7 +264,12 @@ fn serve(
     }
     let request: Value = serde_json::from_slice(&bytes[end..end + length])?;
     let worker = request["model"] == "worker";
-    let (name, args) = responder(&request)?;
+    let fixture_request = if messages_protocol {
+        messages_fixture_projection(&request)
+    } else {
+        request.clone()
+    };
+    let (name, args) = responder(&fixture_request)?;
     let mut recorded = requests.lock().unwrap();
     let id = recorded.len();
     recorded.push(request);
@@ -273,6 +279,32 @@ fn serve(
             return Ok(());
         }
         thread::sleep(Duration::from_millis(5));
+    }
+    if messages_protocol {
+        let mut events = vec![
+            json!({"type":"message_start","message":{"usage":{"input_tokens":100,"output_tokens":0}}}),
+            json!({"type":"content_block_start","index":0,"content_block":{"type":"thinking","thinking":"","signature":""}}),
+            json!({"type":"content_block_delta","index":0,"delta":{"type":"thinking_delta","thinking":"synthetic-private-thinking"}}),
+            json!({"type":"content_block_delta","index":0,"delta":{"type":"signature_delta","signature":"synthetic-signature"}}),
+            json!({"type":"content_block_stop","index":0}),
+        ];
+        if let Some(name) = name {
+            events.extend([json!({"type":"content_block_start","index":1,"content_block":{"type":"tool_use","id":format!("call-{id}"),"name":name,"input":{}}}),
+                json!({"type":"content_block_delta","index":1,"delta":{"type":"input_json_delta","partial_json":args.to_string()}}),
+                json!({"type":"content_block_stop","index":1})]);
+        } else {
+            events.extend([json!({"type":"content_block_start","index":1,"content_block":{"type":"text","text":""}}),
+                json!({"type":"content_block_delta","index":1,"delta":{"type":"text_delta","text":"Finished this turn"}}),
+                json!({"type":"content_block_stop","index":1})]);
+        }
+        events.extend([json!({"type":"message_delta","delta":{"stop_reason":if name.is_some(){"tool_use"}else{"end_turn"}},"usage":{"output_tokens":20}}),json!({"type":"message_stop"})]);
+        let body = events
+            .into_iter()
+            .map(|v| format!("event: {}\ndata: {v}\n\n", v["type"].as_str().unwrap()))
+            .collect::<String>();
+        write!(stream,"HTTP/1.1 200 OK\r\nContent-Type: text/event-stream\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{}",body.len(),body)?;
+        stream.flush()?;
+        return Ok(());
     }
     let mut delta = if let Some(name) = name {
         json!({"tool_calls":[{"index":0,"id":format!("call-{id}"),"type":"function","function":{"name":name,"arguments":args.to_string()}}]})
@@ -291,6 +323,36 @@ fn serve(
     write!(stream,"HTTP/1.1 200 OK\r\nContent-Type: text/event-stream\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{}",body.len(),body)?;
     stream.flush()?;
     Ok(())
+}
+// Translate only the independent endpoint fixture's request for its existing
+// deterministic responder. The product still emits/reads actual Messages SSE;
+// recorded requests retain the unmodified wire format for assertions.
+fn messages_fixture_projection(request: &Value) -> Value {
+    let mut out = request.clone();
+    let mut messages = vec![];
+    for m in request["messages"].as_array().unwrap() {
+        let blocks = m["content"].as_array().unwrap();
+        if m["role"] == "assistant" {
+            let calls:Vec<_>=blocks.iter().filter(|b|b["type"]=="tool_use").map(|b|json!({"id":b["id"],"type":"function","function":{"name":b["name"],"arguments":b["input"].to_string()}})).collect();
+            let text = blocks
+                .iter()
+                .filter(|b| b["type"] == "text")
+                .filter_map(|b| b["text"].as_str())
+                .collect::<String>();
+            messages.push(json!({"role":"assistant","content":text,"tool_calls":calls}));
+        } else {
+            for b in blocks {
+                if b["type"] == "tool_result" {
+                    messages.push(json!({"role":"tool","tool_call_id":b["tool_use_id"],"content":b["content"]}));
+                } else if b["type"] == "text" {
+                    messages.push(json!({"role":"user","content":b["text"]}));
+                }
+            }
+        }
+    }
+    out["messages"] = json!(messages);
+    out["tools"]=json!(request["tools"].as_array().unwrap().iter().map(|t|json!({"type":"function","function":{"name":t["name"],"parameters":t["input_schema"]}})).collect::<Vec<_>>());
+    out
 }
 fn message_text(message: &Value) -> String {
     if let Some(text) = message["content"].as_str() {
@@ -1679,4 +1741,57 @@ async fn formal_sigterm_cancels_model_wait_and_releases_the_lease() {
     assert_eq!(success(&output)["state"], "stopped");
     assert!(fixture.posts().is_empty());
     assert_eq!(success(&fixture.run("--check").await)["state"], "checked");
+}
+
+#[tokio::test]
+async fn formal_messages_protocol_runs_native_worker_and_reply_with_signature_replay() {
+    let server = Server::new(false);
+    let mut fixture = Fixture::new(&server.url);
+    for model in fixture.config["models"].as_array_mut().unwrap() {
+        model["protocol"] = json!("anthropic_messages");
+        model["maxOutputTokens"] = json!(4096);
+    }
+    let summary = success(&fixture.run("--once").await);
+    assert_eq!(summary["state"], "idle");
+    assert_eq!(summary["pendingEffects"], 0);
+    assert_eq!(summary["tickets"], 1);
+    let tickets = fixture.table("ticket");
+    let path = PathBuf::from(tickets[0]["execution"]["directory"].as_str().unwrap());
+    assert_eq!(
+        std::fs::read_to_string(path.join("result.txt")).unwrap(),
+        "你好 😀\n"
+    );
+    assert!(!path.parent().unwrap().join("escape.txt").exists());
+    let requests = server.requests();
+    assert!(requests.iter().any(|r| r["model"] == "worker"));
+    assert!(requests.iter().any(|r| r["model"] == "main"));
+    assert!(requests
+        .iter()
+        .all(|r| r["max_tokens"] == 4096 && r.get("stream_options").is_none()));
+    assert!(requests
+        .iter()
+        .flat_map(|r| r["messages"].as_array().unwrap())
+        .flat_map(|m| m["content"].as_array().unwrap())
+        .any(|b| b["type"] == "thinking" && b["signature"] == "synthetic-signature"));
+    for request in requests {
+        let names = request["tools"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .filter_map(|t| t["name"].as_str())
+            .collect::<Vec<_>>();
+        assert!(!names.contains(&"web_fetch") && !names.contains(&"web_search"));
+    }
+    let posts = fixture.posts();
+    assert_eq!(posts.len(), 2);
+    assert!(posts[1]["body"]
+        .as_str()
+        .unwrap()
+        .contains("已生成 result.txt 😀"));
+    assert!(posts
+        .iter()
+        .all(|p| !p.to_string().contains("synthetic-private-thinking")));
+    success(&fixture.run("--once").await);
+    assert_eq!(fixture.table("ticket").len(), 1);
+    assert_eq!(fixture.posts().len(), 2);
 }

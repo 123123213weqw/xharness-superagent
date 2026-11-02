@@ -91,6 +91,13 @@ impl Selector {
         }
     }
 }
+#[derive(Clone, Copy, Deserialize)]
+#[serde(rename_all = "snake_case")]
+enum Protocol {
+    ChatCompletions,
+    Responses,
+    AnthropicMessages,
+}
 #[derive(Clone, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 struct Model {
@@ -98,7 +105,9 @@ struct Model {
     model: String,
     #[serde(default)]
     upstream_model: Option<String>,
-    protocol: OpenAiProtocol,
+    protocol: Protocol,
+    #[serde(default)]
+    max_output_tokens: Option<u64>,
     base_url: String,
     api_key_env: String,
     #[serde(default)]
@@ -165,6 +174,20 @@ impl Config {
             {
                 return Err(error("apiKeyEnv must name a credential environment variable (for example SUPERAGENT_API_KEY) so worker subprocesses scrub it"));
             }
+            if matches!(model.protocol, Protocol::AnthropicMessages)
+                && model.max_output_tokens.is_none_or(|n| n == 0)
+            {
+                return Err(error(
+                    "anthropic_messages requires explicit positive maxOutputTokens",
+                ));
+            }
+            if !matches!(model.protocol, Protocol::AnthropicMessages)
+                && model.max_output_tokens.is_some()
+            {
+                return Err(error(
+                    "maxOutputTokens is currently a Messages route setting",
+                ));
+            }
             if model.context_window_tokens == Some(0) {
                 return Err(error("contextWindowTokens must be positive"));
             }
@@ -200,19 +223,9 @@ impl Config {
                     model.api_key_env
                 )));
             }
-            let mut config = OpenAiProviderConfig::new(
-                model.protocol,
-                &model.base_url,
-                key,
-                model.upstream_model.as_deref().unwrap_or(&model.model),
-            )
-            .with_context_window_fallback(model.context_window_tokens);
             let mut descriptor =
                 ModelDescriptor::new(&model.provider, &model.provider, &model.model, &model.model);
             if !model.reasoning.is_empty() {
-                config = config.with_reasoning_profile(
-                    OpenAiReasoningProfile::new(None, model.reasoning.clone()).map_err(display)?,
-                );
                 descriptor = descriptor.with_reasoning(ModelReasoning::new(
                     model
                         .reasoning
@@ -221,7 +234,39 @@ impl Config {
                         .collect(),
                 ));
             }
-            let provider = Arc::new(OpenAiProvider::new(config).map_err(display)?);
+            let upstream = model.upstream_model.as_deref().unwrap_or(&model.model);
+            let provider: Arc<dyn xharness_core::ModelProvider> = match model.protocol {
+                Protocol::AnthropicMessages => Arc::new(
+                    super::messages::MessagesProvider::new(
+                        &model.base_url,
+                        key,
+                        upstream.into(),
+                        model
+                            .max_output_tokens
+                            .ok_or_else(|| error("Missing Messages maxOutputTokens"))?,
+                        model.context_window_tokens,
+                        model.reasoning.clone(),
+                    )
+                    .map_err(display)?,
+                ),
+                Protocol::ChatCompletions | Protocol::Responses => {
+                    let protocol = if matches!(model.protocol, Protocol::ChatCompletions) {
+                        OpenAiProtocol::ChatCompletions
+                    } else {
+                        OpenAiProtocol::Responses
+                    };
+                    let mut config =
+                        OpenAiProviderConfig::new(protocol, &model.base_url, key, upstream)
+                            .with_context_window_fallback(model.context_window_tokens);
+                    if !model.reasoning.is_empty() {
+                        config = config.with_reasoning_profile(
+                            OpenAiReasoningProfile::new(None, model.reasoning.clone())
+                                .map_err(display)?,
+                        );
+                    }
+                    Arc::new(OpenAiProvider::new(config).map_err(display)?)
+                }
+            };
             registry
                 .register(RegisteredModel::new(descriptor, provider))
                 .map_err(display)?;

@@ -38,6 +38,7 @@ jobs:
       - run: node --test conformance/business/product-cargo-overlay.test.mjs
       - run: node --test conformance/business/business-word-cargo-overlay.test.mjs
       - run: node --test conformance/business/feishu-cargo-overlay.test.mjs
+      - run: node --test conformance/business/messages-cargo-overlay.test.mjs
       - run: npm ci --ignore-scripts --no-audit --no-fund --prefix conformance
       - run: node --experimental-transform-types conformance/business/github-source-oracle.mjs --check
       - run: node --experimental-transform-types conformance/business/feishu-source-oracle.mjs --check

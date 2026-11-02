@@ -54,6 +54,7 @@ pub mod configuration;
 mod controls;
 pub mod feishu;
 pub mod github;
+mod messages;
 pub mod native;
 pub mod resources;
 pub mod text;

@@ -3066,11 +3066,13 @@ dependencies = [
 name = "xharness-superagent"
 version = "0.1.0"
 dependencies = [
+ "async-stream",
  "async-trait",
  "chrono",
  "futures",
  "icu_segmenter",
  "regex",
+ "reqwest",
  "rusqlite",
  "serde",
  "serde_json",

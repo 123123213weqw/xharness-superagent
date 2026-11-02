@@ -7,6 +7,7 @@ import {dirname,resolve} from 'node:path'
 import {auditedHostTestBeforeFlushObservation} from './business/flush-observation.mjs'
 import {auditedHostBeforeProductObserver} from './business/host-input-observer.mjs'
 import {auditedLockBeforeProductDependency} from './business/product-cargo-overlay.mjs'
+import {auditedLockBeforeMessages} from './business/messages-cargo-overlay.mjs'
 import {auditedLockBeforeFeishu} from './business/feishu-cargo-overlay.mjs'
 import {auditedLockBeforeBusinessWords} from './business/business-word-cargo-overlay.mjs'
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..')
@@ -134,7 +135,7 @@ for(const [path,record]of Object.entries(proposalUI.files)){
 }
 for(const [path,expected]of final){
  const current=readFileSync(resolve(root,path))
- const audited=path==='crates/xharness-host/tests/observed_input.rs'?auditedHostTestBeforeFlushObservation(current,expected):path==='crates/xharness-host/src/runtime.rs'?auditedHostBeforeProductObserver(current,expected):path==='Cargo.lock'?auditedLockBeforeProductDependency(auditedLockBeforeBusinessWords(auditedLockBeforeFeishu(current)),expected):current
+ const audited=path==='crates/xharness-host/tests/observed_input.rs'?auditedHostTestBeforeFlushObservation(current,expected):path==='crates/xharness-host/src/runtime.rs'?auditedHostBeforeProductObserver(current,expected):path==='Cargo.lock'?auditedLockBeforeProductDependency(auditedLockBeforeBusinessWords(auditedLockBeforeFeishu(auditedLockBeforeMessages(current))),expected):current
  if(sha(audited)!==expected)throw new Error(`audited backport differs: ${path}`)
 }
-console.log(JSON.stringify({source_commit:proof.source_commit,runtime_base_commit:proof.runtime_base_commit,controlled_steps:11,controlled_paths:final.size,source_patch_sha256:[proof.source_patch_sha256,next.source_patch_sha256,admission.source_patch_sha256,persistence.source_patch_sha256,eager.source_patch_sha256,prompt.source_patch_sha256,rendering.source_patch_sha256,step.source_patch_sha256,prestep.source_patch_sha256,ownedInput.source_patch_sha256,proposalUI.source_patch_sha256],product_local_overlays:5,current_target_matches_audited_backport:false,current_target_matches_backport_plus_declared_product_overlays:true,semantic_or_release_approval:false,product_store_and_full_native_agentdelivery_installed:false}))
+console.log(JSON.stringify({source_commit:proof.source_commit,runtime_base_commit:proof.runtime_base_commit,controlled_steps:11,controlled_paths:final.size,source_patch_sha256:[proof.source_patch_sha256,next.source_patch_sha256,admission.source_patch_sha256,persistence.source_patch_sha256,eager.source_patch_sha256,prompt.source_patch_sha256,rendering.source_patch_sha256,step.source_patch_sha256,prestep.source_patch_sha256,ownedInput.source_patch_sha256,proposalUI.source_patch_sha256],product_local_overlays:6,current_target_matches_audited_backport:false,current_target_matches_backport_plus_declared_product_overlays:true,semantic_or_release_approval:false,product_store_and_full_native_agentdelivery_installed:false}))

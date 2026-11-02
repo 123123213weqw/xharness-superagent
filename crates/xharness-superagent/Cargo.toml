@@ -11,6 +11,8 @@ description = "Durable SuperAgent product application, isolated from legacy host
 conformance = ["tokio/test-util"]
 
 [dependencies]
+async-stream.workspace = true
+reqwest = { workspace = true, features = ["rustls-tls"] }
 url = "=2.5.8"
 xharness-superagent-core = { path = "../xharness-superagent-core" }
 rusqlite = { version = "=0.37.0", features = ["bundled"] }

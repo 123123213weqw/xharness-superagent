@@ -2,7 +2,8 @@ import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {readFileSync} from 'node:fs';
 import {auditedLockBeforeFeishu} from './feishu-cargo-overlay.mjs';
-const current=readFileSync(new URL('../../Cargo.lock',import.meta.url));
+import {auditedLockBeforeMessages} from './messages-cargo-overlay.mjs';
+const current=auditedLockBeforeMessages(readFileSync(new URL('../../Cargo.lock',import.meta.url)));
 test('one direct url edge reconstructs the exact preceding business lock',()=>{
  const before=auditedLockBeforeFeishu(current);assert.equal(current.length-before.length,Buffer.byteLength(' "url",\n'));
  assert.equal((current.toString().match(/^\[\[package\]\]$/gm)??[]).length,(before.toString().match(/^\[\[package\]\]$/gm)??[]).length);
