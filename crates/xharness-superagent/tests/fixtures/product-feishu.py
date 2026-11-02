@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Explicit offline Feishu CLI endpoints for the real product. No SDK stub/network."""
 import json
+import select
 import os
 from pathlib import Path
 import subprocess
@@ -28,6 +29,11 @@ if args == ['config','strict-mode']:
 if args == ['api','GET','/open-apis/bot/v3/info','--as','bot','--format','ndjson']:
     print(json.dumps({'bot':{'open_id':'ou_bot','app_name':'飞书机器人 😀'}},ensure_ascii=False));sys.exit(0)
 if args == ['event','consume','im.message.receive_v1','--as','bot']:
+    # Match the actual CLI: an unbounded consumer treats stdin EOF as exit.
+    # Offline fixtures must not hide the managed-null-stdin production defect.
+    if select.select([sys.stdin], [], [], 0)[0] and not sys.stdin.read(1):
+        sys.stderr.write('[event] stdin closed — shutting down\n')
+        sys.exit(5)
     count = int((root/'consumer-count').read_text())+1 if (root/'consumer-count').exists() else 1
     atomic('consumer-count',str(count));atomic('consumer-pid',str(os.getpid()))
     with (root/'consumer-times.jsonl').open('a') as f:f.write(json.dumps(time.monotonic())+'\n')

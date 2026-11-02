@@ -44,4 +44,28 @@ never from the configuration file, and retain the existing subprocess scrubbing.
 Only two direct edges to already locked packages were added: `reqwest` and
 `async-stream`. No external package versions/checksums were refreshed. The exact
 lock overlay reconstructs the previous audited lock and has negative mutation
-tests. Existing Runtime, Host, Core and default sandbox code are unchanged.
+tests. Core/Host and default sandbox behavior are unchanged. A separate, explicit
+ProcessRuntime stdin lifetime option fixes the real Feishu consumer defect;
+see the live acceptance record.
+
+## Real Feishu stdin failure and narrow runtime fix
+
+The actual unbounded CLI exits when stdin reaches EOF. Its managed process was
+previously spawned with null stdin, repeatedly leaving the live Source unhealthy;
+history polling could still receive messages and therefore masked the defect.
+A side-by-side actual CLI run confirmed: null/unbounded exits immediately,
+held-pipe/unbounded stays ready, and the CLI's bounded mode also stays ready.
+
+`ProcessRuntime::spawn_with_open_stdin` now explicitly opts into a supervisor-owned,
+non-writable stdin pipe. Taking it out of `Child` matters: `Child::wait` otherwise
+closes stdin. The pipe lives until managed-tree shutdown; normal `spawn`, argv,
+environment replacement, sandbox defaults, TERM/KILL handling and drain ordering
+remain unchanged. Feishu alone opts in. No shell wrapper or periodic artificial
+consumer timeout was introduced. Multi-line diagnostics now retain the actual
+bounded CLI error instead of only its final JSON brace.
+
+Adversarial offline CLI fixtures now reproduce real stdin-EOF behavior. Tests
+also cover the old null default, explicit held lifetime, normal exit, timeout,
+cancellation and existing process-tree cleanup. A separately authorized real-bot
+test observed ready, a stable connection, cancellation and join; that probe alone
+is not live Ticket/reply acceptance.

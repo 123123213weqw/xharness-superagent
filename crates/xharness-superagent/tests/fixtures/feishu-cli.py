@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Offline bot CLI boundary only. No Feishu, credentials, network or SDK stub."""
 import json
+import select
 import os
 from pathlib import Path
 import subprocess
@@ -14,7 +15,7 @@ mode = os.environ.get('FEISHU_FIXTURE_MODE', '')
 assert os.environ['LARKSUITE_CLI_NO_UPDATE_NOTIFIER'] == '1'
 assert os.environ['LARKSUITE_CLI_NO_SKILLS_NOTIFIER'] == '1'
 def marker(name, value):
-    p = root / (name + '.tmp')
+    p = root / (name + '.' + str(os.getpid()) + '.tmp')
     p.write_text(str(value))
     p.replace(root / name)
 if args == ['auth', 'status']:
@@ -29,6 +30,11 @@ elif args == ['config', 'strict-mode']:
 elif args == ['api', 'GET', '/open-apis/bot/v3/info', '--as', 'bot', '--format', 'ndjson']:
     print(json.dumps({'bot': {'open_id': 'ou_bot', 'app_name': '测试机器人 😀'}}))
 elif args == ['event', 'consume', 'im.message.receive_v1', '--as', 'bot']:
+    # Match the actual CLI: an unbounded consumer treats stdin EOF as exit.
+    # Offline fixtures must not hide the managed-null-stdin production defect.
+    if select.select([sys.stdin], [], [], 0)[0] and not sys.stdin.read(1):
+        sys.stderr.write('[event] stdin closed — shutting down\n')
+        sys.exit(5)
     marker('consumer-pid', os.getpid())
     if mode == 'exit':
         sys.stderr.write('[event] ready'); sys.stderr.flush()

@@ -533,10 +533,13 @@ async fn formal_startup_sync_rejects_even_a_concurrent_names_only_policy_revisio
         .unwrap();
     let summary = success(&output);
     assert_eq!(summary["policySync"]["sync:feishu"]["state"], "error");
-    assert!(summary["policySync"]["sync:feishu"]["detail"]
-        .as_str()
-        .unwrap()
-        .contains("Settings changed"));
+    assert!(
+        summary["policySync"]["sync:feishu"]["detail"]
+            .as_str()
+            .unwrap()
+            .contains("Settings changed"),
+        "unexpected synchronization outcome: {summary}"
+    );
     assert_eq!(
         settings(&fixture)["policy"]["sources"]["feishu"]["allowed"],
         json!([{"id":"ou_keep","name":"并发保留 😀"},{"id":"ou_leave","name":"Depart"}])

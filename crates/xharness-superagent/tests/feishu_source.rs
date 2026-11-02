@@ -510,3 +510,42 @@ async fn oversized_event_is_visible_but_does_not_restart_or_hide_next_event() {
     assert!(dead(&pid(&fixture, "consumer-pid").await).await);
     assert!(dead(&pid(&fixture, "consumer-child").await).await);
 }
+
+#[tokio::test]
+#[ignore = "Real bot consumer; requires explicit existing CLI authorization"]
+async fn live_bot_consumer_remains_ready_with_managed_stdin_and_joins_on_cancel() {
+    let program =
+        std::env::var("SUPERAGENT_LIVE_FEISHU_CLI").expect("explicit existing bot CLI required");
+    let root = std::env::current_dir().unwrap();
+    let cli = Cli::resolve(
+        PathBuf::from(program),
+        root,
+        std::env::vars_os().collect(),
+        CancellationToken::new(),
+    )
+    .await
+    .unwrap()
+    .expect("actual bot setup required");
+    let stop = CancellationToken::new();
+    let (ready_tx, mut ready_rx) = tokio::sync::watch::channel(false);
+    let run = cli.consume(stop.clone(), move |event| {
+        if matches!(event, consumer::Event::Ready) {
+            ready_tx.send_replace(true);
+        }
+    });
+    tokio::pin!(run);
+    tokio::select! {
+        result=&mut run=>panic!("consumer exited before readiness: {result:?}"),
+        result=tokio::time::timeout(Duration::from_secs(45),async{while !*ready_rx.borrow_and_update(){ready_rx.changed().await.unwrap();}})=>result.unwrap(),
+    }
+    tokio::select! {
+        result=&mut run=>panic!("consumer ended despite held stdin: {result:?}"),
+        _=tokio::time::sleep(Duration::from_secs(3))=>(),
+    }
+    stop.cancel();
+    let result = tokio::time::timeout(Duration::from_secs(15), run)
+        .await
+        .unwrap();
+    assert!(matches!(result, Err(Error::Cancelled)));
+    eprintln!("Real bot CLI ready, remained alive for 3s with managed stdin, cancelled and joined; no intake or replies performed");
+}

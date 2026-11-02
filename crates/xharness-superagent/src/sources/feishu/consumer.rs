@@ -61,6 +61,22 @@ impl Lines {
         result
     }
 }
+// Preserve bounded multi-line CLI errors instead of replacing the actual
+// diagnostic with the last JSON closing brace.
+fn append_diagnostic(retained: &mut String, line: &str) {
+    if !retained.is_empty() {
+        retained.push('\n');
+    }
+    retained.push_str(line);
+    let excess = retained.chars().count().saturating_sub(4000);
+    if excess > 0 {
+        let byte = retained
+            .char_indices()
+            .nth(excess)
+            .map_or(retained.len(), |(i, _)| i);
+        retained.drain(..byte);
+    }
+}
 const OVERSIZE: &str = "Feishu event exceeds 1 MiB";
 impl Cli {
     pub async fn consume(
@@ -73,7 +89,7 @@ impl Cli {
             return Err(Error::Cancelled);
         }
         let args = ["event", "consume", "im.message.receive_v1", "--as", "bot"].map(str::to_owned);
-        let handle = self.runtime.spawn(self.spec(&args))?;
+        let handle = self.runtime.spawn_with_open_stdin(self.spec(&args))?;
         let stopping = handle.cancellation();
         let mut observer = handle.output_observer();
         let wait = handle.wait();
@@ -108,7 +124,7 @@ impl Cli {
                             continue;
                         }
                     };
-                    diagnostic = line.chars().take(4000).collect();
+                    append_diagnostic(&mut diagnostic, &line);
                     if line.starts_with("[event] ready") {
                         ready = true;
                         receive(Event::Ready);
@@ -131,7 +147,7 @@ impl Cli {
                     receive(Event::Message(serde_json::from_str(&stdout.text)));
                 }
                 if !stderr.text.is_empty() {
-                    diagnostic = stderr.text.chars().take(4000).collect();
+                    append_diagnostic(&mut diagnostic, &stderr.text);
                     if stderr.text.starts_with("[event] ready") {
                         ready = true;
                         receive(Event::Ready);
@@ -163,6 +179,16 @@ impl Cli {
 #[cfg(test)]
 mod tests {
     use super::Lines;
+    #[test]
+    fn multiline_diagnostic_keeps_the_actual_error_and_bounds_unicode() {
+        let mut text = String::new();
+        super::append_diagnostic(&mut text, "{\n  \"error\": \"actual CLI failure\"");
+        super::append_diagnostic(&mut text, "}");
+        assert!(text.contains("actual CLI failure"));
+        super::append_diagnostic(&mut text, &"😀".repeat(4100));
+        assert_eq!(text.chars().count(), 4000);
+        assert!(text.chars().all(|c| c == '😀'));
+    }
     #[test]
     fn oversized_lines_are_discarded_once_and_crlf_and_later_lines_survive() {
         let mut lines = Lines::default();
