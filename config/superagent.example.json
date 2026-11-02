@@ -1,5 +1,6 @@
 {
   "stateDir": "/ABSOLUTE/PATH/superagent-state",
+  "workerAccess": "workspace-write",
   "mainDirectory": "/ABSOLUTE/PATH/repository",
   "models": [
     {

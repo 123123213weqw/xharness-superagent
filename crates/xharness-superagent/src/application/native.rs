@@ -230,7 +230,14 @@ pub struct Runner {
     inputs: Rc<dyn native_sessions::prompts::RequestInputs>,
 }
 impl Product {
-    pub async fn open(mut config: Config) -> Result<(Self, Runner)> {
+    pub async fn open(config: Config) -> Result<(Self, Runner)> {
+        Self::open_with_worker_access(config, native_sessions::WorkerAccess::default()).await
+    }
+    /// Explicit operator-owned Worker policy, not exposed through model tools.
+    pub async fn open_with_worker_access(
+        mut config: Config,
+        worker_access: native_sessions::WorkerAccess,
+    ) -> Result<(Self, Runner)> {
         config.assessment.validate()?;
         std::fs::create_dir_all(&config.state_dir)?;
         config.state_dir = std::fs::canonicalize(&config.state_dir)?;
@@ -398,14 +405,17 @@ impl Product {
         )?;
         let (prompt_client, prompt_runtime) =
             native_sessions::prompts::channel_with_skills(64, resources)?;
-        let native = Arc::new(NativeSessions::open_prompted(
-            &config.state_dir,
-            config.models,
-            config.routes,
-            factories,
-            config.context_policy,
-            prompt_client,
-        )?);
+        let native = Arc::new(
+            NativeSessions::open_prompted(
+                &config.state_dir,
+                config.models,
+                config.routes,
+                factories,
+                config.context_policy,
+                prompt_client,
+            )?
+            .with_worker_access(worker_access),
+        );
         let (delivery, delivery_runner) = NativeDelivery::new_observed(&native)?;
         let (sender, observations) = mpsc::unbounded();
         let tasks = Rc::new(Tracker {

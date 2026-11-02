@@ -76,6 +76,23 @@ impl Role {
         }
     }
 }
+/// Operator-owned Worker policy. Never selected by a tool or Source payload.
+/// Generic NativeSessions retain their existing durable permission behavior.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum WorkerAccess {
+    #[default]
+    WorkspaceWrite,
+    DangerFullAccess,
+}
+impl WorkerAccess {
+    pub const fn permission(self) -> PermissionPreset {
+        match self {
+            Self::WorkspaceWrite => PermissionPreset::WorkspaceWrite,
+            Self::DangerFullAccess => PermissionPreset::DangerFullAccess,
+        }
+    }
+}
 /// Deployment-owned factories, never selected by a model or transport payload.
 pub struct RoleFactories {
     pub orchestrator: Arc<dyn SessionToolFactory>,
@@ -395,6 +412,7 @@ pub struct NativeSessions {
     gate: Arc<Gate>,
     tools: Arc<ScopedTools>,
     routes: RoleRoutes,
+    worker_access: Option<WorkerAccess>,
     owner: Arc<()>,
     warm_authority: StdMutex<WarmAuthorityEpoch>,
     restoring: Mutex<()>,
@@ -405,6 +423,12 @@ pub struct NativeSessions {
     stopping: Mutex<Option<Shared<BoxFuture<'static, AgentShutdownReport>>>>,
 }
 impl NativeSessions {
+    /// Trusted product composition only; leaves Orchestrator and global Host
+    /// defaults unchanged. Applied durably before a Worker can admit work.
+    pub fn with_worker_access(mut self, access: WorkerAccess) -> Self {
+        self.worker_access = Some(access);
+        self
+    }
     fn runtime(&self) -> Result<Arc<DurableLoopAgentRuntime>> {
         self.runtime
             .lock()
@@ -556,6 +580,7 @@ impl NativeSessions {
             gate,
             tools,
             routes,
+            worker_access: None,
             owner: Arc::new(()),
             warm_authority: StdMutex::new(WarmAuthorityEpoch {
                 generation: Arc::new(()),
@@ -750,6 +775,47 @@ impl NativeSessions {
         }
         if session.header().cwd.as_deref() != Some(&cwd) {
             return Err(failure("managed Session workspace conflict"));
+        }
+        if let (Role::Worker, Some(access)) = (role, self.worker_access) {
+            let permission = access.permission();
+            if selected_permission(&session)? != permission {
+                self.store
+                    .append(
+                        &session.header().id,
+                        session.revision(),
+                        vec![
+                            EventData::PermissionPreset {
+                                preset: permission.as_str().into(),
+                            }
+                            .into(),
+                            EventData::SandboxMode {
+                                mode: if access == WorkerAccess::DangerFullAccess {
+                                    SessionSandboxMode::DangerFullAccess
+                                } else {
+                                    SessionSandboxMode::WorkspaceWrite
+                                },
+                                source: None,
+                            }
+                            .into(),
+                            EventData::ApprovalPolicy {
+                                policy: if access == WorkerAccess::DangerFullAccess {
+                                    ApprovalPolicy::Never
+                                } else {
+                                    ApprovalPolicy::Ask
+                                },
+                                source: None,
+                            }
+                            .into(),
+                        ],
+                    )
+                    .await
+                    .map_err(failure)?;
+                self.store
+                    .flush(&session.header().id)
+                    .await
+                    .map_err(failure)?;
+                session = self.journal(&binding).await?;
+            }
         }
         self.tools
             .bindings

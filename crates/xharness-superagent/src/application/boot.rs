@@ -1,5 +1,6 @@
 //! Executable product composition. No probe/test provider, fake account, legacy
-//! gh-host factory, elevated permission, or successful external-action fallback.
+//! gh-host factory or successful external-action fallback. Worker full access
+//! requires an explicit operator configuration; generic defaults are unchanged.
 #![forbid(unsafe_code)]
 #![deny(
     clippy::unwrap_used,
@@ -14,7 +15,7 @@ use super::{
     Application,
 };
 use crate::{
-    native_sessions::{prompts::RequestInputs, RoleFactories, RoleRoutes},
+    native_sessions::{prompts::RequestInputs, RoleFactories, RoleRoutes, WorkerAccess},
     prompts::{Description, Inputs, Variable},
     repository::SqlRepository,
     sources::github::{Cli, Config as GithubConfig, Deployment},
@@ -129,6 +130,8 @@ struct Document {
     repository_delivery: Option<super::delivery::Config>,
     #[serde(default)]
     worker_read_only_roots: Vec<PathBuf>,
+    #[serde(default)]
+    worker_access: WorkerAccess,
     #[serde(default)]
     main_directory: Option<PathBuf>,
     #[serde(default = "prompt_limit")]
@@ -510,9 +513,10 @@ struct Coding {
     web: Arc<WebRuntime>,
     delivery: Option<super::delivery::Config>,
     read_only_roots: Vec<PathBuf>,
+    access: WorkerAccess,
 }
 /// Product-only tool authority for an admitted ticket. Generic Host defaults
-/// are unchanged, and native filesystem/process sandbox restrictions remain
+/// are unchanged, and the explicitly selected filesystem/process policy is
 /// independently enforced. It cannot authorize a different ticket or role.
 pub(super) struct TicketAuthority {
     client: Client,
@@ -562,8 +566,10 @@ impl SessionToolFactory for Coding {
         cwd: &str,
         permission: PermissionPreset,
     ) -> std::result::Result<ToolExecutor, String> {
-        if permission != PermissionPreset::WorkspaceWrite {
-            return Err("Product coding tools require the existing WorkspaceWrite preset".into());
+        if permission != self.access.permission() {
+            return Err(
+                "Product coding tools require the configured Worker permission preset".into(),
+            );
         }
         let directory = std::fs::canonicalize(cwd).map_err(|e| e.to_string())?;
         let deployment = self.github.deployment().map_err(|e| e.to_string())?;
@@ -615,6 +621,9 @@ impl SessionToolFactory for Coding {
             .await
             .map_err(|e| e.to_string())?;
         let mut platform_config = PlatformConfig::new(cwd);
+        if self.access == WorkerAccess::DangerFullAccess {
+            platform_config = platform_config.full_access();
+        }
         for root in &self.read_only_roots {
             platform_config = platform_config.read_only_root(root);
         }
@@ -629,15 +638,17 @@ impl SessionToolFactory for Coding {
         .with_process_environment(environment)?;
         let registry = Arc::new(ToolRegistry::new());
         for spec in bundle.specs() {
-            // Network-denied is the existing platform default. The Web bundle
-            // bypasses process sandboxing, so it is not advertised in this mode.
-            if matches!(spec.definition.name.as_str(), "web_fetch" | "web_search") {
+            // Web bypasses process sandboxing: advertise only for the explicit
+            // network-enabled Worker policy, never for the restricted default.
+            if self.access == WorkerAccess::WorkspaceWrite
+                && matches!(spec.definition.name.as_str(), "web_fetch" | "web_search")
+            {
                 continue;
             }
             // Autonomous work was already admitted by this exact ticket's
             // mandate. Keep the generic bundle's interactive defaults intact;
             // this product-only projection uses the live TicketAuthority gate
-            // instead, with no permission/sandbox promotion.
+            // instead. The operator-selected platform policy remains authoritative.
             let spec = if matches!(
                 spec.definition.name.as_str(),
                 "write" | "edit" | "bash" | "pwsh"
@@ -849,6 +860,7 @@ async fn run_once(
     let prompt_max_chars = config.document.prompt_max_chars;
     let machine = serde_json::json!({"stateDir":config.document.state_dir,
         "promptMaxChars":config.document.prompt_max_chars,
+        "workerAccess":config.document.worker_access,
         "admissionContextMaxPages":config.document.admission_context_max_pages,
         "admissionContextTimeoutMs":config.document.admission_context_timeout_ms});
     let route = config.document.default_model.route();
@@ -865,6 +877,7 @@ async fn run_once(
         web: Arc::new(WebRuntime::default()),
         delivery: config.document.repository_delivery.clone(),
         read_only_roots: config.document.worker_read_only_roots.clone(),
+        access: config.document.worker_access,
     });
     let prompt_store = Rc::new(std::cell::OnceCell::new());
     let inputs = Rc::new(PromptInputs {
@@ -882,53 +895,59 @@ async fn run_once(
         .document
         .main_directory
         .unwrap_or(std::env::current_dir()?);
-    let (product, runner) = Product::open(native::Config {
-        assessment: super::assessment::Options {
-            max_pages: config.document.admission_context_max_pages,
-            timeout: Duration::from_millis(config.document.admission_context_timeout_ms),
+    let worker_access = config.document.worker_access;
+    let (product, runner) = Product::open_with_worker_access(
+        native::Config {
+            assessment: super::assessment::Options {
+                max_pages: config.document.admission_context_max_pages,
+                timeout: Duration::from_millis(config.document.admission_context_timeout_ms),
+            },
+            state_dir: config.document.state_dir,
+            main_directory: main_directory.clone(),
+            models,
+            routes: RoleRoutes {
+                orchestrator: route.clone(),
+                worker: route,
+            },
+            base_tools: RoleFactories {
+                orchestrator: Arc::new(NoTools),
+                worker: coding,
+            },
+            context_policy: Arc::new(IdentityContextPolicy),
+            prompts: inputs,
+            initial_settings: config.settings,
+            sources: feishu.connect(
+                prepared.ports(source_stop.clone()),
+                client.clone(),
+                source_stop.clone(),
+            ),
+            prepare_workspace: Rc::new(move |ticket| {
+                let client = prepare_client.get().cloned();
+                let github = prepare_github.clone();
+                let feishu = prepare_feishu.clone();
+                let stop = prepare_stop.clone();
+                let delivery = prepare_delivery.clone();
+                async move {
+                    prepare_workspace(
+                        client.ok_or_else(|| error("Workspace owner not installed"))?,
+                        github,
+                        feishu,
+                        ticket,
+                        delivery,
+                        stop,
+                    )
+                    .await
+                    .map_err(|error| Error::WorkspacePrepare(error.to_string()))
+                }
+                .boxed_local()
+            }),
+            now: Arc::new(|| {
+                chrono::Utc::now().to_rfc3339_opts(chrono::SecondsFormat::Millis, true)
+            }),
+            clock: Arc::new(|| chrono::Utc::now().timestamp_millis()),
         },
-        state_dir: config.document.state_dir,
-        main_directory: main_directory.clone(),
-        models,
-        routes: RoleRoutes {
-            orchestrator: route.clone(),
-            worker: route,
-        },
-        base_tools: RoleFactories {
-            orchestrator: Arc::new(NoTools),
-            worker: coding,
-        },
-        context_policy: Arc::new(IdentityContextPolicy),
-        prompts: inputs,
-        initial_settings: config.settings,
-        sources: feishu.connect(
-            prepared.ports(source_stop.clone()),
-            client.clone(),
-            source_stop.clone(),
-        ),
-        prepare_workspace: Rc::new(move |ticket| {
-            let client = prepare_client.get().cloned();
-            let github = prepare_github.clone();
-            let feishu = prepare_feishu.clone();
-            let stop = prepare_stop.clone();
-            let delivery = prepare_delivery.clone();
-            async move {
-                prepare_workspace(
-                    client.ok_or_else(|| error("Workspace owner not installed"))?,
-                    github,
-                    feishu,
-                    ticket,
-                    delivery,
-                    stop,
-                )
-                .await
-                .map_err(|error| Error::WorkspacePrepare(error.to_string()))
-            }
-            .boxed_local()
-        }),
-        now: Arc::new(|| chrono::Utc::now().to_rfc3339_opts(chrono::SecondsFormat::Millis, true)),
-        clock: Arc::new(|| chrono::Utc::now().timestamp_millis()),
-    })
+        worker_access,
+    )
     .await?;
     let verify_directory = main_directory.clone();
     let verify_state = state_dir.clone();

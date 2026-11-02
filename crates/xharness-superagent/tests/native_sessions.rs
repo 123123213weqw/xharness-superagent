@@ -1902,3 +1902,61 @@ async fn passive_model_health_read_never_activates_or_wakes_unloaded_or_queued_w
         .any(|e| matches!(e.data(), EventData::UserMessage { .. })));
     stop(&n).await;
 }
+
+#[tokio::test]
+async fn explicit_worker_access_reaches_factory_and_can_be_downgraded_after_restart() {
+    use xharness_superagent::native_sessions::WorkerAccess;
+    let fixture = Fixture::new("worker-access");
+    let native = fixture
+        .open()
+        .with_worker_access(WorkerAccess::DangerFullAccess);
+    native.restore().await.unwrap();
+    native.set_configured(true);
+    for role in [Role::Orchestrator, Role::Worker] {
+        let binding = fixture.ensure(&native, role).await;
+        native
+            .queue(&binding, "access-probe", "inspect policy", None)
+            .await
+            .unwrap();
+        assert_eq!(
+            finish(&native, &binding, "access-probe").await.status,
+            xharness_core::LoopStatus::Completed
+        );
+    }
+    assert!(fixture
+        .main
+        .factory_calls
+        .lock()
+        .unwrap()
+        .iter()
+        .all(|(_, _, p)| *p == PermissionPreset::WorkspaceWrite));
+    let calls = fixture.worker.factory_calls.lock().unwrap().clone();
+    assert!(!calls.is_empty());
+    assert!(calls
+        .iter()
+        .all(|(_, _, p)| *p == PermissionPreset::DangerFullAccess));
+    stop(&native).await;
+    let native = fixture
+        .open()
+        .with_worker_access(WorkerAccess::WorkspaceWrite);
+    native.restore().await.unwrap();
+    let binding = fixture.ensure(&native, Role::Worker).await;
+    let session = native.snapshot(&binding).await.unwrap();
+    assert_eq!(
+        session
+            .events()
+            .iter()
+            .rev()
+            .find_map(|event| match event.data() {
+                EventData::PermissionPreset { preset } => Some(preset.as_str()),
+                _ => None,
+            }),
+        Some("workspace-write")
+    );
+    assert_eq!(
+        fixture.worker.calls.load(Ordering::SeqCst),
+        1,
+        "policy selection cannot start a model"
+    );
+    stop(&native).await;
+}

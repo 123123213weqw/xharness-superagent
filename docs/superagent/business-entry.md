@@ -59,12 +59,19 @@ SuperAgent 替代品。旧 gh-host/feishu-host 不参与这条路径。
 Worker 另装实际编码工具：本机平台对应的 bash/pwsh、read/write/edit、
 glob/grep 和 managed job 的 output/list/kill。没有假文件写入处理器。
 
-- 始终使用已有 WorkspaceWrite + NetworkDeny 平台，不转 full-access。
+- `workerAccess` 默认 `workspace-write`：保持 WorkspaceWrite + NetworkDeny。
+  只有操作者在启动配置显式设置 `"workerAccess": "danger-full-access"` 才启用
+  Worker 原生 FullAccess（网络允许、工作区外文件访问、无交互审批）。该选择记录在
+  同一会话 JSONL，既作用于新 Worker，也在旧 Worker 再绑定前同步；主角色工具和
+  通用 Host/Platform 默认不变。此模式使用服务自己的操作系统账号，不产生 root 权限。
+  改回 `workspace-write` 后重启，会在 Worker 再绑定时收紧权限。
+  账号仍需现有已授权 CLI 配置；联网本身不会产生 GitHub/飞书凭据。
 - 通用 CodingToolBundle 的交互式审批默认值不变；**这个产品专属投影**把已获
   Ticket mandate 的 write/edit/bash/pwsh 交给实时 TicketAuthority guard，避免
   无管理 UI 时永远等待交互审批。每次调用检查同一 SQL owner 的活动 assignment、
-  暂停/结束和当前授权；不是无条件 ApproveAll。文件系统和进程沙箱独立限制作用域。
-- 不暴露会绕过进程网络沙箱的 web_fetch/web_search；不泄漏 Host 的 Goal/调度工具。
+  暂停/结束和当前授权；不是无条件 ApproveAll。文件系统和进程按操作者选择的平台策略执行；full-access 不具有工作区沙箱隔离。
+- 默认不暴露会绕过进程网络沙箱的 web_fetch/web_search；显式 full-access 才提供。
+  两种模式均不泄漏 Host 的 Goal/调度工具，不改变 Ticket/assignment/角色授权。
 - 编码子进程非秘密环境是显式 opt-in，拒绝凭据、PATH、XHARNESS 控制变量覆盖；
   通用调用方默认仍为空，凭据过滤及 managed PATH 不变。
 
@@ -109,3 +116,13 @@ ready/ended 状态、ack/result回执、角色工具隔离、重复事件/重启
 当前已有正式飞书文本事件/历史/上下文/回复循环，配置群范围、名单及模式的完整
 片段和验证边界见[飞书文本正式入口](business-feishu-live.md)。图片附件及完整线上
 服务联调仍未完成；上面的同步片段本身并不配置群范围或主动接单模式。
+
+## Full-access 账号绑定
+
+`workerAccess` 是启动配置，不允许模型或来源事件修改。它不创建 token、修改仓库
+授权、开启自动合并或改变其他实例。部署时可以在**该服务**的 PATH 前置操作者已有的
+`gh` / `lark-cli` 包装器，设置该账号的 `GIT_CONFIG_GLOBAL` 和
+`GIT_TERMINAL_PROMPT=0`；包装器应移除自己的 PATH 项后再调用真实 CLI，避免递归。
+不要把模型 API key、GitHub token 写进这份配置或 Prompt。子进程仍清除凭据环境变量、
+保留取消/超时/后台任务回收；full-access 并不阻止进程读取同一系统账号有权读取的文件。
+网络权限开放也不代表批量 Git 传输、已有 PR 续改等业务流程已经验收。

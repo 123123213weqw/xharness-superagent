@@ -17,6 +17,8 @@ use std::{
 };
 use tokio::process::Command;
 static NEXT: AtomicU64 = AtomicU64::new(0);
+#[path = "product_entry/access.rs"]
+mod access;
 #[path = "product_entry/assessment.rs"]
 mod assessment;
 #[path = "product_entry/checkout.rs"]
