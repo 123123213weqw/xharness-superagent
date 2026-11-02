@@ -173,3 +173,53 @@ defaults false. Ordinary Worker permissions, model routes, account grants and
 per-instance data are unchanged. Example: `config/superagent.workspace.example.json`.
 Existing persisted Source CLI settings must be changed through the human
 management CAS endpoint; editing first-boot `settings` is not a live migration.
+
+### Git networking is configuration, not cache seeding
+
+Trusted checkout intentionally isolates Git credentials/hooks/system/global
+configuration. It must not silently discard the operator's needed network route:
+set `workspace.checkout.gitNetworkConfig` to an absolute reviewed Git config file.
+Only URL-matched `http.proxy` and `http.version` are read with `--no-includes` and
+passed to the GitHub fetch. Missing files/malformed values fail visibly. An absent
+key does not invent a proxy; an empty proxy explicitly selects direct transport.
+Proxy endpoints must be credential-free HTTP(S)/SOCKS URLs; references/addresses
+belong to deployment data, never repository/account literals in product code.
+
+```json
+{"workspace":{"checkout":{"enabled":true,"cache":true,"gitNetworkConfig":"/private/profile/git-network.config"}}}
+```
+
+```gitconfig
+[http "https://github.com"]
+    proxy = http://127.0.0.1:YOUR_EXISTING_HEALTHY_PROXY_PORT
+[http]
+    version = HTTP/1.1
+```
+
+No credential helpers, extra authorization headers, URL rewrites, hooks, includes
+or TLS-verification overrides are imported. These values are not stored in task
+or cache Git config. Model/search/Feishu traffic is not assigned this Git-only
+route. Default proxy environment behavior remains available when no reviewed
+file is supplied. A stale/broken deployment proxy is a separate failing network
+dependency, not grounds to call a copied object cache cold-checkout acceptance.
+
+For old Git that cannot use per-process DNS overrides, an operator may supply a
+loopback CONNECT route using an existing managed proxy. Its endpoint resolution
+and health must be maintained independently; do not embed a provider IP or add a
+laptop SSH tunnel as a hidden production dependency. Do not change global proxy
+selections or other profiles to fix one canary. Git's URL matching/proxy semantics
+are documented in the [official Git configuration reference](https://git-scm.com/docs/git-config).
+
+For an explicitly owned Git-only helper, `git-route-config.py --profile FILE`
+can prepare an existing installed Mihomo binary's loopback configuration. The
+private profile (`schema:1`, `owner`, `listenPort`, `mihomoBinary`) and matching
+`.superagent-goal-owner` are mandatory. It obtains current IPv4 endpoints from
+GitHub's public HTTPS metadata, probes them with normal github.com SNI/certificate
+validation, and selects the fastest reachable one. No address is embedded in the
+script. It allows only github.com CONNECT traffic; model/search/Feishu networking
+and shared proxy selections are unchanged. It is an optional operator deployment
+component, not a hidden dependency of default checkout. Record its unit/binary,
+health receipt and reviewed `git-network.config` for each opted-in profile.
+Refresh endpoints by restarting only that helper; no periodic desktop automation
+or mutation of shared proxy subscriptions is installed. Lack of healthy endpoints
+is an explicit failure, never permission to disable TLS or serve stale work.

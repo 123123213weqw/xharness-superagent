@@ -10,7 +10,9 @@ fn fixture(url: &str) -> Fixture {
         .as_object_mut()
         .unwrap()
         .remove("repositoryDelivery");
-    f.config["workspace"] = json!({"checkout":{"cache":true}});
+    let network = f.directory.join("reviewed-network");
+    std::fs::write(&network,"[http]\nversion = HTTP/1.1\n[http \"https://github.com\"]\nproxy = http://127.0.0.1:32123\n").unwrap();
+    f.config["workspace"] = json!({"checkout":{"cache":true,"gitNetworkConfig":network}});
     f
 }
 async fn run(f: &Fixture) -> Output {

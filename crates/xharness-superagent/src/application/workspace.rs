@@ -23,9 +23,21 @@ pub(super) struct Checkout {
     cache: bool,
     #[serde(default)]
     revision: CheckoutRevision,
+    #[serde(default)]
+    git_network_config: Option<PathBuf>,
 }
 impl Config {
     pub fn validate(&self) -> Result<()> {
+        if self
+            .checkout
+            .git_network_config
+            .as_ref()
+            .is_some_and(|p| !p.is_absolute() || p.parent().is_none())
+        {
+            return Err(Error::Message(
+                "gitNetworkConfig requires an absolute non-root path".into(),
+            ));
+        }
         self.checkout
             .revision
             .validate()
@@ -64,6 +76,7 @@ impl Plan {
         Ok(Some(CheckoutOptions {
             revision,
             cache_root: self.config.cache.then(|| self.cache_root.clone()),
+            git_network_config: self.config.git_network_config.clone(),
         }))
     }
 }
@@ -99,6 +112,27 @@ mod tests {
         assert_eq!(
             plan.options(None).unwrap().unwrap().cache_root,
             Some(PathBuf::from("/private/state/repository-cache"))
+        );
+    }
+    #[test]
+    fn reviewed_network_config_requires_explicit_absolute_path() {
+        for path in ["relative", "/"] {
+            let cfg: Config =
+                serde_json::from_value(json!({"checkout":{"gitNetworkConfig":path}})).unwrap();
+            assert!(cfg.validate().is_err());
+        }
+        let cfg: Config = serde_json::from_value(
+            json!({"checkout":{"gitNetworkConfig":"/private/network.config"}}),
+        )
+        .unwrap();
+        cfg.validate().unwrap();
+        assert_eq!(
+            cfg.plan(Path::new("/state"))
+                .options(None)
+                .unwrap()
+                .unwrap()
+                .git_network_config,
+            Some(PathBuf::from("/private/network.config"))
         );
     }
     #[test]

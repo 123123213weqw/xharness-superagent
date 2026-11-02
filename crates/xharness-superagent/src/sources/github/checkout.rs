@@ -48,6 +48,9 @@ impl CheckoutRevision {
 pub struct CheckoutOptions {
     pub revision: CheckoutRevision,
     pub cache_root: Option<PathBuf>,
+    /// Reviewed operator file. Only URL-matched http.proxy/http.version are read;
+    /// credentials, hooks, includes and TLS-verification overrides are not used.
+    pub git_network_config: Option<PathBuf>,
 }
 #[derive(Clone, Debug, Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -189,6 +192,81 @@ impl Cli {
         command.extend(args);
         git.run_with_timeout(command, stop, Duration::from_secs(180))
             .await
+    }
+    async fn network_arguments(
+        &self,
+        file: Option<&Path>,
+        stop: CancellationToken,
+    ) -> Result<Vec<String>> {
+        let Some(file) = file else {
+            return Ok(Vec::new());
+        };
+        if !file.is_absolute() || !tokio::fs::metadata(file).await.map_err(io)?.is_file() {
+            return Err(Error::Config(
+                "gitNetworkConfig must be an absolute regular file".into(),
+            ));
+        }
+        let url = format!("https://github.com/{}.git", self.deployment.repository);
+        let mut args = Vec::new();
+        for key in ["http.proxy", "http.version"] {
+            let value = match self
+                .checkout_git(
+                    &self.cwd,
+                    vec![
+                        "config".into(),
+                        "--no-includes".into(),
+                        "--file".into(),
+                        file.to_string_lossy().into_owned(),
+                        "--get-urlmatch".into(),
+                        key.into(),
+                        url.clone(),
+                    ],
+                    false,
+                    stop.clone(),
+                )
+                .await
+            {
+                Ok(value) => value.trim_end_matches(['\r', '\n']).to_owned(),
+                Err(Error::Cli {
+                    exit_code: Some(1), ..
+                }) => continue,
+                Err(error) => return Err(error),
+            };
+            if value.len() > 2048 || value.contains(['\r', '\n', '\0']) {
+                return Err(Error::Config("Invalid Git network setting".into()));
+            }
+            if key == "http.proxy" {
+                if !value.is_empty() {
+                    let proxy = url::Url::parse(&value).map_err(|_| {
+                        Error::Config("Git proxy requires an explicit HTTP(S)/SOCKS URL".into())
+                    })?;
+                    if !matches!(proxy.scheme(), "http" | "https" | "socks5" | "socks5h")
+                        || proxy.host_str().is_none()
+                        || !proxy.username().is_empty()
+                        || proxy.password().is_some()
+                        || proxy.query().is_some()
+                        || proxy.fragment().is_some()
+                        || !matches!(proxy.path(), "" | "/")
+                    {
+                        return Err(Error::Config(
+                            "Git proxy must be a credential-free HTTP(S)/SOCKS endpoint".into(),
+                        ));
+                    }
+                }
+                args.extend([
+                    "-c".into(),
+                    format!("http.https://github.com.proxy={value}"),
+                ]);
+            } else {
+                if !matches!(value.as_str(), "HTTP/1.1" | "HTTP/2") {
+                    return Err(Error::Config(
+                        "Git http.version must be HTTP/1.1 or HTTP/2".into(),
+                    ));
+                }
+                args.extend(["-c".into(), format!("http.version={value}")]);
+            }
+        }
+        Ok(args)
     }
     async fn resolve_checkout(
         &self,
@@ -401,6 +479,7 @@ impl Cli {
         &self,
         store: &Path,
         revision: &Resolved,
+        network: &[String],
         stop: CancellationToken,
     ) -> Result<()> {
         let url = format!("https://github.com/{}.git", self.deployment.repository);
@@ -410,24 +489,20 @@ impl Cli {
         );
         // No helpers are persisted. The account is the already verified Source
         // CLI, not a new credential or a hard-coded deployment wrapper.
-        self.checkout_git(
-            store,
-            vec![
-                "-c".into(),
-                "credential.helper=".into(),
-                "-c".into(),
-                format!("credential.https://github.com.helper={helper}"),
-                "fetch".into(),
-                "--depth=1".into(),
-                "--no-tags".into(),
-                "--no-recurse-submodules".into(),
-                url,
-                revision.fetch.clone(),
-            ],
-            false,
-            stop.clone(),
-        )
-        .await?;
+        let mut args = network.to_vec();
+        args.extend([
+            "-c".into(),
+            "credential.helper=".into(),
+            "-c".into(),
+            format!("credential.https://github.com.helper={helper}"),
+            "fetch".into(),
+            "--depth=1".into(),
+            "--no-tags".into(),
+            "--no-recurse-submodules".into(),
+            url,
+            revision.fetch.clone(),
+        ]);
+        self.checkout_git(store, args, false, stop.clone()).await?;
         let actual = self
             .checkout_git(
                 store,
@@ -544,6 +619,9 @@ impl Cli {
             .parent()
             .ok_or_else(|| Error::Config("Checkout parent missing".into()))?;
         private_dir(parent).await?;
+        let network = self
+            .network_arguments(options.git_network_config.as_deref(), stop.clone())
+            .await?;
         let revision = self
             .resolve_checkout(&options.revision, stop.clone())
             .await?;
@@ -607,7 +685,8 @@ impl Cli {
             };
             let hit = self.has_snapshot(&store, &revision, stop.clone()).await?;
             if !hit {
-                self.fetch_snapshot(&store, &revision, stop.clone()).await?;
+                self.fetch_snapshot(&store, &revision, &network, stop.clone())
+                    .await?;
                 fresh = true;
             }
             self.materialize(&store, &staging, &revision, stop.clone())

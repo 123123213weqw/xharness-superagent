@@ -13,6 +13,7 @@ fn options(f: &Fixture, revision: Rev) -> CheckoutOptions {
     CheckoutOptions {
         revision,
         cache_root: Some(f.root.join("cache")),
+        git_network_config: None,
     }
 }
 fn caches(f: &Fixture) -> Vec<PathBuf> {
@@ -190,6 +191,7 @@ async fn corrupt_cache_rebuild_concurrent_lock_and_uncached_checkout() {
             &CheckoutOptions {
                 revision: Rev::DefaultBranch,
                 cache_root: None,
+                git_network_config: None,
             },
             &f.root.join("uncached"),
             CancellationToken::new(),
@@ -335,6 +337,13 @@ async fn live_github_configured_repositories_use_same_generic_implementation() {
     let program = PathBuf::from(std::env::var("SUPERAGENT_CHECKOUT_LIVE_CLI").unwrap());
     let repos = std::env::var("SUPERAGENT_CHECKOUT_LIVE_REPOS").unwrap();
     assert!(program.is_absolute());
+    let cold = std::env::var("SUPERAGENT_CHECKOUT_LIVE_REQUIRE_COLD").as_deref() == Ok("1");
+    if cold {
+        assert!(
+            !root.join("repository-cache").exists(),
+            "Cold acceptance must not reuse any object cache"
+        );
+    }
     let mut evidence = Vec::new();
     for (index, repository) in repos.split(',').enumerate() {
         let config = Config {
@@ -359,6 +368,10 @@ async fn live_github_configured_repositories_use_same_generic_implementation() {
                     &CheckoutOptions {
                         revision: Rev::DefaultBranch,
                         cache_root: Some(root.join("repository-cache")),
+                        git_network_config: std::env::var_os(
+                            "SUPERAGENT_CHECKOUT_LIVE_NETWORK_CONFIG",
+                        )
+                        .map(PathBuf::from),
                     },
                     &dir,
                     CancellationToken::new(),
@@ -373,6 +386,11 @@ async fn live_github_configured_repositories_use_same_generic_implementation() {
             assert!(!dir.join(".git/objects/info/alternates").exists());
             if attempt == 1 {
                 assert!(receipt.cache_hit);
+            } else if cold {
+                assert!(
+                    !receipt.cache_hit,
+                    "First cold checkout must really fetch remote objects"
+                );
             }
             evidence.push(serde_json::json!({"receipt":receipt,"elapsedMs":started.elapsed().as_millis(),"attempt":attempt}));
         }
@@ -386,4 +404,47 @@ async fn live_github_configured_repositories_use_same_generic_implementation() {
         "GENERIC_CHECKOUT_LIVE {}",
         serde_json::to_string(&evidence).unwrap()
     );
+}
+
+#[tokio::test]
+async fn reviewed_network_config_preserves_route_but_not_hooks_credentials_or_tls_bypass() {
+    let f = Fixture::new();
+    let path = f.root.join("reviewed-git-network");
+    std::fs::write(&path,"[http]\nversion = HTTP/1.1\nsslVerify = false\nextraHeader = forbidden-header\n[http \"https://github.com\"]\nproxy = http://127.0.0.1:32123\n[credential]\nhelper = forbidden-helper\n[core]\nhooksPath = forbidden-hooks\n[include]\npath = missing-include-file\n").unwrap();
+    let mut opts = options(&f, Rev::Auto);
+    opts.git_network_config = Some(path);
+    f.cli("owner/alpha", "robot")
+        .checkout_with_options(&opts, &f.root.join("network"), CancellationToken::new())
+        .await
+        .unwrap();
+    let args = std::fs::read_to_string(f.root.join("fetch-calls.jsonl")).unwrap();
+    assert!(args.contains("http.https://github.com.proxy=http://127.0.0.1:32123"));
+    assert!(args.contains("http.version=HTTP/1.1"));
+    assert!(!args.contains("forbidden"));
+    assert!(!args.contains("sslVerify"));
+    assert!(!args.contains("missing-include-file"));
+    let task_config = std::fs::read_to_string(f.root.join("network/.git/config")).unwrap();
+    assert!(!task_config.contains("proxy"));
+    assert!(!task_config.contains("32123"));
+}
+#[tokio::test]
+async fn invalid_network_settings_fail_without_fetch_or_secret_echo() {
+    for text in [
+        "[http]\nproxy = http://user:never-echo@localhost:1\n",
+        "[http]\nversion = bad-version\n",
+    ] {
+        let f = Fixture::new();
+        let path = f.root.join("invalid-network");
+        std::fs::write(&path, text).unwrap();
+        let mut opts = options(&f, Rev::Auto);
+        opts.git_network_config = Some(path);
+        let error = f
+            .cli("owner/alpha", "robot")
+            .checkout_with_options(&opts, &f.root.join("invalid"), CancellationToken::new())
+            .await
+            .unwrap_err();
+        assert!(!error.to_string().contains("never-echo"));
+        assert_eq!(f.fetches(), 0);
+        assert!(!f.root.join("invalid").exists());
+    }
 }

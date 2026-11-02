@@ -50,6 +50,7 @@ jobs:
       - run: node --test conformance/business/management-cargo-overlay.test.mjs
       - run: python3 scripts/superagent/test-state-bundle.py
       - run: python3 scripts/superagent/test-fleet-control.py
+      - run: python3 scripts/superagent/test-git-route-config.py
       - run: npm ci --ignore-scripts --no-audit --no-fund --prefix conformance
       - run: node --experimental-transform-types conformance/business/github-source-oracle.mjs --check
       - run: node --experimental-transform-types conformance/business/feishu-source-oracle.mjs --check
