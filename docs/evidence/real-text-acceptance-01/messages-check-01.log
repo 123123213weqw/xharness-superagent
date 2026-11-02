@@ -1,0 +1,53 @@
+   Compiling xharness-superagent v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 25.80s
+     Running unittests src/lib.rs (<owned-validation>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/xharness_superagent-d4c4845e22a5ce05)
+
+running 9 tests
+test application::messages::tests::live_messages_tool_and_opaque_replay ... ignored, Real external model calls; requires explicit existing route and credential authorization
+test application::messages::tests::messages_reject_orphan_duplicate_results_and_foreign_provider_state ... ok
+test application::messages::tests::messages_do_not_relocate_system_or_drop_media_or_override_routing ... ok
+test application::messages::tests::messages_preserve_system_schema_ceiling_and_explicit_reasoning ... ok
+test application::messages::tests::messages_require_closed_valid_json_blocks_and_message_stop ... ok
+test application::messages::tests::messages_cancellation_before_headers_has_no_success ... ok
+test application::messages::tests::messages_retain_thinking_signature_and_tool_ids_for_stateless_replay ... ok
+test application::messages::tests::messages_real_http_sse_preserve_unicode_and_complete_only_at_stop ... ok
+test application::messages::tests::messages_truncated_http_stream_and_http_error_never_become_success ... ok
+
+test result: ok. 8 passed; 0 failed; 1 ignored; 0 measured; 38 filtered out; finished in 0.01s
+
+    Checking xharness-superagent v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 12.08s
+    Checking xharness-api v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-api)
+    Checking xharness-tools v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-tools)
+    Checking xharness-sandbox v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-sandbox)
+    Checking xharness-web v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-web)
+    Checking xharness-platform v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-platform)
+    Checking xharness-interaction v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-interaction)
+    Checking xharness-coding-tools v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-coding-tools)
+    Checking xharness-session v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-session)
+    Checking xharness-compaction v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-compaction)
+    Checking xharness-goal v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-goal)
+    Checking xharness-attachments v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-attachments)
+    Checking xharness-session-import v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-session-import)
+    Checking xharness-session-jsonl v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-session-jsonl)
+    Checking xharness-context v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-context)
+    Checking xharness-core v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-core)
+    Checking xharness-agent v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-agent)
+    Checking xharness-projection v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-projection)
+    Checking xharness-provider-openai v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-provider-openai)
+    Checking xharness-schedule v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-schedule)
+    Checking xharness-host v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-host)
+    Checking xharness-superagent v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+error: struct update has no effect, all the fields in the struct have already been specified
+   --> crates/xharness-superagent/src/application/messages.rs:528:15
+    |
+528 |             ..Default::default()
+    |               ^^^^^^^^^^^^^^^^^^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#needless_update
+    = note: `-D clippy::needless-update` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::needless_update)]`
+
+error: could not compile `xharness-superagent` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `xharness-superagent` (lib test) due to 1 previous error

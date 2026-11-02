@@ -1,0 +1,28 @@
+   Compiling xharness-superagent v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.51s
+
+running 9 tests
+test application::messages::tests::live_messages_tool_and_opaque_replay ... ignored, Real external model calls; requires explicit existing route and credential authorization
+test application::messages::tests::messages_reject_orphan_duplicate_results_and_foreign_provider_state ... ok
+test application::messages::tests::messages_do_not_relocate_system_or_drop_media_or_override_routing ... ok
+test application::messages::tests::messages_preserve_system_schema_ceiling_and_explicit_reasoning ... ok
+     Running unittests src/lib.rs (<owned-validation>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/xharness_superagent-d4c4845e22a5ce05)
+test application::messages::tests::messages_require_closed_valid_json_blocks_and_message_stop ... ok
+test application::messages::tests::messages_cancellation_before_headers_has_no_success ... ok
+test application::messages::tests::messages_retain_thinking_signature_and_tool_ids_for_stateless_replay ... ok
+test application::messages::tests::messages_real_http_sse_preserve_unicode_and_complete_only_at_stop ... ok
+test application::messages::tests::messages_truncated_http_stream_and_http_error_never_become_success ... ok
+
+test result: ok. 8 passed; 0 failed; 1 ignored; 0 measured; 38 filtered out; finished in 0.01s
+
+   Compiling xharness-superagent v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 27.71s
+
+running 1 test
+     Running tests/product_entry.rs (<owned-validation>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_entry-9afa34c8360f1efb)
+test formal_messages_protocol_runs_native_worker_and_reply_with_signature_replay ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 46 filtered out; finished in 1.50s
+
+    Checking xharness-superagent v0.1.0 (<owned-validation>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 13.43s

@@ -1,0 +1,1 @@
+{"scope": "Controlled interleaving of the exact fixture marker write/replace; not proof of the prior assertion failure cause", "rows": [{"temporary_name": "shared", "writers": 4, "successes": 1, "rename_failures": 3}, {"temporary_name": "per-process", "writers": 4, "successes": 4, "rename_failures": 0}]}

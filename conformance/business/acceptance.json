@@ -75,9 +75,18 @@
             "formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate"
           ],
           "actual_product_path": true
+        },
+        {
+          "source_commit": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+          "entry_and_command": "Formal executable --config <independent owned config> --once/watch; actual configured accounts/models. Scope and exact commands in verification record.",
+          "environment": "WZU_Server isolated validation; authorized external test writes; no production cutover",
+          "full_log": "docs/live-text-acceptance-verification.json",
+          "business_assertions": "docs/live-text-acceptance-verification.json",
+          "actual_product_path": true,
+          "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
         }
       ],
-      "validation_environment": "offline_protocol_fixture"
+      "validation_environment": "offline_protocol_fixture_and_authorized_live_github_subset"
     },
     {
       "id": "FLOW-02",
@@ -95,6 +104,15 @@
             "refused_and_unauthorized_requests_do_not_start_workers"
           ],
           "actual_product_path": true
+        },
+        {
+          "source_commit": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+          "entry_and_command": "Formal executable --config <independent owned config> --once/watch; actual configured accounts/models. Scope and exact commands in verification record.",
+          "environment": "WZU_Server isolated validation; authorized external test writes; no production cutover",
+          "full_log": "docs/live-text-acceptance-verification.json",
+          "business_assertions": "docs/live-text-acceptance-verification.json",
+          "actual_product_path": true,
+          "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
         }
       ],
       "validation_environment": "offline_protocol_fixture"
@@ -417,6 +435,15 @@
           "actual_product_path": true,
           "partial_not_full_group_pass": true,
           "remaining_scope": "Broad group remains in_progress; see verification remaining_scope."
+        },
+        {
+          "source_commit": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+          "entry_and_command": "Formal executable --config <independent owned config> --once/watch; actual configured accounts/models. Scope and exact commands in verification record.",
+          "environment": "WZU_Server isolated validation; authorized external test writes; no production cutover",
+          "full_log": "docs/live-text-acceptance-verification.json",
+          "business_assertions": "docs/live-text-acceptance-verification.json",
+          "actual_product_path": true,
+          "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
         }
       ]
     },
@@ -461,9 +488,18 @@
             "formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate"
           ],
           "actual_product_path": true
+        },
+        {
+          "source_commit": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+          "entry_and_command": "Formal executable --config <independent owned config> --once/watch; actual configured accounts/models. Scope and exact commands in verification record.",
+          "environment": "WZU_Server isolated validation; authorized external test writes; no production cutover",
+          "full_log": "docs/live-text-acceptance-verification.json",
+          "business_assertions": "docs/live-text-acceptance-verification.json",
+          "actual_product_path": true,
+          "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
         }
       ],
-      "validation_environment": "offline_protocol_fixture"
+      "validation_environment": "offline_protocol_fixture_and_authorized_live_github_subset"
     },
     {
       "id": "REC-02",
@@ -581,6 +617,15 @@
           "actual_product_path": true,
           "partial_not_full_group_pass": true,
           "remaining_scope": "See verification remaining_scope; these broad acceptance groups remain in_progress."
+        },
+        {
+          "source_commit": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+          "entry_and_command": "Formal executable --config <independent owned config> --once/watch; actual configured accounts/models. Scope and exact commands in verification record.",
+          "environment": "WZU_Server isolated validation; authorized external test writes; no production cutover",
+          "full_log": "docs/live-text-acceptance-verification.json",
+          "business_assertions": "docs/live-text-acceptance-verification.json",
+          "actual_product_path": true,
+          "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
         }
       ]
     },
@@ -671,6 +716,15 @@
           "actual_product_path": true,
           "verified_subset": "SIGTERM ownership and persistent SQL-failure exit/reopen, plus actual source-account startup check only; not production cutover/model/Worker PR acceptance",
           "not_signed_off": true
+        },
+        {
+          "source_commit": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+          "entry_and_command": "Formal executable --config <independent owned config> --once/watch; actual configured accounts/models. Scope and exact commands in verification record.",
+          "environment": "WZU_Server isolated validation; authorized external test writes; no production cutover",
+          "full_log": "docs/live-text-acceptance-verification.json",
+          "business_assertions": "docs/live-text-acceptance-verification.json",
+          "actual_product_path": true,
+          "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
         }
       ]
     },
@@ -751,6 +805,15 @@
           "actual_product_path": true,
           "verified_subset": "SIGTERM ownership and persistent SQL-failure exit/reopen, plus actual source-account startup check only; not production cutover/model/Worker PR acceptance",
           "not_signed_off": true
+        },
+        {
+          "source_commit": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+          "entry_and_command": "Formal executable --config <independent owned config> --once/watch; actual configured accounts/models. Scope and exact commands in verification record.",
+          "environment": "WZU_Server isolated validation; authorized external test writes; no production cutover",
+          "full_log": "docs/live-text-acceptance-verification.json",
+          "business_assertions": "docs/live-text-acceptance-verification.json",
+          "actual_product_path": true,
+          "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
         }
       ]
     },

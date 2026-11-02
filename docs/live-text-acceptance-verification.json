@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "scope": "GitHub + Feishu text productionization; NOT full business alignment or production cutover",
+  "source_commit": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+  "source_profile_sha256": "b614866c97cd8bd20b7c9942cfd15673dd98041e46c5a3ef15f9ca3ad9788d9e",
+  "source_files": 762,
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "reference_unchanged_files": 216,
+  "controlled_import_steps": 11,
+  "controlled_import_paths": 86,
+  "declared_local_overlays": 6,
+  "actual_external_acceptance": {
+    "github": {
+      "passed": true,
+      "issue_url": "https://github.com/123123213weqw/xharness-superagent/issues/2",
+      "comment_request_url": "https://github.com/123123213weqw/xharness-superagent/issues/2#issuecomment-6569098296",
+      "actual_product_path": "Formal executable -> actual gh Source -> live DeepSeek Messages -> Native policy/Ticket/Worker -> actual CodingToolBundle file/read/bash -> report -> receipt-backed GitHub comments",
+      "initial_issue": {
+        "tickets": 1,
+        "artifact_bytes": 30,
+        "artifact_sha256": "bfe7a2ccdea1228fe85526039db5380ca7b8d978ebad07f3529ed60642208b9e",
+        "sent_receipts": 2
+      },
+      "real_comment_followup": {
+        "tickets": 1,
+        "assignments": 2,
+        "artifact_bytes": 31,
+        "artifact_sha256": "a37250650e1f5ce5875d756f6f378974c288d73afe5f29df7bb6f923dd28f584",
+        "sent_receipts": 4
+      },
+      "independent_verification": "Actual file bytes/hash and SQL receipts checked independently; public GitHub comments read back; restart preserved one ticket/four receipts and zero effects",
+      "clone_push_pr_or_merge_accepted": false
+    },
+    "messages_routes": {
+      "passed": [
+        "existing DeepSeek/deepseek-flash Messages route",
+        "existing GLM Coding/glm-5.3 Messages route"
+      ],
+      "per_route_requests": 2,
+      "checks": [
+        "actual HTTPS/SSE",
+        "real model tool JSON + Unicode",
+        "thinking/content/signature replay into next request",
+        "tool result followed by terminal answer"
+      ],
+      "scope": "actual Rust adapter; GLM full product Worker not proved",
+      "new_accounts_or_credentials": false,
+      "no_provider_fallback": true
+    },
+    "feishu": {
+      "scope": "Actual Feishu text Source + live consumer lifetime only; full task/reply acceptance remains open",
+      "real_greeting_intake": {
+        "received": true,
+        "path": "history catch-up while earlier consumer was failing",
+        "decision": "ignore",
+        "tickets": 0,
+        "outbox": 0
+      },
+      "realtime_consumer_fix": {
+        "actual_live_probe_passed": true,
+        "formal_product_watch_ready_until_stop": true,
+        "observation_window_seconds": 600,
+        "clean_exit": true,
+        "no_persistent_new_process": true
+      },
+      "f3_task_reply_acceptance": {
+        "passed": false,
+        "observed_triggers": 0,
+        "tickets": 0,
+        "pending_effects": 0,
+        "latest_human_message_time_in_readback": "2026-11-02 12:22",
+        "limitation": "No new explicit task was observed in the repaired test window; do not count outbound intro or replies by the restored original instance as new-product acceptance"
+      },
+      "temporary_original_source_change": {
+        "value_restored_exactly": true,
+        "original_service_remained_running": true,
+        "original_source_health": "ready",
+        "consistent_sqlite_backup_retained_privately": true,
+        "not_a_complete_deployment_rollback_test": true
+      },
+      "private_chat_ids_content_credentials_and_backups_published": false
+    }
+  },
+  "offline_regression": {
+    "workspace_fmt_check_clippy": "passed remotely",
+    "selected_crates": [
+      "xharness-superagent",
+      "xharness-process",
+      "xharness-platform",
+      "xharness-coding-tools"
+    ],
+    "cargo_targets": 47,
+    "reported_passes": 376,
+    "ignored": 9,
+    "formal_product_cases": 47,
+    "additional_serial_process_drop_cases": 2,
+    "additional_policy_conflict_repetitions": 3,
+    "scope": "selected crates, not full workspace; ignored/capability early-returns do not count as product acceptance"
+  },
+  "failures_retained": [
+    {
+      "name": "first Messages check strict Clippy needless_update",
+      "disposition": "removed redundant struct update; subsequent strict Clippy passed"
+    },
+    {
+      "name": "e14d082 macOS legacy interrupt timeout",
+      "disposition": "same exact source failed once; bounded rerun passed; cause not proved fixed"
+    },
+    {
+      "name": "94f7196 Ubuntu legacy Swarm revision conflict",
+      "disposition": "full failure retained; no Host/Swarm assertions weakened; bounded exact-source rerun recorded separately; original failure retained and cause not claimed fixed"
+    },
+    {
+      "name": "parallel product policy-sync health-detail assertion",
+      "disposition": "failure retained; discovered/proved shared temporary-marker rename collision in fixture; switched marker temp names to per-process, retained predicate with better diagnostics; subsequent 47-case suite plus 3 focused repetitions passed; original failed health detail was unavailable, so exact attribution is not claimed"
+    }
+  ],
+  "runtime_change": {
+    "file": "crates/xharness-process/src/lib.rs",
+    "why": "Real unbounded bot CLI exits on null-stdin EOF; actual pipe-held/bounded comparison",
+    "change": "explicit supervisor-owned open stdin option; Feishu opts in",
+    "normal_spawn_default_unchanged": true,
+    "argv_env_sandbox_and_tree_cleanup_unchanged": true,
+    "new_unsafe": false,
+    "controlled_import_86_paths_unchanged": true
+  },
+  "dependencies": {
+    "direct_edges_added_to_existing_locked_packages": [
+      "reqwest",
+      "async-stream"
+    ],
+    "external_versions_or_checksums_refreshed": false,
+    "remote_js_sdk_added": false
+  },
+  "production_ready": false,
+  "full_goal_complete": false,
+  "remaining_p0": [
+    "Worker controlled clone/build/push/draft-PR/review/remote-execution delivery channel and actual acceptance",
+    "management state/overview/sources API and necessary human controls/UI",
+    "deployment team overlays and cold-cut dedup/receipt boundary",
+    "full backup/rollback/supervision rehearsal and first production cutover",
+    "exact latest head cross-platform CI and unresolved legacy concurrency failures"
+  ],
+  "ci_snapshots": [
+    {
+      "conclusion": "cancelled",
+      "head_sha": "94f7196955c764091142199c310602205becc2e1",
+      "html_url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41388098806",
+      "id": 41388098806,
+      "run_attempt": 2,
+      "status": "completed"
+    },
+    {
+      "conclusion": null,
+      "head_sha": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+      "html_url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41389228037",
+      "id": 41389228037,
+      "run_attempt": 1,
+      "status": "in_progress"
+    }
+  ],
+  "logs": [
+    {
+      "path": "docs/evidence/real-text-acceptance-01/messages-check-01.log",
+      "raw_sha256": "a57c78842183db723259db47bebb86723f1294f74364c281883bcd696c1177c8",
+      "published_sha256": "dc7f5bef625121f68a957c149d82d97b325e0e5f3f4156b7a47e80eff58cb1e5",
+      "normalization": "owned remote absolute directory prefixes only; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/real-text-acceptance-01/messages-check-02.log",
+      "raw_sha256": "7c18b78e97627666a6ef0920f91acd729146280627712a238a11f7e7ffe57af1",
+      "published_sha256": "e59c966cdcc08d33b16af25797eb9ad33eeadfbc9eeaa0e0ef2cad5057b7cce0",
+      "normalization": "owned remote absolute directory prefixes only; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/real-text-acceptance-01/regression-final.log",
+      "raw_sha256": "c57b50395878bf011e4d05f4f0441aabe209585e8dedf1a6d50d1496fb91f6f0",
+      "published_sha256": "35af9cc4e1f4efbac9cd45e5a359e085d2ccb1b024f1447385b9b5234469e7d6",
+      "normalization": "owned remote absolute directory prefixes only; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/real-text-acceptance-01/rust-messages-live-final.log",
+      "raw_sha256": "8d606ac634d77d035bc243ff0780a854c1293179f3badb820ed7220a14540d2a",
+      "published_sha256": "dc6a2e2cde5786c6c2d3b3e95beac83112bd78793f1a21e912ecf7eb608fb7f6",
+      "normalization": "owned remote absolute directory prefixes only; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/real-text-acceptance-01/consumer-fix-01.log",
+      "raw_sha256": "b5dc7fd35b3c92b3cdf9a189ad1b658d3d2128af20d5b6d0136da02c90387b9f",
+      "published_sha256": "a29f7730a06299f014e281b549a0bd51da6adb3880bcc0587d85fb34a58faedc",
+      "normalization": "owned remote absolute directory prefixes only; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/real-text-acceptance-01/consumer-live-fixed.log",
+      "raw_sha256": "bc7123ffed8bc256b2aaa4d831022d0b43b59bab10f6def3a1049cf8a01e5e15",
+      "published_sha256": "6d47722d49fc92711e9c31eaf0e56af662355b30c1116da32d754d4d2c037878",
+      "normalization": "owned remote absolute directory prefixes only; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/real-text-acceptance-01/final-code-regression.log",
+      "raw_sha256": "5aed3a3fe81760dca4b264b2325def0cacbc256a2ed362d8d2ccb7b1e011be38",
+      "published_sha256": "6b033b516ea99cac2245817b5fe8c56de2ee7406f6b4456515f9f3aac1ab3f19",
+      "normalization": "owned remote absolute directory prefixes only; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/real-text-acceptance-01/regression-recovery.log",
+      "raw_sha256": "65bba861687e9e9ec5e5cd0ab14ae311f9e53706cea3045351f44020375c8e97",
+      "published_sha256": "076e06edf2fb6878479e621f1663cd9e9adb7abd57983416e2b4f813264336d3",
+      "normalization": "owned remote absolute directory prefixes only; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/real-text-acceptance-01/node-final.log",
+      "raw_sha256": "400561a5c0f5634253d1967f16f0637b45ab5a3b36719dfe9886ee269dfff141",
+      "published_sha256": "400561a5c0f5634253d1967f16f0637b45ab5a3b36719dfe9886ee269dfff141",
+      "normalization": "owned remote absolute directory prefixes only; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/real-text-acceptance-01/ci-41374148012-failed.log",
+      "raw_sha256": "da3dd4370a0623980b863b74532122f4ee189b5999ccdc06d5ba221648964d0a",
+      "published_sha256": "da3dd4370a0623980b863b74532122f4ee189b5999ccdc06d5ba221648964d0a",
+      "normalization": "owned remote absolute directory prefixes only; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/real-text-acceptance-01/ci-94f7196-failed.log",
+      "raw_sha256": "9cfc525f5e59312c29df951e7fad6139268e3de91de6c575661b77b430fb8756",
+      "published_sha256": "9cfc525f5e59312c29df951e7fad6139268e3de91de6c575661b77b430fb8756",
+      "normalization": "owned remote absolute directory prefixes only; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/real-text-acceptance-01/fixture-marker-collision.json",
+      "raw_sha256": "f19d8237e561d032f174c69b232669bd0afbb547a8260ffcccc477606d88345a",
+      "published_sha256": "f19d8237e561d032f174c69b232669bd0afbb547a8260ffcccc477606d88345a",
+      "normalization": "owned remote absolute directory prefixes only; whitespace retained"
+    }
+  ]
+}

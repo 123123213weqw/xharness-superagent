@@ -1,0 +1,24 @@
+{"route": "deepseek", "endpoint": "https://api.deepseek.com/anthropic", "model": "deepseek-flash", "key_name_only": "DEEPSEEK_API_KEY", "command": ["cargo", "test", "--locked", "-p", "xharness-superagent", "--lib", "--features", "conformance", "application::messages::tests::live_messages_tool_and_opaque_replay", "--", "--exact", "--ignored", "--nocapture"]}
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running unittests src/lib.rs (<owned-validation>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/xharness_superagent-e4b65b0fba5e46a0)
+
+running 1 test
+{"model":"deepseek-flash","requests":[{"elapsed_ms":1313,"finish":"Some(ToolCalls)","reasoning_characters":113,"step":1,"tool_names":["acceptance_echo"],"usage":{"cache_read_tokens":128,"cache_write_tokens":0,"input_tokens":204,"output_tokens":69,"reasoning_tokens":0}},{"elapsed_ms":935,"finish":"Some(Stop)","reasoning_characters":0,"step":2,"tool_names":[],"usage":{"cache_read_tokens":256,"cache_write_tokens":0,"input_tokens":161,"output_tokens":5,"reasoning_tokens":0}}],"scope":"Real Rust Messages adapter only; NOT Source/Worker/PR/cutover acceptance"}
+test application::messages::tests::live_messages_tool_and_opaque_replay ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 48 filtered out; finished in 2.25s
+
+
+{"route": "deepseek", "exit": 0}
+{"route": "glm-coding", "endpoint": "https://open.bigmodel.cn/api/anthropic", "model": "glm-5.3", "key_name_only": "GLM_CODING_API_KEY", "command": ["cargo", "test", "--locked", "-p", "xharness-superagent", "--lib", "--features", "conformance", "application::messages::tests::live_messages_tool_and_opaque_replay", "--", "--exact", "--ignored", "--nocapture"]}
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.15s
+     Running unittests src/lib.rs (<owned-validation>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/xharness_superagent-e4b65b0fba5e46a0)
+
+running 1 test
+{"model":"glm-5.3","requests":[{"elapsed_ms":7900,"finish":"Some(ToolCalls)","reasoning_characters":155,"step":1,"tool_names":["acceptance_echo"],"usage":{"cache_read_tokens":0,"cache_write_tokens":0,"input_tokens":195,"output_tokens":53,"reasoning_tokens":0}},{"elapsed_ms":4335,"finish":"Some(Stop)","reasoning_characters":0,"step":2,"tool_names":[],"usage":{"cache_read_tokens":0,"cache_write_tokens":0,"input_tokens":255,"output_tokens":5,"reasoning_tokens":0}}],"scope":"Real Rust Messages adapter only; NOT Source/Worker/PR/cutover acceptance"}
+test application::messages::tests::live_messages_tool_and_opaque_replay ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 48 filtered out; finished in 12.24s
+
+
+{"route": "glm-coding", "exit": 0}
