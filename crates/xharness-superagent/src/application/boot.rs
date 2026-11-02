@@ -115,7 +115,7 @@ struct Model {
     #[serde(default)]
     reasoning: BTreeMap<String, Value>,
 }
-#[derive(Deserialize)]
+#[derive(Clone, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 struct Document {
     #[serde(default = "admission_pages")]
@@ -128,6 +128,8 @@ struct Document {
     #[serde(default)]
     repository_delivery: Option<super::delivery::Config>,
     #[serde(default)]
+    worker_read_only_roots: Vec<PathBuf>,
+    #[serde(default)]
     main_directory: Option<PathBuf>,
     #[serde(default = "prompt_limit")]
     prompt_max_chars: usize,
@@ -136,6 +138,7 @@ struct Document {
     #[serde(default)]
     settings: Option<Value>,
 }
+#[derive(Clone)]
 pub struct Config {
     document: Document,
     settings: Option<Settings>,
@@ -150,6 +153,16 @@ impl Config {
         .validate()?;
         if let Some(management) = &document.management {
             management.validate()?;
+        }
+        if document.worker_read_only_roots.len() > 16
+            || document
+                .worker_read_only_roots
+                .iter()
+                .any(|p| !p.is_absolute() || p.parent().is_none())
+        {
+            return Err(error(
+                "workerReadOnlyRoots requires at most 16 explicit absolute non-root paths",
+            ));
         }
         if let Some(delivery) = &document.repository_delivery {
             delivery.validate().map_err(display)?;
@@ -496,6 +509,7 @@ struct Coding {
     jobs: Arc<JobRegistry>,
     web: Arc<WebRuntime>,
     delivery: Option<super::delivery::Config>,
+    read_only_roots: Vec<PathBuf>,
 }
 /// Product-only tool authority for an admitted ticket. Generic Host defaults
 /// are unchanged, and native filesystem/process sandbox restrictions remain
@@ -600,8 +614,11 @@ impl SessionToolFactory for Coding {
             })
             .await
             .map_err(|e| e.to_string())?;
-        let platform =
-            Arc::new(NativePlatform::new(PlatformConfig::new(cwd)).map_err(|e| e.to_string())?);
+        let mut platform_config = PlatformConfig::new(cwd);
+        for root in &self.read_only_roots {
+            platform_config = platform_config.read_only_root(root);
+        }
+        let platform = Arc::new(NativePlatform::new(platform_config).map_err(|e| e.to_string())?);
         let bundle = CodingToolBundle::new(
             platform.clone(),
             self.jobs.clone(),
@@ -698,6 +715,7 @@ async fn prepare_workspace(
     github: Prepared,
     feishu: super::feishu::Prepared,
     ticket: Ticket,
+    delivery: Option<super::delivery::Config>,
     stop: CancellationToken,
 ) -> Result<()> {
     let deployment = github.deployment().map_err(display)?;
@@ -740,6 +758,14 @@ async fn prepare_workspace(
         .parent()
         .ok_or_else(|| error("Ticket has no workspace parent"))?;
     tokio::fs::create_dir_all(parent).await?;
+    if let Some(config) = delivery.filter(|c| c.checkout) {
+        github
+            .delivery_transport()
+            .map_err(display)?
+            .checkout(&config.base_branch, &directory, stop.clone())
+            .await
+            .map_err(display)?;
+    }
     if !command.is_empty() {
         // This is the explicitly configured preparation command, not model
         // output. Workers still use the default sandbox after preparation.
@@ -799,6 +825,25 @@ async fn prepare_workspace(
 /// Must be polled on LocalSet. The executable supplies the outer interrupt
 /// token; every admitted runner and Source is joined on success AND failure.
 pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<Summary> {
+    loop {
+        let restart = CancellationToken::new();
+        let result = run_once(config.clone(), mode, stop.clone(), restart.clone()).await;
+        if result.is_ok()
+            && restart.is_cancelled()
+            && !stop.is_cancelled()
+            && matches!(mode, Mode::Watch)
+        {
+            continue;
+        }
+        return result;
+    }
+}
+async fn run_once(
+    config: Config,
+    mode: Mode,
+    stop: CancellationToken,
+    restart: CancellationToken,
+) -> Result<Summary> {
     let models = config.models()?;
     let management_config = config.document.management.clone();
     let prompt_max_chars = config.document.prompt_max_chars;
@@ -819,6 +864,7 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
         jobs: Arc::new(JobRegistry::new(JobRegistryConfig::default())),
         web: Arc::new(WebRuntime::default()),
         delivery: config.document.repository_delivery.clone(),
+        read_only_roots: config.document.worker_read_only_roots.clone(),
     });
     let prompt_store = Rc::new(std::cell::OnceCell::new());
     let inputs = Rc::new(PromptInputs {
@@ -830,7 +876,8 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
     let prepare_client = client.clone();
     let prepare_github = prepared.clone();
     let prepare_feishu = feishu.clone();
-    let prepare_stop = stop.clone();
+    let prepare_stop = source_stop.clone();
+    let prepare_delivery = config.document.repository_delivery.clone();
     let main_directory = config
         .document
         .main_directory
@@ -864,12 +911,14 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
             let github = prepare_github.clone();
             let feishu = prepare_feishu.clone();
             let stop = prepare_stop.clone();
+            let delivery = prepare_delivery.clone();
             async move {
                 prepare_workspace(
                     client.ok_or_else(|| error("Workspace owner not installed"))?,
                     github,
                     feishu,
                     ticket,
+                    delivery,
                     stop,
                 )
                 .await
@@ -881,6 +930,73 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
         clock: Arc::new(|| chrono::Utc::now().timestamp_millis()),
     })
     .await?;
+    let verify_directory = main_directory.clone();
+    let verify_state = state_dir.clone();
+    product
+        .application()
+        .state
+        .verify_account
+        .set(Rc::new(move |source, value, cancel| {
+            let cwd = verify_directory.clone();
+            let state = verify_state.clone();
+            async move {
+                let config: Value = serde_json::from_str(&value.stringify()?)?;
+                let config = config
+                    .get("config")
+                    .cloned()
+                    .unwrap_or_else(|| serde_json::json!({}));
+                let result: Result<()> = async {
+                    match source.as_str() {
+                        "github" => {
+                            let parsed = GithubConfig::parse(&config).map_err(display)?;
+                            Cli::resolve(
+                                PathBuf::from(&parsed.cli),
+                                cwd,
+                                &parsed,
+                                std::env::vars_os().collect(),
+                                cancel,
+                            )
+                            .await
+                            .map_err(display)?;
+                        }
+                        "feishu" => {
+                            let parsed =
+                                crate::sources::feishu::Config::parse(&config).map_err(display)?;
+                            crate::sources::feishu::Cli::resolve_for_state(
+                                PathBuf::from(&parsed.cli),
+                                cwd,
+                                std::env::vars_os().collect(),
+                                &state,
+                                cancel,
+                            )
+                            .await
+                            .map_err(display)?;
+                        }
+                        _ => return Err(error("Source account verifier is unavailable")),
+                    }
+                    Ok(())
+                }
+                .await;
+                result.map_err(|e| {
+                    super::management::problem(
+                        400,
+                        format!("Account verification failed; settings were not saved: {e}"),
+                    )
+                })
+            }
+            .boxed_local()
+        }))
+        .map_err(|_| error("Account verifier already installed"))?;
+    let restart_sources = source_stop.clone();
+    product
+        .application()
+        .state
+        .restart
+        .set(Rc::new(move || {
+            restart.cancel();
+            restart_sources.cancel();
+        }))
+        .map_err(|_| error("Restart owner already installed"))?;
     prompt_store
         .set(product.application().state.store.clone())
         .map_err(|_| error("Prompt SQL owner already installed"))?;
@@ -962,6 +1078,11 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
             .source(product.application().clone())
             .map_err(display)?);
         let feishu_source = Rc::new(feishu.source(product.application().clone(), feishu_setup.as_ref()));
+        let labels=Rc::downgrade(&feishu_source);
+        product.application().state.labels.set(Rc::new(move |cancel| {
+            let source=labels.upgrade();
+            async move {source.ok_or_else(||error("Feishu Source stopped"))?.refresh_names(cancel).await}.boxed_local()
+        })).map_err(|_|error("Label reader already installed"))?;
         let github_health = Rc::downgrade(&source);
         let feishu_health = Rc::downgrade(&feishu_source);
         let deployment = prepared.deployment().map_err(display)?;

@@ -1,5 +1,6 @@
 //! Product-owned persistence and dispatch; no legacy host loops or permissions change.
 pub mod application;
+pub mod cold_import;
 pub mod commands;
 pub mod delivery;
 pub mod driver;

@@ -19,6 +19,8 @@ use tokio::process::Command;
 static NEXT: AtomicU64 = AtomicU64::new(0);
 #[path = "product_entry/assessment.rs"]
 mod assessment;
+#[path = "product_entry/checkout.rs"]
+mod checkout;
 #[path = "product_entry/configuration.rs"]
 mod configuration;
 #[path = "product_entry/configuration_lifecycle.rs"]

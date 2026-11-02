@@ -52,6 +52,8 @@
     "port": 13092
   },
   "repositoryDelivery": {
-    "baseBranch": "main"
-  }
+    "baseBranch": "main",
+    "checkout": true
+  },
+  "workerReadOnlyRoots": []
 }

@@ -38,6 +38,7 @@ use std::{
     path::Path,
     rc::Rc,
 };
+use tokio_util::sync::CancellationToken;
 use xharness_agent::{AgentLease, FileLeaseManager, LeaseManager};
 use xharness_superagent_core::{
     engine::{
@@ -99,6 +100,9 @@ struct State {
     pull_reader: OnceCell<github::PullReader>,
     management: OnceCell<configuration::ManagementPort>,
     panel: OnceCell<configuration::PanelPort>,
+    restart: OnceCell<Rc<dyn Fn()>>,
+    verify_account: OnceCell<configuration::VerifyAccount>,
+    labels: OnceCell<Rc<dyn Fn(CancellationToken) -> resources::ReadFuture>>,
     status: OnceCell<Rc<dyn Fn() -> Result<Value>>>,
     assessment: OnceCell<assessment::ToolPort>,
     resource_pages: Rc<RefCell<resources::TextCache>>,
@@ -177,6 +181,9 @@ impl Application {
             pull_reader: OnceCell::new(),
             management: OnceCell::new(),
             panel: OnceCell::new(),
+            restart: OnceCell::new(),
+            verify_account: OnceCell::new(),
+            labels: OnceCell::new(),
             status: OnceCell::new(),
             assessment: OnceCell::new(),
             resource_pages: Rc::new(RefCell::new(resources::TextCache::new(4_000_000))),

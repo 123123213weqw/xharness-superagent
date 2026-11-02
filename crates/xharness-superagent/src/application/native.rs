@@ -69,6 +69,7 @@ mod policy_sync;
 pub use policy_sync::Health as PolicySyncHealth;
 mod idle;
 mod panel;
+mod panel_views;
 mod recovery;
 mod resources;
 

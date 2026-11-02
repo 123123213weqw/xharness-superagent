@@ -62,3 +62,19 @@ GitHub API参数按官方 [Git trees](https://docs.github.com/en/rest/git/trees)
 安全文件读取、受管CLI、Outbox；只有模型/GitHub服务边界是确定性夹具。
 真实服务验收另列证据，不以夹具成功冒充真实 push/PR。
 详见本批验证记录；完整业务 Goal、飞书 Worker收发和六实例切换尚未完成。
+
+## 预置真实仓库工作区（2026-11-02）
+
+在 `repositoryDelivery` 中显式设置 `checkout: true`：正式入口在 Worker 启动前，
+通过已验证的 Source CLI 克隆固定 HTTPS 仓库/基线分支到私有暂存目录。禁用递归
+子模块、全局/system Git 配置和模板 hook，验证克隆 HEAD 与读取的基线 SHA 相等，
+重写不含认证 helper 的本地 Git 配置，再原子发布工作区。失败/取消不发布半成品；
+不在 Worker 已可修改的 .git 中运行有权限的 Root git。已有工作区恢复时不重新克隆。
+
+`workerReadOnlyRoots` 默认为空，可由操作者显式挂载编译器/不可变依赖缓存。
+不得挂载 .ssh、完整 HOME、凭据目录；不改变通用 XHarness 默认权限，也不开放
+Worker 网络。V100 内的 Worker 可以直接执行该服务器的工具链，不需要 SSH 自连。
+助手从 Mac 发起 SSH 编译本产品，仍不算 Worker 自己完成了构建。
+
+这批不取消 v1 文本发布边界：二进制/删除/可执行位、多次提交到同一交付分支、
+完整 Review 后续处理及跨机 SSH 仍需分别验收，不因 clone 测试通过就整组签收。

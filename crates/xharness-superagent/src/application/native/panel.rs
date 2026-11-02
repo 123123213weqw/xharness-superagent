@@ -15,7 +15,7 @@ fn value(raw: &JsValue) -> Result<Value> {
 }
 fn page(items: Vec<Value>, offset: usize, limit: usize) -> Value {
     let total = items.len();
-    json!({"items":items.into_iter().skip(offset).take(limit).collect::<Vec<_>>(),"total":total,"offset":offset,"limit":limit,"more":offset.saturating_add(limit)<total})
+    json!({"items":items.into_iter().skip(offset).take(limit).collect::<Vec<_>>(),"total":total,"offset":offset,"limit":limit,"more":offset.saturating_add(limit)<total,"next_offset":(offset.saturating_add(limit)<total).then(||offset.saturating_add(limit))})
 }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -53,7 +53,13 @@ impl Backend {
                 )?,
                 None => current,
             };
-            return Ok(JsValue::object([
+            let offset = query
+                .get("offset")
+                .map(|s| s.parse::<u64>())
+                .transpose()
+                .map_err(|_| problem(400, "Invalid prompt history offset"))?
+                .unwrap_or(0);
+            let mut result = JsValue::object([
                 ("masterId".into(), self.main_id.clone().into()),
                 ("current".into(), shown.value()),
                 ("defaults".into(), prompts::default_prompts()?.value()),
@@ -65,8 +71,22 @@ impl Backend {
                     "defaultChanged".into(),
                     prompts.default_changed(&shown.config)?,
                 ),
-            ])
-            .stringify()?);
+            ]);
+            for (key, value) in prompts.history(offset, 20)?.ordered_entries() {
+                result.set(key, value.clone());
+            }
+            let parts = prompts::built_in_parts()?
+                .into_iter()
+                .map(|p| {
+                    let mut v = p.value();
+                    v.set("key", p.key.into());
+                    v.set("base", prompts::built_in_base(&p.text)?.into());
+                    Ok(v)
+                })
+                .collect::<Result<Vec<_>>>()?;
+            result.set("parts", JsValue::Array(parts));
+            result.set("skillPrefix", prompts::SKILL_PREFIX.into());
+            return Ok(result.stringify()?);
         }
         serde_json::to_string(&self.panel_json(operation, encoded, cancel).await?)
             .map_err(Error::from)
@@ -169,6 +189,48 @@ impl Backend {
             ("GET", ["overview"]) => self.panel_overview(),
             ("GET", ["sources"]) => self.panel_sources(),
             ("GET", ["settings"]) => self.panel_settings(),
+            ("GET", ["search"]) => {
+                self.panel_search(query.get("q").map(String::as_str).unwrap_or(""))
+            }
+            ("GET", ["threads"]) => self.panel_threads(&query),
+            ("GET", ["threads", _]) => self.panel_thread(&id(1)?, &query),
+            ("GET", ["decisions"]) => self.panel_decisions(&query),
+            ("GET", ["policy", "history"]) => self.panel_policy_history(),
+            ("POST", ["setup", "check"]) => {
+                app.state
+                    .restart
+                    .get()
+                    .ok_or_else(|| problem(503, "Controlled restart unavailable"))?(
+                );
+                Ok(json!({"restarting":true}))
+            }
+            ("POST", ["sources", _, "labels"]) => {
+                if id(1)? != "feishu" {
+                    return Err(problem(400, "Source has no display label listing"));
+                }
+                let previous = app
+                    .state
+                    .store
+                    .get::<Value>("source-labels:feishu")?
+                    .unwrap_or_else(|| json!({}));
+                let labels = app
+                    .state
+                    .labels
+                    .get()
+                    .ok_or_else(|| problem(503, "Label reader unavailable"))?(
+                    cancel
+                )
+                .await?;
+                let mut added = labels
+                    .as_object()
+                    .ok_or_else(|| problem(502, "Invalid Source labels"))?
+                    .iter()
+                    .filter(|(key, _)| previous.get(*key).is_none())
+                    .filter_map(|(_, v)| v.as_str().map(str::to_owned))
+                    .collect::<Vec<_>>();
+                added.sort();
+                Ok(json!({"added":added}))
+            }
             ("GET", ["models"]) => Ok(
                 json!({"providers":self.catalog.iter().map(|m|json!({"provider":m.provider,"id":m.model,"name":m.model_display_name})).collect::<Vec<_>>(),"default":{"provider":self.default_model.provider,"model":self.default_model.model}}),
             ),
@@ -289,6 +351,37 @@ impl Backend {
                     ));
                 }
                 if let Some(source) = block.strip_prefix("source:") {
+                    let supplied = raw
+                        .get("value")
+                        .ok_or_else(|| problem(400, "Missing settings value"))?;
+                    let normalized =
+                        (self.configuration_sources.validate_instance)(source, supplied)?;
+                    let settings = app.state.store.settings()?;
+                    let old = settings
+                        .value()
+                        .get("sources")
+                        .and_then(|s| s.get(source))
+                        .and_then(|s| s.get("config"));
+                    let config = normalized.get("config");
+                    let keys = if source == "github" {
+                        vec!["repository", "cli"]
+                    } else {
+                        vec!["cli"]
+                    };
+                    if keys
+                        .iter()
+                        .any(|key| old.and_then(|s| s.get(key)) != config.and_then(|s| s.get(key)))
+                    {
+                        app.state
+                            .verify_account
+                            .get()
+                            .ok_or_else(|| problem(503, "Account verifier unavailable"))?(
+                            source.to_owned(),
+                            normalized,
+                            cancel.clone(),
+                        )
+                        .await?;
+                    }
                     raw.set("block", "source".into());
                     raw.set("source", source.into());
                 } else {
@@ -341,7 +434,7 @@ impl Backend {
         probe["masterId"] = json!(self.main_id);
         probe["paused"] = json!(app.state.store.settings()?.paused());
         probe["load"] = self.panel_load()?;
-        probe["capabilities"] = json!({"api":"text-production-subset-v1","accountHotSwap":false,"fullReferenceViews":false});
+        probe["capabilities"] = json!({"api":"business-management-v2","accountHotSwap":false,"controlledRestart":true,"fullReferenceViews":false});
         Ok(probe)
     }
     fn panel_load(&self) -> Result<Value> {

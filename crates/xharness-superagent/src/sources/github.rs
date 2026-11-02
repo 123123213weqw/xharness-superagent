@@ -4,7 +4,13 @@
 use async_trait::async_trait;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
-use std::{collections::BTreeMap, ffi::OsString, path::PathBuf, sync::Arc, time::Duration};
+use std::{
+    collections::BTreeMap,
+    ffi::OsString,
+    path::{Path, PathBuf},
+    sync::Arc,
+    time::Duration,
+};
 use tokio_util::sync::CancellationToken;
 use xharness_process::{ProcessRuntime, SpawnSpec, TerminationReason};
 use xharness_superagent_core::{
@@ -200,6 +206,18 @@ impl Deployment {
 #[async_trait]
 pub trait Transport: Send + Sync {
     async fn api(&self, path: &str, flags: &[String], stop: CancellationToken) -> Result<String>;
+    /// Trusted pre-Worker operation only. Implementations must not expose an
+    /// incomplete checkout at `directory` or execute git in an existing tree.
+    async fn checkout(
+        &self,
+        _branch: &str,
+        _directory: &Path,
+        _stop: CancellationToken,
+    ) -> Result<String> {
+        Err(Error::Config(
+            "Repository checkout is unavailable on this transport".into(),
+        ))
+    }
 }
 pub async fn json_api<T: serde::de::DeserializeOwned>(
     transport: &dyn Transport,
@@ -355,6 +373,120 @@ impl Cli {
         }
         Ok(output.stdout.text)
     }
+    /// Clone into a private sibling, verify its pinned HEAD and remove all
+    /// inherited Git configuration before publishing the directory. Neither a
+    /// failed preparation nor a process crash can make a partial clone look
+    /// like an existing Worker workspace on the next launch.
+    async fn checkout_repository(
+        &self,
+        branch: &str,
+        directory: &Path,
+        stop: CancellationToken,
+    ) -> Result<String> {
+        if branch.is_empty()
+            || branch.len() > 200
+            || branch.starts_with('/')
+            || branch.ends_with('/')
+            || branch.contains("..")
+            || branch.contains("//")
+            || branch
+                .split('/')
+                .any(|p| p.starts_with('.') || p.ends_with(".lock"))
+            || !branch
+                .bytes()
+                .all(|b| b.is_ascii_alphanumeric() || b"/._-".contains(&b))
+        {
+            return Err(Error::Config(
+                "Checkout requires a literal branch name".into(),
+            ));
+        }
+        if self.deployment.noreply.contains(['\n', '\r', '\0']) {
+            return Err(Error::Config("Invalid checkout identity".into()));
+        }
+        if !directory.is_absolute() || tokio::fs::symlink_metadata(directory).await.is_ok() {
+            return Err(Error::Config(
+                "Checkout requires a new absolute workspace".into(),
+            ));
+        }
+        let parent = directory
+            .parent()
+            .ok_or_else(|| Error::Config("Checkout has no parent".into()))?;
+        tokio::fs::create_dir_all(parent)
+            .await
+            .map_err(|e| Error::Protocol(e.to_string()))?;
+        let expected: Value = json_api(
+            self,
+            &format!("git/ref/heads/{}", component(branch)),
+            &[],
+            stop.clone(),
+        )
+        .await?;
+        let head = expected["object"]["sha"]
+            .as_str()
+            .filter(|s| s.len() == 40 && s.bytes().all(|b| b.is_ascii_hexdigit()))
+            .ok_or_else(|| Error::Protocol("Checkout base has no valid SHA".into()))?
+            .to_ascii_lowercase();
+        let staging = parent.join(format!(
+            ".xharness-checkout-{}-{}",
+            std::process::id(),
+            std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .map_err(|e| Error::Protocol(e.to_string()))?
+                .as_nanos()
+        ));
+        tokio::fs::create_dir(&staging)
+            .await
+            .map_err(|e| Error::Protocol(e.to_string()))?;
+        #[cfg(unix)]
+        {
+            use std::os::unix::fs::PermissionsExt;
+            tokio::fs::set_permissions(&staging, std::fs::Permissions::from_mode(0o700))
+                .await
+                .map_err(|e| Error::Protocol(e.to_string()))?;
+        }
+        let mut environment = self.environment.clone();
+        environment.retain(|k, _| !k.to_string_lossy().starts_with("GIT_") && k != "SSH_AUTH_SOCK");
+        environment.insert("GIT_CONFIG_GLOBAL".into(), "/dev/null".into());
+        environment.insert("GIT_CONFIG_NOSYSTEM".into(), "1".into());
+        environment.insert("GIT_TERMINAL_PROMPT".into(), "0".into());
+        environment.insert("GIT_ALLOW_PROTOCOL".into(), "https".into());
+        let cloner = Self {
+            program: self.program.clone(),
+            cwd: self.cwd.clone(),
+            environment: environment.clone(),
+            deployment: self.deployment.clone(),
+            runtime: self.runtime.clone(),
+        };
+        let result = async {
+            let url = format!("https://github.com/{}.git", self.deployment.repository);
+            cloner.run(vec!["repo".into(),"clone".into(),url.clone(),staging.to_string_lossy().into_owned(),"--".into(),"--single-branch".into(),"--no-tags".into(),"--no-recurse-submodules".into(),"--branch".into(),branch.into(),"--config".into(),"core.hooksPath=/dev/null".into(),"--config".into(),"init.templateDir=/dev/null".into()],stop.clone()).await?;
+            // This tree has never been handed to a Worker. No privileged git
+            // process will ever run in it again after the atomic rename.
+            let git = Self {program:"git".into(),cwd:staging.clone(),environment,deployment:self.deployment.clone(),runtime:self.runtime.clone()};
+            let actual=git.run(vec!["-c".into(),"core.hooksPath=/dev/null".into(),"rev-parse".into(),"--verify".into(),"HEAD^{commit}".into()],stop.clone()).await?;
+            if actual.trim()!=head {return Err(Error::Protocol("Checkout base moved while cloning; no workspace published".into()));}
+            let name=serde_json::to_string(branch)?;
+            // Branch and resolved identity are validated literals. Rewrite the
+            // entire local config, not a best-effort credential-key blacklist.
+            let config=format!("[core]\nrepositoryformatversion = 0\nfilemode = true\nbare = false\nlogallrefupdates = true\nhooksPath = /dev/null\n[remote \"origin\"]\nurl = {url}\nfetch = +refs/heads/*:refs/remotes/origin/*\n[branch {name}]\nremote = origin\nmerge = refs/heads/{branch}\n[user]\nname = {}\nemail = {}\n",self.deployment.login,self.deployment.noreply);
+            tokio::fs::write(staging.join(".git/config"),config).await.map_err(|e|Error::Protocol(e.to_string()))?;
+            if stop.is_cancelled(){return Err(Error::Cancelled);}
+            if tokio::fs::symlink_metadata(directory).await.is_ok(){return Err(Error::Config("Checkout destination appeared during preparation".into()));}
+            tokio::fs::rename(&staging,directory).await.map_err(|e|Error::Protocol(e.to_string()))?;
+            Ok(head)
+        }.await;
+        if result.is_err() {
+            // Only this invocation's private, never-published tree is removed.
+            if let Err(e) = tokio::fs::remove_dir_all(&staging).await {
+                if e.kind() != std::io::ErrorKind::NotFound {
+                    return Err(Error::Protocol(format!(
+                        "Checkout failed; staging cleanup failed: {e}"
+                    )));
+                }
+            }
+        }
+        result
+    }
     /// Setup checks are read-only, using exactly this account. No push, new
     /// credential, permission grant or model request is performed.
     pub async fn resolve(
@@ -412,6 +544,15 @@ impl Cli {
 }
 #[async_trait]
 impl Transport for Cli {
+    async fn checkout(
+        &self,
+        branch: &str,
+        directory: &Path,
+        stop: CancellationToken,
+    ) -> Result<String> {
+        self.checkout_repository(branch, directory, stop).await
+    }
+
     async fn api(&self, path: &str, flags: &[String], stop: CancellationToken) -> Result<String> {
         let mut args = vec!["api".into(), self.repository_path(path)?];
         args.extend_from_slice(flags);

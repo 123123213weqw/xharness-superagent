@@ -31,3 +31,12 @@ pub type PanelPort = Rc<
         CancellationToken,
     ) -> futures::future::LocalBoxFuture<'static, Result<String>>,
 >;
+
+/// Read-only account verification before a human configuration save commits.
+pub type VerifyAccount = Rc<
+    dyn Fn(
+        String,
+        JsValue,
+        CancellationToken,
+    ) -> futures::future::LocalBoxFuture<'static, Result<()>>,
+>;

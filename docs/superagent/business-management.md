@@ -40,12 +40,11 @@ API 保留原版同源门禁：Host 必须是所配端口的 `127.0.0.1` 或 `lo
   `decisions/:id/dismiss`：已有业务 owner 上的人工操作。
 - `PUT settings/:block`：版本 CAS，复用已有配置/模型/授权校验与策略副作用事务。
   Panel 允许修改后续工作的 prepare/directory/blockedCommands；模型工具仍不能这样修改。
-  来源开关可保存；账号/仓库/CLI 的在线替换目前明确409拒绝，不返回假 restarting。
+  来源开关可保存；账号/仓库/CLI 变化先用现有 CLI 做只读验证；失败不提交设置。成功后在 CAS 保存后停止并回收旧 owner，再从持久化设置受控重启。不是向活动 Worker 热换凭据。
 - `POST policy-sync/:id`：复用已有 bot-only 同步；没有改成新账号或更宽权限。
 - `PUT prompts`、`POST prompts/preview`：原有语义校验/版本冲突；Panel 保存来源记为
   `panel`，通知与版本在同一事务持久化，返回 pending 不虚报已注入；工具自改仍不自唤醒。
-- 其他尚未实现的路由返回404，而不是空成功结果。搜索/线程/决策完整列表、labels、
-  完整历史装饰、setup/check 受控重启和所有原版面板交互继续在 Goal 内。
+- 其他尚未实现的路由返回404，而不是空成功结果。搜索、线程/时间线、决策列表、labels、Prompt 历史及 setup/check 已有实际处理器；完整原版装饰字段和所有面板交互仍不宣称逐项签收。
 
 新增 Panel 端口只由 HTTP 组合根安装；模型工具参数不能选择 Panel 来源或人工权限。
 没有修改主14/Worker6个应用工具、通用 Host 的默认权限或现有 Worker 网络隔离。
@@ -81,3 +80,19 @@ API 保留原版同源门禁：Host 必须是所配端口的 `127.0.0.1` 或 `lo
 - 六实例配置/部署覆盖、冷切去重与回执边界、完整备份/守护/回退和首次生产切换。
 - 飞书完整任务→Worker→回复的真实证据仍缺；不再要求用户重复发消息，不虚记通过。
 - 完整业务工具分支、后台/子任务和崩溃恢复矩阵。四条新增通过不等于全部 Goal 完成。
+
+## 业务管理 v2（2026-11-02）
+
+- 增加 `GET search`、`threads` / `threads/:key`（before/around）、`decisions`、
+  `policy/history`，以及 `POST sources/:id/labels`。SQL 错误仍是错误，不返回假空数据。
+- Prompt 查询增加历史分页、内置部件及 base；UI 增加搜索、线程/研判操作、历史、
+  群名称刷新、Prompt 预览和受控重启。不是完整原版视图装饰签收。
+- `POST setup/check` 与人工账号更换使用同一受控重启：原 Source/Worker/子进程和
+  SQL owner 先回收，再重新获取状态租约。模型工具不能选择这个人工端口。
+- 账号保存新增只读预验证；失败返回400且旧版本/设置/服务不变，成功保存仍经过 CAS。
+- 保留 Mac CI 在旧 head 6896a9c 的真实失败：过大请求体被拒绝后，尚未发送完的
+  HTTP 请求出现 reset，客户端收不到400。现在只在原五秒期限内有界丢弃最多2 MiB
+  超限尾部，超限内容不保留、不解析、不提交 SQL；原128 KiB接受上限不变。
+  原400断言保留，并新增结构化错误及 paused 不变断言。
+
+新精确 head 的跨平台 CI 另记，不引用旧 head 的绿灯作为当前通过证据。

@@ -239,14 +239,39 @@ impl Backend {
         {
             return Err(refused(UserErrorCode::PanelOnlyEnvironment, &[]));
         }
-        if (self.configuration_sources.setup_fields)(&old)?.stringify()?
-            != (self.configuration_sources.setup_fields)(&candidate)?.stringify()?
-        {
-            if matches!(origin, Origin::Panel) {
-                return Err(crate::application::management::problem(409,
-                    "Account changes require a controlled process restart; live account replacement is not enabled"));
+        let restarting = (self.configuration_sources.setup_fields)(&old)?.stringify()?
+            != (self.configuration_sources.setup_fields)(&candidate)?.stringify()?;
+        if restarting {
+            if !matches!(origin, Origin::Panel) {
+                return Err(refused(UserErrorCode::PanelOnlyAccounts, &[]));
             }
-            return Err(refused(UserErrorCode::PanelOnlyAccounts, &[]));
+            for (_, source) in candidate
+                .value()
+                .get("sources")
+                .ok_or_else(|| unavailable("Sources missing"))?
+                .ordered_entries()
+            {
+                if let Some(cli) = source
+                    .get("config")
+                    .and_then(|c| c.get("cli"))
+                    .and_then(JsValue::as_str)
+                {
+                    if std::path::Path::new(cli).is_absolute()
+                        && !std::path::Path::new(cli).is_file()
+                    {
+                        return Err(crate::application::management::problem(
+                            400,
+                            "Account CLI path is not a file",
+                        ));
+                    }
+                }
+            }
+            if app.state.restart.get().is_none() {
+                return Err(crate::application::management::problem(
+                    409,
+                    "Controlled restart owner unavailable",
+                ));
+            }
         }
         if args.block == "eval" || args.block == "executor" {
             let new = member(candidate.value(), &args.block)?.get("model");
@@ -324,9 +349,16 @@ impl Backend {
             store.after_commit(Box::new(move||{changed.send_replace(saved);Ok(())}))?;
             Ok(())
         })?;
-        app.passes.request();
+        if restarting {
+            app.state
+                .restart
+                .get()
+                .ok_or_else(|| unavailable("Restart owner disappeared"))?();
+        } else {
+            app.passes.request();
+        }
         Ok(
-            json!({"saved":true,"revision":store.block_revision(&block)?,"policy_changed":before!=after,"restarting":false}),
+            json!({"saved":true,"revision":store.block_revision(&block)?,"policy_changed":before!=after,"restarting":restarting}),
         )
     }
 }

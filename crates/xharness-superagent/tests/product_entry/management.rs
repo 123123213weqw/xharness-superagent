@@ -172,6 +172,19 @@ async fn formal_management_reads_real_state_guards_requests_and_joins_slow_body(
         .await
         .unwrap();
     assert_eq!(too_large.status(), 400);
+    assert!(too_large.json::<Value>().await.unwrap()["error"]
+        .as_str()
+        .unwrap()
+        .contains("exceeds"));
+    let after_rejection: Value = api(&client, port, "GET", "state", None)
+        .await
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(
+        after_rejection["paused"], false,
+        "An oversized control body must not reach the owner"
+    );
     let mut slow = tokio::net::TcpStream::connect(("127.0.0.1", port))
         .await
         .unwrap();
@@ -261,7 +274,7 @@ async fn formal_management_saves_cas_environment_prompts_pause_and_restart() {
         )
         .await
         .status(),
-        409
+        400
     );
     for paused in [true, false, true] {
         let response = api(
@@ -461,4 +474,217 @@ async fn formal_management_bind_error_drains_owner_and_check_never_binds() {
     let output = fixture.run("--check").await;
     assert!(!output.status.success());
     assert!(String::from_utf8_lossy(&output.stderr).contains("management.port"));
+}
+#[tokio::test]
+async fn formal_management_queries_nonempty_history_timeline_and_restart_without_duplicate_work() {
+    let server = Server::with_responder(|r| answer(r, false));
+    let mut f = Fixture::new(&server.url);
+    success(&f.run("--once").await);
+    let baseline = f.table("ticket");
+    assert_eq!(baseline.len(), 1);
+    let port = port();
+    f.config["management"] = json!({"port":port});
+    let mut child = f
+        .command("")
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped())
+        .spawn()
+        .unwrap();
+    let c = client();
+    ready(&c, port, &mut child).await;
+    for path in [
+        "threads?filter=all&limit=1",
+        "decisions?limit=1",
+        "search?q=%23%37",
+        "policy/history",
+        "prompts?offset=0",
+    ] {
+        let r = api(&c, port, "GET", path, None).await;
+        let status = r.status();
+        let value: Value = r.json().await.unwrap();
+        assert_eq!(status, 200, "{path}: {value}");
+        if path.starts_with("threads") {
+            let key = value["items"][0]["key"].as_str().unwrap();
+            let detail: Value = api(
+                &c,
+                port,
+                "GET",
+                &format!(
+                    "threads/{}?limit=1",
+                    url::form_urlencoded::byte_serialize(key.as_bytes()).collect::<String>()
+                ),
+                None,
+            )
+            .await
+            .json()
+            .await
+            .unwrap();
+            assert_eq!(detail["timeline"].as_array().unwrap().len(), 1);
+            assert!(detail["timeline"][0]["disposition"].is_object());
+            let at = detail["timeline"][0]["id"].as_str().unwrap();
+            let around: Value = api(
+                &c,
+                port,
+                "GET",
+                &format!(
+                    "threads/{}?around={}",
+                    url::form_urlencoded::byte_serialize(key.as_bytes()).collect::<String>(),
+                    url::form_urlencoded::byte_serialize(at.as_bytes()).collect::<String>()
+                ),
+                None,
+            )
+            .await
+            .json()
+            .await
+            .unwrap();
+            assert!(around["timeline"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|t| t["id"] == at));
+        }
+        if path.starts_with("prompts") {
+            assert!(value["revisions"].is_array());
+            assert!(!value["parts"].as_array().unwrap().is_empty());
+        }
+    }
+    for path in [
+        "threads/missing",
+        "threads?filter=bad",
+        "decisions?kind=bad",
+        "prompts?offset=bad",
+    ] {
+        assert!(!api(&c, port, "GET", path, None).await.status().is_success());
+    }
+    let r = api(&c, port, "POST", "setup/check", Some(json!({}))).await;
+    assert_eq!(r.status(), 200);
+    assert_eq!(r.json::<Value>().await.unwrap()["restarting"], true);
+    tokio::time::timeout(Duration::from_secs(30), async {
+        loop {
+            assert!(child.try_wait().unwrap().is_none());
+            if let Ok(r) = c
+                .get(endpoint(port, "state"))
+                .header("x-orchestrator-request", "1")
+                .send()
+                .await
+            {
+                if r.status().is_success() {
+                    let s: Value = r.json().await.unwrap();
+                    if s["health"]["runtime"]["state"] == "ready" {
+                        break;
+                    }
+                }
+            }
+            tokio::time::sleep(Duration::from_millis(50)).await;
+        }
+    })
+    .await
+    .unwrap();
+    stopped(child).await;
+    assert_eq!(f.table("ticket"), baseline);
+}
+#[tokio::test]
+async fn formal_management_account_save_restarts_sources_after_cas_without_replaying_work() {
+    use std::os::unix::fs::PermissionsExt;
+    let server = Server::with_responder(|_| Ok((None, Value::Null)));
+    let mut f = Fixture::new(&server.url);
+    let port = port();
+    f.config["management"] = json!({"port":port});
+    f.config["settings"]["sources"]["github"]["enabled"] = json!(false);
+    let other = f.directory.join("new-gh-account");
+    std::fs::copy(f.directory.join("fixture-gh"), &other).unwrap();
+    std::fs::set_permissions(&other, std::fs::Permissions::from_mode(0o700)).unwrap();
+    let mut child = f
+        .command("")
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped())
+        .spawn()
+        .unwrap();
+    let c = client();
+    ready(&c, port, &mut child).await;
+    let settings: Value = api(&c, port, "GET", "settings", None)
+        .await
+        .json()
+        .await
+        .unwrap();
+    let github = settings["sources"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|s| s["id"] == "github")
+        .unwrap();
+    let bad = f.directory.join("invalid-account-cli");
+    std::fs::write(&bad,"#!/usr/bin/env python3\nimport sys\nprint('explicit account verification failure',file=sys.stderr)\nraise SystemExit(1)\n").unwrap();
+    std::fs::set_permissions(&bad, std::fs::Permissions::from_mode(0o700)).unwrap();
+    let mut invalid = github["value"].clone();
+    invalid["config"]["cli"] = json!(bad);
+    let rejected = api(
+        &c,
+        port,
+        "PUT",
+        "settings/source%3Agithub",
+        Some(json!({"value":invalid,"revision":github["revision"]})),
+    )
+    .await;
+    assert_eq!(rejected.status(), 400);
+    assert!(rejected.json::<Value>().await.unwrap()["error"]
+        .as_str()
+        .unwrap()
+        .contains("settings were not saved"));
+    let unchanged: Value = api(&c, port, "GET", "settings", None)
+        .await
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(
+        unchanged["sources"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|s| s["id"] == "github")
+            .unwrap(),
+        github
+    );
+    assert!(child.try_wait().unwrap().is_none());
+    let mut value = github["value"].clone();
+    value["config"]["cli"] = json!(other);
+    let r = api(
+        &c,
+        port,
+        "PUT",
+        "settings/source%3Agithub",
+        Some(json!({"value":value,"revision":github["revision"]})),
+    )
+    .await;
+    assert_eq!(r.status(), 200);
+    assert_eq!(r.json::<Value>().await.unwrap()["restarting"], true);
+    tokio::time::timeout(Duration::from_secs(30), async {
+        loop {
+            assert!(child.try_wait().unwrap().is_none());
+            if let Ok(r) = c
+                .get(endpoint(port, "settings"))
+                .header("x-orchestrator-request", "1")
+                .send()
+                .await
+            {
+                if r.status().is_success() {
+                    let s: Value = r.json().await.unwrap();
+                    if s["sources"].as_array().is_some_and(|a| {
+                        a.iter().any(|s| {
+                            s["id"] == "github" && s["value"]["config"]["cli"] == json!(other)
+                        })
+                    }) {
+                        break;
+                    }
+                }
+            }
+            tokio::time::sleep(Duration::from_millis(50)).await;
+        }
+    })
+    .await
+    .unwrap();
+    stopped(child).await;
+    assert!(f.table("ticket").is_empty());
+    assert!(server.requests().is_empty());
+    assert!(f.posts().is_empty());
 }

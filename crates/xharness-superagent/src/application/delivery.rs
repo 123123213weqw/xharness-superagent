@@ -18,7 +18,9 @@ const TOTAL_LIMIT: usize = 256 * 1024;
 #[derive(Clone, Deserialize)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub(super) struct Config {
-    base_branch: String,
+    pub(super) base_branch: String,
+    #[serde(default)]
+    pub(super) checkout: bool,
 }
 impl Config {
     pub(super) fn validate(&self) -> Result<()> {
@@ -526,7 +528,8 @@ mod tests {
         ] {
             assert!(
                 Config {
-                    base_branch: b.into()
+                    base_branch: b.into(),
+                    checkout: false
                 }
                 .validate()
                 .is_err(),
@@ -534,7 +537,8 @@ mod tests {
             );
         }
         assert!(Config {
-            base_branch: "business/product-alignment".into()
+            base_branch: "business/product-alignment".into(),
+            checkout: false
         }
         .validate()
         .is_ok());

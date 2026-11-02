@@ -5,14 +5,14 @@
 use super::client::Client;
 use crate::{Error, Result};
 use axum::{
-    body::{to_bytes, Body},
+    body::Body,
     extract::{Request, State},
     http::{HeaderMap, StatusCode},
     response::{Html, IntoResponse, Response},
     routing::any,
     Router,
 };
-use futures::FutureExt;
+use futures::{FutureExt, StreamExt};
 use serde::Deserialize;
 use serde_json::{json, Value};
 use std::{net::Ipv4Addr, time::Duration};
@@ -125,6 +125,30 @@ fn failure(error: Error) -> Response {
     }
     json_response(status, body)
 }
+/// Discard a bounded oversize tail before replying. Closing HTTP/1 while a
+/// normal client is still writing that tail can reset the socket and hide the
+/// structured 400 (observed on macOS CI). Oversize bytes never enter the parser
+/// or SQL owner, and the existing five-second read deadline covers draining.
+async fn read_body(body: Body, limit: usize) -> Result<Vec<u8>> {
+    const REJECTION_DRAIN: usize = 2 * 1024 * 1024;
+    let mut stream = body.into_data_stream();
+    let mut bytes = Vec::new();
+    let mut total = 0usize;
+    while let Some(chunk) = stream.next().await {
+        let chunk = chunk.map_err(|_| problem(400, "Request body could not be read"))?;
+        total = total.saturating_add(chunk.len());
+        if total > limit.saturating_add(REJECTION_DRAIN) {
+            return Err(problem(400, "Request body exceeds the limit"));
+        }
+        if total <= limit {
+            bytes.extend_from_slice(&chunk);
+        }
+    }
+    if total > limit {
+        return Err(problem(400, "Request body exceeds the limit"));
+    }
+    Ok(bytes)
+}
 async fn handle(State(host): State<Host>, request: Request<Body>) -> Response {
     let path = request.uri().path();
     if path == "/orchestrator" || path == "/orchestrator/" {
@@ -159,9 +183,9 @@ async fn handle(State(host): State<Host>, request: Request<Body>) -> Response {
     let body = tokio::select! {
         biased;
         _ = host.stop.cancelled() => return failure(problem(503, "Management is stopping")),
-        body = tokio::time::timeout(Duration::from_secs(5), to_bytes(request.into_body(), body_limit)) => match body {
-            Ok(Ok(body)) => match String::from_utf8(body.to_vec()) { Ok(body) => body, Err(_) => return failure(problem(400, "Request body must be UTF-8")) },
-            Ok(Err(_)) => return failure(problem(400, "Request body exceeds the limit or could not be read")),
+        body = tokio::time::timeout(Duration::from_secs(5), read_body(request.into_body(), body_limit)) => match body {
+            Ok(Ok(body)) => match String::from_utf8(body) { Ok(body) => body, Err(_) => return failure(problem(400, "Request body must be UTF-8")) },
+            Ok(Err(error)) => return failure(error),
             Err(_) => return failure(problem(408, "Request body timed out")),
         }
     };

@@ -88,3 +88,7 @@ unsafe_code = "forbid"
 
 [dev-dependencies]
 tokio = { workspace = true, features = ["test-util", "process"] }
+
+[[bin]]
+name = "superagent-cold-import"
+path = "src/bin/cold_import.rs"
