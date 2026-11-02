@@ -31,6 +31,87 @@ use xharness_superagent_core::{
 };
 const HORIZON: i64 = 14 * 24 * 3_600_000;
 const RETRY_WINDOW: i64 = 24 * 3_600_000;
+pub(super) type PullReader = Rc<
+    dyn Fn(
+        u64,
+        CancellationToken,
+    ) -> futures::future::LocalBoxFuture<'static, crate::Result<PullClaim>>,
+>;
+
+/// A Source-read witness, never deserialized from model arguments. The claim
+/// and report share the caller's SQL transaction, as in github-pull.ts.
+pub(super) struct PullClaim {
+    number: u64,
+    pull: Pull,
+    deployment: Deployment,
+}
+impl PullClaim {
+    pub(super) fn number(&self) -> u64 {
+        self.number
+    }
+    pub(super) fn apply(&self, app: &Application, ticket_id: &str) -> crate::Result<()> {
+        let problem = |s: &str| crate::Error::Message(s.into());
+        let ticket = app
+            .ticket(ticket_id)?
+            .filter(live_ticket)
+            .ok_or_else(|| problem("Ticket ended because its PR was closed"))?;
+        let source = SqlRepository::new(&app.state.store).trigger(&ticket.origin.trigger_id)?;
+        let started = source.is_some_and(|s| {
+            s.source == "github"
+                && s.meta.get("isPr") == Some(&json!(true))
+                && s.meta.get("number").and_then(Value::as_u64) == Some(self.number)
+        });
+        let p = &self.pull;
+        let opened = p.user.login.eq_ignore_ascii_case(&self.deployment.login)
+            && p.head.repo.as_ref().is_some_and(|r| {
+                r.full_name
+                    .eq_ignore_ascii_case(&self.deployment.repository)
+            })
+            && ticket.execution.as_ref().is_some_and(|e| {
+                !e.name.is_empty() && p.head.branch.split('/').next_back() == Some(e.name.as_str())
+            });
+        if !started && !opened {
+            return Err(problem("PR does not belong to this ticket: use its source PR or an agent-authored PR whose last branch segment is DSH_SUPERAGENT_NAME"));
+        }
+        let thread = format!("github:{}", self.number);
+        for other in SqlRepository::new(&app.state.store).open_tickets()? {
+            if other.id != ticket_id
+                && other
+                    .follows
+                    .as_ref()
+                    .is_some_and(|f| f.iter().any(|f| f.thread == thread && f.closed.is_none()))
+            {
+                return Err(problem("PR already belongs to another active ticket"));
+            }
+        }
+        let follow = ticket
+            .follows
+            .as_ref()
+            .and_then(|f| f.iter().find(|f| f.thread == thread));
+        if p.state == "open" && follow.is_none_or(|f| f.closed.is_some() || (opened && !f.own)) {
+            app.command(|e| {
+                e.bind_thread(
+                    ticket_id,
+                    ThreadRef {
+                        source: "github".into(),
+                        id: self.number.to_string(),
+                    },
+                    opened,
+                )
+            })?;
+            app.state.store.patch_thread_meta(
+                &thread,
+                &[
+                    ("number".into(), Some(json!(self.number))),
+                    ("isPr".into(), Some(json!(true))),
+                    ("url".into(), Some(json!(p.html_url))),
+                    ("prAuthor".into(), Some(json!(p.user.login))),
+                ],
+            )?;
+        }
+        Ok(())
+    }
+}
 
 /// Startup installs these ports before SQL opens, then fills them using the
 /// ACTUAL persisted Settings after Product acquires the writer lease. There is
@@ -483,6 +564,31 @@ impl Source {
         deployment: Deployment,
     ) -> Result<Self> {
         deployment.validate()?;
+        let read_transport = transport.clone();
+        let read_deployment = deployment.clone();
+        application
+            .state
+            .pull_reader
+            .set(Rc::new(move |number, stop| {
+                let transport = read_transport.clone();
+                let deployment = read_deployment.clone();
+                async move {
+                    let pull = json_api(transport.as_ref(), &format!("pulls/{number}"), &[], stop)
+                        .await
+                        .map_err(|e| crate::Error::GithubRead(Box::new(e)))?;
+                    Ok(PullClaim {
+                        number,
+                        pull,
+                        deployment,
+                    })
+                }
+                .boxed_local()
+            }))
+            .map_err(|_| {
+                Error::Config(
+                    "GitHub PR reader already installed; restart to replace its account".into(),
+                )
+            })?;
         Ok(Self {
             application,
             transport,

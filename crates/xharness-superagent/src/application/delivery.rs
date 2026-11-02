@@ -103,10 +103,11 @@ impl Broker {
         session: String,
         ticket: String,
         assignment: String,
+        execution_name: String,
         authority: Arc<TicketAuthority>,
     ) -> std::result::Result<Self, String> {
         config.validate().map_err(|e| e.to_string())?;
-        for id in [&ticket, &assignment] {
+        for id in [&ticket, &assignment, &execution_name] {
             if id.is_empty()
                 || id.len() > 80
                 || !id
@@ -123,7 +124,7 @@ impl Broker {
             platform,
             session,
             marker: format!("XHarness-Delivery: {ticket}/{assignment}"),
-            branch: format!("xharness/ticket-{ticket}/assignment-{assignment}"),
+            branch: format!("xharness/ticket-{ticket}/assignment-{assignment}/{execution_name}"),
             authority,
             serial: tokio::sync::Mutex::new(()),
         })
@@ -474,10 +475,19 @@ impl Broker {
             let checks = self
                 .get(&format!("commits/{head}/check-runs?per_page=100"), stop)
                 .await?;
-            result["pullRequest"] = pull;
-            result["reviews"] = reviews;
-            result["reviewComments"] = comments;
-            result["checks"] = checks;
+            result["pullRequest"] = json!({"number":pull["number"],"url":pull["html_url"],"state":pull["state"],"draft":pull["draft"],"baseBranch":pull["base"]["ref"],"headSha":pull["head"]["sha"],"autoMerge":pull["auto_merge"]});
+            let comments_brief = |value: &Value| -> Result<Value> {
+                let items = value
+                    .as_array()
+                    .ok_or_else(|| error("Invalid GitHub review/comment list"))?;
+                Ok(json!(items.iter().map(|r|{let body=r["body"].as_str().unwrap_or("");json!({"id":r["id"],"author":r["user"]["login"],"state":r["state"],"url":r["html_url"],"path":r["path"],"line":r["line"],"body":body.chars().take(1000).collect::<String>(),"bodyTruncated":body.chars().count()>1000})}).collect::<Vec<_>>()))
+            };
+            result["reviews"] = comments_brief(&reviews)?;
+            result["reviewComments"] = comments_brief(&comments)?;
+            let runs = checks["check_runs"]
+                .as_array()
+                .ok_or_else(|| error("Invalid GitHub check-run list"))?;
+            result["checks"] = json!({"total_count":checks["total_count"],"check_runs":runs.iter().map(|r|json!({"name":r["name"],"status":r["status"],"conclusion":r["conclusion"],"url":r["html_url"],"detailsUrl":r["details_url"]})).collect::<Vec<_>>()});
             result["pagination"] = json!({"perPage":100,"reviewsMayHaveMore":result["reviews"].as_array().is_some_and(|a|a.len()==100),"commentsMayHaveMore":result["reviewComments"].as_array().is_some_and(|a|a.len()==100),"checksMayHaveMore":result["checks"]["total_count"].as_u64().is_some_and(|n|n>100)});
         }
         Ok(result)

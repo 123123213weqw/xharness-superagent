@@ -31,7 +31,7 @@ use xharness_superagent_core::{
     engine::ports::{ReplyPurpose, ReplyRequest, WorkerReport},
     errors::reason_text,
     ids::key,
-    model::{latest_report, live_ticket, DecisionKind, ReportState, Ticket},
+    model::{latest_report, live_ticket, running_assignment, DecisionKind, ReportState, Ticket},
     policy::AssessmentOutcome,
     repository::Repository,
     stage::{ticket_stage, PersonAction, TicketStage, WorkingAction},
@@ -487,14 +487,24 @@ fn routes(app: &Application, args: Value) -> Result<Value> {
     Ok(json!({"results":results}))
 }
 pub(super) fn worker_report(app: &Application, ticket: &str, args: Value) -> Result<Value> {
+    worker_report_claimed(app, ticket, args, None)
+}
+fn worker_report_claimed(
+    app: &Application,
+    ticket: &str,
+    args: Value,
+    claim: Option<super::github::PullClaim>,
+) -> Result<Value> {
     app.state.require_open()?;
     app.ticket(ticket)?
         .filter(live_ticket)
         .ok_or_else(|| error("Ticket ended (PR was closed or work finished); do not resume it"))?;
-    if args.get("pr_number").is_some_and(|v| !v.is_null()) {
-        return Err(error(
-            "PR ownership validation requires the installed GitHub Source",
-        ));
+    if args.get("pr_number").is_some_and(|v| !v.is_null())
+        && claim
+            .as_ref()
+            .is_none_or(|p| Some(p.number()) != args["pr_number"].as_u64())
+    {
+        return Err(error("PR report has no matching installed Source witness"));
     }
     let state: ReportState = serde_json::from_value(args["state"].clone())?;
     let report = WorkerReport {
@@ -510,6 +520,7 @@ pub(super) fn worker_report(app: &Application, ticket: &str, args: Value) -> Res
         answers: args["reply_to_trigger_id"].as_str().map(str::to_owned),
     };
     app.state.store.atomic(|| {
+        if let Some(claim)=&claim { claim.apply(app,ticket)?; }
         let updated=app.driver.command(&app.state.context,|e|e.report(ticket,report.clone()))?.value;
         let relay=relay(&updated,&report)?;
         if let Some((id,text))=&relay {app.driver.enqueue("relay",id,&json!({"text":text}))?;}
@@ -637,8 +648,45 @@ async fn invoke(
         (Scope::Worker(ticket), "orchestrator_report") => {
             let ticket = ticket.clone();
             client
-                .call_with_cancel(cancel, move |app| {
-                    futures::future::ready(worker_report(app, &ticket, args)).boxed_local()
+                .call_with_cancel(cancel.clone(), move |app| {
+                    let app = app.clone();
+                    async move {
+                        app.state.require_open()?;
+                        let current = app
+                            .ticket(&ticket)?
+                            .filter(live_ticket)
+                            .ok_or_else(|| error("Ticket ended before report"))?;
+                        let assignment = running_assignment(&current).map(|a| a.id.clone());
+                        let claim = if args.get("pr_number").is_some_and(|v| !v.is_null()) {
+                            let number = args["pr_number"]
+                                .as_u64()
+                                .filter(|n| *n > 0)
+                                .ok_or_else(|| error("pr_number must be a positive integer"))?;
+                            let reader = app.state.pull_reader.get().cloned().ok_or_else(|| {
+                                error(
+                                    "PR ownership validation requires the installed GitHub Source",
+                                )
+                            })?;
+                            Some(reader(number, cancel.clone()).await?)
+                        } else {
+                            None
+                        };
+                        if cancel.is_cancelled() {
+                            return Err(error("Report cancelled before commit"));
+                        }
+                        let current = app
+                            .ticket(&ticket)?
+                            .filter(live_ticket)
+                            .ok_or_else(|| error("Ticket ended while reading its PR"))?;
+                        if running_assignment(&current).map(|a| a.id.clone()) != assignment {
+                            return Err(error("Report assignment changed while reading its PR"));
+                        }
+                        if !(app.state.context.policy)()?.revalidate(&current.mandate)? {
+                            return Err(error("Report authorization was revoked"));
+                        }
+                        worker_report_claimed(&app, &ticket, args, claim)
+                    }
+                    .boxed_local()
                 })
                 .await
         }

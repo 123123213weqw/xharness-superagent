@@ -19,8 +19,12 @@
 3. `publish`：提供 `baseSha`、`files`、`title`、`body`。产品先通过已有安全
    filesystem capability 固定文件字节，再重新检查基分支和原文件模式。
 4. GitHub Git Database API 创建 blobs/tree/commit，仅创建
-   `xharness/ticket-<ticket>/assignment-<assignment>` 分支，然后创建 **Draft PR**。
-5. `status`：读取这个分支/PR 的 checks、reviews、inline comments；分页上限
+   `xharness/ticket-<ticket>/assignment-<assignment>/<execution-name>` 分支，然后创建 **Draft PR**。
+5. Worker 可用 `orchestrator_report` 的 `pr_number` 声明 PR。实际 GitHub Source
+   读取 PR 后，按来源 PR 或本账号/本仓库/工作区短名称校验归属；唯一绑定、
+   report、relay 共用 SQL 事务。外来 PR 或 report失败不留下半绑定。未关闭的
+   自有 PR 会让工单继续开放，而不是把 ready 当成已经合并。
+6. `status`：读取这个分支/PR 的 checks、reviews、inline comments；分页上限
    明示，不把只读到100条说成全量。不会设置自动合并，也不执行 merge。
 
 每个外部写动作前都重新查询同一个 SQL owner，验证未暂停、工单仍活跃、

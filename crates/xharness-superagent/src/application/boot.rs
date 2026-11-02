@@ -558,7 +558,7 @@ impl SessionToolFactory for Coding {
             .client
             .get()
             .ok_or("Application tool owner not installed")?;
-        let (environment, ticket, assignment) = client
+        let (environment, ticket, assignment, execution_name) = client
             .call(move |app| {
                 app.state.require_open()?;
                 // Bounded by the open working set, not all historical transcripts.
@@ -590,6 +590,12 @@ impl SessionToolFactory for Coding {
                     ),
                     ticket.id.clone(),
                     assignment,
+                    ticket
+                        .execution
+                        .as_ref()
+                        .ok_or_else(|| error("Tool ticket has no execution"))?
+                        .name
+                        .clone(),
                 ))
             })
             .await
@@ -641,6 +647,7 @@ impl SessionToolFactory for Coding {
                 session.into(),
                 ticket,
                 assignment,
+                execution_name,
                 authority.clone(),
             )?;
             registry

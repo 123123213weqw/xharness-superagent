@@ -3,7 +3,7 @@
 import hashlib,json,os,sys,urllib.parse
 from pathlib import Path
 root=Path(os.environ['GH_FIXTURE_STATE']);args=sys.argv[1:];path=args[1]
-if not (path.endswith('/pulls') or any(x in path for x in ['/git/','/pulls?state=all','/pulls/31/','/commits/'])):
+if not (path.endswith('/pulls') or any(x in path for x in ['/git/','/pulls?state=all','/pulls/31','/pulls/32','/issues/31','/commits/'])):
     exec(compile((root/'base-gh.py').read_text(),str(root/'base-gh.py'),'exec'))
     sys.exit(0)
 with (root/'gh-calls.jsonl').open('a') as f:f.write(json.dumps(args)+'\n')
@@ -14,7 +14,7 @@ state_path=root/'delivery-state.json'
 s=json.loads(state_path.read_text()) if state_path.exists() else {'base':'1'*40,'base_tree':'2'*40,'blobs':{},'commits':{},'branches':{},'trees':{},'pulls':[],'writes':[]}
 method='POST' if '--method' in args else 'GET'
 fields=[]
-for i in range(2,len(args),2):
+for i in range(2,len(args),2) if method=='POST' else []:
     flag,value=args[i:i+2]
     if flag=='--method':assert value=='POST'
     else:
@@ -58,11 +58,17 @@ elif path.startswith('pulls?state=all'):
 elif path=='pulls':
     assert ('--field','draft','true') in fields
     assert not s['pulls']
-    value={'number':31,'html_url':'https://github.com/owner/repo/pull/31','state':'open','draft':True,'body':d['body'],'head':{'ref':d['head'],'sha':s['branches'][d['head']],'repo':{'full_name':'owner/repo'}},'base':{'ref':d['base'],'repo':{'full_name':'owner/repo'}}};s['pulls'].append(value)
-elif path.startswith('pulls/31/reviews?'):value=[{'id':71,'state':'COMMENTED','body':'Fixture review only'}]
-elif path.startswith('pulls/31/comments?'):value=[]
+    value={'number':31,'html_url':'https://github.com/owner/repo/pull/31','state':'open','draft':True,'user':{'login':'robot','type':'User'},'body':d['body'],'head':{'ref':d['head'],'sha':s['branches'][d['head']],'repo':{'full_name':'owner/repo'}},'base':{'ref':d['base'],'repo':{'full_name':'owner/repo'}}};s['pulls'].append(value)
+elif path in ['pulls/31','pulls/32','issues/31']:
+    value=json.loads(json.dumps(s['pulls'][0]));value['title']='Fixture PR';value['id']=31;value['number']=31;value['created_at']='2020-01-01T00:00:00Z'
+    if path=='issues/31':value['pull_request']={'url':'https://api.github.com/repos/owner/repo/pulls/31'}
+    if path=='pulls/32':value['user']['login']='foreign';value['head']['ref']='unrelated'
+elif path.startswith('pulls/31/reviews?'):value=[{'id':71,'state':'COMMENTED','body':'Fixture review only','user':{'login':'reviewer','type':'User'},'submitted_at':'2020-01-01T00:00:00Z'}]
+elif path.startswith(('pulls/31/comments?','issues/31/comments?')):value=[]
+elif path.startswith('commits/') and '/statuses?' in path:value=[]
 elif path.startswith('commits/') and '/check-runs?' in path:value={'total_count':1,'check_runs':[{'name':'fixture check','status':'completed','conclusion':'success'}]}
 else:raise AssertionError(args)
+if '--slurp' in args:value=[value]
 state_path.write_text(json.dumps(s))
 if path=='git/blobs' and os.environ.get('GH_FIXTURE_DELIVERY_GATE'):
     import time

@@ -40,7 +40,15 @@ fn responder(request: &Value) -> ModelReply {
         ("repository_delivery", publish(json!(["second.txt"]))),
         (
             "orchestrator_report",
-            json!({"state":"ready","summary":"Scoped delivery fixture completed; draft only, no merge."}),
+            json!({"state":"ready","summary":"Invalid ready/question must roll back PR binding", "human_action":"Choose?", "pr_number":31}),
+        ),
+        (
+            "orchestrator_report",
+            json!({"state":"progress","summary":"Foreign PR must be refused", "pr_number":32}),
+        ),
+        (
+            "orchestrator_report",
+            json!({"state":"ready","summary":"Scoped delivery fixture completed; draft only, no merge.","pr_number":31}),
         ),
     ];
     Ok(actions
@@ -50,13 +58,44 @@ fn responder(request: &Value) -> ModelReply {
 }
 #[tokio::test]
 async fn formal_delivery_publishes_immutable_text_snapshot_reconciles_retry_and_reads_reviews() {
-    let server = Server::with_responder(responder);
+    let sql_path = Arc::new(std::sync::OnceLock::<PathBuf>::new());
+    let check = sql_path.clone();
+    let server = Server::with_responder(move |request| {
+        if request["model"] == "worker" && [9, 10].contains(&calls(request).len()) {
+            let db = rusqlite::Connection::open_with_flags(
+                check.get().unwrap(),
+                rusqlite::OpenFlags::SQLITE_OPEN_READ_ONLY,
+            )
+            .unwrap();
+            let value: String = db
+                .query_row("SELECT value FROM ticket", [], |r| r.get(0))
+                .unwrap();
+            let value: Value = serde_json::from_str(&value).unwrap();
+            assert!(value["follows"]
+                .as_array()
+                .is_none_or(|f| !f.iter().any(|f| f["thread"] == "github:31")));
+            assert!(value["assignments"][0].get("report").is_none());
+        }
+        responder(request)
+    });
     let f = fixture(&server.url);
+    sql_path
+        .set(f.directory.join("state/orchestrator.sqlite"))
+        .unwrap();
     let out = f.run("--once").await;
     success(&out);
     let tickets = f.table("ticket");
     assert_eq!(tickets.len(), 1);
     assert_eq!(tickets[0]["assignments"][0]["report"]["state"], "ready");
+    assert!(tickets[0]["follows"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .any(|f| f["thread"] == "github:31" && f["own"] == true));
+    assert!(
+        tickets[0].get("ended").is_none(),
+        "An open owned PR must keep the ticket open"
+    );
     let state: Value =
         serde_json::from_slice(&std::fs::read(f.directory.join("delivery-state.json")).unwrap())
             .unwrap();
@@ -104,6 +143,7 @@ async fn formal_delivery_publishes_immutable_text_snapshot_reconciles_retry_and_
     assert!(text.contains("regular repository-relative"));
     assert!(text.contains("different snapshot"));
     assert!(text.contains("Fixture review only"));
+    assert!(text.contains("PR does not belong to this ticket"));
     assert!(!text.contains("root:x:"));
     assert!(!f.posts().is_empty());
     // Restart/replay does not create another commit, branch or PR.
