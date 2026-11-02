@@ -132,6 +132,25 @@
           "actual_product_path": true,
           "partial_not_full_group_pass": true,
           "remaining_scope": "See verification remaining_scope; these broad acceptance groups remain in_progress."
+        },
+        {
+          "source_commit": "9889030597cf3a1bdb25ac2cadbaa548050871e2",
+          "entry_and_command": "Formal binary product_entry feishu tests in final WZU_Server selected10-crate regression; exact commands and full outputs in verification",
+          "environment": "Formal executable, actual OpenAI-compatible HTTP/SSE provider to loopback model fixture, actual private bot-only lark and gh subprocess endpoint fixtures, SQL/Driver/Passes/Native JSONL/CodingToolBundle and receipt-backed Outbox. No real external services or paid model.",
+          "full_log": "docs/evidence/business-feishu-live-01/regression-03.log",
+          "business_assertions": "docs/business-feishu-live-verification.json",
+          "tests": [
+            "formal_feishu_stream_reads_context_runs_worker_replies_and_reopens_without_duplicates",
+            "formal_feishu_self_and_malformed_events_are_not_triggers_but_scope_filters_are_retained",
+            "formal_feishu_direct_messages_obey_scope_and_keep_direct_reply_address",
+            "formal_feishu_source_disable_stops_and_joins_consumer_and_drops_read_after_disable",
+            "formal_feishu_consumer_failure_restarts_after_backoff_without_duplicate_work",
+            "formal_feishu_history_confines_pages_keeps_failed_cursor_and_recovers_without_duplicate_work"
+          ],
+          "actual_product_path": true,
+          "feishu_text_event_path_executed": true,
+          "full_feishu_source_complete": false,
+          "not_signed_off": true
         }
       ]
     },
@@ -339,6 +358,25 @@
           ],
           "actual_product_path": true,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "9889030597cf3a1bdb25ac2cadbaa548050871e2",
+          "entry_and_command": "Formal binary product_entry feishu tests in final WZU_Server selected10-crate regression; exact commands and full outputs in verification",
+          "environment": "Formal executable, actual OpenAI-compatible HTTP/SSE provider to loopback model fixture, actual private bot-only lark and gh subprocess endpoint fixtures, SQL/Driver/Passes/Native JSONL/CodingToolBundle and receipt-backed Outbox. No real external services or paid model.",
+          "full_log": "docs/evidence/business-feishu-live-01/regression-03.log",
+          "business_assertions": "docs/business-feishu-live-verification.json",
+          "tests": [
+            "formal_feishu_stream_reads_context_runs_worker_replies_and_reopens_without_duplicates",
+            "formal_feishu_self_and_malformed_events_are_not_triggers_but_scope_filters_are_retained",
+            "formal_feishu_direct_messages_obey_scope_and_keep_direct_reply_address",
+            "formal_feishu_source_disable_stops_and_joins_consumer_and_drops_read_after_disable",
+            "formal_feishu_consumer_failure_restarts_after_backoff_without_duplicate_work",
+            "formal_feishu_history_confines_pages_keeps_failed_cursor_and_recovers_without_duplicate_work"
+          ],
+          "actual_product_path": true,
+          "feishu_text_event_path_executed": true,
+          "full_feishu_source_complete": false,
+          "not_signed_off": true
         }
       ]
     },
@@ -468,6 +506,25 @@
           "actual_product_path": true,
           "full_feishu_event_loop": false,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "9889030597cf3a1bdb25ac2cadbaa548050871e2",
+          "entry_and_command": "Formal binary product_entry feishu tests in final WZU_Server selected10-crate regression; exact commands and full outputs in verification",
+          "environment": "Formal executable, actual OpenAI-compatible HTTP/SSE provider to loopback model fixture, actual private bot-only lark and gh subprocess endpoint fixtures, SQL/Driver/Passes/Native JSONL/CodingToolBundle and receipt-backed Outbox. No real external services or paid model.",
+          "full_log": "docs/evidence/business-feishu-live-01/regression-03.log",
+          "business_assertions": "docs/business-feishu-live-verification.json",
+          "tests": [
+            "formal_feishu_stream_reads_context_runs_worker_replies_and_reopens_without_duplicates",
+            "formal_feishu_self_and_malformed_events_are_not_triggers_but_scope_filters_are_retained",
+            "formal_feishu_direct_messages_obey_scope_and_keep_direct_reply_address",
+            "formal_feishu_source_disable_stops_and_joins_consumer_and_drops_read_after_disable",
+            "formal_feishu_consumer_failure_restarts_after_backoff_without_duplicate_work",
+            "formal_feishu_history_confines_pages_keeps_failed_cursor_and_recovers_without_duplicate_work"
+          ],
+          "actual_product_path": true,
+          "feishu_text_event_path_executed": true,
+          "full_feishu_source_complete": false,
+          "not_signed_off": true
         }
       ]
     },
@@ -565,6 +622,25 @@
           "actual_product_path": true,
           "full_feishu_event_loop": false,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "9889030597cf3a1bdb25ac2cadbaa548050871e2",
+          "entry_and_command": "Formal binary product_entry feishu tests in final WZU_Server selected10-crate regression; exact commands and full outputs in verification",
+          "environment": "Formal executable, actual OpenAI-compatible HTTP/SSE provider to loopback model fixture, actual private bot-only lark and gh subprocess endpoint fixtures, SQL/Driver/Passes/Native JSONL/CodingToolBundle and receipt-backed Outbox. No real external services or paid model.",
+          "full_log": "docs/evidence/business-feishu-live-01/regression-03.log",
+          "business_assertions": "docs/business-feishu-live-verification.json",
+          "tests": [
+            "formal_feishu_stream_reads_context_runs_worker_replies_and_reopens_without_duplicates",
+            "formal_feishu_self_and_malformed_events_are_not_triggers_but_scope_filters_are_retained",
+            "formal_feishu_direct_messages_obey_scope_and_keep_direct_reply_address",
+            "formal_feishu_source_disable_stops_and_joins_consumer_and_drops_read_after_disable",
+            "formal_feishu_consumer_failure_restarts_after_backoff_without_duplicate_work",
+            "formal_feishu_history_confines_pages_keeps_failed_cursor_and_recovers_without_duplicate_work"
+          ],
+          "actual_product_path": true,
+          "feishu_text_event_path_executed": true,
+          "full_feishu_source_complete": false,
+          "not_signed_off": true
         }
       ]
     },
@@ -641,25 +717,22 @@
     }
   ],
   "implementation_progress": {
-    "status": "B2_policy_sync_and_registered_tool_names_verified_full_business_branches_incomplete",
-    "evidence": "docs/business-policy-sync-verification.json",
+    "status": "B2_feishu_text_product_loop_and_read_protocols_verified_full_business_incomplete",
+    "evidence": "docs/business-feishu-live-verification.json",
     "full_business_groups_passed": 5,
     "business_groups_in_progress": 10,
     "business_groups_not_run": 8,
     "validation_environment": "offline_protocol_fixture",
-    "formal_entry_tests_passed": 37,
+    "formal_entry_tests_passed": 43,
     "application_tool_registrations": {
       "main": 14,
       "worker": 6,
       "required_main": 14,
       "required_worker": 6,
-      "new": [
-        "orchestrator_policy_sync"
-      ],
       "all_names_registered_not_all_business_branches_complete": true,
       "framework_skill_separate": true
     },
-    "workspace_test_gate": "selected10_passed_not_full_workspace; previous63bdb07_CI_both_passed_with_existing_gates; new_exact_head_CI_separate; legacy_WZU_Feishu_deployment_not_cleared",
+    "workspace_test_gate": "selected10_passed_not_full_workspace; previous646b6df_Ubuntu_success_Mac_retry_failure; narrow_fix_and20_Linux_retries_verified; new_exact_head_CI_separate; legacy_WZU_Feishu_deployment_not_cleared",
     "resource_backing_components": {
       "evidence": "docs/business-resources-verification.json",
       "sql_checks": 7,
@@ -693,8 +766,17 @@
       "new_formal_test_declarations": 7,
       "new_full_business_groups_passed": 0,
       "full_feishu_source_complete": false
+    },
+    "feishu_text_source": {
+      "evidence": "docs/business-feishu-live-verification.json",
+      "new_formal_test_declarations": 6,
+      "reader_protocol_cases": 54,
+      "actual_product_text_event_loop": true,
+      "images_or_attachments_accepted": false,
+      "new_full_business_groups_passed": 0,
+      "full_source_complete": false
     }
   },
-  "updated_at_utc": "2026-11-01T23:51:42.777357+00:00",
+  "updated_at_utc": "2026-11-02T00:49:36.623210+00:00",
   "validation_note": "passed denotes the listed complete product scenario in an explicitly offline protocol environment, not real GitHub/model service approval, universal parity or release readiness. Unexecuted branches remain open."
 }

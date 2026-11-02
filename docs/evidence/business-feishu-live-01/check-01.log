@@ -1,0 +1,35 @@
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+error[E0599]: no method named `lark` found for struct `std::sync::Arc<sources::feishu::Cli>` in the current scope
+   --> crates/xharness-superagent/src/application/feishu/live.rs:246:18
+    |
+245 | /             self.cli()?
+246 | |                 .lark(
+    | |                 -^^^^ method not found in `std::sync::Arc<sources::feishu::Cli>`
+    | |_________________|
+    |
+    |
+    = help: items from traits can only be used if the trait is in scope
+help: trait `Transport` which provides `lark` is implemented but not in scope; perhaps you want to import it
+    |
+  3 + use crate::sources::feishu::Transport;
+    |
+
+error[E0282]: type annotations needed for `std::option::Option<_>`
+   --> crates/xharness-superagent/src/application/feishu/live.rs:402:13
+    |
+402 |         let mut page = None;
+    |             ^^^^^^^^
+...
+423 |                 params.set("page_token", JsValue::String(page.clone()));
+    |                                                          ---- type must be known at this point
+    |
+help: consider giving `page` an explicit type, where the type for type parameter `T` is specified
+    |
+402 |         let mut page: std::option::Option<T> = None;
+    |                     ++++++++++++++++++++++++
+
+Some errors have detailed explanations: E0282, E0599.
+For more information about an error, try `rustc --explain E0282`.
+error: could not compile `xharness-superagent` (lib) due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `xharness-superagent` (lib test) due to 2 previous errors

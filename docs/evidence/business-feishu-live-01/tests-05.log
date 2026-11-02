@@ -1,0 +1,35 @@
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.01s
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 8.73s
+     Running tests/feishu_read.rs (<owned-target>/debug/deps/feishu_read-491b0e7b86a6ca0b)
+
+running 1 test
+test original_feishu_reader_confines_messages_threads_chat_pages_and_exact_cli_requests ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.26s
+
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.95s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 6 tests
+
+thread 'feishu::formal_feishu_self_and_malformed_events_are_not_triggers_but_scope_filters_are_retained' (250282) panicked at crates/xharness-superagent/tests/product_entry/feishu.rs:304:5:
+assertion failed: !disposition(&fixture, &bot)["filtered"].is_null()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test feishu::formal_feishu_self_and_malformed_events_are_not_triggers_but_scope_filters_are_retained ... FAILED
+test feishu::formal_feishu_direct_messages_obey_scope_and_keep_direct_reply_address ... ok
+test feishu::formal_feishu_stream_reads_context_runs_worker_replies_and_reopens_without_duplicates ... ok
+test feishu::formal_feishu_consumer_failure_restarts_after_backoff_without_duplicate_work ... ok
+test feishu::formal_feishu_history_confines_pages_keeps_failed_cursor_and_recovers_without_duplicate_work ... ok
+test feishu::formal_feishu_source_disable_stops_and_joins_consumer_and_drops_read_after_disable ... ok
+
+failures:
+
+failures:
+    feishu::formal_feishu_self_and_malformed_events_are_not_triggers_but_scope_filters_are_retained
+
+test result: FAILED. 5 passed; 1 failed; 0 ignored; 0 measured; 37 filtered out; finished in 5.31s
+
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`

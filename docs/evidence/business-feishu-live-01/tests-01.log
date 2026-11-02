@@ -1,0 +1,13 @@
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 9.01s
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 10.59s
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 21.41s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test feishu::formal_feishu_stream_reads_context_runs_worker_replies_and_reopens_without_duplicates ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 37 filtered out; finished in 2.25s
+

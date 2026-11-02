@@ -3,7 +3,7 @@
 基于 Rust / XHarness 的主动式 Agent 产品开发项目，参考 DeepSeek SuperAgent
 的产品逻辑：接收 GitHub/飞书事件，评估与授权，创建和执行任务，再将结果回复给用户。
 
-**状态：早期开发版。已有正式可执行入口及 GitHub 第一条离线协议整链路；
+**状态：早期开发版。已有正式可执行入口及 GitHub、飞书文本的离线协议整链路；
 不是完整可部署的 SuperAgent 替代品，也不宣称已完整业务对齐。**
 
 ## 复刻什么
@@ -44,15 +44,17 @@
 
 - [跨工单事实](docs/superagent/business-note.md)：实际 Note 输入/投递，waiting 同 assignment 继续工作与 blocked 等待人工不唤醒；不改变授权。
 
-- [飞书来源基础](docs/superagent/business-feishu-foundation.md)：bot 身份、消息/范围、成员同步、回复及受管事件流组件已实现；kind 配置与成员同步已进入正式入口；事件/历史/上下文尚未接通，不算飞书产品闭环。
+- [飞书来源基础](docs/superagent/business-feishu-foundation.md)：bot 身份、消息/范围、成员同步、回复及受管事件流组件已实现；kind 配置与成员同步已进入正式入口；该文是历史组件里程碑，当前接线见下一项。
 
-- [策略同步](docs/superagent/business-policy-sync.md)：正式 Main 工具 → bot CLI → 原子策略保存、版本冲突、通知、健康/退避和中断重开；7条新正式场景，仍不是飞书事件闭环。
+- [策略同步](docs/superagent/business-policy-sync.md)：正式 Main 工具 → bot CLI → 原子策略保存、版本冲突、通知、健康/退避和中断重开；7条新正式场景；这是此前独立的策略同步验收。
+
+- [飞书文本正式入口](docs/superagent/business-feishu-live.md)：实际事件、历史补拉、正文/上下文/链接、Worker 执行与 bot 回复，新增6条正式场景（总43条）；图片/附件、完整 Source 矩阵及线上联调仍未完成。
 
 ## 尚未完成
 
 - 完整 Assessor/Executor 协作及剩余研判/资源/生命周期分支。
 - 14 个主工具与 6 个 Worker 应用工具的完整执行及生命周期。
-- GitHub 完整资源/工具分支、真实外部服务联调，以及飞书和多来源接入。
+- GitHub 完整资源/工具分支、真实外部服务联调，以及飞书图片/附件与完整多来源分支。
 - 完整配置 API、管理面板、部署和回退验收。
 
 仓库中的旧 gh-host/feishu-host 是已有 XHarness 实验，不代表上述产品已完成。

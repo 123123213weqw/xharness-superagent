@@ -1,0 +1,3 @@
+(node:77955) ExperimentalWarning: Transform Types is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+40 original Feishu read/context/link CLI cases, 10 resource boundaries and 4 message projections verified.

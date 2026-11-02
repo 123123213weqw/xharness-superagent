@@ -1,0 +1,326 @@
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.69s
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 5.82s
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 13.96s
+     Running unittests src/lib.rs (<owned-target>/debug/deps/xharness_superagent-5c366582ef84de13)
+
+running 38 tests
+test application::native::cancellation_tests::only_exact_terminal_cancel_acknowledgements_are_idempotent ... ok
+test application::native::policy_sync::tests::retries_double_cap_and_success_removes_wait ... ok
+test application::native::policy_sync::tests::notice_paths_include_normal_unicode_names_and_are_bounded ... ok
+test delivery::tests::session_key_drop_releases_the_seen_cache_immediately ... ok
+test application::resources::tests::ordinary_unicode_pages_reconstruct_content_without_cutting_emoji_or_stalling ... ok
+test native_sessions::delivery::tests::old_scope_drop_does_not_clear_the_later_preparation_on_the_same_object ... ok
+test native_sessions::prompts::decoration::epoch_tests::closed_supervisor_or_disconnected_watch_is_not_a_live_decoration ... ok
+test native_sessions::prompts::decoration::epoch_tests::passive_channel_identity_survives_step_counters_and_worker_restarts_but_not_actor_replacement ... ok
+test native_sessions::prompts::owner_tests::closing_barrier_never_relabels_real_errors_as_cancellation ... ok
+test sources::feishu::consumer::tests::oversized_lines_are_discarded_once_and_crlf_and_later_lines_survive ... ok
+test native_sessions::prompts::skills::tests::foreign_same_name_tool_is_a_real_shadow_and_is_never_overwritten ... ok
+test native_sessions::persistence::tests::global_writer_drain_includes_logical_appends_while_its_first_physical_cut_is_blocked ... ok
+test native_sessions::persistence::tests::flush_collects_original_typed_failures_in_writer_order_and_attempts_later_healthy_writer ... ok
+test native_sessions::persistence::tests::writer_order_is_registration_not_id_and_snapshot_excludes_late_or_unmanaged_owners ... ok
+test native_sessions::delivery::authority::tests::warm_creation_witness_rejects_other_owner_changed_role_and_changed_workspace ... ok
+test native_sessions::delivery::authority::tests::warm_creation_witness_cannot_address_an_identically_recreated_session_generation ... ok
+test native_sessions::persistence::tests::retired_storage_generation_is_replaced_at_end_without_flushing_a_replacement_by_id ... ok
+test native_sessions::delivery::authority::tests::original_creation_witness_checks_all_fields_of_valid_mutation_records ... ok
+test native_sessions::delivery::authority::tests::cancelled_catalogue_restore_keeps_the_new_warm_epoch_unavailable ... ok
+test native_sessions::delivery::authority::tests::warm_creation_witness_does_not_certify_or_flush_a_later_logical_prefix ... ok
+test native_sessions::delivery::authority::tests::failed_catalogue_restore_revokes_warm_scopes_until_successful_rebuild ... ok
+test native_sessions::delivery::authority::tests::overlapping_catalogue_rebuilds_serialize_before_replacing_warm_epochs ... ok
+test application::resources::tests::live_plans_retain_trusted_scope_and_never_return_fake_transcripts_or_source_success ... ok
+test application::resources::tests::trigger_reads_allow_origin_delivery_context_and_bound_threads_but_redact_fanout_and_neighbours ... ok
+test application::resources::tests::strict_read_request_normalizes_only_legacy_prefixes_and_rejects_forged_scope ... ok
+test application::resources::tests::worker_own_ticket_and_shared_thread_do_not_expose_other_tickets_or_decisions ... ok
+test native_sessions::prompts::owner_tests::cancelled_queued_request_never_binds_a_revision ... ok
+test native_sessions::prompts::owner_tests::late_sql_failure_is_owned_once_with_original_type_even_after_reply_disappears ... ok
+test native_sessions::prompts::decoration::epoch_tests::explicit_retry_on_sql_owner_does_not_invalidate_an_earlier_generic_render ... ok
+test native_sessions::prompts::decoration::epoch_tests::preflight_failure_replies_with_the_same_original_error_owned_by_the_report ... ok
+test native_sessions::prompts::owner_tests::cancelled_queued_decoration_never_acknowledges_or_binds_a_revision ... ok
+test native_sessions::prompts::skills::tests::retired_actor_tool_cannot_read_replacement_skills_and_old_entries_are_released ... ok
+test native_sessions::prompts::skills::tests::handler_infrastructure_failure_keeps_the_original_owner_diagnostic_once ... ok
+test application::resources::tests::actual_sql_errors_and_corrupt_records_never_become_absence_or_empty_pages ... ok
+test application::resources::tests::list_and_ticket_pages_are_bounded_newest_first_with_copyable_offsets ... ok
+test application::controls::tests::status_only_requests_an_idle_worker_and_retry_creates_a_new_assignment ... ok
+test application::controls::tests::requeue_waits_for_worker_handback_and_sql_errors_never_become_absent_owners ... ok
+test application::controls::tests::context_follow_unrelated_and_main_unsubscribe_never_transfer_ticket_authority ... ok
+
+test result: ok. 38 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+
+running 1 test
+     Running tests/feishu_read.rs (<owned-target>/debug/deps/feishu_read-491b0e7b86a6ca0b)
+test original_feishu_reader_confines_messages_threads_chat_pages_and_exact_cli_requests ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.26s
+
+     Running tests/feishu_source.rs (<owned-target>/debug/deps/feishu_source-316e10cfa4ddf6e2)
+
+running 10 tests
+test original_trigger_config_scope_and_link_business_samples_match ... ok
+test setup_probe_has_its_own_sixty_second_deadline_and_never_falls_back ... ok
+test bot_identity_setup_never_falls_back_to_user_or_unready_app ... ok
+test bot_setup_ignores_worker_shims_and_relative_path_entries_without_changing_alias ... ok
+test member_read_cancellation_joins_the_real_cli_and_descendant_before_return ... ok
+test event_consumer_retains_split_unicode_reports_malformed_lines_and_joins_on_cancel ... ok
+test natural_consumer_eof_drains_unterminated_unicode_lines_and_is_not_ready_success ... ok
+test readiness_deadline_cancels_and_joins_the_unready_consumer_tree ... ok
+test oversized_event_is_visible_but_does_not_restart_or_hide_next_event ... ok
+test original_member_sync_and_reply_run_over_verified_real_cli_with_exact_bot_argv ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.72s
+
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 43 tests
+test invalid_saved_model_and_missing_configuration_never_fall_back ... ok
+test setup_failure_and_missing_model_credential_do_not_leave_a_live_owner ... ok
+test check_is_read_only_for_external_services_and_releases_state_lease ... ok
+test watch_owns_the_state_exclusively_and_interrupt_joins_before_reopen ... ok
+{"state":"stopped","tickets":0,"pendingEffects":0,"github":null,"feishu":{"feishu":{"state":"error","detail":"WARN fixture diagnostic"},"history":{"state":"ready","detail":"Configured groups and known direct chats recovered","at":"2026-11-02T00:43:40.993Z"}}}
+test assessment::formal_explicit_request_refuses_eval_and_remains_routable ... ok
+test assessment::formal_interrupt_joins_assessment_seed_without_authorizing_or_preparing_work ... ok
+test once_interrupt_cancels_a_model_wait_and_releases_the_lease ... ok
+test feishu::formal_feishu_self_and_malformed_events_are_not_triggers_but_scope_filters_are_retained ... ok
+test policy_sync::formal_policy_sync_without_bot_reports_setup_error_and_cannot_switch_cli_from_tool ... ok
+test assessment::formal_inferred_observe_records_proposal_and_finishes_refs_without_worker ... ok
+test policy_sync::formal_startup_sync_rejects_even_a_concurrent_names_only_policy_revision ... ok
+test preparation_failure_is_reported_without_worker_or_silent_retry ... ok
+test assessment::formal_inferred_direction_and_rule_gates_do_not_prepare_or_reply ... ok
+test assessment::formal_batch_context_caches_once_but_uses_each_requested_trigger_identity ... ok
+test formal_missing_recovery_workspace_preserves_input_and_exposes_delivery_error ... ok
+test refused_and_unauthorized_requests_do_not_start_workers ... ok
+test assessment::formal_assessment_timeout_joins_cli_and_records_visible_unavailable_without_worker ... ok
+test note::formal_ticket_note_does_not_wake_worker_blocked_for_human_or_expand_authority ... ok
+test configuration_lifecycle::formal_policy_save_rolls_back_history_effects_and_authority_on_sql_cut ... ok
+test note::formal_context_note_wakes_waiting_worker_on_same_assignment_without_new_authority ... ok
+test formal_idle_worker_gets_waiting_report_and_status_request_reaches_same_assignment ... ok
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+test formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate ... ok
+test policy_sync::formal_policy_sync_incomplete_members_are_health_error_not_grant_or_idle_blocker ... ok
+test configuration_lifecycle::formal_pause_records_decisions_but_holds_worker_and_replies_until_resume ... ok
+test policy_sync::formal_interrupt_joins_policy_sync_cli_tree_before_reopen_and_startup_sync ... ok
+test formal_crashed_worker_restarts_with_recovery_note_and_preserves_its_worktree ... ok
+test formal_worker_thread_controls_keep_ownership_context_and_role_boundaries ... ok
+test feishu::formal_feishu_direct_messages_obey_scope_and_keep_direct_reply_address ... ok
+test policy_sync::formal_startup_sync_merges_unrelated_saves_and_does_not_invent_source_off_conflict ... ok
+test formal_waiting_worker_rebinds_after_restart_and_reads_new_source_input_once ... ok
+test feishu::formal_feishu_stream_reads_context_runs_worker_replies_and_reopens_without_duplicates ... ok
+test note::formal_ticket_note_delivers_trimmed_fact_with_original_mandate_and_rejects_invalid_or_ended_targets ... ok
+test interrupt_joins_inflight_read_cli_before_lease_release_without_completion ... ok
+test configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions ... ok
+test policy_sync::formal_bad_optional_bot_never_falls_back_or_blocks_github_worker_and_reply ... ok
+test feishu::formal_feishu_history_confines_pages_keeps_failed_cursor_and_recovers_without_duplicate_work ... ok
+test feishu::formal_feishu_consumer_failure_restarts_after_backoff_without_duplicate_work ... ok
+test assessment::formal_inferred_auto_uses_scoped_context_rules_real_worker_and_reply ... ok
+test policy_sync::formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin ... ok
+test configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model ... ok
+test formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history ... ok
+test feishu::formal_feishu_source_disable_stops_and_joins_consumer_and_drops_read_after_disable ... ok
+
+test result: ok. 43 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.56s
+
+
+PRODUCT_RETRY_REPETITION=1
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 1.56s
+
+
+PRODUCT_RETRY_REPETITION=2
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 3.28s
+
+
+PRODUCT_RETRY_REPETITION=3
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 1.53s
+
+
+PRODUCT_RETRY_REPETITION=4
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 2.08s
+
+
+PRODUCT_RETRY_REPETITION=5
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.15s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 1.55s
+
+
+PRODUCT_RETRY_REPETITION=6
+
+running 1 test
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.15s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 1.48s
+
+
+PRODUCT_RETRY_REPETITION=7
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 1.56s
+
+
+PRODUCT_RETRY_REPETITION=8
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 2.91s
+
+
+PRODUCT_RETRY_REPETITION=9
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 3.28s
+
+
+PRODUCT_RETRY_REPETITION=10
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 1.45s
+
+
+PRODUCT_RETRY_REPETITION=11
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 2.39s
+
+
+PRODUCT_RETRY_REPETITION=12
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 1.41s
+
+
+PRODUCT_RETRY_REPETITION=13
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 1.47s
+
+
+PRODUCT_RETRY_REPETITION=14
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 1.65s
+
+
+PRODUCT_RETRY_REPETITION=15
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 3.16s
+
+
+PRODUCT_RETRY_REPETITION=16
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 3.23s
+
+
+PRODUCT_RETRY_REPETITION=17
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 2.27s
+
+
+PRODUCT_RETRY_REPETITION=18
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 2.62s
+
+
+PRODUCT_RETRY_REPETITION=19
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 1.51s
+
+
+PRODUCT_RETRY_REPETITION=20
+
+running 1 test
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 42 filtered out; finished in 1.35s
+
+error: package ID specification `xharness-jsonl` did not match any packages
+
+help: a package with a similar name exists: `xharness-goal`

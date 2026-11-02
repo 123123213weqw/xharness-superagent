@@ -34,7 +34,7 @@ SuperAgent 替代品。旧 gh-host/feishu-host 不参与这条路径。
   配置 Source、`eval.mode` 和 policy；程序不会替用户扩大名单或授权。
 - `executor.prepare` 是**用户配置**的准备命令，在工作区父目录执行，最长600秒；
   为空只创建目录，不会暗中 clone 仓库。命令可使用 `DSH_SUPERAGENT_DIR/NAME/TICKET`
-  和 GitHub 的已解析非秘密变量。失败终止该 assignment 并报告 failed；保留非空
+  和 GitHub/飞书的已解析非秘密变量（见[飞书接线](business-feishu-live.md)）。失败终止该 assignment 并报告 failed；保留非空
   半成品，不自动把半成品当作准备成功重试。该受信配置命令不是 Worker 模型输出。
 
 所有 Rust 构建/检查/测试只能在同步源码后的 WZU_Server 独立目录或 CI 执行。
@@ -53,8 +53,9 @@ SuperAgent 替代品。旧 gh-host/feishu-host 不参与这条路径。
 
 ## 工具与边界
 
-入口首批是 route/reply/ack/report 4个应用工具。后续新增7个控制工具，目前是主角色
-6个、Worker5个，见 [控制接线](business-controls.md)，仍不是主14/Worker6。
+入口首批是 route/reply/ack/report 4个应用工具。当前主14/Worker6的角色应用工具
+名称均已注册，框架 skill 另计；这不表示所有业务分支验收。控制工具历史里程碑见
+[控制接线](business-controls.md)，最新部分验收见业务清单。
 Worker 另装实际编码工具：本机平台对应的 bash/pwsh、read/write/edit、
 glob/grep 和 managed job 的 output/list/kill。没有假文件写入处理器。
 
@@ -80,10 +81,10 @@ ready/ended 状态、ack/result回执、角色工具隔离、重复事件/重启
 未授权/机器人/ignore不执行、准备失败、配置失败、独占锁与中断关闭。
 
 它**不是**真实 GitHub/付费模型验收，也没有覆盖全部 Source、inferred 研判、剩余
-工具/资源读取、飞书、配置 API/UI、所有崩溃切点/后台任务、部署/备份/回退。
+工具/资源读取、飞书图片/附件、配置 API/UI、所有崩溃切点/后台任务、部署/备份/回退。
 完整 Goal 不缩减。实际命令、范围和日志绑定见 `docs/business-entry-verification.json`。
 
-## 可选飞书成员同步（尚非飞书事件接入）
+## 可选飞书来源与成员同步
 
 在原配置的 `settings.sources` 和 `settings.policy.sources` 中分别**追加**以下部分，
 不要删除全局仍必需的 GitHub 仓库/账号配置；CLI 必须是真正的 bot-only 配置。
@@ -105,4 +106,6 @@ ready/ended 状态、ack/result回执、角色工具隔离、重复事件/重启
 不读取群成员；正常启动自动同步配置的群，Main 也可调用 `orchestrator_policy_sync`。
 来源关闭、无同步群和无同步能力分别按原版报错；bot 缺失/坏配置保持可观察错误，
 不切换用户身份、不让工具改账号。详细边界见 [策略同步](business-policy-sync.md)。
-当前尚无正式飞书事件/历史/上下文循环，不能把向 bot 发消息当作已可用的任务入口。
+当前已有正式飞书文本事件/历史/上下文/回复循环，配置群范围、名单及模式的完整
+片段和验证边界见[飞书文本正式入口](business-feishu-live.md)。图片附件及完整线上
+服务联调仍未完成；上面的同步片段本身并不配置群范围或主动接单模式。

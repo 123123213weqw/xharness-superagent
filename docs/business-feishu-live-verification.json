@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-11-02T00:49:36.623210+00:00",
+  "scope": "Feishu text Source formal product loop, selected lifetime/recovery and original text/read/context/link protocol samples; full product goal incomplete",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "source_commit": "9889030597cf3a1bdb25ac2cadbaa548050871e2",
+  "source_profile": "docs/business-feishu-live-source-profile.json",
+  "source_profile_sha256": "c406382c782ae5d4a34cb4625ec3079985f7015c078ca1b4a2ed21df85cf0a0e",
+  "source_profile_files": 753,
+  "local_remote_source_profiles_equal": true,
+  "formal_entry": {
+    "entry": "xharness-superagent --config ... [--check | --once | continuous watch]",
+    "environment": "Formal executable, actual OpenAI-compatible HTTP/SSE provider to loopback model fixture, actual private bot-only lark and gh subprocess endpoint fixtures, SQL/Driver/Passes/Native JSONL/CodingToolBundle and receipt-backed Outbox. No real external services or paid model.",
+    "new_test_declarations": 6,
+    "total_tests_passed": 43,
+    "tests": [
+      "formal_feishu_stream_reads_context_runs_worker_replies_and_reopens_without_duplicates",
+      "formal_feishu_self_and_malformed_events_are_not_triggers_but_scope_filters_are_retained",
+      "formal_feishu_direct_messages_obey_scope_and_keep_direct_reply_address",
+      "formal_feishu_source_disable_stops_and_joins_consumer_and_drops_read_after_disable",
+      "formal_feishu_consumer_failure_restarts_after_backoff_without_duplicate_work",
+      "formal_feishu_history_confines_pages_keeps_failed_cursor_and_recovers_without_duplicate_work"
+    ],
+    "business_assertions": [
+      "Duplicate live event, actual scoped message/thread reads that do not become new Triggers, real Worker write of normal Chinese/emoji, prepare environment source bot/chat, ack/result bot receipts; SIGINT joins real consumer and descendant before cold --check/--once; one Ticket/Trigger/assignment and no duplicate provider work/replies.",
+      "Self bot/app and malformed JSON are skipped; valid out-of-scope event retained with chat_not_allowed filtered fact; unlisted machine gate instead records not_human ignore Decision, with no Worker/Ticket/reply.",
+      "DirectMessages false retains filtered input without provider work; true performs actual Worker write/reply with correct direct channel address.",
+      "Actual Main settings save disables Source; five-second monitor cancels and joins actual bot consumer tree, drops newly read input and does not restart; paused/sourceOff health, no unauthorized Worker.",
+      "Consumer actual first exit7 restarts after at least one second measured across real process starts; second consumer completes one request/assignment/reply sequence, ready health.",
+      "History foreign chat and non-advancing page expose errors, preserve cursor and already committed work; corrected cold round keeps one assignment and no duplicate provider work/reply, skips invalid item and saves started-minus-five-second overlap cursor."
+    ],
+    "full_feishu_source_complete": false,
+    "images_or_native_attachments_accepted": false,
+    "full_external_service_acceptance": false
+  },
+  "application_tools": {
+    "main": 14,
+    "worker": 6,
+    "required_main": 14,
+    "required_worker": 6,
+    "all_names_registered_not_all_business_branches_complete": true,
+    "framework_skill_separate": true
+  },
+  "differential": {
+    "original_imports": "Unmodified pinned feishu-read.ts/feishu-trigger.ts/feishu-images.ts definitions and real Commands; image functions are not invoked",
+    "reader_cli_cases": 40,
+    "resource_boundary_cases": 10,
+    "message_projection_cases": 4,
+    "total_reader_protocol_cases": 54,
+    "rust_asserts_values_errors_and_actual_cli_traces": true,
+    "unasserted_reference_listing_not_counted": true,
+    "prior_source_cases": 52,
+    "product_acceptance_substitute": false
+  },
+  "regressions": {
+    "workspace_format_check": true,
+    "workspace_all_targets_check": true,
+    "workspace_strict_clippy": true,
+    "selected_test_crates": 10,
+    "selected_crates": [
+      "xharness-agent",
+      "xharness-core",
+      "xharness-host",
+      "xharness-session",
+      "xharness-session-jsonl",
+      "xharness-superagent-core",
+      "xharness-superagent",
+      "xharness-tools",
+      "xharness-coding-tools",
+      "xharness-process"
+    ],
+    "cargo_targets": 97,
+    "reported_passed": 1500,
+    "reported_failed": 0,
+    "reported_ignored": 18,
+    "ignored_or_capability_early_return_not_product_acceptance": true,
+    "full_workspace_tests": false,
+    "final_log": "docs/evidence/business-feishu-live-01/regression-03.log",
+    "extra_retry_repetitions": 20,
+    "repetition_log": "docs/evidence/business-feishu-live-01/regression-02.log",
+    "repetition_log_overall_exit": "failed after all focused tests/repetitions passed, on invalid package id in subsequent orchestration; corrected final regression-03 is green",
+    "new_component_test_declarations": 4
+  },
+  "commands": [
+    "cargo fmt --check --all",
+    "cargo check --locked --workspace --all-targets --features xharness-superagent/conformance",
+    "cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings",
+    "cargo test --locked -p xharness-agent -p xharness-core -p xharness-host -p xharness-session -p xharness-session-jsonl -p xharness-superagent-core -p xharness-superagent -p xharness-tools -p xharness-coding-tools --all-targets --features xharness-superagent/conformance",
+    "cargo test --locked -p xharness-process --all-targets -- --test-threads=1"
+  ],
+  "execution": {
+    "rust_host": "WZU_Server, owned independent validation source/cache; current uncommitted source rsynced before compilation with .git/target/node_modules/env/keys/credentials excluded",
+    "local_rust_compilation": false,
+    "shared_service_changed": false,
+    "reference_files_unchanged": 216,
+    "runtime_controlled_steps": 11,
+    "runtime_controlled_paths": 86,
+    "node_overlay_guards_passed": 10,
+    "node_log": "docs/evidence/business-feishu-live-01/node-final-02.log",
+    "new_dependencies": false,
+    "cargo_lock_unchanged": true,
+    "native_sessions_unchanged": true,
+    "permissions_or_kernel_defaults_broadened": false
+  },
+  "previous_head_ci": {
+    "head_sha": "646b6df6bafbc57393be48c02e9be727475001cf",
+    "status": "completed",
+    "conclusion": "failure",
+    "html_url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41364201090",
+    "jobs": [
+      {
+        "name": "rust (ubuntu-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "rust (macos-latest)",
+        "status": "completed",
+        "conclusion": "failure"
+      }
+    ]
+  },
+  "new_exact_head_ci": "Automatic PR CI must be inspected separately after publication. No new Mac pass is preclaimed.",
+  "failure_diagnosis": [
+    "check-01 missing import/optional chat shape corrected in new Source code; tests-02/03/04 rejected new-test clone/iterator lint shapes; no lint fence relaxed.",
+    "tests-05 and regression-01 found wrong new-test assertions: unlisted bot is policy not_human ignore, not Source filtered. A follow-up new assertion used reasons instead of the actual singular Decision.reason. Fixed tests from unmodified reference/model, not Engine gate behavior.",
+    "node-final found undefined optional cursor in new in-memory oracle versus serialized JSON. Resource projections now use the actual JSON wire projection before comparison; saved JSON and reference source were not weakened/modified. node-final-02 reruns all guards/oracles green.",
+    "regression-02 passed all 43 formal tests and extra20 retry repetitions, then stopped at incorrect xharness-jsonl package name in wrapper. regression-03 uses actual xharness-session-jsonl and passes all selected10 crates.",
+    "Previous head646b6df had Ubuntu success/Mac failure on terminal Cancel acknowledgement wrapped Closed as Rejected by durable adapter. Product observer only treats the exact Closed wrapper as idempotent and still drains/joins actual result; all other rejection shapes retain errors, Core/Host/NativeSessions unchanged. Component guard and20 Linux formal retry repetitions pass; new Mac must be checked on exact published CI."
+  ],
+  "remaining_scope": [
+    "Actual image resources, vision/context images and Native attachment resolver/lifetime are absent; imported image definitions in oracle are not image execution evidence.",
+    "Full subscribed topic/thread/name refresh matrix, concurrent Source/policy revocation, every exit/timeout and SQL failure cut are not accepted. In particular monitor config/SQL failure propagation while the live consumer is being cancelled needs explicit product coverage; current cancellation suppression can hide that monitor error.",
+    "All tool refinements (route ack/note, report/reply and PR/review ownership), complete assessment/cross-Source scenarios, API/UI, background completion/full stop/concurrency/crash cuts remain.",
+    "Deployment/service readiness, backup and rollback, existing legacy Feishu WZU sandbox deployment failures and authorized real external integrations remain separate gates."
+  ],
+  "logs": [
+    {
+      "path": "docs/evidence/business-feishu-live-01/check-01.log",
+      "raw_sha256": "004415768fbd999f998937a0d523e6e4cb5ce0ff195ab96a14789e6228d6049c",
+      "public_sha256": "ffd906d5fb2f48be88f6321e67c3214a1f349c068bc877f263efe599229b624a",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, original failures, CLI traces and CI job log retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-live-01/node-final-02.log",
+      "raw_sha256": "05fc84d09920dd93e36eb621e87bcb16390c4675dbd7de061326be23315326f6",
+      "public_sha256": "05fc84d09920dd93e36eb621e87bcb16390c4675dbd7de061326be23315326f6",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, original failures, CLI traces and CI job log retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-live-01/node-final.log",
+      "raw_sha256": "89aeb356af1aed433b74b2cb58c7aed2300de5127d734a921224acf6f0361faa",
+      "public_sha256": "a446ca8efb88716ab85159a497119b8d6a2eed0212023456fa9e13bdda68cdb0",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, original failures, CLI traces and CI job log retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-live-01/original-reader-import.log",
+      "raw_sha256": "407eac0b55d435ef237bcfba335356bb838cfa648417c563fe78c43173931189",
+      "public_sha256": "407eac0b55d435ef237bcfba335356bb838cfa648417c563fe78c43173931189",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, original failures, CLI traces and CI job log retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-live-01/previous-head-macos.log",
+      "raw_sha256": "2e77ca751d1f4f8a4e97c46a66cbc70e8004926e1f9a8e09a59461163f69154a",
+      "public_sha256": "2e77ca751d1f4f8a4e97c46a66cbc70e8004926e1f9a8e09a59461163f69154a",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, original failures, CLI traces and CI job log retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-live-01/reader-oracle-generate.log",
+      "raw_sha256": "64ebf7e1573c71d059df6c04b528307c84ac7db808a45b33ac05a97c1fd0289d",
+      "public_sha256": "64ebf7e1573c71d059df6c04b528307c84ac7db808a45b33ac05a97c1fd0289d",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, original failures, CLI traces and CI job log retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-live-01/regression-01.log",
+      "raw_sha256": "2e5040cb1f0fa9ed2e58056ef2c753fcc2e69c174d4efd16f2bc1ef99104e5de",
+      "public_sha256": "9fa53cec8b14ea954551e1eab4afec6732a5cb0a55711b21872c5f9d1cc72409",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, original failures, CLI traces and CI job log retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-live-01/regression-02.log",
+      "raw_sha256": "0aa6e690b4fe7256ba987d85b1c3a450396029a50d490417f4db7f5a0677d648",
+      "public_sha256": "d4202a90ca61a320ea1b9cc750153c77f232b3616a4226fde762d245559a04b3",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, original failures, CLI traces and CI job log retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-live-01/regression-03.log",
+      "raw_sha256": "40e245d88c9a6c35da27187a5369a89497033c6a5a12c49bff5d5d0662341c45",
+      "public_sha256": "f5436c78ad30cb9558241bcf4d45a63f69b3838872b1afdf0877b227a3f9b45e",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, original failures, CLI traces and CI job log retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-live-01/tests-01.log",
+      "raw_sha256": "cc713dfec48dae5319d8889b809c5e3983d945640a9fe1c0a5e1c627d4a6d40b",
+      "public_sha256": "26e5af3acb272920919fb7ecc76eba7ca1c2ce87fa003c3a713e73b2fd759a7c",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, original failures, CLI traces and CI job log retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-live-01/tests-02.log",
+      "raw_sha256": "51747b8e84f8b16f4f27fba81b14f1b56afdb8916e01b93c66a6fb1c42503f11",
+      "public_sha256": "900a5ba3200061ca04e75160ed0039bb5c6be4db76a75e64c380bb46afdec911",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, original failures, CLI traces and CI job log retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-live-01/tests-03.log",
+      "raw_sha256": "5d34bf8d447273472b7d99be6974cae6607892f27c759adac9a53c7aa878eaa8",
+      "public_sha256": "8a5d9e73e68554c9815be68c062306383eeb274dbe2c883f2c1002b5de46733a",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, original failures, CLI traces and CI job log retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-live-01/tests-04.log",
+      "raw_sha256": "0451b8b6190aaff108dc8d924d074dba4e45bd4122895b259cbaeddae9b5da18",
+      "public_sha256": "a0a88b56303c48e94b82102e7cc2c753576c52cca7aa1816a41ea97897d45d2e",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, original failures, CLI traces and CI job log retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-live-01/tests-05.log",
+      "raw_sha256": "cfd94910a02252ac5c7d8b9a6433506dbd1e6fc36920d849b8ac08cd4d4b4c76",
+      "public_sha256": "c1c37e6a81fc5a8ecd52d67c65059ba855401ae95ba68b50ad6576ab5d3fe839",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, original failures, CLI traces and CI job log retained."
+    }
+  ],
+  "full_goal_complete": false,
+  "cancelled_global_language_work_restarted": false
+}

@@ -1,0 +1,27 @@
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+error: called `filter(..).next_back()` on an `DoubleEndedIterator`
+   --> crates/xharness-superagent/tests/product_entry/feishu.rs:568:15
+    |
+568 |       let end = trace
+    |  _______________^
+569 | |         .lines()
+570 | |         .map(|l| serde_json::from_str::<Value>(l).unwrap())
+571 | |         .filter(|a| a[2] == "/open-apis/im/v1/messages")
+572 | |         .filter_map(|a| serde_json::from_str::<Value>(a[4].as_str().unwrap()).ok())
+573 | |         .filter(|p| p["container_id"] == "oc_chat")
+574 | |         .next_back()
+    | |____________________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#filter_next
+    = note: `-D clippy::filter-next` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::filter_next)]`
+help: use `.rfind(..)` instead
+    |
+568 ~     let end = trace
+569 +         .lines()
+570 +         .map(|l| serde_json::from_str::<Value>(l).unwrap())
+571 +         .filter(|a| a[2] == "/open-apis/im/v1/messages")
+572 +         .filter_map(|a| serde_json::from_str::<Value>(a[4].as_str().unwrap()).ok()).rfind(|p| p["container_id"] == "oc_chat")
+    |
+
+error: could not compile `xharness-superagent` (test "product_entry") due to 1 previous error
