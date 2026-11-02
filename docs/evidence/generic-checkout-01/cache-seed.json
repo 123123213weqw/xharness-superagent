@@ -1,0 +1,10 @@
+{
+  "kind": "one_time_owned_legacy_object_seed_not_fresh_remote_bootstrap",
+  "repository": "123123213weqw/x-harness-rs",
+  "account": "btlqql",
+  "seedCommit": "a3c97f182e62d4ff4c7c02f987719062d060d9ca",
+  "remoteCommit": "a3c97f182e62d4ff4c7c02f987719062d060d9ca",
+  "sameCommit": true,
+  "copiedObjectsNoHardlinksOrAlternates": true,
+  "newProductStillResolvesRemoteShaOnEveryCheckout": true
+}

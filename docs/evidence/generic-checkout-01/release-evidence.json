@@ -1,0 +1,21 @@
+{
+  "testsPassed": 393,
+  "testsFailed": 0,
+  "testsIgnored": 12,
+  "ignoredIsNotPass": true,
+  "strictClippyPassed": true,
+  "buildPassed": true,
+  "sourceFingerprint": "7799e4e8ca8e2c861824116a0cfb4f6863356a711711d2b80922217cb6356247",
+  "pythonFleetTests": 10,
+  "pythonStateBundleTests": 6,
+  "rustCompilation": "remote WZU_Server only",
+  "selection": "xharness-superagent, xharness-web, xharness-coding-tools --all-targets --features xharness-superagent/conformance",
+  "actualReadOnlyColdRSFetch": "timed out at 180s; original failure retained; one-time verified owned legacy object seed used for large RS repo",
+  "actualReadOnlyColdPiFetch": "passed with subsequent cache hit",
+  "fullPRContinuationAccepted": false,
+  "logSha256": {
+    "generic-checkout-regression-accepted.log": "1ec5a2eaead1d666acf2045f2af9643ddbbdb305b9b69d33980054fb230d3006",
+    "generic-checkout-clippy-accepted.log": "05bab3a6ded6feee4eb24c7f77fc8729e3b4e4820bab3e8362f14c11498af5c6",
+    "generic-checkout-build-accepted.log": "2bc683fb4e4f4f21ee9ee39e2b8ecce2efe20d3b1be57bda5316aa519ab3d30a"
+  }
+}

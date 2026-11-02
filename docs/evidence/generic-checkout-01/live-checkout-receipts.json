@@ -1,0 +1,54 @@
+[
+  {
+    "attempt": 0,
+    "elapsedMs": 4674,
+    "receipt": {
+      "cacheHit": true,
+      "commit": "a3c97f182e62d4ff4c7c02f987719062d060d9ca",
+      "repository": "123123213weqw/x-harness-rs",
+      "revision": {
+        "kind": "branch",
+        "name": "master"
+      }
+    }
+  },
+  {
+    "attempt": 1,
+    "elapsedMs": 4674,
+    "receipt": {
+      "cacheHit": true,
+      "commit": "a3c97f182e62d4ff4c7c02f987719062d060d9ca",
+      "repository": "123123213weqw/x-harness-rs",
+      "revision": {
+        "kind": "branch",
+        "name": "master"
+      }
+    }
+  },
+  {
+    "attempt": 0,
+    "elapsedMs": 9254,
+    "receipt": {
+      "cacheHit": false,
+      "commit": "cc28444e25f40e787fad21981be61aba9fe1e25f",
+      "repository": "123123213weqw/pi-rs",
+      "revision": {
+        "kind": "branch",
+        "name": "main"
+      }
+    }
+  },
+  {
+    "attempt": 1,
+    "elapsedMs": 3112,
+    "receipt": {
+      "cacheHit": true,
+      "commit": "cc28444e25f40e787fad21981be61aba9fe1e25f",
+      "repository": "123123213weqw/pi-rs",
+      "revision": {
+        "kind": "branch",
+        "name": "main"
+      }
+    }
+  }
+]

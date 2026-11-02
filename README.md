@@ -12,6 +12,8 @@
   GitHub PR 自动使用 head；可显式指定分支、提交或 PR，不再依赖 RS 专用 clone 包装器。
 - 可选实例私有缓存，按仓库/账号隔离；每个任务有独立工作目录和 Git 对象。
   每次解析远端 SHA，缓存损坏重建，失败不返回旧版本；保留现有任务工作区。
+- RS 单实例已灰度更新，其他五个原版实例未改；393 项 Rust 回归和严格 Clippy 通过。
+  [本次源码/真实只读验收及冷拉取限制](docs/generic-checkout-verification.json)。
 - [配置及升级说明](deploy/superagent/README.md#generic-repository-checkout)。
   PR head checkout 不等同于完整 PR 多轮续改验收。
 

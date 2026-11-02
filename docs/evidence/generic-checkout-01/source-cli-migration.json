@@ -1,0 +1,18 @@
+{
+  "savedWithHumanManagementCAS": true,
+  "sameRepository": true,
+  "sameAccount": "btlqql",
+  "accountIdUnchanged": true,
+  "revisionBefore": 3,
+  "revisionAfter": 4,
+  "activeCliIsOrdinaryExistingAccount": true,
+  "dedicatedCheckoutAdapterNoLongerUsed": true,
+  "sourcesReady": [
+    "feishu",
+    "github"
+  ],
+  "databaseRestored": false,
+  "externalWrites": false,
+  "newHumanTaskSynthesized": false,
+  "pausedRestored": true
+}

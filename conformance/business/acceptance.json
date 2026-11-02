@@ -748,6 +748,16 @@
           "business_assertions": "docs/business-completion-verification.json",
           "actual_product_path": true,
           "not_signed_off": true
+        },
+        {
+          "source_commit": "dbdf071fff5d843007a0c6577fabe9d655fa5830",
+          "entry_and_command": "Remote cargo test/clippy for three selected packages/all targets; actual authenticated two-repository read-only git checkout; guarded RS fleet upgrade + human management CAS CLI migration",
+          "environment": "Formal executable/API+Git transport fixtures for regressions; existing authorized GitHub account for live reads; one-time verified RS object seed after bounded cold-fetch timeout",
+          "full_log": "docs/evidence/generic-checkout-01/regression.log",
+          "business_assertions": "docs/generic-checkout-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "PR head checkout/cache only; not full PR continuation/publishing acceptance, not a new Feishu human Worker task, not all-instance replacement"
         }
       ]
     },
