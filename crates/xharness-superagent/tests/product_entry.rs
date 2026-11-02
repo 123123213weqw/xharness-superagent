@@ -23,6 +23,8 @@ mod assessment;
 mod configuration;
 #[path = "product_entry/configuration_lifecycle.rs"]
 mod configuration_lifecycle;
+#[path = "product_entry/feishu.rs"]
+mod feishu;
 #[path = "product_entry/note.rs"]
 mod note;
 #[path = "product_entry/policy_sync.rs"]

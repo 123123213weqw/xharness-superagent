@@ -246,6 +246,8 @@ pub struct Summary {
     pub policy_sync: BTreeMap<String, native::PolicySyncHealth>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub feishu_setup: Option<super::github::Health>,
+    #[serde(skip_serializing_if = "BTreeMap::is_empty")]
+    pub feishu: BTreeMap<String, super::feishu::Health>,
 }
 
 fn variable(key: &str, value: String, en: &str) -> Variable {
@@ -301,20 +303,82 @@ fn source_environment(deployment: &Deployment, trigger: Option<&Value>) -> Vec<V
 }
 struct PromptInputs {
     github: Prepared,
+    feishu: super::feishu::Prepared,
+    store: Rc<std::cell::OnceCell<Rc<Store>>>,
     max_chars: usize,
+}
+fn all_source_environment(
+    settings: &Settings,
+    deployment: &Deployment,
+    feishu: Option<&crate::sources::feishu::Deployment>,
+    trigger: Option<&Value>,
+) -> Vec<Variable> {
+    let mut result = Vec::new();
+    if crate::sources::feishu::Config::resolve(settings).is_some() {
+        let bot = feishu
+            .map(|b| {
+                if b.name.is_empty() {
+                    b.bot_id.clone()
+                } else {
+                    b.name.clone()
+                }
+            })
+            .unwrap_or_default();
+        let chat = trigger
+            .filter(|t| t["source"] == "feishu")
+            .and_then(|t| t["meta"]["chatId"].as_str())
+            .unwrap_or("");
+        for (key,value,description) in [("DSH_SUPERAGENT_FEISHU_BOT",bot,"The Feishu bot; lark-cli acts as it"),("DSH_SUPERAGENT_FEISHU_CHAT",chat.into(),"chat_id of the Feishu chat that started the ticket; empty when the ticket did not start on Feishu")] {
+            let mut item=variable(key,value,description);item.owner="feishu".into();result.push(item);
+        }
+    }
+    if GithubConfig::resolve(settings).is_some() {
+        result.extend(source_environment(deployment, trigger));
+    }
+    result
+}
+fn blocked_commands(settings: &Settings) -> String {
+    settings
+        .value()
+        .get("executor")
+        .and_then(|v| v.get("blockedCommands"))
+        .and_then(JsValue::array)
+        .unwrap_or_default()
+        .iter()
+        .filter_map(JsValue::as_str)
+        .collect::<Vec<_>>()
+        .join(" ")
 }
 impl Inputs for PromptInputs {
     fn max_chars(&self) -> Result<usize> {
         Ok(self.max_chars)
     }
     fn environment(&self) -> Result<Option<Vec<Variable>>> {
-        Ok(Some(source_environment(
-            &self.github.deployment().map_err(display)?,
+        let Ok(deployment) = self.github.deployment() else {
+            return Ok(None);
+        };
+        let store = self
+            .store
+            .get()
+            .ok_or_else(|| error("Prompt SQL owner unavailable"))?;
+        let settings = store.settings()?;
+        let mut blocked = variable(
+            "DSH_SUPERAGENT_BLOCKED_COMMANDS",
+            blocked_commands(&settings),
+            "Commands blocked in this execution environment, separated by spaces; never run them",
+        );
+        blocked.owner = "executor".into();
+        let mut result = vec![blocked];
+        result.extend(all_source_environment(
+            &settings,
+            &deployment,
+            self.feishu.deployment()?.as_ref(),
             None,
-        )))
+        ));
+        Ok(Some(result))
     }
     fn feishu(&self) -> Result<bool> {
-        Ok(false)
+        Ok(self.feishu.deployment()?.is_some())
     }
 }
 impl RequestInputs for PromptInputs {
@@ -324,11 +388,10 @@ impl RequestInputs for PromptInputs {
         _: &Value,
         trigger: Option<&Value>,
     ) -> Result<Vec<Variable>> {
-        if GithubConfig::resolve(&store.settings()?).is_none() {
-            return Ok(Vec::new());
-        }
-        Ok(source_environment(
+        Ok(all_source_environment(
+            &store.settings()?,
             &self.github.deployment().map_err(display)?,
+            self.feishu.deployment()?.as_ref(),
             trigger,
         ))
     }
@@ -337,9 +400,10 @@ fn executor_environment(
     ticket: &Ticket,
     settings: &Settings,
     deployment: &Deployment,
+    feishu: Option<&crate::sources::feishu::Deployment>,
     trigger: Option<&Value>,
 ) -> BTreeMap<OsString, OsString> {
-    let mut result: BTreeMap<_, _> = source_environment(deployment, trigger)
+    let mut result: BTreeMap<_, _> = all_source_environment(settings, deployment, feishu, trigger)
         .into_iter()
         .map(|v| (v.key.into(), v.value.into()))
         .collect();
@@ -373,6 +437,7 @@ fn trigger_for(app: &Application, ticket: &Ticket) -> Result<Option<Value>> {
 struct Coding {
     client: Arc<OnceLock<Client>>,
     github: Prepared,
+    feishu: super::feishu::Prepared,
     jobs: Arc<JobRegistry>,
     web: Arc<WebRuntime>,
 }
@@ -432,6 +497,7 @@ impl SessionToolFactory for Coding {
         }
         let directory = std::fs::canonicalize(cwd).map_err(|e| e.to_string())?;
         let deployment = self.github.deployment().map_err(|e| e.to_string())?;
+        let feishu = self.feishu.deployment().map_err(|e| e.to_string())?;
         let client = self
             .client
             .get()
@@ -463,6 +529,7 @@ impl SessionToolFactory for Coding {
                         ticket,
                         &app.state.store.settings()?,
                         &deployment,
+                        feishu.as_ref(),
                         trigger_for(app, ticket)?.as_ref(),
                     ),
                     ticket.id.clone(),
@@ -548,10 +615,12 @@ impl SessionToolFactory for Coding {
 async fn prepare_workspace(
     client: Client,
     github: Prepared,
+    feishu: super::feishu::Prepared,
     ticket: Ticket,
     stop: CancellationToken,
 ) -> Result<()> {
     let deployment = github.deployment().map_err(display)?;
+    let feishu = feishu.deployment()?;
     let id = ticket.id.clone();
     let (command, environment) = client
         .call(move |app| {
@@ -572,6 +641,7 @@ async fn prepare_workspace(
                 &ticket,
                 &settings,
                 &deployment,
+                feishu.as_ref(),
                 trigger_for(app, &ticket)?.as_ref(),
             );
             Ok((command, env))
@@ -658,15 +728,20 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
     let coding = Arc::new(Coding {
         client: client.clone(),
         github: prepared.clone(),
+        feishu: feishu.clone(),
         jobs: Arc::new(JobRegistry::new(JobRegistryConfig::default())),
         web: Arc::new(WebRuntime::default()),
     });
+    let prompt_store = Rc::new(std::cell::OnceCell::new());
     let inputs = Rc::new(PromptInputs {
         github: prepared.clone(),
+        feishu: feishu.clone(),
+        store: prompt_store.clone(),
         max_chars: config.document.prompt_max_chars,
     });
     let prepare_client = client.clone();
     let prepare_github = prepared.clone();
+    let prepare_feishu = feishu.clone();
     let prepare_stop = stop.clone();
     let main_directory = config
         .document
@@ -691,15 +766,21 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
         context_policy: Arc::new(IdentityContextPolicy),
         prompts: inputs,
         initial_settings: config.settings,
-        sources: feishu.configure(prepared.ports(source_stop.clone())),
+        sources: feishu.connect(
+            prepared.ports(source_stop.clone()),
+            client.clone(),
+            source_stop.clone(),
+        ),
         prepare_workspace: Rc::new(move |ticket| {
             let client = prepare_client.get().cloned();
             let github = prepare_github.clone();
+            let feishu = prepare_feishu.clone();
             let stop = prepare_stop.clone();
             async move {
                 prepare_workspace(
                     client.ok_or_else(|| error("Workspace owner not installed"))?,
                     github,
+                    feishu,
                     ticket,
                     stop,
                 )
@@ -712,6 +793,9 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
         clock: Arc::new(|| chrono::Utc::now().timestamp_millis()),
     })
     .await?;
+    prompt_store
+        .set(product.application().state.store.clone())
+        .map_err(|_| error("Prompt SQL owner already installed"))?;
     client
         .set(product.application().client())
         .map_err(|_| error("Application owner already installed"))?;
@@ -789,6 +873,7 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
         let source = prepared
             .source(product.application().clone())
             .map_err(display)?;
+        let feishu_source = feishu.source(product.application().clone(), feishu_setup.as_ref());
         if !matches!(mode, Mode::Check) {
             product.start().await?;
         }
@@ -796,7 +881,12 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
         match mode {
             Mode::Check => (),
             Mode::Once => {
-                match source.poll_once(source_stop.clone()).await {
+                let (github_poll, feishu_poll) = futures::join!(
+                    source.poll_once(source_stop.clone()),
+                    feishu_source.once(source_stop.clone())
+                );
+                feishu_poll?;
+                match github_poll {
                     Err(crate::sources::github::Error::Cancelled) if source_stop.is_cancelled() => {
                     }
                     Err(error) => poll_error = Some(display(error)),
@@ -807,7 +897,14 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
                 // it, including a model that never sends its first SSE byte.
                 tokio::select! {result=product.idle()=>result?,_=stop.cancelled()=>()}
             }
-            Mode::Watch => source.run(source_stop.clone()).await.map_err(display)?,
+            Mode::Watch => {
+                let (github, feishu) = futures::join!(
+                    source.run(source_stop.clone()),
+                    feishu_source.run(source_stop.clone())
+                );
+                github.map_err(display)?;
+                feishu?;
+            }
         }
         if let Some(error) = poll_error {
             return Err(error);
@@ -837,6 +934,7 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
             github: source.health(),
             policy_sync: product.policy_sync_health(),
             feishu_setup,
+            feishu: feishu_source.health(),
         })
     }
     .await;

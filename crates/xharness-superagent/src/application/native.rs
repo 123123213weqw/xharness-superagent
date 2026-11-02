@@ -18,7 +18,7 @@
 )]
 use super::{
     tools::{self, Binding, Bindings, Scope},
-    Application, ChannelAllowed, Services,
+    Application, Services,
 };
 use crate::{
     commands::{Context, PostCommit, ValidateMessage},
@@ -73,13 +73,14 @@ mod resources;
 
 pub type PrepareWorkspace = Rc<dyn Fn(Ticket) -> LocalBoxFuture<'static, Result<()>>>;
 pub type ConfiguredSourceEnabled = Rc<dyn Fn(&Settings, &str) -> Result<bool>>;
+pub type ConfiguredChannelAllowed = Rc<dyn Fn(&Settings, &Value) -> Result<bool>>;
 pub struct Sources {
     pub assessment: super::assessment::SourcePorts,
     pub configuration: super::configuration::SourcePorts,
     pub resources: super::resources::SourceResources,
     pub scope: Arc<ConfiguredScope>,
     pub enabled: ConfiguredSourceEnabled,
-    pub channel_allowed: ChannelAllowed,
+    pub channel_allowed: ConfiguredChannelAllowed,
     pub validate_message: Arc<ValidateMessage>,
     pub send: Rc<dyn Fn(Value) -> super::ServiceFuture<Sent>>,
 }
@@ -131,6 +132,16 @@ fn failure(error: impl std::fmt::Display) -> HandlerError {
 }
 fn protocol(error: impl std::fmt::Display) -> Result<()> {
     Err(unavailable(error.to_string()))
+}
+// The durable host can wrap a Core Closed acknowledgement as Rejected while
+// the final result is already in flight. This exact adapter shape is terminal,
+// not an arbitrary rejection. The observer still drains and joins the result.
+fn closed_cancel(error: &xharness_core::LoopControlError) -> bool {
+    use xharness_core::LoopControlError;
+    match error {
+        LoopControlError::Closed => true,
+        LoopControlError::Rejected(message) => message == &LoopControlError::Closed.to_string(),
+    }
 }
 
 struct Tracker {
@@ -235,6 +246,8 @@ impl Product {
         let prepare_settings = snapshot.clone();
         let enabled_settings = snapshot.clone();
         let source_enabled = config.sources.enabled;
+        let allowed_settings = snapshot.clone();
+        let channel_allowed = config.sources.channel_allowed;
         let state_dir = config.state_dir.clone();
         let context = Context {
             policy: Arc::new(move || {
@@ -314,7 +327,9 @@ impl Product {
                 source_enabled: Rc::new(move |source| {
                     source_enabled(&enabled_settings.borrow(), source)
                 }),
-                channel_allowed: config.sources.channel_allowed,
+                channel_allowed: Rc::new(move |channel| {
+                    channel_allowed(&allowed_settings.borrow(), channel)
+                }),
                 shutdown: Rc::new(move || {
                     let backend = stop.get().cloned();
                     if let Some(b) = &backend {
@@ -1071,7 +1086,7 @@ impl Backend {
                         // and all its tools; do not wait for a fictitious turn
                         // result for each not-yet-started observer.
                         if worker.is_none() { return Ok(()); }
-                        cancelled=true;match running.send(LoopCommand::Cancel).await{Ok(())|Err(xharness_core::LoopControlError::Closed)=>(),Err(e)=>return protocol(e)};continue;},
+                        cancelled=true;match running.send(LoopCommand::Cancel).await{Ok(())=>(),Err(e) if closed_cancel(&e)=>(),Err(e)=>return protocol(e)};continue;},
                     event=running.next_event()=>event,
                 };
                 let Some(event)=event else{break;};
@@ -1182,4 +1197,26 @@ fn prepare_ticket(
         assignment,
     });
     Ok(ticket)
+}
+
+#[cfg(test)]
+mod cancellation_tests {
+    use super::closed_cancel;
+    use xharness_core::LoopControlError;
+    #[test]
+    fn only_exact_terminal_cancel_acknowledgements_are_idempotent() {
+        assert!(closed_cancel(&LoopControlError::Closed));
+        assert!(closed_cancel(&LoopControlError::Rejected(
+            LoopControlError::Closed.to_string()
+        )));
+        for message in [
+            "durable Agent is busy with another activity",
+            "durable Agent has no active turn",
+            "agent worker is recovering; retry when ready",
+            "original control failure",
+            "",
+        ] {
+            assert!(!closed_cancel(&LoopControlError::Rejected(message.into())));
+        }
+    }
 }

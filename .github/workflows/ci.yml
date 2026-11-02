@@ -40,6 +40,7 @@ jobs:
       - run: npm ci --ignore-scripts --no-audit --no-fund --prefix conformance
       - run: node --experimental-transform-types conformance/business/github-source-oracle.mjs --check
       - run: node --experimental-transform-types conformance/business/feishu-source-oracle.mjs --check
+      - run: node --experimental-transform-types conformance/business/feishu-read-oracle.mjs --check
       - run: node --experimental-transform-types conformance/business/github-read-oracle.mjs --check
       - run: node --experimental-transform-types conformance/business/github-context-oracle.mjs --check
       - run: node --experimental-transform-types conformance/business/word-limits-oracle.mjs --check

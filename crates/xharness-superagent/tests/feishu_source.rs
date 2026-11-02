@@ -464,3 +464,49 @@ async fn setup_probe_has_its_own_sixty_second_deadline_and_never_falls_back() {
     assert!(dead(&child).await);
     assert_eq!(fixture.trace(), vec![json!(["auth", "status"])]);
 }
+
+#[tokio::test]
+async fn oversized_event_is_visible_but_does_not_restart_or_hide_next_event() {
+    let fixture = Fixture::new();
+    let cli = fixture.resolve("oversize").await.unwrap();
+    let cancel = CancellationToken::new();
+    let received = std::sync::atomic::AtomicBool::new(false);
+    let mut messages = Vec::new();
+    let mut diagnostics = Vec::new();
+    let (result, ()) = tokio::time::timeout(Duration::from_secs(10), async {
+        tokio::join!(
+            cli.consume(cancel.clone(), |event| match event {
+                consumer::Event::Diagnostic(text) => diagnostics.push(text),
+                consumer::Event::Message(Ok(value)) => {
+                    messages.push(value);
+                    received.store(true, Ordering::SeqCst);
+                }
+                _ => (),
+            }),
+            async {
+                while !received.load(Ordering::SeqCst) {
+                    tokio::time::sleep(Duration::from_millis(10)).await;
+                }
+                assert!(!dead(&pid(&fixture, "consumer-pid").await).await);
+                assert!(!dead(&pid(&fixture, "consumer-child").await).await);
+                cancel.cancel();
+            }
+        )
+    })
+    .await
+    .unwrap();
+    assert!(matches!(result, Err(Error::Cancelled)));
+    assert_eq!(
+        messages,
+        vec![json!({"message_id":"om_one","text":"分段 中文 😀"})]
+    );
+    assert_eq!(
+        diagnostics
+            .iter()
+            .filter(|d| d.as_str() == "Feishu event exceeds 1 MiB")
+            .count(),
+        1
+    );
+    assert!(dead(&pid(&fixture, "consumer-pid").await).await);
+    assert!(dead(&pid(&fixture, "consumer-child").await).await);
+}

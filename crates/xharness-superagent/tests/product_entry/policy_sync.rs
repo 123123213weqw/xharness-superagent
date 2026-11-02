@@ -232,8 +232,13 @@ async fn formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_
         .lines()
         .map(|l| serde_json::from_str(l).unwrap())
         .collect();
-    assert_eq!(commands.len(),7,"3 read-only setup commands and 4 admitted member reads; disabled/GitHub errors make no RPC");
-    assert!(commands[3..].iter().all(|a| a
+    assert_eq!(commands.len(),8,"3 read-only setup commands, one actual names refresh and 4 admitted member reads; disabled/GitHub sync errors make no member RPC");
+    let members: Vec<_> = commands[3..]
+        .iter()
+        .filter(|a| a[1] == "+chat-members-list")
+        .collect();
+    assert_eq!(members.len(), 4);
+    assert!(members.iter().all(|a| *a
         == &json!([
             "im",
             "+chat-members-list",
@@ -249,6 +254,24 @@ async fn formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_
             "--format",
             "json"
         ])));
+    let names: Vec<_> = commands[3..]
+        .iter()
+        .filter(|a| a[1] == "+chat-list")
+        .collect();
+    assert_eq!(
+        names,
+        vec![&json!([
+            "im",
+            "+chat-list",
+            "--page-all",
+            "--page-size",
+            "100",
+            "--as",
+            "bot",
+            "--format",
+            "json"
+        ])]
+    );
     let notifications = notices(&fixture);
     assert_eq!(notifications.len(),2,"both distinct saved policy notices reach the real main journal; no-op syncs send no new notice");
     assert_ne!(

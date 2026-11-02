@@ -17,25 +17,51 @@ pub fn retry(previous: Option<u64>, ran_ms: u64) -> u64 {
         previous.unwrap_or(0).saturating_mul(2).min(60_000)
     }
 }
-fn lines(buffer: &mut String, chunk: &str, limit: usize) -> Result<Vec<String>> {
-    buffer.push_str(chunk);
-    let mut result = Vec::new();
-    while let Some(end) = buffer.find('\n') {
-        let mut line = buffer.drain(..=end).collect::<String>();
-        line.pop();
-        if line.ends_with('\r') {
-            line.pop();
-        }
-        if line.encode_utf16().count() > limit {
-            return Err(Error::Protocol("Feishu event exceeds 1 MiB".into()));
-        }
-        result.push(line);
-    }
-    if buffer.encode_utf16().count() > limit {
-        return Err(Error::Protocol("Feishu event exceeds 1 MiB".into()));
-    }
-    Ok(result)
+#[derive(Default)]
+struct Lines {
+    text: String,
+    dropping: bool,
 }
+impl Lines {
+    fn push(&mut self, chunk: &str, limit: usize) -> Vec<std::result::Result<String, ()>> {
+        self.text.push_str(chunk);
+        let mut result = Vec::new();
+        while let Some(end) = self.text.find('\n') {
+            let mut line = self.text.drain(..=end).collect::<String>();
+            if self.dropping {
+                self.dropping = false;
+                continue;
+            }
+            line.pop();
+            if line.ends_with('\r') {
+                line.pop();
+            }
+            result.push(if line.encode_utf16().count() > limit {
+                Err(())
+            } else {
+                Ok(line)
+            });
+        }
+        // Report once, then discard until the next newline without retaining
+        // an unbounded partial line. A pending CR may still be half of CRLF.
+        if self.dropping {
+            self.text.clear();
+        } else if self
+            .text
+            .strip_suffix('\r')
+            .unwrap_or(&self.text)
+            .encode_utf16()
+            .count()
+            > limit
+        {
+            self.text.clear();
+            self.dropping = true;
+            result.push(Err(()));
+        }
+        result
+    }
+}
+const OVERSIZE: &str = "Feishu event exceeds 1 MiB";
 impl Cli {
     pub async fn consume(
         &self,
@@ -53,8 +79,8 @@ impl Cli {
         let wait = handle.wait();
         tokio::pin!(wait);
         let mut cursor = ProcessOutputCursor::default();
-        let mut stdout = String::new();
-        let mut stderr = String::new();
+        let mut stdout = Lines::default();
+        let mut stderr = Lines::default();
         let mut diagnostic = String::new();
         let mut ready = false;
         let deadline = tokio::time::sleep(Duration::from_secs(45));
@@ -68,10 +94,20 @@ impl Cli {
                         "Feishu event consumer output was lost; context is incomplete".into(),
                     ));
                 }
-                for line in lines(&mut stdout, &snapshot.stdout.text, 1_048_576)? {
-                    receive(Event::Message(serde_json::from_str(&line)));
+                for line in stdout.push(&snapshot.stdout.text, 1_048_576) {
+                    match line {
+                        Ok(line) => receive(Event::Message(serde_json::from_str(&line))),
+                        Err(()) => receive(Event::Diagnostic(OVERSIZE.into())),
+                    }
                 }
-                for line in lines(&mut stderr, &snapshot.stderr.text, 1_048_576)? {
+                for line in stderr.push(&snapshot.stderr.text, 1_048_576) {
+                    let line = match line {
+                        Ok(line) => line,
+                        Err(()) => {
+                            receive(Event::Diagnostic(OVERSIZE.into()));
+                            continue;
+                        }
+                    };
                     diagnostic = line.chars().take(4000).collect();
                     if line.starts_with("[event] ready") {
                         ready = true;
@@ -91,17 +127,17 @@ impl Cli {
                 return Err(error);
             }
             if snapshot.finished {
-                if !stdout.is_empty() {
-                    receive(Event::Message(serde_json::from_str(&stdout)));
+                if !stdout.text.is_empty() {
+                    receive(Event::Message(serde_json::from_str(&stdout.text)));
                 }
-                if !stderr.is_empty() {
-                    diagnostic = stderr.chars().take(4000).collect();
-                    if stderr.starts_with("[event] ready") {
+                if !stderr.text.is_empty() {
+                    diagnostic = stderr.text.chars().take(4000).collect();
+                    if stderr.text.starts_with("[event] ready") {
                         ready = true;
                         receive(Event::Ready);
-                    } else if stderr.contains("WARN")
-                        || stderr.contains("drop")
-                        || stderr.contains("error")
+                    } else if stderr.text.contains("WARN")
+                        || stderr.text.contains("drop")
+                        || stderr.text.contains("error")
                     {
                         receive(Event::Diagnostic(diagnostic.clone()));
                     }
@@ -121,5 +157,24 @@ impl Cli {
              _=observer.changed(snapshot.revision)=>(),
             }
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::Lines;
+    #[test]
+    fn oversized_lines_are_discarded_once_and_crlf_and_later_lines_survive() {
+        let mut lines = Lines::default();
+        assert!(lines.push("😀😀\r", 4).is_empty());
+        assert_eq!(lines.push("\n12345", 4), vec![Ok("😀😀".into()), Err(())]);
+        assert!(lines.text.is_empty());
+        assert!(lines.push("6789", 4).is_empty());
+        assert_eq!(
+            lines.push("\n好\nabcde\r\nlast\n", 4),
+            vec![Ok("好".into()), Err(()), Ok("last".into())]
+        );
+        assert!(lines.text.is_empty());
+        assert!(!lines.dropping);
     }
 }

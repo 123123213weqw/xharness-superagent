@@ -82,7 +82,7 @@ impl Prepared {
                     && enabled.installed.get().is_some()
                     && Config::resolve(settings).is_some())
             }),
-            channel_allowed: Rc::new(|channel| Ok(channel["source"] == "github")),
+            channel_allowed: Rc::new(|_, channel| Ok(channel["source"] == "github")),
             validate_message: Arc::new(|_| Ok(())),
             send: Rc::new(move |receipt| {
                 let installed = send.ready();
@@ -127,7 +127,7 @@ pub fn ports(
         enabled: Rc::new(|settings, source| {
             Ok(source == "github" && Config::resolve(settings).is_some())
         }),
-        channel_allowed: Rc::new(|channel| Ok(channel["source"] == "github")),
+        channel_allowed: Rc::new(|_, channel| Ok(channel["source"] == "github")),
         // GitHub comments are not IM-limited in the reference Outbox. The
         // acknowledgement/routing word guards belong to their application tools.
         validate_message: Arc::new(|_| Ok(())),

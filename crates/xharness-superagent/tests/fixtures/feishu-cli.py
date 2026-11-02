@@ -41,6 +41,11 @@ elif args == ['event', 'consume', 'im.message.receive_v1', '--as', 'bot']:
         sys.exit(0)
     sys.stderr.write('[event] ready\nWARN fixture diagnostic\n'); sys.stderr.flush()
     os.write(1, b'{bad-json\n')
+    if mode == 'oversize':
+        for _ in range(17):
+            os.write(1, b'x' * 65536)
+            time.sleep(0.002)
+        os.write(1, b'\n')
     payload = json.dumps({'message_id': 'om_one', 'text': '分段 中文 😀'}, ensure_ascii=False).encode() + b'\n'
     for i in range(0, len(payload), 3):
         os.write(1, payload[i:i+3])

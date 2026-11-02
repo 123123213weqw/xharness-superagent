@@ -408,7 +408,7 @@ impl Fixture {
                     )
                 }),
                 enabled: Rc::new(|_, source| Ok(source == "github")),
-                channel_allowed: Rc::new(|_| Ok(true)),
+                channel_allowed: Rc::new(|_, _| Ok(true)),
                 validate_message: Arc::new(|_| Ok(())),
                 send: Rc::new(move |receipt| {
                     sent.borrow_mut().push(receipt);
