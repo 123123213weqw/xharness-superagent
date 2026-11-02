@@ -22,4 +22,17 @@ if len(args)>1 and args[1]=='repos/owner/repo/git/ref/heads/main':
     head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=root/'template',text=True).strip()
     if (root/'move-base').exists():head='f'*40
     print(json.dumps({'object':{'sha':head}}));sys.exit(0)
+if len(args)>1 and args[1].startswith('repos/owner/repo/git/commits/'):
+    head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=root/'template',text=True).strip()
+    assert args[1].endswith('/'+head),args
+    tree=subprocess.check_output(['git','rev-parse','HEAD^{tree}'],cwd=root/'template',text=True).strip()
+    print(json.dumps({'sha':head,'tree':{'sha':tree}}));sys.exit(0)
+if len(args)>1 and args[1].startswith('repos/owner/repo/git/trees/'):
+    tree=subprocess.check_output(['git','rev-parse','HEAD^{tree}'],cwd=root/'template',text=True).strip()
+    assert args[1].endswith('/'+tree),args
+    entries=[]
+    for line in subprocess.check_output(['git','ls-tree',tree],cwd=root/'template',text=True).splitlines():
+        metadata,name=line.split('\t',1);mode,kind,oid=metadata.split(' ')
+        entries.append({'path':name,'mode':mode,'type':kind,'sha':oid})
+    print(json.dumps({'sha':tree,'truncated':False,'tree':entries}));sys.exit(0)
 exec(compile((root/'base-gh.py').read_text(),str(root/'base-gh.py'),'exec'))

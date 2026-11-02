@@ -219,7 +219,7 @@ impl Broker {
             return Err(error("Base tree listing was truncated"));
         }
         Ok(
-            json!({"repository":self.deployment.repository,"baseBranch":self.config.base_branch,"baseSha":base,"baseTree":tree,"deliveryBranch":self.branch,"rootEntries":listing["tree"],"checkout":false}),
+            json!({"repository":self.deployment.repository,"baseBranch":self.config.base_branch,"baseSha":base,"baseTree":tree,"deliveryBranch":self.branch,"rootEntries":listing["tree"],"checkout":self.config.checkout}),
         )
     }
     async fn publish(&self, args: Arguments, stop: CancellationToken) -> Result<Value> {

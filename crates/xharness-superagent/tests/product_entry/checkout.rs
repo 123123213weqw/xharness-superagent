@@ -49,7 +49,8 @@ fn response(request: &Value) -> ModelReply {
             Some("bash"),
             json!({"command":"set -eu; git status --porcelain; git rev-parse --verify HEAD; /usr/bin/python3 build.py; test -f seed.txt","timeout_ms":20000}),
         ),
-        1 => (
+        1 => (Some("repository_delivery"), json!({"action":"inspect"})),
+        2 => (
             Some("orchestrator_report"),
             json!({"state":"ready","summary":"Actual checkout and build done"}),
         ),
@@ -87,6 +88,23 @@ async fn formal_checkout_verifies_git_runs_prepare_and_real_build_then_reopens_w
         std::fs::read_to_string(dir.join("checkout-build-proof.txt")).unwrap(),
         "CHECKOUT_BUILD_OK\n"
     );
+    // Subsequent model requests replay prior tool messages. Count unique call
+    // identities, not repeated appearances of the same result in history.
+    let inspections = outputs
+        .iter()
+        .filter_map(|m| {
+            let v = serde_json::from_str::<Value>(&message_text(m)).ok()?;
+            let content = serde_json::from_str::<Value>(v["content"].as_str()?).ok()?;
+            content.get("rootEntries")?;
+            Some((m["tool_call_id"].as_str()?.to_owned(), content))
+        })
+        .collect::<std::collections::BTreeMap<_, _>>();
+    assert_eq!(
+        inspections.len(),
+        1,
+        "inspect must reach the admitted Worker: {outputs:?}"
+    );
+    assert_eq!(inspections.values().next().unwrap()["checkout"], true);
     let calls = f.directory.join("clone-calls.jsonl");
     assert_eq!(std::fs::read_to_string(&calls).unwrap().lines().count(), 1);
     success(&f.run("--once").await);
