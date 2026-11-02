@@ -302,12 +302,21 @@ impl Cli {
         ))
     }
     async fn run(&self, args: Vec<String>, stop: CancellationToken) -> Result<String> {
+        self.run_with_timeout(args, stop, Duration::from_secs(90))
+            .await
+    }
+    async fn run_with_timeout(
+        &self,
+        args: Vec<String>,
+        stop: CancellationToken,
+        timeout: Duration,
+    ) -> Result<String> {
         if stop.is_cancelled() {
             return Err(Error::Cancelled);
         }
         let mut spec = SpawnSpec::new(self.program.as_os_str(), &self.cwd)
             .args(args)
-            .timeout(Duration::from_secs(90))
+            .timeout(timeout)
             .output_limits(16 * 1024 * 1024, 16 * 1024 * 1024);
         spec.env = self.environment.clone();
         spec.env.insert("GH_PROMPT_DISABLED".into(), "1".into());
@@ -321,7 +330,7 @@ impl Cli {
         }
         if output.termination == TerminationReason::TimedOut {
             return Err(Error::Cli {
-                message: "GitHub CLI timed out after 90 s".into(),
+                message: format!("GitHub CLI timed out after {} s", timeout.as_secs()),
                 code: None,
                 exit_code: output.status.code,
             });
@@ -459,7 +468,7 @@ impl Cli {
         };
         let result = async {
             let url = format!("https://github.com/{}.git", self.deployment.repository);
-            cloner.run(vec!["repo".into(),"clone".into(),url.clone(),staging.to_string_lossy().into_owned(),"--".into(),"--single-branch".into(),"--no-tags".into(),"--no-recurse-submodules".into(),"--branch".into(),branch.into(),"--config".into(),"core.hooksPath=/dev/null".into(),"--config".into(),"init.templateDir=/dev/null".into()],stop.clone()).await?;
+            cloner.run_with_timeout(vec!["repo".into(),"clone".into(),url.clone(),staging.to_string_lossy().into_owned(),"--".into(),"--single-branch".into(),"--no-tags".into(),"--no-recurse-submodules".into(),"--branch".into(),branch.into(),"--config".into(),"core.hooksPath=/dev/null".into(),"--config".into(),"init.templateDir=/dev/null".into()],stop.clone(), Duration::from_secs(300)).await?;
             // This tree has never been handed to a Worker. No privileged git
             // process will ever run in it again after the atomic rename.
             let git = Self {program:"git".into(),cwd:staging.clone(),environment,deployment:self.deployment.clone(),runtime:self.runtime.clone()};

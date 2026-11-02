@@ -27,7 +27,7 @@ fn fixture(url: &str) -> Fixture {
             .unwrap()
             .success());
     }
-    std::fs::write(template.join("build.py"),"from pathlib import Path\nassert Path('README.md').read_text() == 'repo 中文 😀\\n'\nprint('CHECKOUT_BUILD_OK')\n").unwrap();
+    std::fs::write(template.join("build.py"),"from pathlib import Path\nassert Path('README.md').read_text() == 'repo 中文 😀\\n'\nPath('checkout-build-proof.txt').write_text('CHECKOUT_BUILD_OK\\n')\nprint('CHECKOUT_BUILD_OK')\n").unwrap();
     std::fs::write(template.join("README.md"), "repo 中文 😀\n").unwrap();
     for args in [vec!["add", "."], vec!["commit", "-m", "fixture"]] {
         assert!(std::process::Command::new("git")
@@ -47,7 +47,7 @@ fn response(request: &Value) -> ModelReply {
     Ok(match calls(request).len() {
         0 => (
             Some("bash"),
-            json!({"command":"git status --porcelain; git rev-parse --verify HEAD; python3 build.py; test -f seed.txt","timeout_ms":20000}),
+            json!({"command":"set -eu; git status --porcelain; git rev-parse --verify HEAD; /usr/bin/python3 build.py; test -f seed.txt","timeout_ms":20000}),
         ),
         1 => (
             Some("orchestrator_report"),
@@ -70,10 +70,23 @@ async fn formal_checkout_verifies_git_runs_prepare_and_real_build_then_reopens_w
     let config = std::fs::read_to_string(dir.join(".git/config")).unwrap();
     assert!(config.contains("https://github.com/owner/repo.git"));
     assert!(!config.contains("fixture-private-helper"));
-    assert!(server
-        .requests()
+    let requests = server.requests();
+    let outputs = requests
         .iter()
-        .any(|r| r.to_string().contains("CHECKOUT_BUILD_OK")));
+        .flat_map(|r| r["messages"].as_array().unwrap())
+        .filter(|m| m["role"] == "tool")
+        .cloned()
+        .collect::<Vec<_>>();
+    assert!(
+        requests
+            .iter()
+            .any(|r| r.to_string().contains("CHECKOUT_BUILD_OK")),
+        "Actual build output did not reach the Worker: {outputs:?}"
+    );
+    assert_eq!(
+        std::fs::read_to_string(dir.join("checkout-build-proof.txt")).unwrap(),
+        "CHECKOUT_BUILD_OK\n"
+    );
     let calls = f.directory.join("clone-calls.jsonl");
     assert_eq!(std::fs::read_to_string(&calls).unwrap().lines().count(), 1);
     success(&f.run("--once").await);
