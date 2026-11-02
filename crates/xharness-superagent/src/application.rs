@@ -54,6 +54,7 @@ pub mod configuration;
 mod controls;
 pub mod feishu;
 pub mod github;
+pub mod management;
 mod messages;
 pub mod native;
 pub mod resources;
@@ -95,6 +96,8 @@ struct State {
     services: Services,
     resource_reader: OnceCell<resources::ReadPort>,
     management: OnceCell<configuration::ManagementPort>,
+    panel: OnceCell<configuration::PanelPort>,
+    status: OnceCell<Rc<dyn Fn() -> Result<Value>>>,
     assessment: OnceCell<assessment::ToolPort>,
     resource_pages: Rc<RefCell<resources::TextCache>>,
     // Both public handle and runner retain state, so the writer lease cannot be
@@ -170,6 +173,8 @@ impl Application {
             services,
             resource_reader: OnceCell::new(),
             management: OnceCell::new(),
+            panel: OnceCell::new(),
+            status: OnceCell::new(),
             assessment: OnceCell::new(),
             resource_pages: Rc::new(RefCell::new(resources::TextCache::new(4_000_000))),
             _lease: lease,

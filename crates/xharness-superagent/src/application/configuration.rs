@@ -22,3 +22,12 @@ pub struct SourcePorts {
     pub setup_fields: SetupFields,
     pub sync: Option<PolicySync>,
 }
+
+/// Trusted panel returns encoded JSON so identity-bearing settings maps are not reordered.
+pub type PanelPort = Rc<
+    dyn Fn(
+        String,
+        String,
+        CancellationToken,
+    ) -> futures::future::LocalBoxFuture<'static, Result<String>>,
+>;

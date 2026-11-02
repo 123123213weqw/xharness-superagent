@@ -25,6 +25,8 @@ mod configuration;
 mod configuration_lifecycle;
 #[path = "product_entry/feishu.rs"]
 mod feishu;
+#[path = "product_entry/management.rs"]
+mod management;
 #[path = "product_entry/note.rs"]
 mod note;
 #[path = "product_entry/policy_sync.rs"]

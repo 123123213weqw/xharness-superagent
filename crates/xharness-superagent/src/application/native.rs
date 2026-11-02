@@ -68,6 +68,7 @@ mod configuration;
 mod policy_sync;
 pub use policy_sync::Health as PolicySyncHealth;
 mod idle;
+mod panel;
 mod recovery;
 mod resources;
 
@@ -448,6 +449,7 @@ impl Product {
             .map_err(|_| unavailable("Native services already installed"))?;
         let reader = Rc::downgrade(&backend);
         let manager = Rc::downgrade(&backend);
+        let panel = Rc::downgrade(&backend);
         let assessor = Rc::downgrade(&backend);
         application
             .state
@@ -477,6 +479,20 @@ impl Product {
                 .boxed_local()
             }))
             .map_err(|_| unavailable("Configuration manager already installed"))?;
+        application
+            .state
+            .panel
+            .set(Rc::new(move |operation, encoded, cancel| {
+                let backend = panel.upgrade();
+                async move {
+                    backend
+                        .ok_or_else(|| unavailable("Native management owner stopped"))?
+                        .panel(&operation, &encoded, cancel)
+                        .await
+                }
+                .boxed_local()
+            }))
+            .map_err(|_| unavailable("Panel manager already installed"))?;
         application
             .state
             .resource_reader

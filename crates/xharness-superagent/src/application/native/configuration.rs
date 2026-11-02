@@ -38,15 +38,15 @@ fn environment(settings: &Settings) -> Result<String> {
 }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
-struct Save {
-    block: String,
-    source: Option<String>,
-    value: Value,
-    revision: u64,
+pub(super) struct Save {
+    pub(super) block: String,
+    pub(super) source: Option<String>,
+    pub(super) value: Value,
+    pub(super) revision: u64,
 }
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
-struct PromptSave {
+pub(super) struct PromptSave {
     config: Value,
     #[serde(rename = "baseRevision")]
     base_revision: Option<u64>,
@@ -57,12 +57,14 @@ struct PromptSave {
 pub(super) enum Origin {
     Tool,
     Sync,
+    Panel,
 }
 impl Origin {
     fn name(self) -> &'static str {
         match self {
             Self::Tool => "tool",
             Self::Sync => "sync",
+            Self::Panel => "panel",
         }
     }
 }
@@ -101,7 +103,7 @@ impl Backend {
                 self.sync_tool(&args.source).await
             }
             "orchestrator_prompts_save" => {
-                self.save_prompts(serde_json::from_str(encoded)?, &value)
+                self.save_prompts(serde_json::from_str(encoded)?, &value, Origin::Tool)
             }
             _ => Err(unavailable("Unknown configuration tool")),
         }
@@ -120,7 +122,12 @@ impl Backend {
         )?;
         Ok(())
     }
-    fn save_prompts(&self, args: PromptSave, raw: &JsValue) -> Result<Value> {
+    pub(super) fn save_prompts(
+        &self,
+        args: PromptSave,
+        raw: &JsValue,
+        origin: Origin,
+    ) -> Result<Value> {
         // The typed shape validates args; the existing identity-aware value
         // retains team skill/config ordering across read/edit/save.
         let _shape = args.config;
@@ -147,11 +154,19 @@ impl Backend {
         let base = args.base_revision.ok_or_else(|| {
             unavailable("Saving needs baseRevision, the revision the configuration edits")
         })?;
-        let saved = prompts.save(config, base, "tool")?;
+        if matches!(origin, Origin::Panel) {
+            return app.state.store.atomic(|| {
+                let saved=prompts.save(config,base,origin.name())?;
+                let text=serde_json::to_string(&json!({"prompts_saved":saved.revision,"read":format!("prompts/{}",saved.revision)}))?;
+                app.driver.enqueue("notice","prompts",&json!({"text":text,"delivery_key":format!("notice:prompts:{}",saved.revision),"summary":format!("Prompts saved: {}",saved.revision)}))?;
+                Ok(json!({"revision":saved.revision,"context_delivery":"pending"}))
+            });
+        }
+        let saved = prompts.save(config, base, origin.name())?;
         // Own tool saves do not enqueue a self-notice or wake another session.
         Ok(json!({"revision":saved.revision,"effect":"next-request"}))
     }
-    fn save_settings(&self, args: Save, raw: &JsValue, origin: Origin) -> Result<Value> {
+    pub(super) fn save_settings(&self, args: Save, raw: &JsValue, origin: Origin) -> Result<Value> {
         let _shape = args.value;
         if (args.block == "source") != args.source.is_some() {
             return Err(unavailable(
@@ -172,7 +187,7 @@ impl Backend {
             if old.paused() != paused {
                 let mut value = old.value().clone();
                 value.set("paused", JsValue::Bool(paused));
-                let saved=store.save_settings(&value,Some(&json!({"source":"tool","block":"pause","policyVersion":policy_version(&old)?,"policyChanged":false,"notified":[]})),&(app.state.context.clock)())?;
+                let saved=store.save_settings(&value,Some(&json!({"source":origin.name(),"block":"pause","policyVersion":policy_version(&old)?,"policyChanged":false,"notified":[]})),&(app.state.context.clock)())?;
                 self.settings.send_replace(saved);
             }
             app.passes.request();
@@ -218,12 +233,19 @@ impl Backend {
             );
         }
         let candidate = parse_settings(&value)?;
-        if args.block == "executor" && environment(&old)? != environment(&candidate)? {
+        if args.block == "executor"
+            && !matches!(origin, Origin::Panel)
+            && environment(&old)? != environment(&candidate)?
+        {
             return Err(refused(UserErrorCode::PanelOnlyEnvironment, &[]));
         }
         if (self.configuration_sources.setup_fields)(&old)?.stringify()?
             != (self.configuration_sources.setup_fields)(&candidate)?.stringify()?
         {
+            if matches!(origin, Origin::Panel) {
+                return Err(crate::application::management::problem(409,
+                    "Account changes require a controlled process restart; live account replacement is not enabled"));
+            }
             return Err(refused(UserErrorCode::PanelOnlyAccounts, &[]));
         }
         if args.block == "eval" || args.block == "executor" {
@@ -288,7 +310,7 @@ impl Backend {
         context.scope = Arc::new(move |source, meta| scope(&scoped, source, meta));
         store.atomic(|| {
             store.save_settings(candidate.value(),Some(&json!({"source":origin.name(),"block":block,"policyVersion":after,"policyChanged":before!=after,"notified":effects.iter().map(|(id,_)|id).collect::<Vec<_>>()})),&(context.clock)())?;
-            if matches!(origin, Origin::Sync) {
+            if matches!(origin, Origin::Sync | Origin::Panel) {
                 let changed = super::policy_sync::changed_paths(old.value(), candidate.value())?;
                 let text=serde_json::to_string(&json!({"settings_saved":block,"changed":changed,"read":format!("settings/{block}")}))?;
                 let delivery_key=format!("notice:settings:{block}:{}", key(&[&text])?);

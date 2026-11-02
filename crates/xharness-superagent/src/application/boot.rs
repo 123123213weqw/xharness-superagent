@@ -124,6 +124,8 @@ struct Document {
     admission_context_timeout_ms: u64,
     state_dir: PathBuf,
     #[serde(default)]
+    management: Option<super::management::Config>,
+    #[serde(default)]
     main_directory: Option<PathBuf>,
     #[serde(default = "prompt_limit")]
     prompt_max_chars: usize,
@@ -144,6 +146,9 @@ impl Config {
             timeout: Duration::from_millis(document.admission_context_timeout_ms),
         }
         .validate()?;
+        if let Some(management) = &document.management {
+            management.validate()?;
+        }
         if !document.state_dir.is_absolute() {
             return Err(error("stateDir must be an absolute path"));
         }
@@ -764,6 +769,12 @@ async fn prepare_workspace(
 /// token; every admitted runner and Source is joined on success AND failure.
 pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<Summary> {
     let models = config.models()?;
+    let management_config = config.document.management.clone();
+    let prompt_max_chars = config.document.prompt_max_chars;
+    let machine = serde_json::json!({"stateDir":config.document.state_dir,
+        "promptMaxChars":config.document.prompt_max_chars,
+        "admissionContextMaxPages":config.document.admission_context_max_pages,
+        "admissionContextTimeoutMs":config.document.admission_context_timeout_ms});
     let route = config.document.default_model.route();
     let source_stop = stop.child_token();
     let prepared = Prepared::default();
@@ -915,12 +926,36 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
                 });
             }
         }
-        let source = prepared
+        let source = Rc::new(prepared
             .source(product.application().clone())
-            .map_err(display)?;
-        let feishu_source = feishu.source(product.application().clone(), feishu_setup.as_ref());
+            .map_err(display)?);
+        let feishu_source = Rc::new(feishu.source(product.application().clone(), feishu_setup.as_ref()));
+        let github_health = Rc::downgrade(&source);
+        let feishu_health = Rc::downgrade(&feishu_source);
+        let deployment = prepared.deployment().map_err(display)?;
+        let bot = feishu.deployment()?;
+        let setup_problem = feishu_setup.clone();
+        product.application().state.status.set(Rc::new(move || {
+            let github = github_health.upgrade().ok_or_else(||error("GitHub Source stopped"))?;
+            let feishu = feishu_health.upgrade().ok_or_else(||error("Feishu Source stopped"))?;
+            Ok(serde_json::json!({"setup":{"machine":machine,"problem":null,"feishuProblem":setup_problem,
+                "accounts":{"repository":deployment.repository,"agent":deployment.login,"feishu":bot}},
+                "sourceHealth":{"github":github.health(),"feishu":feishu.health()}}))
+        })).map_err(|_|error("Management status probe already installed"))?;
+        // Reserve management before admitting Source work: a port collision
+        // must not poll an event, acknowledge it, or start a Worker first.
+        let management_server=if matches!(mode,Mode::Watch) {
+            Some(super::management::bind(management_config,product.application().client(),source_stop.clone(),prompt_max_chars).await?)
+        } else {None};
         if !matches!(mode, Mode::Check) {
             product.start().await?;
+            // The pass coordinator records failures/recoveries, not an initial
+            // success. Publish startup readiness only after actual setup and
+            // Native restore have succeeded, preserving any recorded failure.
+            product.application().state.health.borrow_mut().get_or_insert_with(||crate::passes::Health {
+                state:"ready".into(),detail:"Orchestrator is ready".into(),
+                at:chrono::Utc::now().to_rfc3339_opts(chrono::SecondsFormat::Millis,true),
+            });
         }
         let mut poll_error = None;
         match mode {
@@ -957,9 +992,15 @@ pub async fn run(config: Config, mode: Mode, stop: CancellationToken) -> Result<
                     }
                     result
                 };
-                let (github, feishu) = futures::join!(github, feishu);
+                let management = async {
+                    let result = management_server.ok_or_else(||error("Management lifetime unavailable"))?.run().await;
+                    if result.is_err() { source_stop.cancel(); }
+                    result
+                };
+                let (github, feishu, management) = futures::join!(github, feishu, management);
                 github.map_err(display)?;
                 feishu?;
+                management?;
             }
         }
         if let Some(error) = poll_error {

@@ -1,3 +1,4 @@
+import {auditedLockBeforeManagement} from './business/management-cargo-overlay.mjs'
 /** Current-code provenance check, NOT semantic equivalence or release approval. */
 import {readFileSync} from 'node:fs'
 import {gunzipSync} from 'node:zlib'
@@ -135,7 +136,7 @@ for(const [path,record]of Object.entries(proposalUI.files)){
 }
 for(const [path,expected]of final){
  const current=readFileSync(resolve(root,path))
- const audited=path==='crates/xharness-host/tests/observed_input.rs'?auditedHostTestBeforeFlushObservation(current,expected):path==='crates/xharness-host/src/runtime.rs'?auditedHostBeforeProductObserver(current,expected):path==='Cargo.lock'?auditedLockBeforeProductDependency(auditedLockBeforeBusinessWords(auditedLockBeforeFeishu(auditedLockBeforeMessages(current))),expected):current
+ const audited=path==='crates/xharness-host/tests/observed_input.rs'?auditedHostTestBeforeFlushObservation(current,expected):path==='crates/xharness-host/src/runtime.rs'?auditedHostBeforeProductObserver(current,expected):path==='Cargo.lock'?auditedLockBeforeProductDependency(auditedLockBeforeBusinessWords(auditedLockBeforeFeishu(auditedLockBeforeMessages(auditedLockBeforeManagement(current)))),expected):current
  if(sha(audited)!==expected)throw new Error(`audited backport differs: ${path}`)
 }
-console.log(JSON.stringify({source_commit:proof.source_commit,runtime_base_commit:proof.runtime_base_commit,controlled_steps:11,controlled_paths:final.size,source_patch_sha256:[proof.source_patch_sha256,next.source_patch_sha256,admission.source_patch_sha256,persistence.source_patch_sha256,eager.source_patch_sha256,prompt.source_patch_sha256,rendering.source_patch_sha256,step.source_patch_sha256,prestep.source_patch_sha256,ownedInput.source_patch_sha256,proposalUI.source_patch_sha256],product_local_overlays:6,current_target_matches_audited_backport:false,current_target_matches_backport_plus_declared_product_overlays:true,semantic_or_release_approval:false,product_store_and_full_native_agentdelivery_installed:false}))
+console.log(JSON.stringify({source_commit:proof.source_commit,runtime_base_commit:proof.runtime_base_commit,controlled_steps:11,controlled_paths:final.size,source_patch_sha256:[proof.source_patch_sha256,next.source_patch_sha256,admission.source_patch_sha256,persistence.source_patch_sha256,eager.source_patch_sha256,prompt.source_patch_sha256,rendering.source_patch_sha256,step.source_patch_sha256,prestep.source_patch_sha256,ownedInput.source_patch_sha256,proposalUI.source_patch_sha256],product_local_overlays:7,current_target_matches_audited_backport:false,current_target_matches_backport_plus_declared_product_overlays:true,semantic_or_release_approval:false,product_store_and_full_native_agentdelivery_installed:false}))

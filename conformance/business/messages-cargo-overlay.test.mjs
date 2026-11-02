@@ -1,8 +1,9 @@
+import {auditedLockBeforeManagement} from './management-cargo-overlay.mjs';
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {readFileSync} from 'node:fs';
 import {auditedLockBeforeMessages} from './messages-cargo-overlay.mjs';
-const current=readFileSync(new URL('../../Cargo.lock',import.meta.url));
+const current=auditedLockBeforeManagement(readFileSync(new URL('../../Cargo.lock',import.meta.url)));
 test('Messages direct transport edges reconstruct the exact previous lock',()=>{
  const before=auditedLockBeforeMessages(current);assert.equal(current.length-before.length,Buffer.byteLength(' "async-stream",\n "reqwest",\n'));
  assert.equal((current.toString().match(/^\[\[package\]\]$/gm)??[]).length,(before.toString().match(/^\[\[package\]\]$/gm)??[]).length);

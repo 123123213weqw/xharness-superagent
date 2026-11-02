@@ -1,0 +1,54 @@
+{
+  "stateDir": "/ABSOLUTE/PATH/new-superagent-state",
+  "mainDirectory": "/ABSOLUTE/PATH/repository",
+  "models": [
+    {
+      "provider": "configured-messages-route",
+      "model": "configured-model",
+      "upstreamModel": "REPLACE_WITH_EXISTING_ROUTE_MODEL_ID",
+      "protocol": "anthropic_messages",
+      "baseUrl": "https://EXISTING-MESSAGES-ENDPOINT.example/anthropic",
+      "apiKeyEnv": "SUPERAGENT_API_KEY",
+      "maxOutputTokens": 8192,
+      "contextWindowTokens": 128000
+    }
+  ],
+  "defaultModel": {
+    "provider": "configured-messages-route",
+    "model": "configured-model"
+  },
+  "settings": {
+    "eval": {
+      "mode": "observe"
+    },
+    "executor": {
+      "prepare": "",
+      "maxWorkers": 1
+    },
+    "sources": {
+      "github": {
+        "enabled": false,
+        "config": {
+          "repository": "YOUR_ORG/YOUR_REPO",
+          "cli": "gh"
+        }
+      },
+      "feishu": {
+        "enabled": false,
+        "config": {
+          "cli": ""
+        }
+      }
+    },
+    "policy": {
+      "sources": {
+        "github": {
+          "allowed": []
+        }
+      }
+    }
+  },
+  "management": {
+    "port": 13092
+  }
+}

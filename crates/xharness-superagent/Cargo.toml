@@ -12,6 +12,7 @@ conformance = ["tokio/test-util"]
 
 [dependencies]
 async-stream.workspace = true
+axum.workspace = true
 reqwest = { workspace = true, features = ["rustls-tls"] }
 url = "=2.5.8"
 xharness-superagent-core = { path = "../xharness-superagent-core" }
