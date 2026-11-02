@@ -1214,8 +1214,21 @@
       "other_five_legacy_not_migrated": true,
       "automatic_updates_enabled": false,
       "whole_business_signoff": false
+    },
+    "github_exploration": {
+      "source_commit": "5d850965dd5e39733937ed21ee7db79d12e104a9",
+      "verification": "docs/github-exploration-verification.json",
+      "scope": "new read-only product extension; model-directed small catalog plus existing Worker gh api fallback",
+      "new_protocol_tests": 8,
+      "new_formal_entry_tests": 3,
+      "selected_regression_passed": 407,
+      "selected_regression_ignored": 12,
+      "new_full_business_groups_passed": 0,
+      "production_deployed": false,
+      "historical_554_read_task_rebenchmarked": false,
+      "whole_business_signoff": false
     }
   },
-  "updated_at_utc": "2026-11-02T12:39:38.475764+00:00",
+  "updated_at_utc": "2026-11-02T14:55:54.652627+00:00",
   "validation_note": "passed denotes the listed complete product scenario in an explicitly offline protocol environment, not real GitHub/model service approval, universal parity or release readiness. Unexecuted branches remain open."
 }
