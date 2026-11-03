@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "kind": "existing_locked_http_dependency_for_product_management",
+  "path": "Cargo.lock",
+  "package": "xharness-superagent",
+  "dependencies": [
+    "axum"
+  ],
+  "base_sha256": "e78dc3f88c078b757588a7dacb00afc20aa91a606e2cb10a52810775c7276e01",
+  "after_sha256": "5f730e60e7e521ccf72d2d733bae20969c3e4106b8470d6f82d10ed3efbf5321",
+  "external_packages_versions_checksums_unchanged": true
+}

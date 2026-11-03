@@ -1,12 +1,32 @@
 # 开发状态
 
-2026-11-01。当前是组件开发快照，没有完整产品启动入口。
+2026-11-02。已有正式入口、GitHub/飞书离线协议整链路，以及 GitHub 实际模型/Worker/文本测试/Draft PR/回帖和重启验证；仍未完成全部业务对齐或生产替代。
+
+最新路径和边界见 [正式入口](docs/superagent/business-entry.md)，当前验收以
+`conformance/business/acceptance.json` 为准。以下逐批记录均是当时的范围/统计，
+不要把历史“尚无入口”和“23组未验收”当作当前状态，也不要累加重复测试。
 
 - 产品业务核心、SQLite、持久队列/Outbox 和若干原生会话组件已实现。
 - 完整工具、Assessor/Executor/Root、Source、API/UI 和部署闭环仍未完成。
 - 取消全域 JavaScript 语言语义复刻；不纳入 canonical 的全链路 UTF-16 类型迁移。
 - 撤回错误 SDK 工具失败判断，移除据此新增的工具顺序模式。
 - 旧 96 条严格 Rubric 均未验收；取消范围不会记成通过。
+
+## 最新执行节点（2026-11-02）
+
+- 新工作区可由产品以固定仓库/分支完成可信 checkout；真实 C1 已运行离线 workspace
+  check、独立 Rust 正向/负对照测试，并创建 [Draft PR #7](https://github.com/123123213weqw/xharness-superagent/pull/7)。
+- 管理查询/历史/标签、账号预验证和 join-before-restart 已接入；不是完整原版 UI 签收。
+- 单 canary 完成8对象/11000文件完整备份、冷导入、原端口隔离启动和完整原路径回退，
+  原版恢复 ready；六个原版实例仍在运行。没有把隔离演练写成全量生产切换。
+- 新产品全 targets 316 passed / 2 ignored（忽略不计通过），正式入口61项通过，
+  workspace 严格 Clippy 和备份工具6项通过。完整 V100 workspace 仍在两个旧飞书
+  UID/iptables 部署断言失败；最新发布 head 的 CI 单独验，不引用旧绿灯。
+- systemd 独立单元验证了 Root SIGKILL、同 cgroup 的 setsid 子进程清理、自动重启和
+  人工停止不重启；这不是活动 Worker 或远程 SSH 取消的全矩阵验收。
+
+[本批源码绑定、失败记录和剩余门槛](docs/business-completion-verification.json)。
+全23组仍为5 passed / 17 in_progress / 1 not_run；不把局部通过当完整 Goal 完成。
 
 ## 本快照远程验证
 
@@ -15,3 +35,301 @@
 - 固定参考 216 文件及 11 步/86 路径 Runtime 溯源检查通过。
 - 本次没有执行完整 workspace 测试；GitHub CI 会执行，不预先宣称通过。
 - 不代表完整产品验收。详见 [验证记录](docs/verification-2026-11-01.json)。
+
+## 业务 Goal / B1 进行中
+
+新增 Application 库级装配：状态目录独占锁、SQL/Driver/Passes、四类持久化派发、
+Outbox 与统一关闭。5 个新增组合测试及产品模块回归、workspace check、产品模块
+严格 Clippy 已在独立远程目录通过。
+
+该 Application 组合记录的外部服务为显式端口；后续 Native 进展见下一节。
+该组合本身不能当作完整启动入口或端到端产品通过。
+新 23 个业务场景仍未验收，详见 [组合验证](docs/business-application-verification.json)。
+
+## Native 产品调用路径 / B1 继续
+
+已接到实际 Native 主会话/Worker、PromptRuntime、角色绑定和四个业务工具子集，
+不再只用记录式 launch 端口。离线组合测试经过真实业务处理器和文件工具，覆盖
+执行后回复、拒绝/忽略、批次部分拒绝、模型失败可见、取消关闭、正常重启去重。
+
+正式 CLI、GitHub/飞书 Source、其余工具/资源读取/推断研判、完整生命周期恢复、
+配置 API/UI 和部署仍未完成；23 个新业务场景仍为 `not_run`，不把7个离线组合检查
+计成完整业务签收。参见 [接线说明](docs/superagent/business-native.md) 与
+[本批验证](docs/business-native-verification.json)。
+
+本批在 WZU_Server 独立目录通过 workspace check/严格 Clippy/格式检查；
+SuperAgent 两 crate、Host、Agent 回归共862通过、0失败、8个已有忽略项（不计通过）。
+不是完整 workspace 测试。固定参考216文件未变；原11步/86路径溯源链不变，
+额外17行 Host 观察接口以独立精确 overlay 校验，4个负例检查通过。
+
+## GitHub Source / B1 继续
+
+GitHub 的账号/仓库只读检查、受限 CLI 协议、事件规范化、通知/仓库/订阅线程轮询、
+PR/CI 观察和 marker 幂等回复已接入同一产品库。Source → 策略/SQL/队列 → Native
+Worker 实际写文件 → 报告/回复的协议夹具场景已执行，不再由调用方手填 Trigger。
+
+这仍没有经过正式产品入口或真实 GitHub 服务；CLI、账号配置与模型的外部边界使用
+明确的离线夹具。其余工具、资源/推断研判、飞书、多来源、API/UI 和完整恢复/部署
+仍未完成；全产品23组继续 `not_run`。见 [Source 说明](docs/superagent/business-github.md)
+和 [本批证据](docs/business-github-verification.json)。正式入口是下一优先项。
+
+本批在独立远程目录通过 workspace check/严格 Clippy/格式检查；5个选定 crate 的
+回归906通过、0失败、8个已有忽略项（不计通过），不是整个 workspace 测试。
+新增14个 Source/协议/组合检查及57个原版函数样本；当前主/Worker应用工具仍是4个子集。
+
+## 正式入口 / B1 第一条闭环已执行
+
+已有独立 `xharness-superagent` 产品二进制：显式配置 → 实际 gh 子进程 Source →
+策略/SQL/Native → 实际 CodingToolBundle write → report/reply/marker Outbox。
+外部模型与 GitHub 服务使用明确离线协议夹具，未调用付费模型或在线发评论。
+8个正式入口测试通过；新增入口不内置假模型/假文件写入处理器。
+
+本批业务记录5组通过（仅所列离线协议环境）、1组授权场景部分完成、17组未运行，
+不是5/23的功能完成率或真实服务验收。当前主/Worker应用工具仍只有4个子集。
+参考期望、实际断言与完整日志见 [本批证据](docs/business-entry-verification.json)，
+配置/权限和缺口见 [入口说明](docs/superagent/business-entry.md)。
+
+WZU_Server 独立目录：workspace fmt/check/严格 Clippy 通过；9个选定 crate 回归
+1286通过、0失败、17个已有忽略（不计通过，含真实/付费模型及诊断项），不是整个
+workspace 测试。新代码的跨平台CI另以其精确提交检查，不复用历史绿色状态。
+
+下一优先项：主14/Worker6余下业务工具、bounded read/context 和完整 inferred 研判，
+然后飞书/多来源、配置 API/UI、完整停止/追加/重试/后台/崩溃恢复与部署/回退。
+这些都留在活动 Goal 内，不把第一条闭环误记成全部业务对齐。
+
+## B2 控制工具接线（当前）
+
+新增7个实际控制处理器，现有主角色6个、Worker5个应用工具；完整20个工具仍缺9个
+注册及相关完整分支。正式入口测试现为11个，本批新增线程控制、失败后的新 assignment
+重试、普通无报告回合的 waiting/状态查询3条路径；3个控制组件检查不另算业务验收。
+
+修正产品自有 prompt resolver 的关闭竞争；保留原有 Cancelled 断言及真实错误，
+定点重复12次通过，未修改冻结的 Host 导入或参考断言。新 CI 须按精确提交复验。
+
+本批 workspace fmt/check/严格 Clippy 通过，但**全工作区测试未通过**：旧
+`xharness-feishu --test sandbox` 有2项部署检查失败（专用 UID、出站过滤）。
+没有据此改服务器用户/防火墙/代理或现有服务，也没有删测或把它们记成通过。
+完整输出、失败范围及其他证据见 `docs/business-controls-verification.json`。
+
+完整 bounded read、note/推断研判/设置/Prompt工具、飞书新 Source、API/UI、完整
+后台任务/恢复与部署继续留在 Goal 中。普通安静回合的 waiting 修复不代表原版30分钟
+后台/子任务结算已完成。当前仍为5组离线业务通过；新增控制证据只推进相关未完成组。
+
+## 未完成工单恢复接线（当前，部分）
+
+已修复正式入口反例：waiting 工单正常重启后有新评论时，重建原 Native 会话的可信
+绑定，继续原 assignment，而非永远留下派发。真正中断的 Worker 用既有 Engine 生成
+恢复 assignment；丢失工作目录时不偷偷 prepare/建空目录，保留输入与派发错误。
+
+新增3条正式入口路径：等待/新输入/重放去重、实际 SIGKILL 后恢复且保留部分文件、
+目录缺失的负向结果。现14条入口测试通过，外部服务仍为明确离线 HTTP/SSE/gh 夹具。
+9个选定 crate 回归、workspace fmt/check/严格 Clippy 通过，不是全 workspace 测试。
+
+前一控制提交 b264618 的 CI 两平台未通过：macOS HTTP 夹具 WouldBlock（本批明确
+设置 accepted socket 阻塞模式，待新 head CI 验证），Linux 冻结 Host 的 flush 观察
+断言竞争（未改断言或导入）。此前完整 workspace 的飞书 UID/出站过滤失败仍未修复。
+没有改服务器权限/服务，也不把范围更小的绿替代上述失败。详见
+`docs/business-recovery-verification.json` 和 [恢复边界](docs/superagent/business-recovery.md)。
+
+工具数量仍主6/Worker5；完整 bounded read、其余工具、飞书、API/UI、完整后台/停止/
+全部恢复切点及部署回退仍未完成。业务清单现5组离线通过、6组部分推进、12组未运行，
+不代表功能完成率。Goal 继续活动，仅对齐产品逻辑，不恢复全域 JS/UTF-16 方向。
+
+## B2 资源读取组件（当前，尚未注册完整工具）
+
+业务读取的 SQL 权限/脱敏/分页层已有7个组件检查；Native 已有会话的被动读取有2个
+检查，冷启动可读排队输入、不创建或唤醒 Worker、不重建丢失工作目录。它们不增加
+整产品验收通过数，也未向模型注册未接完的 read 工具。主6/Worker5、14条已有正式
+入口测试以及业务清单5通过/6部分推进/12未运行均保持不变。
+
+完整 transcript/input/Source/settings/prompts/models 端口、会话快照缓存和正式工具
+接线仍是下一步；不能把内部 Plan 当成工具的成功响应或完整 readResource 等价。
+见 [边界](docs/superagent/business-resources.md) 和 `docs/business-resources-verification.json`。
+
+本批 workspace fmt/check/严格 Clippy、2个选定 crate 全目标回归通过，不是全工作区
+测试。前一35a34a2 CI：Linux通过，macOS旧 gh-host 只等模型 done、未等评论/标签
+写入就断言。已补实际 HTTP endpoint 的写入等待，原14个断言逐字保留；新 head CI
+仍须另验。冻结 Host 的历史 flush 竞争与 WZU 飞书两项部署失败未据此清除。
+
+完整业务工具、推断研判、飞书/多来源、配置 API/UI、后台/停止/完整恢复与部署回退
+继续在活动 Goal 内。没有全局语言类型迁移、新依赖、付费调用或线上服务变更。
+
+
+## B2 模型侧资源读取（最新，仍非完整业务对齐）
+
+主/Worker 的 `orchestrator_read` 已接同一 SQL/Native/Source owner，不再返回内部计划。
+主7/Worker6应用工具已注册；Worker名字齐全不代表 PR/飞书/后台等分支已经完成。
+长消息补读、会话隔离快照、实际模型/设置/Prompt、公开会话历史（保留工具调用，
+移除推理/私有provider数据）以及读取中 CLI 关闭回收已通过正式入口离线协议路径。
+
+16条正式入口测试通过，本批新增2条；19个原 readGithub+Commands 样本、5个原
+独立 transcriptEntry 投影及4个renderer/cache组件检查不单算整产品通过。
+明确适配 Zod 的 offset=0 输入默认，未修改通用工具校验器或固定参考文件。
+最终源码 workspace fmt/check/严格Clippy、10个选定crate回归通过，不是全工作区；
+忽略/能力早退和历史语言回归不算新的业务验收。前一7e5b60a CI双平台通过，
+不能拿来给新head背书，也未消除WZU旧飞书部署前置失败。
+
+业务清单仍5组离线通过，7组部分推进、11组未运行；不是功能完成率。下一步是
+7个主角色工具、完整推断/来源/配置API/UI，以及后台/停止/恢复和部署回退。
+Goal继续活动；没有全域JS/UTF-16迁移、新依赖、付费调用或线上服务变更。
+详见[读取边界](docs/superagent/business-read.md)与 `docs/business-read-verification.json`。
+
+
+## B2 业务配置与提示词（最新，完整对齐仍未完成）
+
+settings_save/prompts_save 已接同一 Client/SQL/Native owner；主9/Worker6应用工具，
+尚缺主5注册及各工具完整业务分支。块版本、冲突/no-op、panel-only环境/账号guard、
+实际模型选择、Prompt预览/版本/next-request和团队技能加载已走正式工具路径。
+正式入口过去未安装组件中的 Skill Manager；本批接入真实内置包、可发现目录及
+scoped skill 工具，不把内部注册成功冒充模型可用。全局权限和默认工具未放宽。
+
+新增4条实际入口场景，现20条通过：配置、Prompt/技能、暂停/恢复、SQL策略保存
+切点回滚；2条资源安装组件检查不算部署签收。暂停能记录决定，但挂起Worker和
+回复，恢复后才真正执行；不是错误地禁止整个主会话决策。
+
+最后一次 workspace fmt/check/严格Clippy、10个选定crate回归通过，不是全工作区。
+保留真实反例：新模型默认逻辑一度把 null selector 的 Worker 走到主默认；现已
+保存原始分角色默认，旧 product_native 断言未改。前一53fb02b CI两平台通过，
+不能代替新head，也未消除WZU旧飞书部署前置问题。
+
+当前业务清单5组离线通过、9组部分推进、9组未运行，不是功能完成率。
+Note/三个eval/policy_sync、完整来源、API/UI、后台/停止/恢复/部署继续在活动Goal。
+无新依赖、付费调用、真实GitHub评论/生产部署或JS/UTF-16全域迁移。
+见[配置边界](docs/superagent/business-configuration.md)与
+`docs/business-configuration-verification.json`。
+
+
+## 2026-11-02 主动研判业务子集
+
+新增 eval/eval_read/eval_decide 实际主角色路径；目前主12/Worker6应用工具，
+不是全部分支完成。推断 auto 经当前规则/方向/意图授权后，实际 Worker 写文件并
+经 Outbox 回复；observe 只记录建议，不开 Worker。显式请求仍必须 route。
+
+本次正式入口27条通过（新增7条），覆盖引用/路径拒绝、规则/证据/中文确认语
+边界、已结束评估、真实双消息批次的当前 trigger 身份、超时及 SIGINT 子进程回收。
+另有20个原版 GitHub 上下文/仓库/窗口执行样本和10个原版常见词数样本；
+这些组件样本不冒充整产品验收。所有 Rust 验证在 WZU_Server 独立目录执行；
+workspace fmt/check/严格 Clippy 与所列10个 crate 回归通过，来源指纹730文件本地/远端一致。
+
+新加 ICU4X 中文/英文确认语分词依赖，6个新增锁定外部包、7个既有区段依赖边；
+既有版本/checksum不刷新，保留许可证与独立严格 lock overlay。没有 Node/SDK
+生产依赖、全域 JS/UTF-16 迁移、付费或真实外部写入。
+
+上一精确提交 CI 的 macOS 成功，Linux 因 PID 夹具非原子发布读取到空值失败；
+现改原子发布并保留所有存活/取消/回收断言。新提交 CI 不能套用旧提交结果。
+完整证据见 docs/business-assessment-verification.json 与
+docs/superagent/business-assessment.md；仍为5组离线通过、9组部分推进、9组未运行。
+主工具还缺 ticket_note/policy_sync，完整来源/飞书/API/UI、后台/停止/恢复/部署
+回退继续在同一个活动 Goal 内，未标记完成。
+
+
+## 2026-11-02 跨工单事实业务
+
+ticket_note 已接现有 Engine/SQL/Native，主13/Worker6应用工具；没有新依赖或锁文件变化。
+文本非空/trim/100词、未知/结束工单错误、暂停保存/恢复投递、原 mandate 不变、
+实际 Worker 文件工作/回复和正常重启不重复，已走正式入口。另验证 waiting 会被
+上下文 Note 唤醒并使用原 assignment；blocked 等待人工只存事实、不冒充人工答复。
+最初新增测试错把 waiting 当 blocked 导致循环发 Note，核对原版后改正并补正向场景，
+没有改领域规则或放宽固定断言；完整失败/通过日志均保留。
+
+正式入口累计30条通过（本批3条）；独立 WZU_Server 的 workspace fmt/check/严格
+Clippy 和所列10个 crate 回归通过，731来源文件指纹本地/远端一致。详细证据见
+docs/business-note-verification.json 与 docs/superagent/business-note.md。
+前一精确提交8c3d17d的Linux/macOS CI均通过，不套用作当前新提交证明。
+
+业务清单仍5组离线通过/9组部分推进/9组未运行。主工具剩policy_sync，需要真实
+来源同步而非只注册报错占位；完整飞书/多来源、PR/Review、API/UI、后台/停止/
+恢复/部署回退继续在原活动Goal内。没有全域JS/UTF-16迁移、付费或线上服务变更。
+
+## 飞书协议与 CLI 基础
+
+新增 bot 身份验证、飞书协议/范围/成员同步/回复与受管事件流基础，9 条来源边界检查和
+52 个原版函数样本通过；不是正式入口飞书验收。主13/Worker6个应用工具及30条既有
+GitHub正式入口回归保持不变，`policy_sync` 尚未注册，Feishu 尚未安装到产品 owner。
+
+本批 workspace fmt/check/严格 Clippy 和所列10个crate回归在独立 WZU_Server 目录通过；
+不是全工作区测试验收。固定参考与内核审计断言保持，新增一条已在 lock 内的 url 2.5.8
+直接依赖边，无新外部包或版本刷新。此前35fb07f的Linux/macOS CI两项成功，仅证明旧head。
+完整日志、指纹、失败诊断和剩余产品接线见 [飞书验证](docs/business-feishu-verification.json)。
+
+业务清单为5组离线通过/10组部分推进/8组未运行，非完成功能比例。完整 Goal 继续活动；
+下一步是实际 Source 事件/历史/健康、上下文/附件和带策略版本冲突保护的真实 policy_sync，
+再经正式 Feishu → 授权 → Ticket → Worker → Outbox 验证。API/UI、其余工具分支、
+后台/停止/恢复及部署回退仍须完成，不重启已取消的全域 JS/UTF-16 工作。
+
+## 策略同步正式接线（业务 Goal 继续）
+
+Main14/Worker6个应用工具的角色注册名称已齐，新增 policy_sync 有真实正式入口的
+模型工具 → 受管 bot CLI → 单 SQL owner → 原子策略保存路径，不是报错占位工具。
+新增7条正式测试，总37条，涵盖成员差分/改名/no-op、块 revision 冲突、无关保存与
+来源关闭、真实进程中断/回收/重开、缺少 bot 与禁止工具切换账号；坏可选 bot 不阻断
+GitHub 实际 Worker 写文件与 Outbox 回复。名字与 syncChat 仍进入原版 policyVersion，
+不做排除名字的优化。飞书 kind 配置/策略已经安装，不等于事件/历史/上下文已装配。
+
+本批 WZU_Server 独立目录 workspace fmt/check/严格 Clippy 与所列10个crate回归通过，
+不是全工作区测试验收。7条新正式路径仍使用明确离线外部协议，未调用线上服务/付费模型。
+先前63bdb07 CI两平台成功只证明旧head；本批精确head另验。
+详见 [策略同步](docs/superagent/business-policy-sync.md) 及其完整证据/失败诊断。
+
+23组验收仍为5组离线通过/10组部分推进/8组未运行，不以组件数或工具名字签收整组。
+下一步必须把实际飞书事件/历史/读取/附件/环境/Outbox贯通，然后完成所有工具分支、
+API/UI、后台/停止/并发/恢复和部署回退。完整 Goal 活动，不重启 JS/UTF-16 语言复刻。
+
+## 飞书文本正式闭环（当前，部分）
+
+实际 bot 事件进程/历史补拉 → 领域授权 → Ticket → Native 资源读取 → 真实编码工具
+写文件 → report/reply → 飞书回执已接通，新增6条正式场景，入口总43条。
+正文/上下文/链接另有54个未修改原版协议差分样本，它们不是54条产品验收。
+停用、实际子孙回收、消费者退避重启、失败游标保留/重开幂等已在所列离线路径执行。
+全部外部服务仍用明确协议夹具，未发送真实消息或调用付费模型。
+
+先前646b6df CI Linux成功/Mac失败（Worker重试的终结 Cancel 封装），本批保留失败
+日志，产品观察者只识别该精确 Closed 封装且仍等待真实 result；其他拒绝不吞掉。
+Linux另重复该正式路径20次，不提前宣称新head Mac通过。源码、完整失败/成功记录、
+远程指纹与边界见[飞书文本验证](docs/business-feishu-live-verification.json)。
+
+图片/Native附件、全部订阅/话题/来源错误切点、工具细分、API/UI、后台/停止/并发/
+恢复及部署回退仍未完成。23组仍为5组离线通过/10组推进/8组未运行；Goal保持活动。
+不恢复已取消的全域JS/UTF-16，也不以工具名齐全或组件统计签收整个产品。
+
+
+## GitHub + 飞书文本生产化（当前，未上线）
+
+用户允许不续接旧 DSH 会话/工单，改走新状态冷切；完整业务 Goal 不缩减。图片 WIP
+已保存隔离，不混入文本发布。现网六实例未停止、未切换、未改配置或状态。
+
+本批补上 SIGTERM 与既有 owner 关闭的组合，以及来源致命 SQL/config 错误的兄弟
+取消/join和进程退出。新增3条正式路径，共46条。原 Linux CI 的 flush 观察竞争用
+受控50ms延迟复现；只加有界观察等待，保留全部原断言，未修改运行时默认语义。
+选定12个crate回归通过；精确head跨平台CI仍须发布后另验，不宣称全workspace绿。
+
+一次独立状态/关闭来源的实际账号 --check 通过，只证明来源CLI启动，不证明模型/
+事件/Worker/PR可用。真实代码交付、模型通道、管理API、冷切去重与备份回退仍未齐。
+详见[本批说明](docs/superagent/production-text-release.md)及完整验证记录。
+
+
+## 最新：真实仓库交付与 PR 归属（尚未生产切换）
+
+`df6f44f` 实际 Worker 经 DeepSeek Messages 创建/编辑并测试两个文件，通过限定
+仓库的 Git Database API 发布为 Draft PR #5，再以真实 Source 读取验证 `pr_number`
+归属、绑定工单并发送回执。工作区文件与远端 blob 的字节/hash相同，重启没有增加
+工单、assignment、PR或回复。PR仍开放，不能把它当合并、CI或外部评审批准。
+
+D1 的 PR #4 发布是真的，但 `pr_number` 报告曾失败且 SQL未绑定，作为缺陷证据保留；
+D2 修复的是实际接线与引用规则，没有放宽归属检查，也没有拼接失败阶段冒充通过。
+通道默认关闭，仅支持有界文本快照；主14/Worker6应用工具不变，无新依赖。
+
+55条正式入口、选定三crate加17条process回归共报告387通过、2条live默认忽略，
+17条Node guard通过；不把重复focus测试叠加到独立数量，不宣称完整workspace测试。
+代码提交的跨平台CI结果另查，不拿旧成功或运行中结果当最新head通过。
+23组为5通过/17推进/1未运行，不是完成比例。详见
+[完整证据与限制](docs/business-repository-delivery-verification.json)。
+
+六个旧实例本轮只有只读在线SQLite快照/副本完整性与九表摘要校验；不等于完整
+冷切备份/回退，未切换生产。当前仍缺完整checkout/依赖构建/SSH交付、管理矩阵、
+冷切游标和回执边界、quiesced会话/工作区/配置快照与完整回退、真实飞书Worker回复
+及其余完整生命周期/附件验收。取消的JS全语言/UTF-16迁移仍不恢复。
+
+实现提交 `df6f44f` 的 GitHub Ubuntu/macOS CI现均成功，包含workspace check、
+严格workspace Clippy及all-targets测试。后续文档head另验，不把CI成功等同于
+完整产品/现网验收；详见 `docs/evidence/worker-delivery-01/ci-implementation-success.json`。

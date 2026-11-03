@@ -1,0 +1,26 @@
+   Compiling xharness-superagent v0.1.0 (/home/data/wangyue/repos/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.10s
+     Running tests/github_explore.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/github_explore-9af996b9024f301e)
+
+running 8 tests
+test catalog_is_small_on_demand_and_all_operations_have_a_strict_schema ... ok
+test search_is_literal_repo_bound_and_exposes_github_completeness ... ok
+test pagination_never_trusts_model_or_remote_host_and_rejects_bad_pages ... ok
+test each_collection_and_detail_operation_uses_the_expected_get_endpoint ... ok
+test invalid_parameters_and_cancelled_calls_never_touch_transport ... ok
+test one_page_returns_reusable_typed_next_call_and_keeps_filters ... ok
+test get_is_explicitly_preview_only_and_protocol_failures_do_not_look_empty ... ok
+test directory_listing_is_encoded_and_locally_bounded_with_explicit_api_limit ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+   Compiling xharness-superagent v0.1.0 (/home/data/wangyue/repos/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.18s
+     Running tests/product_entry.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_entry-d606baa5494bbb9a)
+
+running 2 tests
+test github_explore::formal_disabled_github_source_blocks_both_read_tools_before_transport ... ok
+test github_explore::formal_github_exploration_is_shared_without_main_shell_or_repo_hardcoding ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 69 filtered out; finished in 2.57s
+

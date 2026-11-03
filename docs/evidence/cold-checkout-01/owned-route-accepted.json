@@ -1,0 +1,8 @@
+{
+  "coldAccepted": true,
+  "unit": "xharness-superagent-rs-github-route.service",
+  "bootEnabledAfterAcceptance": true,
+  "freshObjectsNotSeeded": true,
+  "serverStandalone": true,
+  "sourceScriptSha256": "80263214f8e53df5a9ba3933c31f158e4ddd6e847b983a431b3365091ef3b7c9"
+}

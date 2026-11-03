@@ -1,0 +1,32 @@
+   Compiling xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 8.26s
+     Running tests/product_entry.rs (<isolated-target>/debug/deps/product_entry-085c7a183df671db)
+
+running 7 tests
+test check_is_read_only_for_external_services_and_releases_state_lease ... ok
+test formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate ... FAILED
+test invalid_saved_model_and_missing_configuration_never_fall_back ... 
+thread 'formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate' (2146348) panicked at crates/xharness-superagent/tests/product_entry.rs:383:5:
+assertion failed: requests.iter().filter(|r|
+                r["model"] ==
+                    "worker").flat_map(|r|
+            r["messages"].as_array().unwrap()).any(|m|
+        m["role"] == "tool" &&
+            m["content"].as_str().is_some_and(|s|
+                    s.to_ascii_lowercase().contains("denied") ||
+                        s.to_ascii_lowercase().contains("outside")))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+ok
+test preparation_failure_is_reported_without_worker_or_silent_retry ... ok
+test refused_and_unauthorized_requests_do_not_start_workers ... ok
+test setup_failure_and_missing_model_credential_do_not_leave_a_live_owner ... ok
+test watch_owns_the_state_exclusively_and_interrupt_joins_before_reopen ... ok
+
+failures:
+
+failures:
+    formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate
+
+test result: FAILED. 6 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.59s
+
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`

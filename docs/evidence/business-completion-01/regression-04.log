@@ -1,0 +1,16 @@
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+error[E0063]: missing field `checkout` in initializer of `application::delivery::Config`
+   --> crates/xharness-superagent/src/application/delivery.rs:530:17
+    |
+530 |                 Config {
+    |                 ^^^^^^ missing `checkout`
+
+error[E0063]: missing field `checkout` in initializer of `application::delivery::Config`
+   --> crates/xharness-superagent/src/application/delivery.rs:538:17
+    |
+538 |         assert!(Config {
+    |                 ^^^^^^ missing `checkout`
+
+For more information about this error, try `rustc --explain E0063`.
+error: could not compile `xharness-superagent` (lib test) due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...

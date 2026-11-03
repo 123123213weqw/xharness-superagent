@@ -1,0 +1,122 @@
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.13s
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 14.79s
+   Compiling xharness-process v0.1.0 (<owned-source>/crates/xharness-process)
+   Compiling xharness-host v0.1.0 (<owned-source>/crates/xharness-host)
+   Compiling reqwest v0.12.28
+   Compiling xharness-sandbox v0.1.0 (<owned-source>/crates/xharness-sandbox)
+   Compiling xharness-platform v0.1.0 (<owned-source>/crates/xharness-platform)
+   Compiling xharness-provider-openai v0.1.0 (<owned-source>/crates/xharness-provider-openai)
+   Compiling xharness-web v0.1.0 (<owned-source>/crates/xharness-web)
+   Compiling xharness-coding-tools v0.1.0 (<owned-source>/crates/xharness-coding-tools)
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+   Compiling xharness-gh v0.1.0 (<owned-source>/crates/xharness-gh)
+   Compiling xharness-feishu v0.1.0 (<owned-source>/crates/xharness-feishu)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1m 06s
+
+running 40 tests
+test delegation::tasks::tests::swarm_commands_are_strict_and_do_not_accept_caller_or_execution_forgery_fields ...      Running unittests src/lib.rs (<owned-target>/debug/deps/xharness_agent-1af15b8bf6f33b7c)
+ok
+test delegation::tasks::tests::swarm_commands_reject_invalid_limits_revisions_and_text_before_admission ... ok
+test delegation::tasks::tests::swarm_commands_validate_each_shape_and_default_bounded_reads ... ok
+test delegation::tasks::tests::swarm_review_summary_matches_durable_result_byte_limit ... ok
+test delegation::tests::model_selectors_are_optional_and_round_trip_without_a_global_effort_enum ... ok
+test delegation::tests::rejects_cross_action_fields_and_missing_arguments ... ok
+test delegation::tests::rejects_malformed_model_selectors_before_admission ... ok
+test delegation::tests::validates_all_actions_and_bounds ... ok
+test dispatch::tests::exhausts_all_32_reduced_dispatch_combinations ... ok
+test inbox::projection_replay_tests::borrowed_projection_keeps_splice_bounds_and_order ... ok
+test inbox::projection_replay_tests::historical_bodies_are_borrowed_and_only_final_pending_inputs_are_materialized ... ok
+test input_admission::tests::abandonment_and_concurrent_completion_have_exactly_one_failure_owner ... ok
+test input_admission::tests::observed_typed_failure_is_returned_without_a_second_owner_report ... ok
+test input_completion::tests::abandoned_consumers_and_concurrent_failure_have_exactly_one_recorder ... ok
+test input_completion::tests::cancelling_a_full_waiter_does_not_hide_a_later_durability_failure ... ok
+test input_completion::tests::commitment_racing_owner_abandonment_is_not_silently_lost ... ok
+test input_completion::tests::dropping_both_buffered_results_reports_one_failure_not_one_per_channel ... ok
+test input_completion::tests::either_observation_retains_typed_fsync_failure_without_duplicate_reporting ... ok
+test input_completion::tests::generic_owner_closure_does_not_observe_an_already_known_typed_fsync_failure ... ok
+test input_completion::tests::owner_abort_after_a_successful_persistence_ack_remains_visible ... ok
+test input_completion::tests::persistence_ack_precedes_control_but_legacy_full_observation_does_not ... ok
+test input_completion::tests::uncommitted_preparation_drop_is_not_an_accepted_input_failure ... ok
+test input_dispatch::tests::explicit_metadata_preserves_provenance_and_exact_original_option_shape ... ok
+test input_dispatch::tests::malformed_or_inconsistent_metadata_never_confers_wake_intent ... ok
+test input_dispatch::tests::old_struct_literals_and_serialized_messages_remain_unchanged ... ok
+test prepared_input::tests::retirement_and_hot_commit_have_exactly_one_winner_without_a_channel_ack ... ok
+test prepared_input::tests::target_reads_cancellation_at_commit_not_at_preparation ... ok
+test retirement_tests::cancelling_a_retirement_waiter_does_not_detach_or_reactivate_the_worker ... ok
+test retirement_tests::retirement_releases_the_lease_and_fences_only_its_session ... ok
+test stability_repro::a_transient_store_error_does_not_kill_the_worker ... ok
+test stability_repro::a_worker_that_died_mid_drive_can_still_be_replaced ... ok
+test stability_repro::concurrent_recovery_waiters_share_one_generation ... ok
+test stability_repro::dropping_last_handle_releases_activation_and_supervisor ... ok
+test stability_repro::forced_shutdown_reaps_worker_and_releases_reservation ... ok
+test stability_repro::persistent_startup_fault_has_backoff_and_recovers_without_a_command ... ok
+test stability_repro::recovery_without_commands_does_not_replay_pending_work ... ok
+test stability_repro::shutdown_during_backoff_never_respawns_and_wakes_waiters ... ok
+test stability_repro::stopped_waiter_detects_replacement_even_if_it_missed_backoff ... ok
+test stability_repro::subscriptions_survive_a_recoverable_storage_error ... ok
+test stability_repro::when_idle_does_not_hang_after_worker_panic ... ok
+
+test result: ok. 40 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.22s
+
+     Running tests/dispatch.rs (<owned-target>/debug/deps/dispatch-509cc0d8988b4c9f)
+
+running 6 tests
+test explicit_wake_dispatches_user_next_step_input_with_either_gate_state ... ok
+test idle_steer_after_a_finished_turn_starts_the_successor ... ok
+test only_passive_next_step_has_no_independent_recovery_observer ... ok
+test passive_next_step_context_does_not_wake_or_reopen_a_stopped_agent ... ok
+test queue_promotion_is_one_revision_and_cancelled_or_consumed_ids_never_replay ... ok
+test repeated_idle_and_end_boundary_steering_consumes_each_identity_once ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+     Running tests/driver.rs (<owned-target>/debug/deps/driver-cad8ac9f8f882005)
+
+running 10 tests
+test active_steer_is_durable_and_consumed_at_the_next_step ... ok
+test consumed_late_answers_leave_the_inbox_before_the_turn_finishes ... ok
+test durable_driver_consumes_followups_across_multiple_turns ... ok
+test explicit_interrupt_reaches_durable_loop_and_idle_repeat_does_not_add_markers ... ok
+test handle_shutdown_waits_until_the_active_provider_stream_is_dropped ... ok
+test idle_injection_stays_pending_until_a_waking_message_arrives ... ok
+test maintenance_followup_is_admitted_only_at_an_idle_actor_boundary ... ok
+test maintenance_followup_rejects_a_busy_actor_without_queueing ... ok
+test recovered_followup_waits_for_explicit_wake_after_subscriber_attachment ... ok
+test supervisor_publishes_only_one_worker_per_agent ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+
+running 3 tests
+test healthy_agent_still_accepts_automatic_settlements ...      Running tests/failure_admission.rs (<owned-target>/debug/deps/failure_admission-06df2e638a576f27)
+ok
+test nonshrinking_compaction_parks_receipts_and_explicit_user_retry_is_atomic ... ok
+test restored_failed_journal_and_new_receipts_remain_parked_without_a_pause_marker ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/goal_runtime.rs (<owned-target>/debug/deps/goal_runtime-a67b8684c4423b09)
+
+running 21 tests
+test abandoned_goal_turn_is_closed_unknown_and_not_reexecuted ... ok
+test actual_durable_driver_advances_three_rounds_and_stops_on_goal_completion ... ok
+test claim_is_revision_fenced_and_user_input_takes_priority ... ok
+test clear_removes_orphan_and_never_executes_as_user_input ... ok
+test concurrent_reconcile_only_queues_one_and_replay_retains_receipt ... ok
+test dependencies_wait_without_spending_rounds_then_continue_once ... ok
+test dependency_failure_pauses_only_goal_and_preserves_user_chat_across_restart ... ok
+test late_completion_after_pause_never_reactivates_goal ... ok
+test legacy_goal_does_not_execute_until_explicit_enable ... ok
+test legacy_pause_invalidates_queued_continuation ... ok
+test lost_commit_ack_does_not_duplicate_continuation_on_retry ... ok
+test malformed_atomic_claim_is_rejected_without_consuming_queue ... ok
+test missing_reports_pause_after_three_settled_empty_rounds ... ok
+test pause_between_prepare_and_start_never_calls_model_or_counts_round ... ok
+test pause_resume_preserves_round_statistics_and_requires_explicit_reenable ... ok
+test persisted_confirmation_requires_exact_report_and_survives_replay ... ok
+test preparation_failure_persists_diagnostic_and_discards_only_goal_intent ... ok
+test removing_queued_goal_input_pauses_instead_of_waiting_forever ... ok
+test restart_after_claim_waits_for_recovery_without_repeating_side_effects ... ok
+test round_statistics_continue_past_legacy_limits_and_256_across_resume_and_restore ... 

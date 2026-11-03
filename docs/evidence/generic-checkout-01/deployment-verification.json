@@ -1,0 +1,69 @@
+{
+  "status": "rs_generic_checkout_gray_deployed",
+  "release": "dbdf071fff5d-5e48abaf7a07",
+  "sourceCommit": "dbdf071fff5d843007a0c6577fabe9d655fa5830",
+  "binarySha256": "5e48abaf7a07ff7a5e45f067be050ff73e1c9bd14a1bd6e0d647dfbf43f808f3",
+  "pid": 583977,
+  "runningExecutableMatchesStagedArtifact": true,
+  "runtime": {
+    "at": "2026-11-02T13:29:10.636Z",
+    "detail": "Orchestrator is ready",
+    "state": "ready"
+  },
+  "load": {
+    "idle": 0,
+    "maxWorkers": 1.0,
+    "queued": 0,
+    "running": 0
+  },
+  "paused": false,
+  "sourcesReady": [
+    "feishu",
+    "github"
+  ],
+  "activeCheckoutUsesGenericPolicy": {
+    "checkout": {
+      "enabled": true,
+      "cache": true,
+      "revision": {
+        "kind": "auto"
+      }
+    }
+  },
+  "activeSourceUsesOrdinaryExistingCLI": true,
+  "unitDigestUnchanged": true,
+  "stateRetained": {
+    "ticket": {
+      "before": 4,
+      "after": 4,
+      "baselineRowsRetainedUnchanged": true
+    },
+    "disposition": {
+      "before": 140,
+      "after": 140,
+      "baselineRowsRetainedUnchanged": true
+    },
+    "outbox": {
+      "before": 14,
+      "after": 14,
+      "baselineRowsRetainedUnchanged": true
+    }
+  },
+  "nativeJournalPrefixesRetained": 94,
+  "otherFiveStartupTimesUnchanged": true,
+  "otherFiveStartTimes": {
+    "3092": "2026-11-01T12:45:44.583Z",
+    "3094": "2026-11-01T12:47:45.309Z",
+    "3095": "2026-11-01T12:48:46.199Z",
+    "3096": "2026-11-01T13:56:27.367Z",
+    "3097": "2026-11-02T00:31:21.203Z"
+  },
+  "backup": {
+    "objects": 5,
+    "files": 20996,
+    "verified": true
+  },
+  "newHumanFeishuWorkerTaskPerformed": false,
+  "externalGitHubWritesPerformed": false,
+  "rollback": "Use retained compatible binary AND previous config with current state. If returning to legacy checkout, reselect retained verified legacy adapter through human management CAS before activation; never restore old DB."
+}

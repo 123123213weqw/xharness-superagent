@@ -137,6 +137,7 @@ pub struct CodingToolBundle {
     file_mount: Option<Arc<dyn FileMountProvider>>,
     continuation: Option<Arc<dyn xharness_jobs::continuation::JobContinuationPort>>,
     shell: Result<Shell, ShellError>,
+    process_environment: BTreeMap<OsString, OsString>,
 }
 
 impl CodingToolBundle {
@@ -157,6 +158,7 @@ impl CodingToolBundle {
             file_mount: None,
             continuation: None,
             shell: Shell::discover(),
+            process_environment: BTreeMap::new(),
         }
     }
 
@@ -164,6 +166,29 @@ impl CodingToolBundle {
     pub fn with_shell(mut self, shell: Shell) -> Self {
         self.shell = Ok(shell);
         self
+    }
+
+    /// Trusted per-session non-secret values, opt-in only. Preserve the usual
+    /// secret/control scrub and executable search boundary; never accept these
+    /// values directly from a model tool argument.
+    pub fn with_process_environment(
+        mut self,
+        environment: BTreeMap<OsString, OsString>,
+    ) -> Result<Self, String> {
+        if environment.keys().any(|name| {
+            xharness_process::is_secret_env_name(name)
+                || name.eq_ignore_ascii_case("PATH")
+                || name
+                    .to_string_lossy()
+                    .to_ascii_uppercase()
+                    .starts_with("XHARNESS_")
+        }) {
+            return Err(
+                "Process environment cannot override credentials, control values or PATH".into(),
+            );
+        }
+        self.process_environment = environment;
+        Ok(self)
     }
 
     pub fn with_media_reader(mut self, reader: Arc<dyn MediaReader>) -> Self {
@@ -218,6 +243,7 @@ impl CodingToolBundle {
         let jobs = Arc::clone(&self.jobs);
         let owner = Arc::clone(&self.owner_id);
         let shell = self.shell.clone();
+        let environment = self.process_environment.clone();
         ToolSpec::new(
             definition(
                 native_shell_name(),
@@ -245,6 +271,7 @@ impl CodingToolBundle {
                 let jobs = Arc::clone(&jobs);
                 let owner = Arc::clone(&owner);
                 let shell = shell.clone();
+                let environment=environment.clone();
                 async move {
                     let invocation = process_invocation(&context.arguments, &shell)?;
                     let cwd = resolve_cwd(&platform, optional_string(&context, "cwd"))?;
@@ -254,10 +281,11 @@ impl CodingToolBundle {
                             "timeout_ms cannot be combined with run_in_background=true; manage the job with job_output/job_kill",
                         ));
                     }
+                    let mut process_environment=managed_environment();process_environment.extend(environment);
                     let mut spec = SpawnSpec::new(invocation.program, cwd)
                         .debug_parent(context.execution_id.as_str())
                         .args(invocation.args)
-                        .envs(managed_environment());
+                        .envs(process_environment);
                     if !background {
                         spec = spec.timeout(command_timeout_argument(&context)?);
                     }
@@ -837,40 +865,7 @@ impl CodingToolBundle {
     }
 
     fn web_search_spec(&self) -> ToolSpec {
-        let web = Arc::clone(&self.web);
-        ToolSpec::new(
-            definition(
-                "web_search",
-                "Search the Web using the explicitly configured search provider.",
-                json!({
-                    "type": "object",
-                    "properties": {
-                        "query": {"type": "string"},
-                        "limit": {"type": "integer"}
-                    },
-                    "required": ["query"],
-                    "additionalProperties": false
-                }),
-            ),
-            move |context| {
-                let web = Arc::clone(&web);
-                async move {
-                    let result = web
-                        .search(
-                            &required_string(&context, "query")?,
-                            optional_u64(&context, "limit")
-                                .and_then(|value| usize::try_from(value).ok()),
-                            &context.cancellation,
-                        )
-                        .await
-                        .map_err(handler_error)?;
-                    Ok(json_output(
-                        serde_json::to_value(result).map_err(handler_error)?,
-                    ))
-                }
-            },
-        )
-        .with_concurrency(ToolConcurrency::Parallel)
+        web_search_spec(Arc::clone(&self.web))
     }
 
     fn web_fetch_spec(&self) -> ToolSpec {
@@ -1117,6 +1112,44 @@ fn native_shell_description(shell: &Result<Shell, ShellError>) -> String {
     format!("Run one managed process under the active session permission policy. Provide exactly one of command (shell script) or program (direct executable with literal args). {selection} Preserve build/test exit status before filtering logs: grep returns 1 for no matches, and head can cause SIGPIPE. Do not hide real failures with blanket || true. Inspect installed dependency APIs before guessing methods. For long-running non-interactive work that begins now prefer run_in_background=true: the call returns a job id immediately; collect it with job_output and stop it with job_kill. Use automation for user-requested future reminders (mode=reminder) and delayed tasks (mode=task). Native interactive/existing sessions need status, logs, and stop method; detached processes may not survive Host shutdown/cancellation. No shell state persists between calls. A failed invocation is never replayed in another interpreter.")
 }
 
+/// Standalone model-independent search tool. Grants no filesystem, process,
+/// session-control or model-routing capabilities to a search-only role.
+pub fn web_search_spec(web: Arc<WebRuntime>) -> ToolSpec {
+    ToolSpec::new(
+        definition(
+            "web_search",
+            "Search the Web using the explicitly configured search provider.",
+            json!({
+                "type": "object",
+                "properties": {
+                    "query": {"type": "string"},
+                    "limit": {"type": "integer"}
+                },
+                "required": ["query"],
+                "additionalProperties": false
+            }),
+        ),
+        move |context| {
+            let web = Arc::clone(&web);
+            async move {
+                let result = web
+                    .search(
+                        &required_string(&context, "query")?,
+                        optional_u64(&context, "limit")
+                            .and_then(|value| usize::try_from(value).ok()),
+                        &context.cancellation,
+                    )
+                    .await
+                    .map_err(handler_error)?;
+                Ok(json_output(
+                    serde_json::to_value(result).map_err(handler_error)?,
+                ))
+            }
+        },
+    )
+    .with_concurrency(ToolConcurrency::Parallel)
+}
+
 struct ProcessInvocation {
     program: OsString,
     args: Vec<OsString>,
@@ -1328,6 +1361,50 @@ fn process_repetition_observation(content: &str) -> Option<(bool, Value)> {
 mod tests {
     use super::{managed_environment, managed_path, search_process_output};
     use xharness_process::{is_secret_env_name, shell::ShellError};
+
+    #[test]
+    fn optional_product_environment_preserves_default_and_rejects_sensitive_overrides() {
+        use std::{collections::BTreeMap, ffi::OsString, sync::Arc};
+        let bundle = super::CodingToolBundle::new(
+            Arc::new(
+                xharness_platform::NativePlatform::new(xharness_platform::PlatformConfig::new(
+                    std::env::temp_dir(),
+                ))
+                .unwrap(),
+            ),
+            Arc::new(xharness_jobs::JobRegistry::default()),
+            Arc::new(xharness_web::WebRuntime::default()),
+            "test-session",
+            "test-owner",
+        );
+        assert!(bundle.process_environment.is_empty());
+        let environment = BTreeMap::from([(
+            OsString::from("DSH_SUPERAGENT_TICKET"),
+            OsString::from("ticket-你好😀"),
+        )]);
+        let product = bundle
+            .clone()
+            .with_process_environment(environment.clone())
+            .unwrap();
+        assert_eq!(product.process_environment, environment);
+        assert!(bundle.process_environment.is_empty());
+        for name in [
+            "PATH",
+            "Path",
+            "SUPERAGENT_API_KEY",
+            "GH_TOKEN",
+            "XHARNESS_STATE_DIR",
+            "xharness_config",
+        ] {
+            assert!(
+                bundle
+                    .clone()
+                    .with_process_environment(BTreeMap::from([(name.into(), "forbidden".into())]))
+                    .is_err(),
+                "{name}"
+            );
+        }
+    }
 
     #[test]
     fn shell_description_prefers_managed_jobs_without_banning_native_sessions() {

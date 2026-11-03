@@ -1,0 +1,16 @@
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 17.91s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-02e93665690e9e2a)
+
+running 1 test
+Initialized empty Git repository in /tmp/superagent-entry-2960548-0/template/.git/
+[main (root-commit) 13e97bd] fixture
+ 2 files changed, 5 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 build.py
+test checkout::formal_checkout_verifies_git_runs_prepare_and_real_build_then_reopens_without_reclone ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 60 filtered out; finished in 1.80s
+
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.99s

@@ -1,0 +1,9 @@
+{
+  "rsUnitOnly": true,
+  "beforeSha256": "3e3975891b4c221d9b68103c6dc056efa8dc0419af509a660e3cd13379c1adca",
+  "afterSha256": "7bc59d52165e6f0a19b23dde13f29d4f36dec59c6b9c099ce1cf868f196f4064",
+  "onlyAddedOwnedHelperWantsAndAfter": true,
+  "executableConfigAndPermissionsUnchanged": true,
+  "notARuntimeRestart": true,
+  "rollback": "restore retained previous-rs-unit-private.service and its digest, daemon-reload; keep current DB"
+}

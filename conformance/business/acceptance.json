@@ -1,0 +1,1249 @@
+{
+  "schema_version": 1,
+  "scope": "product_logic_only",
+  "plan": "docs/business-alignment-goal.md",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "language_full_equivalence_required": false,
+  "cancelled_is_not_pass": true,
+  "model_natural_language_byte_equality_required": false,
+  "passing_evidence_requires": [
+    "source_commit",
+    "entry_and_command",
+    "environment",
+    "full_log",
+    "business_assertions",
+    "actual_product_path"
+  ],
+  "cases": [
+    {
+      "id": "BOOT-01",
+      "milestone": "B1",
+      "title": "正式入口校验配置，未配置不主动接单，错误可定位",
+      "status": "passed",
+      "evidence": [
+        {
+          "source_commit": "a7737180dd17f0d9ad86c76c42b0ef4faf49b9ca",
+          "entry_and_command": "cargo test --locked -p xharness-superagent --test product_entry -- --test-threads=1 --nocapture (remote WZU_Server); also included in final 9-crate regression",
+          "environment": "Formal executable + loopback model HTTP/SSE + gh subprocess fixture + actual Native/CodingToolBundle/SQL/Outbox; no real external services",
+          "full_log": "docs/evidence/business-entry-01/regression-02.log",
+          "business_assertions": "docs/business-entry-verification.json",
+          "tests": [
+            "check_is_read_only_for_external_services_and_releases_state_lease",
+            "invalid_saved_model_and_missing_configuration_never_fall_back",
+            "setup_failure_and_missing_model_credential_do_not_leave_a_live_owner"
+          ],
+          "actual_product_path": true
+        }
+      ],
+      "validation_environment": "offline_protocol_fixture"
+    },
+    {
+      "id": "BOOT-02",
+      "milestone": "B1",
+      "title": "独占状态目录、启动/关闭、再次启动及数据库恢复",
+      "status": "passed",
+      "evidence": [
+        {
+          "source_commit": "a7737180dd17f0d9ad86c76c42b0ef4faf49b9ca",
+          "entry_and_command": "cargo test --locked -p xharness-superagent --test product_entry -- --test-threads=1 --nocapture (remote WZU_Server); also included in final 9-crate regression",
+          "environment": "Formal executable + loopback model HTTP/SSE + gh subprocess fixture + actual Native/CodingToolBundle/SQL/Outbox; no real external services",
+          "full_log": "docs/evidence/business-entry-01/regression-02.log",
+          "business_assertions": "docs/business-entry-verification.json",
+          "tests": [
+            "watch_owns_the_state_exclusively_and_interrupt_joins_before_reopen",
+            "once_interrupt_cancels_a_model_wait_and_releases_the_lease",
+            "formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate"
+          ],
+          "actual_product_path": true
+        }
+      ],
+      "validation_environment": "offline_protocol_fixture"
+    },
+    {
+      "id": "FLOW-01",
+      "milestone": "B1",
+      "title": "GitHub评论经Source、研判授权、Ticket、实际Worker工具、Outbox回复完整运行",
+      "status": "passed",
+      "evidence": [
+        {
+          "source_commit": "a7737180dd17f0d9ad86c76c42b0ef4faf49b9ca",
+          "entry_and_command": "cargo test --locked -p xharness-superagent --test product_entry -- --test-threads=1 --nocapture (remote WZU_Server); also included in final 9-crate regression",
+          "environment": "Formal executable + loopback model HTTP/SSE + gh subprocess fixture + actual Native/CodingToolBundle/SQL/Outbox; no real external services",
+          "full_log": "docs/evidence/business-entry-01/regression-02.log",
+          "business_assertions": "docs/business-entry-verification.json",
+          "tests": [
+            "formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate"
+          ],
+          "actual_product_path": true
+        },
+        {
+          "source_commit": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+          "entry_and_command": "Formal executable --config <independent owned config> --once/watch; actual configured accounts/models. Scope and exact commands in verification record.",
+          "environment": "WZU_Server isolated validation; authorized external test writes; no production cutover",
+          "full_log": "docs/live-text-acceptance-verification.json",
+          "business_assertions": "docs/live-text-acceptance-verification.json",
+          "actual_product_path": true,
+          "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
+        }
+      ],
+      "validation_environment": "offline_protocol_fixture_and_authorized_live_github_subset"
+    },
+    {
+      "id": "FLOW-02",
+      "milestone": "B1",
+      "title": "拒绝或忽略的请求不会创建Worker或执行工具",
+      "status": "passed",
+      "evidence": [
+        {
+          "source_commit": "a7737180dd17f0d9ad86c76c42b0ef4faf49b9ca",
+          "entry_and_command": "cargo test --locked -p xharness-superagent --test product_entry -- --test-threads=1 --nocapture (remote WZU_Server); also included in final 9-crate regression",
+          "environment": "Formal executable + loopback model HTTP/SSE + gh subprocess fixture + actual Native/CodingToolBundle/SQL/Outbox; no real external services",
+          "full_log": "docs/evidence/business-entry-01/regression-02.log",
+          "business_assertions": "docs/business-entry-verification.json",
+          "tests": [
+            "refused_and_unauthorized_requests_do_not_start_workers"
+          ],
+          "actual_product_path": true
+        },
+        {
+          "source_commit": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+          "entry_and_command": "Formal executable --config <independent owned config> --once/watch; actual configured accounts/models. Scope and exact commands in verification record.",
+          "environment": "WZU_Server isolated validation; authorized external test writes; no production cutover",
+          "full_log": "docs/live-text-acceptance-verification.json",
+          "business_assertions": "docs/live-text-acceptance-verification.json",
+          "actual_product_path": true,
+          "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
+        }
+      ],
+      "validation_environment": "offline_protocol_fixture"
+    },
+    {
+      "id": "AUTH-01",
+      "milestone": "B1",
+      "title": "未授权和机器人事件不产生越权执行，保留观察/显式人工授权区别",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "a7737180dd17f0d9ad86c76c42b0ef4faf49b9ca",
+          "verified_subset": "Formal entry rejects unlisted account and bot without model/worker/reply",
+          "tests": [
+            "refused_and_unauthorized_requests_do_not_start_workers"
+          ],
+          "full_log": "docs/evidence/business-entry-01/regression-02.log",
+          "remaining": "观察模式与人工显式授权区别尚未在正式入口完整验收；不计通过"
+        },
+        {
+          "source_commit": "5b04c16e9f1f6f4d5bdb3749df2b468afa8fe614",
+          "entry_and_command": "Remote WZU_Server final workspace fmt/check/strict Clippy and selected ten-crate regression; formal executable product_entry tests included",
+          "environment": "Formal executable, real OpenAI HTTP/SSE adapter, Client/Engine/SQL/Native/CodingToolBundle/Outbox; external model and gh boundaries are explicit offline protocol fixtures only.",
+          "full_log": "docs/evidence/business-assessment-01/regression-04.log",
+          "business_assertions": "docs/business-assessment-verification.json",
+          "tests": [
+            "assessment::formal_inferred_auto_uses_scoped_context_rules_real_worker_and_reply",
+            "assessment::formal_inferred_observe_records_proposal_and_finishes_refs_without_worker",
+            "assessment::formal_inferred_direction_and_rule_gates_do_not_prepare_or_reply",
+            "assessment::formal_explicit_request_refuses_eval_and_remains_routable",
+            "assessment::formal_assessment_timeout_joins_cli_and_records_visible_unavailable_without_worker",
+            "assessment::formal_interrupt_joins_assessment_seed_without_authorizing_or_preparing_work",
+            "assessment::formal_batch_context_caches_once_but_uses_each_requested_trigger_identity"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification remaining_scope; these broad acceptance groups remain in_progress."
+        },
+        {
+          "source_commit": "9889030597cf3a1bdb25ac2cadbaa548050871e2",
+          "entry_and_command": "Formal binary product_entry feishu tests in final WZU_Server selected10-crate regression; exact commands and full outputs in verification",
+          "environment": "Formal executable, actual OpenAI-compatible HTTP/SSE provider to loopback model fixture, actual private bot-only lark and gh subprocess endpoint fixtures, SQL/Driver/Passes/Native JSONL/CodingToolBundle and receipt-backed Outbox. No real external services or paid model.",
+          "full_log": "docs/evidence/business-feishu-live-01/regression-03.log",
+          "business_assertions": "docs/business-feishu-live-verification.json",
+          "tests": [
+            "formal_feishu_stream_reads_context_runs_worker_replies_and_reopens_without_duplicates",
+            "formal_feishu_self_and_malformed_events_are_not_triggers_but_scope_filters_are_retained",
+            "formal_feishu_direct_messages_obey_scope_and_keep_direct_reply_address",
+            "formal_feishu_source_disable_stops_and_joins_consumer_and_drops_read_after_disable",
+            "formal_feishu_consumer_failure_restarts_after_backoff_without_duplicate_work",
+            "formal_feishu_history_confines_pages_keeps_failed_cursor_and_recovers_without_duplicate_work"
+          ],
+          "actual_product_path": true,
+          "feishu_text_event_path_executed": true,
+          "full_feishu_source_complete": false,
+          "not_signed_off": true
+        }
+      ]
+    },
+    {
+      "id": "TOOLS-01",
+      "milestone": "B2",
+      "title": "实际模型请求中的主角色14个/Worker6个应用工具与角色权限",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "0a7cc7e0d571ee247cef99e9083c2b7a0b8a53d4",
+          "verified_subset": "Actual main6/worker5 application registrations and role boundaries verified; full main14/worker6 still incomplete.",
+          "entry_and_command": "Formal xharness-superagent binary in tests/product_entry.rs; remote cargo test --test product_entry and full workspace attempt",
+          "environment": "WZU_Server owned directory; explicit offline external-service protocol fixtures",
+          "full_log": "docs/evidence/business-controls-01/entry-04.log",
+          "business_assertions": "docs/business-controls-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "24a34de1dbc9d7a544b42b0a5a73e6a050049175",
+          "verified_subset": "Actual role-scoped read tool, Source snapshot continuation and filtered Native history; in-flight read CLI cancellation/join. main7/worker6 registered, full branches remain open.",
+          "entry_and_command": "Formal xharness-superagent executable; remote regression-03.log commands",
+          "environment": "WZU_Server isolated directory; explicit offline external-service HTTP/SSE and gh protocol fixtures",
+          "full_log": "docs/evidence/business-read-01/regression-03.log",
+          "business_assertions": "docs/business-read-verification.json",
+          "tests": [
+            "formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history",
+            "interrupt_joins_inflight_read_cli_before_lease_release_without_completion"
+          ],
+          "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "33f66be321b859f56c6fab0b4e0cdc4e92bf0f14",
+          "verified_subset": "Two actual main configuration tools, block revisions/guards/noop/model selection, Prompt versions/previews/next-request and actual team skill, pause dispatch/reply hold and SQLite policy cut rollback; remaining full branches and API/UI not signed off.",
+          "entry_and_command": "Formal executable in product_entry + product_entry/configuration.rs/configuration_lifecycle.rs; WZU remote regression-02.log commands",
+          "environment": "Explicit offline external HTTP/SSE and gh protocol boundaries; actual leased product/SQL/Native/tools/outbox",
+          "full_log": "docs/evidence/business-configuration-01/regression-02.log",
+          "business_assertions": "docs/business-configuration-verification.json",
+          "tests": [
+            "configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model",
+            "configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions",
+            "configuration_lifecycle::formal_pause_records_decisions_but_holds_worker_and_replies_until_resume",
+            "configuration_lifecycle::formal_policy_save_rolls_back_history_effects_and_authority_on_sql_cut"
+          ],
+          "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "5b04c16e9f1f6f4d5bdb3749df2b468afa8fe614",
+          "entry_and_command": "Remote WZU_Server final workspace fmt/check/strict Clippy and selected ten-crate regression; formal executable product_entry tests included",
+          "environment": "Formal executable, real OpenAI HTTP/SSE adapter, Client/Engine/SQL/Native/CodingToolBundle/Outbox; external model and gh boundaries are explicit offline protocol fixtures only.",
+          "full_log": "docs/evidence/business-assessment-01/regression-04.log",
+          "business_assertions": "docs/business-assessment-verification.json",
+          "tests": [
+            "assessment::formal_inferred_auto_uses_scoped_context_rules_real_worker_and_reply",
+            "assessment::formal_inferred_observe_records_proposal_and_finishes_refs_without_worker",
+            "assessment::formal_inferred_direction_and_rule_gates_do_not_prepare_or_reply",
+            "assessment::formal_explicit_request_refuses_eval_and_remains_routable",
+            "assessment::formal_assessment_timeout_joins_cli_and_records_visible_unavailable_without_worker",
+            "assessment::formal_interrupt_joins_assessment_seed_without_authorizing_or_preparing_work",
+            "assessment::formal_batch_context_caches_once_but_uses_each_requested_trigger_identity"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification remaining_scope; these broad acceptance groups remain in_progress."
+        },
+        {
+          "source_commit": "91605fe2eed3b0b544e40a8c3ecc74d6c87bd681",
+          "entry_and_command": "Remote WZU_Server workspace fmt/check/strict Clippy plus selected ten-crate all-target regression, including formal product_entry tests",
+          "environment": "Formal executable + real OpenAI HTTP/SSE adapter/Client/Engine/SQL/Native/CodingToolBundle/Outbox. Only external model and gh services are explicit offline protocol fixtures.",
+          "full_log": "docs/evidence/business-note-01/regression-01.log",
+          "business_assertions": "docs/business-note-verification.json",
+          "tests": [
+            "note::formal_ticket_note_delivers_trimmed_fact_with_original_mandate_and_rejects_invalid_or_ended_targets",
+            "note::formal_ticket_note_does_not_wake_worker_blocked_for_human_or_expand_authority",
+            "note::formal_context_note_wakes_waiting_worker_on_same_assignment_without_new_authority"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Broad group remains in_progress; see verification remaining_scope."
+        },
+        {
+          "source_commit": "eee542cbf55ab49039b59b65f39e18389a9577ac",
+          "entry_and_command": "Formal executable product_entry policy_sync tests in final remote 10-crate regression; see complete log",
+          "environment": "Actual formal binary/OpenAI HTTP-SSE adapter/Native main tools/managed bot subprocess/Client/SQL policy/notices and shutdown. Model, gh and lark external endpoints alone are explicit offline fixtures. Optional-bot failure also executes the actual GitHub Worker/CodingToolBundle/Outbox path. No live Feishu/model/account/network or SDK success stubs.",
+          "full_log": "docs/evidence/business-policy-sync-01/regression-03.log",
+          "business_assertions": "docs/business-policy-sync-verification.json",
+          "tests": [
+            "formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin",
+            "formal_policy_sync_incomplete_members_are_health_error_not_grant_or_idle_blocker",
+            "formal_interrupt_joins_policy_sync_cli_tree_before_reopen_and_startup_sync",
+            "formal_startup_sync_rejects_even_a_concurrent_names_only_policy_revision",
+            "formal_startup_sync_merges_unrelated_saves_and_does_not_invent_source_off_conflict",
+            "formal_policy_sync_without_bot_reports_setup_error_and_cannot_switch_cli_from_tool",
+            "formal_bad_optional_bot_never_falls_back_or_blocks_github_worker_and_reply"
+          ],
+          "actual_product_path": true,
+          "full_feishu_event_loop": false,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "ce24642f765da98d4fd3484abfeb2afc08d12888",
+          "entry_and_command": "remote synchronized source: cargo test --locked --offline -p xharness-superagent --all-targets --features conformance; remote synchronized source: cargo clippy --locked --offline -p xharness-superagent --all-targets --features conformance -- -D warnings; remote synchronized source: cargo build --locked --offline -p xharness-superagent --bin xharness-superagent; remote built product_entry test binary --exact access::full_access_worker_reads_github_with_existing_service_account --ignored --nocapture; explicit existing-account/repository opt-in; service PATH/HOME/Git-config taken from the deployed process, binary SHA checked equal",
+          "environment": "WZU_Server; 319 offline product regressions plus one explicitly triggered actual Worker real GitHub read; RS-only update with current-state backup",
+          "full_log": "docs/evidence/full-access-worker-01/product-tests.log",
+          "business_assertions": "docs/full-access-worker-verification.json",
+          "actual_product_path": true,
+          "scope_note": "Explicit Worker permission/network/list-read subset; case remains in_progress; no complete PR/goal signoff."
+        },
+        {
+          "source_commit": "2527f03016b0e7d4dbae151f2189af609c75cb0e",
+          "entry_and_command": "remote cargo test --locked --offline -p xharness-superagent -p xharness-web -p xharness-coding-tools --all-targets --features xharness-superagent/conformance; remote cargo clippy --locked --offline -p xharness-superagent -p xharness-coding-tools -p xharness-web --all-targets --features xharness-superagent/conformance -- -D warnings; remote cargo build --locked --offline -p xharness-superagent --bin xharness-superagent; python3 scripts/superagent/test-fleet-control.py; remote formal product_entry test binary --exact search::live_deepseek_search_is_shared_with_glm_route_and_main_role --ignored --nocapture; explicitly authorized existing Search key; remote fleet-control.py stage/plan/upgrade/inventory/promote/incident against the private owned six-profile registry",
+          "environment": "WZU_Server; 382 selected Rust tests, 9 offline controller tests, two actual Search API role/route probes, one real busy deferral and subsequent RS upgrade",
+          "full_log": "docs/evidence/shared-search-fleet-01/rust-tests.log",
+          "business_assertions": "docs/shared-search-fleet-verification.json",
+          "actual_product_path": true,
+          "scope_note": "Shared search and serialized update subset; grouped case remains in_progress; no five-legacy migration or complete product signoff."
+        }
+      ]
+    },
+    {
+      "id": "TOOLS-02",
+      "milestone": "B2",
+      "title": "工具处理器执行真实业务命令并保留批次部分成功和错误结果",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "0a7cc7e0d571ee247cef99e9083c2b7a0b8a53d4",
+          "verified_subset": "Actual seven new control handlers wired; 3 new formal entry paths plus explicit component checks; remaining tools and full branches unverified.",
+          "entry_and_command": "Formal xharness-superagent binary in tests/product_entry.rs; remote cargo test --test product_entry and full workspace attempt",
+          "environment": "WZU_Server owned directory; explicit offline external-service protocol fixtures",
+          "full_log": "docs/evidence/business-controls-01/entry-04.log",
+          "business_assertions": "docs/business-controls-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "24a34de1dbc9d7a544b42b0a5a73e6a050049175",
+          "verified_subset": "Actual role-scoped read tool, Source snapshot continuation and filtered Native history; in-flight read CLI cancellation/join. main7/worker6 registered, full branches remain open.",
+          "entry_and_command": "Formal xharness-superagent executable; remote regression-03.log commands",
+          "environment": "WZU_Server isolated directory; explicit offline external-service HTTP/SSE and gh protocol fixtures",
+          "full_log": "docs/evidence/business-read-01/regression-03.log",
+          "business_assertions": "docs/business-read-verification.json",
+          "tests": [
+            "formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history",
+            "interrupt_joins_inflight_read_cli_before_lease_release_without_completion"
+          ],
+          "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "33f66be321b859f56c6fab0b4e0cdc4e92bf0f14",
+          "verified_subset": "Two actual main configuration tools, block revisions/guards/noop/model selection, Prompt versions/previews/next-request and actual team skill, pause dispatch/reply hold and SQLite policy cut rollback; remaining full branches and API/UI not signed off.",
+          "entry_and_command": "Formal executable in product_entry + product_entry/configuration.rs/configuration_lifecycle.rs; WZU remote regression-02.log commands",
+          "environment": "Explicit offline external HTTP/SSE and gh protocol boundaries; actual leased product/SQL/Native/tools/outbox",
+          "full_log": "docs/evidence/business-configuration-01/regression-02.log",
+          "business_assertions": "docs/business-configuration-verification.json",
+          "tests": [
+            "configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model",
+            "configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions",
+            "configuration_lifecycle::formal_pause_records_decisions_but_holds_worker_and_replies_until_resume",
+            "configuration_lifecycle::formal_policy_save_rolls_back_history_effects_and_authority_on_sql_cut"
+          ],
+          "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "5b04c16e9f1f6f4d5bdb3749df2b468afa8fe614",
+          "entry_and_command": "Remote WZU_Server final workspace fmt/check/strict Clippy and selected ten-crate regression; formal executable product_entry tests included",
+          "environment": "Formal executable, real OpenAI HTTP/SSE adapter, Client/Engine/SQL/Native/CodingToolBundle/Outbox; external model and gh boundaries are explicit offline protocol fixtures only.",
+          "full_log": "docs/evidence/business-assessment-01/regression-04.log",
+          "business_assertions": "docs/business-assessment-verification.json",
+          "tests": [
+            "assessment::formal_inferred_auto_uses_scoped_context_rules_real_worker_and_reply",
+            "assessment::formal_inferred_observe_records_proposal_and_finishes_refs_without_worker",
+            "assessment::formal_inferred_direction_and_rule_gates_do_not_prepare_or_reply",
+            "assessment::formal_explicit_request_refuses_eval_and_remains_routable",
+            "assessment::formal_assessment_timeout_joins_cli_and_records_visible_unavailable_without_worker",
+            "assessment::formal_interrupt_joins_assessment_seed_without_authorizing_or_preparing_work",
+            "assessment::formal_batch_context_caches_once_but_uses_each_requested_trigger_identity"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification remaining_scope; these broad acceptance groups remain in_progress."
+        },
+        {
+          "source_commit": "91605fe2eed3b0b544e40a8c3ecc74d6c87bd681",
+          "entry_and_command": "Remote WZU_Server workspace fmt/check/strict Clippy plus selected ten-crate all-target regression, including formal product_entry tests",
+          "environment": "Formal executable + real OpenAI HTTP/SSE adapter/Client/Engine/SQL/Native/CodingToolBundle/Outbox. Only external model and gh services are explicit offline protocol fixtures.",
+          "full_log": "docs/evidence/business-note-01/regression-01.log",
+          "business_assertions": "docs/business-note-verification.json",
+          "tests": [
+            "note::formal_ticket_note_delivers_trimmed_fact_with_original_mandate_and_rejects_invalid_or_ended_targets",
+            "note::formal_ticket_note_does_not_wake_worker_blocked_for_human_or_expand_authority",
+            "note::formal_context_note_wakes_waiting_worker_on_same_assignment_without_new_authority"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Broad group remains in_progress; see verification remaining_scope."
+        },
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "Owned remote formal binary with actual authorized GitHub bot and DeepSeek Messages; selected regression commands and scopes in verification",
+          "environment": "Actual isolated repository issue/Native Worker/file test/Draft PR/outbox; separate deterministic boundary fixtures and read-only six-instance SQLite backup probe",
+          "full_log": "docs/business-repository-delivery-verification.json",
+          "business_assertions": "docs/business-repository-delivery-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification.remaining; no group promoted to passed"
+        },
+        {
+          "source_commit": "b292f5bcac2cc5b7299fb0417573b5cc27541291",
+          "entry_and_command": "Formal binary product-19 full product targets + workspace strict Clippy on synced WZU_Server source; actual C1 issue6/PR7 at79d8a12; cold canary structured events and temporary user-systemd test",
+          "environment": "Explicit offline fixtures for formal tests; isolated existing authorized accounts/models for C1; one paused/intake-off cold canary restored to original",
+          "full_log": "docs/evidence/business-completion-01/product-19.log",
+          "business_assertions": "docs/business-completion-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        }
+      ]
+    },
+    {
+      "id": "PROMPT-01",
+      "milestone": "B2",
+      "title": "主角色、Worker、研判的Prompt和skills随配置/任务正确组装",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "33f66be321b859f56c6fab0b4e0cdc4e92bf0f14",
+          "verified_subset": "Two actual main configuration tools, block revisions/guards/noop/model selection, Prompt versions/previews/next-request and actual team skill, pause dispatch/reply hold and SQLite policy cut rollback; remaining full branches and API/UI not signed off.",
+          "entry_and_command": "Formal executable in product_entry + product_entry/configuration.rs/configuration_lifecycle.rs; WZU remote regression-02.log commands",
+          "environment": "Explicit offline external HTTP/SSE and gh protocol boundaries; actual leased product/SQL/Native/tools/outbox",
+          "full_log": "docs/evidence/business-configuration-01/regression-02.log",
+          "business_assertions": "docs/business-configuration-verification.json",
+          "tests": [
+            "configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model",
+            "configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions",
+            "configuration_lifecycle::formal_pause_records_decisions_but_holds_worker_and_replies_until_resume",
+            "configuration_lifecycle::formal_policy_save_rolls_back_history_effects_and_authority_on_sql_cut"
+          ],
+          "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "9889030597cf3a1bdb25ac2cadbaa548050871e2",
+          "entry_and_command": "Formal binary product_entry feishu tests in final WZU_Server selected10-crate regression; exact commands and full outputs in verification",
+          "environment": "Formal executable, actual OpenAI-compatible HTTP/SSE provider to loopback model fixture, actual private bot-only lark and gh subprocess endpoint fixtures, SQL/Driver/Passes/Native JSONL/CodingToolBundle and receipt-backed Outbox. No real external services or paid model.",
+          "full_log": "docs/evidence/business-feishu-live-01/regression-03.log",
+          "business_assertions": "docs/business-feishu-live-verification.json",
+          "tests": [
+            "formal_feishu_stream_reads_context_runs_worker_replies_and_reopens_without_duplicates",
+            "formal_feishu_self_and_malformed_events_are_not_triggers_but_scope_filters_are_retained",
+            "formal_feishu_direct_messages_obey_scope_and_keep_direct_reply_address",
+            "formal_feishu_source_disable_stops_and_joins_consumer_and_drops_read_after_disable",
+            "formal_feishu_consumer_failure_restarts_after_backoff_without_duplicate_work",
+            "formal_feishu_history_confines_pages_keeps_failed_cursor_and_recovers_without_duplicate_work"
+          ],
+          "actual_product_path": true,
+          "feishu_text_event_path_executed": true,
+          "full_feishu_source_complete": false,
+          "not_signed_off": true
+        }
+      ]
+    },
+    {
+      "id": "WORK-01",
+      "milestone": "B5",
+      "title": "停止工单取消相应活动/排队/后台工作且不产生后续新执行",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "3405a724dbf1ef878b77cd07689320bc8eee75b8",
+          "entry_and_command": "Formal executable plus actual management HTTP/browser; exact commands and boundaries in docs/business-management-verification.json",
+          "environment": "Owned WZU_Server; formal loopback protocol fixtures plus separately authorized existing-account read-only API/UI smoke; no production cutover",
+          "full_log": "docs/business-management-verification.json",
+          "business_assertions": "docs/business-management-verification.json",
+          "tests": [
+            "management::formal_management_bind_error_drains_owner_and_check_never_binds",
+            "management::formal_management_reads_real_state_guards_requests_and_joins_slow_body",
+            "management::formal_management_saves_cas_environment_prompts_pause_and_restart",
+            "management::formal_management_stops_existing_worker_and_preserves_assignment_history"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Full grouped API/UI/stop/deployment coverage and Worker delivery are still unfinished. See acceptance_boundaries; no full group promoted to passed."
+        }
+      ]
+    },
+    {
+      "id": "WORK-02",
+      "milestone": "B5",
+      "title": "追加消息进入活动工单，结束工单恢复遵守授权与原消息归属",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "73f584a7360bbe835d07130b3435818b6e4fe7b6",
+          "verified_subset": "Waiting-ticket restart keeps assignment and processes new same-thread input once; SIGKILL-before-first-SSE recovery and missing-workspace fail-closed are actual formal paths. Active/ended-ticket append and all crash/lifecycle cuts remain unverified.",
+          "entry_and_command": "Formal xharness-superagent executable in tests/product_entry.rs; remote all-targets selected regression and serial formal-entry runs",
+          "environment": "Formal executable, actual managed gh subprocess, existing OpenAI HTTP/SSE adapter, leased SQL/Outbox, actual Native journal and CodingToolBundle; only external services are loopback fixtures. No paid models or real GitHub writes.",
+          "full_log": "docs/evidence/business-recovery-01/regression-01.log",
+          "business_assertions": "docs/business-recovery-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "91605fe2eed3b0b544e40a8c3ecc74d6c87bd681",
+          "entry_and_command": "Remote WZU_Server workspace fmt/check/strict Clippy plus selected ten-crate all-target regression, including formal product_entry tests",
+          "environment": "Formal executable + real OpenAI HTTP/SSE adapter/Client/Engine/SQL/Native/CodingToolBundle/Outbox. Only external model and gh services are explicit offline protocol fixtures.",
+          "full_log": "docs/evidence/business-note-01/regression-01.log",
+          "business_assertions": "docs/business-note-verification.json",
+          "tests": [
+            "note::formal_ticket_note_delivers_trimmed_fact_with_original_mandate_and_rejects_invalid_or_ended_targets",
+            "note::formal_ticket_note_does_not_wake_worker_blocked_for_human_or_expand_authority",
+            "note::formal_context_note_wakes_waiting_worker_on_same_assignment_without_new_authority"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Broad group remains in_progress; see verification remaining_scope."
+        },
+        {
+          "source_commit": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+          "entry_and_command": "Formal executable --config <independent owned config> --once/watch; actual configured accounts/models. Scope and exact commands in verification record.",
+          "environment": "WZU_Server isolated validation; authorized external test writes; no production cutover",
+          "full_log": "docs/live-text-acceptance-verification.json",
+          "business_assertions": "docs/live-text-acceptance-verification.json",
+          "actual_product_path": true,
+          "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
+        },
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "Owned remote formal binary with actual authorized GitHub bot and DeepSeek Messages; selected regression commands and scopes in verification",
+          "environment": "Actual isolated repository issue/Native Worker/file test/Draft PR/outbox; separate deterministic boundary fixtures and read-only six-instance SQLite backup probe",
+          "full_log": "docs/business-repository-delivery-verification.json",
+          "business_assertions": "docs/business-repository-delivery-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification.remaining; no group promoted to passed"
+        }
+      ]
+    },
+    {
+      "id": "WORK-03",
+      "milestone": "B5",
+      "title": "并发限制、失败重试、额度等待及人工重试在完整链路中正确",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "0a7cc7e0d571ee247cef99e9083c2b7a0b8a53d4",
+          "verified_subset": "Formal explicit-human conditional retry creates a distinct assignment and performs real work; concurrency/quota/backoff/full retry matrix still unverified.",
+          "entry_and_command": "Formal xharness-superagent binary in tests/product_entry.rs; remote cargo test --test product_entry and full workspace attempt",
+          "environment": "WZU_Server owned directory; explicit offline external-service protocol fixtures",
+          "full_log": "docs/evidence/business-controls-01/entry-04.log",
+          "business_assertions": "docs/business-controls-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        }
+      ]
+    },
+    {
+      "id": "WORK-04",
+      "milestone": "B5",
+      "title": "后台/子任务完成、取消、关闭均可观察且不泄漏资源",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "Owned remote formal binary with actual authorized GitHub bot and DeepSeek Messages; selected regression commands and scopes in verification",
+          "environment": "Actual isolated repository issue/Native Worker/file test/Draft PR/outbox; separate deterministic boundary fixtures and read-only six-instance SQLite backup probe",
+          "full_log": "docs/business-repository-delivery-verification.json",
+          "business_assertions": "docs/business-repository-delivery-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification.remaining; no group promoted to passed"
+        }
+      ]
+    },
+    {
+      "id": "REC-01",
+      "milestone": "B1",
+      "title": "同事件重复接收/重启重放不重复开单或重复执行已完成动作",
+      "status": "passed",
+      "evidence": [
+        {
+          "source_commit": "a7737180dd17f0d9ad86c76c42b0ef4faf49b9ca",
+          "entry_and_command": "cargo test --locked -p xharness-superagent --test product_entry -- --test-threads=1 --nocapture (remote WZU_Server); also included in final 9-crate regression",
+          "environment": "Formal executable + loopback model HTTP/SSE + gh subprocess fixture + actual Native/CodingToolBundle/SQL/Outbox; no real external services",
+          "full_log": "docs/evidence/business-entry-01/regression-02.log",
+          "business_assertions": "docs/business-entry-verification.json",
+          "tests": [
+            "formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate"
+          ],
+          "actual_product_path": true
+        },
+        {
+          "source_commit": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+          "entry_and_command": "Formal executable --config <independent owned config> --once/watch; actual configured accounts/models. Scope and exact commands in verification record.",
+          "environment": "WZU_Server isolated validation; authorized external test writes; no production cutover",
+          "full_log": "docs/live-text-acceptance-verification.json",
+          "business_assertions": "docs/live-text-acceptance-verification.json",
+          "actual_product_path": true,
+          "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
+        },
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "Owned remote formal binary with actual authorized GitHub bot and DeepSeek Messages; selected regression commands and scopes in verification",
+          "environment": "Actual isolated repository issue/Native Worker/file test/Draft PR/outbox; separate deterministic boundary fixtures and read-only six-instance SQLite backup probe",
+          "full_log": "docs/business-repository-delivery-verification.json",
+          "business_assertions": "docs/business-repository-delivery-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification.remaining; no group promoted to passed"
+        }
+      ],
+      "validation_environment": "offline_protocol_fixture_and_authorized_live_github_subset"
+    },
+    {
+      "id": "REC-02",
+      "milestone": "B5",
+      "title": "事务与派发切点崩溃后业务状态和待办一致，不能丢失已接收请求",
+      "status": "not_run",
+      "evidence": []
+    },
+    {
+      "id": "REC-03",
+      "milestone": "B5",
+      "title": "实际会话中断后恢复任务，回复幂等且不伪造成功",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "73f584a7360bbe835d07130b3435818b6e4fe7b6",
+          "verified_subset": "Waiting-ticket restart keeps assignment and processes new same-thread input once; SIGKILL-before-first-SSE recovery and missing-workspace fail-closed are actual formal paths. Active/ended-ticket append and all crash/lifecycle cuts remain unverified.",
+          "entry_and_command": "Formal xharness-superagent executable in tests/product_entry.rs; remote all-targets selected regression and serial formal-entry runs",
+          "environment": "Formal executable, actual managed gh subprocess, existing OpenAI HTTP/SSE adapter, leased SQL/Outbox, actual Native journal and CodingToolBundle; only external services are loopback fixtures. No paid models or real GitHub writes.",
+          "full_log": "docs/evidence/business-recovery-01/regression-01.log",
+          "business_assertions": "docs/business-recovery-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "eee542cbf55ab49039b59b65f39e18389a9577ac",
+          "entry_and_command": "Formal executable product_entry policy_sync tests in final remote 10-crate regression; see complete log",
+          "environment": "Actual formal binary/OpenAI HTTP-SSE adapter/Native main tools/managed bot subprocess/Client/SQL policy/notices and shutdown. Model, gh and lark external endpoints alone are explicit offline fixtures. Optional-bot failure also executes the actual GitHub Worker/CodingToolBundle/Outbox path. No live Feishu/model/account/network or SDK success stubs.",
+          "full_log": "docs/evidence/business-policy-sync-01/regression-03.log",
+          "business_assertions": "docs/business-policy-sync-verification.json",
+          "tests": [
+            "formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin",
+            "formal_policy_sync_incomplete_members_are_health_error_not_grant_or_idle_blocker",
+            "formal_interrupt_joins_policy_sync_cli_tree_before_reopen_and_startup_sync",
+            "formal_startup_sync_rejects_even_a_concurrent_names_only_policy_revision",
+            "formal_startup_sync_merges_unrelated_saves_and_does_not_invent_source_off_conflict",
+            "formal_policy_sync_without_bot_reports_setup_error_and_cannot_switch_cli_from_tool",
+            "formal_bad_optional_bot_never_falls_back_or_blocks_github_worker_and_reply"
+          ],
+          "actual_product_path": true,
+          "full_feishu_event_loop": false,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "9889030597cf3a1bdb25ac2cadbaa548050871e2",
+          "entry_and_command": "Formal binary product_entry feishu tests in final WZU_Server selected10-crate regression; exact commands and full outputs in verification",
+          "environment": "Formal executable, actual OpenAI-compatible HTTP/SSE provider to loopback model fixture, actual private bot-only lark and gh subprocess endpoint fixtures, SQL/Driver/Passes/Native JSONL/CodingToolBundle and receipt-backed Outbox. No real external services or paid model.",
+          "full_log": "docs/evidence/business-feishu-live-01/regression-03.log",
+          "business_assertions": "docs/business-feishu-live-verification.json",
+          "tests": [
+            "formal_feishu_stream_reads_context_runs_worker_replies_and_reopens_without_duplicates",
+            "formal_feishu_self_and_malformed_events_are_not_triggers_but_scope_filters_are_retained",
+            "formal_feishu_direct_messages_obey_scope_and_keep_direct_reply_address",
+            "formal_feishu_source_disable_stops_and_joins_consumer_and_drops_read_after_disable",
+            "formal_feishu_consumer_failure_restarts_after_backoff_without_duplicate_work",
+            "formal_feishu_history_confines_pages_keeps_failed_cursor_and_recovers_without_duplicate_work"
+          ],
+          "actual_product_path": true,
+          "feishu_text_event_path_executed": true,
+          "full_feishu_source_complete": false,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "71317c8514f3c42de944661aac609613c845195e",
+          "entry_and_command": "Formal binary tests in final WZU_Server selected12 regression; source-account-only --check also executed in independent state",
+          "environment": "Actual formal binary, loopback model HTTP/SSE and actual managed gh/lark endpoint fixture processes, SQL/Native/Outbox/CodingToolBundle. External services alone are offline fixtures.",
+          "full_log": "docs/evidence/production-text-release-01/regression-01.log",
+          "business_assertions": "docs/production-text-release-verification.json",
+          "tests": [
+            "formal_sigterm_cancels_model_wait_and_releases_the_lease",
+            "feishu::formal_sigterm_joins_feishu_consumer_tree_before_state_reopen",
+            "feishu::formal_source_owner_sql_failure_exits_and_joins_consumer_instead_of_hanging"
+          ],
+          "actual_product_path": true,
+          "verified_subset": "SIGTERM ownership and persistent SQL-failure exit/reopen, plus actual source-account startup check only; not production cutover/model/Worker PR acceptance",
+          "not_signed_off": true
+        }
+      ]
+    },
+    {
+      "id": "GH-01",
+      "milestone": "B3",
+      "title": "GitHub事件过滤、游标、上下文读取与回复在Source边界正确",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "24a34de1dbc9d7a544b42b0a5a73e6a050049175",
+          "verified_subset": "Actual role-scoped read tool, Source snapshot continuation and filtered Native history; in-flight read CLI cancellation/join. main7/worker6 registered, full branches remain open.",
+          "entry_and_command": "Formal xharness-superagent executable; remote regression-03.log commands",
+          "environment": "WZU_Server isolated directory; explicit offline external-service HTTP/SSE and gh protocol fixtures",
+          "full_log": "docs/evidence/business-read-01/regression-03.log",
+          "business_assertions": "docs/business-read-verification.json",
+          "tests": [
+            "formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history",
+            "interrupt_joins_inflight_read_cli_before_lease_release_without_completion"
+          ],
+          "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "5b04c16e9f1f6f4d5bdb3749df2b468afa8fe614",
+          "entry_and_command": "Remote WZU_Server final workspace fmt/check/strict Clippy and selected ten-crate regression; formal executable product_entry tests included",
+          "environment": "Formal executable, real OpenAI HTTP/SSE adapter, Client/Engine/SQL/Native/CodingToolBundle/Outbox; external model and gh boundaries are explicit offline protocol fixtures only.",
+          "full_log": "docs/evidence/business-assessment-01/regression-04.log",
+          "business_assertions": "docs/business-assessment-verification.json",
+          "tests": [
+            "assessment::formal_inferred_auto_uses_scoped_context_rules_real_worker_and_reply",
+            "assessment::formal_inferred_observe_records_proposal_and_finishes_refs_without_worker",
+            "assessment::formal_inferred_direction_and_rule_gates_do_not_prepare_or_reply",
+            "assessment::formal_explicit_request_refuses_eval_and_remains_routable",
+            "assessment::formal_assessment_timeout_joins_cli_and_records_visible_unavailable_without_worker",
+            "assessment::formal_interrupt_joins_assessment_seed_without_authorizing_or_preparing_work",
+            "assessment::formal_batch_context_caches_once_but_uses_each_requested_trigger_identity"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification remaining_scope; these broad acceptance groups remain in_progress."
+        },
+        {
+          "source_commit": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+          "entry_and_command": "Formal executable --config <independent owned config> --once/watch; actual configured accounts/models. Scope and exact commands in verification record.",
+          "environment": "WZU_Server isolated validation; authorized external test writes; no production cutover",
+          "full_log": "docs/live-text-acceptance-verification.json",
+          "business_assertions": "docs/live-text-acceptance-verification.json",
+          "actual_product_path": true,
+          "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
+        },
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "Owned remote formal binary with actual authorized GitHub bot and DeepSeek Messages; selected regression commands and scopes in verification",
+          "environment": "Actual isolated repository issue/Native Worker/file test/Draft PR/outbox; separate deterministic boundary fixtures and read-only six-instance SQLite backup probe",
+          "full_log": "docs/business-repository-delivery-verification.json",
+          "business_assertions": "docs/business-repository-delivery-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification.remaining; no group promoted to passed"
+        }
+      ]
+    },
+    {
+      "id": "GH-02",
+      "milestone": "B3",
+      "title": "Issue/PR/Review线程中的任务和结果归属正确",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "Owned remote formal binary with actual authorized GitHub bot and DeepSeek Messages; selected regression commands and scopes in verification",
+          "environment": "Actual isolated repository issue/Native Worker/file test/Draft PR/outbox; separate deterministic boundary fixtures and read-only six-instance SQLite backup probe",
+          "full_log": "docs/business-repository-delivery-verification.json",
+          "business_assertions": "docs/business-repository-delivery-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification.remaining; no group promoted to passed"
+        },
+        {
+          "source_commit": "b292f5bcac2cc5b7299fb0417573b5cc27541291",
+          "entry_and_command": "Formal binary product-19 full product targets + workspace strict Clippy on synced WZU_Server source; actual C1 issue6/PR7 at79d8a12; cold canary structured events and temporary user-systemd test",
+          "environment": "Explicit offline fixtures for formal tests; isolated existing authorized accounts/models for C1; one paused/intake-off cold canary restored to original",
+          "full_log": "docs/evidence/business-completion-01/product-19.log",
+          "business_assertions": "docs/business-completion-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "dbdf071fff5d843007a0c6577fabe9d655fa5830",
+          "entry_and_command": "Remote cargo test/clippy for three selected packages/all targets; actual authenticated two-repository read-only git checkout; guarded RS fleet upgrade + human management CAS CLI migration",
+          "environment": "Formal executable/API+Git transport fixtures for regressions; existing authorized GitHub account for live reads; one-time verified RS object seed after bounded cold-fetch timeout",
+          "full_log": "docs/evidence/generic-checkout-01/regression.log",
+          "business_assertions": "docs/generic-checkout-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "PR head checkout/cache only; not full PR continuation/publishing acceptance, not a new Feishu human Worker task, not all-instance replacement"
+        },
+        {
+          "source_commit": "2ce5464726308db68f200568b5169420b68ec6a5",
+          "entry_and_command": "Remote 3-package/all-target cargo tests and strict Clippy; cold-required ignored GitHub transport test on two repositories; fresh ordinary Git clone in the production Worker environment; guarded single-RS fleet upgrade",
+          "environment": "Real empty Git roots, authenticated GitHub/Git, standalone owned Git-only loopback route with normal TLS; offline boundaries only for regression fixture model/trigger traffic",
+          "full_log": "docs/evidence/cold-checkout-01/owned-route-real-cold.log",
+          "business_assertions": "docs/cold-checkout-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Cold checkout/network gap closed for tested RS/pi repositories; not all PR continuation/publishing or a new human Feishu task"
+        }
+      ]
+    },
+    {
+      "id": "FEISHU-01",
+      "milestone": "B3",
+      "title": "飞书消息/会话、上下文、附件与回复及失败健康状态",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "4e04cdf93357e0dd6b5e2cb20fbccd11b9fc46cb",
+          "entry_and_command": "Remote WZU_Server cargo test --locked -p xharness-superagent --test feishu_source plus final selected regression; Node original-function oracle --check",
+          "environment": "Explicit offline executable lark boundary, actual ProcessRuntime supervision/argv/env/cancellation and real Source algorithms. No SDK stub, model call, real Feishu/network/account or chat mirror.",
+          "full_log": "docs/evidence/business-feishu-01/regression-03.log",
+          "business_assertions": "docs/business-feishu-verification.json",
+          "tests": [
+            "original_trigger_config_scope_and_link_business_samples_match",
+            "original_member_sync_and_reply_run_over_verified_real_cli_with_exact_bot_argv",
+            "bot_identity_setup_never_falls_back_to_user_or_unready_app",
+            "member_read_cancellation_joins_the_real_cli_and_descendant_before_return",
+            "event_consumer_retains_split_unicode_reports_malformed_lines_and_joins_on_cancel",
+            "bot_setup_ignores_worker_shims_and_relative_path_entries_without_changing_alias",
+            "natural_consumer_eof_drains_unterminated_unicode_lines_and_is_not_ready_success",
+            "readiness_deadline_cancels_and_joins_the_unready_consumer_tree",
+            "setup_probe_has_its_own_sixty_second_deadline_and_never_falls_back"
+          ],
+          "actual_product_path": false,
+          "component_progress_only": true,
+          "not_product_acceptance": true,
+          "remaining_scope": "Formal Feishu/Native/Outbox and policy_sync owner/lifecycle integration still absent; see verification remaining_scope."
+        },
+        {
+          "source_commit": "eee542cbf55ab49039b59b65f39e18389a9577ac",
+          "entry_and_command": "Formal executable product_entry policy_sync tests in final remote 10-crate regression; see complete log",
+          "environment": "Actual formal binary/OpenAI HTTP-SSE adapter/Native main tools/managed bot subprocess/Client/SQL policy/notices and shutdown. Model, gh and lark external endpoints alone are explicit offline fixtures. Optional-bot failure also executes the actual GitHub Worker/CodingToolBundle/Outbox path. No live Feishu/model/account/network or SDK success stubs.",
+          "full_log": "docs/evidence/business-policy-sync-01/regression-03.log",
+          "business_assertions": "docs/business-policy-sync-verification.json",
+          "tests": [
+            "formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin",
+            "formal_policy_sync_incomplete_members_are_health_error_not_grant_or_idle_blocker",
+            "formal_interrupt_joins_policy_sync_cli_tree_before_reopen_and_startup_sync",
+            "formal_startup_sync_rejects_even_a_concurrent_names_only_policy_revision",
+            "formal_startup_sync_merges_unrelated_saves_and_does_not_invent_source_off_conflict",
+            "formal_policy_sync_without_bot_reports_setup_error_and_cannot_switch_cli_from_tool",
+            "formal_bad_optional_bot_never_falls_back_or_blocks_github_worker_and_reply"
+          ],
+          "actual_product_path": true,
+          "full_feishu_event_loop": false,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "9889030597cf3a1bdb25ac2cadbaa548050871e2",
+          "entry_and_command": "Formal binary product_entry feishu tests in final WZU_Server selected10-crate regression; exact commands and full outputs in verification",
+          "environment": "Formal executable, actual OpenAI-compatible HTTP/SSE provider to loopback model fixture, actual private bot-only lark and gh subprocess endpoint fixtures, SQL/Driver/Passes/Native JSONL/CodingToolBundle and receipt-backed Outbox. No real external services or paid model.",
+          "full_log": "docs/evidence/business-feishu-live-01/regression-03.log",
+          "business_assertions": "docs/business-feishu-live-verification.json",
+          "tests": [
+            "formal_feishu_stream_reads_context_runs_worker_replies_and_reopens_without_duplicates",
+            "formal_feishu_self_and_malformed_events_are_not_triggers_but_scope_filters_are_retained",
+            "formal_feishu_direct_messages_obey_scope_and_keep_direct_reply_address",
+            "formal_feishu_source_disable_stops_and_joins_consumer_and_drops_read_after_disable",
+            "formal_feishu_consumer_failure_restarts_after_backoff_without_duplicate_work",
+            "formal_feishu_history_confines_pages_keeps_failed_cursor_and_recovers_without_duplicate_work"
+          ],
+          "actual_product_path": true,
+          "feishu_text_event_path_executed": true,
+          "full_feishu_source_complete": false,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "71317c8514f3c42de944661aac609613c845195e",
+          "entry_and_command": "Formal binary tests in final WZU_Server selected12 regression; source-account-only --check also executed in independent state",
+          "environment": "Actual formal binary, loopback model HTTP/SSE and actual managed gh/lark endpoint fixture processes, SQL/Native/Outbox/CodingToolBundle. External services alone are offline fixtures.",
+          "full_log": "docs/evidence/production-text-release-01/regression-01.log",
+          "business_assertions": "docs/production-text-release-verification.json",
+          "tests": [
+            "formal_sigterm_cancels_model_wait_and_releases_the_lease",
+            "feishu::formal_sigterm_joins_feishu_consumer_tree_before_state_reopen",
+            "feishu::formal_source_owner_sql_failure_exits_and_joins_consumer_instead_of_hanging"
+          ],
+          "actual_product_path": true,
+          "verified_subset": "SIGTERM ownership and persistent SQL-failure exit/reopen, plus actual source-account startup check only; not production cutover/model/Worker PR acceptance",
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+          "entry_and_command": "Formal executable --config <independent owned config> --once/watch; actual configured accounts/models. Scope and exact commands in verification record.",
+          "environment": "WZU_Server isolated validation; authorized external test writes; no production cutover",
+          "full_log": "docs/live-text-acceptance-verification.json",
+          "business_assertions": "docs/live-text-acceptance-verification.json",
+          "actual_product_path": true,
+          "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
+        }
+      ]
+    },
+    {
+      "id": "CFG-01",
+      "milestone": "B4",
+      "title": "模型/策略/授权/Prompt配置保存、历史、冲突和重启生效",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "33f66be321b859f56c6fab0b4e0cdc4e92bf0f14",
+          "verified_subset": "Two actual main configuration tools, block revisions/guards/noop/model selection, Prompt versions/previews/next-request and actual team skill, pause dispatch/reply hold and SQLite policy cut rollback; remaining full branches and API/UI not signed off.",
+          "entry_and_command": "Formal executable in product_entry + product_entry/configuration.rs/configuration_lifecycle.rs; WZU remote regression-02.log commands",
+          "environment": "Explicit offline external HTTP/SSE and gh protocol boundaries; actual leased product/SQL/Native/tools/outbox",
+          "full_log": "docs/evidence/business-configuration-01/regression-02.log",
+          "business_assertions": "docs/business-configuration-verification.json",
+          "tests": [
+            "configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model",
+            "configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions",
+            "configuration_lifecycle::formal_pause_records_decisions_but_holds_worker_and_replies_until_resume",
+            "configuration_lifecycle::formal_policy_save_rolls_back_history_effects_and_authority_on_sql_cut"
+          ],
+          "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "eee542cbf55ab49039b59b65f39e18389a9577ac",
+          "entry_and_command": "Formal executable product_entry policy_sync tests in final remote 10-crate regression; see complete log",
+          "environment": "Actual formal binary/OpenAI HTTP-SSE adapter/Native main tools/managed bot subprocess/Client/SQL policy/notices and shutdown. Model, gh and lark external endpoints alone are explicit offline fixtures. Optional-bot failure also executes the actual GitHub Worker/CodingToolBundle/Outbox path. No live Feishu/model/account/network or SDK success stubs.",
+          "full_log": "docs/evidence/business-policy-sync-01/regression-03.log",
+          "business_assertions": "docs/business-policy-sync-verification.json",
+          "tests": [
+            "formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin",
+            "formal_policy_sync_incomplete_members_are_health_error_not_grant_or_idle_blocker",
+            "formal_interrupt_joins_policy_sync_cli_tree_before_reopen_and_startup_sync",
+            "formal_startup_sync_rejects_even_a_concurrent_names_only_policy_revision",
+            "formal_startup_sync_merges_unrelated_saves_and_does_not_invent_source_off_conflict",
+            "formal_policy_sync_without_bot_reports_setup_error_and_cannot_switch_cli_from_tool",
+            "formal_bad_optional_bot_never_falls_back_or_blocks_github_worker_and_reply"
+          ],
+          "actual_product_path": true,
+          "full_feishu_event_loop": false,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "3405a724dbf1ef878b77cd07689320bc8eee75b8",
+          "entry_and_command": "Formal executable plus actual management HTTP/browser; exact commands and boundaries in docs/business-management-verification.json",
+          "environment": "Owned WZU_Server; formal loopback protocol fixtures plus separately authorized existing-account read-only API/UI smoke; no production cutover",
+          "full_log": "docs/business-management-verification.json",
+          "business_assertions": "docs/business-management-verification.json",
+          "tests": [
+            "management::formal_management_bind_error_drains_owner_and_check_never_binds",
+            "management::formal_management_reads_real_state_guards_requests_and_joins_slow_body",
+            "management::formal_management_saves_cas_environment_prompts_pause_and_restart",
+            "management::formal_management_stops_existing_worker_and_preserves_assignment_history"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Full grouped API/UI/stop/deployment coverage and Worker delivery are still unfinished. See acceptance_boundaries; no full group promoted to passed."
+        },
+        {
+          "source_commit": "b292f5bcac2cc5b7299fb0417573b5cc27541291",
+          "entry_and_command": "Formal binary product-19 full product targets + workspace strict Clippy on synced WZU_Server source; actual C1 issue6/PR7 at79d8a12; cold canary structured events and temporary user-systemd test",
+          "environment": "Explicit offline fixtures for formal tests; isolated existing authorized accounts/models for C1; one paused/intake-off cold canary restored to original",
+          "full_log": "docs/evidence/business-completion-01/product-19.log",
+          "business_assertions": "docs/business-completion-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        }
+      ]
+    },
+    {
+      "id": "API-01",
+      "milestone": "B4",
+      "title": "业务查询与控制API覆盖原版业务能力，输入错误可观察",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "3405a724dbf1ef878b77cd07689320bc8eee75b8",
+          "entry_and_command": "Formal executable plus actual management HTTP/browser; exact commands and boundaries in docs/business-management-verification.json",
+          "environment": "Owned WZU_Server; formal loopback protocol fixtures plus separately authorized existing-account read-only API/UI smoke; no production cutover",
+          "full_log": "docs/business-management-verification.json",
+          "business_assertions": "docs/business-management-verification.json",
+          "tests": [
+            "management::formal_management_bind_error_drains_owner_and_check_never_binds",
+            "management::formal_management_reads_real_state_guards_requests_and_joins_slow_body",
+            "management::formal_management_saves_cas_environment_prompts_pause_and_restart",
+            "management::formal_management_stops_existing_worker_and_preserves_assignment_history"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Full grouped API/UI/stop/deployment coverage and Worker delivery are still unfinished. See acceptance_boundaries; no full group promoted to passed."
+        },
+        {
+          "source_commit": "b292f5bcac2cc5b7299fb0417573b5cc27541291",
+          "entry_and_command": "Formal binary product-19 full product targets + workspace strict Clippy on synced WZU_Server source; actual C1 issue6/PR7 at79d8a12; cold canary structured events and temporary user-systemd test",
+          "environment": "Explicit offline fixtures for formal tests; isolated existing authorized accounts/models for C1; one paused/intake-off cold canary restored to original",
+          "full_log": "docs/evidence/business-completion-01/product-19.log",
+          "business_assertions": "docs/business-completion-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        }
+      ]
+    },
+    {
+      "id": "UI-01",
+      "milestone": "B4",
+      "title": "管理面板可完成配置、任务查看、停止/追加/重试和错误定位",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "3405a724dbf1ef878b77cd07689320bc8eee75b8",
+          "entry_and_command": "Formal executable plus actual management HTTP/browser; exact commands and boundaries in docs/business-management-verification.json",
+          "environment": "Owned WZU_Server; formal loopback protocol fixtures plus separately authorized existing-account read-only API/UI smoke; no production cutover",
+          "full_log": "docs/business-management-verification.json",
+          "business_assertions": "docs/business-management-verification.json",
+          "tests": [
+            "management::formal_management_bind_error_drains_owner_and_check_never_binds",
+            "management::formal_management_reads_real_state_guards_requests_and_joins_slow_body",
+            "management::formal_management_saves_cas_environment_prompts_pause_and_restart",
+            "management::formal_management_stops_existing_worker_and_preserves_assignment_history"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Full grouped API/UI/stop/deployment coverage and Worker delivery are still unfinished. See acceptance_boundaries; no full group promoted to passed."
+        },
+        {
+          "source_commit": "b292f5bcac2cc5b7299fb0417573b5cc27541291",
+          "entry_and_command": "Formal binary product-19 full product targets + workspace strict Clippy on synced WZU_Server source; actual C1 issue6/PR7 at79d8a12; cold canary structured events and temporary user-systemd test",
+          "environment": "Explicit offline fixtures for formal tests; isolated existing authorized accounts/models for C1; one paused/intake-off cold canary restored to original",
+          "full_log": "docs/evidence/business-completion-01/product-19.log",
+          "business_assertions": "docs/business-completion-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        }
+      ]
+    },
+    {
+      "id": "DEPLOY-01",
+      "milestone": "B6",
+      "title": "独立部署启动/健康/关闭、备份恢复与回退可复现，不改现有服务",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "71317c8514f3c42de944661aac609613c845195e",
+          "entry_and_command": "Formal binary tests in final WZU_Server selected12 regression; source-account-only --check also executed in independent state",
+          "environment": "Actual formal binary, loopback model HTTP/SSE and actual managed gh/lark endpoint fixture processes, SQL/Native/Outbox/CodingToolBundle. External services alone are offline fixtures.",
+          "full_log": "docs/evidence/production-text-release-01/regression-01.log",
+          "business_assertions": "docs/production-text-release-verification.json",
+          "tests": [
+            "formal_sigterm_cancels_model_wait_and_releases_the_lease",
+            "feishu::formal_sigterm_joins_feishu_consumer_tree_before_state_reopen",
+            "feishu::formal_source_owner_sql_failure_exits_and_joins_consumer_instead_of_hanging"
+          ],
+          "actual_product_path": true,
+          "verified_subset": "SIGTERM ownership and persistent SQL-failure exit/reopen, plus actual source-account startup check only; not production cutover/model/Worker PR acceptance",
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "321aa2b11199a1899858bc7646fdd36c9d1a6c05",
+          "entry_and_command": "Formal executable --config <independent owned config> --once/watch; actual configured accounts/models. Scope and exact commands in verification record.",
+          "environment": "WZU_Server isolated validation; authorized external test writes; no production cutover",
+          "full_log": "docs/live-text-acceptance-verification.json",
+          "business_assertions": "docs/live-text-acceptance-verification.json",
+          "actual_product_path": true,
+          "scope_note": "GitHub issue/comment file execution and receipt replay accepted; Feishu/model/runtime probes have their explicit narrower scope; this does not close the entire grouped case."
+        },
+        {
+          "source_commit": "3405a724dbf1ef878b77cd07689320bc8eee75b8",
+          "entry_and_command": "Formal executable plus actual management HTTP/browser; exact commands and boundaries in docs/business-management-verification.json",
+          "environment": "Owned WZU_Server; formal loopback protocol fixtures plus separately authorized existing-account read-only API/UI smoke; no production cutover",
+          "full_log": "docs/business-management-verification.json",
+          "business_assertions": "docs/business-management-verification.json",
+          "tests": [
+            "management::formal_management_bind_error_drains_owner_and_check_never_binds",
+            "management::formal_management_reads_real_state_guards_requests_and_joins_slow_body",
+            "management::formal_management_saves_cas_environment_prompts_pause_and_restart",
+            "management::formal_management_stops_existing_worker_and_preserves_assignment_history"
+          ],
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Full grouped API/UI/stop/deployment coverage and Worker delivery are still unfinished. See acceptance_boundaries; no full group promoted to passed."
+        },
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "Owned remote formal binary with actual authorized GitHub bot and DeepSeek Messages; selected regression commands and scopes in verification",
+          "environment": "Actual isolated repository issue/Native Worker/file test/Draft PR/outbox; separate deterministic boundary fixtures and read-only six-instance SQLite backup probe",
+          "full_log": "docs/business-repository-delivery-verification.json",
+          "business_assertions": "docs/business-repository-delivery-verification.json",
+          "actual_product_path": true,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "See verification.remaining; no group promoted to passed"
+        },
+        {
+          "source_commit": "b292f5bcac2cc5b7299fb0417573b5cc27541291",
+          "entry_and_command": "Formal binary product-19 full product targets + workspace strict Clippy on synced WZU_Server source; actual C1 issue6/PR7 at79d8a12; cold canary structured events and temporary user-systemd test",
+          "environment": "Explicit offline fixtures for formal tests; isolated existing authorized accounts/models for C1; one paused/intake-off cold canary restored to original",
+          "full_log": "docs/evidence/business-completion-01/product-19.log",
+          "business_assertions": "docs/business-completion-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "ce24642f765da98d4fd3484abfeb2afc08d12888",
+          "entry_and_command": "remote synchronized source: cargo test --locked --offline -p xharness-superagent --all-targets --features conformance; remote synchronized source: cargo clippy --locked --offline -p xharness-superagent --all-targets --features conformance -- -D warnings; remote synchronized source: cargo build --locked --offline -p xharness-superagent --bin xharness-superagent; remote built product_entry test binary --exact access::full_access_worker_reads_github_with_existing_service_account --ignored --nocapture; explicit existing-account/repository opt-in; service PATH/HOME/Git-config taken from the deployed process, binary SHA checked equal",
+          "environment": "WZU_Server; 319 offline product regressions plus one explicitly triggered actual Worker real GitHub read; RS-only update with current-state backup",
+          "full_log": "docs/evidence/full-access-worker-01/product-tests.log",
+          "business_assertions": "docs/full-access-worker-verification.json",
+          "actual_product_path": true,
+          "scope_note": "Explicit Worker permission/network/list-read subset; case remains in_progress; no complete PR/goal signoff."
+        },
+        {
+          "source_commit": "2527f03016b0e7d4dbae151f2189af609c75cb0e",
+          "entry_and_command": "remote cargo test --locked --offline -p xharness-superagent -p xharness-web -p xharness-coding-tools --all-targets --features xharness-superagent/conformance; remote cargo clippy --locked --offline -p xharness-superagent -p xharness-coding-tools -p xharness-web --all-targets --features xharness-superagent/conformance -- -D warnings; remote cargo build --locked --offline -p xharness-superagent --bin xharness-superagent; python3 scripts/superagent/test-fleet-control.py; remote formal product_entry test binary --exact search::live_deepseek_search_is_shared_with_glm_route_and_main_role --ignored --nocapture; explicitly authorized existing Search key; remote fleet-control.py stage/plan/upgrade/inventory/promote/incident against the private owned six-profile registry",
+          "environment": "WZU_Server; 382 selected Rust tests, 9 offline controller tests, two actual Search API role/route probes, one real busy deferral and subsequent RS upgrade",
+          "full_log": "docs/evidence/shared-search-fleet-01/rust-tests.log",
+          "business_assertions": "docs/shared-search-fleet-verification.json",
+          "actual_product_path": true,
+          "scope_note": "Shared search and serialized update subset; grouped case remains in_progress; no five-legacy migration or complete product signoff."
+        }
+      ]
+    },
+    {
+      "id": "REG-01",
+      "milestone": "B6",
+      "title": "必要workspace回归通过，旧XHarness默认权限/沙箱/会话行为不回退",
+      "status": "in_progress",
+      "evidence": [
+        {
+          "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+          "entry_and_command": "GitHub Actions: workspace check, strict workspace all-targets Clippy, workspace all-targets test with product conformance on Ubuntu and macOS",
+          "environment": "Actual GitHub-hosted Linux/macOS runners, fixed source/reference guards; fixture and live skips retain their declared scopes",
+          "full_log": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41399965912",
+          "business_assertions": "docs/evidence/worker-delivery-01/ci-implementation-success.json",
+          "actual_product_path": false,
+          "partial_not_full_group_pass": true,
+          "remaining_scope": "Global CI command success is not proof of every skipped/capability-dependent external deployment regression or complete product parity."
+        },
+        {
+          "source_commit": "b292f5bcac2cc5b7299fb0417573b5cc27541291",
+          "entry_and_command": "Formal binary product-19 full product targets + workspace strict Clippy on synced WZU_Server source; actual C1 issue6/PR7 at79d8a12; cold canary structured events and temporary user-systemd test",
+          "environment": "Explicit offline fixtures for formal tests; isolated existing authorized accounts/models for C1; one paused/intake-off cold canary restored to original",
+          "full_log": "docs/evidence/business-completion-01/product-19.log",
+          "business_assertions": "docs/business-completion-verification.json",
+          "actual_product_path": true,
+          "not_signed_off": true
+        },
+        {
+          "source_commit": "ce24642f765da98d4fd3484abfeb2afc08d12888",
+          "entry_and_command": "remote synchronized source: cargo test --locked --offline -p xharness-superagent --all-targets --features conformance; remote synchronized source: cargo clippy --locked --offline -p xharness-superagent --all-targets --features conformance -- -D warnings; remote synchronized source: cargo build --locked --offline -p xharness-superagent --bin xharness-superagent; remote built product_entry test binary --exact access::full_access_worker_reads_github_with_existing_service_account --ignored --nocapture; explicit existing-account/repository opt-in; service PATH/HOME/Git-config taken from the deployed process, binary SHA checked equal",
+          "environment": "WZU_Server; 319 offline product regressions plus one explicitly triggered actual Worker real GitHub read; RS-only update with current-state backup",
+          "full_log": "docs/evidence/full-access-worker-01/product-tests.log",
+          "business_assertions": "docs/full-access-worker-verification.json",
+          "actual_product_path": true,
+          "scope_note": "Explicit Worker permission/network/list-read subset; case remains in_progress; no complete PR/goal signoff."
+        },
+        {
+          "source_commit": "2527f03016b0e7d4dbae151f2189af609c75cb0e",
+          "entry_and_command": "remote cargo test --locked --offline -p xharness-superagent -p xharness-web -p xharness-coding-tools --all-targets --features xharness-superagent/conformance; remote cargo clippy --locked --offline -p xharness-superagent -p xharness-coding-tools -p xharness-web --all-targets --features xharness-superagent/conformance -- -D warnings; remote cargo build --locked --offline -p xharness-superagent --bin xharness-superagent; python3 scripts/superagent/test-fleet-control.py; remote formal product_entry test binary --exact search::live_deepseek_search_is_shared_with_glm_route_and_main_role --ignored --nocapture; explicitly authorized existing Search key; remote fleet-control.py stage/plan/upgrade/inventory/promote/incident against the private owned six-profile registry",
+          "environment": "WZU_Server; 382 selected Rust tests, 9 offline controller tests, two actual Search API role/route probes, one real busy deferral and subsequent RS upgrade",
+          "full_log": "docs/evidence/shared-search-fleet-01/rust-tests.log",
+          "business_assertions": "docs/shared-search-fleet-verification.json",
+          "actual_product_path": true,
+          "scope_note": "Shared search and serialized update subset; grouped case remains in_progress; no five-legacy migration or complete product signoff."
+        }
+      ]
+    }
+  ],
+  "implementation_progress": {
+    "status": "prepared_checkout_management_v2_cold_canary_and_real_offline_Rust_delivery_verified_full_business_incomplete",
+    "evidence": "docs/business-completion-verification.json",
+    "full_business_groups_passed": 5,
+    "business_groups_in_progress": 17,
+    "business_groups_not_run": 1,
+    "validation_environment": "offline_protocol_fixture",
+    "formal_entry_tests_passed": 61,
+    "application_tool_registrations": {
+      "main": 14,
+      "worker": 6,
+      "required_main": 14,
+      "required_worker": 6,
+      "all_names_registered_not_all_business_branches_complete": true,
+      "framework_skill_separate": true
+    },
+    "workspace_test_gate": "Product full targets + workspace strict Clippy pass; V100 legacy Feishu deployment2 failures retained; exact new CI pending",
+    "resource_backing_components": {
+      "evidence": "docs/business-resources-verification.json",
+      "sql_checks": 7,
+      "native_passive_history_checks": 2,
+      "read_tool_registered": true,
+      "new_business_cases_passed": 0
+    },
+    "read_tool": {
+      "evidence": "docs/business-read-verification.json",
+      "new_formal_entry_tests": 2,
+      "original_read_transport_cases": 19,
+      "original_standalone_transcript_cases": 5,
+      "new_rendering_cache_checks": 4,
+      "new_full_business_groups_passed": 0,
+      "full_source_and_tool_branches_complete": false
+    },
+    "configuration_tools": {
+      "evidence": "docs/business-configuration-verification.json",
+      "new_formal_entry_tests": 4,
+      "asset_component_checks": 2,
+      "registered": [
+        "orchestrator_settings_save",
+        "orchestrator_prompts_save"
+      ],
+      "full_api_ui_sync_restart_complete": false,
+      "new_full_business_groups_passed": 0
+    },
+    "policy_sync": {
+      "evidence": "docs/business-policy-sync-verification.json",
+      "registered": true,
+      "new_formal_test_declarations": 7,
+      "new_full_business_groups_passed": 0,
+      "full_feishu_source_complete": false
+    },
+    "feishu_text_source": {
+      "evidence": "docs/business-feishu-live-verification.json",
+      "new_formal_test_declarations": 6,
+      "reader_protocol_cases": 54,
+      "actual_product_text_event_loop": true,
+      "images_or_attachments_accepted": false,
+      "new_full_business_groups_passed": 0,
+      "full_source_complete": false
+    },
+    "text_production_readiness": {
+      "evidence": "docs/production-text-release-verification.json",
+      "new_formal_tests": 3,
+      "actual_source_account_only_preflight": true,
+      "production_cutover_done": false,
+      "cold_migration_permission_not_acceptance": true,
+      "full_product_complete": false
+    },
+    "production_fleet_replaced": true,
+    "worker_access_opt_in": {
+      "default": "workspace-write",
+      "explicit": "danger-full-access",
+      "verification": "docs/full-access-worker-verification.json",
+      "scope": "one authorized RS deployment; actual existing-account Worker list/network read; not all PR workflows",
+      "other_five_modified": false,
+      "generic_defaults_changed": false
+    },
+    "shared_search_and_fleet_update": {
+      "source_commit": "2527f03016b0e7d4dbae151f2189af609c75cb0e",
+      "verification": "docs/shared-search-fleet-verification.json",
+      "rs_canary_deployed": true,
+      "real_deepseek_search_passed": true,
+      "model_independent": true,
+      "other_five_legacy_not_migrated": true,
+      "automatic_updates_enabled": false,
+      "whole_business_signoff": false
+    },
+    "github_exploration": {
+      "source_commit": "5d850965dd5e39733937ed21ee7db79d12e104a9",
+      "verification": "docs/github-exploration-verification.json",
+      "scope": "new read-only product extension; model-directed small catalog plus existing Worker gh api fallback",
+      "new_protocol_tests": 8,
+      "new_formal_entry_tests": 3,
+      "selected_regression_passed": 407,
+      "selected_regression_ignored": 12,
+      "new_full_business_groups_passed": 0,
+      "production_deployed": true,
+      "historical_554_read_task_rebenchmarked": false,
+      "whole_business_signoff": false,
+      "production_verification": "docs/fleet-production-verification.json"
+    },
+    "fleet_production_rollout": {
+      "verification": "docs/fleet-production-verification.json",
+      "source_commit": "5d850965dd5e39733937ed21ee7db79d12e104a9",
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "rust_instances": 6,
+      "legacy_instances_remaining": 0,
+      "all_sources_ready": true,
+      "real_worker_cli_probes_passed": 6,
+      "team_prompt_and_model_routes_preserved": true,
+      "old_legacy_tickets_archived": 18,
+      "legacy_sessions_continued": false,
+      "new_full_business_groups_passed": 0,
+      "whole_business_signoff": false
+    }
+  },
+  "updated_at_utc": "2026-11-03T00:57:22Z",
+  "validation_note": "passed denotes the listed complete product scenario in an explicitly offline protocol environment, not real GitHub/model service approval, universal parity or release readiness. Unexecuted branches remain open."
+}

@@ -1,9 +1,9 @@
 Workers use bash with gh (and lark-cli when Feishu is configured) to retrieve ticket-relevant context beyond subscribed objects.
 Subscription controls push delivery, not CLI read access.
 The orchestrator uses orchestrator_eval_read for proactive assessment.
-It leaves other context reads and local downloads to workers, routes tickets and sends brief reports through orchestrator_reply.
+It can use github_discover/github_query for bounded repository reads; it leaves local downloads and unsupported context reads to workers, routes tickets and sends brief reports through orchestrator_reply.
 Do not alter remote state, authorization, or configuration while reading.
-Use gh for every GitHub call; specify --repo or an explicit API path.
+For GitHub context, use github_discover to inspect available read operations and their parameter schema on demand. Choose list/search first, inspect only relevant hits, and follow next_call while relevant; check incomplete_results, search_cap_reached and truncated_fields. Do not confuse a compact preview with full contents. Do not clone merely to read context; use Git checkout when editing/building is needed. For unsupported endpoints or full contents, Workers may explore gh api help and the official API documentation; specify --repo or an explicit API path. Never invent unsupported operations. These reads do not widen the watcher, grant write authority, or let Main run shell commands.
 The watcher remains limited to the deployment's repository; linked context may be read elsewhere.
 Feishu uses --as bot; unavailable content does not authorize switching to the user's identity.
 Start with lark-cli <domain> --help, schema <service.resource.method>, or skills read lark-im.

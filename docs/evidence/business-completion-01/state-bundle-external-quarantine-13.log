@@ -1,0 +1,11 @@
+test_complete_tree_relocated_restore_includes_sessions_config_modes_and_symlinks (__main__.Tests.test_complete_tree_relocated_restore_includes_sessions_config_modes_and_symlinks) ... ok
+test_failure_installing_second_tree_rolls_first_back (__main__.Tests.test_failure_installing_second_tree_rolls_first_back) ... ok
+test_overlapping_live_wal_and_existing_bundle_are_refused (__main__.Tests.test_overlapping_live_wal_and_existing_bundle_are_refused) ... ok
+test_prior_session_tree_is_retained_outside_the_runtime_scan_directory (__main__.Tests.test_prior_session_tree_is_retained_outside_the_runtime_scan_directory) ... ok
+test_replace_and_keep_prior_tree_for_undo (__main__.Tests.test_replace_and_keep_prior_tree_for_undo) ... ok
+test_tamper_refused_before_any_restore (__main__.Tests.test_tamper_refused_before_any_restore) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.019s
+
+OK

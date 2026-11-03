@@ -1,0 +1,23 @@
+   Compiling xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 18.78s
+     Running unittests src/lib.rs (<isolated-target>/debug/deps/xharness_superagent-9b820b8cd6a8dbe2)
+
+running 3 tests
+
+thread 'application::controls::tests::status_only_requests_an_idle_worker_and_retry_creates_a_new_assignment' (2347416) panicked at crates/xharness-superagent/src/application/controls/tests.rs:322:5:
+assertion `left == right` failed
+  left: String("The worker is not waiting; nothing was sent")
+ right: "Asked the worker for a status report"
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test application::controls::tests::status_only_requests_an_idle_worker_and_retry_creates_a_new_assignment ... FAILED
+test application::controls::tests::context_follow_unrelated_and_main_unsubscribe_never_transfer_ticket_authority ... ok
+test application::controls::tests::requeue_waits_for_worker_handback_and_sql_errors_never_become_absent_owners ... ok
+
+failures:
+
+failures:
+    application::controls::tests::status_only_requests_an_idle_worker_and_retry_creates_a_new_assignment
+
+test result: FAILED. 2 passed; 1 failed; 0 ignored; 0 measured; 23 filtered out; finished in 0.04s
+
+error: test failed, to rerun pass `-p xharness-superagent --lib`

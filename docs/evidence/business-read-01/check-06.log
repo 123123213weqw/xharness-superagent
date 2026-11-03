@@ -1,0 +1,186 @@
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.86s
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.62s
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 8.15s
+
+running 1 test
+test original_read_github_outputs_errors_and_exact_request_paths_match ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/github_read.rs (<owned-target>/debug/deps/github_read-f352f843aae55234)
+     Running tests/resource_rendering.rs (<owned-target>/debug/deps/resource_rendering-985fe297299dcc78)
+
+running 3 tests
+test source_snapshots_are_session_scoped_lru_and_replaced_without_size_leaks ... ok
+test delivered_input_renderer_keeps_text_context_and_historical_reopen_distinct ... ok
+test policy_inputs_explain_disabled_changed_accept_and_sender_limits ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+
+running 16 tests
+test check_is_read_only_for_external_services_and_releases_state_lease ...     Finished `test` profile [unoptimized + debuginfo] target(s) in 1.48s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-085c7a183df671db)
+ok
+test formal_crashed_worker_restarts_with_recovery_note_and_preserves_its_worktree ... ok
+test formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate ... ok
+test formal_idle_worker_gets_waiting_report_and_status_request_reaches_same_assignment ... ok
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+test formal_missing_recovery_workspace_preserves_input_and_exposes_delivery_error ... ok
+test formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history ... 
+thread '<unnamed>' (3034662) panicked at crates/xharness-superagent/tests/product_entry.rs:662:71:
+called `Option::unwrap()` on a `None` value
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread 'formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history' (3034661) panicked at crates/xharness-superagent/tests/product_entry.rs:1383:6:
+called `Result::unwrap()` on an `Err` value: Elapsed(())
+
+thread 'formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history' (3034661) panicked at crates/xharness-superagent/tests/product_entry.rs:184:25:
+called `Result::unwrap()` on an `Err` value: Any { .. }
+stack backtrace:
+   0:     0x6046996ab551 - std[c29fa2d9dbea2b0e]::backtrace_rs::backtrace::libunwind::trace
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/../../backtrace/src/backtrace/libunwind.rs:117:9
+   1:     0x6046996ab551 - std[c29fa2d9dbea2b0e]::backtrace_rs::backtrace::trace_unsynchronized::<std[c29fa2d9dbea2b0e]::sys::backtrace::_print_fmt::{closure#1}>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/../../backtrace/src/backtrace/mod.rs:66:14
+   2:     0x6046996ab551 - std[c29fa2d9dbea2b0e]::sys::backtrace::_print_fmt
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/sys/backtrace.rs:74:9
+   3:     0x6046996ab551 - <<std[c29fa2d9dbea2b0e]::sys::backtrace::BacktraceLock>::print::DisplayBacktrace as core[a9090a07a7fa7517]::fmt::Display>::fmt
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/sys/backtrace.rs:44:26
+   4:     0x6046996c19fa - <core[a9090a07a7fa7517]::fmt::rt::Argument>::fmt
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/fmt/rt.rs:152:76
+   5:     0x6046996c19fa - core[a9090a07a7fa7517]::fmt::write
+   6:     0x6046996b10dc - core[a9090a07a7fa7517]::io::write::default_write_fmt::<std[c29fa2d9dbea2b0e]::sys::stdio::unix::Stderr>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/io/write.rs:402:11
+   7:     0x6046996b10dc - <std[c29fa2d9dbea2b0e]::sys::stdio::unix::Stderr as core[a9090a07a7fa7517]::io::write::Write>::write_fmt
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/io/write.rs:335:13
+   8:     0x604699683766 - <std[c29fa2d9dbea2b0e]::sys::backtrace::BacktraceLock>::print
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/sys/backtrace.rs:47:9
+   9:     0x604699683766 - std[c29fa2d9dbea2b0e]::panicking::default_hook::{closure#0}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:292:27
+  10:     0x6046996a1f91 - std[c29fa2d9dbea2b0e]::panicking::default_hook
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:319:9
+  11:     0x6046996a22bb - std[c29fa2d9dbea2b0e]::panicking::panic_with_hook
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:815:13
+  12:     0x604699683812 - std[c29fa2d9dbea2b0e]::panicking::panic_handler::{closure#0}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:688:13
+  13:     0x60469967c139 - std[c29fa2d9dbea2b0e]::sys::backtrace::__rust_end_short_backtrace::<std[c29fa2d9dbea2b0e]::panicking::panic_handler::{closure#0}, !>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/sys/backtrace.rs:182:18
+  14:     0x6046996847ad - __rustc[9d087a5ab36ea756]::rust_begin_unwind
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:679:5
+  15:     0x6046996c221c - core[a9090a07a7fa7517]::panicking::panic_fmt
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panicking.rs:80:14
+  16:     0x6046996c1f72 - core[a9090a07a7fa7517]::result::unwrap_failed
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1871:5
+  17:     0x6046993d0387 - <core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::any::Any + core[a9090a07a7fa7517]::marker::Send>>>::unwrap
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1232:23
+  18:     0x6046993d0387 - <product_entry[bc6668d7b59dbdfc]::Server as core[a9090a07a7fa7517]::ops::drop::Drop>::drop
+                               at <owned-source>/crates/xharness-superagent/tests/product_entry.rs:184:25
+  19:     0x6046993cf343 - core[a9090a07a7fa7517]::ptr::drop_glue::<product_entry[bc6668d7b59dbdfc]::Server>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ptr/mod.rs:847:1
+  20:     0x6046993bc9ff - product_entry[bc6668d7b59dbdfc]::formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history::{closure#0}
+                               at <owned-source>/crates/xharness-superagent/tests/product_entry.rs:1533:1
+  21:     0x60469931f962 - <core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>> as core[a9090a07a7fa7517]::future::future::Future>::poll
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+  22:     0x60469931f9dd - <core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>> as core[a9090a07a7fa7517]::future::future::Future>::poll
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+  23:     0x60469938651d - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on::<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:70
+  24:     0x604699386455 - tokio[82ff675e3ed024ce]::task::coop::with_budget::<core[a9090a07a7fa7517]::task::poll::Poll<()>, <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/task/coop/mod.rs:167:5
+  25:     0x604699386455 - tokio[82ff675e3ed024ce]::task::coop::budget::<core[a9090a07a7fa7517]::task::poll::Poll<()>, <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/task/coop/mod.rs:133:5
+  26:     0x604699386455 - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on::<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:25
+  27:     0x604699383a42 - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Context>::enter::<core[a9090a07a7fa7517]::task::poll::Poll<()>, <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:488:19
+  28:     0x60469938590d - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on::<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:829:44
+  29:     0x604699384ba4 - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}, core[a9090a07a7fa7517]::option::Option<()>>::{closure#0}
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:68
+  30:     0x604699345e4b - <tokio[82ff675e3ed024ce]::runtime::context::scoped::Scoped<tokio[82ff675e3ed024ce]::runtime::scheduler::Context>>::set::<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}, core[a9090a07a7fa7517]::option::Option<()>>::{closure#0}, (alloc[12ca63220423dfc2]::boxed::Box<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Core>, core[a9090a07a7fa7517]::option::Option<()>)>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/context/scoped.rs:40:9
+  31:     0x60469937cd39 - tokio[82ff675e3ed024ce]::runtime::context::set_scheduler::<(alloc[12ca63220423dfc2]::boxed::Box<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Core>, core[a9090a07a7fa7517]::option::Option<()>), <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}, core[a9090a07a7fa7517]::option::Option<()>>::{closure#0}>::{closure#0}
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/context.rs:187:38
+  32:     0x6046993dcc7f - <std[c29fa2d9dbea2b0e]::thread::local::LocalKey<tokio[82ff675e3ed024ce]::runtime::context::Context>>::try_with::<tokio[82ff675e3ed024ce]::runtime::context::set_scheduler<(alloc[12ca63220423dfc2]::boxed::Box<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Core>, core[a9090a07a7fa7517]::option::Option<()>), <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}, core[a9090a07a7fa7517]::option::Option<()>>::{closure#0}>::{closure#0}, (alloc[12ca63220423dfc2]::boxed::Box<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Core>, core[a9090a07a7fa7517]::option::Option<()>)>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:463:12
+  33:     0x6046993dc82e - <std[c29fa2d9dbea2b0e]::thread::local::LocalKey<tokio[82ff675e3ed024ce]::runtime::context::Context>>::with::<tokio[82ff675e3ed024ce]::runtime::context::set_scheduler<(alloc[12ca63220423dfc2]::boxed::Box<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Core>, core[a9090a07a7fa7517]::option::Option<()>), <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}, core[a9090a07a7fa7517]::option::Option<()>>::{closure#0}>::{closure#0}, (alloc[12ca63220423dfc2]::boxed::Box<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Core>, core[a9090a07a7fa7517]::option::Option<()>)>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:427:20
+  34:     0x60469937cbed - tokio[82ff675e3ed024ce]::runtime::context::set_scheduler::<(alloc[12ca63220423dfc2]::boxed::Box<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Core>, core[a9090a07a7fa7517]::option::Option<()>), <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}, core[a9090a07a7fa7517]::option::Option<()>>::{closure#0}>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/context.rs:187:17
+  35:     0x604699384190 - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}, core[a9090a07a7fa7517]::option::Option<()>>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:27
+  36:     0x604699384486 - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on::<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:817:24
+  37:     0x604699384a50 - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CurrentThread>::block_on::<core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>::{closure#0}
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:218:33
+  38:     0x604699349328 - tokio[82ff675e3ed024ce]::runtime::context::runtime::enter_runtime::<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CurrentThread>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>::{closure#0}, ()>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/context/runtime.rs:65:16
+  39:     0x604699383604 - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CurrentThread>::block_on::<core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:206:9
+  40:     0x6046993fb0ef - <tokio[82ff675e3ed024ce]::runtime::runtime::Runtime>::block_on_inner::<core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/runtime.rs:374:52
+  41:     0x6046993fb23b - <tokio[82ff675e3ed024ce]::runtime::runtime::Runtime>::block_on::<core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/runtime.rs:343:18
+  42:     0x604699338841 - product_entry[bc6668d7b59dbdfc]::formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history
+                               at <owned-source>/crates/xharness-superagent/tests/product_entry.rs:1532:6
+  43:     0x6046993a56c7 - product_entry[bc6668d7b59dbdfc]::formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history::{closure#0}
+                               at <owned-source>/crates/xharness-superagent/tests/product_entry.rs:1367:99
+  44:     0x6046993d19e6 - <product_entry[bc6668d7b59dbdfc]::formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history::{closure#0} as core[a9090a07a7fa7517]::ops::function::FnOnce<()>>::call_once
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+  45:     0x60469957735b - <fn() -> core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::string::String> as core[a9090a07a7fa7517]::ops::function::FnOnce<()>>::call_once
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+  46:     0x60469957735b - test[de0ab365ed256f3]::__rust_begin_short_backtrace::<core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::string::String>, fn() -> core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::string::String>>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/test/src/lib.rs:733:18
+  47:     0x6046995849c5 - test[de0ab365ed256f3]::run_test_in_process::{closure#0}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/test/src/lib.rs:756:74
+  48:     0x6046995849c5 - <core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<test[de0ab365ed256f3]::run_test_in_process::{closure#0}> as core[a9090a07a7fa7517]::ops::function::FnOnce<()>>::call_once
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panic/unwind_safe.rs:275:9
+  49:     0x6046995849c5 - std[c29fa2d9dbea2b0e]::panicking::catch_unwind::do_call::<core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<test[de0ab365ed256f3]::run_test_in_process::{closure#0}>, core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::string::String>>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:576:43
+  50:     0x6046995849c5 - std[c29fa2d9dbea2b0e]::panicking::catch_unwind::<core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::string::String>, core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<test[de0ab365ed256f3]::run_test_in_process::{closure#0}>>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:544:19
+  51:     0x6046995849c5 - std[c29fa2d9dbea2b0e]::panic::catch_unwind::<core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<test[de0ab365ed256f3]::run_test_in_process::{closure#0}>, core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::string::String>>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panic.rs:359:14
+  52:     0x6046995849c5 - test[de0ab365ed256f3]::run_test_in_process
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/test/src/lib.rs:756:27
+  53:     0x6046995849c5 - test[de0ab365ed256f3]::run_test::{closure#0}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/test/src/lib.rs:677:43
+  54:     0x60469957f384 - test[de0ab365ed256f3]::run_test::{closure#1}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/test/src/lib.rs:707:41
+  55:     0x60469957f384 - std[c29fa2d9dbea2b0e]::sys::backtrace::__rust_begin_short_backtrace::<test[de0ab365ed256f3]::run_test::{closure#1}, ()>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/sys/backtrace.rs:166:18
+  56:     0x604699587b22 - std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked::<test[de0ab365ed256f3]::run_test::{closure#1}, ()>::{closure#1}::{closure#0}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/lifecycle.rs:70:13
+  57:     0x604699587b22 - <core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked<test[de0ab365ed256f3]::run_test::{closure#1}, ()>::{closure#1}::{closure#0}> as core[a9090a07a7fa7517]::ops::function::FnOnce<()>>::call_once
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panic/unwind_safe.rs:275:9
+  58:     0x604699587b22 - std[c29fa2d9dbea2b0e]::panicking::catch_unwind::do_call::<core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked<test[de0ab365ed256f3]::run_test::{closure#1}, ()>::{closure#1}::{closure#0}>, ()>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:576:43
+  59:     0x604699587b22 - std[c29fa2d9dbea2b0e]::panicking::catch_unwind::<(), core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked<test[de0ab365ed256f3]::run_test::{closure#1}, ()>::{closure#1}::{closure#0}>>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:544:19
+  60:     0x604699587b22 - std[c29fa2d9dbea2b0e]::panic::catch_unwind::<core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked<test[de0ab365ed256f3]::run_test::{closure#1}, ()>::{closure#1}::{closure#0}>, ()>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panic.rs:359:14
+  61:     0x604699587b22 - std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked::<test[de0ab365ed256f3]::run_test::{closure#1}, ()>::{closure#1}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/lifecycle.rs:68:26
+  62:     0x604699587b22 - <std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked<test[de0ab365ed256f3]::run_test::{closure#1}, ()>::{closure#1} as core[a9090a07a7fa7517]::ops::function::FnOnce<()>>::call_once::{shim:vtable#0}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+  63:     0x6046996a9fd9 - <alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::ops::function::FnOnce<(), Output = ()> + core[a9090a07a7fa7517]::marker::Send> as core[a9090a07a7fa7517]::ops::function::FnOnce<()>>::call_once
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/alloc/src/boxed.rs:2320:9
+  64:     0x6046996a9fd9 - <std[c29fa2d9dbea2b0e]::sys::thread::unix::Thread>::new::thread_start
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/sys/thread/unix.rs:123:17
+  65:     0x79a20fc94a83 - start_thread
+                               at ./nptl/pthread_create.c:442:8
+  66:     0x79a20fd268e0 - clone3
+                               at ./misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:81:0
+  67:                0x0 - <unknown>
+
+thread 'formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history' (3034661) panicked at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panicking.rs:233:5:
+panic in a destructor during cleanup
+thread caused non-unwinding panic. aborting.
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`
+
+Caused by:
+  process didn't exit successfully: `<owned-target>/debug/deps/product_entry-085c7a183df671db --test-threads=1 --nocapture` (signal: 6, SIGABRT: process abort signal)

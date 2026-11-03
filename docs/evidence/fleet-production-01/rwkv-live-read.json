@@ -1,0 +1,13 @@
+{
+  "instance": "rwkv",
+  "liveBranchApi": true,
+  "liveLiteralSearchApi": true,
+  "searchIncomplete": false,
+  "realWorkerCliRead": true,
+  "reasoningModel": "loopback fixture only; no paid inference",
+  "realExternalWrites": false,
+  "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+  "probeSha256": "03dabb36298f49805cee0b9471fd91eea4363edae5152ff0b46e318a65aecf64",
+  "repositorySha256": "b35d3b6923a07524986d0e9236eb4d0545d9a4cb2cfe11ff2f3eafa905f88bee",
+  "existingAccountVerified": true
+}

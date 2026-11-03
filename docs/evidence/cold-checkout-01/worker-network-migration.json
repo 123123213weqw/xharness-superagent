@@ -1,0 +1,11 @@
+{
+  "workerGitNetworkOnlyIncludeAdded": true,
+  "oldSettingsPreservedAsExactPrefix": true,
+  "beforeSha256": "77b900ab3220596c166a7cf65793ae8f3915e9fcd090e6df29408db8499bc514",
+  "afterSha256": "01af9b0fa41f4412a7ec74b924a11726f201d4857125713b885f6cc0b533cd10",
+  "gitNetworkKeys": [
+    "http.https://github.com.proxy",
+    "http.version"
+  ],
+  "otherProfilesUnchanged": true
+}

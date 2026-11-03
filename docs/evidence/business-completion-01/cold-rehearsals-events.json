@@ -1,0 +1,276 @@
+[
+  {
+    "run": "cold-rehearsal-1793604406725683690",
+    "events": [
+      {
+        "stage": "rehearsal_failed",
+        "error": "RuntimeError: Command failed: <operator-home>/bin/superagent-main; exit=1"
+      },
+      {
+        "stage": "finished",
+        "passed": false,
+        "production_cutover": false,
+        "other_profiles_modified": false,
+        "failure": "RuntimeError: Command failed: <operator-home>/bin/superagent-main; exit=1",
+        "private_directory": "<owned-acceptance>/cold-rehearsal-1793604406725683690"
+      }
+    ]
+  },
+  {
+    "run": "cold-rehearsal-1793604792732561222",
+    "events": [
+      {
+        "stage": "preflight",
+        "profile": "superagent-main",
+        "old_pid": 405363,
+        "active_workers": 0
+      },
+      {
+        "stage": "candidate_fixed",
+        "sha256": "d899db21bf60dcc62f06641abefa972ba4c8a10f7e7bfbb94172e591744e5c79",
+        "import_sha256": "b1a167108d9a1141376bd55ebe17910dba80784059a69193d5d0cfa4be4c452e"
+      },
+      {
+        "stage": "rehearsal_failed",
+        "error": "AssertionError: Old process tree still alive"
+      },
+      {
+        "stage": "original_runtime_restored",
+        "profile": "superagent-main",
+        "ready": true,
+        "paused": false,
+        "restored_full_bundle": false
+      },
+      {
+        "stage": "finished",
+        "passed": false,
+        "production_cutover": false,
+        "other_profiles_modified": false,
+        "failure": "AssertionError: Old process tree still alive",
+        "private_directory": "<owned-acceptance>/cold-rehearsal-1793604792732561222"
+      }
+    ]
+  },
+  {
+    "run": "cold-rehearsal-1793605070340741301",
+    "events": [
+      {
+        "stage": "preflight",
+        "profile": "superagent-main",
+        "old_pid": 2762597,
+        "active_workers": 0
+      },
+      {
+        "stage": "candidate_fixed",
+        "sha256": "d899db21bf60dcc62f06641abefa972ba4c8a10f7e7bfbb94172e591744e5c79",
+        "import_sha256": "b1a167108d9a1141376bd55ebe17910dba80784059a69193d5d0cfa4be4c452e"
+      },
+      {
+        "stage": "old_profile_joined",
+        "joined_processes": 3,
+        "manual_stop_respected": true
+      },
+      {
+        "stage": "full_bundle_created",
+        "objects": 8,
+        "files": 11000,
+        "verified": true
+      },
+      {
+        "stage": "full_bundle_restored_copy",
+        "restored": 8,
+        "verified": true,
+        "prior_trees_retained": []
+      },
+      {
+        "stage": "cold_import",
+        "continuedLegacySessions": false,
+        "counts": {
+          "decision": 133,
+          "disposition": 135,
+          "kv": 20,
+          "outbox": 7,
+          "thread": 41,
+          "trigger": 135
+        },
+        "droppedLegacyTickets": 3,
+        "installed": true,
+        "outstandingEffects": 0,
+        "sourceSha256": "7cca1f2d8b1b4cb6c261aa5a1accfa748a24a607f36487c688d156cee23dbca3"
+      },
+      {
+        "stage": "formal_candidate_check",
+        "summary": {
+          "state": "checked",
+          "tickets": 0,
+          "pendingEffects": 0,
+          "github": null,
+          "feishu": {
+            "feishu": {
+              "state": "starting",
+              "detail": ""
+            },
+            "history": {
+              "state": "starting",
+              "detail": ""
+            }
+          }
+        }
+      },
+      {
+        "stage": "candidate_owns_original_port",
+        "pid": 2787567,
+        "read_endpoints": 7,
+        "source_intake_enabled": false,
+        "model_requests": 0
+      },
+      {
+        "stage": "controlled_restart_recovered",
+        "same_process": true
+      },
+      {
+        "stage": "candidate_shutdown_joined",
+        "exit": 0,
+        "joined_processes": 1
+      },
+      {
+        "stage": "rehearsal_failed",
+        "error": "ValueError: WAL sidecar present; use a fully joined/checkpointed state"
+      },
+      {
+        "stage": "original_restore_error",
+        "error": "WAL sidecar present; use a fully joined/checkpointed state",
+        "manual_recovery_directory": "<owned-acceptance>/cold-rehearsal-1793605070340741301"
+      },
+      {
+        "stage": "finished",
+        "passed": false,
+        "production_cutover": false,
+        "other_profiles_modified": false,
+        "failure": "ValueError: WAL sidecar present; use a fully joined/checkpointed state",
+        "private_directory": "<owned-acceptance>/cold-rehearsal-1793605070340741301"
+      }
+    ]
+  },
+  {
+    "run": "cold-rehearsal-1793605621571096377",
+    "events": [
+      {
+        "stage": "preflight",
+        "profile": "superagent-main",
+        "old_pid": 2823677,
+        "active_workers": 0
+      },
+      {
+        "stage": "candidate_fixed",
+        "sha256": "0ec364f4bce5436d26654fe330b59fb33137b90b0f4c1c0d69833dba7e86ef25",
+        "import_sha256": "180a78ef062590c7414102f768633b771af41a95b970e2afe1df9c6ee3bec6e3"
+      },
+      {
+        "stage": "old_tree_bounded_cleanup",
+        "signal": 15,
+        "verified_owned_targets": [
+          2824306
+        ]
+      },
+      {
+        "stage": "old_profile_joined",
+        "joined_processes": 4,
+        "manual_stop_respected": true
+      },
+      {
+        "stage": "full_bundle_created",
+        "objects": 8,
+        "files": 11000,
+        "verified": true
+      },
+      {
+        "stage": "full_bundle_restored_copy",
+        "restored": 8,
+        "verified": true,
+        "prior_trees_retained": []
+      },
+      {
+        "stage": "cold_import",
+        "continuedLegacySessions": false,
+        "counts": {
+          "decision": 133,
+          "disposition": 135,
+          "kv": 20,
+          "outbox": 7,
+          "thread": 41,
+          "trigger": 135
+        },
+        "droppedLegacyTickets": 3,
+        "installed": true,
+        "outstandingEffects": 0,
+        "sourceSha256": "ce2e598bbe445452ad131e504e06158309884c0344caac6c681a91d739c82a66"
+      },
+      {
+        "stage": "formal_candidate_check",
+        "summary": {
+          "state": "checked",
+          "tickets": 0,
+          "pendingEffects": 0,
+          "github": null,
+          "feishu": {
+            "feishu": {
+              "state": "starting",
+              "detail": ""
+            },
+            "history": {
+              "state": "starting",
+              "detail": ""
+            }
+          }
+        }
+      },
+      {
+        "stage": "candidate_owns_original_port",
+        "pid": 2837524,
+        "read_endpoints": 7,
+        "source_intake_enabled": false,
+        "model_requests": 0
+      },
+      {
+        "stage": "controlled_restart_recovered",
+        "same_process": true
+      },
+      {
+        "stage": "candidate_shutdown_joined",
+        "exit": 0,
+        "joined_processes": 1
+      },
+      {
+        "stage": "full_original_restore_verified",
+        "restored": 8,
+        "verified": true,
+        "prior_trees_retained": [
+          "<operator-home>/agents/.xharness-rollback-01a1923a-5b0a-79a0-9675-4638cf37b624/.xharness-prior-2833260-1793605678371214393/object-0",
+          "<operator-home>/agents/.xharness-rollback-01a1923a-5b0a-79a0-9675-4638cf37b624/.xharness-prior-2833260-1793605678371214393/object-1",
+          "<operator-home>/agents/.xharness-rollback-01a1923a-5b0a-79a0-9675-4638cf37b624/.xharness-prior-2833260-1793605678371214393/object-2",
+          "<operator-home>/agents/.xharness-rollback-01a1923a-5b0a-79a0-9675-4638cf37b624/.xharness-prior-2833260-1793605678371214393/object-3",
+          "<operator-home>/agents/.xharness-rollback-01a1923a-5b0a-79a0-9675-4638cf37b624/.xharness-prior-2833260-1793605678371214393/object-4",
+          "<operator-home>/agents/.xharness-rollback-01a1923a-5b0a-79a0-9675-4638cf37b624/.xharness-prior-2833260-1793605678371214393/object-5",
+          "<operator-home>/agents/.xharness-rollback-01a1923a-5b0a-79a0-9675-4638cf37b624/.xharness-prior-2833260-1793605678371214393/object-6",
+          "<operator-home>/agents/.xharness-rollback-01a1923a-5b0a-79a0-9675-4638cf37b624/.xharness-prior-2833260-1793605678371214393/object-7"
+        ]
+      },
+      {
+        "stage": "original_runtime_restored",
+        "profile": "superagent-main",
+        "ready": true,
+        "paused": false,
+        "restored_full_bundle": true
+      },
+      {
+        "stage": "finished",
+        "passed": true,
+        "production_cutover": false,
+        "other_profiles_modified": false,
+        "failure": null,
+        "private_directory": "<owned-acceptance>/cold-rehearsal-1793605621571096377"
+      }
+    ]
+  }
+]

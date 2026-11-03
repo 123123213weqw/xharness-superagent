@@ -41,6 +41,7 @@ use xharness_session::{
 use xharness_session_jsonl::{BufferedJsonlSessionStore, JsonlSessionStore};
 
 mod delivery;
+mod inspection;
 mod persistence;
 pub mod prompts;
 pub use delivery::NativeDelivery;
@@ -72,6 +73,23 @@ impl Role {
         match self {
             Self::Orchestrator => "orchestrator",
             Self::Worker => "worker",
+        }
+    }
+}
+/// Operator-owned Worker policy. Never selected by a tool or Source payload.
+/// Generic NativeSessions retain their existing durable permission behavior.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, serde::Deserialize, serde::Serialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum WorkerAccess {
+    #[default]
+    WorkspaceWrite,
+    DangerFullAccess,
+}
+impl WorkerAccess {
+    pub const fn permission(self) -> PermissionPreset {
+        match self {
+            Self::WorkspaceWrite => PermissionPreset::WorkspaceWrite,
+            Self::DangerFullAccess => PermissionPreset::DangerFullAccess,
         }
     }
 }
@@ -394,6 +412,7 @@ pub struct NativeSessions {
     gate: Arc<Gate>,
     tools: Arc<ScopedTools>,
     routes: RoleRoutes,
+    worker_access: Option<WorkerAccess>,
     owner: Arc<()>,
     warm_authority: StdMutex<WarmAuthorityEpoch>,
     restoring: Mutex<()>,
@@ -404,6 +423,12 @@ pub struct NativeSessions {
     stopping: Mutex<Option<Shared<BoxFuture<'static, AgentShutdownReport>>>>,
 }
 impl NativeSessions {
+    /// Trusted product composition only; leaves Orchestrator and global Host
+    /// defaults unchanged. Applied durably before a Worker can admit work.
+    pub fn with_worker_access(mut self, access: WorkerAccess) -> Self {
+        self.worker_access = Some(access);
+        self
+    }
     fn runtime(&self) -> Result<Arc<DurableLoopAgentRuntime>> {
         self.runtime
             .lock()
@@ -555,6 +580,7 @@ impl NativeSessions {
             gate,
             tools,
             routes,
+            worker_access: None,
             owner: Arc::new(()),
             warm_authority: StdMutex::new(WarmAuthorityEpoch {
                 generation: Arc::new(()),
@@ -638,6 +664,23 @@ impl NativeSessions {
     /// `cwd` and logical identity are supplied only by trusted product setup or
     /// accepted Ticket allocation, not forwarded from model/API payloads.
     pub async fn ensure(&self, logical: &str, role: Role, cwd: &Path) -> Result<ManagedSession> {
+        self.ensure_with_initial_route(logical, role, cwd, self.routes.get(role))
+            .await
+    }
+    /// Validate against the installed registry without calling a provider or
+    /// changing a global/session selection. Setup owns the explicit registry.
+    pub fn supports_route(&self, route: &ModelRoute) -> Result<bool> {
+        Ok(self.runtime()?.can_route(route))
+    }
+    /// A new session takes the current saved role default. Existing durable or
+    /// manual selections remain authoritative, including across restart/retry.
+    pub async fn ensure_with_initial_route(
+        &self,
+        logical: &str,
+        role: Role,
+        cwd: &Path,
+        initial: &ModelRoute,
+    ) -> Result<ManagedSession> {
         if self.gate.closing.load(Ordering::Acquire) {
             return Err(failure("Orchestrator is stopping"));
         }
@@ -706,7 +749,10 @@ impl NativeSessions {
                 EventData::RequestHeader { .. } | EventData::SessionModelSelected { .. }
             )
         }) {
-            let route = self.routes.get(role);
+            let route = initial;
+            if !self.supports_route(route)? {
+                return Err(failure("managed role model is unavailable"));
+            }
             self.store
                 .append(
                     &session.header().id,
@@ -729,6 +775,47 @@ impl NativeSessions {
         }
         if session.header().cwd.as_deref() != Some(&cwd) {
             return Err(failure("managed Session workspace conflict"));
+        }
+        if let (Role::Worker, Some(access)) = (role, self.worker_access) {
+            let permission = access.permission();
+            if selected_permission(&session)? != permission {
+                self.store
+                    .append(
+                        &session.header().id,
+                        session.revision(),
+                        vec![
+                            EventData::PermissionPreset {
+                                preset: permission.as_str().into(),
+                            }
+                            .into(),
+                            EventData::SandboxMode {
+                                mode: if access == WorkerAccess::DangerFullAccess {
+                                    SessionSandboxMode::DangerFullAccess
+                                } else {
+                                    SessionSandboxMode::WorkspaceWrite
+                                },
+                                source: None,
+                            }
+                            .into(),
+                            EventData::ApprovalPolicy {
+                                policy: if access == WorkerAccess::DangerFullAccess {
+                                    ApprovalPolicy::Never
+                                } else {
+                                    ApprovalPolicy::Ask
+                                },
+                                source: None,
+                            }
+                            .into(),
+                        ],
+                    )
+                    .await
+                    .map_err(failure)?;
+                self.store
+                    .flush(&session.header().id)
+                    .await
+                    .map_err(failure)?;
+                session = self.journal(&binding).await?;
+            }
         }
         self.tools
             .bindings
@@ -1187,11 +1274,31 @@ impl NativeSessions {
         request_id: &str,
         prompt: Option<PromptAssembly>,
     ) -> Result<Option<Box<dyn RunningTurn>>> {
+        self.wake_id(binding, prompted_id(request_id)?, prompt)
+            .await
+    }
+    /// Observe/wake an input admitted by NativeDelivery, whose protocol uses
+    /// the original request ID rather than the direct prompt API's hashed ID.
+    /// Keep the two namespaces explicit; never re-admit text to repair a miss.
+    pub async fn wake_delivery(
+        &self,
+        binding: &ManagedSession,
+        request_id: &str,
+        prompt: Option<PromptAssembly>,
+    ) -> Result<Option<Box<dyn RunningTurn>>> {
+        self.wake_id(binding, crate::delivery::message_id(request_id), prompt)
+            .await
+    }
+    async fn wake_id(
+        &self,
+        binding: &ManagedSession,
+        id: String,
+        prompt: Option<PromptAssembly>,
+    ) -> Result<Option<Box<dyn RunningTurn>>> {
         self.gate.require_active().map_err(failure)?;
         let _guard = self.lock_session(&binding.native_id()).await;
         let journal = self.journal(binding).await?;
         let inbox = InboxProjection::from_session(&journal).map_err(failure)?;
-        let id = prompted_id(request_id)?;
         let pending = Self::pending_delivery(&journal, &id)?;
         if let Some(input) = pending {
             let runnable = inbox.next_turn().iter().any(|queued| queued.id == input.id)

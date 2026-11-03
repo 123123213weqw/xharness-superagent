@@ -1,0 +1,16 @@
+{
+  "scope": "Six original instances; read-only online SQLite backups and independent restored copies, NOT a full quiesced rollback",
+  "instances": 6,
+  "all_source_handles_read_only": true,
+  "all_backup_and_restored_bytes_equal": true,
+  "all_nine_table_digests_equal": true,
+  "integrity_check": "6/6 ok",
+  "total_backup_bytes": 1871872,
+  "source_services_or_settings_modified": false,
+  "paused_or_cut_over": false,
+  "remaining": [
+    "Quiesced Native/session/worktree/config snapshots",
+    "Cold-cut cursor/receipt boundary",
+    "New supervisor restart and complete revert exercise"
+  ]
+}

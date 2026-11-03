@@ -1,0 +1,42 @@
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.12s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-02e93665690e9e2a)
+
+running 4 tests
+test checkout::formal_checkout_changed_base_is_visible_failure_and_never_launches_worker ... Initialized empty Git repository in /tmp/superagent-entry-3053069-0/template/.git/
+[main (root-commit) b3b21ae] fixture
+ 2 files changed, 5 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 build.py
+ok
+test checkout::formal_checkout_interrupt_joins_clone_and_does_not_publish_partial_workspace ... Initialized empty Git repository in /tmp/superagent-entry-3053069-1/template/.git/
+[main (root-commit) 8f6115f] fixture
+ 2 files changed, 5 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 build.py
+ok
+test checkout::formal_checkout_verifies_git_runs_prepare_and_real_build_then_reopens_without_reclone ... Initialized empty Git repository in /tmp/superagent-entry-3053069-2/template/.git/
+[main (root-commit) be09bef] fixture
+ 2 files changed, 5 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 build.py
+FAILED
+test checkout::formal_cold_import_replays_source_without_duplicate_ticket_tool_or_sent_reply ... ok
+
+failures:
+
+---- checkout::formal_checkout_verifies_git_runs_prepare_and_real_build_then_reopens_without_reclone stdout ----
+
+thread 'checkout::formal_checkout_verifies_git_runs_prepare_and_real_build_then_reopens_without_reclone' (3053419) panicked at crates/xharness-superagent/tests/product_entry/checkout.rs:101:5:
+assertion `left == right` failed: inspect must reach the admitted Worker: [Object {"content": String("{\"results\":[{\"decision\":\"accept\",\"kind\":\"accept\",\"reason\":\"Explicit request from an allowed sender routed by the orchestrator\",\"ticket\":{\"preview\":\"\",\"read\":\"ticket/8a0b91d4e2c3fcd5be48cae73296b238\",\"state\":\"working/queued\",\"strength\":\"explicit\",\"ticket_id\":\"8a0b91d4e2c3fcd5be48cae73296b238\",\"title\":\"Create result file\"},\"trigger_id\":\"5a645e03afb5e8d9e408e1d7f2032ed6\"}]}"), "role": String("tool"), "tool_call_id": String("call-0")}, Object {"content": String("{\"content\":{\"execution\":{\"mode\":\"shell\",\"program\":\"/bin/bash\",\"shell\":\"Bash\"},\"exit_code\":0,\"kind\":\"foreground\",\"signal\":null,\"stderr\":\"\",\"stderr_bytes\":0,\"stderr_omitted_bytes\":0,\"stderr_truncated\":false,\"stdout\":\"?? seed.txt\\nbe09befb14378063fe8491f95b8d34971e5f39e2\\nCHECKOUT_BUILD_OK\\n\",\"stdout_bytes\":71,\"stdout_omitted_bytes\":0,\"stdout_truncated\":false,\"success\":true,\"termination\":\"exited\"},\"error\":\"\",\"ok\":true,\"truncated\":false}"), "role": String("tool"), "tool_call_id": String("call-2")}, Object {"content": String("{\"content\":{\"execution\":{\"mode\":\"shell\",\"program\":\"/bin/bash\",\"shell\":\"Bash\"},\"exit_code\":0,\"kind\":\"foreground\",\"signal\":null,\"stderr\":\"\",\"stderr_bytes\":0,\"stderr_omitted_bytes\":0,\"stderr_truncated\":false,\"stdout\":\"?? seed.txt\\nbe09befb14378063fe8491f95b8d34971e5f39e2\\nCHECKOUT_BUILD_OK\\n\",\"stdout_bytes\":71,\"stdout_omitted_bytes\":0,\"stdout_truncated\":false,\"success\":true,\"termination\":\"exited\"},\"error\":\"\",\"ok\":true,\"truncated\":false}"), "role": String("tool"), "tool_call_id": String("call-2")}, Object {"content": String("{\"content\":\"{\\\"baseBranch\\\":\\\"main\\\",\\\"baseSha\\\":\\\"be09befb14378063fe8491f95b8d34971e5f39e2\\\",\\\"baseTree\\\":\\\"7a9ea139d07975fb8eafafd078a63631c713fdc0\\\",\\\"checkout\\\":true,\\\"deliveryBranch\\\":\\\"xharness/ticket-8a0b91d4e2c3fcd5be48cae73296b238/assignment-d397bec848aa40dd4705bc9fc1b9d5b5/create-result-8a0b91d4e2c3\\\",\\\"repository\\\":\\\"owner/repo\\\",\\\"rootEntries\\\":[{\\\"mode\\\":\\\"100644\\\",\\\"path\\\":\\\"README.md\\\",\\\"sha\\\":\\\"7bc8fbf42da8a040715cced2b532904f6c5bdc07\\\",\\\"type\\\":\\\"blob\\\"},{\\\"mode\\\":\\\"100644\\\",\\\"path\\\":\\\"build.py\\\",\\\"sha\\\":\\\"ac491dbd4826eac50613576a9dab8dfc824ab978\\\",\\\"type\\\":\\\"blob\\\"}]}\",\"error\":\"\",\"ok\":true,\"truncated\":false}"), "role": String("tool"), "tool_call_id": String("call-3")}, Object {"content": String("{\"content\":{\"execution\":{\"mode\":\"shell\",\"program\":\"/bin/bash\",\"shell\":\"Bash\"},\"exit_code\":0,\"kind\":\"foreground\",\"signal\":null,\"stderr\":\"\",\"stderr_bytes\":0,\"stderr_omitted_bytes\":0,\"stderr_truncated\":false,\"stdout\":\"?? seed.txt\\nbe09befb14378063fe8491f95b8d34971e5f39e2\\nCHECKOUT_BUILD_OK\\n\",\"stdout_bytes\":71,\"stdout_omitted_bytes\":0,\"stdout_truncated\":false,\"success\":true,\"termination\":\"exited\"},\"error\":\"\",\"ok\":true,\"truncated\":false}"), "role": String("tool"), "tool_call_id": String("call-2")}, Object {"content": String("{\"content\":\"{\\\"baseBranch\\\":\\\"main\\\",\\\"baseSha\\\":\\\"be09befb14378063fe8491f95b8d34971e5f39e2\\\",\\\"baseTree\\\":\\\"7a9ea139d07975fb8eafafd078a63631c713fdc0\\\",\\\"checkout\\\":true,\\\"deliveryBranch\\\":\\\"xharness/ticket-8a0b91d4e2c3fcd5be48cae73296b238/assignment-d397bec848aa40dd4705bc9fc1b9d5b5/create-result-8a0b91d4e2c3\\\",\\\"repository\\\":\\\"owner/repo\\\",\\\"rootEntries\\\":[{\\\"mode\\\":\\\"100644\\\",\\\"path\\\":\\\"README.md\\\",\\\"sha\\\":\\\"7bc8fbf42da8a040715cced2b532904f6c5bdc07\\\",\\\"type\\\":\\\"blob\\\"},{\\\"mode\\\":\\\"100644\\\",\\\"path\\\":\\\"build.py\\\",\\\"sha\\\":\\\"ac491dbd4826eac50613576a9dab8dfc824ab978\\\",\\\"type\\\":\\\"blob\\\"}]}\",\"error\":\"\",\"ok\":true,\"truncated\":false}"), "role": String("tool"), "tool_call_id": String("call-3")}, Object {"content": String("{\"notification\":\"orchestrator\",\"reported\":true}"), "role": String("tool"), "tool_call_id": String("call-4")}, Object {"content": String("{\"results\":[{\"decision\":\"accept\",\"kind\":\"accept\",\"reason\":\"Explicit request from an allowed sender routed by the orchestrator\",\"ticket\":{\"preview\":\"\",\"read\":\"ticket/8a0b91d4e2c3fcd5be48cae73296b238\",\"state\":\"working/queued\",\"strength\":\"explicit\",\"ticket_id\":\"8a0b91d4e2c3fcd5be48cae73296b238\",\"title\":\"Create result file\"},\"trigger_id\":\"5a645e03afb5e8d9e408e1d7f2032ed6\"}]}"), "role": String("tool"), "tool_call_id": String("call-0")}, Object {"content": String("{\"results\":[{\"decision\":\"accept\",\"kind\":\"accept\",\"reason\":\"Explicit request from an allowed sender routed by the orchestrator\",\"ticket\":{\"preview\":\"\",\"read\":\"ticket/8a0b91d4e2c3fcd5be48cae73296b238\",\"state\":\"working/queued\",\"strength\":\"explicit\",\"ticket_id\":\"8a0b91d4e2c3fcd5be48cae73296b238\",\"title\":\"Create result file\"},\"trigger_id\":\"5a645e03afb5e8d9e408e1d7f2032ed6\"}]}"), "role": String("tool"), "tool_call_id": String("call-0")}, Object {"content": String("{\"status\":\"sent\"}"), "role": String("tool"), "tool_call_id": String("call-6")}]
+  left: 2
+ right: 1
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    checkout::formal_checkout_verifies_git_runs_prepare_and_real_build_then_reopens_without_reclone
+
+test result: FAILED. 3 passed; 1 failed; 0 ignored; 0 measured; 57 filtered out; finished in 4.79s
+
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`

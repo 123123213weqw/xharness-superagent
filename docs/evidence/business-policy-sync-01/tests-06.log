@@ -1,0 +1,39 @@
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 11.22s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 5 tests
+SYNC MODEL STEP 0; last result=
+SYNC MODEL STEP 1; last result={"next_offset":null,"offset":0,"resource":"settings/policy","text":"{\"block\":\"policy\",\"revision\":0,\"value\":{\"rules\":[{\"id\":\"copy\",\"name\":\"Copy fixes\",\"enabled\":true,\"instruction\":\"Explicit requests to correct a typo, wording, punctuation or existing translation. Preserve product promises and business meaning.\"},{\"id\":\"visual\",\"name\":\"Visual fixes\",\"enabled\":true,\"instruction\":\"Explicit implementation requests for local spacing, alignment, overflow or styling, with a specified target or an objectively established existing standard/correct state to restore. Locating an element or calling it inconsistent, unattractive or hard to understand does not establish a target. Do not invent visual style, information hierarchy, rendering or interaction decisions. No redesign, new interaction or behavior. A known spacing defect does not authorize adjacent undefined restyling; assess only a clearly separable authorized scope. If direction or scope is unsettled, observe only: no acknowledgement, worker or unsolicited question.\"}],\"sources\":{\"feishu\":{\"allowed\":[{\"id\":\"ou_keep\",\"name\":\"Old\"},{\"id\":\"ou_leave\",\"name\":\"Depart\"}],\"admission\":{},\"syncChat\":\"\"},\"github\":{\"allowed\":[{\"id\":\"alice\"}],\"admission\":{}}}}}","total_chars":1144}
+test policy_sync::formal_startup_sync_rejects_even_a_concurrent_names_only_policy_revision ... ok
+SYNC MODEL STEP 2; last result={"policy_changed":true,"restarting":false,"revision":1,"saved":true}
+SYNC MODEL STEP 3; last result={"added":["New 😀"],"allowed":2,"removed":["Depart"],"source":"feishu"}
+SYNC MODEL STEP 4; last result={"next_offset":null,"offset":0,"resource":"settings/policy","text":"{\"block\":\"policy\",\"revision\":2,\"value\":{\"rules\":[{\"id\":\"copy\",\"name\":\"Copy fixes\",\"enabled\":true,\"instruction\":\"Explicit requests to correct a typo, wording, punctuation or existing translation. Preserve product promises and business meaning.\"},{\"id\":\"visual\",\"name\":\"Visual fixes\",\"enabled\":true,\"instruction\":\"Explicit implementation requests for local spacing, alignment, overflow or styling, with a specified target or an objectively established existing standard/correct state to restore. Locating an element or calling it inconsistent, unattractive or hard to understand does not establish a target. Do not invent visual style, information hierarchy, rendering or interaction decisions. No redesign, new interaction or behavior. A known spacing defect does not authorize adjacent undefined restyling; assess only a clearly separable authorized scope. If direction or scope is unsettled, observe only: no acknowledgement, worker or unsolicited question.\"}],\"sources\":{\"feishu\":{\"allowed\":[{\"id\":\"ou_keep\",\"name\":\"中文 😀\"},{\"id\":\"ou_new\",\"name\":\"New 😀\"}],\"admission\":{},\"syncChat\":\"oc_all\"},\"github\":{\"allowed\":[{\"id\":\"alice\"}],\"admission\":{}}}}}","total_chars":1150}
+SYNC MODEL STEP 5; last result={"added":[],"allowed":2,"removed":[],"source":"feishu"}
+SYNC MODEL STEP 6; last result={"added":[],"allowed":2,"removed":[],"source":"feishu"}
+test policy_sync::formal_policy_sync_incomplete_members_are_health_error_not_grant_or_idle_blocker ... ok
+SYNC MODEL STEP 7; last result={"next_offset":null,"offset":0,"resource":"settings/policy","text":"{\"block\":\"policy\",\"revision\":3,\"value\":{\"rules\":[{\"id\":\"copy\",\"name\":\"Copy fixes\",\"enabled\":true,\"instruction\":\"Explicit requests to correct a typo, wording, punctuation or existing translation. Preserve product promises and business meaning.\"},{\"id\":\"visual\",\"name\":\"Visual fixes\",\"enabled\":true,\"instruction\":\"Explicit implementation requests for local spacing, alignment, overflow or styling, with a specified target or an objectively established existing standard/correct state to restore. Locating an element or calling it inconsistent, unattractive or hard to understand does not establish a target. Do not invent visual style, information hierarchy, rendering or interaction decisions. No redesign, new interaction or behavior. A known spacing defect does not authorize adjacent undefined restyling; assess only a clearly separable authorized scope. If direction or scope is unsettled, observe only: no acknowledgement, worker or unsolicited question.\"}],\"sources\":{\"feishu\":{\"allowed\":[{\"id\":\"ou_keep\",\"name\":\"改名 😀\"},{\"id\":\"ou_new\",\"name\":\"\"}],\"admission\":{},\"syncChat\":\"oc_all\"},\"github\":{\"allowed\":[{\"id\":\"alice\"}],\"admission\":{}}}}}","total_chars":1144}
+SYNC MODEL STEP 8; last result={"content":"","error":"The github Source's part of the Policy has nothing to sync from, or the Source is off or waiting for setup","ok":false,"truncated":false}
+SYNC MODEL STEP 9; last result={"next_offset":null,"offset":0,"resource":"settings/source:feishu","text":"{\"block\":\"source:feishu\",\"revision\":0,\"value\":{\"enabled\":true,\"config\":{\"chats\":[],\"cli\":\"/tmp/superagent-entry-4057342-0/feishu/lark-cli\",\"directMessages\":true,\"linkTimeoutMs\":5000,\"otherChats\":\"none\",\"readPageSize\":20}}}","total_chars":222}
+SYNC MODEL STEP 10; last result={"policy_changed":false,"restarting":false,"revision":1,"saved":true}
+test policy_sync::formal_startup_sync_merges_unrelated_saves_and_does_not_invent_source_off_conflict ... ok
+SYNC MODEL STEP 11; last result={"content":"","error":"The feishu Source's part of the Policy has nothing to sync from, or the Source is off or waiting for setup","ok":false,"truncated":false}
+SYNC MODEL STEP 12; last result={"content":"","error":"The feishu Source's part of the Policy has nothing to sync from, or the Source is off or waiting for setup","ok":false,"truncated":false}
+SYNC MODEL STEP 13; last result={"policy_changed":false,"restarting":false,"revision":2,"saved":true}
+SYNC MODEL STEP 14; last result={"added":[],"allowed":2,"removed":[],"source":"feishu"}
+SYNC MODEL STEP 15; last result={"results":[{"decision":"ignore","kind":"ignore","reason":"Policy synchronization only; no execution requested.","trigger_id":"87f9ed38d32bfca97b59478858cf2151"}]}
+test policy_sync::formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin ... ok
+
+thread 'policy_sync::formal_interrupt_joins_policy_sync_cli_tree_before_reopen_and_startup_sync' (4057343) panicked at crates/xharness-superagent/tests/product_entry/policy_sync.rs:376:10:
+called `Result::unwrap()` on an `Err` value: Elapsed(())
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test policy_sync::formal_interrupt_joins_policy_sync_cli_tree_before_reopen_and_startup_sync ... FAILED
+
+failures:
+
+failures:
+    policy_sync::formal_interrupt_joins_policy_sync_cli_tree_before_reopen_and_startup_sync
+
+test result: FAILED. 4 passed; 1 failed; 0 ignored; 0 measured; 30 filtered out; finished in 15.90s
+
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`

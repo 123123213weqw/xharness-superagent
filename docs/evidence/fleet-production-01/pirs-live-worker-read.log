@@ -1,0 +1,8 @@
+
+running 1 test
+read-only Worker probe: {"content":{"execution":{"mode":"direct","program":"python3"},"exit_code":0,"kind":"foreground","signal":null,"stderr":"","stderr_bytes":0,"stderr_omitted_bytes":0,"stderr_truncated":false,"stdout":"{\"network\": \"allowed\", \"account\": \"btlqql\", \"openIssuesAndPulls\": 2, \"secretEnvScrubbed\": true}\n","stdout_bytes":96,"stdout_omitted_bytes":0,"stdout_truncated":false,"success":true,"termination":"exited"},"error":"","ok":true,"truncated":false}
+read-only Worker probe: {"content":{"execution":{"mode":"direct","program":"python3"},"exit_code":0,"kind":"foreground","signal":null,"stderr":"","stderr_bytes":0,"stderr_omitted_bytes":0,"stderr_truncated":false,"stdout":"{\"network\": \"allowed\", \"account\": \"btlqql\", \"openIssuesAndPulls\": 2, \"secretEnvScrubbed\": true}\n","stdout_bytes":96,"stdout_omitted_bytes":0,"stdout_truncated":false,"success":true,"termination":"exited"},"error":"","ok":true,"truncated":false}
+test access::full_access_worker_reads_github_with_existing_service_account ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 71 filtered out; finished in 7.23s
+

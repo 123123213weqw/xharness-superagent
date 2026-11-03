@@ -1,0 +1,31 @@
+   Compiling xharness-superagent v0.1.0 (/home/data/wangyue/repos/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 24.81s
+     Running tests/github_explore.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/github_explore-9af996b9024f301e)
+
+running 1 test
+test search_is_literal_repo_bound_and_exposes_github_completeness ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+     Running tests/product_entry.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_entry-d606baa5494bbb9a)
+
+running 4 tests
+test access::full_access_worker_reads_github_with_existing_service_account ... ignored, requires explicit existing GitHub account and repository; performs real read-only API calls
+test github_explore::formal_disabled_github_source_blocks_both_read_tools_before_transport ... ok
+
+thread 'github_explore::formal_github_exploration_is_shared_without_main_shell_or_repo_hardcoding' (1013647) panicked at crates/xharness-superagent/tests/product_entry/github_explore.rs:129:5:
+assertion failed: !calls.iter().any(|c|
+            c.as_array().unwrap().iter().any(|v|
+                    v == "--paginate" || v == "clone"))
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test github_explore::formal_github_exploration_is_shared_without_main_shell_or_repo_hardcoding ... FAILED
+test policy_sync::formal_bad_optional_bot_never_falls_back_or_blocks_github_worker_and_reply ... ok
+
+failures:
+
+failures:
+    github_explore::formal_github_exploration_is_shared_without_main_shell_or_repo_hardcoding
+
+test result: FAILED. 2 passed; 1 failed; 1 ignored; 0 measured; 67 filtered out; finished in 2.67s
+
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`

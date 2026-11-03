@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "kind": "test_observation_fence_only_all_original_assertions_retained",
+  "path": "crates/xharness-host/tests/observed_input.rs",
+  "base_sha256": "676f8dc716591fde7a28c6bf063ecfc55938376ef336a8f321fbddd923f88ec8",
+  "after_sha256": "bc074a16c331d76f77a7b886fb7683667c313fc5b6fde4c9f5b716d41c65650c",
+  "context_before": "    .await\n    .unwrap();\n",
+  "addition": "    // Logical TurnEnd visibility does not acknowledge the subsequent flush.\n    // Wait for that independent progress while the producer still holds input.\n    tokio::time::timeout(Duration::from_secs(5), async {\n        while s.flushes.load(Ordering::SeqCst) <= before {\n            tokio::task::yield_now().await;\n        }\n    })\n    .await\n    .unwrap();\n",
+  "context_after": "    assert!(s.flushes.load(Ordering::SeqCst) > before); // not a global Store fsync freeze\n",
+  "added_lines": 9,
+  "removed_lines": 0,
+  "runtime_code_changed": false,
+  "original_assertions_byte_identical": true
+}

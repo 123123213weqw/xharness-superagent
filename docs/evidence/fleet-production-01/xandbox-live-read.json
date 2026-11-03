@@ -1,0 +1,13 @@
+{
+  "instance": "xandbox",
+  "liveBranchApi": true,
+  "liveLiteralSearchApi": true,
+  "searchIncomplete": false,
+  "realWorkerCliRead": true,
+  "reasoningModel": "loopback fixture only; no paid inference",
+  "realExternalWrites": false,
+  "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+  "probeSha256": "d89cea41d0a8710cca37476c71d1f36e3863cd6fd83d99188f8b849dd575a02d",
+  "repositorySha256": "61a36762994c2af3e2f9ce582a282ac24afacfc352af4c8774125a1632eaa96c",
+  "existingAccountVerified": true
+}

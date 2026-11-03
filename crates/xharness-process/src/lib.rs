@@ -561,6 +561,18 @@ impl ProcessRuntime {
 
     /// Spawn an executable directly, creating a managed native process tree.
     pub fn spawn(&self, spec: SpawnSpec) -> Result<ProcessHandle, ProcessError> {
+        self.spawn_with_stdin(spec, false)
+    }
+
+    /// Keep a child's stdin pipe open without writing input. This is an explicit
+    /// opt-in for event consumers whose lifetime is tied to stdin EOF. The
+    /// supervisor owns the pipe until the managed tree has stopped; normal
+    /// `spawn` keeps its existing null/EOF behavior and cancellation is unchanged.
+    pub fn spawn_with_open_stdin(&self, spec: SpawnSpec) -> Result<ProcessHandle, ProcessError> {
+        self.spawn_with_stdin(spec, true)
+    }
+
+    fn spawn_with_stdin(&self, spec: SpawnSpec, open: bool) -> Result<ProcessHandle, ProcessError> {
         if spec.program.is_empty() {
             return Err(ProcessError::EmptyProgram);
         }
@@ -584,7 +596,7 @@ impl ProcessRuntime {
             .current_dir(&spec.cwd)
             .env_clear()
             .envs(&spec.env)
-            .stdin(Stdio::null())
+            .stdin(if open { Stdio::piped() } else { Stdio::null() })
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
             .kill_on_drop(true);
@@ -681,6 +693,9 @@ impl ProcessRuntime {
         let (result_tx, result_rx) = oneshot::channel();
         let debug = self.debug.clone();
         let supervisor_output = Arc::clone(&live_output);
+        // Child::wait closes child.stdin itself, so the supervisor must take
+        // ownership before waiting. No writer capability escapes to callers.
+        let stdin_guard = child.stdin.take();
         let process_tree_guard = ProcessTreeGuard::new(process_tree, child);
         runtime.spawn(async move {
             let result = supervise(
@@ -695,6 +710,7 @@ impl ProcessRuntime {
                 Arc::clone(&supervisor_output),
             )
             .await;
+            drop(stdin_guard);
             supervisor_output.finish();
             let _ = result_tx.send(result);
         });

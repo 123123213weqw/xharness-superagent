@@ -681,9 +681,15 @@ impl OpenAiProvider {
                 "selected model does not support image input; choose a vision model",
             ));
         }
-        let store = self.attachments.as_ref().ok_or_else(|| {
-            ProviderError::new("attachment resolver is not configured; image input cannot be sent")
-        })?;
+        // Durable Native text admissions carry Text blocks too. A resolver is
+        // needed for a File/Image, not for ordinary text-only product input.
+        let store = || {
+            self.attachments.as_ref().ok_or_else(|| {
+                ProviderError::new(
+                    "attachment resolver is not configured; image input cannot be sent",
+                )
+            })
+        };
         let mut offset = 0usize;
         let mut inserted = 0usize;
         let mut tool_images = Vec::new();
@@ -705,11 +711,13 @@ impl OpenAiProvider {
                     match block {
                         ContentBlock::Text { text } => content.push(json!({"type":if self.config.protocol==OpenAiProtocol::ChatCompletions {"text"} else {"input_text"},"text":text})),
                         ContentBlock::File {attachment,name} => {
+                            let store=store()?;
                             let session=request.debug_scope.session_id.as_deref().unwrap_or(&attachment.session_id);
                             let path=store.file_path(session,attachment).await.map_err(|e|ProviderError::new(e.to_string()))?.ok_or_else(||ProviderError::new("file read namespace unavailable"))?;
                             content.push(json!({"type":if self.config.protocol==OpenAiProtocol::ChatCompletions {"text"} else {"input_text"},"text":format!("[file attachment: {}; {} bytes; read-only path: {}]",serde_json::to_string(name.as_deref().unwrap_or("attachment")).unwrap(),attachment.bytes,serde_json::to_string(&path).unwrap())}));
                         }
                         ContentBlock::Image { attachment } => {
+                            let store=store()?;
                             total_bytes=total_bytes.saturating_add(attachment.bytes);
                             if total_bytes>xharness_core::MAX_REQUEST_IMAGE_BYTES { return Err(ProviderError::new("request images exceed 40 MiB; reduce image context")); }
                             let key=(attachment.session_id.clone(),attachment.id.clone());
@@ -1826,6 +1834,55 @@ mod multimodal_tests {
     use xharness_attachments::{AttachmentStore, ContentBlock, MemoryAttachmentStore, Upload};
     use xharness_core::AgentMessage;
     const PNG: &[u8] = include_bytes!("../../xharness-attachments/tests/fixtures/red-blue.png");
+
+    #[tokio::test]
+    async fn native_text_blocks_need_no_resolver_but_real_attachments_still_do() {
+        for protocol in [OpenAiProtocol::ChatCompletions, OpenAiProtocol::Responses] {
+            let (_, mut request) = fixture(protocol).await;
+            let attachment = request.messages[1].content_blocks[1].clone();
+            request.messages = vec![AgentMessage::user("legacy flattened text")
+                .with_content_blocks(vec![ContentBlock::Text {
+                    text: "真实中文 😀".into(),
+                }])];
+            let provider = OpenAiProvider::new(OpenAiProviderConfig::new(
+                protocol,
+                "http://127.0.0.1:1",
+                "",
+                "offline",
+            ))
+            .unwrap();
+            let body = provider
+                .multimodal_body(&request, false, &CancellationToken::new())
+                .await
+                .unwrap();
+            let rows = if protocol == OpenAiProtocol::ChatCompletions {
+                &body["messages"]
+            } else {
+                &body["input"]
+            };
+            assert_eq!(rows[0]["content"][0]["text"], "真实中文 😀");
+            request.messages[0].content_blocks.push(attachment.clone());
+            assert!(provider
+                .multimodal_body(&request, false, &CancellationToken::new())
+                .await
+                .unwrap_err()
+                .message
+                .contains("resolver is not configured"));
+            let ContentBlock::Image { attachment } = attachment else {
+                panic!("expected image fixture")
+            };
+            request.messages[0].content_blocks = vec![ContentBlock::File {
+                attachment,
+                name: Some("fixture.txt".into()),
+            }];
+            assert!(provider
+                .multimodal_body(&request, false, &CancellationToken::new())
+                .await
+                .unwrap_err()
+                .message
+                .contains("resolver is not configured"));
+        }
+    }
     async fn fixture(protocol: OpenAiProtocol) -> (OpenAiProvider, ProviderRequest) {
         let store = Arc::new(MemoryAttachmentStore::default());
         let r = store

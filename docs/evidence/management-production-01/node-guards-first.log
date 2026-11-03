@@ -1,0 +1,108 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: undeclared Messages lock change
++ actual - expected
+
++ '5f730e60e7e521ccf72d2d733bae20969c3e4106b8470d6f82d10ed3efbf5321'
+- 'e78dc3f88c078b757588a7dacb00afc20aa91a606e2cb10a52810775c7276e01'
+
+    at auditedLockBeforeMessages (file://<PUBLIC_SOURCE>/conformance/business/messages-cargo-overlay.mjs:12:9)
+    at file://<PUBLIC_SOURCE>/conformance/business/business-word-cargo-overlay.test.mjs:8:41
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:639:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '5f730e60e7e521ccf72d2d733bae20969c3e4106b8470d6f82d10ed3efbf5321',
+  expected: 'e78dc3f88c078b757588a7dacb00afc20aa91a606e2cb10a52810775c7276e01',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v25.9.0
+✖ conformance/business/business-word-cargo-overlay.test.mjs (95.3915ms)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: undeclared Messages lock change
++ actual - expected
+
++ '5f730e60e7e521ccf72d2d733bae20969c3e4106b8470d6f82d10ed3efbf5321'
+- 'e78dc3f88c078b757588a7dacb00afc20aa91a606e2cb10a52810775c7276e01'
+
+    at auditedLockBeforeMessages (file://<PUBLIC_SOURCE>/conformance/business/messages-cargo-overlay.mjs:12:9)
+    at file://<PUBLIC_SOURCE>/conformance/business/feishu-cargo-overlay.test.mjs:6:15
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:639:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '5f730e60e7e521ccf72d2d733bae20969c3e4106b8470d6f82d10ed3efbf5321',
+  expected: 'e78dc3f88c078b757588a7dacb00afc20aa91a606e2cb10a52810775c7276e01',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v25.9.0
+✖ conformance/business/feishu-cargo-overlay.test.mjs (93.813041ms)
+✔ bounded observation fence reconstructs exact imported test and every original assertion (2.4015ms)
+✔ weakened original assertions, changed wait and unrelated edits fail closed (0.982333ms)
+✔ wrong import base and missing observation fence fail closed (0.16975ms)
+✔ local addition reconstructs the exact frozen audited Host bytes (2.400708ms)
+✔ undeclared modification outside the local addition is rejected (1.657791ms)
+✔ modification inside the local addition is rejected (1.35625ms)
+✔ wrong import-chain base and unpatched baseline are rejected (0.548875ms)
+✔ Management direct transport edges reconstruct the exact previous lock (1.994333ms)
+✔ Management overlay rejects package, edge and unrelated byte mutations (0.909833ms)
+✔ Messages direct transport edges reconstruct the exact previous lock (1.32575ms)
+✔ Messages overlay rejects package, edge and unrelated byte mutations (1.033458ms)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: undeclared Messages lock change
++ actual - expected
+
++ '5f730e60e7e521ccf72d2d733bae20969c3e4106b8470d6f82d10ed3efbf5321'
+- 'e78dc3f88c078b757588a7dacb00afc20aa91a606e2cb10a52810775c7276e01'
+
+    at auditedLockBeforeMessages (file://<PUBLIC_SOURCE>/conformance/business/messages-cargo-overlay.mjs:12:9)
+    at file://<PUBLIC_SOURCE>/conformance/business/product-cargo-overlay.test.mjs:8:72
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:639:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: '5f730e60e7e521ccf72d2d733bae20969c3e4106b8470d6f82d10ed3efbf5321',
+  expected: 'e78dc3f88c078b757588a7dacb00afc20aa91a606e2cb10a52810775c7276e01',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v25.9.0
+✖ conformance/business/product-cargo-overlay.test.mjs (94.98575ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 11
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 107.258375
+
+✖ failing tests:
+
+test at conformance/business/business-word-cargo-overlay.test.mjs:1:1
+✖ conformance/business/business-word-cargo-overlay.test.mjs (95.3915ms)
+  'test failed'
+
+test at conformance/business/feishu-cargo-overlay.test.mjs:1:1
+✖ conformance/business/feishu-cargo-overlay.test.mjs (93.813041ms)
+  'test failed'
+
+test at conformance/business/product-cargo-overlay.test.mjs:1:1
+✖ conformance/business/product-cargo-overlay.test.mjs (94.98575ms)
+  'test failed'

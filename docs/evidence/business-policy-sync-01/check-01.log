@@ -1,0 +1,35 @@
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+error[E0277]: the trait bound `sources::feishu::Config: Default` is not satisfied
+   --> crates/xharness-superagent/src/application/boot.rs:754:10
+    |
+754 |         .unwrap_or_default();
+    |          ^^^^^^^^^^^^^^^^^ the trait `Default` is not implemented for `sources::feishu::Config`
+    |
+note: required by a bound in `std::result::Result::<T, E>::unwrap_or_default`
+   --> /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1264:4
+help: consider annotating `sources::feishu::Config` with `#[derive(Default)]`
+   --> crates/xharness-superagent/src/sources/feishu.rs:76:1
+    |
+ 76 + #[derive(Default)]
+ 77 | pub struct Config {
+    |
+
+error[E0277]: the trait bound `sources::feishu::Config: Default` is not satisfied
+   --> crates/xharness-superagent/src/application/feishu.rs:146:57
+    |
+146 |                     config: serde_json::to_value(parsed.unwrap_or_default())?,
+    |                                                         ^^^^^^^^^^^^^^^^^ the trait `Default` is not implemented for `sources::feishu::Config`
+    |
+note: required by a bound in `std::result::Result::<T, E>::unwrap_or_default`
+   --> /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1264:4
+help: consider annotating `sources::feishu::Config` with `#[derive(Default)]`
+   --> crates/xharness-superagent/src/sources/feishu.rs:76:1
+    |
+ 76 + #[derive(Default)]
+ 77 | pub struct Config {
+    |
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `xharness-superagent` (lib test) due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `xharness-superagent` (lib) due to 2 previous errors

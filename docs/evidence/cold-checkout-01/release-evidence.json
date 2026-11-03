@@ -1,0 +1,22 @@
+{
+  "testsPassed": 396,
+  "testsFailed": 0,
+  "testsIgnored": 12,
+  "ignoredIsNotPass": true,
+  "strictClippyPassed": true,
+  "buildPassed": true,
+  "sourceFingerprint": "082f5ceed2876e8c6f9b70b6b0e48d8bab407a5e1d7ccea252c9b7724d88e937",
+  "sourceCommit": "2ce5464726308db68f200568b5169420b68ec6a5",
+  "pythonRouteTests": 4,
+  "pythonFleetTests": 10,
+  "pythonStateBundleTests": 6,
+  "realColdCheckout": "fresh cache/no old objects: x-harness-rs 96.328s; pi-rs 11.456s. Separate permanent owned route cold acceptance still gated before deployment.",
+  "tlsVerificationDisabled": false,
+  "gitOnlyNetworkConfig": true,
+  "wholeWorkspaceCIClaimed": false,
+  "logSha256": {
+    "cold-checkout-regression.log": "9c2c7d591fc20e1d29bd62002d665d511a480a36a38c108d9eabd10a416f8334",
+    "cold-checkout-clippy.log": "3dd10b96ab137c930b43926e978c12671666926d6c4807b9a81024d797442c95",
+    "cold-checkout-build.log": "52d159745b0dfa7d8c942cb3c1eb3c96e904b1325bad420472737474f62ac0b4"
+  }
+}

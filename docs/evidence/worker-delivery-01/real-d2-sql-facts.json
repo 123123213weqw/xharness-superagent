@@ -1,0 +1,42 @@
+{
+  "ticket_id": "f7f318c6ef874339c98a6e50fe3b097d",
+  "assignment_ids": [
+    "8f9867e5e75a83eac5f5e178737ced0c",
+    "abb4eb06d3d4313d3ff9cd10660c2eae"
+  ],
+  "latest_report_state": "ready",
+  "follows": [
+    {
+      "own": true,
+      "thread": "github:5"
+    }
+  ],
+  "ended": null,
+  "pendingEffects": 0,
+  "receipt_ids": [
+    "4f917f71be80e43d0810370a2efd2c0b",
+    "7c0153772e8b9753b8556929c34e1954",
+    "af0015bf6d84d8529b7d093ca4fd0fe2",
+    "38a912b0572d56fd93384980313dc6a2"
+  ],
+  "receipt_statuses": [
+    "sent",
+    "sent",
+    "sent",
+    "sent"
+  ],
+  "files": [
+    {
+      "name": "acceptance-delivery.txt",
+      "bytes": 34,
+      "sha256": "4fd783140ea92d3fa7c50054d4493b370a7bc3d7dbdb6b4ef1180e378113566e"
+    },
+    {
+      "name": "acceptance-delivery-test.py",
+      "bytes": 1197,
+      "sha256": "9c5c7aa20f3353f2a925a9d09ff86f780cf110faafe0b4330db5e3be17995a3a"
+    }
+  ],
+  "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+  "binary_sha256": "eb90fd80384f8e89b7b40c7d004a31efb3a2b6264cc8c8356bb22280fd36b160"
+}

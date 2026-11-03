@@ -1,0 +1,681 @@
+MANAGEMENT VALIDATION regression-final 2026-11-02T05:26:28Z
+    Checking xharness-superagent v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 6.86s
+    Checking xharness-superagent v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 7.61s
+   Compiling xharness-superagent v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 16.89s
+     Running tests/product_entry.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_entry-e63082d92e636d98)
+
+running 4 tests
+test management::formal_management_bind_error_drains_owner_and_check_never_binds ... ok
+test management::formal_management_reads_real_state_guards_requests_and_joins_slow_body ... ok
+test management::formal_management_saves_cas_environment_prompts_pause_and_restart ... ok
+test management::formal_management_stops_existing_worker_and_preserves_assignment_history ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 47 filtered out; finished in 1.90s
+
+   Compiling xharness-superagent v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 20.37s
+     Running unittests src/lib.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/xharness_superagent-a7e8a767cfea4d77)
+
+running 51 tests
+test application::controls::tests::context_follow_unrelated_and_main_unsubscribe_never_transfer_ticket_authority ... ok
+test application::controls::tests::requeue_waits_for_worker_handback_and_sql_errors_never_become_absent_owners ... ok
+test application::controls::tests::status_only_requests_an_idle_worker_and_retry_creates_a_new_assignment ... ok
+test application::management::tests::origin_requires_exact_host_marker_and_optional_matching_origin ... ok
+test application::management::tests::path_decode_preserves_literal_plus_and_rejects_malformed_utf8 ... ok
+test application::messages::tests::live_messages_tool_and_opaque_replay ... ignored, Real external model calls; requires explicit existing route and credential authorization
+test application::messages::tests::messages_cancellation_before_headers_has_no_success ... ok
+test application::messages::tests::messages_do_not_relocate_system_or_drop_media_or_override_routing ... ok
+test application::messages::tests::messages_preserve_system_schema_ceiling_and_explicit_reasoning ... ok
+test application::messages::tests::messages_real_http_sse_preserve_unicode_and_complete_only_at_stop ... ok
+test application::messages::tests::messages_reject_blocks_after_terminal_and_mismatched_terminal_reason ... ok
+test application::messages::tests::messages_reject_orphan_duplicate_results_and_foreign_provider_state ... ok
+test application::messages::tests::messages_require_closed_valid_json_blocks_and_message_stop ... ok
+test application::messages::tests::messages_retain_thinking_signature_and_tool_ids_for_stateless_replay ... ok
+test application::messages::tests::messages_truncated_http_stream_and_http_error_never_become_success ... ok
+test application::native::cancellation_tests::only_exact_terminal_cancel_acknowledgements_are_idempotent ... ok
+test application::native::policy_sync::tests::notice_paths_include_normal_unicode_names_and_are_bounded ... ok
+test application::native::policy_sync::tests::retries_double_cap_and_success_removes_wait ... ok
+test application::resources::tests::actual_sql_errors_and_corrupt_records_never_become_absence_or_empty_pages ... ok
+test application::resources::tests::list_and_ticket_pages_are_bounded_newest_first_with_copyable_offsets ... ok
+test application::resources::tests::live_plans_retain_trusted_scope_and_never_return_fake_transcripts_or_source_success ... ok
+test application::resources::tests::ordinary_unicode_pages_reconstruct_content_without_cutting_emoji_or_stalling ... ok
+test application::resources::tests::strict_read_request_normalizes_only_legacy_prefixes_and_rejects_forged_scope ... ok
+test application::resources::tests::trigger_reads_allow_origin_delivery_context_and_bound_threads_but_redact_fanout_and_neighbours ... ok
+test application::resources::tests::worker_own_ticket_and_shared_thread_do_not_expose_other_tickets_or_decisions ... ok
+test delivery::tests::session_key_drop_releases_the_seen_cache_immediately ... ok
+test native_sessions::delivery::authority::tests::cancelled_catalogue_restore_keeps_the_new_warm_epoch_unavailable ... ok
+test native_sessions::delivery::authority::tests::failed_catalogue_restore_revokes_warm_scopes_until_successful_rebuild ... ok
+test native_sessions::delivery::authority::tests::original_creation_witness_checks_all_fields_of_valid_mutation_records ... ok
+test native_sessions::delivery::authority::tests::overlapping_catalogue_rebuilds_serialize_before_replacing_warm_epochs ... ok
+test native_sessions::delivery::authority::tests::warm_creation_witness_cannot_address_an_identically_recreated_session_generation ... ok
+test native_sessions::delivery::authority::tests::warm_creation_witness_does_not_certify_or_flush_a_later_logical_prefix ... ok
+test native_sessions::delivery::authority::tests::warm_creation_witness_rejects_other_owner_changed_role_and_changed_workspace ... ok
+test native_sessions::delivery::tests::old_scope_drop_does_not_clear_the_later_preparation_on_the_same_object ... ok
+test native_sessions::persistence::tests::flush_collects_original_typed_failures_in_writer_order_and_attempts_later_healthy_writer ... ok
+test native_sessions::persistence::tests::global_writer_drain_includes_logical_appends_while_its_first_physical_cut_is_blocked ... ok
+test native_sessions::persistence::tests::retired_storage_generation_is_replaced_at_end_without_flushing_a_replacement_by_id ... ok
+test native_sessions::persistence::tests::writer_order_is_registration_not_id_and_snapshot_excludes_late_or_unmanaged_owners ... ok
+test native_sessions::prompts::decoration::epoch_tests::closed_supervisor_or_disconnected_watch_is_not_a_live_decoration ... ok
+test native_sessions::prompts::decoration::epoch_tests::explicit_retry_on_sql_owner_does_not_invalidate_an_earlier_generic_render ... ok
+test native_sessions::prompts::decoration::epoch_tests::passive_channel_identity_survives_step_counters_and_worker_restarts_but_not_actor_replacement ... ok
+test native_sessions::prompts::decoration::epoch_tests::preflight_failure_replies_with_the_same_original_error_owned_by_the_report ... ok
+test native_sessions::prompts::owner_tests::cancelled_queued_decoration_never_acknowledges_or_binds_a_revision ... ok
+test native_sessions::prompts::owner_tests::cancelled_queued_request_never_binds_a_revision ... ok
+test native_sessions::prompts::owner_tests::closing_barrier_never_relabels_real_errors_as_cancellation ... ok
+test native_sessions::prompts::owner_tests::late_sql_failure_is_owned_once_with_original_type_even_after_reply_disappears ... ok
+test native_sessions::prompts::skills::tests::foreign_same_name_tool_is_a_real_shadow_and_is_never_overwritten ... ok
+test native_sessions::prompts::skills::tests::handler_infrastructure_failure_keeps_the_original_owner_diagnostic_once ... ok
+test native_sessions::prompts::skills::tests::retired_actor_tool_cannot_read_replacement_skills_and_old_entries_are_released ... ok
+test sources::feishu::consumer::tests::multiline_diagnostic_keeps_the_actual_error_and_bounds_unicode ... ok
+test sources::feishu::consumer::tests::oversized_lines_are_discarded_once_and_crlf_and_later_lines_survive ... ok
+
+test result: ok. 50 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.44s
+
+     Running unittests src/bin/delivery_bridge.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_delivery_bridge-6fc226f02ce654bb)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/durability_probe.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_durability_probe-aa1b36c213d73ee3)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/migration_probe.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_migration_probe-529ca2f42c4e41c2)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/native_session_probe.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_native_session_probe-c19843957fadfb63)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/passes_bridge.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_passes_bridge-cbf53ab8ea26e16f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/retry_health_bridge.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_retry_health_bridge-f4b482a216274c5b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/sql_engine_bridge.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_sql_engine_bridge-a4aa95d82d84b4dc)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/store_bridge.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_store_bridge-fbcfc81b667ac3ec)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/superagent.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/xharness_superagent-066267dc2b4bd095)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/application.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/application-5ea9bf624cda0b9f)
+
+running 5 tests
+test composition_dispatches_candidate_launch_and_receipt_backed_reply ... ok
+test exclusive_owner_precedes_sql_and_unconfigured_never_dispatches ... ok
+test source_off_retains_pending_reply_without_claiming_send_success ... ok
+test stale_launch_does_not_select_an_older_pending_assignment ... ok
+test stopped_ticket_cannot_launch_its_previously_queued_assignment ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.16s
+
+     Running tests/assessment_context.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/assessment_context-522cb83b8e9a1644)
+
+running 3 tests
+test admission_repeated_cursor_is_an_error_not_complete_or_partial_success ... ok
+test normal_chinese_english_word_limits_match_executed_business_samples ... ok
+test original_github_context_repository_and_admission_outputs_and_paths_match ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/delivery.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/delivery-7560914e60c5d42d)
+
+running 16 tests
+test abort_checks_before_io_and_again_after_history_before_authorization ... ok
+test accepted_error_prevents_ack_flush_but_does_not_erase_admitted_input ... ok
+test authorization_and_acceptance_run_on_duplicates_before_final_flush ... ok
+test close_failure_retries_load_and_suppresses_read_failure_without_losing_causes ... ok
+test disposed_target_rejected_before_authorization_even_if_duplicate ... ok
+test dropping_owner_finishes_pending_waiters_and_rejects_new_calls_without_io ... ok
+test failed_ack_retries_barrier_not_delivery_and_keeps_original_error ... ok
+test forced_owner_drop_releases_inflight_history_even_when_delivery_and_session_still_live ... ok
+test history_failure_retries_and_counts_non_message_events_for_pagination ... ok
+test live_event_during_initial_read_is_never_overwritten ... ok
+test loaded_cache_does_not_retain_agent_or_session_identity ... ok
+test modes_deduplicate_pending_consumed_and_restored_inputs ... ok
+test one_shared_load_survives_concurrent_waiters_and_dropped_send_waiter ... ok
+test primitive_error_does_not_mark_injected_or_call_accepted ... ok
+test removed_queue_can_redeliver_but_inject_seen_is_per_live_session_not_permanent_receipt ... ok
+test source_recognition_is_exact_without_rewriting_legacy_attribution ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/driver.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/driver-128577cabc7a016f)
+
+running 13 tests
+test cancellation_and_recreation_keep_the_new_sequence_after_old_completion ... ok
+test cancellation_health_is_published_only_after_outer_commit ... ok
+test cancelling_the_runner_errors_waiters_but_preserves_durable_rows ... ok
+test coalescing_and_reentrant_limit_preserve_the_running_generation ... ok
+test control_errors_do_not_fail_committed_commands_and_read_only_queries_do_not_kick ... ok
+test draining_preserves_interrupted_failures_and_waiting_rows_for_next_owner ... ok
+test limit_failures_and_handler_panics_are_reported_and_can_recover ... ok
+test per_kind_limits_and_kind_idle_ignore_other_running_work ... ok
+test periodic_pass_keeps_a_committed_prefix_when_a_later_thread_fails ... ok
+test retries_later_and_health_need_an_explicit_dispatch_not_a_new_timer ... ok
+test sql_domain_and_native_driver_share_intents_and_release_controls_before_launch ... ok
+test synchronous_handler_prefix_precedes_later_kind_limit_and_settlement_waits ... ok
+test transactions_and_domain_controls_do_not_escape_until_outer_commit ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.11s
+
+     Running tests/durability.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/durability-85029a58d6161d43)
+
+running 12 tests
+test acceptance_commits_domain_receipt_and_effects_together_once ... ok
+test every_transaction_failure_cut_restores_domain_and_outbound_intents ... ok
+test generations_and_sequence_fence_old_attempt_completion ... ok
+test native_nested_callbacks_commit_in_order_and_discard_rolled_back_levels ... ok
+test nested_command_controls_cannot_escape_before_commit_or_after_rollback ... ok
+test outbound_validation_failure_rolls_back_the_ticket_and_its_intents ... ok
+test outbox_defers_off_sources_and_drops_ignored_or_gone_channels_permanently ... ok
+test persisted_settings_retain_policy_identity_source_insertion_order ... ok
+test real_process_crashes_leave_no_partial_commit_and_replay_accept_once ... ok
+test receipts_keep_first_payload_and_restore_permanent_receipt_after_inflight_withdraw ... ok
+test reply_order_is_per_ticket_and_thread_and_stops_blocking_after_three_failures ... ok
+test retry_backoff_later_shutdown_and_restart_are_persistent ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.25s
+
+     Running tests/feishu_read.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/feishu_read-4cf1b24b1494e90d)
+
+running 1 test
+test original_feishu_reader_confines_messages_threads_chat_pages_and_exact_cli_requests ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.16s
+
+     Running tests/feishu_source.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/feishu_source-00af8f86ccd02210)
+
+running 11 tests
+test bot_identity_setup_never_falls_back_to_user_or_unready_app ... ok
+test bot_setup_ignores_worker_shims_and_relative_path_entries_without_changing_alias ... ok
+test event_consumer_retains_split_unicode_reports_malformed_lines_and_joins_on_cancel ... ok
+test live_bot_consumer_remains_ready_with_managed_stdin_and_joins_on_cancel ... ignored, Real bot consumer; requires explicit existing CLI authorization
+test member_read_cancellation_joins_the_real_cli_and_descendant_before_return ... ok
+test natural_consumer_eof_drains_unterminated_unicode_lines_and_is_not_ready_success ... ok
+test original_member_sync_and_reply_run_over_verified_real_cli_with_exact_bot_argv ... ok
+test original_trigger_config_scope_and_link_business_samples_match ... ok
+test oversized_event_is_visible_but_does_not_restart_or_hide_next_event ... ok
+test readiness_deadline_cancels_and_joins_the_unready_consumer_tree ... ok
+test setup_probe_has_its_own_sixty_second_deadline_and_never_falls_back ... ok
+
+test result: ok. 10 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 1.91s
+
+     Running tests/github_read.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/github_read-ab2964428e7256fe)
+
+running 1 test
+test original_read_github_outputs_errors_and_exact_request_paths_match ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/github_source.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/github_source-ef7215c3fde8933e)
+
+running 7 tests
+test ci_requires_nullable_conclusion_and_counts_failure_during_running_work ... ok
+test managed_cli_preserves_http_failure_and_cancel_joins_the_process_tree ... ok
+test normalization_matches_unmodified_pinned_source_functions ... ok
+test prepared_ports_are_unavailable_until_real_identity_is_installed_once ... ok
+test real_managed_gh_cli_checks_identity_access_headers_and_argv_without_shell_interpolation ... ok
+test receipt_marker_delivery_matches_original_and_retries_only_retryable_errors ... ok
+test source_settings_scope_and_repository_confinement_are_not_authorization_shortcuts ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running tests/legacy_control_boundaries.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/legacy_control_boundaries-130ca09217f4013a)
+
+running 5 tests
+test current_thread_real_subagent_prompt_interrupt_512_boundaries ... ok
+test interrupt_orders_with_real_loop_start_handoff ... ok
+test interrupt_settles_across_result_to_idle_handoff ... ok
+test interrupt_settles_when_core_is_closed_before_host_eof ... ok
+test multithread_real_subagent_prompt_interrupt_512_boundaries ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 73.19s
+
+     Running tests/migration.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/migration-8e5879af97476440)
+
+running 6 tests
+test every_migration_cut_rolls_back_data_ddl_and_schema_marker ... ok
+test invalid_ticket_error_names_the_record_and_leaves_all_rows_unchanged ... ok
+test migrated_legacy_decisions_load_and_accept_replay_without_invented_authority ... ok
+test migration_replay_retains_history_and_preexisting_attempts_without_requeueing ... ok
+test process_crashes_at_migration_boundaries_recover_without_duplicate_effects ... ok
+test settings_null_snapshot_defaults_and_null_legacy_queues_follow_nullish_semantics ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.42s
+
+     Running tests/models.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/models-bb2f804ae8da4ee4)
+
+running 7 tests
+test abandoning_a_read_barrier_does_not_detach_the_owning_observer ... ok
+test cancellation_drops_blocked_read_joins_task_and_releases_entry ... ok
+test formatting_keeps_first_five_order_and_uses_last_active_timestamp ... ok
+test idle_running_idle_aba_forces_a_second_snapshot_read ... ok
+test independent_live_updates_keep_registration_order_and_release_after_dispose ... ok
+test read_failure_stays_visible_after_closed_activity_and_fails_owner_join ... ok
+test unfinished_history_does_not_make_idle_worker_a_live_budget_wait ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/native_delivery.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/native_delivery-89350b1b7b879d36)
+
+running 15 tests
+test accepted_throw_retains_exact_failure_and_actor_owns_committed_input ... ok
+test actual_global_flush_preserves_ordered_errors_and_flushes_later_healthy_writer_after_own_failure ... ok
+test all_modes_run_real_hot_callbacks_before_io_and_preserve_content_provenance ... ok
+test authorization_and_abort_failures_do_not_admit_or_report_accepted ... ok
+test consumed_queue_is_not_redelivered_in_the_same_live_object_or_after_restore ... ok
+test dropped_waiter_is_adopted_and_stale_object_cannot_dispose_replacement ... ok
+test final_global_flush_reaches_an_earlier_writer_before_own_input_fsync_completes ... ok
+test multithread_native_producers_are_accepted_while_live_core_and_real_flush_are_held ... ok
+test native_producer_ack_waits_for_real_fsync_but_not_a_blocked_core_control_ack ... ok
+test native_registry_protocol_and_agent_do_not_form_a_retaining_cycle ... ok
+test physical_default_requires_an_explicit_opt_in_and_keeps_its_old_queue_path ... ok
+test real_post_acceptance_io_failure_retains_logical_input_and_retry_is_exactly_once ... ok
+test restored_catalogue_replaces_live_identity_and_stale_agent_cannot_admit ... ok
+test setup_revoked_inside_authorize_is_checked_again_before_logical_commit ... ok
+test two_native_producers_are_accepted_while_the_real_jsonl_lock_blocks_flush ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.79s
+
+     Running tests/native_prompts.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/native_prompts-51311902dc38a676)
+
+running 8 tests
+test actual_native_skill_tool_refreshes_revisions_restarts_same_revision_and_loads_real_resources ... ok
+test closed_local_owner_fails_before_provider_or_revision_binding ... ok
+test decoration_survives_ticket_deletion_before_the_first_model_request ... ok
+test endpoint_and_ticket_capabilities_cannot_be_reassigned_between_native_owners ... ok
+test initially_unrecognized_worker_keeps_dynamic_host_base_until_explicit_redecoration ... ok
+test native_main_refreshes_current_sql_version_per_generation_complete_literal_and_physical_audit ... ok
+test native_shutdown_settles_a_turn_without_polling_the_local_sql_owner ... ok
+test native_worker_keeps_base_current_mandate_executor_source_environment_then_reference_deleted_ticket_fallback ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.43s
+
+
+running 34 tests
+test acknowledged_queue_survives_abrupt_process_exit_without_graceful_flush ...      Running tests/native_sessions.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/native_sessions-010590d17dd7a8a8)
+ok
+test both_waking_modes_keep_internal_input_behind_the_stopped_gate ... ok
+test custom_policy_overrides_fail_closed_instead_of_expanding_permissions ... ok
+test failed_and_explicitly_stopped_sessions_do_not_reopen_on_internal_input ... ok
+test independent_state_roots_do_not_accept_a_foreign_managed_binding ... ok
+test legacy_user_rpc_dedup_does_not_let_an_internal_retry_resume_a_paused_worker ... ok
+test live_external_observer_is_not_misreported_as_released_during_shutdown ... ok
+test local_sql_effect_owner_can_ack_only_after_native_jsonl_admission ... ok
+test logical_identity_cannot_be_rebound_to_a_different_workspace_or_owner ... ok
+test native_followup_wakes_and_remains_a_distinct_ordinary_turn ... ok
+test native_steer_reaches_live_next_step_without_interrupt_and_both_input_observers_settle ... ok
+test noninterrupting_steer_wakes_idle_with_a_pre_admission_observer_and_no_goal ... ok
+test owner_removal_evicts_old_observer_and_permits_changed_unconsumed_queue_redelivery ... ok
+test passive_logical_inspection_reads_cold_inbox_without_creation_activation_or_workspace ... ok
+test passive_logical_inspection_rejects_missing_or_duplicate_creation_proof ... ok
+test passive_model_health_read_never_activates_or_wakes_unloaded_or_queued_work ... ok
+test passive_notice_does_not_reopen_a_failed_or_stopped_dispatch_gate ... ok
+test passive_notice_is_real_next_step_without_a_turn_goal_or_implicit_wake ... ok
+test passive_notice_reaches_the_next_live_step_without_interrupting_a_held_model ... ok
+test passive_notice_recognizes_native_pending_and_consumed_legacy_producer_provenance ... ok
+test queue_wake_claim_result_and_per_role_tool_factories_use_the_native_loop ... ok
+test queued_native_inputs_keep_individual_observers_without_reexecuting ... ok
+test real_native_retry_journal_projects_budget_wait_until_proven_same_provider_success ... ok
+test removed_passive_notice_seen_cache_is_live_only_and_consumed_notice_survives_restore ... ok
+test restart_uses_pending_jsonl_and_exact_identity_without_auto_wake ... ok
+test restored_waking_step_retries_subscribe_before_wake_without_reinserting_input ... ok
+test retrying_a_removed_live_notice_as_followup_does_not_wake_or_replace_it ... ok
+test second_runtime_cannot_bypass_the_real_session_file_lease ... ok
+test selected_durable_model_is_not_overwritten_and_unavailable_never_falls_back ... ok
+test setup_queue_flush_concurrent_dedup_and_attribution_are_real_jsonl ... ok
+test shutdown_fences_new_admission_and_keeps_pending_receipts ... ok
+test stable_scoped_creation_has_original_receipt_and_never_calls_a_model ... ok
+test state_root_relocation_keeps_the_same_native_conversation_and_receipt ... ok
+test unavailable_role_routes_fail_before_state_is_created ... ok
+
+test result: ok. 34 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.16s
+
+     Running tests/passes.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/passes-40be91dff1c3f33a)
+
+running 16 tests
+test actual_sql_driver_admission_pass_and_effect_idle_have_separate_shutdown_boundaries ... ok
+test actual_sql_later_thread_failure_keeps_committed_prefix_and_requested_health_recovers ... ok
+test closing_changed_by_kick_skips_evaluation_and_setup_gates_dispatch ... ok
+test earlier_pump_and_idle_awaits_do_not_publish_later_request_health_early ... ok
+test failed_first_pass_still_runs_followup_and_stop_returns_both_settlements ... ok
+test hot_pumps_coalesce_to_one_followup_and_kick_precedes_evaluation ... ok
+test lifetime_abort_suppresses_recovery_but_not_failure_reporting ... ok
+test periodic_kick_retries_due_native_effects_without_a_driver_retry_timer ... ok
+test real_two_second_timer_advances_actual_sql_without_manual_pump ... ok
+test receive_checks_closing_before_storage_and_requests_only_stored ... ok
+test repeated_start_preserves_the_reference_latest_handle_only_stop_behavior ... ok
+test requested_failure_is_visible_after_idle_and_only_requested_success_recovers_health ... ok
+test runner_drop_rejects_pending_waiters_and_does_not_retain_owner_cycles ... ok
+test stop_waits_passes_not_effects_and_idle_propagates_effect_failure ... ok
+test synchronous_reentry_happens_before_pumping_assignment_without_borrow_panics ... ok
+test timer_has_no_initial_tick_uses_two_seconds_and_stop_does_not_gate_on_demand_work ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.07s
+
+
+running 51 tests
+test assessment::formal_assessment_timeout_joins_cli_and_records_visible_unavailable_without_worker ...      Running tests/product_entry.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_entry-58231e839173db85)
+ok
+test assessment::formal_batch_context_caches_once_but_uses_each_requested_trigger_identity ... ok
+test assessment::formal_explicit_request_refuses_eval_and_remains_routable ... ok
+test assessment::formal_inferred_auto_uses_scoped_context_rules_real_worker_and_reply ... ok
+test assessment::formal_inferred_direction_and_rule_gates_do_not_prepare_or_reply ... ok
+test assessment::formal_inferred_observe_records_proposal_and_finishes_refs_without_worker ... ok
+test assessment::formal_interrupt_joins_assessment_seed_without_authorizing_or_preparing_work ... ok
+test check_is_read_only_for_external_services_and_releases_state_lease ... ok
+test configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions ... ok
+test configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model ... ok
+test configuration_lifecycle::formal_pause_records_decisions_but_holds_worker_and_replies_until_resume ... ok
+test configuration_lifecycle::formal_policy_save_rolls_back_history_effects_and_authority_on_sql_cut ... ok
+test feishu::formal_feishu_consumer_failure_restarts_after_backoff_without_duplicate_work ... ok
+test feishu::formal_feishu_direct_messages_obey_scope_and_keep_direct_reply_address ... ok
+test feishu::formal_feishu_history_confines_pages_keeps_failed_cursor_and_recovers_without_duplicate_work ... ok
+test feishu::formal_feishu_self_and_malformed_events_are_not_triggers_but_scope_filters_are_retained ... ok
+test feishu::formal_feishu_source_disable_stops_and_joins_consumer_and_drops_read_after_disable ... ok
+test feishu::formal_feishu_stream_reads_context_runs_worker_replies_and_reopens_without_duplicates ... ok
+test feishu::formal_sigterm_joins_feishu_consumer_tree_before_state_reopen ... ok
+test feishu::formal_source_owner_sql_failure_exits_and_joins_consumer_instead_of_hanging ... ok
+test formal_crashed_worker_restarts_with_recovery_note_and_preserves_its_worktree ... ok
+test formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate ... ok
+test formal_idle_worker_gets_waiting_report_and_status_request_reaches_same_assignment ... ok
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+test formal_messages_protocol_runs_native_worker_and_reply_with_signature_replay ... ok
+test formal_missing_recovery_workspace_preserves_input_and_exposes_delivery_error ... ok
+test formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history ... ok
+test formal_sigterm_cancels_model_wait_and_releases_the_lease ... ok
+test formal_waiting_worker_rebinds_after_restart_and_reads_new_source_input_once ... ok
+test formal_worker_thread_controls_keep_ownership_context_and_role_boundaries ... ok
+test interrupt_joins_inflight_read_cli_before_lease_release_without_completion ... ok
+test invalid_saved_model_and_missing_configuration_never_fall_back ... ok
+test management::formal_management_bind_error_drains_owner_and_check_never_binds ... ok
+test management::formal_management_reads_real_state_guards_requests_and_joins_slow_body ... ok
+test management::formal_management_saves_cas_environment_prompts_pause_and_restart ... ok
+test management::formal_management_stops_existing_worker_and_preserves_assignment_history ... ok
+test note::formal_context_note_wakes_waiting_worker_on_same_assignment_without_new_authority ... ok
+test note::formal_ticket_note_delivers_trimmed_fact_with_original_mandate_and_rejects_invalid_or_ended_targets ... ok
+test note::formal_ticket_note_does_not_wake_worker_blocked_for_human_or_expand_authority ... ok
+test once_interrupt_cancels_a_model_wait_and_releases_the_lease ... ok
+test policy_sync::formal_bad_optional_bot_never_falls_back_or_blocks_github_worker_and_reply ... ok
+test policy_sync::formal_interrupt_joins_policy_sync_cli_tree_before_reopen_and_startup_sync ... {"state":"stopped","tickets":0,"pendingEffects":0,"github":null,"feishu":{"feishu":{"state":"error","detail":"[event] ready\nWARN fixture diagnostic"},"history":{"state":"ready","detail":"Configured groups and known direct chats recovered","at":"2026-11-02T05:30:10.411Z"}}}
+ok
+test policy_sync::formal_policy_sync_incomplete_members_are_health_error_not_grant_or_idle_blocker ... ok
+test policy_sync::formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin ... ok
+test policy_sync::formal_policy_sync_without_bot_reports_setup_error_and_cannot_switch_cli_from_tool ... ok
+test policy_sync::formal_startup_sync_merges_unrelated_saves_and_does_not_invent_source_off_conflict ... ok
+test policy_sync::formal_startup_sync_rejects_even_a_concurrent_names_only_policy_revision ... ok
+test preparation_failure_is_reported_without_worker_or_silent_retry ... ok
+test refused_and_unauthorized_requests_do_not_start_workers ... ok
+test setup_failure_and_missing_model_credential_do_not_leave_a_live_owner ... ok
+test watch_owns_the_state_exclusively_and_interrupt_joins_before_reopen ... ok
+
+test result: ok. 51 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 87.92s
+
+     Running tests/product_native.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_native-325179193a967197)
+
+running 15 tests
+test github::agent_pull_branch_binds_the_live_ticket_and_closing_it_cancels_native_worker ... ok
+test github::branch_ci_baselines_first_observation_and_defers_recovery_while_running ... ok
+test github::cancellation_mid_read_does_not_advance_unread_thread_or_retry_cursor ... ok
+test github::comments_cross_real_source_policy_native_file_and_receipt_channel_without_duplicate ... ok
+test github::deleted_and_day_old_failed_notifications_do_not_hold_health_in_error ... ok
+test github::notification_failure_does_not_rollback_other_streams_and_etag_304_deduplicates ... ok
+test github::notification_read_failure_retains_retry_until_recovery_and_health_threshold ... ok
+test github::unlisted_and_bot_source_comments_never_start_any_model_or_worker ... ok
+test main_ignore_records_decision_without_launching_worker ... ok
+test main_routes_native_worker_writes_reports_and_main_replies ... ok
+test provider_failure_is_not_silently_reported_as_idle_success ... ok
+test restart_keeps_ticket_receipts_and_duplicate_does_not_rerun ... ok
+test route_batch_refuses_one_item_without_rolling_back_another ... ok
+test shutdown_cancels_and_joins_a_running_native_worker ... ok
+test unauthorized_source_never_reaches_any_model_or_tool ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.02s
+
+     Running tests/prompts.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/prompts-bb3b80810194d8d0)
+
+running 12 tests
+test packaged_prompt_normalization_matches_js_whitespace_not_rust_whitespace ... ok
+test previews_have_no_durable_side_effect_and_keep_setup_and_skill_gates ... ok
+test prompt_composition_preserves_override_bytes_and_placeholder_literals ... ok
+test prompt_history_keeps_skill_and_override_order_and_rebased_base_changes ... ok
+test prompt_process_cutpoint_child ... ok
+test prompt_retired_overrides_require_saved_authority_and_track_default_changes ... ok
+test prompt_save_rolls_back_default_and_built_in_snapshots_and_pointer_on_sql_fault ... ok
+test prompt_validation_is_before_cas_and_utf16_limit_includes_serialized_config ... ok
+test prompt_versions_persist_and_restore_defaults_without_mutating_settings ... ok
+test real_process_crashes_recover_uncommitted_prompt_snapshots_and_durable_lost_ack ... 
+running 1 test
+
+running 1 test
+
+running 1 test
+ok
+test reentrant_limit_callback_cannot_overwrite_a_revision_saved_after_validation_read ... ok
+test schema_issues_aggregate_in_definition_order_and_skip_proto_before_validation ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.32s
+
+
+running 7 tests
+test failed_record_and_receipt_reads_are_errors_not_absent_records ... ok
+test nested_engine_failures_keep_prior_writes_but_rollback_the_failed_command ...      Running tests/repository.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/repository-613d458364ca8d3c)
+ok
+test pending_receipt_overlay_is_visible_before_intents_are_saved ... ok
+test point_commands_do_not_decode_scan_or_rewrite_unrelated_history ... ok
+test sql_read_failures_and_fallible_model_callbacks_do_not_become_user_denials ... ok
+test sql_write_failure_and_panic_restore_domain_and_staged_intents ... ok
+test unrelated_malformed_records_are_not_touched_by_a_point_command ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.05s
+
+
+running 4 tests
+test delivered_input_renderer_keeps_text_context_and_historical_reopen_distinct ... ok
+test policy_inputs_explain_disabled_changed_accept_and_sender_limits ... ok
+test public_native_transcripts_match_original_projection_and_keep_tool_calls_without_reasoning ...      Running tests/resource_rendering.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/resource_rendering-9514efd2819ddea7)
+ok
+test source_snapshots_are_session_scoped_lru_and_replaced_without_size_leaks ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test explicit_projection_preserves_map_order_and_detached_results ... ok
+test native_assistant_requires_same_step_request_provenance ... ok
+test native_idle_restore_and_watermarks_do_not_reactivate_old_waits ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test bundled_assets_are_immutable_idempotent_and_recover_an_interrupted_reserved_temp ... ok
+test owned_skill_root_and_assets_never_follow_symlinks_or_replace_foreign_content ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/retry_health.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/retry_health-b1102649618e397b)
+     Running tests/skill_assets.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/skill_assets-1b0170ce158cf493)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/xharness_superagent_core-b3bdb8ee7045445d)
+     Running unittests src/bin/engine.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_engine-55a1961fcfa8eff8)
+     Running unittests src/bin/engine_bridge.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_engine_bridge-16fe4a0e92b4925f)
+     Running unittests src/bin/policy.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_policy-7bf630192cb73476)
+     Running unittests src/bin/primitives.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_primitives-3d3cfb6efe0a9c97)
+     Running unittests src/bin/skill_catalog_bridge.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_skill_catalog_bridge-d6bfeabc17ce34f0)
+
+running 5 tests
+test direct_stop_does_not_consume_another_triggers_active_eval ... ok
+test empty_stop_reason_is_not_replaced_for_executor ... ok
+test failed_command_restores_domain_and_all_uncommitted_effects ... ok
+test stale_executor_start_after_human_stop_is_idempotent ... ok
+test stopped_ticket_cannot_restart_or_commit_effects_on_refused_retry ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 3 tests
+test failed_transaction_restores_insertions_and_updates ... ok
+test nested_result_rollback_keeps_outer_work_and_insertion_order ... ok
+test reads_and_saves_do_not_leak_shared_mutability ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 5 tests
+test binary64_json_formatting_preserves_reference_thresholds ... ok
+test ordered_identity_is_not_json_key_canonicalization ... ok
+test original_default_policy_identity_and_non_authorizing_settings ... ok
+test source_identities_do_not_map_people_across_sources ... ok
+test strict_configuration_and_utf16_bounds_are_not_silently_relaxed ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 2 tests
+test input_read_receipt_preserves_missing_null_and_time ... ok
+test stable_key_matches_reference_empty_array ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 11 tests
+test allocation_failure_is_not_a_fabricated_publication ... ok
+test catalog_source_and_rendering_keep_exact_unpaired_code_units ... ok
+test current_candidate_drops_all_matching_ids_but_not_other_inputs ... ok
+test digest_distinguishes_non_scalar_entries_and_ignores_frame_text ... ok
+test direct_gestures_use_claimed_human_blocks_and_survive_loader_shadow ... ok
+test initial_empty_catalog_drops_only_nonmatching_stale_candidate ... ok
+test initial_empty_matching_candidate_is_preserved_before_empty_suppression ... ok
+test malformed_seed_is_ignored_but_history_coordinate_loss_is_fatal ... ok
+test matching_uncommitted_candidate_preserves_full_envelope_even_different_prose ... ok
+test rejected_decision_and_incomplete_catalog_do_not_read_or_allocate ... ok
+test visible_empty_catalog_drops_candidate_without_republishing ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 3 tests
+test full_timeclip_range_formats_six_digit_signed_years ... ok
+test iso_calendar_overflow_and_midnight_follow_ecmascript ... ok
+test rejected_dates_remain_original_instead_of_being_coerced ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 4 tests
+test all_single_utf16_units_roundtrip_without_replacement ...      Running tests/engine.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/engine-545131ade8f01c41)
+     Running tests/memory.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/memory-d10836f3e980258c)
+     Running tests/policy.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/policy-16478c39c76bc19c)
+     Running tests/primitives.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/primitives-55b96a530b16ee09)
+     Running tests/skill_catalog.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/skill_catalog-0fa0b2433aaf2e5e)
+     Running tests/time.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/time-a4761d519557ecf7)
+     Running tests/utf16_json.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/utf16_json-1b651475fee0c71b)
+ok
+test duplicate_non_scalar_keys_and_ecma_order_are_lossless ... ok
+test invalid_json_is_rejected_instead_of_lossy_recovery ... ok
+test json_object_equality_is_structural_not_field_loss_or_insertion_order ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+     Running unittests src/lib.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/xharness_tools-b7049a4c3dfa3599)
+
+running 3 tests
+test legacy_projection::tests::catches_omitted_fields_without_metadata_but_leaves_normal_inputs_alone ... ok
+test legacy_projection::tests::recognizes_only_the_complete_legacy_marker ... ok
+test legacy_projection::tests::rejects_metadata_even_when_the_placeholder_was_removed ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/pipeline.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/pipeline-9ac21bb7550e0bf3)
+
+running 26 tests
+test a_later_allow_cannot_reverse_an_approval_or_denial_guard ... ok
+test approval_deadline_fails_closed_when_provider_never_answers ... ok
+test batch_cancel_waits_for_each_cooperative_handler_to_quiesce ... ok
+test batch_rejects_invalid_shape_and_empty_batch_settles_cleanly ... ok
+test batch_scheduler_owns_limit_barriers_completion_order_and_replay_order ... ok
+test caller_supplied_execution_id_reaches_context_and_result_unchanged ... ok
+test cancellation_unblocks_a_pending_lifecycle_ack_without_running_the_handler ... ok
+test cancellation_while_waiting_for_approval_is_distinct_from_unavailability ... ok
+test durable_request_can_force_approval_after_registry_reprojection ... ok
+test every_mutating_middleware_stage_materializes_panics ... ok
+test externally_settled_handlers_ignore_the_ordinary_deadline ... ok
+test finalizer_cannot_turn_a_policy_denial_into_success ... ok
+test full_debug_records_validated_arguments_pipeline_and_final_result ... ok
+test keyed_concurrency_serializes_equal_keys_but_not_distinct_keys ... ok
+test lifecycle_is_acknowledged_before_handler_side_effects_and_fails_closed ... ok
+test malformed_or_schema_invalid_arguments_never_reach_handler ... ok
+test pipeline_order_is_stable ... ok
+test registry_rejects_duplicate_names_atomically ... ok
+test registry_rejects_non_object_or_malformed_schemas ... ok
+test standalone_tool_rejects_a_mixed_batch_before_any_handler_runs ... ok
+test timeout_and_handler_panic_are_materialized ... ok
+test unannotated_tools_default_to_the_exclusive_lane ... ok
+test unanswered_approval_waits_for_the_user_instead_of_failing_closed ... ok
+test unavailable_approval_provider_fails_closed ... ok
+test uncooperative_handler_is_reported_as_cleanup_timeout ... ok
+test zero_approval_deadline_is_rejected ... ok
+
+test result: ok. 26 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+

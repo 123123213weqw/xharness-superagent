@@ -1,0 +1,461 @@
+{
+  "schema_version": 1,
+  "at_utc": "2026-11-03T00:57:22Z",
+  "status": "all_six_production_instances_deployed_and_ready",
+  "scope": "six-instance rollout of the tested GitHub exploration release; not full business/PR/privileged-workflow equivalence",
+  "host": "WZU_Server",
+  "source_commit": "5d850965dd5e39733937ed21ee7db79d12e104a9",
+  "source_fingerprint": "c68d5c54b2be01ed038319dd907247b9139edc8f4de6712a6a8dce08583fd690",
+  "release": "5d850965dd5e-ebc5ea886e4f",
+  "binary_sha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+  "build_profile": "dev (same previously tested ELF; not claimed as release-profile acceptance)",
+  "local_rust_compilation": false,
+  "all_six_implementation": "rust",
+  "instances": [
+    {
+      "instance": "rs",
+      "kind": "rust",
+      "channel": "canary",
+      "port": 3093,
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+      "runtime": {
+        "at": "2026-11-03T00:41:50.676Z",
+        "detail": "Orchestrator is ready",
+        "state": "ready"
+      },
+      "load": {
+        "idle": 0,
+        "maxWorkers": 1.0,
+        "queued": 0,
+        "running": 0
+      },
+      "paused": false,
+      "sources": [
+        {
+          "id": "feishu",
+          "state": "ready",
+          "enabled": true
+        },
+        {
+          "id": "github",
+          "state": "ready",
+          "enabled": true
+        }
+      ],
+      "pid": 526752,
+      "automaticRestarts": 0,
+      "enabledAtBoot": true,
+      "promptSectionsPreserved": true,
+      "modelRoute": {
+        "provider": "deepseek",
+        "model": "deepseek-flash",
+        "reasoningEffort": "high"
+      },
+      "sharedSearch": {
+        "provider": "deepseek-search-api",
+        "apiKeyEnv": "DEEPSEEK_API_KEY"
+      },
+      "independentStateAndCheckoutCache": true,
+      "sourceRepositorySha256": "7b591ff778d8dd65ebdcd359caddffabcf4d206b9bb3a17ac6e52c693deed539",
+      "sameExistingAccount": true,
+      "liveBranchAndLiteralSearchReadPassed": true,
+      "formalWorkerRealCliReadPassed": true,
+      "livePaidInferenceInvokedForProbe": false,
+      "counts": {
+        "ticket": 4,
+        "trigger": 141,
+        "disposition": 141,
+        "outbox": 14
+      },
+      "backupVerified": true,
+      "retainedRustTickets": 4,
+      "archivedLegacyTickets": 0,
+      "legacySessionsContinued": null
+    },
+    {
+      "instance": "runtime",
+      "kind": "rust",
+      "channel": "stable",
+      "port": 3092,
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+      "runtime": {
+        "at": "2026-11-03T00:54:24.362Z",
+        "detail": "Orchestrator is ready",
+        "state": "ready"
+      },
+      "load": {
+        "idle": 0,
+        "maxWorkers": 3.0,
+        "queued": 0,
+        "running": 0
+      },
+      "paused": false,
+      "sources": [
+        {
+          "id": "feishu",
+          "state": "ready",
+          "enabled": true
+        },
+        {
+          "id": "github",
+          "state": "ready",
+          "enabled": true
+        }
+      ],
+      "pid": 612482,
+      "automaticRestarts": 0,
+      "enabledAtBoot": true,
+      "promptSectionsPreserved": true,
+      "modelRoute": {
+        "provider": "deepseek",
+        "model": "deepseek-flash",
+        "reasoningEffort": "high"
+      },
+      "sharedSearch": {
+        "provider": "deepseek-search-api",
+        "apiKeyEnv": "DEEPSEEK_API_KEY"
+      },
+      "independentStateAndCheckoutCache": true,
+      "sourceRepositorySha256": "85c07b18bbc04a0e03768f6c49a5021d1a3d5162f8fbb50d5a622fdec6f270bf",
+      "sameExistingAccount": true,
+      "liveBranchAndLiteralSearchReadPassed": true,
+      "formalWorkerRealCliReadPassed": true,
+      "livePaidInferenceInvokedForProbe": false,
+      "counts": {
+        "ticket": 0,
+        "trigger": 89,
+        "disposition": 89,
+        "outbox": 14
+      },
+      "backupVerified": true,
+      "retainedRustTickets": 0,
+      "archivedLegacyTickets": 6,
+      "legacySessionsContinued": false
+    },
+    {
+      "instance": "rwkv",
+      "kind": "rust",
+      "channel": "stable",
+      "port": 3094,
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+      "runtime": {
+        "at": "2026-11-03T00:51:24.552Z",
+        "detail": "Orchestrator is ready",
+        "state": "ready"
+      },
+      "load": {
+        "idle": 0,
+        "maxWorkers": 3.0,
+        "queued": 0,
+        "running": 0
+      },
+      "paused": false,
+      "sources": [
+        {
+          "id": "feishu",
+          "state": "ready",
+          "enabled": true
+        },
+        {
+          "id": "github",
+          "state": "ready",
+          "enabled": true
+        }
+      ],
+      "pid": 597368,
+      "automaticRestarts": 0,
+      "enabledAtBoot": true,
+      "promptSectionsPreserved": true,
+      "modelRoute": {
+        "provider": "glm-coding",
+        "model": "glm-5.3"
+      },
+      "sharedSearch": {
+        "provider": "deepseek-search-api",
+        "apiKeyEnv": "DEEPSEEK_API_KEY"
+      },
+      "independentStateAndCheckoutCache": true,
+      "sourceRepositorySha256": "b35d3b6923a07524986d0e9236eb4d0545d9a4cb2cfe11ff2f3eafa905f88bee",
+      "sameExistingAccount": true,
+      "liveBranchAndLiteralSearchReadPassed": true,
+      "formalWorkerRealCliReadPassed": true,
+      "livePaidInferenceInvokedForProbe": false,
+      "counts": {
+        "ticket": 0,
+        "trigger": 55,
+        "disposition": 55,
+        "outbox": 12
+      },
+      "backupVerified": true,
+      "retainedRustTickets": 0,
+      "archivedLegacyTickets": 5,
+      "legacySessionsContinued": false
+    },
+    {
+      "instance": "pirs",
+      "kind": "rust",
+      "channel": "stable",
+      "port": 3095,
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+      "runtime": {
+        "at": "2026-11-03T00:52:26.071Z",
+        "detail": "Orchestrator is ready",
+        "state": "ready"
+      },
+      "load": {
+        "idle": 0,
+        "maxWorkers": 3.0,
+        "queued": 0,
+        "running": 0
+      },
+      "paused": false,
+      "sources": [
+        {
+          "id": "feishu",
+          "state": "ready",
+          "enabled": true
+        },
+        {
+          "id": "github",
+          "state": "ready",
+          "enabled": true
+        }
+      ],
+      "pid": 602313,
+      "automaticRestarts": 0,
+      "enabledAtBoot": true,
+      "promptSectionsPreserved": true,
+      "modelRoute": {
+        "provider": "glm-coding",
+        "model": "glm-5.3"
+      },
+      "sharedSearch": {
+        "provider": "deepseek-search-api",
+        "apiKeyEnv": "DEEPSEEK_API_KEY"
+      },
+      "independentStateAndCheckoutCache": true,
+      "sourceRepositorySha256": "3f7d0d65a0abe203729f5c05ddf71ecc9ce924d48eefc295d15035cfc4e92900",
+      "sameExistingAccount": true,
+      "liveBranchAndLiteralSearchReadPassed": true,
+      "formalWorkerRealCliReadPassed": true,
+      "livePaidInferenceInvokedForProbe": false,
+      "counts": {
+        "ticket": 0,
+        "trigger": 52,
+        "disposition": 52,
+        "outbox": 8
+      },
+      "backupVerified": true,
+      "retainedRustTickets": 0,
+      "archivedLegacyTickets": 2,
+      "legacySessionsContinued": false
+    },
+    {
+      "instance": "xandbox",
+      "kind": "rust",
+      "channel": "stable",
+      "port": 3096,
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+      "runtime": {
+        "at": "2026-11-03T00:53:30.492Z",
+        "detail": "Orchestrator is ready",
+        "state": "ready"
+      },
+      "load": {
+        "idle": 0,
+        "maxWorkers": 3.0,
+        "queued": 0,
+        "running": 0
+      },
+      "paused": false,
+      "sources": [
+        {
+          "id": "feishu",
+          "state": "ready",
+          "enabled": true
+        },
+        {
+          "id": "github",
+          "state": "ready",
+          "enabled": true
+        }
+      ],
+      "pid": 607761,
+      "automaticRestarts": 0,
+      "enabledAtBoot": true,
+      "promptSectionsPreserved": true,
+      "modelRoute": {
+        "provider": "glm-coding",
+        "model": "glm-5.3"
+      },
+      "sharedSearch": {
+        "provider": "deepseek-search-api",
+        "apiKeyEnv": "DEEPSEEK_API_KEY"
+      },
+      "independentStateAndCheckoutCache": true,
+      "sourceRepositorySha256": "61a36762994c2af3e2f9ce582a282ac24afacfc352af4c8774125a1632eaa96c",
+      "sameExistingAccount": true,
+      "liveBranchAndLiteralSearchReadPassed": true,
+      "formalWorkerRealCliReadPassed": true,
+      "livePaidInferenceInvokedForProbe": false,
+      "counts": {
+        "ticket": 0,
+        "trigger": 33,
+        "disposition": 33,
+        "outbox": 9
+      },
+      "backupVerified": true,
+      "retainedRustTickets": 0,
+      "archivedLegacyTickets": 4,
+      "legacySessionsContinued": false
+    },
+    {
+      "instance": "arena",
+      "kind": "rust",
+      "channel": "stable",
+      "port": 3097,
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+      "runtime": {
+        "at": "2026-11-03T00:49:48.048Z",
+        "detail": "Orchestrator is ready",
+        "state": "ready"
+      },
+      "load": {
+        "idle": 0,
+        "maxWorkers": 3.0,
+        "queued": 0,
+        "running": 0
+      },
+      "paused": false,
+      "sources": [
+        {
+          "id": "feishu",
+          "state": "ready",
+          "enabled": true
+        },
+        {
+          "id": "github",
+          "state": "ready",
+          "enabled": true
+        }
+      ],
+      "pid": 586551,
+      "automaticRestarts": 0,
+      "enabledAtBoot": true,
+      "promptSectionsPreserved": true,
+      "modelRoute": {
+        "provider": "glm-coding",
+        "model": "glm-5.3"
+      },
+      "sharedSearch": {
+        "provider": "deepseek-search-api",
+        "apiKeyEnv": "DEEPSEEK_API_KEY"
+      },
+      "independentStateAndCheckoutCache": true,
+      "sourceRepositorySha256": "8e201deaf19999546f685e94ea32ffecfa8b426977adfe56c69a4b36592dc80b",
+      "sameExistingAccount": true,
+      "liveBranchAndLiteralSearchReadPassed": true,
+      "formalWorkerRealCliReadPassed": true,
+      "livePaidInferenceInvokedForProbe": false,
+      "counts": {
+        "ticket": 0,
+        "trigger": 19,
+        "disposition": 19,
+        "outbox": 2
+      },
+      "backupVerified": true,
+      "retainedRustTickets": 0,
+      "archivedLegacyTickets": 1,
+      "legacySessionsContinued": false
+    }
+  ],
+  "all_twelve_sources_ready": true,
+  "serial_rollout": true,
+  "stable_observation_seconds": 87.0,
+  "automatic_restarts_during_observation": 0,
+  "same_existing_deepseek_search_credential": true,
+  "preserved_model_route_counts": {
+    "deepseek_flash": 2,
+    "glm_5_3": 4
+  },
+  "per_instance_state_cache_account_repository_and_team_prompt": true,
+  "old_rust_tickets_retained": 4,
+  "legacy_tickets_archived_not_continued": 18,
+  "legacy_original_work_directories_retained_in_place": true,
+  "legacy_work_second_full_hashed_copy_claimed": false,
+  "original_no_unfinished_work_import_gate_enforced": true,
+  "all_six_real_github_branch_and_literal_search_reads_passed": true,
+  "formal_worker_existing_account_live_cli_probes_passed": 6,
+  "probe_paid_model_inference_calls": 0,
+  "probe_real_external_writes": false,
+  "new_real_human_feishu_to_worker_reply_test": false,
+  "existing_account_grants_changed": false,
+  "auto_merge_enabled_by_rollout": false,
+  "systemd_units_enabled_with_existing_linger": true,
+  "legacy_cron_restarter_disabled_per_migrated_profile": true,
+  "unrelated_cron_unchanged": true,
+  "future_updates": "one immutable release; RS canary -> explicit scoped promotion -> guarded single-instance stable upgrades; no unattended source update",
+  "regression_provenance": {
+    "verification": "docs/github-exploration-verification.json",
+    "passed": 407,
+    "ignored": 12,
+    "ignored_not_pass": true,
+    "strict_clippy": "passed",
+    "full_workspace_cross_platform_rerun": false,
+    "source_and_binary_match_prior_passed_record": true
+  },
+  "actual_recovery": {
+    "arena_first_attempt": "prompt-retention gate detected legacy virtual revision-zero defaults were not stored in DB. Candidate sources remained disabled; old original restored ready/unpaused without DB replay. All failure evidence retained privately.",
+    "operator_fix": "materialize exact original team sections through existing human CAS API before Source activation; keep exact content comparison",
+    "retry": "passed; no original or reference product assertion relaxed",
+    "preflight_sqlite_recovery": "old OS Python SQLite could not parse JSON generated schema; existing Node24 used for readonly inspection; no schema or host package changes"
+  },
+  "rollback_boundaries": {
+    "rs_current_state_full_bundle_verified": true,
+    "legacy_control_db_session_bundles_verified": true,
+    "original_work_retained_not_copied": true,
+    "after_activation_requires_current_state_external_action_and_cursor_reconciliation_for_legacy_rollback": true,
+    "compatible_rust_binary_rollback_preserves_current_state": true,
+    "stale_database_or_cursor_restored": false
+  },
+  "unaccepted_as_complete": [
+    "No new paid GLM/DeepSeek inference round trip or new human Feishu Worker reply in this rollout",
+    "Historical 554-read task not re-benchmarked",
+    "All PR multi-round and full business parity remain separately in progress",
+    "No sudo/KVM/privileged-flow or active remote SSH crash matrix inferred from ordinary reads",
+    "No unattended updater, auto-publication of chats/incidents, or complete cross-host rollback guarantee"
+  ],
+  "whole_business_goal_complete": false,
+  "evidence": {
+    "audit": "docs/evidence/fleet-production-01/final-audit.json",
+    "before_observation": "docs/evidence/fleet-production-01/post-rollout-audit.json",
+    "migration": "docs/evidence/fleet-production-01/migration-receipts.json",
+    "events": "docs/evidence/fleet-production-01/ordered-events.jsonl",
+    "operator_guide": "docs/superagent/fleet-production-rollout.md"
+  },
+  "evidence_sha256": {
+    "docs/evidence/fleet-production-01/arena-live-read.json": "00795c4b526f87fc5e24aa0952de449dc6a89eb8f1ad07a3224caa6b3f3c2d8e",
+    "docs/evidence/fleet-production-01/arena-live-worker-read.log": "07fb6ec9fc230f78410f745bbecccea6d4aea866d8c1a41f10cbbbf9a34cba2f",
+    "docs/evidence/fleet-production-01/final-audit.json": "85647c67ffe9604546d1291d323cf0fb5d2af419a9bdb22ce5e6cef2e081b830",
+    "docs/evidence/fleet-production-01/migration-receipts.json": "3ac5517de7a7f9602b9c673747ef60b423691477039c668111bf0bdf09a62c3b",
+    "docs/evidence/fleet-production-01/ordered-events.jsonl": "3c8e751e3272f4282743184ced35214839f1d5455bbda76a65c5372c940e8cf1",
+    "docs/evidence/fleet-production-01/pirs-live-read.json": "451f1a1b47f731f6959b7f18e00bcf81a6861c94a524977647910d4b5d868cf7",
+    "docs/evidence/fleet-production-01/pirs-live-worker-read.log": "a6a47481f9de6cb00976dbbe26eaf13a6a57837d8a90a567838a395bac16de4c",
+    "docs/evidence/fleet-production-01/post-rollout-audit.json": "935d8a5be3e9188d419be1f4441f31f8a3b18fe9466ba9424e5500b8d5fe2bac",
+    "docs/evidence/fleet-production-01/promotion.json": "db4a9acd5b55888ff406006c674853a97c0ad6c0a4790c181629f4f4a4e83c8d",
+    "docs/evidence/fleet-production-01/rs-live-read.json": "34c1ff392f373e54367631fb09771789398c3795bbc36cb8a79c936b1ebec6c1",
+    "docs/evidence/fleet-production-01/rs-live-worker-read.log": "98295f021465155773df2b2f2e6b9fc8782f66b01906c14faaed09aa71156cd0",
+    "docs/evidence/fleet-production-01/runtime-live-read.json": "7675380aa3c694d41a74aca2816c5a263dba8b41e341060fda3d115805c4f315",
+    "docs/evidence/fleet-production-01/runtime-live-worker-read.log": "cf67533742b37a996ee6be59508021fe0a47b032b1be46b750b94d2a1dd922fb",
+    "docs/evidence/fleet-production-01/rwkv-live-read.json": "c6a753226d78510f001a351cd51c2c07c292ab8fcd73e1a2ffcb4cc0ef750ab7",
+    "docs/evidence/fleet-production-01/rwkv-live-worker-read.log": "03dabb36298f49805cee0b9471fd91eea4363edae5152ff0b46e318a65aecf64",
+    "docs/evidence/fleet-production-01/xandbox-live-read.json": "2180e1162027f85149e6164ac6f85a2d3902a48ae2db1a2ecedb6904b53c0a5f",
+    "docs/evidence/fleet-production-01/xandbox-live-worker-read.log": "d89cea41d0a8710cca37476c71d1f36e3863cd6fd83d99188f8b849dd575a02d"
+  }
+}

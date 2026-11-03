@@ -1,0 +1,28 @@
+    Checking xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.71s
+    Checking xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.89s
+   Compiling xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 8.49s
+     Running tests/product_entry.rs (<OWNED_WORKSPACE>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_entry-e63082d92e636d98)
+
+running 4 tests
+test delivery::formal_delivery_check_is_read_only_and_invalid_opt_in_fails_before_setup ... ok
+test delivery::formal_delivery_publishes_immutable_text_snapshot_reconciles_retry_and_reads_reviews ... ok
+test delivery::formal_delivery_rechecks_live_authority_after_inflight_blob_before_ref_or_pr ... ok
+test delivery::formal_delivery_rejects_unsafe_files_and_modes_before_external_mutation ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 51 filtered out; finished in 8.27s
+
+   Compiling xharness-process v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-process)
+   Compiling tower-http v0.6.11
+   Compiling xharness-host v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-host)
+   Compiling reqwest v0.12.28
+   Compiling xharness-sandbox v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-sandbox)
+   Compiling xharness-platform v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-platform)
+   Compiling xharness-web v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-web)
+   Compiling xharness-provider-openai v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-provider-openai)
+   Compiling xharness-coding-tools v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-coding-tools)
+   Compiling xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 49.99s
+19ca54f9d2fdaec8d45942715d0befce5804899a10975b2967a88606748f8ff0  <OWNED_WORKSPACE>/.alignment-evidence/real-acceptance-01/bin/delivery-candidate

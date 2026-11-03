@@ -1,0 +1,29 @@
++ date -u +%FT%TZ
+2026-11-01T18:27:12Z
++ cargo fmt --all -- --check
++ cargo check --locked --workspace --all-targets --features xharness-superagent/conformance
+    Checking xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.28s
++ cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings
+    Checking xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+error: non-binding `let` on an expression with `#[must_use]` type
+  --> crates/xharness-superagent/src/application/controls/tests.rs:24:9
+   |
+24 |         let _ = std::fs::remove_dir_all(&self.0);
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+   = help: consider explicitly using expression value
+note: type is `std::result::Result`
+  --> crates/xharness-superagent/src/application/controls/tests.rs:24:17
+   |
+24 |         let _ = std::fs::remove_dir_all(&self.0);
+   |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#let_underscore_must_use
+note: the lint level is defined here
+  --> crates/xharness-superagent/src/application/controls.rs:7:5
+   |
+ 7 |     clippy::let_underscore_must_use,
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error: could not compile `xharness-superagent` (lib test) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...

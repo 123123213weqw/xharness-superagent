@@ -1,0 +1,37 @@
+   Compiling xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.55s
+
+running 5 tests
+test check_is_read_only_for_external_services_and_releases_state_lease ...      Running tests/product_entry.rs (<isolated-target>/debug/deps/product_entry-085c7a183df671db)
+ok
+test formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate ... 
+thread 'formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate' (2122215) panicked at crates/xharness-superagent/tests/product_entry.rs:309:5:
+stdout=
+stderr=Native execution failed: attachment resolver is not configured; image input cannot be sent; A Native model/observer failed; inspect session health
+
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test invalid_saved_model_and_missing_configuration_never_fall_back ... ok
+test preparation_failure_is_reported_without_worker_or_silent_retry ... 
+thread 'preparation_failure_is_reported_without_worker_or_silent_retry' (2122229) panicked at crates/xharness-superagent/tests/product_entry.rs:309:5:
+stdout=
+stderr=Native execution failed: attachment resolver is not configured; image input cannot be sent; A Native model/observer failed; inspect session health
+
+FAILED
+test refused_and_unauthorized_requests_do_not_start_workers ... 
+thread 'refused_and_unauthorized_requests_do_not_start_workers' (2122240) panicked at crates/xharness-superagent/tests/product_entry.rs:309:5:
+stdout=
+stderr=Native execution failed: attachment resolver is not configured; image input cannot be sent; A Native model/observer failed; inspect session health
+
+FAILED
+
+failures:
+
+failures:
+    formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate
+    preparation_failure_is_reported_without_worker_or_silent_retry
+    refused_and_unauthorized_requests_do_not_start_workers
+
+test result: FAILED. 2 passed; 3 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.39s
+
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`

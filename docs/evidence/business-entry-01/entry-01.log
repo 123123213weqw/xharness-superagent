@@ -1,0 +1,105 @@
+   Compiling slab v0.4.12
+   Compiling smallvec v1.15.2
+   Compiling percent-encoding v2.3.2
+   Compiling once_cell v1.21.4
+   Compiling http v1.5.0
+   Compiling scopeguard v1.2.0
+   Compiling zeroize v1.9.0
+   Compiling new_debug_unreachable v1.0.6
+   Compiling equivalent v1.0.2
+   Compiling log v0.4.33
+   Compiling precomputed-hash v0.1.1
+   Compiling hashbrown v0.17.1
+   Compiling untrusted v0.9.0
+   Compiling try-lock v0.2.5
+   Compiling atomic-waker v1.1.2
+   Compiling fnv v1.0.7
+   Compiling subtle v2.6.1
+   Compiling sync_wrapper v1.0.2
+   Compiling ipnet v2.12.1
+   Compiling regex-syntax v0.8.11
+   Compiling ryu v1.0.23
+   Compiling futures-channel v0.3.34
+   Compiling phf_shared v0.13.1
+   Compiling lock_api v0.4.14
+   Compiling tendril v0.5.1
+   Compiling httpdate v1.0.3
+   Compiling getrandom v0.2.17
+   Compiling want v0.3.1
+   Compiling httparse v1.10.1
+   Compiling form_urlencoded v1.2.2
+   Compiling tokio-util v0.7.19
+   Compiling xharness-sandbox v0.1.0 (<isolated-source>/crates/xharness-sandbox)
+   Compiling rustls-pki-types v1.15.1
+   Compiling tracing-core v0.1.36
+   Compiling parking_lot_core v0.9.12
+   Compiling icu_normalizer v2.3.0
+   Compiling rusqlite v0.37.0
+   Compiling serde_urlencoded v0.7.1
+   Compiling ring v0.17.14
+   Compiling futures-util v0.3.34
+   Compiling phf_generator v0.13.1
+   Compiling phf v0.13.1
+   Compiling parking_lot v0.12.5
+   Compiling phf_codegen v0.13.1
+   Compiling string_cache_codegen v0.6.1
+   Compiling xharness-platform v0.1.0 (<isolated-source>/crates/xharness-platform)
+   Compiling webpki-roots v1.0.9
+   Compiling string_cache v0.9.0
+   Compiling tracing v0.1.44
+   Compiling idna_adapter v1.2.2
+   Compiling idna v1.1.0
+   Compiling web_atoms v0.2.6
+   Compiling tokio-stream v0.1.19
+   Compiling indexmap v2.14.0
+   Compiling http-body v1.1.0
+   Compiling url v2.5.8
+   Compiling http-body-util v0.1.5
+   Compiling h2 v0.4.16
+   Compiling rustls-webpki v0.103.14
+   Compiling markup5ever v0.39.0
+   Compiling regex-automata v0.4.18
+   Compiling xml5ever v0.39.0
+   Compiling html5ever v0.39.0
+   Compiling rustls v0.23.43
+   Compiling markup5ever_rcdom v0.39.0+unofficial
+   Compiling futures-executor v0.3.34
+   Compiling tower v0.5.3
+   Compiling futures v0.3.34
+   Compiling xharness-tools v0.1.0 (<isolated-source>/crates/xharness-tools)
+   Compiling xharness-api v0.1.0 (<isolated-source>/crates/xharness-api)
+   Compiling tower-http v0.6.11
+   Compiling hyper v1.11.0
+   Compiling xharness-interaction v0.1.0 (<isolated-source>/crates/xharness-interaction)
+   Compiling regex v1.13.1
+   Compiling xharness-session v0.1.0 (<isolated-source>/crates/xharness-session)
+   Compiling html2md v0.2.17
+   Compiling hyper-util v0.1.20
+   Compiling tokio-rustls v0.26.4
+   Compiling hyper-rustls v0.27.9
+   Compiling reqwest v0.12.28
+   Compiling xharness-web v0.1.0 (<isolated-source>/crates/xharness-web)
+   Compiling xharness-coding-tools v0.1.0 (<isolated-source>/crates/xharness-coding-tools)
+   Compiling xharness-compaction v0.1.0 (<isolated-source>/crates/xharness-compaction)
+   Compiling xharness-goal v0.1.0 (<isolated-source>/crates/xharness-goal)
+   Compiling xharness-attachments v0.1.0 (<isolated-source>/crates/xharness-attachments)
+   Compiling xharness-session-import v0.1.0 (<isolated-source>/crates/xharness-session-import)
+   Compiling xharness-session-jsonl v0.1.0 (<isolated-source>/crates/xharness-session-jsonl)
+   Compiling xharness-context v0.1.0 (<isolated-source>/crates/xharness-context)
+   Compiling xharness-core v0.1.0 (<isolated-source>/crates/xharness-core)
+   Compiling xharness-agent v0.1.0 (<isolated-source>/crates/xharness-agent)
+   Compiling xharness-projection v0.1.0 (<isolated-source>/crates/xharness-projection)
+   Compiling xharness-provider-openai v0.1.0 (<isolated-source>/crates/xharness-provider-openai)
+   Compiling xharness-schedule v0.1.0 (<isolated-source>/crates/xharness-schedule)
+   Compiling xharness-host v0.1.0 (<isolated-source>/crates/xharness-host)
+   Compiling xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+error: no rules expected `.`
+  --> crates/xharness-superagent/tests/product_entry.rs:38:50
+   |
+38 | ...   "models":["fallback","main","worker"].map(|name|json!({"provider":"loopback","model":name,"upstreamModel":name,"protocol":"cha...
+   |                                            ^ no rules expected this token in macro call
+   |
+   = note: while trying to match end of macro
+
+error: could not compile `xharness-superagent` (test "product_entry") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...

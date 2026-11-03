@@ -1,0 +1,177 @@
+{
+  "rs": {
+    "controlledUpgrade": {
+      "instance": "rs",
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+      "busy": false,
+      "noOp": false,
+      "previousPaused": false,
+      "ready": true,
+      "installedAt": 1793666529.2594624,
+      "sourceCommit": "5d850965dd5e39733937ed21ee7db79d12e104a9",
+      "backupVerified": true,
+      "statePreserved": true,
+      "unitUnchanged": true,
+      "status": "deployed"
+    },
+    "health": {
+      "instance": "rs",
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "pid": 526752,
+      "runtime": {
+        "at": "2026-11-03T00:41:50.676Z",
+        "detail": "Orchestrator is ready",
+        "state": "ready"
+      },
+      "sources": [
+        {
+          "id": "feishu",
+          "state": "ready",
+          "enabled": true
+        },
+        {
+          "id": "github",
+          "state": "ready",
+          "enabled": true
+        }
+      ],
+      "unpaused": true,
+      "promptsUnchanged": true,
+      "otherFiveNotRestarted": true,
+      "runningBinaryMatchesRelease": true
+    }
+  },
+  "runtime": {
+    "coldImport": {
+      "continuedLegacySessions": false,
+      "counts": {
+        "decision": 88,
+        "disposition": 89,
+        "kv": 35,
+        "outbox": 14,
+        "thread": 44,
+        "trigger": 89
+      },
+      "droppedLegacyTickets": 6,
+      "installed": true,
+      "outstandingEffects": 0,
+      "sourceSha256": "62704cf982cdaf6c042e03cb435092839390486a7afadb49ea61f725c05d25cc"
+    },
+    "controlBundle": {
+      "objects": 12,
+      "files": 32,
+      "verified": true
+    },
+    "oldWorkRetainedInPlace": true,
+    "oldWorkWholeTreeCopyClaimed": false,
+    "promptSectionsWrittenAndComparedThroughCAS": true
+  },
+  "rwkv": {
+    "coldImport": {
+      "continuedLegacySessions": false,
+      "counts": {
+        "decision": 55,
+        "disposition": 55,
+        "kv": 23,
+        "outbox": 12,
+        "thread": 25,
+        "trigger": 55
+      },
+      "droppedLegacyTickets": 5,
+      "installed": true,
+      "outstandingEffects": 0,
+      "sourceSha256": "964a6e3dc0d536bba43869c453340bfab4acfd33be38b62ae2fa42945dd8c81a"
+    },
+    "controlBundle": {
+      "objects": 11,
+      "files": 32,
+      "verified": true
+    },
+    "oldWorkRetainedInPlace": true,
+    "oldWorkWholeTreeCopyClaimed": false,
+    "promptSectionsWrittenAndComparedThroughCAS": true
+  },
+  "pirs": {
+    "coldImport": {
+      "continuedLegacySessions": false,
+      "counts": {
+        "decision": 52,
+        "disposition": 52,
+        "kv": 23,
+        "outbox": 8,
+        "thread": 26,
+        "trigger": 52
+      },
+      "droppedLegacyTickets": 2,
+      "installed": true,
+      "outstandingEffects": 0,
+      "sourceSha256": "00ad322445a1b12ad522c16fdafb47f1074b7e01432b29a6ff8bcf9dcbfde822"
+    },
+    "controlBundle": {
+      "objects": 8,
+      "files": 20,
+      "verified": true
+    },
+    "oldWorkRetainedInPlace": true,
+    "oldWorkWholeTreeCopyClaimed": false,
+    "promptSectionsWrittenAndComparedThroughCAS": true
+  },
+  "xandbox": {
+    "coldImport": {
+      "continuedLegacySessions": false,
+      "counts": {
+        "decision": 33,
+        "disposition": 33,
+        "kv": 20,
+        "outbox": 9,
+        "thread": 17,
+        "trigger": 33
+      },
+      "droppedLegacyTickets": 4,
+      "installed": true,
+      "outstandingEffects": 0,
+      "sourceSha256": "04edcf14ac50bab6fc5dea109169eba9bdb72c1fdcbc6b3a0a3958f80f10f47d"
+    },
+    "controlBundle": {
+      "objects": 10,
+      "files": 24,
+      "verified": true
+    },
+    "oldWorkRetainedInPlace": true,
+    "oldWorkWholeTreeCopyClaimed": false,
+    "promptSectionsWrittenAndComparedThroughCAS": true
+  },
+  "arena": {
+    "coldImport": {
+      "continuedLegacySessions": false,
+      "counts": {
+        "decision": 19,
+        "disposition": 19,
+        "kv": 24,
+        "outbox": 2,
+        "thread": 10,
+        "trigger": 19
+      },
+      "droppedLegacyTickets": 1,
+      "installed": true,
+      "outstandingEffects": 0,
+      "sourceSha256": "c93b4d30fd2e8f6251c5079e53ff7a38562c2469cabdba0181a212f3a9590db5"
+    },
+    "controlBundle": {
+      "objects": 7,
+      "files": 18,
+      "verified": true
+    },
+    "oldWorkRetainedInPlace": true,
+    "oldWorkWholeTreeCopyClaimed": false,
+    "promptSectionsWrittenAndComparedThroughCAS": true
+  },
+  "coldRetainedMaterialNote": "Legacy standalone DB/control/config/CLI/sessions bundle verified; original full work directories retained in place, not a second fully hashed copy of unreadable/large work artifacts.",
+  "operatorScriptsSha256": {
+    "fleet_cold_production.py": "60b724096cf9fc864741c760f9dce100c442df2058658c73b89c101674b0adf6",
+    "legacy-control.py": "82c5cade64b9a8116324c9eb153edc60f330901f71b6ff18fd20cbb58df1faca",
+    "fleet_live_checks.py": "ec0eda5ae6263238f7d89339e9991539eb42801586c1233a1f1f7d6f4099b9c6",
+    "fleet_final_audit.py": "6dfab3c5c8483e2a7f7c8620b222d05e67119378f2260ff11e7215ad206748ca"
+  }
+}

@@ -1,0 +1,404 @@
+{
+  "schema_version": 1,
+  "at_utc": "2026-11-02T14:08:47.474408+00:00",
+  "status": "true_cold_checkout_accepted_and_rs_fix_deployed",
+  "scope": "Git cold checkout/networking correction; not full PR continuation or all-instance business alignment",
+  "source_commit": "2ce5464726308db68f200568b5169420b68ec6a5",
+  "source_profile": "docs/cold-checkout-source-profile.json",
+  "source_profile_sha256": "082f5ceed2876e8c6f9b70b6b0e48d8bab407a5e1d7ccea252c9b7724d88e937",
+  "source_profile_files": 797,
+  "local_remote_source_equal": true,
+  "rust_compilation": "remote WZU_Server only",
+  "correction_of_previous_claim": "Verified old object seeding was migration acceleration, not cold-checkout acceptance. The earlier 180s failure is retained; this update actually starts without any cache or copied Git objects.",
+  "diagnosis": {
+    "observed": "V100 default GitHub HTTPS route timed out/was slow; existing shared proxies returned TLS EOF. Several other official GitHub endpoints passed normal hostname/TLS validation.",
+    "product_gap": "Trusted checkout cleared global/system Git config without an explicit way to retain reviewed Git-only network settings.",
+    "not_proved": "We did not establish that the original deployment would succeed on its broken default/shared route at the exact same time. We proved the fresh checkout implementation works through a healthy standalone server route.",
+    "changed": "Optional workspace.checkout.gitNetworkConfig imports only URL-matched http.proxy/http.version, no includes/credentials/hooks/extra headers/TLS bypass. Default isolation and account boundaries remain."
+  },
+  "real_acceptance": {
+    "old_cache_or_borrowed_objects": false,
+    "original_git_network_timeout_increased": false,
+    "tls_verification_disabled": false,
+    "real_product_transport_with_real_git_and_github": true,
+    "source_account": "existing btlqql wrapper",
+    "new_human_feishu_task_or_paid_reasoning_model_call": false,
+    "first_cold_rs_ms": 96328,
+    "standalone_owned_server_route_cold_receipts": [
+      {
+        "attempt": 0,
+        "elapsedMs": 17352,
+        "receipt": {
+          "cacheHit": false,
+          "commit": "a3c97f182e62d4ff4c7c02f987719062d060d9ca",
+          "repository": "123123213weqw/x-harness-rs",
+          "revision": {
+            "kind": "branch",
+            "name": "master"
+          }
+        }
+      },
+      {
+        "attempt": 1,
+        "elapsedMs": 4464,
+        "receipt": {
+          "cacheHit": true,
+          "commit": "a3c97f182e62d4ff4c7c02f987719062d060d9ca",
+          "repository": "123123213weqw/x-harness-rs",
+          "revision": {
+            "kind": "branch",
+            "name": "master"
+          }
+        }
+      },
+      {
+        "attempt": 0,
+        "elapsedMs": 4449,
+        "receipt": {
+          "cacheHit": false,
+          "commit": "cc28444e25f40e787fad21981be61aba9fe1e25f",
+          "repository": "123123213weqw/pi-rs",
+          "revision": {
+            "kind": "branch",
+            "name": "main"
+          }
+        }
+      },
+      {
+        "attempt": 1,
+        "elapsedMs": 2414,
+        "receipt": {
+          "cacheHit": true,
+          "commit": "cc28444e25f40e787fad21981be61aba9fe1e25f",
+          "repository": "123123213weqw/pi-rs",
+          "revision": {
+            "kind": "branch",
+            "name": "main"
+          }
+        }
+      }
+    ],
+    "production_worker_environment_ordinary_cold_git": {
+      "kind": "real_cold_git_in_production_worker_environment_not_new_human_or_paid_model_task",
+      "repository": "123123213weqw/x-harness-rs",
+      "freshDirectory": true,
+      "oldCacheUsed": false,
+      "exitCode": 0,
+      "elapsedMs": 10348,
+      "expectedCommit": "a3c97f182e62d4ff4c7c02f987719062d060d9ca",
+      "actualCommit": "a3c97f182e62d4ff4c7c02f987719062d060d9ca",
+      "matches": true,
+      "noAlternates": true,
+      "existingAccountWrapperReused": true,
+      "modelSecretsScrubbed": true,
+      "helperRunsOnServerNotLaptop": true
+    },
+    "ordinary_probe_is_not_a_new_worker_model_session": true,
+    "multiple_cold_runs_have_independent_empty_roots": true
+  },
+  "regression": {
+    "packages": [
+      "xharness-superagent",
+      "xharness-web",
+      "xharness-coding-tools"
+    ],
+    "all_targets": true,
+    "features": "xharness-superagent/conformance",
+    "passed": 396,
+    "failed": 0,
+    "ignored": 12,
+    "ignored_is_not_pass": true,
+    "strict_clippy": "passed",
+    "binary_build": "passed",
+    "operator_route_python_tests": 4,
+    "fleet_python_tests": 10,
+    "state_bundle_python_tests": 6,
+    "whole_workspace_or_cross_platform_ci_not_claimed": true
+  },
+  "deployment": {
+    "status": "rs_true_cold_checkout_network_gray_deployed",
+    "release": "2ce546472630-74a1377ebf43",
+    "sourceCommit": "2ce5464726308db68f200568b5169420b68ec6a5",
+    "binarySha256": "74a1377ebf437737046b7bec5d23e69e682be16247420b9bbe36cc17b680e9c8",
+    "pid": 781707,
+    "runningExecutableMatchesStagedArtifact": true,
+    "runtime": {
+      "at": "2026-11-02T14:02:06.738Z",
+      "detail": "Orchestrator is ready",
+      "state": "ready"
+    },
+    "load": {
+      "idle": 0,
+      "maxWorkers": 1.0,
+      "queued": 0,
+      "running": 0
+    },
+    "paused": false,
+    "sourcesReady": [
+      "feishu",
+      "github"
+    ],
+    "activeCheckoutUsesGenericPolicy": {
+      "checkout": {
+        "enabled": true,
+        "cache": true,
+        "revision": {
+          "kind": "auto"
+        },
+        "gitNetworkConfig": "[owned RS Git-only network config path redacted]"
+      }
+    },
+    "activeSourceUsesOrdinaryExistingCLI": true,
+    "rsUnitDigestMatchesReviewed": true,
+    "stateRetained": {
+      "ticket": {
+        "before": 4,
+        "after": 4,
+        "baselineRowsRetainedUnchanged": true
+      },
+      "disposition": {
+        "before": 140,
+        "after": 140,
+        "baselineRowsRetainedUnchanged": true
+      },
+      "outbox": {
+        "before": 14,
+        "after": 14,
+        "baselineRowsRetainedUnchanged": true
+      }
+    },
+    "nativeJournalPrefixesRetained": 94,
+    "otherFiveStartupTimesUnchanged": true,
+    "otherFiveStartTimes": {
+      "3092": "2026-11-01T12:45:44.583Z",
+      "3094": "2026-11-01T12:47:45.309Z",
+      "3095": "2026-11-01T12:48:46.199Z",
+      "3096": "2026-11-01T13:56:27.367Z",
+      "3097": "2026-11-02T14:00:11.486Z"
+    },
+    "backup": {
+      "objects": 5,
+      "files": 20996,
+      "verified": true
+    },
+    "newHumanFeishuWorkerTaskPerformed": false,
+    "externalGitHubWritesPerformed": false,
+    "rollback": "Use previous compatible artifact/config and retain current DB/cursors. Keep or separately revert the reviewed network helper, Worker network include and recorded Wants/After additions; no old DB restore.",
+    "publicPathRedactionsOnly": true
+  },
+  "git_route_helper": {
+    "unit": "xharness-superagent-rs-github-route.service",
+    "state": {
+      "MainPID": "757949",
+      "NRestarts": "0",
+      "ActiveState": "active"
+    },
+    "bootEnabledAfterColdAcceptance": true,
+    "sourceScriptSha256": "80263214f8e53df5a9ba3933c31f158e4ddd6e847b983a431b3365091ef3b7c9",
+    "unitSha256": "f6e3810e044d6c8094cbe95466c8a2bd7175178fa4ad37d7ce524f59ce9738ba",
+    "existingMihomoBinarySha256": "c0c38819f35aca7773bb2bc26846bb196f29ac47fc20ec3dacb91a9d68a9be5c",
+    "loopbackOnly": true,
+    "gitHubOnly": true,
+    "publicMetadataEndpoint": "https://api.github.com/meta",
+    "tlsVerificationDisabled": false,
+    "addressesAreRuntimeDataNotSourceLiterals": true,
+    "health": {
+      "generatedAt": 1793627853.341765,
+      "officialMetadataSha256": "b1a715e946da41b50439595a1a304dc1f8b2e553c3d9412290cacda4c93e3c4d",
+      "candidatesProbed": 35,
+      "healthyEndpoints": [
+        {
+          "address": "20.27.177.113",
+          "elapsedMs": 637
+        },
+        {
+          "address": "20.200.245.247",
+          "elapsedMs": 873
+        },
+        {
+          "address": "4.237.22.38",
+          "elapsedMs": 948
+        },
+        {
+          "address": "172.182.252.133",
+          "elapsedMs": 1025
+        },
+        {
+          "address": "20.29.134.23",
+          "elapsedMs": 1054
+        },
+        {
+          "address": "4.225.11.194",
+          "elapsedMs": 1126
+        },
+        {
+          "address": "20.207.73.82",
+          "elapsedMs": 1150
+        },
+        {
+          "address": "4.208.26.197",
+          "elapsedMs": 1150
+        },
+        {
+          "address": "20.26.156.215",
+          "elapsedMs": 1193
+        },
+        {
+          "address": "20.233.83.145",
+          "elapsedMs": 1232
+        },
+        {
+          "address": "20.250.119.67",
+          "elapsedMs": 1278
+        },
+        {
+          "address": "4.249.131.164",
+          "elapsedMs": 1305
+        },
+        {
+          "address": "20.217.135.5",
+          "elapsedMs": 1326
+        },
+        {
+          "address": "20.87.245.0",
+          "elapsedMs": 1393
+        },
+        {
+          "address": "48.204.201.5",
+          "elapsedMs": 1411
+        },
+        {
+          "address": "48.202.248.40",
+          "elapsedMs": 1651
+        },
+        {
+          "address": "4.228.31.150",
+          "elapsedMs": 1745
+        },
+        {
+          "address": "20.199.39.232",
+          "elapsedMs": 1885
+        },
+        {
+          "address": "20.175.192.147",
+          "elapsedMs": 2319
+        }
+      ],
+      "selected": [
+        "20.27.177.113"
+      ],
+      "bind": "127.0.0.1",
+      "tlsVerified": true,
+      "githubOnly": true,
+      "requiresLaptopTunnel": false,
+      "sharedProxyChanged": false
+    },
+    "requiresLaptopTunnel": false,
+    "globalGitConfigurationUnchanged": true,
+    "sharedProxyConfigurationsOrSelectionsChanged": false,
+    "endpointRefresh": "restart only this owned helper to resolve/probe fresh official endpoint data"
+  },
+  "worker_network_include": {
+    "workerGitNetworkOnlyIncludeAdded": true,
+    "oldSettingsPreservedAsExactPrefix": true,
+    "beforeSha256": "77b900ab3220596c166a7cf65793ae8f3915e9fcd090e6df29408db8499bc514",
+    "afterSha256": "01af9b0fa41f4412a7ec74b924a11726f201d4857125713b885f6cc0b533cd10",
+    "gitNetworkKeys": [
+      "http.https://github.com.proxy",
+      "http.version"
+    ],
+    "otherProfilesUnchanged": true
+  },
+  "rs_unit_network_dependency": {
+    "rsUnitOnly": true,
+    "beforeSha256": "3e3975891b4c221d9b68103c6dc056efa8dc0419af509a660e3cd13379c1adca",
+    "afterSha256": "7bc59d52165e6f0a19b23dde13f29d4f36dec59c6b9c099ce1cf868f196f4064",
+    "onlyAddedOwnedHelperWantsAndAfter": true,
+    "executableConfigAndPermissionsUnchanged": true,
+    "notARuntimeRestart": true,
+    "rollback": "restore retained previous-rs-unit-private.service and its digest, daemon-reload; keep current DB"
+  },
+  "other_instances": {
+    "configuration_and_state_not_modified_by_this_work": true,
+    "restart_commands_not_issued_for_other_five": true,
+    "startup_timestamps_equal_in_pre_post_binary_rollout_window": true,
+    "observation": "Arena runtime/process restarted during the earlier investigation, before the rollout baseline; its cause was not investigated here. Do not interpret the rollout-window equality as no restart anywhere during this entire chat."
+  },
+  "boundaries": [
+    "Helper is an optional explicit operator component using an already installed Mihomo binary; no subscription credentials copied, no shared proxy selection changed.",
+    "Endpoint addresses are fetched/probed on helper startup, not hard-coded in source. Refresh them by restarting this helper; this is not a guarantee of uninterrupted future Internet connectivity.",
+    "RS original state/cursors/journals retained. Only RS unit gained recorded Wants/After for its owned helper. Worker global config retained its previous bytes plus a Git-only network include.",
+    "Other five instances were not migrated. Existing PR multi-round publishing and full business Goal are not signed off by this cold-checkout change.",
+    "This batch did not synthesize a human Feishu task or bill a reasoning model."
+  ],
+  "evidence_files": [
+    {
+      "path": "docs/evidence/cold-checkout-01/build.log",
+      "sha256": "52d159745b0dfa7d8c942cb3c1eb3c96e904b1325bad420472737474f62ac0b4"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/clippy.log",
+      "sha256": "3dd10b96ab137c930b43926e978c12671666926d6c4807b9a81024d797442c95"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/deployment-verification.json",
+      "sha256": "6d9e8e9c19c54b714f61064419cfcb2bf8d754894144ba90893fff4dd1c59409"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/first-real-cold.log",
+      "sha256": "4240c4816c9a5e1a2614b71dbc3f6529020d862610afa14b1480e8211eff25be"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/live-checkout-receipts.json",
+      "sha256": "a9fedce702c70e18932a95aeb2181143535aa55f199985105de80bc8f760b02c"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/network-unit-migration.json",
+      "sha256": "61da2231d7068be5cef02b89c80aefe76ab6dcbd4ded67e821ce5e9b5aa8d6c8"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/ordinary-cold-git.json",
+      "sha256": "5d3c13df2aa3726f5462e2ecdf73872cb1eebaa90233665a551bffd1293892e0"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/owned-route-accepted.json",
+      "sha256": "260f26ac1cd9a404998fac10e9b994bfe82a1057f9409da48e354616d19bc01f"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/owned-route-real-cold.log",
+      "sha256": "fec9054e3bd9b5789fa39a1282fc4a4b5bd570bb6fd3906ec20f03ed07ad5085"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/owned-route-summary.json",
+      "sha256": "742c275553ede848d3024e0be1f78d10d0c4ad782fe98ad3c5a0d277c225a66e"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/regression.log",
+      "sha256": "9c2c7d591fc20e1d29bd62002d665d511a480a36a38c108d9eabd10a416f8334"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/release-evidence.json",
+      "sha256": "37f87e172c1cc56603c77fbca25e7a3b3c4a3907fa4723baec094e6fc0ec534e"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/stage.json",
+      "sha256": "d4847de6a2a6ef61c5411d201bdf2043543ee5f7bcf341edaa7848f38ffd106b"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/test-fleet-control.py.log",
+      "sha256": "59d7db1c0fb1a57072279a834113c3e7a67fe3586a8192687449d2c79796b972"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/test-git-route-config.py.log",
+      "sha256": "9d654695c0a90577e252109954dd749137ace81d33f39cf1a31990e7f48cf31d"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/test-state-bundle.py.log",
+      "sha256": "5c24e88d201d32fb49ec577cfea3dc0704f07581c80668ef46b80823c8803750"
+    },
+    {
+      "path": "docs/evidence/cold-checkout-01/worker-network-migration.json",
+      "sha256": "ed37abdebf4112d487aa5617f20dc788f7b9913d652b571ec38d4781b1ee840b"
+    }
+  ]
+}

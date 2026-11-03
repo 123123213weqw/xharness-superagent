@@ -1,0 +1,31 @@
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 10.19s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-02e93665690e9e2a)
+
+running 4 tests
+test checkout::formal_checkout_changed_base_is_visible_failure_and_never_launches_worker ... 已初始化空的 Git 仓库于 /tmp/superagent-entry-2968262-0/template/.git/
+[main （根提交） fe948a8] fixture
+ 2 files changed, 5 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 build.py
+ok
+test checkout::formal_checkout_interrupt_joins_clone_and_does_not_publish_partial_workspace ... 已初始化空的 Git 仓库于 /tmp/superagent-entry-2968262-1/template/.git/
+[main （根提交） eeef9b4] fixture
+ 2 files changed, 5 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 build.py
+ok
+test checkout::formal_checkout_verifies_git_runs_prepare_and_real_build_then_reopens_without_reclone ... 已初始化空的 Git 仓库于 /tmp/superagent-entry-2968262-2/template/.git/
+[main （根提交） 5c2dfed] fixture
+ 2 files changed, 5 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 build.py
+ok
+test checkout::formal_cold_import_replays_source_without_duplicate_ticket_tool_or_sent_reply ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 57 filtered out; finished in 4.88s
+
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 4.40s
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 9.75s

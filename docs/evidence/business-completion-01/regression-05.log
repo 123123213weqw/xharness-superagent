@@ -1,0 +1,42 @@
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 11.57s
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+error: called `filter(..).next_back()` on an `DoubleEndedIterator`
+   --> crates/xharness-superagent/src/application/native/panel_views.rs:170:13
+    |
+170 | /             repo.decisions_by_thread(&home.key)?
+171 | |                 .into_iter()
+172 | |                 .filter(|d| d.trigger_ids.contains(&t.id))
+173 | |                 .next_back()
+    | |____________________________^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#filter_next
+    = note: `-D clippy::filter-next` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::filter_next)]`
+help: use `.rfind(..)` instead
+    |
+170 ~             repo.decisions_by_thread(&home.key)?
+171 +                 .into_iter().rfind(|d| d.trigger_ids.contains(&t.id))
+    |
+
+error: `format!` in `format!` args
+   --> crates/xharness-superagent/src/sources/github.rs:429:35
+    |
+429 |           let staging = parent.join(format!(
+    |  ___________________________________^
+430 | |             ".xharness-checkout-{}",
+431 | |             format!(
+432 | |                 "{}-{}",
+...   |
+439 | |         ));
+    | |_________^
+    |
+    = help: combine the `format!(..)` arguments with the outer `format!(..)` call
+    = help: or consider changing `format!` to `format_args!`
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#format_in_format_args
+    = note: `-D clippy::format-in-format-args` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::format_in_format_args)]`
+
+error: could not compile `xharness-superagent` (lib) due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `xharness-superagent` (lib test) due to 2 previous errors

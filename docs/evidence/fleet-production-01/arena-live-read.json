@@ -1,0 +1,13 @@
+{
+  "instance": "arena",
+  "liveBranchApi": true,
+  "liveLiteralSearchApi": true,
+  "searchIncomplete": false,
+  "realWorkerCliRead": true,
+  "reasoningModel": "loopback fixture only; no paid inference",
+  "realExternalWrites": false,
+  "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+  "probeSha256": "07fb6ec9fc230f78410f745bbecccea6d4aea866d8c1a41f10cbbbf9a34cba2f",
+  "repositorySha256": "8e201deaf19999546f685e94ea32ffecfa8b426977adfe56c69a4b36592dc80b",
+  "existingAccountVerified": true
+}

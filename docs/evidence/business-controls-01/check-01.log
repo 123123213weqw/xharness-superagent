@@ -1,0 +1,41 @@
+    Checking xharness-provider-openai v0.1.0 (<isolated-source>/crates/xharness-provider-openai)
+    Checking xharness-coding-tools v0.1.0 (<isolated-source>/crates/xharness-coding-tools)
+    Checking xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 7.83s
+   Compiling xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 11.55s
+     Running tests/product_entry.rs (<isolated-target>/debug/deps/product_entry-085c7a183df671db)
+
+running 8 tests
+test check_is_read_only_for_external_services_and_releases_state_lease ... ok
+test formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate ... ok
+test invalid_saved_model_and_missing_configuration_never_fall_back ... ok
+test once_interrupt_cancels_a_model_wait_and_releases_the_lease ... ok
+test preparation_failure_is_reported_without_worker_or_silent_retry ... ok
+test refused_and_unauthorized_requests_do_not_start_workers ... ok
+test setup_failure_and_missing_model_credential_do_not_leave_a_live_owner ... ok
+test watch_owns_the_state_exclusively_and_interrupt_joins_before_reopen ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.47s
+
+     Running tests/product_native.rs (<isolated-target>/debug/deps/product_native-c0714837d6a7b247)
+
+running 15 tests
+test github::agent_pull_branch_binds_the_live_ticket_and_closing_it_cancels_native_worker ... ok
+test github::branch_ci_baselines_first_observation_and_defers_recovery_while_running ... ok
+test github::cancellation_mid_read_does_not_advance_unread_thread_or_retry_cursor ... ok
+test github::comments_cross_real_source_policy_native_file_and_receipt_channel_without_duplicate ... ok
+test github::deleted_and_day_old_failed_notifications_do_not_hold_health_in_error ... ok
+test github::notification_failure_does_not_rollback_other_streams_and_etag_304_deduplicates ... ok
+test github::notification_read_failure_retains_retry_until_recovery_and_health_threshold ... ok
+test github::unlisted_and_bot_source_comments_never_start_any_model_or_worker ... ok
+test main_ignore_records_decision_without_launching_worker ... ok
+test main_routes_native_worker_writes_reports_and_main_replies ... ok
+test provider_failure_is_not_silently_reported_as_idle_success ... ok
+test restart_keeps_ticket_receipts_and_duplicate_does_not_rerun ... ok
+test route_batch_refuses_one_item_without_rolling_back_another ... ok
+test shutdown_cancels_and_joins_a_running_native_worker ... ok
+test unauthorized_source_never_reaches_any_model_or_tool ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.01s
+

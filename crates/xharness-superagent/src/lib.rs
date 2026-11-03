@@ -1,4 +1,6 @@
 //! Product-owned persistence and dispatch; no legacy host loops or permissions change.
+pub mod application;
+pub mod cold_import;
 pub mod commands;
 pub mod delivery;
 pub mod driver;
@@ -12,11 +14,24 @@ pub mod prompts;
 pub mod read;
 pub mod repository;
 pub mod retry_health;
+pub mod sources;
 pub mod store;
 
 use xharness_superagent_core::engine::DomainError;
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
+    #[error("{message}")]
+    Management { status: u16, message: String },
+    #[error("Settings changed. Reload before saving.")]
+    SettingsConflict { block: String },
+    #[error(transparent)]
+    GithubRead(Box<sources::github::Error>),
+    #[error(transparent)]
+    FeishuRead(Box<sources::feishu::Error>),
+    #[error("{0}")]
+    WorkspacePrepare(String),
+    #[error(transparent)]
+    StateLease(#[from] xharness_agent::LeaseError),
     #[error(transparent)]
     PromptUser(#[from] xharness_superagent_core::errors::UserError),
     #[error("{}", prompts::IssuesDisplay(.0))]

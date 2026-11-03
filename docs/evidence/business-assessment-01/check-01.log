@@ -1,0 +1,8 @@
+    Checking tower-http v0.6.11
+    Checking xharness-host v0.1.0 (<owned-source>/crates/xharness-host)
+    Checking reqwest v0.12.28
+    Checking xharness-web v0.1.0 (<owned-source>/crates/xharness-web)
+    Checking xharness-provider-openai v0.1.0 (<owned-source>/crates/xharness-provider-openai)
+    Checking xharness-coding-tools v0.1.0 (<owned-source>/crates/xharness-coding-tools)
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 21.97s

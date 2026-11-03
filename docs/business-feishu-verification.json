@@ -1,0 +1,196 @@
+{
+  "created_at_utc": "2026-11-01T23:12:59.095029+00:00",
+  "source_commit": "4e04cdf93357e0dd6b5e2cb20fbccd11b9fc46cb",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "status": "feishu_protocol_and_managed_cli_foundation_only_not_product_integration",
+  "host": "WZU_Server",
+  "local_rust_compilation": false,
+  "isolated_owned_validation_directory": true,
+  "profile_manifest": "docs/business-feishu-source-profile.json",
+  "profile_sha256": "2c7cc5b72c0f2c8e1cc94e04b49c83e2a4ce422238df32cee1175639e65acb69",
+  "profile_files": 742,
+  "local_remote_source_equal": true,
+  "product_integration": {
+    "feishu_installed_in_formal_entry": false,
+    "policy_sync_tool_registered": false,
+    "new_product_entry_tests": 0,
+    "existing_github_formal_entry_regression_passed": 30,
+    "new_source_tests_are_product_acceptance": false,
+    "application_tools": {
+      "main": 13,
+      "worker": 6,
+      "required_main": 14,
+      "required_worker": 6
+    }
+  },
+  "source_boundary": {
+    "rust_tests_passed": 9,
+    "tests": [
+      "original_trigger_config_scope_and_link_business_samples_match",
+      "original_member_sync_and_reply_run_over_verified_real_cli_with_exact_bot_argv",
+      "bot_identity_setup_never_falls_back_to_user_or_unready_app",
+      "member_read_cancellation_joins_the_real_cli_and_descendant_before_return",
+      "event_consumer_retains_split_unicode_reports_malformed_lines_and_joins_on_cancel",
+      "bot_setup_ignores_worker_shims_and_relative_path_entries_without_changing_alias",
+      "natural_consumer_eof_drains_unterminated_unicode_lines_and_is_not_ready_success",
+      "readiness_deadline_cancels_and_joins_the_unready_consumer_tree",
+      "setup_probe_has_its_own_sixty_second_deadline_and_never_falls_back"
+    ],
+    "actual_managed_cli_processes": true,
+    "environment": "Explicit offline executable lark boundary, actual ProcessRuntime supervision/argv/env/cancellation and real Source algorithms. No SDK stub, model call, real Feishu/network/account or chat mirror.",
+    "oracle": {
+      "events": 12,
+      "configuration": 8,
+      "policy_validation": 7,
+      "scope_cases": 6,
+      "member_sync": 8,
+      "replies": 8,
+      "links": 2,
+      "mentions": 1,
+      "total": 52,
+      "scope": "Source boundary only; original trigger/channel/Commands imports plus isolated unchanged Config/Members/scope/sync method with type erasure and method wrapper; no SDK stubs, full-kind/runtime/product approval",
+      "isolated_original_fragments_sha256": {
+        "botSchema": "631f9ffc11b2b21f426cad07970683318dc60e010efdb8691f55d669d6c6ea03",
+        "configSchema": "c79dd1332ae0c9f9aa22368a9ced3f2c2146e4b40c8fc33f883f1c3949425910",
+        "memberSchema": "f7a330ad426a7c94509d354b76310c769b0b93e3d57638e6b94d6983a8fc0bc8",
+        "syncMethod": "afff98f6fdd00c197e9fee6b89518d5d208b224564e102850cbf8d4681173f2e",
+        "scopeMethod": "83f10f6f3dd8f2db11dc5de0c11c962f380e0fc6c9d813dafd34995d1782f2b9",
+        "policySchema": "d218c8ee608a943a84ee75a5c3bb127dadb9d58eeb41415cb4a3046926f1a158"
+      }
+    }
+  },
+  "source_assertions": [
+    "Normal Feishu IDs, self-bot/app filtering, direct/mention precedence, mention-name replacement, chat scope, config defaults, policy identities/duplicates and brand AppLinks match the executed original functions/schemas.",
+    "Real bot CLI auth status, strict-mode bot and bot-info probes are read-only. User/unready identities never fall back. PATH selection excludes worker shims and relative entries that actually contain executable files, retaining the selected alias.",
+    "Every Lark RPC adds --as bot --format json with no shell interpolation. Setup probes have 60-second deadlines, normal commands 90 seconds, capture is bounded, and readiness is 45 seconds. Real child/descendant trees are cancelled/joined on cancellation and timeout.",
+    "Member synchronization preserves existing member order, updates names in place, removes missing members and appends new ones; exact identity-relevant JsValue output ordering is compared. has_more/truncations/missing required data fail instead of producing an empty allowed list. Persistence/revision/health integration remains undone.",
+    "Threaded replies use the receipt ID as the idempotency key and enforce the 100-word business limit. Only coded definitive gone cases become Gone; transient, uncoded-withdrawn and membership errors remain errors. Explicit ok:true with no payload still succeeds for no-data reply operations, as the original does; readers validate their own required payload.",
+    "The managed event reader retains split UTF-8 Chinese/emoji, reports malformed lines without inventing messages, handles warning/ready lines and drains unterminated EOF lines. Natural exit is an error, not a falsely ready Source. Consumer restart delay calculation is bounded 1-60 seconds; application watch/retry/health is not claimed wired."
+  ],
+  "dependency": {
+    "direct": "url = \"=2.5.8\"",
+    "already_existing_locked_package": true,
+    "new_external_packages": [],
+    "existing_versions_sources_checksums_unchanged": true,
+    "one_direct_edge_only": true,
+    "before_lock_sha256": "90510cf2323305f2c5de875f1e7049ba1c0821340c018123e63a1a0edeabcc97",
+    "after_lock_sha256": "4bd1dfbad0241ff6be3a1bb1541bbf98832f3b4ddec47b1de7f8b0cdad5eeba7",
+    "strict_overlay": "conformance/business/feishu-cargo.overlay.json",
+    "original_url_licenses_retained": true,
+    "production_node_or_sdk_added": false
+  },
+  "provenance": {
+    "reference_files": 216,
+    "controlled_import_steps": 11,
+    "controlled_paths": 86,
+    "declared_product_overlays": 4,
+    "guard_tests": 10,
+    "old_guard_assertions_preserved": true
+  },
+  "regression": {
+    "workspace_format_check": true,
+    "workspace_all_targets_check": true,
+    "workspace_strict_clippy": true,
+    "selected_test_crates": 10,
+    "full_workspace_tests": false,
+    "reported_passed": 1346,
+    "reported_ignored": 17,
+    "ignored_or_capability_early_return_is_not_product_acceptance": true,
+    "final_log": "docs/evidence/business-feishu-01/regression-03.log"
+  },
+  "previous_head_ci": {
+    "head_sha": "35fb07f8ce507f2b03693b39c34e5fb125a323e4",
+    "url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41356540697",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "rust (ubuntu-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "rust (macos-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "not_current_feature_head_approval": true
+  },
+  "diagnostic_history": [
+    "Full original feishuKind import requires unrelated @deepseek-ai/schemastery; preserved failure and isolated exact original Config/Members/policy/scope/sync code with type erasure/method wrapper. Trigger/channel/Commands/sourceContext import unchanged; no SDK stubs or reference edits.",
+    "tests-01 compilation found Sent has no PartialEq; fixed only new test comparison to exact Sent/Gone pattern, not the existing enum or assertions. tests-02/03/04 incrementally passed 5/6/8 Source checks.",
+    "regression-01 workspace check passed; strict Clippy rejected a redundant timestamp closure. Used the function pointer, no lint allowance. regression-02 passed before the final separate setup-probe 60-second deadline/test; regression-03 verifies final source."
+  ],
+  "remaining_scope": [
+    "Install and join actual multi-source event/history/poll lifecycle on the formal application owner; report real per-Source health, disabled/setup states and retry.",
+    "Implement trigger-anchored Feishu text/image/context resources and Native attachments without fake empty context or image success.",
+    "Wire real policy_sync: Source installed/enabled/setup/part ready gates from reference, captured policy revision and concurrent-save conflict, normalized atomic policy save with origin sync, notices, health and unreferenced retry/backoff.",
+    "Formal Feishu event -> authorization -> ticket -> actual Worker -> reply/restart/stop tests; Source component checks do not substitute.",
+    "All remaining original tool refinements/PR-review/Source branches, API/UI, background/stop/limits, crash cuts and deployment/backup/rollback."
+  ],
+  "logs": [
+    {
+      "path": "docs/evidence/business-feishu-01/check-01.log",
+      "raw_sha256": "cfeb649e93ec3a9dd73d83d2505f7c1c663414f55b26449b970c197a3fe54ecb",
+      "public_sha256": "efea18de998404264c476a6887e2c35a01cbd14f75038c94583dddbda8c6f3bd",
+      "normalization": "Absolute owned source/cache prefixes only; complete output, assertions and failures retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-01/node-01.log",
+      "raw_sha256": "2a30f55772d7112f586f5c33c8e77577e7320c623cf7b109363533fca3773de9",
+      "public_sha256": "2a30f55772d7112f586f5c33c8e77577e7320c623cf7b109363533fca3773de9",
+      "normalization": "Absolute owned source/cache prefixes only; complete output, assertions and failures retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-01/original-kind-import-diagnostic.log",
+      "raw_sha256": "9573382e0597d34fe0ce5dd68b8784ba301fdfd0d782111a9a6ac9f3004e018e",
+      "public_sha256": "71c479bb2e211340961facb8a6a5fc177b0a0eb00fe2fd2b8a6140051a449798",
+      "normalization": "Absolute owned source/cache prefixes only; complete output, assertions and failures retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-01/regression-01.log",
+      "raw_sha256": "a1d5defdd54c6e1e8c7062ede70b2cf91dc41490a2243ba8ce590a449f22eac7",
+      "public_sha256": "e4f36bf1e73795ce72e1e1d211c5955d8a10859da6457c0fb01c50c5f42050f7",
+      "normalization": "Absolute owned source/cache prefixes only; complete output, assertions and failures retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-01/regression-02.log",
+      "raw_sha256": "0ab05bad05d632e601f994c1bb7ecff028e5b2649331a3226e2f2c51314d20ff",
+      "public_sha256": "dd487a485d5833ac7337855591c5255ed2394e4ba85cbef2bed6259b10f11f83",
+      "normalization": "Absolute owned source/cache prefixes only; complete output, assertions and failures retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-01/regression-03.log",
+      "raw_sha256": "faf7977b0e49c8690a082c42d8d2cd4e52647895b19ac09cfcb6b9721b5de6f0",
+      "public_sha256": "1d0539234cb9bc27632a3479eff993381ba0134c8f246d346f73b661e8198b67",
+      "normalization": "Absolute owned source/cache prefixes only; complete output, assertions and failures retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-01/tests-01.log",
+      "raw_sha256": "6a082869266562fc9df677c519631ab1675478693532fcce3cb0df70d200d14f",
+      "public_sha256": "3b500b0c47ee81f1651b8e870e966fab60bba49ee6d4bc3d58320632dfa34032",
+      "normalization": "Absolute owned source/cache prefixes only; complete output, assertions and failures retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-01/tests-02.log",
+      "raw_sha256": "78974adf9f6da9d0dae8a2d635b5c85462de0e85fc1b4270997ea6d1ad25b2a7",
+      "public_sha256": "d6f397a249713350d8f128d6b81c75f06f08e420f71882f3aa1eb7882ca639da",
+      "normalization": "Absolute owned source/cache prefixes only; complete output, assertions and failures retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-01/tests-03.log",
+      "raw_sha256": "dcfd54a7c22e30c182866d5023b7610693d0d8d6633b0bcd31a9333871e4b7d2",
+      "public_sha256": "5bb9326082077435c5aac889400a4137e5bf80e5ffaee10803b9cb0bcbb01db4",
+      "normalization": "Absolute owned source/cache prefixes only; complete output, assertions and failures retained."
+    },
+    {
+      "path": "docs/evidence/business-feishu-01/tests-04.log",
+      "raw_sha256": "459c5fa5e0f4e18fe27642ed1e45b4303c151e76434cd3558436ed471b767f5b",
+      "public_sha256": "380444fce5c2405e6525ef610b30b9270d1e16802afe85dc25e22554f6c6c55f",
+      "normalization": "Absolute owned source/cache prefixes only; complete output, assertions and failures retained."
+    }
+  ],
+  "full_goal_complete": false,
+  "cancelled_global_language_work_restarted": false
+}

@@ -1,0 +1,180 @@
+    Checking serde_json v1.0.151
+    Checking serde v1.0.229
+    Checking string_cache v0.9.0
+    Checking serde_urlencoded v0.7.1
+    Checking chrono v0.4.45
+    Checking web_atoms v0.2.6
+    Checking xharness-diagnostics v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-diagnostics)
+    Checking xharness-prompt v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-prompt)
+    Checking xharness-token v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-token)
+    Checking reqwest v0.12.28
+    Checking xharness-jobs v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-jobs)
+    Checking xharness-api v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-api)
+    Checking xharness-control v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-control)
+    Checking axum v0.8.9
+    Checking xharness-debug v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-debug)
+    Checking markup5ever v0.39.0
+    Checking xml5ever v0.39.0
+    Checking html5ever v0.39.0
+    Checking chrono-tz v0.10.4
+    Checking xharness-tools v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-tools)
+    Checking xharness-process v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-process)
+    Checking markup5ever_rcdom v0.39.0+unofficial
+    Checking xharness-sandbox v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-sandbox)
+    Checking html2md v0.2.17
+    Checking xharness-platform v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-platform)
+    Checking xharness-web v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-web)
+    Checking xharness-interaction v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-interaction)
+    Checking xharness-session v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-session)
+    Checking xharness-coding-tools v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-coding-tools)
+    Checking xharness-superagent-core v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-superagent-core)
+    Checking xharness-compaction v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-compaction)
+    Checking xharness-goal v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-goal)
+    Checking xharness-attachments v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-attachments)
+    Checking xharness-session-import v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-session-import)
+    Checking xharness-session-jsonl v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-session-jsonl)
+    Checking xharness-context v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-context)
+    Checking xharness-core v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-core)
+    Checking xharness-agent v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-agent)
+    Checking xharness-projection v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-projection)
+    Checking xharness-provider-openai v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-provider-openai)
+    Checking xharness-schedule v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-schedule)
+    Checking xharness-host v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-host)
+    Checking xharness-superagent v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+warning: unused import: `PromptSave`
+ --> crates/xharness-superagent/src/application/native/panel.rs:3:36
+  |
+3 | use super::configuration::{Origin, PromptSave, Save};
+  |                                    ^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+error[E0609]: no field `document` on type `sources::github::Config`
+   --> crates/xharness-superagent/src/application/boot.rs:934:37
+    |
+934 |             "promptMaxChars":config.document.prompt_max_chars,
+    |                                     ^^^^^^^^ unknown field
+    |
+    = note: available fields are: `repository`, `cli`, `poll_seconds`, `failures_before_error`, `observe_issues` ... and 3 others
+
+error[E0609]: no field `document` on type `sources::github::Config`
+   --> crates/xharness-superagent/src/application/boot.rs:935:47
+    |
+935 |             "admissionContextMaxPages":config.document.admission_context_max_pages,
+    |                                               ^^^^^^^^ unknown field
+    |
+    = note: available fields are: `repository`, `cli`, `poll_seconds`, `failures_before_error`, `observe_issues` ... and 3 others
+
+error[E0609]: no field `document` on type `sources::github::Config`
+   --> crates/xharness-superagent/src/application/boot.rs:936:48
+    |
+936 |             "admissionContextTimeoutMs":config.document.admission_context_timeout_ms});
+    |                                                ^^^^^^^^ unknown field
+    |
+    = note: available fields are: `repository`, `cli`, `poll_seconds`, `failures_before_error`, `observe_issues` ... and 3 others
+
+error[E0277]: the trait bound `ModelDescriptor: serde::Serialize` is not satisfied
+   --> crates/xharness-superagent/src/application/native/panel.rs:70:20
+    |
+ 70 |                 Ok(json!({"providers":self.catalog,"default":self.default_model}))
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |                    |
+    |                    the trait `Serialize` is not implemented for `ModelDescriptor`
+    |                    required by a bound introduced by this call
+    |
+    = note: for local types consider adding `#[derive(serde::Serialize)]` to your `ModelDescriptor` type
+    = note: for types from other crates check whether the crate offers a `serde` feature flag
+    = help: the following other types implement trait `Serialize`:
+              &'a T
+              &'a mut T
+              ()
+              (T,)
+              (T0, T1)
+              (T0, T1, T2)
+              (T0, T1, T2, T3)
+              (T0, T1, T2, T3, T4)
+            and 652 others
+    = note: required for `Vec<ModelDescriptor>` to implement `Serialize`
+    = note: 1 redundant requirement hidden
+    = note: required for `&Vec<ModelDescriptor>` to implement `Serialize`
+note: required by a bound in `to_value`
+   --> /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/serde_json-1.0.151/src/value/mod.rs:997:8
+    |
+995 | pub fn to_value<T>(value: T) -> Result<Value, Error>
+    |        -------- required by a bound in this function
+996 | where
+997 |     T: Serialize,
+    |        ^^^^^^^^^ required by this bound in `to_value`
+    = note: this error originates in the macro `$crate::json_internal` which comes from the expansion of the macro `json` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: the trait bound `ModelRoute: serde::Serialize` is not satisfied
+   --> crates/xharness-superagent/src/application/native/panel.rs:70:20
+    |
+ 70 |                 Ok(json!({"providers":self.catalog,"default":self.default_model}))
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |                    |
+    |                    the trait `Serialize` is not implemented for `ModelRoute`
+    |                    required by a bound introduced by this call
+    |
+    = note: for local types consider adding `#[derive(serde::Serialize)]` to your `ModelRoute` type
+    = note: for types from other crates check whether the crate offers a `serde` feature flag
+    = help: the following other types implement trait `Serialize`:
+              &'a T
+              &'a mut T
+              ()
+              (T,)
+              (T0, T1)
+              (T0, T1, T2)
+              (T0, T1, T2, T3)
+              (T0, T1, T2, T3, T4)
+            and 652 others
+    = note: required for `&ModelRoute` to implement `Serialize`
+note: required by a bound in `to_value`
+   --> /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/serde_json-1.0.151/src/value/mod.rs:997:8
+    |
+995 | pub fn to_value<T>(value: T) -> Result<Value, Error>
+    |        -------- required by a bound in this function
+996 | where
+997 |     T: Serialize,
+    |        ^^^^^^^^^ required by this bound in `to_value`
+    = note: this error originates in the macro `$crate::json_internal` which comes from the expansion of the macro `json` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: the trait bound `xharness_host::ModelRoute: serde::Serialize` is not satisfied
+   --> crates/xharness-superagent/src/application/native/panel.rs:70:20
+    |
+ 70 |                 Ok(json!({"providers":self.catalog,"default":self.default_model}))
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |                    |
+    |                    the trait `Serialize` is not implemented for `xharness_host::ModelRoute`
+    |                    required by a bound introduced by this call
+    |
+    = note: for local types consider adding `#[derive(serde::Serialize)]` to your `xharness_host::ModelRoute` type
+    = note: for types from other crates check whether the crate offers a `serde` feature flag
+    = help: the following other types implement trait `Serialize`:
+              &'a T
+              &'a mut T
+              ()
+              (T,)
+              (T0, T1)
+              (T0, T1, T2)
+              (T0, T1, T2, T3)
+              (T0, T1, T2, T3, T4)
+            and 652 others
+    = note: required for `&xharness_host::ModelRoute` to implement `Serialize`
+note: required by a bound in `to_value`
+   --> /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/serde_json-1.0.151/src/value/mod.rs:997:8
+    |
+995 | pub fn to_value<T>(value: T) -> Result<Value, Error>
+    |        -------- required by a bound in this function
+996 | where
+997 |     T: Serialize,
+    |        ^^^^^^^^^ required by this bound in `to_value`
+    = note: this error originates in the macro `$crate::json_internal` which comes from the expansion of the macro `json` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+Some errors have detailed explanations: E0277, E0609.
+For more information about an error, try `rustc --explain E0277`.
+warning: `xharness-superagent` (lib) generated 1 warning
+error: could not compile `xharness-superagent` (lib) due to 5 previous errors; 1 warning emitted
+warning: build failed, waiting for other jobs to finish...
+warning: `xharness-superagent` (lib test) generated 1 warning (1 duplicate)
+error: could not compile `xharness-superagent` (lib test) due to 5 previous errors; 1 warning emitted

@@ -1,0 +1,169 @@
+{
+  "created_at_utc": "2026-11-01T19:06:33.614715+00:00",
+  "source_commit": "73f584a7360bbe835d07130b3435818b6e4fe7b6",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "status": "partial_product_recovery_verified_not_full_alignment_or_workspace_release_gate",
+  "host": "WZU_Server",
+  "local_rust_compilation": false,
+  "isolated_owned_validation_directory": true,
+  "profile_sha256": "c99c76fecf1fd2f152b5dc78e0fd6c454d54a1b3c9c3d1a623db1b2a3acdd14e",
+  "profile_files": 698,
+  "profile_manifest": "docs/business-recovery-source-profile.json",
+  "local_remote_source_equal": true,
+  "new_runtime_dependencies": [],
+  "cargo_lock_changed": false,
+  "application_tool_registrations": {
+    "main": 6,
+    "worker": 5,
+    "required_main": 14,
+    "required_worker": 6,
+    "remaining": 9
+  },
+  "formal_entry_tests": {
+    "passed": 14,
+    "new_count": 3,
+    "new_names": [
+      "formal_waiting_worker_rebinds_after_restart_and_reads_new_source_input_once",
+      "formal_crashed_worker_restarts_with_recovery_note_and_preserves_its_worktree",
+      "formal_missing_recovery_workspace_preserves_input_and_exposes_delivery_error"
+    ],
+    "all_names": [
+      "formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate",
+      "check_is_read_only_for_external_services_and_releases_state_lease",
+      "invalid_saved_model_and_missing_configuration_never_fall_back",
+      "refused_and_unauthorized_requests_do_not_start_workers",
+      "preparation_failure_is_reported_without_worker_or_silent_retry",
+      "watch_owns_the_state_exclusively_and_interrupt_joins_before_reopen",
+      "setup_failure_and_missing_model_credential_do_not_leave_a_live_owner",
+      "once_interrupt_cancels_a_model_wait_and_releases_the_lease",
+      "formal_worker_thread_controls_keep_ownership_context_and_role_boundaries",
+      "formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work",
+      "formal_idle_worker_gets_waiting_report_and_status_request_reaches_same_assignment",
+      "formal_waiting_worker_rebinds_after_restart_and_reads_new_source_input_once",
+      "formal_crashed_worker_restarts_with_recovery_note_and_preserves_its_worktree",
+      "formal_missing_recovery_workspace_preserves_input_and_exposes_delivery_error"
+    ],
+    "environment": "Formal executable, actual managed gh subprocess, existing OpenAI HTTP/SSE adapter, leased SQL/Outbox, actual Native journal and CodingToolBundle; only external services are loopback fixtures. No paid models or real GitHub writes."
+  },
+  "business_assertions": {
+    "waiting_restart": [
+      "An already-waiting assignment remains identical and does not wake on a quiet restart.",
+      "A new same-thread source comment reaches the same ticket and assignment after reconnecting the trusted Native receipt/cwd.",
+      "Input deliveredTo/readAt are real, pending input clears, actual file is written and ready/result reply commits.",
+      "Replaying the same comment adds no model request or source reply."
+    ],
+    "process_crash": [
+      "Actual SIGKILL of only the formal fixture child after its first worker HTTP request, before first SSE byte.",
+      "Existing assignment ends hostRestarted; a distinct assignment and original Engine recovery note are persisted.",
+      "Same worktree preserves existing partial file; actual CodingToolBundle writes the result, ready/report/reply settle.",
+      "Explicit replacement loopback URL in test config is not a product provider fallback.",
+      "No shell/background child was active at this crash cut; broader recovery is not implied."
+    ],
+    "missing_workspace": [
+      "Only the fixture moves the original directory aside. Reconnect never prepares or creates a fresh empty directory.",
+      "Input and retry intent remain undelivered/unread; Ticket.delivery.error is visible and pendingEffects equals 1.",
+      "No new model request or successful reply, no ended/ready claim; held original contents remain intact."
+    ]
+  },
+  "commands": [
+    {
+      "command": "cargo fmt --all -- --check",
+      "exit": 0
+    },
+    {
+      "command": "cargo check --locked --workspace --all-targets --features xharness-superagent/conformance",
+      "exit": 0
+    },
+    {
+      "command": "cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings",
+      "exit": 0
+    },
+    {
+      "command": "cargo test --locked -p xharness-superagent-core -p xharness-superagent -p xharness-agent -p xharness-host -p xharness-core -p xharness-provider-openai -p xharness-coding-tools -p xharness-platform --all-targets --features xharness-superagent/conformance --no-fail-fast",
+      "exit": 0
+    },
+    {
+      "command": "cargo test --locked -p xharness-process --all-targets -- --test-threads=1",
+      "exit": 0
+    }
+  ],
+  "regression_scope": {
+    "selected_crates": 9,
+    "selected_commands_passed": true,
+    "full_workspace_tests_on_this_increment": false,
+    "aggregate_pass_count_omitted": "Nested subprocess test output is not added as distinct declarations. Ignored/capability-guarded checks are not business passes.",
+    "prior_full_workspace_gate": "docs/business-controls-verification.json: actual full workspace attempt failed 2 legacy Feishu deployment assertions (dedicated UID and egress filter). No server permissions/users/firewall/proxy/services were changed. Those failures remain unresolved and are not replaced by this selected regression."
+  },
+  "prior_ci": {
+    "url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41338963952",
+    "head": "b2646183b70937bcdcfd2eb1dc26b796528cd249",
+    "conclusion": "failure",
+    "macos": "2 product_entry cases observed Resource temporarily unavailable (os error 35) from the HTTP fixture. Accepted socket mode now explicitly blocking with original finite timeouts; inheritance difference is a diagnosis/inference, exact new-head macOS CI still required. No error ignored.",
+    "linux": "Frozen Host observed_input.rs:410 flush-count assertion failed again; no import/kernel/Host/assertion changes or test exclusions.",
+    "raw_failed_log_sha256": "e6fa0b0afaeb8b78371b405276e20dc0075b902788d75c1bd8461a9752373f83",
+    "new_head_ci_not_yet_verified": true
+  },
+  "reference_checks": {
+    "source_files_unchanged": 216,
+    "import_chain_steps": 11,
+    "controlled_paths": 86,
+    "declared_overlays_unchanged": 2,
+    "tool_subset_registrations": 11,
+    "negative_guards": 6,
+    "original_source_oracle_samples": 57
+  },
+  "before_fix_counterexample": {
+    "log": "docs/evidence/business-recovery-01/entry-red.log",
+    "exit": 101,
+    "assertion": "After restarting a waiting worker and receiving a new source comment, pendingEffects was 1 instead of 0. Source audit located the missing ephemeral Worker binding. This red run is not a passing product case."
+  },
+  "logs": [
+    {
+      "path": "docs/evidence/business-recovery-01/entry-red.log",
+      "exit": 101,
+      "raw_sha256": "b944f30236f53f31d8ac11b592d27e8f3c3631194fbe4b984ca3cc5cb1207f60",
+      "published_sha256": "78ef76f6d1cb1ad3953b5e07609de677591e3fbbee315989c28d09f473070ba5"
+    },
+    {
+      "path": "docs/evidence/business-recovery-01/entry-01.log",
+      "exit": 0,
+      "raw_sha256": "cd7de2b950ea2a64345938437f300286c05a558031a451899068740dc3291d3c",
+      "published_sha256": "e52712be0b7b4155e6dd9ce5a6c13a8fd842e513031922ccd85b83d7a8a39f5b"
+    },
+    {
+      "path": "docs/evidence/business-recovery-01/entry-02.log",
+      "exit": 0,
+      "raw_sha256": "2f2ffae3774652447b997f42d1533875730664c8b4d5f6ba447d39ca55439412",
+      "published_sha256": "05a0eeb4f695ecf7de6a715258e72b05b44714a8d201fbe40fa72683a017d40c"
+    },
+    {
+      "path": "docs/evidence/business-recovery-01/entry-03.log",
+      "exit": 0,
+      "raw_sha256": "1ddfd63cc8b56c1de229d7a485a3eef3d1ade30ca2e5fe9417b09cb00d58e505",
+      "published_sha256": "ea64984fb020dbdf0ecbdf740b7b52aee6015ce230bc85d48426aa1c9f5fd2e7"
+    },
+    {
+      "path": "docs/evidence/business-recovery-01/regression-01.log",
+      "exit": 0,
+      "raw_sha256": "2ca5cbfa83071d43463eb20b41e4d4de6dabedd9a0ac3d4453fe13be30fa2a4c",
+      "published_sha256": "56333793fcbf1e1cf6792619f17812667c126d93e913bbf18c418a798adc9c6a"
+    },
+    {
+      "path": "docs/evidence/business-recovery-01/provenance-01.log",
+      "exit": 0,
+      "raw_sha256": "8bc961b9361b83beefa95534397d9eb70f7e2dec710c121456e8690c0fec49a3",
+      "published_sha256": "8bc961b9361b83beefa95534397d9eb70f7e2dec710c121456e8690c0fec49a3"
+    }
+  ],
+  "normalization": "Complete stdout/stderr preserved. Only absolute source/target prefixes replaced; raw and public hashes retained.",
+  "new_business_groups_signed_off": 0,
+  "cancelled_language_scope_counted_as_business_pass": false,
+  "remaining": [
+    "bounded orchestrator_read for both roles and remaining 7 other application registrations",
+    "full evaluation/note/settings/prompt workflows and config API/UI",
+    "complete GitHub PR ownership/report/context, Feishu and multi-source handling",
+    "30-minute background/subagent settlement, stop/join/slots and lifecycle matrix",
+    "all transaction/external-action crash cuts and manual-session recovery, backup/deploy/rollback",
+    "resolve necessary full-workspace/CI environment and frozen regression failures without weakening assertions"
+  ]
+}

@@ -33,6 +33,80 @@ pub struct SkillResources {
     builtins: Vec<Builtin>,
 }
 impl SkillResources {
+    /// Materialize the compiled, pinned package only inside the caller-owned
+    /// product state root. A content-addressed directory is immutable; existing
+    /// mismatches/symlinks are errors, never silently adopted or overwritten.
+    pub fn install_owned(root: &Path) -> Result<Self> {
+        use std::io::Write;
+        let packaged = [
+            (
+                "feishu",
+                include_str!("../../../assets/skills/dsh-superagent-feishu/SKILL.md"),
+            ),
+            (
+                "github",
+                include_str!("../../../assets/skills/dsh-superagent-github/SKILL.md"),
+            ),
+        ];
+        let package = xharness_superagent_core::ids::key(&[
+            "bundled-skills-v1",
+            packaged[0].1,
+            packaged[1].1,
+        ])?;
+        fn directory(path: &Path) -> Result<()> {
+            match std::fs::symlink_metadata(path) {
+                Ok(meta) if meta.file_type().is_symlink() || !meta.is_dir() => {
+                    Err(failure("owned skill directory is not a regular directory"))
+                }
+                Ok(_) => Ok(()),
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
+                    Ok(std::fs::create_dir(path)?)
+                }
+                Err(e) => Err(e.into()),
+            }
+        }
+        directory(root)?;
+        let root = root.join(package);
+        directory(&root)?;
+        for (name, body) in packaged {
+            let dir = root.join(format!("dsh-superagent-{name}"));
+            directory(&dir)?;
+            let file = dir.join("SKILL.md");
+            match std::fs::symlink_metadata(&file) {
+                Ok(meta) => {
+                    if !meta.is_file()
+                        || meta.file_type().is_symlink()
+                        || std::fs::read(&file)? != body.as_bytes()
+                    {
+                        return Err(failure("owned skill asset differs from the pinned package"));
+                    }
+                }
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
+                    // Only this reserved temporary name is repaired after an
+                    // interrupted install; no user-authored target is replaced.
+                    let temp = dir.join("SKILL.md.installing");
+                    match std::fs::symlink_metadata(&temp) {
+                        Ok(meta) if meta.file_type().is_symlink() || !meta.is_file() => {
+                            return Err(failure("invalid owned skill install temporary file"))
+                        }
+                        Ok(_) => std::fs::remove_file(&temp)?,
+                        Err(e) if e.kind() == std::io::ErrorKind::NotFound => (),
+                        Err(e) => return Err(e.into()),
+                    }
+                    let mut output = std::fs::OpenOptions::new()
+                        .write(true)
+                        .create_new(true)
+                        .open(&temp)?;
+                    output.write_all(body.as_bytes())?;
+                    output.sync_all()?;
+                    drop(output);
+                    std::fs::rename(temp, file)?;
+                }
+                Err(e) => return Err(e.into()),
+            }
+        }
+        Self::open(&root)
+    }
     pub fn open(root: &Path) -> Result<Self> {
         let root = std::fs::canonicalize(root)?;
         let mut builtins = Vec::new();

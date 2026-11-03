@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "source_commit": "3405a724dbf1ef878b77cd07689320bc8eee75b8",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "scope": "text production management subset, not full business/fleet production acceptance",
+  "goal_complete": false,
+  "source_profile": {
+    "path": "docs/business-management-source-profile.json",
+    "files": 770,
+    "combined_sha256": "c79373aa677f56aef85635ebde888028e9f7173b02f39cb5e660c1deedaf92af",
+    "local_remote_committed_equal": true,
+    "embedded_html_included": true
+  },
+  "commands": [
+    "remote WZU_Server: cargo fmt --all -- --check",
+    "remote WZU_Server: cargo check --locked --workspace --all-targets --features xharness-superagent/conformance",
+    "remote WZU_Server: cargo clippy --locked -p xharness-superagent --all-targets --features conformance -- -D warnings",
+    "remote WZU_Server: cargo test --locked -p xharness-superagent --test product_entry management:: -- --test-threads=1 --nocapture",
+    "remote WZU_Server: cargo test --locked -p xharness-superagent-core -p xharness-superagent -p xharness-tools --all-targets --features xharness-superagent/conformance -- --test-threads=1",
+    "local Node: fixed reference/upstream/tool manifests and node --test conformance/business/*test.mjs"
+  ],
+  "regression": {
+    "exit": 0,
+    "workspace_check_all_targets": true,
+    "strict_clippy_scope": "xharness-superagent all targets with conformance, not workspace-wide Clippy",
+    "selected_test_crates": [
+      "xharness-superagent-core",
+      "xharness-superagent",
+      "xharness-tools"
+    ],
+    "reported_cargo_target_results_including_focused": 49,
+    "reported_passes_including_four_focused_repetitions": 369,
+    "ignored": 2,
+    "unique_test_count_claimed": false,
+    "full_workspace_test_claimed": false,
+    "formal_entry_suite": {
+      "passed": 51,
+      "failed": 0,
+      "ignored": 0
+    },
+    "new_formal_tests": [
+      "management::formal_management_bind_error_drains_owner_and_check_never_binds",
+      "management::formal_management_reads_real_state_guards_requests_and_joins_slow_body",
+      "management::formal_management_saves_cas_environment_prompts_pause_and_restart",
+      "management::formal_management_stops_existing_worker_and_preserves_assignment_history"
+    ],
+    "node_guard_tests_passed": 17,
+    "fixed_reference_files": 216,
+    "controlled_runtime_steps": 11,
+    "controlled_runtime_paths": 86,
+    "declared_product_overlays": 7,
+    "role_application_tool_definitions": {
+      "main": 14,
+      "worker": 6
+    }
+  },
+  "dependency_change": {
+    "direct_product_edge_added": "already locked axum 0.8.9",
+    "external_package_versions_or_checksums_changed": false,
+    "lock_overlay": "conformance/business/management-cargo.overlay.json"
+  },
+  "actual_account_api_ui_smoke": {
+    "scope": "existing authorized GitHub bot setup reads + new empty owned HTTP state; both Sources disabled, deliberately unusable model route/key, no real model/Worker/GitHub write/Feishu send",
+    "operations": [
+      {
+        "operation": "GET state",
+        "success": true
+      },
+      {
+        "operation": "GET overview",
+        "success": true
+      },
+      {
+        "operation": "GET sources",
+        "success": true
+      },
+      {
+        "operation": "GET settings",
+        "success": true
+      },
+      {
+        "operation": "GET models",
+        "success": true
+      },
+      {
+        "operation": "GET tickets",
+        "success": true
+      },
+      {
+        "operation": "GET prompts",
+        "success": true
+      }
+    ],
+    "browser_actions": [
+      "pause: observed paused true and executor-paused",
+      "resume: observed paused false and runtime ready",
+      "read executor configuration and no-op save: no error",
+      "read current team Prompt: editor populated"
+    ],
+    "product_exit": 0,
+    "tickets": 0,
+    "pending_effects": 0,
+    "binary_sha256": "614aa9ba50ae92a0bce400c082d10e93899260ba791ff7686840435b57844092",
+    "temporary_listener_and_tunnel_closed": true,
+    "production_fleet_mutated": false,
+    "existing_instances_read_only_observed_ready": 6
+  },
+  "failure_history": [
+    {
+      "log": "check-first.log",
+      "result": "compile failed: wrong shadowed config reference and non-serializable model types; corrected in product projection"
+    },
+    {
+      "log": "node-guards-first.log",
+      "result": "three preceding overlay tests did not yet strip the new exact lock layer; corrected reconstruction wiring with original assertions retained"
+    },
+    {
+      "log": "focused-second.log",
+      "result": "all three initial tests failed startup because test harness passed nonexistent --watch; fixed to actual default watch mode, not adding fake CLI behavior"
+    },
+    {
+      "log": "focused-third.log",
+      "result": "two failures: management settings projection assumed optional absent Feishu instance existed in raw settings; fixed to actual registered instance defaults"
+    },
+    {
+      "log": "focused-fourth.log",
+      "result": "one test used nonexistent kv settings key; fixed assertion to read actual settings-revision/settings-version record, preserving persisted paused/source assertions"
+    },
+    {
+      "result": "actual first browser smoke exposed misleading starting fallback because pass health records errors/recovery only; formal boot now initializes readiness only after actual startup, preserving errors; repeated actual browser confirmed ready"
+    }
+  ],
+  "acceptance_boundaries": [
+    "API/detail/catalog views explicitly expose text-production-subset-v1; fullReferenceViews=false",
+    "account hot swap remains explicit 409; no fake restart success",
+    "complete reference API/UI route and view matrix remains unfinished",
+    "waiting Worker stop proved; queued/running/background/subagent stop matrix not closed",
+    "Worker repository delivery and six-instance cutover not done",
+    "real Feishu task/Worker/reply proof not completed; no further manual resend requested",
+    "initial ignored live tests and capability early returns do not count as product acceptance",
+    "latest published-head CI must be checked separately; predecessor 05f28e72 was successful, not proof of this new head"
+  ],
+  "evidence": [
+    {
+      "path": "docs/evidence/management-production-01/check-first.log",
+      "raw_sha256": "a9c26d3f51f786986b9453aa3c024054e52a52d1e8c5a2f80fa9a3a2d77cb17c",
+      "published_sha256": "f5ef0aac9f42fb1103d346eb9da2f0a72cd3212a549cd6b2601abd3b2c5ffeb7",
+      "transformation": "only normalized owned validation/source absolute roots; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/management-production-01/node-guards-first.log",
+      "raw_sha256": "03ccc4f0d7150d072b851a583a23ec32d127e01901bb75589a2a4721facfd2de",
+      "published_sha256": "21709670205a2066985db291819e674e6a3cdb798ea2998a933822044baade54",
+      "transformation": "only normalized owned validation/source absolute roots; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/management-production-01/focused-second.log",
+      "raw_sha256": "bb0392977ed693e79a8b6d7fe5db9e71a351c8a3bd875f8e5abe817b168a40a0",
+      "published_sha256": "e656d832a1167300b7f42feefec70be1a0437e605e5b0be649e6be733f693c9a",
+      "transformation": "only normalized owned validation/source absolute roots; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/management-production-01/focused-third.log",
+      "raw_sha256": "2b62415eeef25578683bb0972a0193c36a51de8fca633fa8a0f995d4fcc5a756",
+      "published_sha256": "c38fc0b736bbdb53818c6fd02efd0059aee293190167f4d64713dff971bdd3d1",
+      "transformation": "only normalized owned validation/source absolute roots; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/management-production-01/focused-fourth.log",
+      "raw_sha256": "146140cc381ee199228deac7f34560ab34fc7c6a2f09fce8405fef1d530ba892",
+      "published_sha256": "f0810e2d10ace75e781e4ddcb96605044086d42b767a7f1efd5a46b7765305d8",
+      "transformation": "only normalized owned validation/source absolute roots; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/management-production-01/regression-fifth.log",
+      "raw_sha256": "e988a482955eae6406239f9ac93cb71ba20e58964d49737145e323b25222617c",
+      "published_sha256": "04478c6cbbbf5272e05c9dba9f0414f39b642c0a28f8b9a542a7c6d93a17108c",
+      "transformation": "only normalized owned validation/source absolute roots; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/management-production-01/regression-final.log",
+      "raw_sha256": "7f5743e37f9da65f227887183e14f50d8bbe91d10ace4031e150393a7abc1493",
+      "published_sha256": "49358220138066e303348f983c1d293d68205c9fd6fa74a1fe00a0cdb29665fc",
+      "transformation": "only normalized owned validation/source absolute roots; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/management-production-01/node-guards-final.log",
+      "raw_sha256": "bad583bc33a9c30424a391cdefc12eed13c51e651f0f5820862aa5731b5deac2",
+      "published_sha256": "bad583bc33a9c30424a391cdefc12eed13c51e651f0f5820862aa5731b5deac2",
+      "transformation": "only normalized owned validation/source absolute roots; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/management-production-01/reference.log",
+      "raw_sha256": "38648f47a7236d6946aea3d5fc7fb82239727af4120d0fb08817cbf7d06715f3",
+      "published_sha256": "38648f47a7236d6946aea3d5fc7fb82239727af4120d0fb08817cbf7d06715f3",
+      "transformation": "only normalized owned validation/source absolute roots; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/management-production-01/upstream.log",
+      "raw_sha256": "bb3dfb9a4a5924cf177424d35426b053fd83974e268ec5a50606c64bbc90c8e7",
+      "published_sha256": "bb3dfb9a4a5924cf177424d35426b053fd83974e268ec5a50606c64bbc90c8e7",
+      "transformation": "only normalized owned validation/source absolute roots; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/management-production-01/tools.log",
+      "raw_sha256": "95a553f6032142ef5ad92c32447236b3981966d10a1f4e627a45cb922fff02a1",
+      "published_sha256": "95a553f6032142ef5ad92c32447236b3981966d10a1f4e627a45cb922fff02a1",
+      "transformation": "only normalized owned validation/source absolute roots; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/management-production-01/live-smoke.log",
+      "raw_sha256": "f574836ae10feac9cf0f679bd2446872d78cc683b65e4875cf4ee199129fc298",
+      "published_sha256": "f574836ae10feac9cf0f679bd2446872d78cc683b65e4875cf4ee199129fc298",
+      "transformation": "only normalized owned validation/source absolute roots; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/management-production-01/live-smoke-final.log",
+      "raw_sha256": "8c290be95c264a9f42e34baa701ef4de38cb80346d8d386a262544b2a5b34bd6",
+      "published_sha256": "8c290be95c264a9f42e34baa701ef4de38cb80346d8d386a262544b2a5b34bd6",
+      "transformation": "only normalized owned validation/source absolute roots; whitespace retained"
+    },
+    {
+      "path": "docs/evidence/management-production-01/ui-paused.txt",
+      "published_sha256": "a027f5fe7d589aa49fb47e2e1d195898926b7edccf690c5a9c8534e7b56cc166",
+      "transformation": "none; current empty-state UI and public repository only"
+    },
+    {
+      "path": "docs/evidence/management-production-01/ui-resumed.txt",
+      "published_sha256": "daf7752598c8481a566b1975a8517cc70b4dc46aebdb4fcd02b0eb1deffef523",
+      "transformation": "none; current empty-state UI and public repository only"
+    },
+    {
+      "path": "docs/evidence/management-production-01/live-smoke-final-summary.jsonl",
+      "published_sha256": "6f8bde9e906f45d8feb48056c12c81dce38cb189c44f4c4a42108874881326b6",
+      "transformation": "none; current empty-state UI and public repository only"
+    },
+    {
+      "path": "docs/evidence/management-production-01/management-acceptance.png",
+      "published_sha256": "3bd070c86c6f7efec45e2e98c067b84b9097d7923b4f391e658ae47e9800fa16",
+      "transformation": "unaltered actual browser screenshot; independent acceptance state, not production"
+    },
+    {
+      "path": "docs/evidence/management-production-01/management-acceptance-paused.png",
+      "published_sha256": "9e01eef19011b816e7fdcf033e1f5549cfe799d11c0db311a060592e831ad1e6",
+      "transformation": "unaltered actual browser screenshot; independent acceptance state, not production"
+    }
+  ]
+}

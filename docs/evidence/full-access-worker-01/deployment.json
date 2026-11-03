@@ -1,0 +1,33 @@
+{
+  "atUtc": "2026-11-02T12:01:18Z",
+  "workerAccess": "danger-full-access",
+  "pid": 81571,
+  "binarySha256": "377122872641e6afde83bb039341310133323173b194bece6b0943db600f1ed3",
+  "runtime": {
+    "at": "2026-11-02T12:00:40.653Z",
+    "detail": "Orchestrator is ready",
+    "state": "ready"
+  },
+  "load": {
+    "idle": 0,
+    "maxWorkers": 1.0,
+    "queued": 0,
+    "running": 0
+  },
+  "paused": false,
+  "sources": [
+    {
+      "id": "feishu",
+      "state": "ready"
+    },
+    {
+      "id": "github",
+      "state": "ready"
+    }
+  ],
+  "deployedServiceEnvironmentAndBinaryVerified": true,
+  "realGithubWorkerReadPassed": true,
+  "account": "btlqql",
+  "promptRevision": 2,
+  "unitSha256": "3e3975891b4c221d9b68103c6dc056efa8dc0419af509a660e3cd13379c1adca"
+}

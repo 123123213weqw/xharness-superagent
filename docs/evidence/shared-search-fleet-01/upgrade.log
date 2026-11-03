@@ -1,0 +1,15 @@
+{
+  "instance": "rs",
+  "release": "2527f03016b0-4ca9b78eaa98",
+  "binarySha256": "4ca9b78eaa983b419d64a642c420d6092861160fafbe55db5202f4478d370852",
+  "busy": false,
+  "noOp": false,
+  "previousPaused": false,
+  "ready": true,
+  "installedAt": 1793622955.3011858,
+  "sourceCommit": "2527f03016b0e7d4dbae151f2189af609c75cb0e",
+  "backupVerified": true,
+  "statePreserved": true,
+  "unitUnchanged": true,
+  "status": "deployed"
+}

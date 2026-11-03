@@ -1,0 +1,25 @@
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.50s
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 8.55s
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 19.43s
+     Running tests/github_read.rs (<owned-target>/debug/deps/github_read-f352f843aae55234)
+
+running 1 test
+
+thread 'original_read_github_outputs_errors_and_exact_request_paths_match' (3018267) panicked at crates/xharness-superagent/tests/github_read.rs:47:13:
+assertion `left == right` failed: "commit-checks"
+  left: Object {"checks": Array [Object {"conclusion": String("failure"), "name": String("build"), "status": String("completed")}, Object {"conclusion": Null, "name": String("same"), "status": String("in_progress")}, Object {"conclusion": String("failure"), "name": String("same"), "status": String("in_progress")}, Object {"conclusion": Null, "name": String("test"), "status": String("in_progress")}], "head": String("abcdef0123456789"), "statuses": Array [Object {"context": String("deploy"), "state": String("pending")}, Object {"context": String("lint"), "state": String("success")}]}
+ right: Object {"checks": Array [Object {"conclusion": String("failure"), "name": String("build"), "status": String("completed")}, Object {"conclusion": String("failure"), "name": String("same"), "status": String("in_progress")}, Object {"conclusion": Null, "name": String("same"), "status": String("in_progress")}, Object {"conclusion": Null, "name": String("test"), "status": String("in_progress")}], "head": String("abcdef0123456789"), "statuses": Array [Object {"context": String("deploy"), "state": String("pending")}, Object {"context": String("lint"), "state": String("success")}]}
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test original_read_github_outputs_errors_and_exact_request_paths_match ... FAILED
+
+failures:
+
+failures:
+    original_read_github_outputs_errors_and_exact_request_paths_match
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `-p xharness-superagent --test github_read`

@@ -1,0 +1,288 @@
+{
+  "created_at_utc": "2026-11-01T17:49:18.790819+00:00",
+  "milestone": "B1",
+  "status": "formal_executable_explicit_github_flow_verified_in_offline_protocol_environment_not_full_product_parity",
+  "source_commit": "a7737180dd17f0d9ad86c76c42b0ef4faf49b9ca",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "host": "WZU_Server",
+  "os": "Linux 6.8.0-136-generic",
+  "rust": "1.99.0 (b940084d7 2026-09-28)",
+  "isolated_build": true,
+  "local_rust_compilation": false,
+  "profile_sha256": "5642265cd7d355d0a3744151b6dd3196c81c84c5c8d86e9f90b069e2c83652d1",
+  "profile_files": 694,
+  "profile_manifest": "docs/business-entry-source-profile.json",
+  "local_remote_source_equal": true,
+  "entry": "xharness-superagent --config <explicit-config.json> [--check | --once]",
+  "actual_product_path": [
+    "formal binary",
+    "strict configuration + state lease",
+    "real existing OpenAI HTTP/SSE provider adapter",
+    "real configured gh executable through managed process runtime",
+    "GitHub Source",
+    "actual policy + SQL/driver/passes",
+    "Native main session + orchestrator_route",
+    "ticket prepare command",
+    "Native worker session + actual CodingToolBundle write",
+    "orchestrator_report ready/ended",
+    "Native main orchestrator_reply",
+    "outbox marker-backed Source send"
+  ],
+  "external_service_boundaries": "Loopback HTTP/SSE model server and temporary executable gh protocol fixture only; no ScriptedProvider in production or fake workspace_write handler. No real GitHub writes or paid model calls.",
+  "reference_expectations": [
+    {
+      "path": "conformance/reference/upstream/tests/runtime.spec.ts",
+      "contract": "显式允许成员的提及进入 candidate；accept 创建唯一 Ticket、ack、订阅及 Worker；重复 accept 复用工单"
+    },
+    {
+      "path": "conformance/reference/upstream/tests/runtime.spec.ts",
+      "contract": "无 PR 的 ready 报告结束 Ticket，后续结果回复有条件且保留原来源"
+    },
+    {
+      "path": "conformance/reference/upstream/src/executor/dsh.ts",
+      "contract": "prepare 最长600秒；失败不自动复用半成品重试；只删空目录并报告 failed"
+    },
+    {
+      "path": "conformance/reference/upstream/src/app/execution-environment.ts",
+      "contract": "工单固定目录/名称/ID与实际来源非秘密变量；重启使用持久设置"
+    },
+    {
+      "path": "conformance/reference/upstream/src/sources/github.ts",
+      "contract": "账号、仓库、comment identity、过滤/mention及回执 marker；另有57个原版函数离线样本"
+    }
+  ],
+  "reference_differential_boundary": "Expected business facts are checked against the pinned runtime/executor/source contracts; 57 original Source function samples are rerun. This is not two full original/target products running the same SDK end-to-end.",
+  "formal_entry_test_declarations": 8,
+  "formal_entry_test_names": [
+    "formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate",
+    "check_is_read_only_for_external_services_and_releases_state_lease",
+    "invalid_saved_model_and_missing_configuration_never_fall_back",
+    "refused_and_unauthorized_requests_do_not_start_workers",
+    "preparation_failure_is_reported_without_worker_or_silent_retry",
+    "watch_owns_the_state_exclusively_and_interrupt_joins_before_reopen",
+    "setup_failure_and_missing_model_credential_do_not_leave_a_live_owner",
+    "once_interrupt_cancels_a_model_wait_and_releases_the_lease"
+  ],
+  "full_workspace_tests_run": false,
+  "regression_packages": [
+    "xharness-superagent-core",
+    "xharness-superagent",
+    "xharness-agent",
+    "xharness-host",
+    "xharness-core",
+    "xharness-provider-openai",
+    "xharness-coding-tools",
+    "xharness-platform",
+    "xharness-process"
+  ],
+  "regression_result_rows": 81,
+  "regression_passed": 1286,
+  "regression_failed": 0,
+  "regression_ignored": 17,
+  "ignored_not_counted_as_pass": [
+    "test live_model_calls_real_tool_and_finishes_the_loop ... ignored, requires a live OpenAI-compatible model endpoint",
+    "test live_model_continues_coding_across_execution_checkpoints ... ignored, requires an explicitly configured live model endpoint",
+    "test live_model_repairs_code_and_emits_complete_debug_evidence ... ignored, requires a live OpenAI-compatible endpoint (XHARNESS_LIVE_BASE_URL/_API_KEY)",
+    "test live_model_uses_managed_jobs_instead_of_pty_or_nohup ... ignored, requires a live OpenAI-compatible endpoint (XHARNESS_LIVE_BASE_URL/_API_KEY)",
+    "test shell_native_failure_fixture ... ignored",
+    "test shell_native_success_fixture ... ignored",
+    "test shell_native_wait_fixture ... ignored",
+    "test context_selection::tests::actual_legacy_metadata_proves_inherited_automatic_budget ... ignored, metadata-only real journal acceptance; no transcript or tool bodies",
+    "test restore::dynamic_projection_tests::offline_dynamic_projection_stress ... ignored, bounded dynamic replay; explicit CI/local incident investigation only",
+    "test restore::tests::offline_authoritative_restore_100_cold_starts ... ignored, explicit isolated cold-start acceptance; run in diagnostics CI",
+    "test restore::tests::offline_journal_projection_stress ... ignored, explicit offline projection experiment; private journals stay local",
+    "test restore::tests::offline_reasoning_projection_stress ... ignored, offline crash-reproduction stress; run explicitly in CI",
+    "test restore_checkpoint::tests::recovery_checkpoint_performance_acceptance ... ignored, explicit remote cold-recovery performance acceptance",
+    "test runtime::tests::admission_performance_tests::large_history_rpc_performance_acceptance ... ignored, remote optimized real-RPC A/B acceptance, no network/model calls",
+    "test runtime::tests::max_tokens_diagnostic::diagnostic_max_tokens_notice_survives_next_turn_start ... ignored, diagnostic of known notice mismatch; run explicitly, remove when fixed",
+    "test provider::image_budget_tests::live_official_deepseek_image_allowance ... ignored, Paid official DeepSeek experiment; requires explicit key, fixture root and report path",
+    "test mixed_calibration_live::live_growth_and_restart_with_images ... ignored, paid official DeepSeek accounting experiment; requires an explicit evaluation key"
+  ],
+  "targeted_earlier_executions_not_added_to_regression": {
+    "entry-06": 16,
+    "regression-01_entry_checks": 8
+  },
+  "commands": [
+    {
+      "command": "cargo fmt --all -- --check",
+      "exit": 0
+    },
+    {
+      "command": "cargo check --locked --workspace --all-targets --features xharness-superagent/conformance",
+      "exit": 0
+    },
+    {
+      "command": "cargo clippy --locked --workspace --all-targets --features xharness-superagent/conformance -- -D warnings",
+      "exit": 0
+    },
+    {
+      "command": "cargo test --locked -p xharness-superagent-core -p xharness-superagent -p xharness-agent -p xharness-host -p xharness-core -p xharness-provider-openai -p xharness-coding-tools -p xharness-platform --all-targets --features xharness-superagent/conformance",
+      "exit": 0
+    },
+    {
+      "command": "cargo test --locked -p xharness-process --all-targets -- --test-threads=1",
+      "exit": 0
+    }
+  ],
+  "oracle_check": {
+    "original_source_samples": 57,
+    "reference_files_unchanged": 216,
+    "controlled_import_steps_unchanged": 11,
+    "controlled_import_paths_unchanged": 86,
+    "provenance_guard_declarations": 6,
+    "current_product_application_tool_subset": 4
+  },
+  "dependency_changes": {
+    "new_direct_existing_workspace_crates": [
+      "xharness-provider-openai",
+      "xharness-coding-tools",
+      "xharness-platform",
+      "xharness-web"
+    ],
+    "external_rust_packages_or_locked_versions_changed": false,
+    "frozen_cargo_baseline_reconstructed_exactly": true,
+    "declared_cargo_overlay_edges_total": 5,
+    "prod_node_zod_or_reference_sdk_dependency": false
+  },
+  "narrow_shared_changes": [
+    {
+      "path": "crates/xharness-coding-tools/src/lib.rs",
+      "change": "Opt-in trusted non-secret process environment; generic default empty, credential/control/PATH overrides rejected; not a permission preset change"
+    },
+    {
+      "path": "crates/xharness-provider-openai/src/provider.rs",
+      "change": "Native Text-only content blocks do not require an attachment resolver; authoritative block text preserved; File/Image without a resolver still fail for both protocols"
+    }
+  ],
+  "product_permission_projection": "Only the product factory projects already admitted write/edit/native shell tools without interactive approval flags, because Core owns/overrides the per-executor approval bridge. Every tool remains gated by the live ticket/assignment/current policy and existing WorkspaceWrite + NetworkDeny filesystem/process boundaries. Generic CodingToolBundle specs and Host defaults are unchanged; no ApproveAll or full access.",
+  "earlier_failures_preserved": [
+    "entry-01: fixture JSON macro compile error",
+    "entry-02: gh fixture missed the repository notifications prefix",
+    "entry-03: real adapter required an attachment resolver for ordinary Native Text blocks",
+    "entry-04: actual coding mutation waited for Core-owned interactive approval; no success fallback added",
+    "entry-05: escape write was rejected and actual result written, but assertion expected the wrong error text; changed to the real parent traversal error",
+    "regression-01: two strict Clippy unused unit diagnostics, fixed without lint relaxation"
+  ],
+  "log_normalization": "All stdout/stderr retained; only absolute source/cache checkout prefixes replaced with <isolated-source>/<isolated-target>. Both raw and public hashes recorded.",
+  "logs": [
+    {
+      "path": "docs/evidence/business-entry-01/check-01.log",
+      "exit": 0,
+      "raw_sha256": "0306a9ecf5443234b3ff207b9dfdefb8d19288fc473899c4b69a80ac05070704",
+      "published_sha256": "4cdcd856f20eba5630d6f3471dc68f56044cef979b5825923defac96207f2322"
+    },
+    {
+      "path": "docs/evidence/business-entry-01/entry-01.log",
+      "exit": 101,
+      "raw_sha256": "dc9360c44b7641b19f00de261ed90f9885d4c67cfe23d1785de543bd390c2d55",
+      "published_sha256": "82da63dd9518077318c44be8e76a8421cde6ac547be35f998472f1109da9b138"
+    },
+    {
+      "path": "docs/evidence/business-entry-01/entry-02.log",
+      "exit": 101,
+      "raw_sha256": "9b4a5aad42ffcdf5e948622bf9674af70c98cea691fc007bf36827d5f536fa05",
+      "published_sha256": "ccb490a1d4eeaeaa06b1615b670ca21d6aa3b661b6546c7fc80b44369f08adf0"
+    },
+    {
+      "path": "docs/evidence/business-entry-01/entry-03.log",
+      "exit": 101,
+      "raw_sha256": "e5a9a56deec9417d8f35de65ed39d03739f57f8a6f90d6ec9fe70f4c8d3bd94a",
+      "published_sha256": "1b233ad0a30222e125d755cb4ec3d37910fc7476519911428f61306e2172754a"
+    },
+    {
+      "path": "docs/evidence/business-entry-01/entry-04.log",
+      "exit": 101,
+      "raw_sha256": "97916128cc5cec9f5e915dc2850bb037f91ce64c9c32393744e0459429e7b00b",
+      "published_sha256": "3e79d51d6fd172e285cc0319eafb8784e6f26e457f43dd48df8a9a567ea081a2"
+    },
+    {
+      "path": "docs/evidence/business-entry-01/entry-05.log",
+      "exit": 101,
+      "raw_sha256": "7582ce7cc73e4d0b11ee8c2cc37b5227deb0c3a0182d040c1a1258168f96c3f6",
+      "published_sha256": "65c193da6560099e6dbd2fbe7ad3cba8862ad7fa2f191ecee0ed60b47fd9771d"
+    },
+    {
+      "path": "docs/evidence/business-entry-01/entry-06.log",
+      "exit": 0,
+      "raw_sha256": "deb3e006cf0638d0839aef60292b6e24326df550f5315f599b99c1e63431b4df",
+      "published_sha256": "362f0d7c4c88c4ab8b1689a9b847bcb24da6686e8bc0f78b62417ae531e41ebf"
+    },
+    {
+      "path": "docs/evidence/business-entry-01/environment.log",
+      "exit": 0,
+      "raw_sha256": "d885b8d0a0df3e381465389c208354788c8d35d57cb7e75b079baef08e8796ed",
+      "published_sha256": "d885b8d0a0df3e381465389c208354788c8d35d57cb7e75b079baef08e8796ed"
+    },
+    {
+      "path": "docs/evidence/business-entry-01/oracle-check.log",
+      "exit": 0,
+      "raw_sha256": "a090b73f92a26a1bd5dcba80c50a72caf0595b73c758f91b611570833ee8f664",
+      "published_sha256": "a090b73f92a26a1bd5dcba80c50a72caf0595b73c758f91b611570833ee8f664"
+    },
+    {
+      "path": "docs/evidence/business-entry-01/regression-01.log",
+      "exit": 101,
+      "raw_sha256": "3573b9c26a23ed74a5b378cf0dad6088816187dffffcf4296c5d7e2e02833fb6",
+      "published_sha256": "e80036c05b7ce58c9936a43440baa444e7e19eba3e502061dcc2e9f294538d2f"
+    },
+    {
+      "path": "docs/evidence/business-entry-01/regression-02.log",
+      "exit": 0,
+      "raw_sha256": "7401084cfcb7764392d94b72aa3d0e5c2977bee04abac0e70c8a58e1357da683",
+      "published_sha256": "c5154ee0dce5911b3702acca18d818a08069112f8fcf8d28cfab509d17a9a6ed"
+    }
+  ],
+  "not_proved": [
+    "real GitHub/Feishu service or paid-model acceptance",
+    "full main14/worker6 application tools, inferred assessment, bounded resources and complete prompts/skills",
+    "Feishu/multi-source composition and configuration API/UI/controlled runtime reconfiguration",
+    "all ticket stop/followup/retry/background/crash replay cases",
+    "default sandbox actual networked coding or all deploy/service/SIGTERM/backup/rollback scenarios",
+    "all reference poll branches and legacy CI fingerprint/special-sort migration",
+    "full workspace regression or cross-platform CI for this new commit"
+  ],
+  "business_assertions": [
+    {
+      "case": "BOOT-01",
+      "assertions": [
+        "Missing explicit configuration or model credential exits nonzero before dispatch.",
+        "Invalid saved model fails instead of using a different default provider/model.",
+        "Account setup failure is visible and releases the live state owner.",
+        "Check mode performs only read-only account/repository probes, without model requests or comments."
+      ]
+    },
+    {
+      "case": "BOOT-02",
+      "assertions": [
+        "A second formal process cannot obtain the active state lease.",
+        "Interrupt joins watch before the state can be reopened.",
+        "Once-mode interrupt cancels a model withholding its first SSE byte and returns stopped.",
+        "Normal restart loads the persisted ticket facts."
+      ]
+    },
+    {
+      "case": "FLOW-01",
+      "assertions": [
+        "An allowed human mention of the resolved agent account becomes an explicit candidate.",
+        "Exactly one authorized Ticket is created and Native worker calls actual CodingToolBundle write.",
+        "Parent traversal write fails with the real filesystem error and leaves no outside file.",
+        "The actual result file preserves Chinese and emoji; the separate seed file came from explicit prepare command.",
+        "Ready report persists; no-PR Ticket ends.",
+        "Exactly acknowledgement and result are posted with receipt HTML markers.",
+        "Actual main requests expose the two current application tools, not worker coding tools; worker exposes coding/report/ack, not main route or network-bypassing web tools."
+      ]
+    },
+    {
+      "case": "FLOW-02",
+      "assertions": [
+        "An authorized candidate routed to ignore creates no Ticket, Worker request or reply."
+      ]
+    },
+    {
+      "case": "REC-01",
+      "assertions": [
+        "The stable comment replayed after normal restart creates no additional Ticket, model request, file work or reply."
+      ]
+    }
+  ]
+}

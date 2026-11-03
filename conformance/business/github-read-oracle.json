@@ -1,0 +1,995 @@
+{
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "scope": "Unmodified pinned readGithub + Commands, offline gh executable; not full Native/product or real-service acceptance",
+  "cases": [
+    {
+      "name": "issue",
+      "resource": "github/issues/12",
+      "responses": {
+        "issues/12": {
+          "id": 123,
+          "user": {
+            "login": "alice",
+            "type": "User"
+          },
+          "body": "正文 中文 😀",
+          "created_at": "2026-11-02T00:00:00.000Z",
+          "number": 12,
+          "title": "Issue title",
+          "state": "open",
+          "html_url": "https://github.com/owner/repo/issues/12"
+        }
+      },
+      "outcome": {
+        "value": {
+          "number": 12,
+          "title": "Issue title",
+          "state": "open",
+          "id": "12",
+          "from": "alice",
+          "at": "2026-11-02T00:00:00.000Z",
+          "text": "正文 中文 😀",
+          "url": "https://github.com/owner/repo/issues/12"
+        }
+      },
+      "trace": [
+        {
+          "path": "issues/12",
+          "flags": []
+        }
+      ]
+    },
+    {
+      "name": "deleted-account",
+      "resource": "github/issues/12",
+      "responses": {
+        "issues/12": {
+          "id": 123,
+          "user": null,
+          "body": "正文 中文 😀",
+          "created_at": "2026-11-02T00:00:00.000Z",
+          "number": 12,
+          "title": "Issue title",
+          "state": "open",
+          "html_url": "https://github.com/owner/repo/issues/12"
+        }
+      },
+      "outcome": {
+        "value": {
+          "number": 12,
+          "title": "Issue title",
+          "state": "open",
+          "id": "12",
+          "from": "ghost",
+          "at": "2026-11-02T00:00:00.000Z",
+          "text": "正文 中文 😀",
+          "url": "https://github.com/owner/repo/issues/12"
+        }
+      },
+      "trace": [
+        {
+          "path": "issues/12",
+          "flags": []
+        }
+      ]
+    },
+    {
+      "name": "pull",
+      "resource": "github/pulls/12",
+      "responses": {
+        "pulls/12": {
+          "id": 123,
+          "user": {
+            "login": "alice",
+            "type": "User"
+          },
+          "body": "正文 中文 😀",
+          "created_at": "2026-11-02T00:00:00.000Z",
+          "number": 12,
+          "title": "Issue title",
+          "state": "open",
+          "html_url": "https://github.com/owner/repo/issues/12",
+          "draft": true,
+          "merged": true,
+          "head": {
+            "ref": "feature"
+          },
+          "base": {
+            "ref": "main"
+          },
+          "labels": [
+            {
+              "name": "功能"
+            },
+            {
+              "name": "bug"
+            }
+          ]
+        }
+      },
+      "outcome": {
+        "value": {
+          "number": 12,
+          "title": "Issue title",
+          "state": "open",
+          "merged": true,
+          "draft": true,
+          "head": "feature",
+          "base": "main",
+          "labels": [
+            "功能",
+            "bug"
+          ],
+          "id": "12",
+          "from": "alice",
+          "at": "2026-11-02T00:00:00.000Z",
+          "text": "正文 中文 😀",
+          "url": "https://github.com/owner/repo/issues/12"
+        }
+      },
+      "trace": [
+        {
+          "path": "pulls/12",
+          "flags": []
+        }
+      ]
+    },
+    {
+      "name": "comments-page",
+      "resource": "github/issues/12/comments",
+      "responses": {
+        "issues/12/comments?per_page=20&page=1": [
+          {
+            "id": 1,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 2,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 3,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": "invalid"
+          },
+          {
+            "id": 5,
+            "user": {
+              "login": "ci[bot]",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 6,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 7,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 8,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 9,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 10,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 11,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 12,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 13,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 14,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 15,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 16,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 17,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 18,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 19,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          },
+          {
+            "id": 20,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z"
+          }
+        ]
+      },
+      "outcome": {
+        "value": {
+          "messages": [
+            {
+              "id": "1",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "2",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "3",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "5",
+              "from": "ci[bot]",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀",
+              "bot": true
+            },
+            {
+              "id": "6",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "7",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "8",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "9",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "10",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "11",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "12",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "13",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "14",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "15",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "16",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "17",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "18",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "19",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "20",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            }
+          ],
+          "skipped": 1,
+          "next_resource": "github/issues/12/comments/2"
+        }
+      },
+      "trace": [
+        {
+          "path": "issues/12/comments?per_page=20&page=1",
+          "flags": []
+        }
+      ]
+    },
+    {
+      "name": "comment-reply",
+      "resource": "github/pulls/12/comments/2",
+      "responses": {
+        "pulls/12/comments?per_page=20&page=2": [
+          {
+            "id": 9,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z",
+            "in_reply_to_id": 4,
+            "path": "a.rs",
+            "original_line": 8
+          }
+        ]
+      },
+      "outcome": {
+        "value": {
+          "messages": [
+            {
+              "id": "9",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀",
+              "path": "a.rs",
+              "line": 8,
+              "reply_to": "4"
+            }
+          ]
+        }
+      },
+      "trace": [
+        {
+          "path": "pulls/12/comments?per_page=20&page=2",
+          "flags": []
+        }
+      ]
+    },
+    {
+      "name": "reviews",
+      "resource": "github/pulls/12/reviews/1",
+      "responses": {
+        "pulls/12/reviews?per_page=20&page=1": [
+          {
+            "id": 4,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": null,
+            "created_at": "2026-11-02T00:00:00.000Z",
+            "state": "APPROVED"
+          },
+          {
+            "id": 5,
+            "user": {
+              "login": "alice",
+              "type": "User"
+            },
+            "body": "正文 中文 😀",
+            "created_at": "2026-11-02T00:00:00.000Z",
+            "state": "COMMENTED"
+          },
+          {
+            "id": 6,
+            "user": {
+              "login": "app",
+              "type": "Bot"
+            },
+            "body": "正文 中文 😀",
+            "created_at": null,
+            "state": "CHANGES_REQUESTED",
+            "submitted_at": "2026-11-02T00:00:00.000Z"
+          }
+        ]
+      },
+      "outcome": {
+        "value": {
+          "messages": [
+            {
+              "id": "4",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "APPROVED"
+            },
+            {
+              "id": "5",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "正文 中文 😀"
+            },
+            {
+              "id": "6",
+              "from": "app",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "CHANGES_REQUESTED\n\n正文 中文 😀",
+              "bot": true
+            }
+          ]
+        }
+      },
+      "trace": [
+        {
+          "path": "pulls/12/reviews?per_page=20&page=1",
+          "flags": []
+        }
+      ]
+    },
+    {
+      "name": "review-thread",
+      "resource": "github/pulls/12/thread/11",
+      "responses": {
+        "pulls/12/comments?per_page=100": [
+          [
+            {
+              "id": 11,
+              "user": {
+                "login": "alice",
+                "type": "User"
+              },
+              "body": "正文 中文 😀",
+              "created_at": "2026-11-02T00:00:01.000Z",
+              "in_reply_to_id": 10
+            },
+            {
+              "id": 10,
+              "user": {
+                "login": "alice",
+                "type": "User"
+              },
+              "body": "正文 中文 😀",
+              "created_at": "2026-11-02T00:00:00.000Z",
+              "path": "src/文件.rs",
+              "line": 4,
+              "diff_hunk": "one\ntwo\nthree\nfour"
+            },
+            {
+              "id": 12,
+              "user": {
+                "login": "alice",
+                "type": "User"
+              },
+              "body": "正文 中文 😀",
+              "created_at": "2026-11-02T00:00:00.000Z",
+              "in_reply_to_id": 99
+            },
+            {
+              "id": "invalid"
+            }
+          ]
+        ]
+      },
+      "outcome": {
+        "value": {
+          "messages": [
+            {
+              "id": "10",
+              "from": "alice",
+              "at": "2026-11-02T00:00:00.000Z",
+              "text": "src/文件.rs:4\ntwo\nthree\nfour\n\n正文 中文 😀",
+              "path": "src/文件.rs",
+              "line": 4
+            },
+            {
+              "id": "11",
+              "from": "alice",
+              "at": "2026-11-02T00:00:01.000Z",
+              "text": "正文 中文 😀",
+              "reply_to": "10"
+            }
+          ]
+        }
+      },
+      "trace": [
+        {
+          "path": "pulls/12/comments?per_page=100",
+          "flags": [
+            "--paginate",
+            "--slurp"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "missing-review-thread",
+      "resource": "github/pulls/12/thread/999",
+      "responses": {
+        "pulls/12/comments?per_page=100": [
+          [
+            {
+              "id": 10,
+              "user": {
+                "login": "alice",
+                "type": "User"
+              },
+              "body": "正文 中文 😀",
+              "created_at": "2026-11-02T00:00:00.000Z"
+            }
+          ]
+        ]
+      },
+      "outcome": {
+        "error": true,
+        "message": "No review comment of this PR has that id"
+      },
+      "trace": [
+        {
+          "path": "pulls/12/comments?per_page=100",
+          "flags": [
+            "--paginate",
+            "--slurp"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "commit-checks",
+      "resource": "github/commits/abcdef0123456789/checks",
+      "responses": {
+        "commits/abcdef0123456789/check-runs?per_page=100": [
+          {
+            "check_runs": [
+              {
+                "name": "build",
+                "status": "completed",
+                "conclusion": "failure"
+              },
+              {
+                "name": "test",
+                "status": "in_progress",
+                "conclusion": null
+              },
+              {
+                "name": "bad",
+                "status": "completed"
+              },
+              {
+                "name": "same",
+                "status": "in_progress",
+                "conclusion": null
+              },
+              {
+                "name": "same",
+                "status": "in_progress",
+                "conclusion": "failure"
+              }
+            ]
+          }
+        ],
+        "commits/abcdef0123456789/statuses?per_page=100": [
+          [
+            {
+              "context": "deploy",
+              "state": "pending"
+            },
+            {
+              "context": "deploy",
+              "state": "success"
+            },
+            {
+              "context": "lint",
+              "state": "success"
+            }
+          ]
+        ]
+      },
+      "outcome": {
+        "value": {
+          "head": "abcdef0123456789",
+          "checks": [
+            {
+              "name": "build",
+              "status": "completed",
+              "conclusion": "failure"
+            },
+            {
+              "name": "same",
+              "status": "in_progress",
+              "conclusion": "failure"
+            },
+            {
+              "name": "same",
+              "status": "in_progress",
+              "conclusion": null
+            },
+            {
+              "name": "test",
+              "status": "in_progress",
+              "conclusion": null
+            }
+          ],
+          "statuses": [
+            {
+              "context": "deploy",
+              "state": "pending"
+            },
+            {
+              "context": "lint",
+              "state": "success"
+            }
+          ]
+        }
+      },
+      "trace": [
+        {
+          "path": "commits/abcdef0123456789/check-runs?per_page=100",
+          "flags": [
+            "--paginate",
+            "--slurp"
+          ]
+        },
+        {
+          "path": "commits/abcdef0123456789/statuses?per_page=100",
+          "flags": [
+            "--paginate",
+            "--slurp"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "pull-checks",
+      "resource": "github/pulls/12/checks",
+      "responses": {
+        "pulls/12": {
+          "head": {
+            "sha": "abcdef0123456789"
+          }
+        },
+        "commits/abcdef0123456789/check-runs?per_page=100": [
+          {
+            "check_runs": [
+              {
+                "name": "build",
+                "status": "completed",
+                "conclusion": "failure"
+              },
+              {
+                "name": "test",
+                "status": "in_progress",
+                "conclusion": null
+              },
+              {
+                "name": "bad",
+                "status": "completed"
+              },
+              {
+                "name": "same",
+                "status": "in_progress",
+                "conclusion": null
+              },
+              {
+                "name": "same",
+                "status": "in_progress",
+                "conclusion": "failure"
+              }
+            ]
+          }
+        ],
+        "commits/abcdef0123456789/statuses?per_page=100": [
+          [
+            {
+              "context": "deploy",
+              "state": "pending"
+            },
+            {
+              "context": "deploy",
+              "state": "success"
+            },
+            {
+              "context": "lint",
+              "state": "success"
+            }
+          ]
+        ]
+      },
+      "outcome": {
+        "value": {
+          "head": "abcdef0123456789",
+          "checks": [
+            {
+              "name": "build",
+              "status": "completed",
+              "conclusion": "failure"
+            },
+            {
+              "name": "same",
+              "status": "in_progress",
+              "conclusion": "failure"
+            },
+            {
+              "name": "same",
+              "status": "in_progress",
+              "conclusion": null
+            },
+            {
+              "name": "test",
+              "status": "in_progress",
+              "conclusion": null
+            }
+          ],
+          "statuses": [
+            {
+              "context": "deploy",
+              "state": "pending"
+            },
+            {
+              "context": "lint",
+              "state": "success"
+            }
+          ]
+        }
+      },
+      "trace": [
+        {
+          "path": "pulls/12",
+          "flags": []
+        },
+        {
+          "path": "commits/abcdef0123456789/check-runs?per_page=100",
+          "flags": [
+            "--paginate",
+            "--slurp"
+          ]
+        },
+        {
+          "path": "commits/abcdef0123456789/statuses?per_page=100",
+          "flags": [
+            "--paginate",
+            "--slurp"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "invalid-0",
+      "resource": "github/issues/0",
+      "responses": {},
+      "outcome": {
+        "error": true,
+        "message": "Use github/issues/<number>, github/pulls/<number>, or append /comments/<page>, /reviews/<page>, /thread/<comment-id> or /checks; or github/commits/<sha>/checks"
+      },
+      "trace": []
+    },
+    {
+      "name": "invalid-1",
+      "resource": "github/issues/01",
+      "responses": {},
+      "outcome": {
+        "error": true,
+        "message": "Use github/issues/<number>, github/pulls/<number>, or append /comments/<page>, /reviews/<page>, /thread/<comment-id> or /checks; or github/commits/<sha>/checks"
+      },
+      "trace": []
+    },
+    {
+      "name": "invalid-2",
+      "resource": "github/issues/12/reviews",
+      "responses": {},
+      "outcome": {
+        "error": true,
+        "message": "Reviews, review threads and checks require a pull request"
+      },
+      "trace": []
+    },
+    {
+      "name": "invalid-3",
+      "resource": "github/pulls/12/thread",
+      "responses": {},
+      "outcome": {
+        "error": true,
+        "message": "Name the review thread by one of its comments: github/pulls/<number>/thread/<comment-id>"
+      },
+      "trace": []
+    },
+    {
+      "name": "invalid-4",
+      "resource": "github/pulls/12/checks/2",
+      "responses": {},
+      "outcome": {
+        "error": true,
+        "message": "Checks do not take a page number"
+      },
+      "trace": []
+    },
+    {
+      "name": "invalid-5",
+      "resource": "github/commits/abcdefg/checks",
+      "responses": {},
+      "outcome": {
+        "error": true,
+        "message": "Use github/issues/<number>, github/pulls/<number>, or append /comments/<page>, /reviews/<page>, /thread/<comment-id> or /checks; or github/commits/<sha>/checks"
+      },
+      "trace": []
+    },
+    {
+      "name": "invalid-6",
+      "resource": "github/issues/12/comments/0",
+      "responses": {},
+      "outcome": {
+        "error": true,
+        "message": "Use github/issues/<number>, github/pulls/<number>, or append /comments/<page>, /reviews/<page>, /thread/<comment-id> or /checks; or github/commits/<sha>/checks"
+      },
+      "trace": []
+    },
+    {
+      "name": "invalid-7",
+      "resource": "github/../../secrets",
+      "responses": {},
+      "outcome": {
+        "error": true,
+        "message": "Use github/issues/<number>, github/pulls/<number>, or append /comments/<page>, /reviews/<page>, /thread/<comment-id> or /checks; or github/commits/<sha>/checks"
+      },
+      "trace": []
+    },
+    {
+      "name": "invalid-description",
+      "resource": "github/issues/12",
+      "responses": {
+        "issues/12": {
+          "id": 123,
+          "user": {
+            "login": "alice",
+            "type": "User"
+          },
+          "body": "正文 中文 😀",
+          "created_at": null,
+          "number": 12,
+          "title": "Issue title",
+          "state": "open",
+          "html_url": "https://github.com/owner/repo/issues/12"
+        }
+      },
+      "outcome": {
+        "error": true,
+        "message": "[\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"created_at\"\n    ],\n    \"message\": \"Invalid input: expected string, received null\"\n  }\n]"
+      },
+      "trace": [
+        {
+          "path": "issues/12",
+          "flags": []
+        }
+      ]
+    }
+  ]
+}

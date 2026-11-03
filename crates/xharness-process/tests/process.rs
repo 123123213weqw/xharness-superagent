@@ -633,3 +633,67 @@ async fn full_debug_preserves_spawn_raw_chunks_and_completion() {
         .any(|event| { event.event == "output.chunk" && event.payload["content"] == "err" }));
     assert!(events.iter().any(|event| event.event == "completed"));
 }
+
+#[tokio::test]
+async fn default_stdin_is_eof_but_open_pipe_opt_in_stays_live_until_cancelled() {
+    let dir = TestDir::new();
+    let make = || {
+        SpawnSpec::new("/bin/sh", dir.path()).args([
+            "-c",
+            "printf 'ready\\n'; if IFS= read -r line; then printf unexpected; else printf eof; fi",
+        ])
+    };
+    let output = ProcessRuntime::new()
+        .spawn(make())
+        .unwrap()
+        .wait()
+        .await
+        .unwrap();
+    assert!(output.status.success);
+    assert!(output.stdout.text.contains("eof"));
+    let handle = ProcessRuntime::new().spawn_with_open_stdin(make()).unwrap();
+    let mut observer = handle.output_observer();
+    tokio::time::timeout(Duration::from_secs(5), async {
+        loop {
+            let s = observer.snapshot_since(ProcessOutputCursor::default());
+            assert!(!s.finished);
+            assert!(!s.stdout.text.contains("eof"));
+            if s.stdout.text.contains("ready") {
+                break;
+            }
+            observer.changed(s.revision).await;
+        }
+    })
+    .await
+    .unwrap();
+    assert!(handle.cancel());
+    let output = handle.wait().await.unwrap();
+    assert_eq!(output.termination, TerminationReason::Cancelled);
+    assert!(!output.stdout.text.contains("eof"));
+}
+#[tokio::test]
+async fn open_stdin_pipe_does_not_prevent_normal_exit_or_timeout() {
+    let dir = TestDir::new();
+    let normal = ProcessRuntime::new()
+        .spawn_with_open_stdin(
+            SpawnSpec::new("/bin/sh", dir.path()).args(["-c", "printf done; exit 3"]),
+        )
+        .unwrap()
+        .wait()
+        .await
+        .unwrap();
+    assert_eq!(normal.status.code, Some(3));
+    assert_eq!(normal.stdout.text, "done");
+    assert_eq!(normal.termination, TerminationReason::Exited);
+    let timeout = ProcessRuntime::new()
+        .spawn_with_open_stdin(
+            SpawnSpec::new("/bin/sh", dir.path())
+                .args(["-c", "IFS= read -r line"])
+                .timeout(Duration::from_millis(200)),
+        )
+        .unwrap()
+        .wait()
+        .await
+        .unwrap();
+    assert_eq!(timeout.termination, TerminationReason::TimedOut);
+}

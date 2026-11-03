@@ -1,0 +1,28 @@
+{
+  "atUtc": "2026-11-02T12:36:51Z",
+  "release": "2527f03016b0-4ca9b78eaa98",
+  "pid": 282231,
+  "binarySha256": "4ca9b78eaa983b419d64a642c420d6092861160fafbe55db5202f4478d370852",
+  "sharedSearch": {
+    "provider": "deepseek-search-api",
+    "apiKeyEnv": "DEEPSEEK_API_KEY"
+  },
+  "runtime": {
+    "at": "2026-11-02T12:35:42.875Z",
+    "detail": "Orchestrator is ready",
+    "state": "ready"
+  },
+  "load": {
+    "idle": 0,
+    "maxWorkers": 1.0,
+    "queued": 0,
+    "running": 0
+  },
+  "paused": false,
+  "actualSearchApiRoleAndGlmRouteProbe": "passed with deployed credential and identical binary; model/Source fixtures, no paid GLM inference",
+  "otherFiveLegacyUntouched": true,
+  "featureCanaryPromoted": true,
+  "schema": 11,
+  "currentStateAndCursorsPreserved": true,
+  "automaticUpdatesEnabled": false
+}

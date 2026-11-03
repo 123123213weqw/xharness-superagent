@@ -2,6 +2,7 @@
 
 - Match the user's language; keep code comments consistent with existing modules.
 - Current scope is docs/superagent/product-scope.md: reproduce product logic, not the complete JavaScript language. Do not restart the cancelled all-path UTF-16 migration.
+- The active business goal is docs/business-alignment-goal.md. Prioritize its B1 real product loop; record acceptance in conformance/business/acceptance.json rather than expanding the historical language conformance matrix.
 - Preserve ordinary Unicode/emoji and product-observable identities, authorization, errors and recovery. Never count exclusions as passing tests.
 - Never compile Rust locally. Sync current source to a dedicated WZU_Server build directory before compiling remotely; GitHub Actions is also allowed. cargo fmt is permitted locally.
 - Exclude .git/, target/, node_modules/, .env/.env.*, keys, credentials and private evidence from remote synchronization. Preserve SSH/TLS verification. No local fallback on network errors.

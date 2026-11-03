@@ -1,0 +1,4 @@
+{"scope":"Actual configured main-profile GitHub + Feishu account startup only; no model call or event polling. NOT a real-model/Worker/PR/cutover test.","production_state_opened_read_only":true,"new_independent_state":true,"sources_disabled":true,"binary_sha256":"466a5262caa83cd597ad1cccc60d2f032faf96dff92343d5a95c3885de16075a"}
+(node:702879) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"exit":0,"state":"checked","tickets":0,"feishu_setup_error":null,"model_endpoint_deliberately_unused":true,"model_credential_is_nonfunctional_placeholder":true,"external_messages_sent":0,"service_actions":0}

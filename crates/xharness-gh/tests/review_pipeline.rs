@@ -80,6 +80,8 @@ fn git_out(dir: &PathBuf, args: &[&str]) -> String {
 struct FakeGh {
     comments: Arc<Mutex<Vec<String>>>,
     labels: Arc<Mutex<Vec<String>>>,
+    comments_written: Arc<tokio::sync::Notify>,
+    labels_written: Arc<tokio::sync::Notify>,
     base_sha: Arc<String>,
     head_sha: Arc<String>,
 }
@@ -130,6 +132,7 @@ async fn create_comment(
         .lock()
         .unwrap()
         .push(payload["body"].as_str().unwrap_or_default().to_owned());
+    fake.comments_written.notify_one();
     AxumJson(json!({"id": 900, "body": "ok"}))
 }
 
@@ -141,6 +144,7 @@ async fn patch_comment(
         .lock()
         .unwrap()
         .push(payload["body"].as_str().unwrap_or_default().to_owned());
+    fake.comments_written.notify_one();
     AxumJson(json!({"id": 900, "body": "ok"}))
 }
 
@@ -156,6 +160,7 @@ async fn add_labels(
                 .push(label.as_str().unwrap_or_default().to_owned());
         }
     }
+    fake.labels_written.notify_one();
     AxumJson(json!([]))
 }
 
@@ -287,6 +292,20 @@ async fn poll_on_pr_comment_builds_review_workspace_and_posts_graded_result() {
         }
     }
     assert!(done, "review turn 应完成");
+    // TaskOutcome.done 是模型回合结束,不是异步 GitHub 写入回执。
+    // 等待实际 HTTP fixture 写入后再检查原有全部评论/label 断言。
+    tokio::time::timeout(Duration::from_secs(5), async {
+        fake.comments_written.notified().await;
+        loop {
+            let written = fake.labels_written.notified();
+            if fake.labels.lock().unwrap().len() >= 2 {
+                break;
+            }
+            written.await;
+        }
+    })
+    .await
+    .expect("review comment and both label writes must reach the HTTP fixture");
     let posted = fake.comments.lock().unwrap().join("\n---\n");
     assert!(
         posted.contains("xh-gh Review · PR #7"),

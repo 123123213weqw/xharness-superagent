@@ -1,0 +1,193 @@
+{
+  "created_at_utc": "2026-11-01T23:51:42.777357+00:00",
+  "source_commit": "eee542cbf55ab49039b59b65f39e18389a9577ac",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "status": "actual_formal_policy_sync_and_feishu_kind_configuration_verified_full_source_and_goal_incomplete",
+  "host": "WZU_Server",
+  "local_rust_compilation": false,
+  "isolated_owned_validation_directory": true,
+  "profile_manifest": "docs/business-policy-sync-source-profile.json",
+  "profile_sha256": "739ea8de1f1d6c13b9c3a06683b479555aef82dc07ad14161d851ec6d7692bd5",
+  "profile_files": 745,
+  "local_remote_source_equal": true,
+  "application_tools": {
+    "main": 14,
+    "worker": 6,
+    "required_main": 14,
+    "required_worker": 6,
+    "new": [
+      "orchestrator_policy_sync"
+    ],
+    "all_names_registered_not_all_business_branches_complete": true,
+    "framework_skill_separate": true
+  },
+  "formal_entry": {
+    "tests_passed": 37,
+    "previous_tests": 30,
+    "new_test_declarations": 7,
+    "tests": [
+      "formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin",
+      "formal_policy_sync_incomplete_members_are_health_error_not_grant_or_idle_blocker",
+      "formal_interrupt_joins_policy_sync_cli_tree_before_reopen_and_startup_sync",
+      "formal_startup_sync_rejects_even_a_concurrent_names_only_policy_revision",
+      "formal_startup_sync_merges_unrelated_saves_and_does_not_invent_source_off_conflict",
+      "formal_policy_sync_without_bot_reports_setup_error_and_cannot_switch_cli_from_tool",
+      "formal_bad_optional_bot_never_falls_back_or_blocks_github_worker_and_reply"
+    ],
+    "actual_product_path": true,
+    "environment": "Actual formal binary/OpenAI HTTP-SSE adapter/Native main tools/managed bot subprocess/Client/SQL policy/notices and shutdown. Model, gh and lark external endpoints alone are explicit offline fixtures. Optional-bot failure also executes the actual GitHub Worker/CodingToolBundle/Outbox path. No live Feishu/model/account/network or SDK success stubs."
+  },
+  "assertions": [
+    "Feishu kind configuration, scope, source-instance order and policy validation are registered in the formal composition. Shared admission is validated by Settings, excluded from the strict Feishu kind schema, then retained exactly as the SourceRegistry does. Bot setup is read-only and excludes state/bin shims. Source event/history/context lifecycle remains incomplete.",
+    "Main-only policy_sync executes the actual managed bot member-list RPC and returns ID-based added/removed display names. Existing member order, name updates, removed senders, no-op saves, normal Chinese/emoji, disabled Source and unsupported GitHub sync are checked through real model tool requests.",
+    "A sync captures the policy BLOCK revision before awaiting external IO. A concurrent names-only policy save rejects the stale response; unrelated eval saves are retained, and turning the Source off during admitted IO does not invent a new policy conflict or cancel that admitted sync.",
+    "Sync saves use the same normalized atomic settings/history/policy-effect path with trusted origin sync (not model-selected origin). Repeated no-op and cold-start no-op create no extra history; settings notices use a coalescing queue key and content-derived delivery identity.",
+    "Policy version includes the whole source policy, including display names and syncChat, exactly as the fixed policyVersion code does. Names-only changes therefore change policyVersion and policyChanged even when authorization effects on a live mandate are empty. No optimization excludes names from the version.",
+    "Per-Source sync health reports actual ready/error. Failure schedules 60000 ms then doubles to 3600000 ms; success removes retry state. Pending retry timers do not block actual product idle. Backoff values/state have two component checks; this is not a claim that wall-clock end-to-end retries have elapsed.",
+    "After admission the sync uses the product lifetime, not caller tool cancellation. Interrupt test starts the real CLI and descendant, cancels product, proves both gone and writer lease released, then cold reopen performs one actual startup sync without recording the cancelled response as a policy save.",
+    "Main admission and notice preparation now serialize on the product owner to avoid the reproduced reassessment/notice interleaving stall. On shutdown passive main observers for queued, never-started deliveries retire; Native.shutdown still owns cancellation/join of the actual actor and tools. Worker observer/domain lifecycle and generic Runtime defaults are unchanged.",
+    "Missing bot deployment is a real sync/setup error rather than an invented extra nothingToSync gate. A tool cannot switch its bot CLI. Invalid optional strict-mode bot leaves Feishu unavailable and observable without user fallback; healthy GitHub still starts a real Worker, writes a file and replies."
+  ],
+  "regressions": {
+    "workspace_format_check": true,
+    "workspace_all_targets_check": true,
+    "workspace_strict_clippy": true,
+    "selected_test_crates": 10,
+    "full_workspace_tests": false,
+    "reported_passed": 1490,
+    "reported_ignored": 18,
+    "ignored_or_capability_early_return_not_product_acceptance": true,
+    "final_log": "docs/evidence/business-policy-sync-01/regression-03.log",
+    "new_component_tests": 2
+  },
+  "provenance": {
+    "reference_files": 216,
+    "controlled_import_steps": 11,
+    "controlled_paths": 86,
+    "declared_product_overlays": 4,
+    "guard_tests": 10,
+    "tool_metadata_definitions": 20,
+    "old_lint_and_reference_assertions_preserved": true,
+    "existing_formal_source_order_assertion": "Changed positional sources[0] to exact id==github lookup after installing alphabetically earlier Feishu, preserving the same disabled GitHub assertion; registration counts updated exactly for the new handler."
+  },
+  "dependency": {
+    "new_runtime_dependencies": [],
+    "cargo_lock_changed": false,
+    "cargo_lock_sha256": "4bd1dfbad0241ff6be3a1bb1541bbf98832f3b4ddec47b1de7f8b0cdad5eeba7",
+    "generic_kernel_or_native_sessions_edits": false
+  },
+  "previous_head_ci": {
+    "head_sha": "63bdb07628b0a22e7a43b40fbd6fb57645393cb8",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41361043071",
+    "jobs": [
+      {
+        "name": "rust (ubuntu-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "rust (macos-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "not_current_feature_head_approval": true
+  },
+  "diagnostics": [
+    "check-01 failed because Feishu Config intentionally has no Default trait; use its actual schema-default parse, not a derived zero/false default.",
+    "tests-01/02 exposed shared admission being sent into the strict kind schema. Fixed the registry boundary, not schema permissiveness. Full diagnostic requests in tests-02 are retained.",
+    "Source reference audit corrected new-test assumptions: policyVersion includes display names/syncChat, and SettingsConflict display text is Settings changed. Core hashing and conflict behavior were not changed.",
+    "tests-03/04/05 reproduced main request stalling after a real sync saved policy and queued a settings notice. Serializing main admission and notice preparation removed the interleaving stall in tests-06.",
+    "tests-03/06/07 interrupt path still hung after the real CLI already joined: two passive main observers included a never-started queued input. Product observer retirement on lifetime stop, while Native still joins the actual actor, made all five initial formal checks pass in tests-08. All temporary debug instrumentation was removed; native_sessions.rs is byte-identical to the previous head."
+  ],
+  "remaining_scope": [
+    "Complete actual Feishu event consumer/history/subscribed polling/name refresh/context/links/images/Native attachment lifecycle and proper per-Source health, prompts/worker environment and Outbox routing; kind configuration/policy sync alone is not full Source integration.",
+    "Execute formal Feishu event -> authorization -> ticket -> actual Worker -> Feishu reply, plus recovery/stop/retry/cancellation/cuts. No Feishu event product loop is accepted by this milestone.",
+    "Verify actual scheduled retry expiry/error-recovery paths, concurrent syncs and rollback cuts beyond the listed scenarios.",
+    "Finish every original tool refinement/PR-review/Source branch, API/UI, background jobs/full stop/concurrency/crash recovery and deployment/backup/rollback with necessary regressions and authorized external integration."
+  ],
+  "logs": [
+    {
+      "path": "docs/evidence/business-policy-sync-01/check-01.log",
+      "raw_sha256": "59cdaa73d30a766dcb1eac1ecf4448b0a2878f16d54f85bb80a91cb4f3e4b242",
+      "public_sha256": "7ade24abd1e5fd93bd2274569d6c4f57cfe5851527491b5ea847748776356ddb",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, temporary diagnostic traces, original failures and timeouts retained."
+    },
+    {
+      "path": "docs/evidence/business-policy-sync-01/node-01.log",
+      "raw_sha256": "7f04a5f71191ec91f47e8ada1ff1b97552353cc31c5ceee07baa9ef3b88de62e",
+      "public_sha256": "7f04a5f71191ec91f47e8ada1ff1b97552353cc31c5ceee07baa9ef3b88de62e",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, temporary diagnostic traces, original failures and timeouts retained."
+    },
+    {
+      "path": "docs/evidence/business-policy-sync-01/regression-01.log",
+      "raw_sha256": "f4a85a17485a309bd98b6e6dbe9811716164a9b4836f933046583fd78e9fe548",
+      "public_sha256": "7e1ac7d5c6b9ebd0a26eef8b0a3a0cfae3ed5ece2d6b9fe55d88dc91cb553f8e",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, temporary diagnostic traces, original failures and timeouts retained."
+    },
+    {
+      "path": "docs/evidence/business-policy-sync-01/regression-02.log",
+      "raw_sha256": "4f90c40761fbbfd0af718e780558353745876e631dbf27aa3643ee0ef92440f8",
+      "public_sha256": "90afd973fb4ebb652b0f8c32e255bf625164bdc8ec41fc6d65f82431319a200d",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, temporary diagnostic traces, original failures and timeouts retained."
+    },
+    {
+      "path": "docs/evidence/business-policy-sync-01/regression-03.log",
+      "raw_sha256": "a53a6f7111625e21dd1debd83325ca439a17e5cc983418b7b646c1c5f2a7080e",
+      "public_sha256": "053e3976c0e7b194b62e2a402285b085dc46e3891245f64dd9c08a543940a309",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, temporary diagnostic traces, original failures and timeouts retained."
+    },
+    {
+      "path": "docs/evidence/business-policy-sync-01/tests-01.log",
+      "raw_sha256": "5b614321095a685b4cda37d52613415063bbb1191cf9dd333d444357045bb784",
+      "public_sha256": "b28b788edeb02b26b6a8eff4a3eb24d5fe92c2f5e76330c82dfc77cb75cca9d9",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, temporary diagnostic traces, original failures and timeouts retained."
+    },
+    {
+      "path": "docs/evidence/business-policy-sync-01/tests-02.log",
+      "raw_sha256": "c1487c1e0656ef414f7702dc3221e9cdb5cd55e81c32ed39c8b261044b19c731",
+      "public_sha256": "5093da7a158a91147a294f42cceb389a9af5e45660a206d81552a61f55132ef4",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, temporary diagnostic traces, original failures and timeouts retained."
+    },
+    {
+      "path": "docs/evidence/business-policy-sync-01/tests-03.log",
+      "raw_sha256": "cec3282dea77d6c67f29eef5a57538da461b47099f75ade78d8c67517af253cb",
+      "public_sha256": "d67d7ca00caa06196cb0140b7f6341e5125abd971ea665a0d0ce2f66a1e268d8",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, temporary diagnostic traces, original failures and timeouts retained."
+    },
+    {
+      "path": "docs/evidence/business-policy-sync-01/tests-04.log",
+      "raw_sha256": "f704311336ee648214c671295a84392bc984f38ab21d97bf163fd71da9b9cde7",
+      "public_sha256": "faeadfc31bc1698327bded8471160940d3615c6fb86ee4e9639cec3e37c82c9b",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, temporary diagnostic traces, original failures and timeouts retained."
+    },
+    {
+      "path": "docs/evidence/business-policy-sync-01/tests-05.log",
+      "raw_sha256": "24dbefe9965c1382acc4d4d64b9e867743a8c7e3d053f8ee9f8de877b5966284",
+      "public_sha256": "f087b155896cf3141ef48bf2f43ddbb8b400f7441bbb8595a0cec4e808926ced",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, temporary diagnostic traces, original failures and timeouts retained."
+    },
+    {
+      "path": "docs/evidence/business-policy-sync-01/tests-06.log",
+      "raw_sha256": "3523d4dd4fc4267da290413104ed88c90b33807bc33b1bc25c83f0dd8baae99a",
+      "public_sha256": "22f826d2a076a8249815d17bf1fe907ca5ea141d66d804c291333d3a4a7bbf9f",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, temporary diagnostic traces, original failures and timeouts retained."
+    },
+    {
+      "path": "docs/evidence/business-policy-sync-01/tests-07.log",
+      "raw_sha256": "1bd06f39cc1755757240a63da88986e2ccfba057c6ccba12c48182d38a3db9cf",
+      "public_sha256": "32235cb0388af08d1fae108fdf8923483950076336cf54686c24acce68a715ec",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, temporary diagnostic traces, original failures and timeouts retained."
+    },
+    {
+      "path": "docs/evidence/business-policy-sync-01/tests-08.log",
+      "raw_sha256": "5f2766b995faac2a39ba3a42f295c09513f0450b9dd199f4d54ec77ce1f87855",
+      "public_sha256": "1a9f4b655fe69926d9f6ba8a97f7bdde0ea8bf947cf97333be324ee916e1e2c9",
+      "normalization": "Absolute owned source/cache prefixes only. Complete output, temporary diagnostic traces, original failures and timeouts retained."
+    }
+  ],
+  "full_goal_complete": false,
+  "cancelled_global_language_work_restarted": false
+}

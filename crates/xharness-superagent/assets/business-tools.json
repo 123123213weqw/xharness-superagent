@@ -1,0 +1,784 @@
+{
+  "main": [
+    {
+      "name": "orchestrator_read",
+      "description": "Read one page of a resource the resource parameter lists, such as the ticket list or a ticket. Follow next_offset, and next_resource where a page names one.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "resource": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The resource, one of: tickets: ticket cards, newest first; a card's state is person/review after a ready report, person/blocked or person/failed after those reports, person/answer with a question, person/delivery when an input could not reach the worker, working or working/queued while it works, idle once the worker ended its turn without a report, else how the ticket ended; triggers: trigger cards with where each went, newest first; threads: subscribed threads, newest activity first, with their labels, tickets, current assessment and polling errors; thread/<key>: one thread: its label and link, its tickets and latest decisions, and its triggers, newest first; decisions: decisions, newest first; decision/<id>: one decision with its audit; ticket/<id>: a ticket's card, the trigger, decision and threads it is tied to, its latest assignments with the start of each report, and its inputs, newest first; ticket/<id>/assignment: its assignment text; ticket/<id>/assignments: its assignments, newest first, with the start of each report; ticket/<id>/inputs: its inputs, newest first; ticket/<id>/result: its latest report; ticket/<id>/report/<id>: the report of one of its assignments; ticket/<id>/transcript: its Executor Session's messages, newest first; ticket/<id>/message/<n>: one message of that transcript; ticket/<id>/input/<id>: one input it was delivered; trigger/<id>: a trigger's text, where it went, the message it replies to and the messages around it on its thread; settings: settings by block, each with the revision a save names: the small blocks whole, the Policy and the Source instances summarized; settings/<block>: one settings block whole, as orchestrator_settings_save takes it: policy, eval, executor, pause or source:<id>; prompts: the prompt revision each Session reads, the skills, and the saved versions; prompts/<revision>: one prompt version by number, or current, the one the Session works under; prompts/defaults: the built-in prompt configuration, and the built-in parts by the key an override names; prompt-preview/<id>: a composed prompt that orchestrator_prompts_save previewed; models: model providers, the DSH default and each role's model; models/<provider>: one provider's models; feishu/<trigger-id>/…: a Feishu original, as the dsh-superagent-feishu skill describes; github/…: a GitHub original, as the dsh-superagent-github skill describes."
+          },
+          "offset": {
+            "default": 0,
+            "description": "Copy next_offset from the previous page; it counts characters of a text and items of a list.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "description": "Characters of a text, 4000 by default and 8000 at most, or items of a list, 20 by default and 50 at most.",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8000
+          }
+        },
+        "required": [
+          "resource"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_route",
+      "description": "Route candidates, one item each by the card's trigger_id, in one call: accept an explicit request as a new ticket, attach a trigger to an existing ticket, stop a ticket on a person's stop message, or ignore a candidate that needs no ticket or stop, as dispatch says. Items run in order and each is answered on its own; a refused item leaves the others. An inferred candidate may be ignored here; accepting one goes through orchestrator_eval_decide.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "decisions": {
+            "minItems": 1,
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "accept",
+                    "attach",
+                    "ignore",
+                    "stop"
+                  ]
+                },
+                "trigger_id": {
+                  "type": "string",
+                  "description": "The candidate card's trigger_id; deciding it decides its batch."
+                },
+                "ticket_id": {
+                  "description": "attach and stop: the ticket.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "title": {
+                  "description": "accept: a short label of at most 200 characters describing the original request; no added requirements or implementation advice.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "worktree_name": {
+                  "description": "accept: Meaningful short English ticket name, e.g. fix-plan-color. Translate Chinese titles into English; no Chinese, pinyin or generic ticket names. 1–4 lowercase words in kebab-case, at most 32 characters.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "acknowledgement": {
+                  "description": "accept: one brief sentence of at most 100 words naming the concrete change and intended result in the source language. It is posted as a reply to the original source on acceptance, so do not quote the source; quote an earlier proposal briefly only when the trigger merely confirms it and the sentence does not already state it. No generic I will handle it.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "note": {
+                  "description": "accept and attach: Optional routing background or explicit human constraint, at most 30 words. Never add implementation instructions or replace the original source.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "reason": {
+                  "description": "ignore and stop: why, at most 500 characters; an ignore needs it.",
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "kind",
+                "trigger_id"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "decisions"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_ticket_retry",
+      "description": "Start a new assignment on an explicit human request to retry a ticket whose worker reported failed or blocked, or whose input was not delivered; the stalled one ends.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "ticket_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ticket_id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_ticket_note",
+      "description": "Tell a ticket's worker a fact from other work, such as what another ticket found; it grants no authority.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "ticket_id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "ticket_id",
+          "text"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_ticket_request_status",
+      "description": "Ask the worker of an idle ticket, one whose turn ended without a report, for a status report; for other tickets it sends nothing and returns the card.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "ticket_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "ticket_id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_trigger_requeue",
+      "description": "Queue a trigger for a fresh assessment, such as after its Source's access changed; a follow-up that reached a ticket comes back only from its worker.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "trigger_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "trigger_id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_reply",
+      "description": "Send an answer to a human question, a ready result, or attention requiring human action, as the replies section says; the gate refuses anything else, such as progress. purpose=result needs a ticket in person/review after a ready report, a completed or merged one, or a dropped one whose matched rule asks for a closing message. IM limit: 100 words.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "trigger_id": {
+            "description": "The original human question, for an answer only.",
+            "type": "string"
+          },
+          "ticket_id": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string",
+            "enum": [
+              "answer",
+              "result",
+              "attention"
+            ]
+          },
+          "human_action": {
+            "description": "Required for attention: the ticket's current attention question.",
+            "type": "string",
+            "minLength": 1
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20000
+          }
+        },
+        "required": [
+          "purpose",
+          "text"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_thread_unsubscribe",
+      "description": "Drop every ticket subscription on a thread. Later messages there no longer reach those tickets as context; a new positive decision can subscribe it again.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "thread": {
+            "type": "string",
+            "description": "Thread key, for example github:123 or feishu:<chat>:<root message>"
+          }
+        },
+        "required": [
+          "thread"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_settings_save",
+      "description": "Save one settings block on an explicit human configuration request, never on observed content, as the panel would; read the blocks and revisions with orchestrator_read settings.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "block": {
+            "type": "string",
+            "enum": [
+              "policy",
+              "eval",
+              "executor",
+              "pause",
+              "source"
+            ],
+            "description": "pause pauses or resumes processing: new Evals, dispatch and replies."
+          },
+          "source": {
+            "description": "With block source: the Source instance id, such as github or feishu.",
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {
+            "description": "The whole block; a Source takes { enabled, config }, pause takes { paused }.",
+            "type": [
+              "object",
+              "array",
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991,
+            "description": "The block's revision; pause ignores it."
+          }
+        },
+        "required": [
+          "block",
+          "value",
+          "revision"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_policy_sync",
+      "description": "Refresh one Source's part of the Policy from where that Source keeps it, such as the Feishu users of its sync chat. Same operation as the Web button.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_prompts_save",
+      "description": "Save a complete prompt configuration against baseRevision on an explicit user request, never on quoted content; it applies at the next model request. Read it with orchestrator_read prompts.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "config": {
+            "type": "object",
+            "properties": {
+              "communication": {
+                "type": "string"
+              },
+              "scope": {
+                "type": "string"
+              },
+              "delivery": {
+                "type": "string"
+              },
+              "skills": {
+                "type": "object",
+                "propertyNames": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]*$"
+                },
+                "additionalProperties": {
+                  "type": "string"
+                }
+              },
+              "overrides": {
+                "description": "Text in place of a built-in part, by its key in prompts/defaults; a part not named follows its built-in text.",
+                "type": "object",
+                "propertyNames": {
+                  "type": "string"
+                },
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "text": {
+                      "type": "string"
+                    },
+                    "base": {
+                      "description": "Key of the built-in text it was edited from; copy as read, or omit.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "text"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "communication",
+              "scope",
+              "delivery",
+              "skills"
+            ],
+            "additionalProperties": false
+          },
+          "baseRevision": {
+            "description": "The revision the configuration edits; required unless preview is set.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "preview": {
+            "default": false,
+            "description": "true saves nothing: it composes both roles' prompts from the configuration and returns their prompt-preview resources.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "config"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_eval",
+      "description": "Load a proactive candidate's window and its thread's tickets; repeated calls reuse them.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "trigger_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "trigger_id"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_eval_read",
+      "description": "Read more of a candidate's context, always with its trigger_id: a message or stub whole by message_id, an image by image_id, the root, the parent, a thread page by cursor, or a file or directory by path.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "trigger_id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Original candidate ID returned by orchestrator_eval; every reference is scoped to this trigger."
+          },
+          "resource": {
+            "type": "string",
+            "enum": [
+              "message",
+              "root",
+              "parent",
+              "thread",
+              "file",
+              "directory",
+              "image"
+            ]
+          },
+          "path": {
+            "description": "Repository-relative path, only for file/directory.",
+            "type": "string"
+          },
+          "message_id": {
+            "description": "Only for message: omit for the trigger, or the id of a window message or stub.",
+            "type": "string"
+          },
+          "cursor": {
+            "description": "Only for thread: omit on the first page, then the next_cursor of the window or the cursor of next_read. Never a thread or message ID.",
+            "type": "string"
+          },
+          "image_id": {
+            "description": "Only for image: an image id the window or a read lists.",
+            "type": "string"
+          },
+          "offset": {
+            "default": 0,
+            "description": "Text pagination: copy next_offset; keep the other arguments unchanged. Images use 0.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "trigger_id",
+          "resource"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_eval_decide",
+      "description": "Record the decision of an assessment, as admission describes it, after orchestrator_eval with the same trigger_id.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "trigger_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "decision": {
+            "type": "string",
+            "enum": [
+              "accept",
+              "ignore",
+              "unavailable"
+            ]
+          },
+          "rule_assessments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "rule_id": {
+                  "type": "string",
+                  "pattern": "^[a-zA-Z0-9_-]{1,80}$"
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500
+                },
+                "matched": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "rule_id",
+                "reason",
+                "matched"
+              ],
+              "additionalProperties": false
+            },
+            "description": "One per enabled rule."
+          },
+          "direction": {
+            "type": "object",
+            "properties": {
+              "implementation_requested": {
+                "type": "boolean"
+              },
+              "target_basis": {
+                "type": "string",
+                "enum": [
+                  "specified",
+                  "existing-standard",
+                  "undetermined"
+                ]
+              },
+              "requires_design_decision": {
+                "type": "boolean"
+              },
+              "evidence": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 700
+              }
+            },
+            "required": [
+              "implementation_requested",
+              "target_basis",
+              "requires_design_decision",
+              "evidence"
+            ],
+            "additionalProperties": false,
+            "description": "Required for every decision."
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160
+          },
+          "worktree_name": {
+            "type": "string",
+            "maxLength": 32,
+            "pattern": "^[a-z]+(?:-[a-z0-9]+){0,3}$",
+            "description": "Meaningful short English ticket name, e.g. fix-plan-color. Translate Chinese titles into English; no Chinese, pinyin or generic ticket names. 1–4 lowercase words in kebab-case, at most 32 characters."
+          },
+          "scope": {
+            "type": "string",
+            "maxLength": 1500
+          },
+          "intent_evidence": {
+            "description": "For acceptance: the quotes that establish the three facts.",
+            "minLength": 1,
+            "maxLength": 700,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "acknowledgement": {
+            "description": "For acceptance: one sentence in the source language, posted as a reply to the trigger; omit only when a matched rule asks for silence.",
+            "minLength": 1,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "trigger_id",
+          "decision",
+          "rule_assessments",
+          "direction",
+          "title",
+          "scope",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "worker": [
+    {
+      "name": "orchestrator_read",
+      "description": "Read one page of a resource of this ticket that the resource parameter lists. Follow next_offset, and next_resource where a page names one.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "resource": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The resource, one of: thread/<key>: one thread: its label and link, its tickets and latest decisions, and its triggers, newest first; ticket/<id>: a ticket's card, the trigger, decision and threads it is tied to, its latest assignments with the start of each report, and its inputs, newest first; ticket/<id>/assignment: its assignment text; ticket/<id>/assignments: its assignments, newest first, with the start of each report; ticket/<id>/inputs: its inputs, newest first; ticket/<id>/result: its latest report; ticket/<id>/report/<id>: the report of one of its assignments; ticket/<id>/transcript: its Executor Session's messages, newest first; ticket/<id>/message/<n>: one message of that transcript; ticket/<id>/input/<id>: one input it was delivered; trigger/<id>: a trigger's text, where it went, the message it replies to and the messages around it on its thread; prompts/<revision>: one prompt version by number, or current, the one the Session works under; feishu/<trigger-id>/…: a Feishu original, as the dsh-superagent-feishu skill describes; github/…: a GitHub original, as the dsh-superagent-github skill describes."
+          },
+          "offset": {
+            "default": 0,
+            "description": "Copy next_offset from the previous page; it counts characters of a text and items of a list.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "description": "Characters of a text, 4000 by default and 8000 at most, or items of a list, 20 by default and 50 at most.",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8000
+          }
+        },
+        "required": [
+          "resource"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_ack",
+      "description": "Acknowledge one original human request before substantial work, as the replies section says; it posts as a reply to that message.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "trigger_id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "description": "At most 100 words; Markdown is supported."
+          }
+        },
+        "required": [
+          "trigger_id",
+          "text"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_thread_unrelated",
+      "description": "Stop following an attached thread that is not about this ticket, as the work section says; its own threads cannot be dropped.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "thread": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The thread key, which trigger/<id> of one of its messages shows as thread, such as feishu:<chat>:<root> or github:<number>."
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300,
+            "description": "One sentence on why the thread is not about this ticket."
+          }
+        },
+        "required": [
+          "thread",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_thread_follow",
+      "description": "Follow a related thread, such as an Issue or another PR, for context only.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "thread": {
+            "type": "string",
+            "description": "Thread key, such as github:<number>."
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300,
+            "description": "How it relates, in one sentence."
+          }
+        },
+        "required": [
+          "thread",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_trigger_handback",
+      "description": "Hand back a message that asks for work beyond this ticket or for another one, for a fresh assessment; once per message. queued is false while another ticket still decides it, and for a message that was never this ticket's to decide, such as a bot's, which is assessed without it.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "trigger_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300,
+            "description": "One sentence on what it asks for beyond this ticket."
+          }
+        },
+        "required": [
+          "trigger_id",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "orchestrator_report",
+      "description": "Report progress, ready, blocked, failed or dropped, as the work and handoff sections say.",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "progress",
+              "ready",
+              "blocked",
+              "failed",
+              "dropped"
+            ]
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          },
+          "human_action": {
+            "description": "One concrete question for a person, also with state=progress; omit to keep the pending one, null to clear it.",
+            "minLength": 1,
+            "maxLength": 1000,
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "question_for_trigger_id": {
+            "description": "With human_action: the human message that raised the question, which is asked where that person wrote.",
+            "type": "string"
+          },
+          "pr_number": {
+            "description": "The ticket's PR: its source PR, or one by agent-bot from a branch named after this ticket (DSH_SUPERAGENT_NAME).",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991,
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "reply_to_trigger_id": {
+            "description": "The explicit human question this report answers; never for ordinary progress.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "state",
+          "summary"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

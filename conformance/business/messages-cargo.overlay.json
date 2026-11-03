@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "kind": "existing_locked_transport_dependencies_for_product_messages",
+  "path": "Cargo.lock",
+  "package": "xharness-superagent",
+  "dependencies": [
+    "async-stream",
+    "reqwest"
+  ],
+  "base_sha256": "4bd1dfbad0241ff6be3a1bb1541bbf98832f3b4ddec47b1de7f8b0cdad5eeba7",
+  "after_sha256": "e78dc3f88c078b757588a7dacb00afc20aa91a606e2cb10a52810775c7276e01",
+  "external_packages_versions_checksums_unchanged": true
+}

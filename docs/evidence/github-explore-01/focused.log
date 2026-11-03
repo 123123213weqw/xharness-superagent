@@ -1,0 +1,9 @@
+   Compiling xharness-superagent v0.1.0 (/home/data/wangyue/repos/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+error[E0433]: cannot find type `ToolModelRendering` in this scope
+   --> crates/xharness-superagent/src/application/explore.rs:104:39
+    |
+104 |         discover.with_model_rendering(ToolModelRendering::SuccessfulContent),
+    |                                       ^^^^^^^^^^^^^^^^^^ use of undeclared type `ToolModelRendering`
+
+For more information about this error, try `rustc --explain E0433`.
+error: could not compile `xharness-superagent` (lib) due to 1 previous error

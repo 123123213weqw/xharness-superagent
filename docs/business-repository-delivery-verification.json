@@ -1,0 +1,244 @@
+{
+  "schema_version": 1,
+  "source_commit": "df6f44f4454872793c1b313ebea959f81d73f770",
+  "implementation_predecessor": "0e1462d6b19bf6d4f1cc8d003a333ba4d4322729",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "goal_complete": false,
+  "scope": "Opt-in Worker text snapshot/Draft PR delivery and actual Source-validated atomic PR reports, not full repository/production replacement",
+  "source_profile": {
+    "path": "docs/business-repository-delivery-source-profile.json",
+    "files": 774,
+    "combined_sha256": "417213d7805cad538481c02976707992c02d463925c0a04c811f8f72d7f15fcb",
+    "local_remote_committed_equal": true
+  },
+  "dependencies": {
+    "added": [],
+    "lock_changed": false
+  },
+  "validation": {
+    "workspace_check_all_targets": true,
+    "strict_clippy": "xharness-superagent all targets with conformance; exact published-head workspace CI reported separately",
+    "selected_regression_crates": [
+      "xharness-superagent-core",
+      "xharness-superagent",
+      "xharness-tools"
+    ],
+    "process_regression_tests": 17,
+    "reported_cargo_target_results": 49,
+    "reported_passes": 387,
+    "ignored_live_tests": 2,
+    "formal_entry_tests_passed": 55,
+    "new_formal_tests": 4,
+    "note": "Same four delivery tests also run in focused logs; do not add repetitions to unique count. Final regression includes three selected crates plus process17, NOT entire workspace tests.",
+    "node_guards_passed": 17
+  },
+  "real_d1": {
+    "issue": 3,
+    "pr": 4,
+    "file_test_and_draft_publication_passed": true,
+    "pr_report_claim_failed": true,
+    "failure": "PR ownership validation requires the installed GitHub Source",
+    "sql_follows": null,
+    "not_full_PR_lifecycle_pass": true
+  },
+  "real_d2": {
+    "issue": 3,
+    "comment_url": "https://github.com/123123213weqw/xharness-superagent/issues/3#issuecomment-6570654085",
+    "pr": 5,
+    "url": "https://github.com/123123213weqw/xharness-superagent/pull/5",
+    "draft": true,
+    "auto_merge_requested": false,
+    "head_sha": "d7046eb773139220e3d1eb46bcc238d6c340822b",
+    "base_sha": "df6f44f4454872793c1b313ebea959f81d73f770",
+    "same_ticket_reopened_new_assignment": true,
+    "Source_read_then_claim_report_relay_atomic": true,
+    "owned_open_PR_keeps_ticket_open": true,
+    "actual_Worker_Python_test": true,
+    "actual_workspace_equals_remote_files": true,
+    "real_outbox_reply": true,
+    "restart_no_new_ticket_assignment_PR_or_reply": true,
+    "CI_and_review_approval_claimed": false,
+    "model": "deepseek-flash via actual Anthropic Messages route"
+  },
+  "fleet_backup_probe": {
+    "scope": "Six original instances; read-only online SQLite backups and independent restored copies, NOT a full quiesced rollback",
+    "instances": 6,
+    "all_source_handles_read_only": true,
+    "all_backup_and_restored_bytes_equal": true,
+    "all_nine_table_digests_equal": true,
+    "integrity_check": "6/6 ok",
+    "total_backup_bytes": 1871872,
+    "source_services_or_settings_modified": false,
+    "paused_or_cut_over": false,
+    "remaining": [
+      "Quiesced Native/session/worktree/config snapshots",
+      "Cold-cut cursor/receipt boundary",
+      "New supervisor restart and complete revert exercise"
+    ]
+  },
+  "failure_history": [
+    "Predecessor 168e443 CI failed because immediate kill(0) observed an orphan zombie; kept immediate non-executing check and bounded OS reap check, no Runtime change",
+    "First delivery fixture failed to route POST /pulls; fixture repaired, not Source success faked",
+    "First pause authority test sent {} instead of the actual paused:true contract; fixed test request",
+    "Real D1 uncovered uninstalled PR ownership reader and mismatched branch suffix; fixed actual Source-backed claim and reference branch rule",
+    "Claim replay fixture initially lacked issues/31 then its id; complete required endpoint/schema added without weakening restart assertions"
+  ],
+  "remaining": [
+    "Complete checkout/clone, binary/executable/delete/rebase or repeated-snapshot delivery",
+    "Controlled dependency/build/remote SSH workflow for production coding projects",
+    "Remaining management/API/UI/restart matrix",
+    "Cold-cut dedup/cursor/receipt boundaries, quiesced state/session/worktree/config backup, supervisor and complete rollback/first cutover",
+    "Real Feishu task/Worker/reply proof; no further manual resend requested",
+    "Remaining lifecycle/crash/background/subagent coverage and full-goal attachments"
+  ],
+  "evidence": [
+    {
+      "path": "docs/evidence/worker-delivery-01/focused-01.log",
+      "sha256": "5a056a231ca111d7ba7a7d2f08a33c7bb4c46123ff6669aa26bba9925d3ba324",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/focused-02.log",
+      "sha256": "f512269cbdd7365317cf577d3c129f30309bc9155258deb0fe33b8cbea7153a9",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/focused-03.log",
+      "sha256": "05ba1869e486e84224925ce529b8f59f33a81d22774197db0913c3385a69bf59",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/regression-01.log",
+      "sha256": "2a0da2d558782340c5ba9d6242a4c37ea92a7109fe54b25ce3a227de70f114f5",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/focused-final.log",
+      "sha256": "ada96f6c1c65060caa677e88866cad224891393a1ee046dd7860d664b47ff4d7",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/regression-final.log",
+      "sha256": "b70ebc6aa91cac06a9aad63f4fef318540adb74776363c3f25a51585c01a743c",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/claim-focused-01.log",
+      "sha256": "95bf9206ef9a2997aedbcc2f2b8a0204634ab4bb3f18014e42deec894dfcf04a",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/claim-focused-02.log",
+      "sha256": "3d4fb8b2066a67289ab2a67bf856ec8693b2cdfbe25f6a598c1c56b452e6d025",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/claim-focused-final.log",
+      "sha256": "6553b8bc4f90a85119fa7dbfa1d424fe8b52ce58641fdb6423716fece246b089",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/claim-regression-final.log",
+      "sha256": "b915501a2971798dd6fcd48211a31cb39695987b37817bdee0f9eac553fb4c7a",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/cancellation-diagnosis.log",
+      "sha256": "ab2e7f85471e9cc095968860a44e290b6aa90d440099368bbc0749eca50c6475",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/node-final.log",
+      "sha256": "8c84d8b75cf59d23bbab852fb4bd365af17afa7a86485b6b8456838a705c7601",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/upstream-final.log",
+      "sha256": "bb3dfb9a4a5924cf177424d35426b053fd83974e268ec5a50606c64bbc90c8e7",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/real-d1-run.log",
+      "sha256": "8c71e4c610667489d8c46344f83e3d426603e488c2410631e3daa5682da63755",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/real-d2-run.log",
+      "sha256": "0d88ddf2ef18bbee7d314ae3500bb3f011622f50720a30e70e9901bfdb559ab3",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/real-d2-restart.log",
+      "sha256": "edba9bd4aac8b3487d3d539f2022343fcb4b8c6eb27d7366952b3e99760486ac",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/real-d1-remote-files.json",
+      "sha256": "e31fed8131bbdcad585a53849e4de56f40124e70426765df7e274cf9dbc91813",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/real-d2-remote-files.json",
+      "sha256": "9a0595fee5160891ecb0af609b00b7d296458d8f9e8e94f9563dd971ce893a96",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/fleet-backup-summary-public.json",
+      "sha256": "73d4c17bfac9371a4032044ab2d2651a513f67d75d83437c875963682e6aeab2",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/real-d2-replay-verification.json",
+      "sha256": "b32ee59f4e4c8f77cb8c1d5997ff0fec359bd356c79596c0d5fa2265e3147b1f",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/real-d2-comments.json",
+      "sha256": "b901e1250f85480bef97f80831d115374cacc0e7166e83802ed72a7e0259a49f",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/ci-final.json",
+      "sha256": "5a9aa50508e1c5db0ff4bd623ceea54a06cc9815f2ee2bf3d4082a7cd3718ba9",
+      "transformation": "Complete captured command output / aggregate verification; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/real-d1-failure-and-job-capsule.json",
+      "sha256": "d9108387d113870c8901df4ca303b07a77cf14b5a7501631cc225a2c72857312",
+      "transformation": "Selected actual D1 tool events excluding all model/provider text/thinking/signatures; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/real-d2-native-tool-capsule.json",
+      "sha256": "e1e68880effa146c1e15d8583041f9cf7d3e45fcbd54273b39c0cda7c31a6308",
+      "transformation": "Selected Native tool events; original unredacted journals retained privately; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/real-d2-sql-facts.json",
+      "sha256": "a643b93d742d70576e8939aeb672aba05fcba50583613b5bd02368607f9a4cca",
+      "transformation": "Selected SQL facts from read-only transaction, no database or credential files; owned absolute paths redacted; no assertions/errors removed"
+    },
+    {
+      "path": "docs/evidence/worker-delivery-01/ci-implementation-success.json",
+      "sha256": "21c22d3dd6688fe1f9cdf8db18f3bcbfb0065f13797c701f1a7b00df460f790b",
+      "transformation": "Complete GitHub run metadata for exact implementation commit; not model/product acceptance"
+    }
+  ],
+  "CI_snapshot": {
+    "path": "docs/evidence/worker-delivery-01/ci-final.json",
+    "source_code_head": "df6f44f4454872793c1b313ebea959f81d73f770",
+    "status_at_capture": "in_progress",
+    "not_latest_doc_head_approval": true,
+    "previous_head_failure": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41394801317",
+    "implementation_terminal": {
+      "status": "success",
+      "head": "df6f44f4454872793c1b313ebea959f81d73f770",
+      "url": "https://github.com/123123213weqw/xharness-superagent/actions/runs/41399965912",
+      "platforms": [
+        "ubuntu-latest",
+        "macos-latest"
+      ],
+      "workspace_check_clippy_all_targets_test_commands_succeeded": true,
+      "latest_documentation_head_not_claimed": true
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "status": "rs_true_cold_checkout_network_gray_deployed",
+  "release": "2ce546472630-74a1377ebf43",
+  "sourceCommit": "2ce5464726308db68f200568b5169420b68ec6a5",
+  "binarySha256": "74a1377ebf437737046b7bec5d23e69e682be16247420b9bbe36cc17b680e9c8",
+  "pid": 781707,
+  "runningExecutableMatchesStagedArtifact": true,
+  "runtime": {
+    "at": "2026-11-02T14:02:06.738Z",
+    "detail": "Orchestrator is ready",
+    "state": "ready"
+  },
+  "load": {
+    "idle": 0,
+    "maxWorkers": 1.0,
+    "queued": 0,
+    "running": 0
+  },
+  "paused": false,
+  "sourcesReady": [
+    "feishu",
+    "github"
+  ],
+  "activeCheckoutUsesGenericPolicy": {
+    "checkout": {
+      "enabled": true,
+      "cache": true,
+      "revision": {
+        "kind": "auto"
+      },
+      "gitNetworkConfig": "[owned RS Git-only network config path redacted]"
+    }
+  },
+  "activeSourceUsesOrdinaryExistingCLI": true,
+  "rsUnitDigestMatchesReviewed": true,
+  "stateRetained": {
+    "ticket": {
+      "before": 4,
+      "after": 4,
+      "baselineRowsRetainedUnchanged": true
+    },
+    "disposition": {
+      "before": 140,
+      "after": 140,
+      "baselineRowsRetainedUnchanged": true
+    },
+    "outbox": {
+      "before": 14,
+      "after": 14,
+      "baselineRowsRetainedUnchanged": true
+    }
+  },
+  "nativeJournalPrefixesRetained": 94,
+  "otherFiveStartupTimesUnchanged": true,
+  "otherFiveStartTimes": {
+    "3092": "2026-11-01T12:45:44.583Z",
+    "3094": "2026-11-01T12:47:45.309Z",
+    "3095": "2026-11-01T12:48:46.199Z",
+    "3096": "2026-11-01T13:56:27.367Z",
+    "3097": "2026-11-02T14:00:11.486Z"
+  },
+  "backup": {
+    "objects": 5,
+    "files": 20996,
+    "verified": true
+  },
+  "newHumanFeishuWorkerTaskPerformed": false,
+  "externalGitHubWritesPerformed": false,
+  "rollback": "Use previous compatible artifact/config and retain current DB/cursors. Keep or separately revert the reviewed network helper, Worker network include and recorded Wants/After additions; no old DB restore.",
+  "publicPathRedactionsOnly": true
+}

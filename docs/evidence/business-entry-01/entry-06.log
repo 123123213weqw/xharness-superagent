@@ -1,0 +1,154 @@
+   Compiling xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.97s
+     Running tests/github_source.rs (<isolated-target>/debug/deps/github_source-0db39c4c5205ecc9)
+
+running 7 tests
+test ci_requires_nullable_conclusion_and_counts_failure_during_running_work ... ok
+test managed_cli_preserves_http_failure_and_cancel_joins_the_process_tree ... ok
+test normalization_matches_unmodified_pinned_source_functions ... ok
+test prepared_ports_are_unavailable_until_real_identity_is_installed_once ... ok
+test real_managed_gh_cli_checks_identity_access_headers_and_argv_without_shell_interpolation ... ok
+test receipt_marker_delivery_matches_original_and_retries_only_retryable_errors ... ok
+test source_settings_scope_and_repository_confinement_are_not_authorization_shortcuts ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+
+     Running tests/product_entry.rs (<isolated-target>/debug/deps/product_entry-085c7a183df671db)
+
+running 7 tests
+test check_is_read_only_for_external_services_and_releases_state_lease ... ok
+test formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate ... ok
+test invalid_saved_model_and_missing_configuration_never_fall_back ... ok
+test preparation_failure_is_reported_without_worker_or_silent_retry ... ok
+test refused_and_unauthorized_requests_do_not_start_workers ... ok
+test setup_failure_and_missing_model_credential_do_not_leave_a_live_owner ... ok
+test watch_owns_the_state_exclusively_and_interrupt_joins_before_reopen ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.27s
+
+   Compiling libc v0.2.189
+   Compiling errno v0.3.14
+   Compiling socket2 v0.6.5
+   Compiling mio v1.2.2
+   Compiling getrandom v0.2.17
+   Compiling signal-hook-registry v1.4.8
+   Compiling ring v0.17.14
+   Compiling tokio v1.53.1
+   Compiling rustls-webpki v0.103.14
+   Compiling rustls v0.23.43
+   Compiling tokio-util v0.7.19
+   Compiling xharness-debug v0.1.0 (<isolated-source>/crates/xharness-debug)
+   Compiling tower v0.5.3
+   Compiling tower-http v0.6.11
+   Compiling h2 v0.4.16
+   Compiling tokio-stream v0.1.19
+   Compiling xharness-tools v0.1.0 (<isolated-source>/crates/xharness-tools)
+   Compiling tokio-rustls v0.26.4
+   Compiling xharness-interaction v0.1.0 (<isolated-source>/crates/xharness-interaction)
+   Compiling xharness-session v0.1.0 (<isolated-source>/crates/xharness-session)
+   Compiling hyper v1.11.0
+   Compiling hyper-util v0.1.20
+   Compiling hyper-rustls v0.27.9
+   Compiling reqwest v0.12.28
+   Compiling xharness-compaction v0.1.0 (<isolated-source>/crates/xharness-compaction)
+   Compiling xharness-attachments v0.1.0 (<isolated-source>/crates/xharness-attachments)
+   Compiling xharness-context v0.1.0 (<isolated-source>/crates/xharness-context)
+   Compiling xharness-core v0.1.0 (<isolated-source>/crates/xharness-core)
+   Compiling xharness-provider-openai v0.1.0 (<isolated-source>/crates/xharness-provider-openai)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 23.00s
+     Running unittests src/lib.rs (<isolated-target>/debug/deps/xharness_provider_openai-ae1a10ee00655f1c)
+
+running 1 test
+test provider::multimodal_tests::native_text_blocks_need_no_resolver_but_real_attachments_still_do ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 33 filtered out; finished in 0.00s
+
+     Running tests/network_recovery.rs (<isolated-target>/debug/deps/network_recovery-0a02bd5ec63aefa2)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 17 filtered out; finished in 0.00s
+
+     Running tests/protocol.rs (<isolated-target>/debug/deps/protocol-cfda43a313110f35)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 29 filtered out; finished in 0.00s
+
+     Running tests/tool_result_projection.rs (<isolated-target>/debug/deps/tool_result_projection-7b95415f716dd438)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 8 filtered out; finished in 0.00s
+
+   Compiling tokio v1.53.1
+   Compiling tokio-util v0.7.19
+   Compiling xharness-debug v0.1.0 (<isolated-source>/crates/xharness-debug)
+   Compiling tower v0.5.3
+   Compiling tokio-rustls v0.26.4
+   Compiling xharness-fs v0.1.0 (<isolated-source>/crates/xharness-fs)
+   Compiling xharness-jobs v0.1.0 (<isolated-source>/crates/xharness-jobs)
+   Compiling tower-http v0.6.11
+   Compiling h2 v0.4.16
+   Compiling tokio-stream v0.1.19
+   Compiling xharness-tools v0.1.0 (<isolated-source>/crates/xharness-tools)
+   Compiling xharness-process v0.1.0 (<isolated-source>/crates/xharness-process)
+   Compiling xharness-sandbox v0.1.0 (<isolated-source>/crates/xharness-sandbox)
+   Compiling xharness-platform v0.1.0 (<isolated-source>/crates/xharness-platform)
+   Compiling xharness-interaction v0.1.0 (<isolated-source>/crates/xharness-interaction)
+   Compiling xharness-session v0.1.0 (<isolated-source>/crates/xharness-session)
+   Compiling hyper v1.11.0
+   Compiling hyper-util v0.1.20
+   Compiling hyper-rustls v0.27.9
+   Compiling reqwest v0.12.28
+   Compiling xharness-web v0.1.0 (<isolated-source>/crates/xharness-web)
+   Compiling xharness-compaction v0.1.0 (<isolated-source>/crates/xharness-compaction)
+   Compiling xharness-attachments v0.1.0 (<isolated-source>/crates/xharness-attachments)
+   Compiling xharness-coding-tools v0.1.0 (<isolated-source>/crates/xharness-coding-tools)
+   Compiling xharness-context v0.1.0 (<isolated-source>/crates/xharness-context)
+   Compiling xharness-core v0.1.0 (<isolated-source>/crates/xharness-core)
+   Compiling xharness-provider-openai v0.1.0 (<isolated-source>/crates/xharness-provider-openai)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 20.32s
+     Running unittests src/lib.rs (<isolated-target>/debug/deps/xharness_coding_tools-cf8ed072c44e3926)
+
+running 1 test
+test tests::optional_product_environment_preserves_default_and_rejects_sensitive_overrides ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.00s
+
+     Running tests/bundle.rs (<isolated-target>/debug/deps/bundle-67ec012fbd4e04ea)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/job_output_timeout_contract.rs (<isolated-target>/debug/deps/job_output_timeout_contract-5b32f26fec9dc81f)
+     Running tests/live_loop.rs (<isolated-target>/debug/deps/live_loop-e5546dbb71761f8e)
+     Running tests/read_contract.rs (<isolated-target>/debug/deps/read_contract-24ad92de8f550fa1)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 11 filtered out; finished in 0.00s
+
+     Running tests/shell_resolution.rs (<isolated-target>/debug/deps/shell_resolution-bb0cc5e674dcc83c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.00s
+
+     Running tests/shell_timeout_contract.rs (<isolated-target>/debug/deps/shell_timeout_contract-6986dc0bce407b53)

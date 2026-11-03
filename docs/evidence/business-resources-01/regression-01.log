@@ -1,0 +1,505 @@
+    Checking xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Checking xharness-gh v0.1.0 (<isolated-source>/crates/xharness-gh)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.87s
+    Checking xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Checking xharness-gh v0.1.0 (<isolated-source>/crates/xharness-gh)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.46s
+   Compiling xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 15.65s
+     Running unittests src/lib.rs (<isolated-target>/debug/deps/xharness_superagent-f139d136b132104c)
+
+running 34 tests
+test application::controls::tests::context_follow_unrelated_and_main_unsubscribe_never_transfer_ticket_authority ... ok
+test application::controls::tests::requeue_waits_for_worker_handback_and_sql_errors_never_become_absent_owners ... ok
+test application::controls::tests::status_only_requests_an_idle_worker_and_retry_creates_a_new_assignment ... ok
+test application::resources::tests::actual_sql_errors_and_corrupt_records_never_become_absence_or_empty_pages ... ok
+test application::resources::tests::list_and_ticket_pages_are_bounded_newest_first_with_copyable_offsets ... ok
+test application::resources::tests::live_plans_retain_trusted_scope_and_never_return_fake_transcripts_or_source_success ... ok
+test application::resources::tests::ordinary_unicode_pages_reconstruct_content_without_cutting_emoji_or_stalling ... ok
+test application::resources::tests::strict_read_request_normalizes_only_legacy_prefixes_and_rejects_forged_scope ... ok
+test application::resources::tests::trigger_reads_allow_origin_delivery_context_and_bound_threads_but_redact_fanout_and_neighbours ... ok
+test application::resources::tests::worker_own_ticket_and_shared_thread_do_not_expose_other_tickets_or_decisions ... ok
+test delivery::tests::session_key_drop_releases_the_seen_cache_immediately ... ok
+test native_sessions::delivery::authority::tests::cancelled_catalogue_restore_keeps_the_new_warm_epoch_unavailable ... ok
+test native_sessions::delivery::authority::tests::failed_catalogue_restore_revokes_warm_scopes_until_successful_rebuild ... ok
+test native_sessions::delivery::authority::tests::original_creation_witness_checks_all_fields_of_valid_mutation_records ... ok
+test native_sessions::delivery::authority::tests::overlapping_catalogue_rebuilds_serialize_before_replacing_warm_epochs ... ok
+test native_sessions::delivery::authority::tests::warm_creation_witness_cannot_address_an_identically_recreated_session_generation ... ok
+test native_sessions::delivery::authority::tests::warm_creation_witness_does_not_certify_or_flush_a_later_logical_prefix ... ok
+test native_sessions::delivery::authority::tests::warm_creation_witness_rejects_other_owner_changed_role_and_changed_workspace ... ok
+test native_sessions::delivery::tests::old_scope_drop_does_not_clear_the_later_preparation_on_the_same_object ... ok
+test native_sessions::persistence::tests::flush_collects_original_typed_failures_in_writer_order_and_attempts_later_healthy_writer ... ok
+test native_sessions::persistence::tests::global_writer_drain_includes_logical_appends_while_its_first_physical_cut_is_blocked ... ok
+test native_sessions::persistence::tests::retired_storage_generation_is_replaced_at_end_without_flushing_a_replacement_by_id ... ok
+test native_sessions::persistence::tests::writer_order_is_registration_not_id_and_snapshot_excludes_late_or_unmanaged_owners ... ok
+test native_sessions::prompts::decoration::epoch_tests::closed_supervisor_or_disconnected_watch_is_not_a_live_decoration ... ok
+test native_sessions::prompts::decoration::epoch_tests::explicit_retry_on_sql_owner_does_not_invalidate_an_earlier_generic_render ... ok
+test native_sessions::prompts::decoration::epoch_tests::passive_channel_identity_survives_step_counters_and_worker_restarts_but_not_actor_replacement ... ok
+test native_sessions::prompts::decoration::epoch_tests::preflight_failure_replies_with_the_same_original_error_owned_by_the_report ... ok
+test native_sessions::prompts::owner_tests::cancelled_queued_decoration_never_acknowledges_or_binds_a_revision ... ok
+test native_sessions::prompts::owner_tests::cancelled_queued_request_never_binds_a_revision ... ok
+test native_sessions::prompts::owner_tests::closing_barrier_never_relabels_real_errors_as_cancellation ... ok
+test native_sessions::prompts::owner_tests::late_sql_failure_is_owned_once_with_original_type_even_after_reply_disappears ... ok
+test native_sessions::prompts::skills::tests::foreign_same_name_tool_is_a_real_shadow_and_is_never_overwritten ... ok
+test native_sessions::prompts::skills::tests::handler_infrastructure_failure_keeps_the_original_owner_diagnostic_once ... ok
+test native_sessions::prompts::skills::tests::retired_actor_tool_cannot_read_replacement_skills_and_old_entries_are_released ... ok
+
+test result: ok. 34 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.40s
+
+     Running unittests src/bin/delivery_bridge.rs (<isolated-target>/debug/deps/superagent_delivery_bridge-ca4abbef40bf4351)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/durability_probe.rs (<isolated-target>/debug/deps/superagent_durability_probe-29b5ce69bb3f3249)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/migration_probe.rs (<isolated-target>/debug/deps/superagent_migration_probe-5e31455583bbcd12)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/native_session_probe.rs (<isolated-target>/debug/deps/superagent_native_session_probe-d57ed397bb4f06f9)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/passes_bridge.rs (<isolated-target>/debug/deps/superagent_passes_bridge-c1f8e27bdd90c9e3)
+     Running unittests src/bin/retry_health_bridge.rs (<isolated-target>/debug/deps/superagent_retry_health_bridge-e0798590b16f9f46)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/sql_engine_bridge.rs (<isolated-target>/debug/deps/superagent_sql_engine_bridge-76b3b77e86ac50bb)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/store_bridge.rs (<isolated-target>/debug/deps/superagent_store_bridge-4202b3ff2bef7bb7)
+     Running unittests src/bin/superagent.rs (<isolated-target>/debug/deps/xharness_superagent-a61eb48896e34453)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/application.rs (<isolated-target>/debug/deps/application-5f0c4f4344a93d46)
+
+running 5 tests
+test composition_dispatches_candidate_launch_and_receipt_backed_reply ... ok
+test exclusive_owner_precedes_sql_and_unconfigured_never_dispatches ... ok
+test source_off_retains_pending_reply_without_claiming_send_success ... ok
+test stale_launch_does_not_select_an_older_pending_assignment ... ok
+test stopped_ticket_cannot_launch_its_previously_queued_assignment ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+     Running tests/delivery.rs (<isolated-target>/debug/deps/delivery-92cde082bd8181be)
+
+running 16 tests
+test abort_checks_before_io_and_again_after_history_before_authorization ... ok
+test accepted_error_prevents_ack_flush_but_does_not_erase_admitted_input ... ok
+test authorization_and_acceptance_run_on_duplicates_before_final_flush ... ok
+test close_failure_retries_load_and_suppresses_read_failure_without_losing_causes ... ok
+test disposed_target_rejected_before_authorization_even_if_duplicate ... ok
+test dropping_owner_finishes_pending_waiters_and_rejects_new_calls_without_io ... ok
+test failed_ack_retries_barrier_not_delivery_and_keeps_original_error ... ok
+test forced_owner_drop_releases_inflight_history_even_when_delivery_and_session_still_live ... ok
+test history_failure_retries_and_counts_non_message_events_for_pagination ... ok
+test live_event_during_initial_read_is_never_overwritten ... ok
+test loaded_cache_does_not_retain_agent_or_session_identity ... ok
+test modes_deduplicate_pending_consumed_and_restored_inputs ... ok
+test one_shared_load_survives_concurrent_waiters_and_dropped_send_waiter ... ok
+test primitive_error_does_not_mark_injected_or_call_accepted ... ok
+test removed_queue_can_redeliver_but_inject_seen_is_per_live_session_not_permanent_receipt ... ok
+test source_recognition_is_exact_without_rewriting_legacy_attribution ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running tests/driver.rs (<isolated-target>/debug/deps/driver-d5edee64492335c6)
+
+running 13 tests
+test cancellation_and_recreation_keep_the_new_sequence_after_old_completion ... ok
+test cancellation_health_is_published_only_after_outer_commit ... ok
+test cancelling_the_runner_errors_waiters_but_preserves_durable_rows ... ok
+test coalescing_and_reentrant_limit_preserve_the_running_generation ... ok
+test control_errors_do_not_fail_committed_commands_and_read_only_queries_do_not_kick ... ok
+test draining_preserves_interrupted_failures_and_waiting_rows_for_next_owner ... ok
+test limit_failures_and_handler_panics_are_reported_and_can_recover ... ok
+test per_kind_limits_and_kind_idle_ignore_other_running_work ... ok
+test periodic_pass_keeps_a_committed_prefix_when_a_later_thread_fails ... ok
+test retries_later_and_health_need_an_explicit_dispatch_not_a_new_timer ... ok
+test sql_domain_and_native_driver_share_intents_and_release_controls_before_launch ... ok
+test synchronous_handler_prefix_precedes_later_kind_limit_and_settlement_waits ... ok
+test transactions_and_domain_controls_do_not_escape_until_outer_commit ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+
+     Running tests/durability.rs (<isolated-target>/debug/deps/durability-fcb1ac36853b045c)
+
+running 12 tests
+test acceptance_commits_domain_receipt_and_effects_together_once ... ok
+test every_transaction_failure_cut_restores_domain_and_outbound_intents ... ok
+test generations_and_sequence_fence_old_attempt_completion ... ok
+test native_nested_callbacks_commit_in_order_and_discard_rolled_back_levels ... ok
+test nested_command_controls_cannot_escape_before_commit_or_after_rollback ... ok
+test outbound_validation_failure_rolls_back_the_ticket_and_its_intents ... ok
+test outbox_defers_off_sources_and_drops_ignored_or_gone_channels_permanently ... ok
+test persisted_settings_retain_policy_identity_source_insertion_order ... ok
+test real_process_crashes_leave_no_partial_commit_and_replay_accept_once ... ok
+test receipts_keep_first_payload_and_restore_permanent_receipt_after_inflight_withdraw ... ok
+test reply_order_is_per_ticket_and_thread_and_stops_blocking_after_three_failures ... ok
+test retry_backoff_later_shutdown_and_restart_are_persistent ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.23s
+
+     Running tests/github_source.rs (<isolated-target>/debug/deps/github_source-5239a97fe7bab05e)
+
+running 7 tests
+test ci_requires_nullable_conclusion_and_counts_failure_during_running_work ... ok
+test managed_cli_preserves_http_failure_and_cancel_joins_the_process_tree ... ok
+test normalization_matches_unmodified_pinned_source_functions ... ok
+test prepared_ports_are_unavailable_until_real_identity_is_installed_once ... ok
+test real_managed_gh_cli_checks_identity_access_headers_and_argv_without_shell_interpolation ... ok
+test receipt_marker_delivery_matches_original_and_retries_only_retryable_errors ... ok
+test source_settings_scope_and_repository_confinement_are_not_authorization_shortcuts ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+
+running 5 tests
+test current_thread_real_subagent_prompt_interrupt_512_boundaries ...      Running tests/legacy_control_boundaries.rs (<isolated-target>/debug/deps/legacy_control_boundaries-9e2c09eeddbe4f95)
+ok
+test interrupt_orders_with_real_loop_start_handoff ... ok
+test interrupt_settles_across_result_to_idle_handoff ... ok
+test interrupt_settles_when_core_is_closed_before_host_eof ... ok
+test multithread_real_subagent_prompt_interrupt_512_boundaries ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 73.62s
+
+     Running tests/migration.rs (<isolated-target>/debug/deps/migration-9f70ade08a6b0d44)
+
+running 6 tests
+test every_migration_cut_rolls_back_data_ddl_and_schema_marker ... ok
+test invalid_ticket_error_names_the_record_and_leaves_all_rows_unchanged ... ok
+test migrated_legacy_decisions_load_and_accept_replay_without_invented_authority ... ok
+test migration_replay_retains_history_and_preexisting_attempts_without_requeueing ... ok
+test process_crashes_at_migration_boundaries_recover_without_duplicate_effects ... ok
+test settings_null_snapshot_defaults_and_null_legacy_queues_follow_nullish_semantics ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.35s
+
+     Running tests/models.rs (<isolated-target>/debug/deps/models-317746ebb924783a)
+
+running 7 tests
+test abandoning_a_read_barrier_does_not_detach_the_owning_observer ... ok
+test cancellation_drops_blocked_read_joins_task_and_releases_entry ... ok
+test formatting_keeps_first_five_order_and_uses_last_active_timestamp ... ok
+test idle_running_idle_aba_forces_a_second_snapshot_read ... ok
+test independent_live_updates_keep_registration_order_and_release_after_dispose ... ok
+test read_failure_stays_visible_after_closed_activity_and_fails_owner_join ... ok
+test unfinished_history_does_not_make_idle_worker_a_live_budget_wait ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 15 tests
+test accepted_throw_retains_exact_failure_and_actor_owns_committed_input ...      Running tests/native_delivery.rs (<isolated-target>/debug/deps/native_delivery-92ca82ab08383197)
+ok
+test actual_global_flush_preserves_ordered_errors_and_flushes_later_healthy_writer_after_own_failure ... ok
+test all_modes_run_real_hot_callbacks_before_io_and_preserve_content_provenance ... ok
+test authorization_and_abort_failures_do_not_admit_or_report_accepted ... ok
+test consumed_queue_is_not_redelivered_in_the_same_live_object_or_after_restore ... ok
+test dropped_waiter_is_adopted_and_stale_object_cannot_dispose_replacement ... ok
+test final_global_flush_reaches_an_earlier_writer_before_own_input_fsync_completes ... ok
+test multithread_native_producers_are_accepted_while_live_core_and_real_flush_are_held ... ok
+test native_producer_ack_waits_for_real_fsync_but_not_a_blocked_core_control_ack ... ok
+test native_registry_protocol_and_agent_do_not_form_a_retaining_cycle ... ok
+test physical_default_requires_an_explicit_opt_in_and_keeps_its_old_queue_path ... ok
+test real_post_acceptance_io_failure_retains_logical_input_and_retry_is_exactly_once ... ok
+test restored_catalogue_replaces_live_identity_and_stale_agent_cannot_admit ... ok
+test setup_revoked_inside_authorize_is_checked_again_before_logical_commit ... ok
+test two_native_producers_are_accepted_while_the_real_jsonl_lock_blocks_flush ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.52s
+
+     Running tests/native_prompts.rs (<isolated-target>/debug/deps/native_prompts-bda2ef2607444966)
+
+running 8 tests
+test actual_native_skill_tool_refreshes_revisions_restarts_same_revision_and_loads_real_resources ... ok
+test closed_local_owner_fails_before_provider_or_revision_binding ... ok
+test decoration_survives_ticket_deletion_before_the_first_model_request ... ok
+test endpoint_and_ticket_capabilities_cannot_be_reassigned_between_native_owners ... ok
+test initially_unrecognized_worker_keeps_dynamic_host_base_until_explicit_redecoration ... ok
+test native_main_refreshes_current_sql_version_per_generation_complete_literal_and_physical_audit ... ok
+test native_shutdown_settles_a_turn_without_polling_the_local_sql_owner ... ok
+test native_worker_keeps_base_current_mandate_executor_source_environment_then_reference_deleted_ticket_fallback ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.31s
+
+     Running tests/native_sessions.rs (<isolated-target>/debug/deps/native_sessions-baaec93ad69cfccb)
+
+running 32 tests
+test acknowledged_queue_survives_abrupt_process_exit_without_graceful_flush ... ok
+test both_waking_modes_keep_internal_input_behind_the_stopped_gate ... ok
+test custom_policy_overrides_fail_closed_instead_of_expanding_permissions ... ok
+test failed_and_explicitly_stopped_sessions_do_not_reopen_on_internal_input ... ok
+test independent_state_roots_do_not_accept_a_foreign_managed_binding ... ok
+test legacy_user_rpc_dedup_does_not_let_an_internal_retry_resume_a_paused_worker ... ok
+test live_external_observer_is_not_misreported_as_released_during_shutdown ... ok
+test local_sql_effect_owner_can_ack_only_after_native_jsonl_admission ... ok
+test logical_identity_cannot_be_rebound_to_a_different_workspace_or_owner ... ok
+test native_followup_wakes_and_remains_a_distinct_ordinary_turn ... ok
+test native_steer_reaches_live_next_step_without_interrupt_and_both_input_observers_settle ... ok
+test noninterrupting_steer_wakes_idle_with_a_pre_admission_observer_and_no_goal ... ok
+test owner_removal_evicts_old_observer_and_permits_changed_unconsumed_queue_redelivery ... ok
+test passive_model_health_read_never_activates_or_wakes_unloaded_or_queued_work ... ok
+test passive_notice_does_not_reopen_a_failed_or_stopped_dispatch_gate ... ok
+test passive_notice_is_real_next_step_without_a_turn_goal_or_implicit_wake ... ok
+test passive_notice_reaches_the_next_live_step_without_interrupting_a_held_model ... ok
+test passive_notice_recognizes_native_pending_and_consumed_legacy_producer_provenance ... ok
+test queue_wake_claim_result_and_per_role_tool_factories_use_the_native_loop ... ok
+test queued_native_inputs_keep_individual_observers_without_reexecuting ... ok
+test real_native_retry_journal_projects_budget_wait_until_proven_same_provider_success ... ok
+test removed_passive_notice_seen_cache_is_live_only_and_consumed_notice_survives_restore ... ok
+test restart_uses_pending_jsonl_and_exact_identity_without_auto_wake ... ok
+test restored_waking_step_retries_subscribe_before_wake_without_reinserting_input ... ok
+test retrying_a_removed_live_notice_as_followup_does_not_wake_or_replace_it ... ok
+test second_runtime_cannot_bypass_the_real_session_file_lease ... ok
+test selected_durable_model_is_not_overwritten_and_unavailable_never_falls_back ... ok
+test setup_queue_flush_concurrent_dedup_and_attribution_are_real_jsonl ... ok
+test shutdown_fences_new_admission_and_keeps_pending_receipts ... ok
+test stable_scoped_creation_has_original_receipt_and_never_calls_a_model ... ok
+test state_root_relocation_keeps_the_same_native_conversation_and_receipt ... ok
+test unavailable_role_routes_fail_before_state_is_created ... ok
+
+test result: ok. 32 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.24s
+
+     Running tests/passes.rs (<isolated-target>/debug/deps/passes-9e58e6f0cc19283d)
+
+running 16 tests
+test actual_sql_driver_admission_pass_and_effect_idle_have_separate_shutdown_boundaries ... ok
+test actual_sql_later_thread_failure_keeps_committed_prefix_and_requested_health_recovers ... ok
+test closing_changed_by_kick_skips_evaluation_and_setup_gates_dispatch ... ok
+test earlier_pump_and_idle_awaits_do_not_publish_later_request_health_early ... ok
+test failed_first_pass_still_runs_followup_and_stop_returns_both_settlements ... ok
+test hot_pumps_coalesce_to_one_followup_and_kick_precedes_evaluation ... ok
+test lifetime_abort_suppresses_recovery_but_not_failure_reporting ... ok
+test periodic_kick_retries_due_native_effects_without_a_driver_retry_timer ... ok
+test real_two_second_timer_advances_actual_sql_without_manual_pump ... ok
+test receive_checks_closing_before_storage_and_requests_only_stored ... ok
+test repeated_start_preserves_the_reference_latest_handle_only_stop_behavior ... ok
+test requested_failure_is_visible_after_idle_and_only_requested_success_recovers_health ... ok
+test runner_drop_rejects_pending_waiters_and_does_not_retain_owner_cycles ... ok
+test stop_waits_passes_not_effects_and_idle_propagates_effect_failure ... ok
+test synchronous_reentry_happens_before_pumping_assignment_without_borrow_panics ... ok
+test timer_has_no_initial_tick_uses_two_seconds_and_stop_does_not_gate_on_demand_work ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.07s
+
+     Running tests/product_entry.rs (<isolated-target>/debug/deps/product_entry-51c1ab089ead5d91)
+
+running 14 tests
+test check_is_read_only_for_external_services_and_releases_state_lease ... ok
+test formal_crashed_worker_restarts_with_recovery_note_and_preserves_its_worktree ... ok
+test formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate ... ok
+test formal_idle_worker_gets_waiting_report_and_status_request_reaches_same_assignment ... ok
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+test formal_missing_recovery_workspace_preserves_input_and_exposes_delivery_error ... ok
+test formal_waiting_worker_rebinds_after_restart_and_reads_new_source_input_once ... ok
+test formal_worker_thread_controls_keep_ownership_context_and_role_boundaries ... ok
+test invalid_saved_model_and_missing_configuration_never_fall_back ... ok
+test once_interrupt_cancels_a_model_wait_and_releases_the_lease ... ok
+test preparation_failure_is_reported_without_worker_or_silent_retry ... ok
+test refused_and_unauthorized_requests_do_not_start_workers ... ok
+test setup_failure_and_missing_model_credential_do_not_leave_a_live_owner ... ok
+test watch_owns_the_state_exclusively_and_interrupt_joins_before_reopen ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 14.77s
+
+     Running tests/product_native.rs (<isolated-target>/debug/deps/product_native-daf9f8170043c575)
+
+running 15 tests
+test github::agent_pull_branch_binds_the_live_ticket_and_closing_it_cancels_native_worker ... ok
+test github::branch_ci_baselines_first_observation_and_defers_recovery_while_running ... ok
+test github::cancellation_mid_read_does_not_advance_unread_thread_or_retry_cursor ... ok
+test github::comments_cross_real_source_policy_native_file_and_receipt_channel_without_duplicate ... ok
+test github::deleted_and_day_old_failed_notifications_do_not_hold_health_in_error ... ok
+test github::notification_failure_does_not_rollback_other_streams_and_etag_304_deduplicates ... ok
+test github::notification_read_failure_retains_retry_until_recovery_and_health_threshold ... ok
+test github::unlisted_and_bot_source_comments_never_start_any_model_or_worker ... ok
+test main_ignore_records_decision_without_launching_worker ... ok
+test main_routes_native_worker_writes_reports_and_main_replies ... ok
+test provider_failure_is_not_silently_reported_as_idle_success ... ok
+test restart_keeps_ticket_receipts_and_duplicate_does_not_rerun ... ok
+test route_batch_refuses_one_item_without_rolling_back_another ... ok
+test shutdown_cancels_and_joins_a_running_native_worker ... ok
+test unauthorized_source_never_reaches_any_model_or_tool ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.08s
+
+     Running tests/prompts.rs (<isolated-target>/debug/deps/prompts-a4707b23dbe6f190)
+
+running 12 tests
+test packaged_prompt_normalization_matches_js_whitespace_not_rust_whitespace ... ok
+test previews_have_no_durable_side_effect_and_keep_setup_and_skill_gates ... ok
+test prompt_composition_preserves_override_bytes_and_placeholder_literals ... ok
+test prompt_history_keeps_skill_and_override_order_and_rebased_base_changes ... ok
+test prompt_process_cutpoint_child ... ok
+test prompt_retired_overrides_require_saved_authority_and_track_default_changes ... ok
+test prompt_save_rolls_back_default_and_built_in_snapshots_and_pointer_on_sql_fault ... ok
+test prompt_validation_is_before_cas_and_utf16_limit_includes_serialized_config ... ok
+test prompt_versions_persist_and_restore_defaults_without_mutating_settings ... ok
+test real_process_crashes_recover_uncommitted_prompt_snapshots_and_durable_lost_ack ... 
+running 1 test
+
+running 1 test
+
+running 1 test
+ok
+test reentrant_limit_callback_cannot_overwrite_a_revision_saved_after_validation_read ... ok
+test schema_issues_aggregate_in_definition_order_and_skip_proto_before_validation ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.33s
+
+     Running tests/repository.rs (<isolated-target>/debug/deps/repository-8ec0e099f952c0c6)
+
+running 7 tests
+test failed_record_and_receipt_reads_are_errors_not_absent_records ... ok
+test nested_engine_failures_keep_prior_writes_but_rollback_the_failed_command ... ok
+test pending_receipt_overlay_is_visible_before_intents_are_saved ... ok
+test point_commands_do_not_decode_scan_or_rewrite_unrelated_history ... ok
+test sql_read_failures_and_fallible_model_callbacks_do_not_become_user_denials ... ok
+test sql_write_failure_and_panic_restore_domain_and_staged_intents ... ok
+test unrelated_malformed_records_are_not_touched_by_a_point_command ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.05s
+
+     Running tests/retry_health.rs (<isolated-target>/debug/deps/retry_health-e9dbd56d3d323802)
+
+running 3 tests
+test explicit_projection_preserves_map_order_and_detached_results ... ok
+test native_assistant_requires_same_step_request_provenance ... ok
+test native_idle_restore_and_watermarks_do_not_reactivate_old_waits ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Compiling serde_json v1.0.151
+   Compiling serde v1.0.229
+   Compiling tower v0.5.3
+   Compiling h2 v0.4.16
+   Compiling tokio-tungstenite v0.29.0
+   Compiling tower-http v0.6.11
+   Compiling string_cache v0.9.0
+   Compiling serde_urlencoded v0.7.1
+   Compiling chrono v0.4.45
+   Compiling web_atoms v0.2.6
+   Compiling xharness-diagnostics v0.1.0 (<isolated-source>/crates/xharness-diagnostics)
+   Compiling xharness-prompt v0.1.0 (<isolated-source>/crates/xharness-prompt)
+   Compiling xharness-token v0.1.0 (<isolated-source>/crates/xharness-token)
+   Compiling xharness-jobs v0.1.0 (<isolated-source>/crates/xharness-jobs)
+   Compiling xharness-api v0.1.0 (<isolated-source>/crates/xharness-api)
+   Compiling xharness-control v0.1.0 (<isolated-source>/crates/xharness-control)
+   Compiling markup5ever v0.39.0
+   Compiling html5ever v0.39.0
+   Compiling xml5ever v0.39.0
+   Compiling xharness-debug v0.1.0 (<isolated-source>/crates/xharness-debug)
+   Compiling chrono-tz v0.10.4
+   Compiling xharness-tools v0.1.0 (<isolated-source>/crates/xharness-tools)
+   Compiling xharness-process v0.1.0 (<isolated-source>/crates/xharness-process)
+   Compiling markup5ever_rcdom v0.39.0+unofficial
+   Compiling html2md v0.2.17
+   Compiling xharness-sandbox v0.1.0 (<isolated-source>/crates/xharness-sandbox)
+   Compiling xharness-platform v0.1.0 (<isolated-source>/crates/xharness-platform)
+   Compiling xharness-interaction v0.1.0 (<isolated-source>/crates/xharness-interaction)
+   Compiling xharness-session v0.1.0 (<isolated-source>/crates/xharness-session)
+   Compiling hyper v1.11.0
+   Compiling hyper-util v0.1.20
+   Compiling hyper-rustls v0.27.9
+   Compiling axum v0.8.9
+   Compiling reqwest v0.12.28
+   Compiling xharness-web v0.1.0 (<isolated-source>/crates/xharness-web)
+   Compiling xharness-compaction v0.1.0 (<isolated-source>/crates/xharness-compaction)
+   Compiling xharness-goal v0.1.0 (<isolated-source>/crates/xharness-goal)
+   Compiling xharness-attachments v0.1.0 (<isolated-source>/crates/xharness-attachments)
+   Compiling xharness-session-import v0.1.0 (<isolated-source>/crates/xharness-session-import)
+   Compiling xharness-session-jsonl v0.1.0 (<isolated-source>/crates/xharness-session-jsonl)
+   Compiling xharness-coding-tools v0.1.0 (<isolated-source>/crates/xharness-coding-tools)
+   Compiling xharness-context v0.1.0 (<isolated-source>/crates/xharness-context)
+   Compiling xharness-core v0.1.0 (<isolated-source>/crates/xharness-core)
+   Compiling xharness-agent v0.1.0 (<isolated-source>/crates/xharness-agent)
+   Compiling xharness-projection v0.1.0 (<isolated-source>/crates/xharness-projection)
+   Compiling xharness-provider-openai v0.1.0 (<isolated-source>/crates/xharness-provider-openai)
+   Compiling xharness-schedule v0.1.0 (<isolated-source>/crates/xharness-schedule)
+   Compiling xharness-host v0.1.0 (<isolated-source>/crates/xharness-host)
+   Compiling xharness-gh v0.1.0 (<isolated-source>/crates/xharness-gh)
+
+running 1 test
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 47.62s
+     Running tests/review_pipeline.rs (<isolated-target>/debug/deps/review_pipeline-177c13ff5e6ff33d)
+test poll_on_pr_comment_builds_review_workspace_and_posts_graded_result ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+LEGACY_REVIEW_REPEAT=1
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/review_pipeline.rs (<isolated-target>/debug/deps/review_pipeline-177c13ff5e6ff33d)
+
+running 1 test
+test poll_on_pr_comment_builds_review_workspace_and_posts_graded_result ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+LEGACY_REVIEW_REPEAT=2
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.15s
+     Running tests/review_pipeline.rs (<isolated-target>/debug/deps/review_pipeline-177c13ff5e6ff33d)
+
+running 1 test
+test poll_on_pr_comment_builds_review_workspace_and_posts_graded_result ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+
+LEGACY_REVIEW_REPEAT=3
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.15s
+     Running tests/review_pipeline.rs (<isolated-target>/debug/deps/review_pipeline-177c13ff5e6ff33d)
+
+running 1 test
+test poll_on_pr_comment_builds_review_workspace_and_posts_graded_result ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+LEGACY_REVIEW_REPEAT=4
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.15s
+     Running tests/review_pipeline.rs (<isolated-target>/debug/deps/review_pipeline-177c13ff5e6ff33d)
+
+running 1 test
+test poll_on_pr_comment_builds_review_workspace_and_posts_graded_result ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s
+
+LEGACY_REVIEW_REPEAT=5
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.15s
+     Running tests/review_pipeline.rs (<isolated-target>/debug/deps/review_pipeline-177c13ff5e6ff33d)
+
+running 1 test
+test poll_on_pr_comment_builds_review_workspace_and_posts_graded_result ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+

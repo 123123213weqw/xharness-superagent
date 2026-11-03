@@ -1,0 +1,13 @@
+{
+  "instance": "pirs",
+  "liveBranchApi": true,
+  "liveLiteralSearchApi": true,
+  "searchIncomplete": false,
+  "realWorkerCliRead": true,
+  "reasoningModel": "loopback fixture only; no paid inference",
+  "realExternalWrites": false,
+  "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+  "probeSha256": "a6a47481f9de6cb00976dbbe26eaf13a6a57837d8a90a567838a395bac16de4c",
+  "repositorySha256": "3f7d0d65a0abe203729f5c05ddf71ecc9ce924d48eefc295d15035cfc4e92900",
+  "existingAccountVerified": true
+}

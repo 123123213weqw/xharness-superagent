@@ -11,6 +11,10 @@ description = "Durable SuperAgent product application, isolated from legacy host
 conformance = ["tokio/test-util"]
 
 [dependencies]
+async-stream.workspace = true
+axum.workspace = true
+reqwest = { workspace = true, features = ["rustls-tls"] }
+url = "=2.5.8"
 xharness-superagent-core = { path = "../xharness-superagent-core" }
 rusqlite = { version = "=0.37.0", features = ["bundled"] }
 serde.workspace = true
@@ -32,7 +36,17 @@ xharness-session = { path = "../xharness-session" }
 xharness-session-jsonl = { path = "../xharness-session-jsonl" }
 xharness-tools = { path = "../xharness-tools" }
 xharness-jobs = { path = "../xharness-jobs" }
+xharness-process = { path = "../xharness-process" }
+xharness-provider-openai = { path = "../xharness-provider-openai" }
+xharness-coding-tools = { path = "../xharness-coding-tools" }
+xharness-platform = { path = "../xharness-platform" }
+xharness-web = { path = "../xharness-web", default-features = false }
 regex = { version = "=1.13.1", default-features = false, features = ["std", "perf"] }
+icu_segmenter = "=2.3.0"
+
+[[bin]]
+name = "xharness-superagent"
+path = "src/bin/superagent.rs"
 
 [[bin]]
 name = "superagent-store-bridge"
@@ -74,3 +88,7 @@ unsafe_code = "forbid"
 
 [dev-dependencies]
 tokio = { workspace = true, features = ["test-util", "process"] }
+
+[[bin]]
+name = "superagent-cold-import"
+path = "src/bin/cold_import.rs"

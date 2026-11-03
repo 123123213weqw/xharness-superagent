@@ -1,0 +1,66 @@
+MANAGEMENT VALIDATION focused-second 2026-11-02T05:18:29Z
+    Checking xharness-superagent v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 12.62s
+    Checking xharness-diagnostics v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-diagnostics)
+    Checking xharness-token v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-token)
+    Checking xharness-jobs v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-jobs)
+    Checking xharness-prompt v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-prompt)
+    Checking xharness-control v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-control)
+    Checking xharness-api v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-api)
+    Checking xharness-superagent-core v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-superagent-core)
+    Checking xharness-debug v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-debug)
+    Checking xharness-tools v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-tools)
+    Checking xharness-process v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-process)
+    Checking xharness-web v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-web)
+    Checking xharness-sandbox v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-sandbox)
+    Checking xharness-platform v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-platform)
+    Checking xharness-interaction v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-interaction)
+    Checking xharness-coding-tools v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-coding-tools)
+    Checking xharness-session v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-session)
+    Checking xharness-compaction v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-compaction)
+    Checking xharness-goal v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-goal)
+    Checking xharness-attachments v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-attachments)
+    Checking xharness-session-import v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-session-import)
+    Checking xharness-session-jsonl v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-session-jsonl)
+    Checking xharness-context v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-context)
+    Checking xharness-core v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-core)
+    Checking xharness-agent v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-agent)
+    Checking xharness-projection v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-projection)
+    Checking xharness-provider-openai v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-provider-openai)
+    Checking xharness-schedule v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-schedule)
+    Checking xharness-host v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-host)
+    Checking xharness-superagent v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 40.31s
+   Compiling xharness-process v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-process)
+   Compiling xharness-sandbox v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-sandbox)
+   Compiling xharness-platform v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-platform)
+   Compiling xharness-coding-tools v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-coding-tools)
+   Compiling xharness-superagent v0.1.0 (<OWNED_VALIDATION>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 31.94s
+     Running tests/product_entry.rs (<OWNED_VALIDATION>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_entry-e63082d92e636d98)
+
+running 3 tests
+test management::formal_management_reads_real_state_guards_requests_and_joins_slow_body ... 
+thread 'management::formal_management_reads_real_state_guards_requests_and_joins_slow_body' (1947536) panicked at crates/xharness-superagent/tests/product_entry/management.rs:51:13:
+product exited before management became ready
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+test management::formal_management_saves_cas_environment_prompts_and_pause_without_tool_escalation ... 
+thread 'management::formal_management_saves_cas_environment_prompts_and_pause_without_tool_escalation' (1947539) panicked at crates/xharness-superagent/tests/product_entry/management.rs:51:13:
+product exited before management became ready
+FAILED
+test management::formal_management_stops_existing_worker_and_preserves_assignment_history ... 
+thread 'management::formal_management_stops_existing_worker_and_preserves_assignment_history' (1947542) panicked at crates/xharness-superagent/tests/product_entry/management.rs:51:13:
+product exited before management became ready
+FAILED
+
+failures:
+
+failures:
+    management::formal_management_reads_real_state_guards_requests_and_joins_slow_body
+    management::formal_management_saves_cas_environment_prompts_and_pause_without_tool_escalation
+    management::formal_management_stops_existing_worker_and_preserves_assignment_history
+
+test result: FAILED. 0 passed; 3 failed; 0 ignored; 0 measured; 47 filtered out; finished in 0.11s
+
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`

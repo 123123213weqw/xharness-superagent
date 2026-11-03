@@ -1,0 +1,16 @@
+    Checking xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 6.02s
+    Checking xharness-superagent v0.1.0 (<isolated-source>/crates/xharness-superagent)
+error: called `.as_ref().map(Vec::as_slice)` on an `Option` value
+   --> crates/xharness-superagent/src/application/resources/cards.rs:220:17
+    |
+220 |     let bound = ticket.follows.as_ref().map(Vec::as_slice).unwrap_or(&[]);
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ help: consider using as_deref: `ticket.follows.as_deref()`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#option_as_ref_deref
+    = note: `-D clippy::option-as-ref-deref` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::option_as_ref_deref)]`
+
+error: could not compile `xharness-superagent` (lib) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `xharness-superagent` (lib test) due to 1 previous error

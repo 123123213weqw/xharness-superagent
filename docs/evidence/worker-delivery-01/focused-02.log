@@ -1,0 +1,33 @@
+    Checking xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.63s
+    Checking xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.86s
+   Compiling xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.38s
+     Running tests/product_entry.rs (<OWNED_WORKSPACE>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_entry-e63082d92e636d98)
+
+running 2 tests
+test delivery::formal_delivery_check_is_read_only_and_invalid_opt_in_fails_before_setup ... ok
+test delivery::formal_delivery_publishes_immutable_text_snapshot_reconciles_retry_and_reads_reviews ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 51 filtered out; finished in 4.20s
+
+   Compiling xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.24s
+     Running tests/feishu_source.rs (<OWNED_WORKSPACE>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/feishu_source-2e91118e47961f8e)
+
+running 11 tests
+test live_bot_consumer_remains_ready_with_managed_stdin_and_joins_on_cancel ... ignored, Real bot consumer; requires explicit existing CLI authorization
+test original_trigger_config_scope_and_link_business_samples_match ... ok
+test setup_probe_has_its_own_sixty_second_deadline_and_never_falls_back ... ok
+test bot_identity_setup_never_falls_back_to_user_or_unready_app ... ok
+test bot_setup_ignores_worker_shims_and_relative_path_entries_without_changing_alias ... ok
+test natural_consumer_eof_drains_unterminated_unicode_lines_and_is_not_ready_success ... ok
+test member_read_cancellation_joins_the_real_cli_and_terminates_its_descendant ... ok
+test readiness_deadline_cancels_and_joins_the_unready_consumer_tree ... ok
+test event_consumer_retains_split_unicode_reports_malformed_lines_and_joins_on_cancel ... ok
+test original_member_sync_and_reply_run_over_verified_real_cli_with_exact_bot_argv ... ok
+test oversized_event_is_visible_but_does_not_restart_or_hide_next_event ... ok
+
+test result: ok. 10 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 6.36s
+

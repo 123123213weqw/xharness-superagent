@@ -1,0 +1,22 @@
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1.23s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-4689c868491b6bc6)
+
+running 1 test
+SYNC MODEL STEP 0; last result=
+SYNC MODEL STEP 1; last result={"next_offset":null,"offset":0,"resource":"settings/policy","text":"{\"block\":\"policy\",\"revision\":0,\"value\":{\"rules\":[{\"id\":\"copy\",\"name\":\"Copy fixes\",\"enabled\":true,\"instruction\":\"Explicit requests to correct a typo, wording, punctuation or existing translation. Preserve product promises and business meaning.\"},{\"id\":\"visual\",\"name\":\"Visual fixes\",\"enabled\":true,\"instruction\":\"Explicit implementation requests for local spacing, alignment, overflow or styling, with a specified target or an objectively established existing standard/correct state to restore. Locating an element or calling it inconsistent, unattractive or hard to understand does not establish a target. Do not invent visual style, information hierarchy, rendering or interaction decisions. No redesign, new interaction or behavior. A known spacing defect does not authorize adjacent undefined restyling; assess only a clearly separable authorized scope. If direction or scope is unsettled, observe only: no acknowledgement, worker or unsolicited question.\"}],\"sources\":{\"feishu\":{\"allowed\":[{\"id\":\"ou_keep\",\"name\":\"Old\"},{\"id\":\"ou_leave\",\"name\":\"Depart\"}],\"admission\":{},\"syncChat\":\"\"},\"github\":{\"allowed\":[{\"id\":\"alice\"}],\"admission\":{}}}}}","total_chars":1144}
+SYNC MODEL STEP 2; last result={"policy_changed":true,"restarting":false,"revision":1,"saved":true}
+
+thread 'policy_sync::formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin' (4034523) panicked at crates/xharness-superagent/tests/product_entry/policy_sync.rs:146:6:
+called `Result::unwrap()` on an `Err` value: Elapsed(())
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test policy_sync::formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin ... FAILED
+
+failures:
+
+failures:
+    policy_sync::formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 34 filtered out; finished in 45.01s
+
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`

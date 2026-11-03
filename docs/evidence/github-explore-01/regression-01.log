@@ -1,0 +1,764 @@
+   Compiling xharness-superagent v0.1.0 (/home/data/wangyue/repos/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 28.86s
+     Running unittests src/lib.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/xharness_coding_tools-bec9a4423e6aaecf)
+
+running 8 tests
+test tests::direct_program_does_not_require_a_shell_and_rejects_nul_args ... ok
+test tests::managed_path_keeps_system_and_package_search_locations ... ok
+test tests::shell_description_preserves_producer_status_and_discourages_api_guessing ... ok
+test tests::shell_description_prefers_managed_jobs_without_banning_native_sessions ... ok
+test tests::repetition_process_observation_ignores_pid_not_failure_or_truncation ... ok
+test tests::managed_environment_preserves_runtime_state_without_credentials ... ok
+test tests::search_process_exit_matrix_preserves_diagnostics ... ok
+test tests::optional_product_environment_preserves_default_and_rejects_sensitive_overrides ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/bundle.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/bundle-eb84115dcbdcdbe2)
+
+running 9 tests
+test copied_history_arguments_cannot_create_overwrite_or_edit_files ... ok
+test bash_propagates_pipeline_failures_and_allows_explicit_recovery ... ok
+test log_filter_no_match_does_not_replace_the_producer_exit_status ... ok
+test standard_tools_register_and_basic_file_shell_flow_runs ... ok
+test grep_previews_minified_lines_and_bounds_many_matches ... ok
+test background_bash_streams_to_job_output_and_preserves_nonzero_exit_status ... ok
+test search_tools_distinguish_no_matches_and_real_errors ... ok
+test background_bash_kill_settles_and_invalid_option_combinations_fail_before_spawn ... ok
+test cancelled_bash_result_is_published_only_after_the_process_tree_is_dead ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.04s
+
+     Running tests/job_output_timeout_contract.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/job_output_timeout_contract-2d9535581d308b35)
+
+running 6 tests
+test ownership_cursor_and_wait_option_errors_remain_errors ... ok
+test invalid_wait_values_are_not_silently_defaulted_even_for_completed_jobs ... ok
+test completed_jobs_accept_omitted_default_and_valid_boundaries ... ok
+test running_wait_timeout_preserves_job_and_cursor_is_incremental ... ok
+test cancelling_wait_does_not_cancel_background_job ... ok
+test job_completion_wakes_wait_and_does_not_block_other_job ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/live_loop.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/live_loop-306fe0cc79b2e267)
+
+running 4 tests
+test live_model_calls_real_tool_and_finishes_the_loop ... ignored, requires a live OpenAI-compatible model endpoint
+test live_model_continues_coding_across_execution_checkpoints ... ignored, requires an explicitly configured live model endpoint
+test live_model_repairs_code_and_emits_complete_debug_evidence ... ignored, requires a live OpenAI-compatible endpoint (XHARNESS_LIVE_BASE_URL/_API_KEY)
+test live_model_uses_managed_jobs_instead_of_pty_or_nohup ... ignored, requires a live OpenAI-compatible endpoint (XHARNESS_LIVE_BASE_URL/_API_KEY)
+
+test result: ok. 0 passed; 0 failed; 4 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/read_contract.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/read_contract-5ebbabf0fca5c928)
+
+running 11 tests
+test field_descriptions_expose_units_and_ranges ... ok
+test cancelled_read_does_not_become_a_success ... ok
+test outside_component_prefix_and_parent_traversal_are_denied ... ok
+test invalid_numeric_arguments_never_silently_default ... ok
+test bytes_and_lines_keep_distinct_legacy_semantics ... ok
+test conflicting_selectors_and_stale_cursors_fail_explicitly ... ok
+test absolute_symlink_file_and_directory_cannot_escape ... ok
+test authorized_absolute_read_matches_relative_and_keeps_mutation_contract ... ok
+test empty_missing_and_past_eof_stay_distinguishable ... ok
+test utf8_small_pages_reconstruct_every_byte_with_forward_progress ... ok
+test long_line_pages_reconstruct_without_truncation_loss ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+     Running tests/shell_resolution.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/shell_resolution-5f77c7a3223f63d4)
+
+running 6 tests
+test shell_native_failure_fixture ... ignored
+test shell_native_success_fixture ... ignored
+test shell_native_wait_fixture ... ignored
+test ambiguous_invocations_are_rejected_before_spawn ... ok
+test direct_argv_preserves_unicode_spaces_and_failure_without_replay ... ok
+test direct_process_timeout_cancel_and_background_use_existing_lifecycle ... ok
+
+test result: ok. 3 passed; 0 failed; 3 ignored; 0 measured; 0 filtered out; finished in 0.53s
+
+     Running tests/shell_timeout_contract.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/shell_timeout_contract-9d69b54156f8b002)
+
+running 2 tests
+test invalid_timeout_never_spawns_a_command ... ok
+test omitted_and_valid_timeouts_keep_command_behavior ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running unittests src/lib.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/xharness_superagent-3b4b35feb38ca01c)
+
+running 57 tests
+test application::messages::tests::live_messages_tool_and_opaque_replay ... ignored, Real external model calls; requires explicit existing route and credential authorization
+test application::management::tests::path_decode_preserves_literal_plus_and_rejects_malformed_utf8 ... ok
+test application::delivery::tests::paths_and_refs_reject_traversal_metadata_workflows_and_ambiguous_names ... ok
+test application::management::tests::origin_requires_exact_host_marker_and_optional_matching_origin ... ok
+test application::native::cancellation_tests::only_exact_terminal_cancel_acknowledgements_are_idempotent ... ok
+test application::messages::tests::messages_reject_orphan_duplicate_results_and_foreign_provider_state ... ok
+test application::messages::tests::messages_reject_blocks_after_terminal_and_mismatched_terminal_reason ... ok
+test application::messages::tests::messages_preserve_system_schema_ceiling_and_explicit_reasoning ... ok
+test application::messages::tests::messages_do_not_relocate_system_or_drop_media_or_override_routing ... ok
+test application::native::policy_sync::tests::notice_paths_include_normal_unicode_names_and_are_bounded ... ok
+test application::native::policy_sync::tests::retries_double_cap_and_success_removes_wait ... ok
+test application::messages::tests::messages_cancellation_before_headers_has_no_success ... ok
+test application::messages::tests::messages_require_closed_valid_json_blocks_and_message_stop ... ok
+test application::messages::tests::messages_retain_thinking_signature_and_tool_ids_for_stateless_replay ... ok
+test application::search::tests::search_config_rejects_literal_keys_custom_endpoints_and_unknown_backends ... ok
+test application::workspace::tests::explicit_disabled_and_revision_configs_are_strict ... ok
+test application::workspace::tests::only_trusted_github_pr_metadata_selects_pr_head ... ok
+test application::workspace::tests::reviewed_network_config_requires_explicit_absolute_path ... ok
+test delivery::tests::session_key_drop_releases_the_seen_cache_immediately ... ok
+test application::search::tests::search_config_is_independent_of_model_credentials_and_does_not_probe_network ... ok
+test application::resources::tests::ordinary_unicode_pages_reconstruct_content_without_cutting_emoji_or_stalling ... ok
+test native_sessions::delivery::tests::old_scope_drop_does_not_clear_the_later_preparation_on_the_same_object ... ok
+test native_sessions::prompts::decoration::epoch_tests::closed_supervisor_or_disconnected_watch_is_not_a_live_decoration ... ok
+test application::messages::tests::messages_real_http_sse_preserve_unicode_and_complete_only_at_stop ... ok
+test native_sessions::prompts::decoration::epoch_tests::passive_channel_identity_survives_step_counters_and_worker_restarts_but_not_actor_replacement ... ok
+test native_sessions::prompts::owner_tests::closing_barrier_never_relabels_real_errors_as_cancellation ... ok
+test sources::feishu::consumer::tests::oversized_lines_are_discarded_once_and_crlf_and_later_lines_survive ... ok
+test sources::feishu::consumer::tests::multiline_diagnostic_keeps_the_actual_error_and_bounds_unicode ... ok
+test native_sessions::prompts::skills::tests::foreign_same_name_tool_is_a_real_shadow_and_is_never_overwritten ... ok
+test application::messages::tests::messages_truncated_http_stream_and_http_error_never_become_success ... ok
+test native_sessions::persistence::tests::global_writer_drain_includes_logical_appends_while_its_first_physical_cut_is_blocked ... ok
+test native_sessions::persistence::tests::flush_collects_original_typed_failures_in_writer_order_and_attempts_later_healthy_writer ... ok
+test native_sessions::persistence::tests::writer_order_is_registration_not_id_and_snapshot_excludes_late_or_unmanaged_owners ... ok
+test native_sessions::delivery::authority::tests::overlapping_catalogue_rebuilds_serialize_before_replacing_warm_epochs ... ok
+test native_sessions::delivery::authority::tests::cancelled_catalogue_restore_keeps_the_new_warm_epoch_unavailable ... ok
+test native_sessions::delivery::authority::tests::failed_catalogue_restore_revokes_warm_scopes_until_successful_rebuild ... ok
+test native_sessions::delivery::authority::tests::original_creation_witness_checks_all_fields_of_valid_mutation_records ... ok
+test native_sessions::delivery::authority::tests::warm_creation_witness_rejects_other_owner_changed_role_and_changed_workspace ... ok
+test native_sessions::delivery::authority::tests::warm_creation_witness_cannot_address_an_identically_recreated_session_generation ... ok
+test native_sessions::persistence::tests::retired_storage_generation_is_replaced_at_end_without_flushing_a_replacement_by_id ... ok
+test native_sessions::delivery::authority::tests::warm_creation_witness_does_not_certify_or_flush_a_later_logical_prefix ... ok
+test application::resources::tests::strict_read_request_normalizes_only_legacy_prefixes_and_rejects_forged_scope ... ok
+test native_sessions::prompts::decoration::epoch_tests::preflight_failure_replies_with_the_same_original_error_owned_by_the_report ... ok
+test application::resources::tests::worker_own_ticket_and_shared_thread_do_not_expose_other_tickets_or_decisions ... ok
+test native_sessions::prompts::owner_tests::cancelled_queued_request_never_binds_a_revision ... ok
+test native_sessions::prompts::owner_tests::late_sql_failure_is_owned_once_with_original_type_even_after_reply_disappears ... ok
+test native_sessions::prompts::decoration::epoch_tests::explicit_retry_on_sql_owner_does_not_invalidate_an_earlier_generic_render ... ok
+test application::resources::tests::trigger_reads_allow_origin_delivery_context_and_bound_threads_but_redact_fanout_and_neighbours ... ok
+test application::resources::tests::live_plans_retain_trusted_scope_and_never_return_fake_transcripts_or_source_success ... ok
+test native_sessions::prompts::owner_tests::cancelled_queued_decoration_never_acknowledges_or_binds_a_revision ... ok
+test native_sessions::prompts::skills::tests::handler_infrastructure_failure_keeps_the_original_owner_diagnostic_once ... ok
+test native_sessions::prompts::skills::tests::retired_actor_tool_cannot_read_replacement_skills_and_old_entries_are_released ... ok
+test application::resources::tests::actual_sql_errors_and_corrupt_records_never_become_absence_or_empty_pages ... ok
+test application::resources::tests::list_and_ticket_pages_are_bounded_newest_first_with_copyable_offsets ... ok
+test application::controls::tests::status_only_requests_an_idle_worker_and_retry_creates_a_new_assignment ... ok
+test application::controls::tests::context_follow_unrelated_and_main_unsubscribe_never_transfer_ticket_authority ... ok
+test application::controls::tests::requeue_waits_for_worker_handback_and_sql_errors_never_become_absent_owners ... ok
+
+test result: ok. 56 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.15s
+
+     Running unittests src/bin/cold_import.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_cold_import-bd52c0dfefac4670)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/delivery_bridge.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_delivery_bridge-c1848a5d5f508232)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/durability_probe.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_durability_probe-ff98a072ce75e2e2)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/migration_probe.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_migration_probe-33a08be49b9b6516)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/native_session_probe.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_native_session_probe-2f27c9d919cc7fd0)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/passes_bridge.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_passes_bridge-2140f94f7a8eb03b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/retry_health_bridge.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_retry_health_bridge-dd8e4ebe634b2a8f)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/sql_engine_bridge.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_sql_engine_bridge-4772fc5e6d8d84af)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/store_bridge.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/superagent_store_bridge-2ab25db3414d0da4)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/superagent.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/xharness_superagent-77fb4e29d27c62da)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/application.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/application-19a1ead2004e1643)
+
+running 5 tests
+test exclusive_owner_precedes_sql_and_unconfigured_never_dispatches ... ok
+test composition_dispatches_candidate_launch_and_receipt_backed_reply ... ok
+test stale_launch_does_not_select_an_older_pending_assignment ... ok
+test stopped_ticket_cannot_launch_its_previously_queued_assignment ... ok
+test source_off_retains_pending_reply_without_claiming_send_success ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.05s
+
+     Running tests/assessment_context.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/assessment_context-62549a163cbaac58)
+
+running 3 tests
+test admission_repeated_cursor_is_an_error_not_complete_or_partial_success ... ok
+test normal_chinese_english_word_limits_match_executed_business_samples ... ok
+test original_github_context_repository_and_admission_outputs_and_paths_match ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/cold_import.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/cold_import-481e2aa6e13088d6)
+
+running 2 tests
+test cold_import_keeps_ids_cursors_receipts_settings_order_and_never_resumes_old_work ... ok
+test cold_import_refuses_pending_effects_requests_replies_and_live_wal ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+     Running tests/delivery.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/delivery-e5fbca91ec39c00b)
+
+running 16 tests
+test authorization_and_acceptance_run_on_duplicates_before_final_flush ... ok
+test abort_checks_before_io_and_again_after_history_before_authorization ... ok
+test accepted_error_prevents_ack_flush_but_does_not_erase_admitted_input ... ok
+test dropping_owner_finishes_pending_waiters_and_rejects_new_calls_without_io ... ok
+test disposed_target_rejected_before_authorization_even_if_duplicate ... ok
+test close_failure_retries_load_and_suppresses_read_failure_without_losing_causes ... ok
+test one_shared_load_survives_concurrent_waiters_and_dropped_send_waiter ... ok
+test forced_owner_drop_releases_inflight_history_even_when_delivery_and_session_still_live ... ok
+test loaded_cache_does_not_retain_agent_or_session_identity ... ok
+test failed_ack_retries_barrier_not_delivery_and_keeps_original_error ... ok
+test source_recognition_is_exact_without_rewriting_legacy_attribution ... ok
+test live_event_during_initial_read_is_never_overwritten ... ok
+test removed_queue_can_redeliver_but_inject_seen_is_per_live_session_not_permanent_receipt ... ok
+test history_failure_retries_and_counts_non_message_events_for_pagination ... ok
+test primitive_error_does_not_mark_injected_or_call_accepted ... ok
+test modes_deduplicate_pending_consumed_and_restored_inputs ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/driver.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/driver-d1350d8621cdd51b)
+
+running 13 tests
+test cancellation_health_is_published_only_after_outer_commit ... ok
+test cancelling_the_runner_errors_waiters_but_preserves_durable_rows ... ok
+test draining_preserves_interrupted_failures_and_waiting_rows_for_next_owner ... ok
+test cancellation_and_recreation_keep_the_new_sequence_after_old_completion ... ok
+test control_errors_do_not_fail_committed_commands_and_read_only_queries_do_not_kick ... ok
+test periodic_pass_keeps_a_committed_prefix_when_a_later_thread_fails ... ok
+test coalescing_and_reentrant_limit_preserve_the_running_generation ... ok
+test transactions_and_domain_controls_do_not_escape_until_outer_commit ... ok
+test limit_failures_and_handler_panics_are_reported_and_can_recover ... ok
+test synchronous_handler_prefix_precedes_later_kind_limit_and_settlement_waits ... ok
+test per_kind_limits_and_kind_idle_ignore_other_running_work ... ok
+test retries_later_and_health_need_an_explicit_dispatch_not_a_new_timer ... ok
+test sql_domain_and_native_driver_share_intents_and_release_controls_before_launch ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.09s
+
+     Running tests/durability.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/durability-6621b92659aeab2d)
+
+running 12 tests
+test persisted_settings_retain_policy_identity_source_insertion_order ... ok
+test reply_order_is_per_ticket_and_thread_and_stops_blocking_after_three_failures ... ok
+test native_nested_callbacks_commit_in_order_and_discard_rolled_back_levels ... ok
+test generations_and_sequence_fence_old_attempt_completion ... ok
+test receipts_keep_first_payload_and_restore_permanent_receipt_after_inflight_withdraw ... ok
+test outbox_defers_off_sources_and_drops_ignored_or_gone_channels_permanently ... ok
+test outbound_validation_failure_rolls_back_the_ticket_and_its_intents ... ok
+test acceptance_commits_domain_receipt_and_effects_together_once ... ok
+test nested_command_controls_cannot_escape_before_commit_or_after_rollback ... ok
+test retry_backoff_later_shutdown_and_restart_are_persistent ... ok
+test every_transaction_failure_cut_restores_domain_and_outbound_intents ... ok
+test real_process_crashes_leave_no_partial_commit_and_replay_accept_once ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+
+     Running tests/feishu_read.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/feishu_read-2c2a14f707e7b361)
+
+running 1 test
+test original_feishu_reader_confines_messages_threads_chat_pages_and_exact_cli_requests ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.15s
+
+     Running tests/feishu_source.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/feishu_source-af7ed0967068f270)
+
+running 11 tests
+test live_bot_consumer_remains_ready_with_managed_stdin_and_joins_on_cancel ... ignored, Real bot consumer; requires explicit existing CLI authorization
+test original_trigger_config_scope_and_link_business_samples_match ... ok
+test setup_probe_has_its_own_sixty_second_deadline_and_never_falls_back ... ok
+test bot_identity_setup_never_falls_back_to_user_or_unready_app ... ok
+test bot_setup_ignores_worker_shims_and_relative_path_entries_without_changing_alias ... ok
+test readiness_deadline_cancels_and_joins_the_unready_consumer_tree ... ok
+test event_consumer_retains_split_unicode_reports_malformed_lines_and_joins_on_cancel ... ok
+test natural_consumer_eof_drains_unterminated_unicode_lines_and_is_not_ready_success ... ok
+test member_read_cancellation_joins_the_real_cli_and_terminates_its_descendant ... ok
+test original_member_sync_and_reply_run_over_verified_real_cli_with_exact_bot_argv ... ok
+test oversized_event_is_visible_but_does_not_restart_or_hide_next_event ... ok
+
+test result: ok. 10 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 6.33s
+
+     Running tests/github_checkout.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/github_checkout-f2ac96cc3df75a99)
+
+running 10 tests
+test live_github_configured_repositories_use_same_generic_implementation ... ignored, requires explicit live GitHub repositories/account/owned output path
+test literal_ref_validation_accepts_unicode_and_rejects_git_operators ... ok
+test invalid_network_settings_fail_without_fetch_or_secret_echo ... ok
+test reviewed_network_config_preserves_route_but_not_hooks_credentials_or_tls_bypass ... ok
+test cancellation_joins_fetch_cleans_staging_and_releases_lock_for_retry ... ok
+test corrupt_objects_rebuild_without_breaking_previous_workspaces ... ok
+test no_stale_fallback_on_api_fetch_failure_or_racing_revision ... ok
+test corrupt_cache_rebuild_concurrent_lock_and_uncached_checkout ... ok
+test refreshes_head_explicit_commit_and_pr_head_not_default_branch ... ok
+test multiple_repositories_accounts_defaults_and_independent_workspaces ... ok
+
+test result: ok. 9 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 1.72s
+
+     Running tests/github_explore.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/github_explore-533bb31ad45e7878)
+
+running 8 tests
+test catalog_is_small_on_demand_and_all_operations_have_a_strict_schema ... ok
+test each_collection_and_detail_operation_uses_the_expected_get_endpoint ... ok
+test one_page_returns_reusable_typed_next_call_and_keeps_filters ... ok
+test invalid_parameters_and_cancelled_calls_never_touch_transport ... ok
+test search_is_literal_repo_bound_and_exposes_github_completeness ... ok
+test pagination_never_trusts_model_or_remote_host_and_rejects_bad_pages ... ok
+test get_is_explicitly_preview_only_and_protocol_failures_do_not_look_empty ... ok
+test directory_listing_is_encoded_and_locally_bounded_with_explicit_api_limit ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+
+     Running tests/github_read.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/github_read-3bd9c04cb45c1d1c)
+
+running 1 test
+test original_read_github_outputs_errors_and_exact_request_paths_match ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/github_source.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/github_source-10cad3fe3f357cd4)
+
+running 7 tests
+test ci_requires_nullable_conclusion_and_counts_failure_during_running_work ... ok
+test source_settings_scope_and_repository_confinement_are_not_authorization_shortcuts ... ok
+test normalization_matches_unmodified_pinned_source_functions ... ok
+test prepared_ports_are_unavailable_until_real_identity_is_installed_once ... ok
+test real_managed_gh_cli_checks_identity_access_headers_and_argv_without_shell_interpolation ... ok
+test managed_cli_preserves_http_failure_and_cancel_joins_the_process_tree ... ok
+test receipt_marker_delivery_matches_original_and_retries_only_retryable_errors ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+
+     Running tests/legacy_control_boundaries.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/legacy_control_boundaries-0ec8a3608f9d6f1f)
+
+running 5 tests
+test interrupt_settles_across_result_to_idle_handoff ... ok
+test interrupt_settles_when_core_is_closed_before_host_eof ... ok
+test interrupt_orders_with_real_loop_start_handoff ... ok
+test multithread_real_subagent_prompt_interrupt_512_boundaries ... ok
+test current_thread_real_subagent_prompt_interrupt_512_boundaries ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 40.26s
+
+     Running tests/migration.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/migration-0347398f40d9cc5a)
+
+running 6 tests
+test invalid_ticket_error_names_the_record_and_leaves_all_rows_unchanged ... ok
+test migrated_legacy_decisions_load_and_accept_replay_without_invented_authority ... ok
+test settings_null_snapshot_defaults_and_null_legacy_queues_follow_nullish_semantics ... ok
+test migration_replay_retains_history_and_preexisting_attempts_without_requeueing ... ok
+test every_migration_cut_rolls_back_data_ddl_and_schema_marker ... ok
+test process_crashes_at_migration_boundaries_recover_without_duplicate_effects ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.50s
+
+     Running tests/models.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/models-35d4f0af08ad6c7d)
+
+running 7 tests
+test formatting_keeps_first_five_order_and_uses_last_active_timestamp ... ok
+test cancellation_drops_blocked_read_joins_task_and_releases_entry ... ok
+test unfinished_history_does_not_make_idle_worker_a_live_budget_wait ... ok
+test abandoning_a_read_barrier_does_not_detach_the_owning_observer ... ok
+test read_failure_stays_visible_after_closed_activity_and_fails_owner_join ... ok
+test independent_live_updates_keep_registration_order_and_release_after_dispose ... ok
+test idle_running_idle_aba_forces_a_second_snapshot_read ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/native_delivery.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/native_delivery-c7cd8c687554a0c3)
+
+running 15 tests
+test authorization_and_abort_failures_do_not_admit_or_report_accepted ... ok
+test native_registry_protocol_and_agent_do_not_form_a_retaining_cycle ... ok
+test physical_default_requires_an_explicit_opt_in_and_keeps_its_old_queue_path ... ok
+test accepted_throw_retains_exact_failure_and_actor_owns_committed_input ... ok
+test real_post_acceptance_io_failure_retains_logical_input_and_retry_is_exactly_once ... ok
+test dropped_waiter_is_adopted_and_stale_object_cannot_dispose_replacement ... ok
+test restored_catalogue_replaces_live_identity_and_stale_agent_cannot_admit ... ok
+test setup_revoked_inside_authorize_is_checked_again_before_logical_commit ... ok
+test native_producer_ack_waits_for_real_fsync_but_not_a_blocked_core_control_ack ... ok
+test final_global_flush_reaches_an_earlier_writer_before_own_input_fsync_completes ... ok
+test consumed_queue_is_not_redelivered_in_the_same_live_object_or_after_restore ... ok
+test all_modes_run_real_hot_callbacks_before_io_and_preserve_content_provenance ... ok
+test actual_global_flush_preserves_ordered_errors_and_flushes_later_healthy_writer_after_own_failure ... ok
+test multithread_native_producers_are_accepted_while_live_core_and_real_flush_are_held ... ok
+test two_native_producers_are_accepted_while_the_real_jsonl_lock_blocks_flush ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.69s
+
+     Running tests/native_prompts.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/native_prompts-ce6d7a82ba3f0926)
+
+running 8 tests
+test closed_local_owner_fails_before_provider_or_revision_binding ... ok
+test endpoint_and_ticket_capabilities_cannot_be_reassigned_between_native_owners ... ok
+test native_shutdown_settles_a_turn_without_polling_the_local_sql_owner ... ok
+test decoration_survives_ticket_deletion_before_the_first_model_request ... ok
+test initially_unrecognized_worker_keeps_dynamic_host_base_until_explicit_redecoration ... ok
+test native_main_refreshes_current_sql_version_per_generation_complete_literal_and_physical_audit ... ok
+test native_worker_keeps_base_current_mandate_executor_source_environment_then_reference_deleted_ticket_fallback ... ok
+test actual_native_skill_tool_refreshes_revisions_restarts_same_revision_and_loads_real_resources ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.72s
+
+     Running tests/native_sessions.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/native_sessions-eab70f16d25c1c45)
+
+running 35 tests
+test unavailable_role_routes_fail_before_state_is_created ... ok
+test independent_state_roots_do_not_accept_a_foreign_managed_binding ... ok
+test custom_policy_overrides_fail_closed_instead_of_expanding_permissions ... ok
+test passive_logical_inspection_rejects_missing_or_duplicate_creation_proof ... ok
+test passive_model_health_read_never_activates_or_wakes_unloaded_or_queued_work ... ok
+test passive_notice_does_not_reopen_a_failed_or_stopped_dispatch_gate ... ok
+test shutdown_fences_new_admission_and_keeps_pending_receipts ... ok
+test acknowledged_queue_survives_abrupt_process_exit_without_graceful_flush ... ok
+test retrying_a_removed_live_notice_as_followup_does_not_wake_or_replace_it ... ok
+test stable_scoped_creation_has_original_receipt_and_never_calls_a_model ... ok
+test logical_identity_cannot_be_rebound_to_a_different_workspace_or_owner ... ok
+test both_waking_modes_keep_internal_input_behind_the_stopped_gate ... ok
+test legacy_user_rpc_dedup_does_not_let_an_internal_retry_resume_a_paused_worker ... ok
+test passive_logical_inspection_reads_cold_inbox_without_creation_activation_or_workspace ... ok
+test second_runtime_cannot_bypass_the_real_session_file_lease ... ok
+test local_sql_effect_owner_can_ack_only_after_native_jsonl_admission ... ok
+test passive_notice_is_real_next_step_without_a_turn_goal_or_implicit_wake ... ok
+test noninterrupting_steer_wakes_idle_with_a_pre_admission_observer_and_no_goal ... ok
+test restart_uses_pending_jsonl_and_exact_identity_without_auto_wake ... ok
+test state_root_relocation_keeps_the_same_native_conversation_and_receipt ... ok
+test setup_queue_flush_concurrent_dedup_and_attribution_are_real_jsonl ... ok
+test selected_durable_model_is_not_overwritten_and_unavailable_never_falls_back ... ok
+test native_steer_reaches_live_next_step_without_interrupt_and_both_input_observers_settle ... ok
+test passive_notice_reaches_the_next_live_step_without_interrupting_a_held_model ... ok
+test restored_waking_step_retries_subscribe_before_wake_without_reinserting_input ... ok
+test owner_removal_evicts_old_observer_and_permits_changed_unconsumed_queue_redelivery ... ok
+test live_external_observer_is_not_misreported_as_released_during_shutdown ... ok
+test native_followup_wakes_and_remains_a_distinct_ordinary_turn ... ok
+test queued_native_inputs_keep_individual_observers_without_reexecuting ... ok
+test failed_and_explicitly_stopped_sessions_do_not_reopen_on_internal_input ... ok
+test removed_passive_notice_seen_cache_is_live_only_and_consumed_notice_survives_restore ... ok
+test explicit_worker_access_reaches_factory_and_can_be_downgraded_after_restart ... ok
+test queue_wake_claim_result_and_per_role_tool_factories_use_the_native_loop ... ok
+test passive_notice_recognizes_native_pending_and_consumed_legacy_producer_provenance ... ok
+test real_native_retry_journal_projects_budget_wait_until_proven_same_provider_success ... ok
+
+test result: ok. 35 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.64s
+
+     Running tests/passes.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/passes-437f8e82a3be8bc6)
+
+running 16 tests
+test runner_drop_rejects_pending_waiters_and_does_not_retain_owner_cycles ... ok
+test earlier_pump_and_idle_awaits_do_not_publish_later_request_health_early ... ok
+test closing_changed_by_kick_skips_evaluation_and_setup_gates_dispatch ... ok
+test failed_first_pass_still_runs_followup_and_stop_returns_both_settlements ... ok
+test stop_waits_passes_not_effects_and_idle_propagates_effect_failure ... ok
+test requested_failure_is_visible_after_idle_and_only_requested_success_recovers_health ... ok
+test lifetime_abort_suppresses_recovery_but_not_failure_reporting ... ok
+test hot_pumps_coalesce_to_one_followup_and_kick_precedes_evaluation ... ok
+test repeated_start_preserves_the_reference_latest_handle_only_stop_behavior ... ok
+test receive_checks_closing_before_storage_and_requests_only_stored ... ok
+test synchronous_reentry_happens_before_pumping_assignment_without_borrow_panics ... ok
+test timer_has_no_initial_tick_uses_two_seconds_and_stop_does_not_gate_on_demand_work ... ok
+test actual_sql_driver_admission_pass_and_effect_idle_have_separate_shutdown_boundaries ... ok
+test periodic_kick_retries_due_native_effects_without_a_driver_retry_timer ... ok
+test actual_sql_later_thread_failure_keeps_committed_prefix_and_requested_health_recovers ... ok
+test real_two_second_timer_advances_actual_sql_without_manual_pump ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.03s
+
+     Running tests/product_entry.rs (/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_entry-56c3b96fa0b72fac)
+
+running 71 tests
+test access::full_access_worker_reads_github_with_existing_service_account ... ignored, requires explicit existing GitHub account and repository; performs real read-only API calls
+test access::unknown_worker_access_is_rejected_before_product_start ... ok
+test search::formal_search_missing_explicit_credential_never_uses_the_model_key_or_calls_a_model ... ok
+test search::live_deepseek_search_is_shared_with_glm_route_and_main_role ... ignored, requires authorized existing DeepSeek search credential; bills real read-only Search API calls
+已初始化空的 Git 仓库于 /tmp/superagent-entry-1049689-63/template/.git/
+已初始化空的 Git 仓库于 /tmp/superagent-entry-1049689-48/template/.git/
+已初始化空的 Git 仓库于 /tmp/superagent-entry-1049689-39/template/.git/
+[main （根提交） 376d309] fixture
+ 2 files changed, 5 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 build.py
+[main （根提交） 376d309] fixture
+ 2 files changed, 5 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 build.py
+[main （根提交） 376d309] fixture
+ 2 files changed, 5 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 build.py
+test invalid_saved_model_and_missing_configuration_never_fall_back ... ok
+test setup_failure_and_missing_model_credential_do_not_leave_a_live_owner ... ok
+test delivery::formal_delivery_check_is_read_only_and_invalid_opt_in_fails_before_setup ... ok
+已初始化空的 Git 仓库于 /tmp/superagent-entry-1049689-67/template/.git/
+已初始化空的 Git 仓库于 /tmp/superagent-entry-1049689-68/template/.git/
+[main （根提交） 376d309] fixture
+ 2 files changed, 5 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 build.py
+[main （根提交） 376d309] fixture
+ 2 files changed, 5 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 build.py
+test check_is_read_only_for_external_services_and_releases_state_lease ... ok
+test management::formal_management_bind_error_drains_owner_and_check_never_binds ... ok
+test watch_owns_the_state_exclusively_and_interrupt_joins_before_reopen ... ok
+{"state":"stopped","tickets":0,"pendingEffects":0,"github":null,"feishu":{"feishu":{"state":"error","detail":"[event] ready\nWARN fixture diagnostic"},"history":{"state":"ready","detail":"Configured groups and known direct chats recovered","at":"2026-11-02T14:49:50.103Z"}}}
+test management::formal_management_reads_real_state_guards_requests_and_joins_slow_body ... ok
+test management::formal_management_account_save_restarts_sources_after_cas_without_replaying_work ... ok
+test management::formal_management_saves_cas_environment_prompts_pause_and_restart ... ok
+test once_interrupt_cancels_a_model_wait_and_releases_the_lease ... ok
+test formal_sigterm_cancels_model_wait_and_releases_the_lease ... ok
+test assessment::formal_interrupt_joins_assessment_seed_without_authorizing_or_preparing_work ... ok
+test assessment::formal_explicit_request_refuses_eval_and_remains_routable ... ok
+test feishu::formal_sigterm_joins_feishu_consumer_tree_before_state_reopen ... ok
+test feishu::formal_feishu_self_and_malformed_events_are_not_triggers_but_scope_filters_are_retained ... ok
+test checkout::formal_checkout_interrupt_joins_clone_and_does_not_publish_partial_workspace ... ok
+test checkout::formal_checkout_changed_base_is_visible_failure_and_never_launches_worker ... ok
+test policy_sync::formal_policy_sync_without_bot_reports_setup_error_and_cannot_switch_cli_from_tool ... ok
+test assessment::formal_inferred_observe_records_proposal_and_finishes_refs_without_worker ... ok
+test management::formal_management_stops_existing_worker_and_preserves_assignment_history ... ok
+test policy_sync::formal_startup_sync_rejects_even_a_concurrent_names_only_policy_revision ... ok
+test preparation_failure_is_reported_without_worker_or_silent_retry ... ok
+test assessment::formal_inferred_direction_and_rule_gates_do_not_prepare_or_reply ... ok
+test github_explore::formal_disabled_github_source_blocks_both_read_tools_before_transport ... ok
+test assessment::formal_batch_context_caches_once_but_uses_each_requested_trigger_identity ... ok
+test delivery::formal_delivery_rechecks_live_authority_after_inflight_blob_before_ref_or_pr ... ok
+test formal_missing_recovery_workspace_preserves_input_and_exposes_delivery_error ... ok
+test assessment::formal_assessment_timeout_joins_cli_and_records_visible_unavailable_without_worker ... ok
+test formal_entry_source_native_coding_tools_and_reply_survive_restart_without_duplicate ... FAILED
+test refused_and_unauthorized_requests_do_not_start_workers ... ok
+test note::formal_ticket_note_does_not_wake_worker_blocked_for_human_or_expand_authority ... ok
+test access::explicit_full_access_worker_can_use_network_and_owned_external_path ... ok
+test configuration_lifecycle::formal_policy_save_rolls_back_history_effects_and_authority_on_sql_cut ... ok
+test note::formal_context_note_wakes_waiting_worker_on_same_assignment_without_new_authority ... ok
+test formal_messages_protocol_runs_native_worker_and_reply_with_signature_replay ... ok
+test formal_idle_worker_gets_waiting_report_and_status_request_reaches_same_assignment ... ok
+test formal_main_retries_a_failed_worker_as_a_new_assignment_before_real_work ... ok
+test workspace::explicit_workspace_disable_overrides_legacy_checkout_setting ... ok
+test management::formal_management_queries_nonempty_history_timeline_and_restart_without_duplicate_work ... ok
+test checkout::formal_cold_import_replays_source_without_duplicate_ticket_tool_or_sent_reply ... ok
+test policy_sync::formal_policy_sync_incomplete_members_are_health_error_not_grant_or_idle_blocker ... ok
+test policy_sync::formal_interrupt_joins_policy_sync_cli_tree_before_reopen_and_startup_sync ... ok
+test formal_worker_thread_controls_keep_ownership_context_and_role_boundaries ... ok
+test feishu::formal_feishu_direct_messages_obey_scope_and_keep_direct_reply_address ... ok
+test formal_crashed_worker_restarts_with_recovery_note_and_preserves_its_worktree ... ok
+test policy_sync::formal_startup_sync_merges_unrelated_saves_and_does_not_invent_source_off_conflict ... ok
+test checkout::formal_checkout_verifies_git_runs_prepare_and_real_build_then_reopens_without_reclone ... ok
+test delivery::formal_delivery_rejects_unsafe_files_and_modes_before_external_mutation ... ok
+test github_explore::formal_github_exploration_is_shared_without_main_shell_or_repo_hardcoding ... ok
+test feishu::formal_feishu_stream_reads_context_runs_worker_replies_and_reopens_without_duplicates ... ok
+test workspace::formal_generic_checkout_without_broker_builds_and_reopens_without_reclone ... ok
+test formal_waiting_worker_rebinds_after_restart_and_reads_new_source_input_once ... ok
+test interrupt_joins_inflight_read_cli_before_lease_release_without_completion ... ok
+test feishu::formal_feishu_consumer_failure_restarts_after_backoff_without_duplicate_work ... ok
+test policy_sync::formal_bad_optional_bot_never_falls_back_or_blocks_github_worker_and_reply ... ok
+test configuration::formal_prompt_tool_previews_are_ephemeral_saves_bind_next_request_and_persist_versions ... ok
+test search::formal_search_is_shared_by_main_and_workers_without_model_or_process_policy_changes ... ok
+test feishu::formal_feishu_history_confines_pages_keeps_failed_cursor_and_recovers_without_duplicate_work ... ok
+test assessment::formal_inferred_auto_uses_scoped_context_rules_real_worker_and_reply ... ok
+test policy_sync::formal_policy_sync_updates_members_names_noop_guards_and_persists_sync_origin ... ok
+test formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history ... ok
+test delivery::formal_delivery_publishes_immutable_text_snapshot_reconciles_retry_and_reads_reviews ... ok
+test feishu::formal_feishu_source_disable_stops_and_joins_consumer_and_drops_read_after_disable ... ok
+test feishu::formal_source_owner_sql_failure_exits_and_joins_consumer_instead_of_hanging ... ok
+test note::formal_ticket_note_delivers_trimmed_fact_with_original_mandate_and_rejects_invalid_or_ended_targets ... FAILED
+
+thread '<unnamed>' (1049836) panicked at crates/xharness-superagent/tests/product_entry/configuration.rs:22:32:
+Read block 16 failed: {"content":"","error":"tool execution denied: guard failed closed: Product processing is paused","ok":false,"truncated":false}
+
+thread 'configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model' (1049719) panicked at crates/xharness-superagent/tests/product_entry.rs:98:14:
+product entry exceeded bounded test deadline: Elapsed(())
+
+thread 'configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model' (1049719) panicked at crates/xharness-superagent/tests/product_entry.rs:213:25:
+called `Result::unwrap()` on an `Err` value: Any { .. }
+stack backtrace:
+   0:     0x61dfec7e2741 - std[c29fa2d9dbea2b0e]::backtrace_rs::backtrace::libunwind::trace
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/../../backtrace/src/backtrace/libunwind.rs:117:9
+   1:     0x61dfec7e2741 - std[c29fa2d9dbea2b0e]::backtrace_rs::backtrace::trace_unsynchronized::<std[c29fa2d9dbea2b0e]::sys::backtrace::_print_fmt::{closure#1}>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/../../backtrace/src/backtrace/mod.rs:66:14
+   2:     0x61dfec7e2741 - std[c29fa2d9dbea2b0e]::sys::backtrace::_print_fmt
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/sys/backtrace.rs:74:9
+   3:     0x61dfec7e2741 - <<std[c29fa2d9dbea2b0e]::sys::backtrace::BacktraceLock>::print::DisplayBacktrace as core[a9090a07a7fa7517]::fmt::Display>::fmt
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/sys/backtrace.rs:44:26
+   4:     0x61dfec7fba9a - <core[a9090a07a7fa7517]::fmt::rt::Argument>::fmt
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/fmt/rt.rs:152:76
+   5:     0x61dfec7fba9a - core[a9090a07a7fa7517]::fmt::write
+   6:     0x61dfec7e7b9c - core[a9090a07a7fa7517]::io::write::default_write_fmt::<alloc[12ca63220423dfc2]::vec::Vec<u8>>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/io/write.rs:402:11
+   7:     0x61dfec7e7b9c - <alloc[12ca63220423dfc2]::vec::Vec<u8> as core[a9090a07a7fa7517]::io::write::Write>::write_fmt
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/io/write.rs:335:13
+   8:     0x61dfec7b8f86 - <std[c29fa2d9dbea2b0e]::sys::backtrace::BacktraceLock>::print
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/sys/backtrace.rs:47:9
+   9:     0x61dfec7b8f86 - std[c29fa2d9dbea2b0e]::panicking::default_hook::{closure#0}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:292:27
+  10:     0x61dfec7d8039 - std[c29fa2d9dbea2b0e]::panicking::default_hook
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:316:9
+  11:     0x61dfebb88800 - <alloc[12ca63220423dfc2]::boxed::Box<dyn for<'a, 'b> core[a9090a07a7fa7517]::ops::function::Fn<(&'a std[c29fa2d9dbea2b0e]::panic::PanicHookInfo<'b>,), Output = ()> + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync> as core[a9090a07a7fa7517]::ops::function::Fn<(&std[c29fa2d9dbea2b0e]::panic::PanicHookInfo,)>>::call
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/alloc/src/boxed.rs:2334:9
+  12:     0x61dfebb88800 - test[de0ab365ed256f3]::test_main_inner::<test[de0ab365ed256f3]::test_main_static::{closure#0}>::{closure#0}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/test/src/lib.rs:155:21
+  13:     0x61dfec7d8362 - <alloc[12ca63220423dfc2]::boxed::Box<dyn for<'a, 'b> core[a9090a07a7fa7517]::ops::function::Fn<(&'a std[c29fa2d9dbea2b0e]::panic::PanicHookInfo<'b>,), Output = ()> + core[a9090a07a7fa7517]::marker::Send + core[a9090a07a7fa7517]::marker::Sync> as core[a9090a07a7fa7517]::ops::function::Fn<(&std[c29fa2d9dbea2b0e]::panic::PanicHookInfo,)>>::call
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/alloc/src/boxed.rs:2334:9
+  14:     0x61dfec7d8362 - std[c29fa2d9dbea2b0e]::panicking::panic_with_hook
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:823:13
+  15:     0x61dfec7b9032 - std[c29fa2d9dbea2b0e]::panicking::panic_handler::{closure#0}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:688:13
+  16:     0x61dfec7b1929 - std[c29fa2d9dbea2b0e]::sys::backtrace::__rust_end_short_backtrace::<std[c29fa2d9dbea2b0e]::panicking::panic_handler::{closure#0}, !>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/sys/backtrace.rs:182:18
+  17:     0x61dfec7b9fcd - __rustc[9d087a5ab36ea756]::rust_begin_unwind
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:679:5
+  18:     0x61dfec7fc36c - core[a9090a07a7fa7517]::panicking::panic_fmt
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panicking.rs:80:14
+  19:     0x61dfec7fc092 - core[a9090a07a7fa7517]::result::unwrap_failed
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1871:5
+  20:     0x61dfeb9f9747 - <core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::any::Any + core[a9090a07a7fa7517]::marker::Send>>>::unwrap
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/result.rs:1232:23
+  21:     0x61dfeb9f9747 - <product_entry[afeb72d5af35348]::Server as core[a9090a07a7fa7517]::ops::drop::Drop>::drop
+                               at /home/data/wangyue/repos/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/business-alignment-01/crates/xharness-superagent/tests/product_entry.rs:213:25
+  22:     0x61dfeb9f8063 - core[a9090a07a7fa7517]::ptr::drop_glue::<product_entry[afeb72d5af35348]::Server>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ptr/mod.rs:847:1
+  23:     0x61dfebb0cfc6 - product_entry[afeb72d5af35348]::configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model::{closure#0}
+                               at /home/data/wangyue/repos/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/business-alignment-01/crates/xharness-superagent/tests/product_entry/configuration.rs:272:1
+  24:     0x61dfeb9b8a12 - <core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>> as core[a9090a07a7fa7517]::future::future::Future>::poll
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+  25:     0x61dfeb9b8a8d - <core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>> as core[a9090a07a7fa7517]::future::future::Future>::poll
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/future/future.rs:133:9
+  26:     0x61dfeba32e7d - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on::<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:70
+  27:     0x61dfeba32db5 - tokio[82ff675e3ed024ce]::task::coop::with_budget::<core[a9090a07a7fa7517]::task::poll::Poll<()>, <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/task/coop/mod.rs:167:5
+  28:     0x61dfeba32db5 - tokio[82ff675e3ed024ce]::task::coop::budget::<core[a9090a07a7fa7517]::task::poll::Poll<()>, <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}::{closure#0}>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/task/coop/mod.rs:133:5
+  29:     0x61dfeba32db5 - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on::<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:830:25
+  30:     0x61dfeba303a2 - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Context>::enter::<core[a9090a07a7fa7517]::task::poll::Poll<()>, <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}::{closure#0}>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:488:19
+  31:     0x61dfeba3226d - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on::<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:829:44
+  32:     0x61dfeba31504 - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}, core[a9090a07a7fa7517]::option::Option<()>>::{closure#0}
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:68
+  33:     0x61dfeb99a45b - <tokio[82ff675e3ed024ce]::runtime::context::scoped::Scoped<tokio[82ff675e3ed024ce]::runtime::scheduler::Context>>::set::<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}, core[a9090a07a7fa7517]::option::Option<()>>::{closure#0}, (alloc[12ca63220423dfc2]::boxed::Box<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Core>, core[a9090a07a7fa7517]::option::Option<()>)>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/context/scoped.rs:40:9
+  34:     0x61dfebb3d799 - tokio[82ff675e3ed024ce]::runtime::context::set_scheduler::<(alloc[12ca63220423dfc2]::boxed::Box<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Core>, core[a9090a07a7fa7517]::option::Option<()>), <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}, core[a9090a07a7fa7517]::option::Option<()>>::{closure#0}>::{closure#0}
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/context.rs:187:38
+  35:     0x61dfeb9862df - <std[c29fa2d9dbea2b0e]::thread::local::LocalKey<tokio[82ff675e3ed024ce]::runtime::context::Context>>::try_with::<tokio[82ff675e3ed024ce]::runtime::context::set_scheduler<(alloc[12ca63220423dfc2]::boxed::Box<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Core>, core[a9090a07a7fa7517]::option::Option<()>), <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}, core[a9090a07a7fa7517]::option::Option<()>>::{closure#0}>::{closure#0}, (alloc[12ca63220423dfc2]::boxed::Box<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Core>, core[a9090a07a7fa7517]::option::Option<()>)>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:463:12
+  36:     0x61dfeb985e8e - <std[c29fa2d9dbea2b0e]::thread::local::LocalKey<tokio[82ff675e3ed024ce]::runtime::context::Context>>::with::<tokio[82ff675e3ed024ce]::runtime::context::set_scheduler<(alloc[12ca63220423dfc2]::boxed::Box<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Core>, core[a9090a07a7fa7517]::option::Option<()>), <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}, core[a9090a07a7fa7517]::option::Option<()>>::{closure#0}>::{closure#0}, (alloc[12ca63220423dfc2]::boxed::Box<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Core>, core[a9090a07a7fa7517]::option::Option<()>)>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/local.rs:427:20
+  37:     0x61dfebb3d64d - tokio[82ff675e3ed024ce]::runtime::context::set_scheduler::<(alloc[12ca63220423dfc2]::boxed::Box<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::Core>, core[a9090a07a7fa7517]::option::Option<()>), <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::enter<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}, core[a9090a07a7fa7517]::option::Option<()>>::{closure#0}>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/context.rs:187:17
+  38:     0x61dfeba30af0 - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::enter::<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>::{closure#0}, core[a9090a07a7fa7517]::option::Option<()>>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:906:27
+  39:     0x61dfeba30de6 - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CoreGuard>::block_on::<core[a9090a07a7fa7517]::pin::Pin<&mut core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:817:24
+  40:     0x61dfeba313b0 - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CurrentThread>::block_on::<core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>::{closure#0}
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:218:33
+  41:     0x61dfeb9b7288 - tokio[82ff675e3ed024ce]::runtime::context::runtime::enter_runtime::<<tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CurrentThread>::block_on<core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>::{closure#0}, ()>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/context/runtime.rs:65:16
+  42:     0x61dfeba2ff64 - <tokio[82ff675e3ed024ce]::runtime::scheduler::current_thread::CurrentThread>::block_on::<core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/scheduler/current_thread/mod.rs:206:9
+  43:     0x61dfeb9ff32f - <tokio[82ff675e3ed024ce]::runtime::runtime::Runtime>::block_on_inner::<core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/runtime.rs:374:52
+  44:     0x61dfeb9ff47b - <tokio[82ff675e3ed024ce]::runtime::runtime::Runtime>::block_on::<core[a9090a07a7fa7517]::pin::Pin<&mut dyn core[a9090a07a7fa7517]::future::future::Future<Output = ()>>>
+                               at /home/wzu/.cargo/registry/src/rsproxy.cn-e3de039b2554c837/tokio-1.53.1/src/runtime/runtime.rs:343:18
+  45:     0x61dfeb999db1 - product_entry[afeb72d5af35348]::configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model
+                               at /home/data/wangyue/repos/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/business-alignment-01/crates/xharness-superagent/tests/product_entry/configuration.rs:271:47
+  46:     0x61dfebb0ce37 - product_entry[afeb72d5af35348]::configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model::{closure#0}
+                               at /home/data/wangyue/repos/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/business-alignment-01/crates/xharness-superagent/tests/product_entry/configuration.rs:179:90
+  47:     0x61dfeb9fc346 - <product_entry[afeb72d5af35348]::configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model::{closure#0} as core[a9090a07a7fa7517]::ops::function::FnOnce<()>>::call_once
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+  48:     0x61dfebb7baeb - <fn() -> core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::string::String> as core[a9090a07a7fa7517]::ops::function::FnOnce<()>>::call_once
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+  49:     0x61dfebb7baeb - test[de0ab365ed256f3]::__rust_begin_short_backtrace::<core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::string::String>, fn() -> core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::string::String>>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/test/src/lib.rs:733:18
+  50:     0x61dfebb89155 - test[de0ab365ed256f3]::run_test_in_process::{closure#0}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/test/src/lib.rs:756:74
+  51:     0x61dfebb89155 - <core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<test[de0ab365ed256f3]::run_test_in_process::{closure#0}> as core[a9090a07a7fa7517]::ops::function::FnOnce<()>>::call_once
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panic/unwind_safe.rs:275:9
+  52:     0x61dfebb89155 - std[c29fa2d9dbea2b0e]::panicking::catch_unwind::do_call::<core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<test[de0ab365ed256f3]::run_test_in_process::{closure#0}>, core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::string::String>>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:576:43
+  53:     0x61dfebb89155 - std[c29fa2d9dbea2b0e]::panicking::catch_unwind::<core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::string::String>, core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<test[de0ab365ed256f3]::run_test_in_process::{closure#0}>>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:544:19
+  54:     0x61dfebb89155 - std[c29fa2d9dbea2b0e]::panic::catch_unwind::<core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<test[de0ab365ed256f3]::run_test_in_process::{closure#0}>, core[a9090a07a7fa7517]::result::Result<(), alloc[12ca63220423dfc2]::string::String>>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panic.rs:359:14
+  55:     0x61dfebb89155 - test[de0ab365ed256f3]::run_test_in_process
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/test/src/lib.rs:756:27
+  56:     0x61dfebb89155 - test[de0ab365ed256f3]::run_test::{closure#0}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/test/src/lib.rs:677:43
+  57:     0x61dfebb83b14 - test[de0ab365ed256f3]::run_test::{closure#1}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/test/src/lib.rs:707:41
+  58:     0x61dfebb83b14 - std[c29fa2d9dbea2b0e]::sys::backtrace::__rust_begin_short_backtrace::<test[de0ab365ed256f3]::run_test::{closure#1}, ()>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/sys/backtrace.rs:166:18
+  59:     0x61dfebb8c2b2 - std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked::<test[de0ab365ed256f3]::run_test::{closure#1}, ()>::{closure#1}::{closure#0}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/lifecycle.rs:70:13
+  60:     0x61dfebb8c2b2 - <core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked<test[de0ab365ed256f3]::run_test::{closure#1}, ()>::{closure#1}::{closure#0}> as core[a9090a07a7fa7517]::ops::function::FnOnce<()>>::call_once
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panic/unwind_safe.rs:275:9
+  61:     0x61dfebb8c2b2 - std[c29fa2d9dbea2b0e]::panicking::catch_unwind::do_call::<core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked<test[de0ab365ed256f3]::run_test::{closure#1}, ()>::{closure#1}::{closure#0}>, ()>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:576:43
+  62:     0x61dfebb8c2b2 - std[c29fa2d9dbea2b0e]::panicking::catch_unwind::<(), core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked<test[de0ab365ed256f3]::run_test::{closure#1}, ()>::{closure#1}::{closure#0}>>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panicking.rs:544:19
+  63:     0x61dfebb8c2b2 - std[c29fa2d9dbea2b0e]::panic::catch_unwind::<core[a9090a07a7fa7517]::panic::unwind_safe::AssertUnwindSafe<std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked<test[de0ab365ed256f3]::run_test::{closure#1}, ()>::{closure#1}::{closure#0}>, ()>
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/panic.rs:359:14
+  64:     0x61dfebb8c2b2 - std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked::<test[de0ab365ed256f3]::run_test::{closure#1}, ()>::{closure#1}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/thread/lifecycle.rs:68:26
+  65:     0x61dfebb8c2b2 - <std[c29fa2d9dbea2b0e]::thread::lifecycle::spawn_unchecked<test[de0ab365ed256f3]::run_test::{closure#1}, ()>::{closure#1} as core[a9090a07a7fa7517]::ops::function::FnOnce<()>>::call_once::{shim:vtable#0}
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/ops/function.rs:250:5
+  66:     0x61dfec7e10d9 - <alloc[12ca63220423dfc2]::boxed::Box<dyn core[a9090a07a7fa7517]::ops::function::FnOnce<(), Output = ()> + core[a9090a07a7fa7517]::marker::Send> as core[a9090a07a7fa7517]::ops::function::FnOnce<()>>::call_once
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/alloc/src/boxed.rs:2320:9
+  67:     0x61dfec7e10d9 - <std[c29fa2d9dbea2b0e]::sys::thread::unix::Thread>::new::thread_start
+                               at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/std/src/sys/thread/unix.rs:123:17
+  68:     0x763e5a894a83 - start_thread
+                               at ./nptl/pthread_create.c:442:8
+  69:     0x763e5a9268e0 - clone3
+                               at ./misc/../sysdeps/unix/sysv/linux/x86_64/clone3.S:81:0
+  70:                0x0 - <unknown>
+
+thread 'configuration::formal_settings_tools_apply_revisions_guards_pause_policy_and_new_worker_model' (1049719) panicked at /rustc/b940084d7eb6a299eb4bfeb8e34901bc051e7ac4/library/core/src/panicking.rs:233:5:
+panic in a destructor during cleanup
+thread caused non-unwinding panic. aborting.
+error: test failed, to rerun pass `-p xharness-superagent --test product_entry`
+
+Caused by:
+  process didn't exit successfully: `/home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_entry-56c3b96fa0b72fac` (signal: 6, SIGABRT: process abort signal)

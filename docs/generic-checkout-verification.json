@@ -1,0 +1,289 @@
+{
+  "schema_version": 1,
+  "at_utc": "2026-11-02T13:33:36.254372+00:00",
+  "status": "generic_checkout_implemented_and_rs_gray_deployed",
+  "scope": "product checkout/cache generalization, not full SuperAgent equivalence or fleet-wide replacement",
+  "source_commit": "dbdf071fff5d843007a0c6577fabe9d655fa5830",
+  "source_profile": "docs/generic-checkout-source-profile.json",
+  "source_profile_sha256": "7799e4e8ca8e2c861824116a0cfb4f6863356a711711d2b80922217cb6356247",
+  "source_profile_files": 795,
+  "local_remote_source_equal": true,
+  "host": "WZU_Server",
+  "local_rust_compilation": false,
+  "configuration": {
+    "workspace": {
+      "checkout": {
+        "enabled": true,
+        "cache": true,
+        "revision": {
+          "kind": "auto"
+        }
+      }
+    },
+    "repository_and_account": "verified GitHub Source, no repo/account embedded in checkout code",
+    "auto_revision": "trusted GitHub PR -> current PR head; other triggers -> remote default_branch; no main/master guess",
+    "explicit_revisions": [
+      "default_branch",
+      "branch",
+      "commit",
+      "pull_request"
+    ],
+    "cache_root": "per-instance stateDir/repository-cache",
+    "cache_key": "version + canonical repository + verified account login/id-derived identity; no token",
+    "legacy_compatibility": "absent workspace preserves repositoryDelivery.checkout; explicit workspace including enabled=false overrides it",
+    "delivery_tool_independent": true,
+    "new_dependencies": false,
+    "model_routes_permissions_accounts_and_prompts_changed": false
+  },
+  "guarantees_tested": [
+    "multiple repositories/default branches/accounts (account-isolation portion uses explicit offline API fixture)",
+    "every task has its own Git directory/index/objects; no alternates or hardlinks",
+    "fresh API SHA and exact fetched SHA; no stale success on API/fetch/race failure",
+    "default/branch/commit/PR-head selection with foreign PR-base rejection",
+    "OS locking including concurrent callers; cancellation joins process and releases lock",
+    "invalid manifest/object connectivity quarantine and rebuild",
+    "existing dirty destination refused; normal product reopen preserves prepared work",
+    "full executable checkout/build without optional repository_delivery broker",
+    "state-preserving serialized single-instance upgrade; Source CLI saved via verified human-management CAS"
+  ],
+  "regression": {
+    "packages": [
+      "xharness-superagent",
+      "xharness-web",
+      "xharness-coding-tools"
+    ],
+    "features": "xharness-superagent/conformance",
+    "all_targets": true,
+    "tests_passed": 393,
+    "tests_failed": 0,
+    "tests_ignored": 12,
+    "ignored_is_not_pass": true,
+    "strict_clippy": "passed",
+    "build": "passed",
+    "fleet_python_tests": 10,
+    "state_bundle_python_tests": 6,
+    "full_workspace_and_cross_platform_matrix_rerun": false
+  },
+  "actual_read_only_github_acceptance": {
+    "real_api_and_real_git": true,
+    "existing_account": "btlqql",
+    "repositories": [
+      "123123213weqw/x-harness-rs",
+      "123123213weqw/pi-rs"
+    ],
+    "receipts": [
+      {
+        "attempt": 0,
+        "elapsedMs": 4674,
+        "receipt": {
+          "cacheHit": true,
+          "commit": "a3c97f182e62d4ff4c7c02f987719062d060d9ca",
+          "repository": "123123213weqw/x-harness-rs",
+          "revision": {
+            "kind": "branch",
+            "name": "master"
+          }
+        }
+      },
+      {
+        "attempt": 1,
+        "elapsedMs": 4674,
+        "receipt": {
+          "cacheHit": true,
+          "commit": "a3c97f182e62d4ff4c7c02f987719062d060d9ca",
+          "repository": "123123213weqw/x-harness-rs",
+          "revision": {
+            "kind": "branch",
+            "name": "master"
+          }
+        }
+      },
+      {
+        "attempt": 0,
+        "elapsedMs": 9254,
+        "receipt": {
+          "cacheHit": false,
+          "commit": "cc28444e25f40e787fad21981be61aba9fe1e25f",
+          "repository": "123123213weqw/pi-rs",
+          "revision": {
+            "kind": "branch",
+            "name": "main"
+          }
+        }
+      },
+      {
+        "attempt": 1,
+        "elapsedMs": 3112,
+        "receipt": {
+          "cacheHit": true,
+          "commit": "cc28444e25f40e787fad21981be61aba9fe1e25f",
+          "repository": "123123213weqw/pi-rs",
+          "revision": {
+            "kind": "branch",
+            "name": "main"
+          }
+        }
+      }
+    ],
+    "initial_rs_cold_fetch": "timed out after 180 seconds; original failure retained",
+    "network_recovery": "healthy authenticated GitHub APIs + one-time independent copy of verified owned legacy Git objects; same SHA checked against remote; subsequent product checkout still resolves GitHub SHA",
+    "rs_seed_is_not_cold_fetch_success": true,
+    "pi_cold_fetch_and_second_cache_hit": "passed",
+    "production_cache_migration": "one-time verified bare-cache data moved to instance-owned cache; no working checkout/account/config copied",
+    "external_writes": false,
+    "paid_model_calls": false,
+    "new_human_feishu_task": false
+  },
+  "deployment": {
+    "status": "rs_generic_checkout_gray_deployed",
+    "release": "dbdf071fff5d-5e48abaf7a07",
+    "sourceCommit": "dbdf071fff5d843007a0c6577fabe9d655fa5830",
+    "binarySha256": "5e48abaf7a07ff7a5e45f067be050ff73e1c9bd14a1bd6e0d647dfbf43f808f3",
+    "pid": 583977,
+    "runningExecutableMatchesStagedArtifact": true,
+    "runtime": {
+      "at": "2026-11-02T13:29:10.636Z",
+      "detail": "Orchestrator is ready",
+      "state": "ready"
+    },
+    "load": {
+      "idle": 0,
+      "maxWorkers": 1.0,
+      "queued": 0,
+      "running": 0
+    },
+    "paused": false,
+    "sourcesReady": [
+      "feishu",
+      "github"
+    ],
+    "activeCheckoutUsesGenericPolicy": {
+      "checkout": {
+        "enabled": true,
+        "cache": true,
+        "revision": {
+          "kind": "auto"
+        }
+      }
+    },
+    "activeSourceUsesOrdinaryExistingCLI": true,
+    "unitDigestUnchanged": true,
+    "stateRetained": {
+      "ticket": {
+        "before": 4,
+        "after": 4,
+        "baselineRowsRetainedUnchanged": true
+      },
+      "disposition": {
+        "before": 140,
+        "after": 140,
+        "baselineRowsRetainedUnchanged": true
+      },
+      "outbox": {
+        "before": 14,
+        "after": 14,
+        "baselineRowsRetainedUnchanged": true
+      }
+    },
+    "nativeJournalPrefixesRetained": 94,
+    "otherFiveStartupTimesUnchanged": true,
+    "otherFiveStartTimes": {
+      "3092": "2026-11-01T12:45:44.583Z",
+      "3094": "2026-11-01T12:47:45.309Z",
+      "3095": "2026-11-01T12:48:46.199Z",
+      "3096": "2026-11-01T13:56:27.367Z",
+      "3097": "2026-11-02T00:31:21.203Z"
+    },
+    "backup": {
+      "objects": 5,
+      "files": 20996,
+      "verified": true
+    },
+    "newHumanFeishuWorkerTaskPerformed": false,
+    "externalGitHubWritesPerformed": false,
+    "rollback": "Use retained compatible binary AND previous config with current state. If returning to legacy checkout, reselect retained verified legacy adapter through human management CAS before activation; never restore old DB."
+  },
+  "source_cli_migration": {
+    "savedWithHumanManagementCAS": true,
+    "sameRepository": true,
+    "sameAccount": "btlqql",
+    "accountIdUnchanged": true,
+    "revisionBefore": 3,
+    "revisionAfter": 4,
+    "activeCliIsOrdinaryExistingAccount": true,
+    "dedicatedCheckoutAdapterNoLongerUsed": true,
+    "sourcesReady": [
+      "feishu",
+      "github"
+    ],
+    "databaseRestored": false,
+    "externalWrites": false,
+    "newHumanTaskSynthesized": false,
+    "pausedRestored": true
+  },
+  "known_limits": [
+    "Large-repository cold fetch on this server can still exceed the 180s timeout; prewarming/reusing verified owned objects was required for RS, not silently called a fresh download pass.",
+    "PR head checkout is covered; full original PR multi-round continuation/publishing is not signed off by this change.",
+    "No cache eviction scheduler; retained snapshots/quarantines need operator disk maintenance.",
+    "Other five legacy instances remain unchanged; no fleet-wide promotion or complete business-goal claim.",
+    "No new human Feishu Worker request performed in this update."
+  ],
+  "evidence_files": [
+    {
+      "path": "docs/evidence/generic-checkout-01/build.log",
+      "sha256": "2bc683fb4e4f4f21ee9ee39e2b8ecce2efe20d3b1be57bda5316aa519ab3d30a"
+    },
+    {
+      "path": "docs/evidence/generic-checkout-01/cache-seed.json",
+      "sha256": "4a61c550c65cbb383af45421b839bc98a1f4c0a48a7e51aaadd4b3785be3e1dc"
+    },
+    {
+      "path": "docs/evidence/generic-checkout-01/clippy.log",
+      "sha256": "05bab3a6ded6feee4eb24c7f77fc8729e3b4e4820bab3e8362f14c11498af5c6"
+    },
+    {
+      "path": "docs/evidence/generic-checkout-01/deployment-verification.json",
+      "sha256": "e3af0522fe4b2dcd5ccdfc8d5be0049cbfa37dd5e6dbc4959b68ab7291cc799f"
+    },
+    {
+      "path": "docs/evidence/generic-checkout-01/fleet-tests.log",
+      "sha256": "820bc38035f40caad6a564a85744291112c82fd550db680a2d1d454df5078420"
+    },
+    {
+      "path": "docs/evidence/generic-checkout-01/live-checkout-receipts.json",
+      "sha256": "d09fc5965e446f13a0f9d899ac0200b2e3453d35cc74c8a5241d83ecc657b7fa"
+    },
+    {
+      "path": "docs/evidence/generic-checkout-01/live-github-checkout-seeded.log",
+      "sha256": "a99d030762e67ac7cdcc8cc4b5fd6dcb1a68e1c3aa443f62aeffa5e449e102d1"
+    },
+    {
+      "path": "docs/evidence/generic-checkout-01/live-github-checkout.log",
+      "sha256": "6aaf5286a3161c523548d19733306605e06ff5ddfc54177923db58b9ac85ca56"
+    },
+    {
+      "path": "docs/evidence/generic-checkout-01/production-cache-seed.json",
+      "sha256": "39bb4af54f2222c02de0e2b9c7b75344e5ca00554d9128f7760779391d7c213f"
+    },
+    {
+      "path": "docs/evidence/generic-checkout-01/regression.log",
+      "sha256": "1ec5a2eaead1d666acf2045f2af9643ddbbdb305b9b69d33980054fb230d3006"
+    },
+    {
+      "path": "docs/evidence/generic-checkout-01/release-evidence.json",
+      "sha256": "28ab95e99de9054b57971c1378afdf258d5f272d52a4b47aab54349794e3b896"
+    },
+    {
+      "path": "docs/evidence/generic-checkout-01/source-cli-migration.json",
+      "sha256": "b40da86afaee88f91a31d2970eca091e4150fe447509513fc1416eb770c282d5"
+    },
+    {
+      "path": "docs/evidence/generic-checkout-01/stage.json",
+      "sha256": "7cf93e1b73ed0d8c659a41ae00c2ca11cc4490121c02bff68a5d6fa815ad4e58"
+    },
+    {
+      "path": "docs/evidence/generic-checkout-01/state-bundle-tests.log",
+      "sha256": "6491e43cbd1d1149b3adb10777c00c7d2fce9edb5c976624329feb6b2104660d"
+    }
+  ]
+}

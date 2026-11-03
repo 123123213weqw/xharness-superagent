@@ -1,0 +1,31 @@
++ export PATH=/home/wzu/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ PATH=/home/wzu/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
++ root=/home/wzu/codex-build/x-harness-rs-superagent-validation
+++ cat /home/wzu/codex-build/x-harness-rs-superagent-validation/.superagent-goal-owner
++ test 01a1923a-5b0a-79a0-9675-4638cf37b624 = 01a1923a-5b0a-79a0-9675-4638cf37b624
++ cd <owned-source>
+++ cat .superagent-goal-owner
++ test 01a1923a-5b0a-79a0-9675-4638cf37b624-business = 01a1923a-5b0a-79a0-9675-4638cf37b624-business
+++ cat /home/wzu/codex-build/x-harness-rs-superagent-validation/.alignment-evidence/publication-xharness-superagent-01/.superagent-goal-owner
++ test 01a1923a-5b0a-79a0-9675-4638cf37b624-publication = 01a1923a-5b0a-79a0-9675-4638cf37b624-publication
++ export CARGO_TARGET_DIR=<owned-target>
++ CARGO_TARGET_DIR=<owned-target>
++ unset XH_GH_LIVE
++ cargo fmt --all
++ cargo fmt --all -- --check
++ cargo check --locked --workspace --all-targets --features xharness-superagent/conformance
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+error[E0308]: mismatched types
+  --> crates/xharness-superagent/tests/resource_rendering.rs:13:23
+   |
+13 |             revision: 1,
+   |                       ^ expected `Revision`, found integer
+   |
+help: try wrapping the expression in `xharness_session::Revision`
+   |
+13 |             revision: xharness_session::Revision(1),
+   |                       +++++++++++++++++++++++++++ +
+
+For more information about this error, try `rustc --explain E0308`.
+error: could not compile `xharness-superagent` (test "resource_rendering") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...

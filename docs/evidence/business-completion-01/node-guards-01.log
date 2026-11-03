@@ -1,0 +1,25 @@
+✔ declared six new packages and seven feature-edge sections reconstruct prior lock exactly (2.923917ms)
+✔ unrelated append, changed version, checksum, dependency edge and missing package fail closed (1.466834ms)
+✔ one direct url edge reconstructs the exact preceding business lock (0.737167ms)
+✔ appended bytes, package version and dependency mutations fail closed (0.813083ms)
+✔ bounded observation fence reconstructs exact imported test and every original assertion (3.200167ms)
+✔ weakened original assertions, changed wait and unrelated edits fail closed (0.8545ms)
+✔ wrong import base and missing observation fence fail closed (0.171459ms)
+✔ local addition reconstructs the exact frozen audited Host bytes (1.263ms)
+✔ undeclared modification outside the local addition is rejected (1.311ms)
+✔ modification inside the local addition is rejected (1.734958ms)
+✔ wrong import-chain base and unpatched baseline are rejected (0.659292ms)
+✔ Management direct transport edges reconstruct the exact previous lock (3.058041ms)
+✔ Management overlay rejects package, edge and unrelated byte mutations (0.877625ms)
+✔ Messages direct transport edges reconstruct the exact previous lock (0.79525ms)
+✔ Messages overlay rejects package, edge and unrelated byte mutations (0.919083ms)
+✔ exact product workspace edge reconstructs audited lock (0.674542ms)
+✔ unrelated lock edits, wrong base and changed dependency are rejected (0.927166ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 96.565958

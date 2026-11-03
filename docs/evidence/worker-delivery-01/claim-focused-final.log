@@ -1,0 +1,42 @@
+    Checking xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.59s
+    Checking xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.88s
+   Compiling xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.17s
+     Running tests/product_entry.rs (<OWNED_WORKSPACE>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_entry-e63082d92e636d98)
+
+running 4 tests
+test delivery::formal_delivery_check_is_read_only_and_invalid_opt_in_fails_before_setup ... ok
+test delivery::formal_delivery_publishes_immutable_text_snapshot_reconciles_retry_and_reads_reviews ... ok
+test delivery::formal_delivery_rechecks_live_authority_after_inflight_blob_before_ref_or_pr ... ok
+test delivery::formal_delivery_rejects_unsafe_files_and_modes_before_external_mutation ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 51 filtered out; finished in 8.85s
+
+   Compiling xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.41s
+     Running tests/product_native.rs (<OWNED_WORKSPACE>/.alignment-evidence/publication-xharness-superagent-01/target/debug/deps/product_native-ae2da521e9138a76)
+
+running 15 tests
+test github::agent_pull_branch_binds_the_live_ticket_and_closing_it_cancels_native_worker ... ok
+test github::branch_ci_baselines_first_observation_and_defers_recovery_while_running ... ok
+test github::cancellation_mid_read_does_not_advance_unread_thread_or_retry_cursor ... ok
+test github::comments_cross_real_source_policy_native_file_and_receipt_channel_without_duplicate ... ok
+test github::deleted_and_day_old_failed_notifications_do_not_hold_health_in_error ... ok
+test github::notification_failure_does_not_rollback_other_streams_and_etag_304_deduplicates ... ok
+test github::notification_read_failure_retains_retry_until_recovery_and_health_threshold ... ok
+test github::unlisted_and_bot_source_comments_never_start_any_model_or_worker ... ok
+test main_ignore_records_decision_without_launching_worker ... ok
+test main_routes_native_worker_writes_reports_and_main_replies ... ok
+test provider_failure_is_not_silently_reported_as_idle_success ... ok
+test restart_keeps_ticket_receipts_and_duplicate_does_not_rerun ... ok
+test route_batch_refuses_one_item_without_rolling_back_another ... ok
+test shutdown_cancels_and_joins_a_running_native_worker ... ok
+test unauthorized_source_never_reaches_any_model_or_tool ... ok
+
+test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.29s
+
+   Compiling xharness-superagent v0.1.0 (<OWNED_WORKSPACE>/.alignment-evidence/business-alignment-01/crates/xharness-superagent)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 20.85s
+eb90fd80384f8e89b7b40c7d004a31efb3a2b6264cc8c8356bb22280fd36b160  <OWNED_WORKSPACE>/.alignment-evidence/real-acceptance-01/bin/delivery-candidate-v2

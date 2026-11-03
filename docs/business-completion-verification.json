@@ -1,0 +1,349 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-11-02T08:36:59.841370+00:00",
+  "source_commit": "b292f5bcac2cc5b7299fb0417573b5cc27541291",
+  "reference_commit": "6337fc823ce20251c8de8085948165c81aaa701e",
+  "scope": "Business management v2, trusted prepared checkout, cold import/full directory rollback and isolated real offline Rust delivery; full business and production replacement incomplete",
+  "goal_complete": false,
+  "source_profile": {
+    "path": "docs/business-completion-source-profile.json",
+    "files": 782,
+    "sha256": "99c59ed4d5dd8918aadebcb1ddb3d1f59277879fd3a3462428b2287ee90d24dc",
+    "local_remote_committed_equal": true
+  },
+  "dependencies": {
+    "Cargo_lock_changed_since_6896a9c": false,
+    "new_packages": [],
+    "operators": "Python standard library + installed systemd; no new Rust/JS library"
+  },
+  "formal_product": {
+    "environment": "Formal executable + actual Native/CodingToolBundle/SQL/Driver/Outbox; only model/GitHub/Feishu transport endpoints are explicit offline fixtures",
+    "all_targets_passes_including_zero_test_targets": 328,
+    "ignored": 2,
+    "formal_entry_passed": 61,
+    "cold_import_tests_passed": 2,
+    "python_bundle_tests_passed": 6,
+    "strict_workspace_clippy": true,
+    "full_log": "docs/evidence/business-completion-01/product-19.log",
+    "full_product_suite_passes": 316,
+    "focused_feishu_shutdown_repetitions": 12,
+    "new_behaviors": [
+      "Trusted fixed repository HTTPS clone into private staging, expected HEAD comparison, credential-free whole .git/config rewrite, atomic publication; moved base/cancellation cleanups and no re-clone on reopen. Clone timeout300s/API90s.",
+      "Management search/thread timeline/decision/policy history/labels/Prompt history; account preflight without failed-setting commit; controlled join-before-restart on save or setup/check.",
+      "Bounded oversized HTTP body discard preserves structured400 and unchanged accepting/mutation limit.",
+      "Standalone immutable schema11 cold import preserves observed IDs/cursors/settings/settled receipts, refuses outstanding work and does not continue legacy DSH sessions.",
+      "Full multi-object directory snapshot/hash verification/restore; old trees retained outside runtime session scanning with same-filesystem quarantines.",
+      "inspect.checkout now reflects trusted checkout configuration, not a newly asserted Git state after Worker access."
+    ]
+  },
+  "real_cold_canary": {
+    "passed": true,
+    "profile": "superagent-main",
+    "objects": 8,
+    "files": 11000,
+    "cold_import": {
+      "triggers": 135,
+      "dispositions": 135,
+      "decisions": 133,
+      "threads": 41,
+      "settled_receipts": 7,
+      "kv": 20,
+      "dropped_legacy_tickets": 3
+    },
+    "candidate_sources_disabled": true,
+    "candidate_model_calls": 0,
+    "management_read_endpoints": 7,
+    "controlled_restart": true,
+    "candidate_sigterm_exit": 0,
+    "full_original_paths_restored_and_verified": true,
+    "original_ready_and_unpaused": true,
+    "other_five_instances_unchanged": true,
+    "six_originals_readonly_confirmed_ready": true,
+    "production_cutover": false,
+    "failure_rounds_retained": 3,
+    "recovery_findings": [
+      "Original Node24 MainThread command name misclassified by its existing controller; owned exact-executable/cwd compatibility wrapper, no original source change.",
+      "Old Source child outlived controller stop; bounded PID+start-time-witness cleanup before snapshot.",
+      "Read-only SQLite could create WAL/SHM in backup; immutable standalone snapshot fix and no-sidecars assertion.",
+      "Sibling prior-session copies broke legacy scanner identity; retained outside scanning root and corrected restore tool."
+    ],
+    "full_traffic_rollback_or_powerloss_cuts_accepted": false
+  },
+  "systemd_supervision": {
+    "template": "deploy/superagent/xharness-superagent@.service",
+    "template_sha256": "e70c09f7d1d2c8fe91905869d35f507d0e4189228914702a9b15e26ff6a8528c",
+    "real_user_systemd_scope": true,
+    "NoNewPrivileges": true,
+    "root_SIGKILL_kills_injected_setsid_descendant_and_restarts_ready": true,
+    "operator_stop_does_not_restart": true,
+    "state_reopens_after_stop": true,
+    "active_worker_or_remote_SSH_crash_proven": false,
+    "unit_removed_after_test": true,
+    "failed_fixture_configuration_round_preserved": true
+  },
+  "real_C1": {
+    "source_commit": "79d8a123cf4dd24b9e6d21b338f3197258d4ff93",
+    "binary_sha256": "b34f7500a6865e5cbfe6e1d7e80d767bbd18e28e1b30f1d8f818af68df419f46",
+    "issue": 6,
+    "draft_PR": 7,
+    "PR_head": "f1d8c0580e3d389009deeee4a5e38cbe8ed1d78c",
+    "full_repository_offline_workspace_check_exit": 0,
+    "positive_standalone_Rust_test_exit": 0,
+    "expected_negative_control_exit": 101,
+    "ignored_negative_control": false,
+    "publish_selected_files": 2,
+    "source_validated_report_binding": true,
+    "ready_report_observed": true,
+    "latest_assignment_report_state": "ready",
+    "human_review_approved": false,
+    "merged_or_auto_merge_enabled": false,
+    "network_route": "V100 direct GitHub and its existing local proxy were unhealthy. A temporary loopback-only SSH reverse route reused the Mac existing proxy, with HTTPS/TLS verification; no host DNS/firewall/key changes, no agent forwarding. It is not a durable server-only production route.",
+    "worker_network": "existing deny; no environment credentials injected",
+    "model_missteps_retained": "Ordinary gh auth/API probes failed; missing directories and absolute write paths were refused before corrected relative writes. These are real errors, not successful tool calls.",
+    "file_hashes": {
+      "acceptance-checkout/Cargo.toml": {
+        "bytes": 175,
+        "sha256": "dea5348ee87d532b9cf4c4ec62d5e3bb57907f0ad418476154e342b838547a09"
+      },
+      "acceptance-checkout/src/lib.rs": {
+        "bytes": 960,
+        "sha256": "7c7ec1da60f979523e2da0e67ef2cf1348edc34b3dd9d59ff1ca0590df0c26cc"
+      }
+    },
+    "all_ci_passed": false,
+    "published_remote_file_bytes_independently_match_worktree_hashes": true,
+    "post_timebox_followup": {
+      "actual_owner_comment": "https://github.com/123123213weqw/xharness-superagent/issues/6#issuecomment-6572683766",
+      "same_ticket_and_native_session": true,
+      "new_assignment": "1c08b4214225d6d8dccf7dab39eff1b7",
+      "prior_extra_workspace_test_interrupted_after1150s_bound": true,
+      "followup_scope": "Only read existing PR/checks/reviews, preserve CI failures, report actual ready with7; no second publish/PR or dependency installation",
+      "formal_run_exit": 0,
+      "pending_effects_after_exit": 0
+    },
+    "temporary_proxy_forward_stopped_after_validation": true,
+    "all_owned_C1_processes_joined": true,
+    "actual_source_result_reply": {
+      "comment_id": 6572694353,
+      "url": "https://github.com/123123213weqw/xharness-superagent/issues/6#issuecomment-6572694353",
+      "receipt_marker_present": true,
+      "author": "btlqql",
+      "body_sha256": "5556f665390f6f2c67b063acefa5927ea7c97008f07c8b2b42d8f6522b47a337"
+    }
+  },
+  "regressions_and_failures": {
+    "workspace_16": "Failed at two pre-existing V100 legacy Feishu deployment assertions: dedicated UID1007 and whitelist iptables; not bypassed or changed. Earlier targets passed but remaining targets did not run.",
+    "ci_42": "macOS all gates passed; Ubuntu failed new checkout build output assertion. Selected system Python plus actual written build-proof assertion revealed real CI sandbox unavailable; no removed test or assertion. Packaged per-binary AppArmor setup and mandatory real probe added for the ephemeral CI runner only.",
+    "ci_79": "Ubuntu disk exhausted compiling full test binaries; macOS run later cancelled on new base push. CI-only debug-info/incremental limits and fresh cache prefix added, no tests removed.",
+    "c1_PR7_CI": "Ubuntu actual isolation probe unavailable (RTM_NEWADDR EPERM), not merely Python; Mac Feishu consumer recovery test raced final fixture response with SIGTERM and got Broken pipe. Packaged AppArmor profile preflight is now explicit CI-only; final-request barrier added only to that test, all old assertions retained. Neither fix is pre-signed-off by old CI.",
+    "current_exact_head_CI": "pending separate run; not signed off by a previous green commit",
+    "product_17": "New inspect-result assertion counted the same replayed tool result twice. Corrected to count unique tool-call identities; original failure retained."
+  },
+  "remaining": [
+    "Genuine human Feishu task -> real Worker -> real reply remains without machine-verifiable external evidence; user does not need to resend a test and no bot-authored event is relabeled human.",
+    "v1 delivery remains a bounded immutable UTF-8 snapshot, not arbitrary binary/delete/exec/history or repeated review-branch updates.",
+    "Stable server-only GitHub egress must be repaired before unattended production; Mac temporary tunnel is a validation route only.",
+    "No all-six production cutover, full live-traffic rollback/external side-effect reconciliation, active Worker/SSH SIGKILL matrix, complete reference management/UI interaction or all23 business-group signoff.",
+    "Existing generic process sandbox exposes host filesystem read-only. Environment credential scrubbing is verified; this is not proof of file-based credential isolation. Restricting autonomous production file visibility remains a separate gate."
+  ],
+  "evidence": [
+    {
+      "path": "docs/evidence/business-completion-01/checkout-01.log",
+      "raw_sha256": "aa7eff719bc145f77100e967106e7b412d343e86e162f84f07ea2d5dcff9cc40",
+      "public_sha256": "31742a3bf18214f9c3dbe50b7b588c91da4de1c62fc10912b507ee1c7f96e469",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/compile-02.log",
+      "raw_sha256": "aba7ad113035f4f43a416bf1eb2e347f4fe302a8e2be8d2598e19c02e0252cc0",
+      "public_sha256": "9b0ca3f7feab5c441e168d9e8e72aafc08d3ee1b75b480fd6b6beabac77bda98",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/entry-03.log",
+      "raw_sha256": "580a6242c631f0ad71208a8f668f2e6ccb89e77844e29543459874117a620009",
+      "public_sha256": "b7bda1c1b16f3caab30a5f0d91a88ec0213f02b8ec6b353d0cb7d6a040597909",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/regression-04.log",
+      "raw_sha256": "0777a657543f2cc130ed12d0a942ee4c32a22c1d913219d815dbb3d7ca8cdd32",
+      "public_sha256": "3b3d090aabffa88c598eef46e4f8edf94ae849d604bb7e98349d00810cacbe8a",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/regression-05.log",
+      "raw_sha256": "5b5341b5583d319da148943d86e17efa31ece28e6a5904ec44d20ac5b2139fa9",
+      "public_sha256": "50e6f6815a7a486e8f1727103f0bd3f3e07ccc7da92fe208864462d1497bb8b5",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/regression-06.log",
+      "raw_sha256": "71a24fb3c58948405d88e15fb1adf63f99a58ab2e1b157debccaca48d479585f",
+      "public_sha256": "6684af056f3ec63a35ea59c9d3303d08bfa234c0170c4fb209e47a8077e03cf8",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/product-regression-07.log",
+      "raw_sha256": "0b693f693f50320988acd476099417a617ed4eedbd9e6f5fca7a4314139b63d0",
+      "public_sha256": "d7df4db95d81dd434d691f8d4004d10f7af2ad801c9ccf092e884ab6218ced94",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/product-regression-08.log",
+      "raw_sha256": "58959ec1b742d4c35891caad7cb1c6846a6dee6c4fd41ff3683ef2e1e2e3d1e2",
+      "public_sha256": "62fbff2de74e282061b9668b860fd3ac1a2bdc8a1d68445af21c056d8b6c3643",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/product-regression-09.log",
+      "raw_sha256": "4ed4404cb70437c40cbe6cf86338cbdc0a04842185c0c6d7d977cdc55fd4c9b6",
+      "public_sha256": "e83ce948215e684135186a85dbe2ec8456fbfdab5609b3e70da27eb49628df1c",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/management-http-10.log",
+      "raw_sha256": "7c3e90984788d7c5016f5b74329715e7c1026e2faf4948f720d57c2cb715fbd2",
+      "public_sha256": "054ca30027add4c985eece9d9aec77976fc45df395a3198d2be518f241c91025",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/account-preflight-11.log",
+      "raw_sha256": "650063d081fefd72373d0080b847e2d90a2a4ec84402bae6c0d13fcc013067d7",
+      "public_sha256": "58759f0b4c6379df65c177b790c67fb5ae688d6196d605d128e5e216590b0697",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/immutable-snapshot-12.log",
+      "raw_sha256": "13e877f6c9f818a48e3f8f2dd63ff4f458882f86478e143095e0ced439a2b691",
+      "public_sha256": "542c0c4b7255f6bfca37b58222cf80bea137b8ef7f99a811efda71f8223d86e7",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/state-bundle-external-quarantine-13.log",
+      "raw_sha256": "f4c7985dfa09721ac4af0e836ddf1392df1b5971f16ca836b835c91571f3a663",
+      "public_sha256": "f4c7985dfa09721ac4af0e836ddf1392df1b5971f16ca836b835c91571f3a663",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/checkout-system-python-14.log",
+      "raw_sha256": "9ba8f6398e50172491cc7880f9c8f428e45d9e22edc8641e4f659afe9b6d9cc4",
+      "public_sha256": "3777c1a63ea3220cf999cfabd8d0f5c7d866bacd357f494630cbcdacc10b33d6",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/checkout-timeout-15.log",
+      "raw_sha256": "f2b893e54fe961dc610eb40b3164f043fe928bbb78b0588f29f6d65b323bcc7e",
+      "public_sha256": "847045b1f30713cef373bd755fadbba204923af4fd784c9625ce021bcf02f05d",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/workspace-16.log",
+      "raw_sha256": "d1afcef52e6a0417324080231b849c0b313c938fef429f5fb7c686e60dc3bf8c",
+      "public_sha256": "fa78779ae7b9a93b262df0b787c3c7543d262f267dcfc6aab8ac37a966d3e9c0",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/checkout-inspect-17.log",
+      "raw_sha256": "f3ac863c7dd2513f17ae600018c56254f54d29e6461dbdd9d5a70b53ff5bba81",
+      "public_sha256": "b2af883f256d0d4da68c04174339cc1918b13781524ce1fc264017098a4a304e",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/product-18.log",
+      "raw_sha256": "450d955fef4f797876b9523bb5834336817c171407acf52021040413167c1060",
+      "public_sha256": "50ad63f2d7b78d8c71bff6f7d39ca46f53b2266c946d33b2c1b4c5dac05db1e6",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/product-19.log",
+      "raw_sha256": "d8076439b221e9c9291a2091b361955ad3d5a5d23a7bcedd0446f4718bef6dae",
+      "public_sha256": "3893831444f5024bc1725f09a49792c4e97dfdcfc3f6e42119c74dc29b79406c",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/c1-pr7-ci-failed.log",
+      "raw_sha256": "de88c243eecd8ec6f7ac719286b8099dfce61c9a0e54d3eb8189b58de65162d5",
+      "public_sha256": "de88c243eecd8ec6f7ac719286b8099dfce61c9a0e54d3eb8189b58de65162d5",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/node-guards-01.log",
+      "raw_sha256": "04f15262e90a32ba3b6c944fe3d5abbdfec8ee8b44fb79e556f446aff3220044",
+      "public_sha256": "04f15262e90a32ba3b6c944fe3d5abbdfec8ee8b44fb79e556f446aff3220044",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/reference-01.log",
+      "raw_sha256": "38648f47a7236d6946aea3d5fc7fb82239727af4120d0fb08817cbf7d06715f3",
+      "public_sha256": "38648f47a7236d6946aea3d5fc7fb82239727af4120d0fb08817cbf7d06715f3",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/upstream-01.log",
+      "raw_sha256": "bb3dfb9a4a5924cf177424d35426b053fd83974e268ec5a50606c64bbc90c8e7",
+      "public_sha256": "bb3dfb9a4a5924cf177424d35426b053fd83974e268ec5a50606c64bbc90c8e7",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/ci-6896-macos-failure.log",
+      "raw_sha256": "ca958d5a827b64b0e10afb9e93cbbcaae4a0ef9ca64fae7bb617ce6b71fa5df3",
+      "public_sha256": "ca958d5a827b64b0e10afb9e93cbbcaae4a0ef9ca64fae7bb617ce6b71fa5df3",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/ci-42-failed.log",
+      "raw_sha256": "3d8995e6f49065ecd04e3ed98e8f48a0958f24d78a51367221372ed75fdbaedd",
+      "public_sha256": "3d8995e6f49065ecd04e3ed98e8f48a0958f24d78a51367221372ed75fdbaedd",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/ci-79-ubuntu.log",
+      "raw_sha256": "38efa5aa9051ebdd6889b5583ca985539949a82143143a54ee2c0d93dc3d11b8",
+      "public_sha256": "38efa5aa9051ebdd6889b5583ca985539949a82143143a54ee2c0d93dc3d11b8",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/systemd-supervision-01.log",
+      "raw_sha256": "9bf5314451fd80b4a1dce1110412f7071853a75762002d99da1cd720be41603a",
+      "public_sha256": "9bf5314451fd80b4a1dce1110412f7071853a75762002d99da1cd720be41603a",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/systemd-supervision-02.log",
+      "raw_sha256": "33d22c2991eaa498dab32cd51e840835fe06cd8699e5f2a1211aa5bed43422b0",
+      "public_sha256": "68a27da31633906a099265fbe5c1f823b9eec86f5b47efd80bf862632f434051",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/cold-rehearsals-events.json",
+      "raw_sha256": "79ffab6daf2c13e7352cd42d336472f0339d8ab80d44f800e2a2d44fe0eb8ba9",
+      "public_sha256": "f9b75e8b773fef45c2e04be7df9d66e2eea9db4dc4250cd3b026b36dc4ea89ae",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/c1-native-tools.json",
+      "raw_sha256": "544cb4661660a086fed0205a09cb0ec18f0ce082c952ff2f36380615e8298648",
+      "public_sha256": "d06ed26893021293ed493d1807b0c754d1c2e791f01dd8675ecacbec37c00135",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/c1-facts.json",
+      "raw_sha256": "97a92c4b3a8f8d4619ef203802b5a9c07e1068a4caa75d937733d760d6e17be3",
+      "public_sha256": "b57be9c1276011d4eb189102bc323ca6d8d3afefb7ec5eb5bcaca14e57264e86",
+      "normalization": "Owned source/target/operator/tool path prefixes only; structured production facts and tool calls/results only. No model reasoning, raw production state, unrelated chat history or credential-bearing legacy startup logs."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/final-health.json",
+      "raw_sha256": "8aca78cdc88feacaa6bd97b8408e40bee971c35006669a752614ce8b39820c55",
+      "public_sha256": "8aca78cdc88feacaa6bd97b8408e40bee971c35006669a752614ce8b39820c55",
+      "normalization": "No changes; readiness/load, owned C1 process count and temporary unit absence only."
+    },
+    {
+      "path": "docs/evidence/business-completion-01/c1-result-comment.json",
+      "raw_sha256": "947a16ba7d549245928f5b52156e430e7a9b7b2b17ad1d4aee2d102613c1eb33",
+      "public_sha256": "947a16ba7d549245928f5b52156e430e7a9b7b2b17ad1d4aee2d102613c1eb33",
+      "normalization": "Only actual public GitHub result comment fields; no content rewriting."
+    }
+  ]
+}

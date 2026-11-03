@@ -1,0 +1,17 @@
+   Compiling xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+
+running 1 test
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.82s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-085c7a183df671db)
+test formal_read_tool_uses_real_resources_scoped_snapshots_and_reasoning_free_native_history ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 15 filtered out; finished in 4.56s
+
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.16s
+     Running tests/product_entry.rs (<owned-target>/debug/deps/product_entry-085c7a183df671db)
+
+running 1 test
+test interrupt_joins_inflight_read_cli_before_lease_release_without_completion ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 15 filtered out; finished in 3.05s
+

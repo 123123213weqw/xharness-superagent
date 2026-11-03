@@ -1,0 +1,1 @@
+20 product definitions verified: 10 primitive/null unions, 4 explicit Zod input defaults, and 1 unconstrained JSON domain projected; all other pinned metadata retained.

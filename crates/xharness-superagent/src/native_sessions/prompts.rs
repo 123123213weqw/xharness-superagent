@@ -496,10 +496,25 @@ impl PromptResolver for Policy {
         &self,
         request: PromptRequest,
     ) -> std::result::Result<Option<PromptAssembly>, PromptResolutionError> {
-        self.resolve(request)
-            .await
-            .map_err(PromptResolutionError::new)
+        let cancellation = request.cancellation.clone();
+        let result = self.resolve(request).await;
+        // The admission gate closes before Runtime shutdown reaches Core's
+        // cancel command. Do not turn that narrow window into a failed model
+        // turn (or permit a successfully prepared prompt to reach a provider).
+        // Core still owns cancellation; actual storage/host/base failures are
+        // returned unchanged, not rewritten as a successful/Cancelled result.
+        let stopping = self.authority.get().is_some_and(|authority| {
+            authority.gate.closing.load(Ordering::Acquire) && authority.runtime.upgrade().is_some()
+        });
+        if stopping && closing_rejection(&result) {
+            cancellation.cancelled().await;
+        }
+        result.map_err(PromptResolutionError::new)
     }
+}
+fn closing_rejection(result: &Result<Option<PromptAssembly>>) -> bool {
+    result.is_ok()
+        || matches!(result,Err(Error::Message(message))if matches!(message.as_str(),"Orchestrator is stopping"|"decoration lifetime ended"|"decoration acknowledgement belongs to a retired scope"|"prompt reply belongs to a retired decoration scope"))
 }
 impl Policy {
     async fn resolve(&self, mut request: PromptRequest) -> Result<Option<PromptAssembly>> {
@@ -693,6 +708,16 @@ fn compose(
         format!("revision:{}", version.revision),
         body,
     ));
+    if let Some(skills) = skills {
+        // The tool's description says to use the available-skills list. The
+        // private registry alone cannot teach the model which names to load.
+        // Only names/descriptions are advertised; full instructions stay behind
+        // the existing scoped skill tool, not a second registry or authority.
+        let catalog=skills.summaries(&work.native_id)?.into_iter().map(|skill|{
+            json!({"name":skill.name,"description":String::from_utf16_lossy(&skill.description_utf16)})
+        }).collect::<Vec<_>>();
+        sections.push(PromptSection::content_addressed("dsh-superagent-skills",format!("Available skills (load full instructions with the skill tool before using one):\n{}",serde_json::to_string(&catalog)?)));
+    }
     PromptAssembler
         .assemble_preserving_content(sections)
         .map(Some)
@@ -781,6 +806,28 @@ fn worker_environment(
 mod owner_tests {
     use super::*;
     use std::cell::RefCell;
+    #[test]
+    fn closing_barrier_never_relabels_real_errors_as_cancellation() {
+        assert!(closing_rejection(&Ok(None)));
+        for message in [
+            "Orchestrator is stopping",
+            "decoration lifetime ended",
+            "prompt reply belongs to a retired decoration scope",
+        ] {
+            assert!(closing_rejection(&Err(Error::Message(message.into()))));
+        }
+        assert!(!closing_rejection(&Err(Error::Message(
+            "database unavailable".into()
+        ))));
+        assert!(!closing_rejection(&Err(Error::Io(std::io::Error::new(
+            std::io::ErrorKind::PermissionDenied,
+            "Orchestrator is stopping"
+        )))));
+        assert!(!closing_rejection(&Err(Error::PromptAsset {
+            message: "Orchestrator is stopping".into(),
+            source: None
+        })));
+    }
     type ReplyReceiver = oneshot::Receiver<std::result::Result<Option<PromptAssembly>, Arc<Error>>>;
     struct Input<'a> {
         store: &'a ProductStore,

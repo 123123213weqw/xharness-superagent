@@ -1,0 +1,30 @@
+    Checking tower-http v0.6.11
+    Checking xharness-host v0.1.0 (<owned-source>/crates/xharness-host)
+    Checking reqwest v0.12.28
+    Checking xharness-provider-openai v0.1.0 (<owned-source>/crates/xharness-provider-openai)
+    Checking xharness-web v0.1.0 (<owned-source>/crates/xharness-web)
+    Checking xharness-coding-tools v0.1.0 (<owned-source>/crates/xharness-coding-tools)
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Checking xharness-gh v0.1.0 (<owned-source>/crates/xharness-gh)
+    Checking xharness-feishu v0.1.0 (<owned-source>/crates/xharness-feishu)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 26.99s
+    Checking xharness-host v0.1.0 (<owned-source>/crates/xharness-host)
+    Checking xharness-provider-openai v0.1.0 (<owned-source>/crates/xharness-provider-openai)
+    Checking xharness-web v0.1.0 (<owned-source>/crates/xharness-web)
+    Checking xharness-coding-tools v0.1.0 (<owned-source>/crates/xharness-coding-tools)
+    Checking xharness-superagent v0.1.0 (<owned-source>/crates/xharness-superagent)
+    Checking xharness-gh v0.1.0 (<owned-source>/crates/xharness-gh)
+    Checking xharness-feishu v0.1.0 (<owned-source>/crates/xharness-feishu)
+error: this looks like an `else if` but the `else` is missing
+  --> crates/xharness-superagent/tests/assessment_context.rs:62:62
+   |
+62 |       if let Some(next)=part.next{value["next"]=json!(next);}if let Some(status)=part.status{value["status"]=json!(status);}value
+   |                                                              ^
+   |
+   = note: to remove this lint, add the missing `else` or add a new line before the second `if`
+   = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.99.0/index.html#possible_missing_else
+   = note: `-D clippy::possible-missing-else` implied by `-D warnings`
+   = help: to override `-D warnings` add `#[allow(clippy::possible_missing_else)]`
+
+error: could not compile `xharness-superagent` (test "assessment_context") due to 1 previous error
+warning: build failed, waiting for other jobs to finish...

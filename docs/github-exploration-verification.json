@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "at_utc": "2026-11-02T14:55:54.652627+00:00",
+  "status": "implemented_tested_and_deployed_all_six",
+  "scope": "model-directed bounded GitHub reads, not complete business parity or all GitHub APIs",
+  "source_commit": "5d850965dd5e39733937ed21ee7db79d12e104a9",
+  "source_profile": "docs/github-exploration-source-profile.json",
+  "source_profile_sha256": "c68d5c54b2be01ed038319dd907247b9139edc8f4de6712a6a8dce08583fd690",
+  "source_profile_files": 802,
+  "local_remote_source_equal": true,
+  "host": "WZU_Server",
+  "local_rust_compilation": false,
+  "new_dependencies": false,
+  "capabilities": {
+    "tools": [
+      "github_discover",
+      "github_query"
+    ],
+    "roles": [
+      "main",
+      "worker"
+    ],
+    "operations": 11,
+    "repository_account": "verified enabled Source; no model repo/account/host/method/flags",
+    "one_page_per_query": true,
+    "default_page_size": 20,
+    "max_page_size": 50,
+    "read_only": true,
+    "new_main_shell_or_write_tools": false,
+    "worker_gh_api_fallback_retained": true,
+    "repository_checkout_independent": true,
+    "global_response_cache_or_rate_scheduler": false
+  },
+  "tests": {
+    "packages": [
+      "xharness-superagent",
+      "xharness-web",
+      "xharness-coding-tools"
+    ],
+    "all_targets": true,
+    "features": "xharness-superagent/conformance",
+    "offline": true,
+    "test_binaries": 46,
+    "passed": 407,
+    "failed": 0,
+    "ignored": 12,
+    "ignored_is_not_pass": true,
+    "new_protocol_tests": 8,
+    "new_formal_entry_tests": 3,
+    "formal_entry_passed": 70,
+    "formal_entry_ignored": 2,
+    "strict_clippy": "passed",
+    "build": "passed",
+    "fleet_operator_tests": 10,
+    "state_bundle_tests": 6,
+    "git_route_config_tests": 4,
+    "fixed_reference_and_upstream_integrity": "passed",
+    "original_business_tool_manifest": "20 definitions unchanged",
+    "full_workspace_and_cross_platform_matrix_rerun": false
+  },
+  "commands": [
+    "cargo fmt --check --all (remote; local fmt only)",
+    "cargo clippy --locked --offline -p xharness-superagent -p xharness-web -p xharness-coding-tools --all-targets --features xharness-superagent/conformance -- -D warnings",
+    "cargo test --locked --offline -p xharness-superagent -p xharness-web -p xharness-coding-tools --all-targets --features xharness-superagent/conformance",
+    "cargo build --locked --offline -p xharness-superagent --bin xharness-superagent"
+  ],
+  "business_assertions": [
+    "model discovers operation schema and chooses search/list then selected detail",
+    "formal executable calls installed CLI with GET and runtime-bound repo; literal search including Unicode",
+    "two-page search uses runtime-generated next_call; existing Source pagination remains unchanged",
+    "source-disable rejects both new read tools before I/O",
+    "pause rejects new reads while existing Main management can resume; resumed query succeeds",
+    "Worker performs actual workspace file work and outbox reply; Main receives no shell/write/fetch",
+    "strict invalid parameter, repository escape, cancellation, pagination host/page, truncation and malformed response checks"
+  ],
+  "development_failures_retained": [
+    {
+      "log": "focused.log",
+      "issue": "initial missing ToolModelRendering import; fixed before successful compile"
+    },
+    {
+      "log": "focused-02.log",
+      "issue": "new test incorrectly asserted that existing Source intake never paginates; corrected to assert bounded new GET reads and no clone, preserving Source behavior"
+    },
+    {
+      "log": "clippy-01.log",
+      "issue": "unneeded mutable test iterator; fixed without relaxing lints"
+    },
+    {
+      "log": "regression-01.log",
+      "issue": "new Main pause guard leaked to existing management tools; scoped to new reads/search and added explicit paused-read/resume test. Own product exact tool-count assertion updated 15 to 17 with both new names checked; original 14 business-tool count unchanged. No fixed reference assertions modified."
+    }
+  ],
+  "final_logs": {
+    "regression": "docs/evidence/github-explore-01/regression-02.log",
+    "clippy": "docs/evidence/github-explore-01/clippy-03.log",
+    "build": "docs/evidence/github-explore-01/build-01.log",
+    "formal_entry": "docs/evidence/github-explore-01/product-entry-02.log",
+    "integrity_and_operator": "docs/evidence/github-explore-01/local-checks.log"
+  },
+  "binary_sha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+  "deployment": {
+    "changed": true,
+    "at_utc": "2026-11-03T00:57:22Z",
+    "verification": "docs/fleet-production-verification.json",
+    "instances": 6,
+    "implementation_batch_originally_did_not_deploy": true,
+    "per_instance_models_prompt_sections_and_account_configuration_preserved": true,
+    "new_account_grants": false
+  },
+  "limitations": [
+    "New tool operation-selection path is verified with offline model/Source fixtures; live repository APIs and formal Worker CLI reads verified during deployment. No new paid model inference or human Feishu Worker-reply test.",
+    "Historical 554-read workload not re-benchmarked; no latency or request-reduction claim",
+    "Initial catalog is not unrestricted REST/GraphQL, code search, or full OpenAPI discovery; Worker existing CLI remains fallback",
+    "No new response cache, automatic retry loop or global rate-limit scheduler; directory page calls reread API and should pin ref for stability",
+    "Full business goal and PR multi-round workflow not signed off; six-instance production rollout is recorded separately."
+  ],
+  "paid_model_calls": false,
+  "external_api_writes": false,
+  "whole_business_signoff": false,
+  "evidence_files_sha256": {
+    "docs/evidence/github-explore-01/build-01.log": "9232e5a40a719b3cb42e012e6f69f7b301ac4a5589c97882d592ed0fbc790b20",
+    "docs/evidence/github-explore-01/clippy-01.log": "e6bf8526b0ac4063eb0e20832fcff1d4c82e63e301609a58004a8f4270a1a7d8",
+    "docs/evidence/github-explore-01/clippy-02.log": "0527bd7f9e3c9838dd6266066a1b2a2098c1bee3bfc682e67e13b8e6f9ebad14",
+    "docs/evidence/github-explore-01/clippy-03.log": "3662fa63e54f4bd676c73ebc45b89e7a2a9a9957d41636f6896ec6ed15675169",
+    "docs/evidence/github-explore-01/focused-02.log": "2c449516f0fd1036222a2eca94d6e6dde0076472470fe176f76f6836288ab496",
+    "docs/evidence/github-explore-01/focused-03.log": "42d78841fcf3f41be8ee6134060bd10b63f0fe2226135c826e06e2e4f35afc18",
+    "docs/evidence/github-explore-01/focused.log": "4b3680d7c837a3b75bf2ec274eb4d1d15cf1261dc6a62da379f44a8ec4a0ff4f",
+    "docs/evidence/github-explore-01/local-checks.log": "3f1e8456969653f4dadc39c97ce42b9de205d8a059ec0697803ae907c182dacf",
+    "docs/evidence/github-explore-01/product-entry-02.log": "d6e0ea390cbf1d47b64ec40a706fc37578faff1107683ee3fd1c78b08bd685c5",
+    "docs/evidence/github-explore-01/regression-01.log": "bc29d4e4f60d488a5046a89aa2dd05b5b0c24d24176ad69624bde06bba3b893f",
+    "docs/evidence/github-explore-01/regression-02.log": "d5305245677bcd83466f09a3a39f1c59fb86e96dbe961583f2dc7ad899626e19"
+  },
+  "implementation_batch_status": "implemented_tested_not_deployed",
+  "updated_at_utc": "2026-11-03T00:57:22Z"
+}
