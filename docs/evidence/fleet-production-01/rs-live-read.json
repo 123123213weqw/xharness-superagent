@@ -1,0 +1,13 @@
+{
+  "instance": "rs",
+  "liveBranchApi": true,
+  "liveLiteralSearchApi": true,
+  "searchIncomplete": false,
+  "realWorkerCliRead": true,
+  "reasoningModel": "loopback fixture only; no paid inference",
+  "realExternalWrites": false,
+  "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+  "probeSha256": "98295f021465155773df2b2f2e6b9fc8782f66b01906c14faaed09aa71156cd0",
+  "repositorySha256": "7b591ff778d8dd65ebdcd359caddffabcf4d206b9bb3a17ac6e52c693deed539",
+  "existingAccountVerified": true
+}

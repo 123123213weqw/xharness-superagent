@@ -1196,7 +1196,7 @@
       "cold_migration_permission_not_acceptance": true,
       "full_product_complete": false
     },
-    "production_fleet_replaced": false,
+    "production_fleet_replaced": true,
     "worker_access_opt_in": {
       "default": "workspace-write",
       "explicit": "danger-full-access",
@@ -1224,11 +1224,26 @@
       "selected_regression_passed": 407,
       "selected_regression_ignored": 12,
       "new_full_business_groups_passed": 0,
-      "production_deployed": false,
+      "production_deployed": true,
       "historical_554_read_task_rebenchmarked": false,
+      "whole_business_signoff": false,
+      "production_verification": "docs/fleet-production-verification.json"
+    },
+    "fleet_production_rollout": {
+      "verification": "docs/fleet-production-verification.json",
+      "source_commit": "5d850965dd5e39733937ed21ee7db79d12e104a9",
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "rust_instances": 6,
+      "legacy_instances_remaining": 0,
+      "all_sources_ready": true,
+      "real_worker_cli_probes_passed": 6,
+      "team_prompt_and_model_routes_preserved": true,
+      "old_legacy_tickets_archived": 18,
+      "legacy_sessions_continued": false,
+      "new_full_business_groups_passed": 0,
       "whole_business_signoff": false
     }
   },
-  "updated_at_utc": "2026-11-02T14:55:54.652627+00:00",
+  "updated_at_utc": "2026-11-03T00:57:22Z",
   "validation_note": "passed denotes the listed complete product scenario in an explicitly offline protocol environment, not real GitHub/model service approval, universal parity or release readiness. Unexecuted branches remain open."
 }

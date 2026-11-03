@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "at_utc": "2026-11-02T14:55:54.652627+00:00",
-  "status": "implemented_tested_not_deployed",
+  "status": "implemented_tested_and_deployed_all_six",
   "scope": "model-directed bounded GitHub reads, not complete business parity or all GitHub APIs",
   "source_commit": "5d850965dd5e39733937ed21ee7db79d12e104a9",
   "source_profile": "docs/github-exploration-source-profile.json",
@@ -100,15 +100,20 @@
   },
   "binary_sha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
   "deployment": {
-    "changed": false,
-    "existing_production_binaries_configuration_accounts_and_other_instances_modified": false
+    "changed": true,
+    "at_utc": "2026-11-03T00:57:22Z",
+    "verification": "docs/fleet-production-verification.json",
+    "instances": 6,
+    "implementation_batch_originally_did_not_deploy": true,
+    "per_instance_models_prompt_sections_and_account_configuration_preserved": true,
+    "new_account_grants": false
   },
   "limitations": [
-    "No live model/GitHub acceptance for these new tools; external services are offline fixtures",
+    "New tool operation-selection path is verified with offline model/Source fixtures; live repository APIs and formal Worker CLI reads verified during deployment. No new paid model inference or human Feishu Worker-reply test.",
     "Historical 554-read workload not re-benchmarked; no latency or request-reduction claim",
     "Initial catalog is not unrestricted REST/GraphQL, code search, or full OpenAPI discovery; Worker existing CLI remains fallback",
     "No new response cache, automatic retry loop or global rate-limit scheduler; directory page calls reread API and should pin ref for stability",
-    "Full business goal, PR multi-round workflow and fleet-wide replacement not signed off"
+    "Full business goal and PR multi-round workflow not signed off; six-instance production rollout is recorded separately."
   ],
   "paid_model_calls": false,
   "external_api_writes": false,
@@ -125,5 +130,7 @@
     "docs/evidence/github-explore-01/product-entry-02.log": "d6e0ea390cbf1d47b64ec40a706fc37578faff1107683ee3fd1c78b08bd685c5",
     "docs/evidence/github-explore-01/regression-01.log": "bc29d4e4f60d488a5046a89aa2dd05b5b0c24d24176ad69624bde06bba3b893f",
     "docs/evidence/github-explore-01/regression-02.log": "d5305245677bcd83466f09a3a39f1c59fb86e96dbe961583f2dc7ad899626e19"
-  }
+  },
+  "implementation_batch_status": "implemented_tested_not_deployed",
+  "updated_at_utc": "2026-11-03T00:57:22Z"
 }

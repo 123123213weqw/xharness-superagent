@@ -1,0 +1,380 @@
+{
+  "atUtc": "2026-11-03T00:55:55Z",
+  "release": "5d850965dd5e-ebc5ea886e4f",
+  "instances": [
+    {
+      "instance": "rs",
+      "kind": "rust",
+      "channel": "canary",
+      "port": 3093,
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+      "runtime": {
+        "at": "2026-11-03T00:41:50.676Z",
+        "detail": "Orchestrator is ready",
+        "state": "ready"
+      },
+      "load": {
+        "idle": 0,
+        "maxWorkers": 1.0,
+        "queued": 0,
+        "running": 0
+      },
+      "paused": false,
+      "sources": [
+        {
+          "id": "feishu",
+          "state": "ready",
+          "enabled": true
+        },
+        {
+          "id": "github",
+          "state": "ready",
+          "enabled": true
+        }
+      ],
+      "pid": 526752,
+      "automaticRestarts": 0,
+      "enabledAtBoot": true,
+      "promptSectionsPreserved": true,
+      "modelRoute": {
+        "provider": "deepseek",
+        "model": "deepseek-flash",
+        "reasoningEffort": "high"
+      },
+      "sharedSearch": {
+        "provider": "deepseek-search-api",
+        "apiKeyEnv": "DEEPSEEK_API_KEY"
+      },
+      "independentStateAndCheckoutCache": true,
+      "sourceRepositorySha256": "7b591ff778d8dd65ebdcd359caddffabcf4d206b9bb3a17ac6e52c693deed539",
+      "sameExistingAccount": true,
+      "liveBranchAndLiteralSearchReadPassed": true,
+      "formalWorkerRealCliReadPassed": true,
+      "livePaidInferenceInvokedForProbe": false,
+      "counts": {
+        "ticket": 4,
+        "trigger": 141,
+        "disposition": 141,
+        "outbox": 14
+      },
+      "backupVerified": true,
+      "retainedRustTickets": 4,
+      "archivedLegacyTickets": 0,
+      "legacySessionsContinued": null
+    },
+    {
+      "instance": "runtime",
+      "kind": "rust",
+      "channel": "stable",
+      "port": 3092,
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+      "runtime": {
+        "at": "2026-11-03T00:54:24.362Z",
+        "detail": "Orchestrator is ready",
+        "state": "ready"
+      },
+      "load": {
+        "idle": 0,
+        "maxWorkers": 3.0,
+        "queued": 0,
+        "running": 0
+      },
+      "paused": false,
+      "sources": [
+        {
+          "id": "feishu",
+          "state": "ready",
+          "enabled": true
+        },
+        {
+          "id": "github",
+          "state": "ready",
+          "enabled": true
+        }
+      ],
+      "pid": 612482,
+      "automaticRestarts": 0,
+      "enabledAtBoot": true,
+      "promptSectionsPreserved": true,
+      "modelRoute": {
+        "provider": "deepseek",
+        "model": "deepseek-flash",
+        "reasoningEffort": "high"
+      },
+      "sharedSearch": {
+        "provider": "deepseek-search-api",
+        "apiKeyEnv": "DEEPSEEK_API_KEY"
+      },
+      "independentStateAndCheckoutCache": true,
+      "sourceRepositorySha256": "85c07b18bbc04a0e03768f6c49a5021d1a3d5162f8fbb50d5a622fdec6f270bf",
+      "sameExistingAccount": true,
+      "liveBranchAndLiteralSearchReadPassed": true,
+      "formalWorkerRealCliReadPassed": true,
+      "livePaidInferenceInvokedForProbe": false,
+      "counts": {
+        "ticket": 0,
+        "trigger": 89,
+        "disposition": 89,
+        "outbox": 14
+      },
+      "backupVerified": true,
+      "retainedRustTickets": 0,
+      "archivedLegacyTickets": 6,
+      "legacySessionsContinued": false
+    },
+    {
+      "instance": "rwkv",
+      "kind": "rust",
+      "channel": "stable",
+      "port": 3094,
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+      "runtime": {
+        "at": "2026-11-03T00:51:24.552Z",
+        "detail": "Orchestrator is ready",
+        "state": "ready"
+      },
+      "load": {
+        "idle": 0,
+        "maxWorkers": 3.0,
+        "queued": 0,
+        "running": 0
+      },
+      "paused": false,
+      "sources": [
+        {
+          "id": "feishu",
+          "state": "ready",
+          "enabled": true
+        },
+        {
+          "id": "github",
+          "state": "ready",
+          "enabled": true
+        }
+      ],
+      "pid": 597368,
+      "automaticRestarts": 0,
+      "enabledAtBoot": true,
+      "promptSectionsPreserved": true,
+      "modelRoute": {
+        "provider": "glm-coding",
+        "model": "glm-5.3"
+      },
+      "sharedSearch": {
+        "provider": "deepseek-search-api",
+        "apiKeyEnv": "DEEPSEEK_API_KEY"
+      },
+      "independentStateAndCheckoutCache": true,
+      "sourceRepositorySha256": "b35d3b6923a07524986d0e9236eb4d0545d9a4cb2cfe11ff2f3eafa905f88bee",
+      "sameExistingAccount": true,
+      "liveBranchAndLiteralSearchReadPassed": true,
+      "formalWorkerRealCliReadPassed": true,
+      "livePaidInferenceInvokedForProbe": false,
+      "counts": {
+        "ticket": 0,
+        "trigger": 55,
+        "disposition": 55,
+        "outbox": 12
+      },
+      "backupVerified": true,
+      "retainedRustTickets": 0,
+      "archivedLegacyTickets": 5,
+      "legacySessionsContinued": false
+    },
+    {
+      "instance": "pirs",
+      "kind": "rust",
+      "channel": "stable",
+      "port": 3095,
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+      "runtime": {
+        "at": "2026-11-03T00:52:26.071Z",
+        "detail": "Orchestrator is ready",
+        "state": "ready"
+      },
+      "load": {
+        "idle": 0,
+        "maxWorkers": 3.0,
+        "queued": 0,
+        "running": 0
+      },
+      "paused": false,
+      "sources": [
+        {
+          "id": "feishu",
+          "state": "ready",
+          "enabled": true
+        },
+        {
+          "id": "github",
+          "state": "ready",
+          "enabled": true
+        }
+      ],
+      "pid": 602313,
+      "automaticRestarts": 0,
+      "enabledAtBoot": true,
+      "promptSectionsPreserved": true,
+      "modelRoute": {
+        "provider": "glm-coding",
+        "model": "glm-5.3"
+      },
+      "sharedSearch": {
+        "provider": "deepseek-search-api",
+        "apiKeyEnv": "DEEPSEEK_API_KEY"
+      },
+      "independentStateAndCheckoutCache": true,
+      "sourceRepositorySha256": "3f7d0d65a0abe203729f5c05ddf71ecc9ce924d48eefc295d15035cfc4e92900",
+      "sameExistingAccount": true,
+      "liveBranchAndLiteralSearchReadPassed": true,
+      "formalWorkerRealCliReadPassed": true,
+      "livePaidInferenceInvokedForProbe": false,
+      "counts": {
+        "ticket": 0,
+        "trigger": 52,
+        "disposition": 52,
+        "outbox": 8
+      },
+      "backupVerified": true,
+      "retainedRustTickets": 0,
+      "archivedLegacyTickets": 2,
+      "legacySessionsContinued": false
+    },
+    {
+      "instance": "xandbox",
+      "kind": "rust",
+      "channel": "stable",
+      "port": 3096,
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+      "runtime": {
+        "at": "2026-11-03T00:53:30.492Z",
+        "detail": "Orchestrator is ready",
+        "state": "ready"
+      },
+      "load": {
+        "idle": 0,
+        "maxWorkers": 3.0,
+        "queued": 0,
+        "running": 0
+      },
+      "paused": false,
+      "sources": [
+        {
+          "id": "feishu",
+          "state": "ready",
+          "enabled": true
+        },
+        {
+          "id": "github",
+          "state": "ready",
+          "enabled": true
+        }
+      ],
+      "pid": 607761,
+      "automaticRestarts": 0,
+      "enabledAtBoot": true,
+      "promptSectionsPreserved": true,
+      "modelRoute": {
+        "provider": "glm-coding",
+        "model": "glm-5.3"
+      },
+      "sharedSearch": {
+        "provider": "deepseek-search-api",
+        "apiKeyEnv": "DEEPSEEK_API_KEY"
+      },
+      "independentStateAndCheckoutCache": true,
+      "sourceRepositorySha256": "61a36762994c2af3e2f9ce582a282ac24afacfc352af4c8774125a1632eaa96c",
+      "sameExistingAccount": true,
+      "liveBranchAndLiteralSearchReadPassed": true,
+      "formalWorkerRealCliReadPassed": true,
+      "livePaidInferenceInvokedForProbe": false,
+      "counts": {
+        "ticket": 0,
+        "trigger": 33,
+        "disposition": 33,
+        "outbox": 9
+      },
+      "backupVerified": true,
+      "retainedRustTickets": 0,
+      "archivedLegacyTickets": 4,
+      "legacySessionsContinued": false
+    },
+    {
+      "instance": "arena",
+      "kind": "rust",
+      "channel": "stable",
+      "port": 3097,
+      "release": "5d850965dd5e-ebc5ea886e4f",
+      "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+      "runtime": {
+        "at": "2026-11-03T00:49:48.048Z",
+        "detail": "Orchestrator is ready",
+        "state": "ready"
+      },
+      "load": {
+        "idle": 0,
+        "maxWorkers": 3.0,
+        "queued": 0,
+        "running": 0
+      },
+      "paused": false,
+      "sources": [
+        {
+          "id": "feishu",
+          "state": "ready",
+          "enabled": true
+        },
+        {
+          "id": "github",
+          "state": "ready",
+          "enabled": true
+        }
+      ],
+      "pid": 586551,
+      "automaticRestarts": 0,
+      "enabledAtBoot": true,
+      "promptSectionsPreserved": true,
+      "modelRoute": {
+        "provider": "glm-coding",
+        "model": "glm-5.3"
+      },
+      "sharedSearch": {
+        "provider": "deepseek-search-api",
+        "apiKeyEnv": "DEEPSEEK_API_KEY"
+      },
+      "independentStateAndCheckoutCache": true,
+      "sourceRepositorySha256": "8e201deaf19999546f685e94ea32ffecfa8b426977adfe56c69a4b36592dc80b",
+      "sameExistingAccount": true,
+      "liveBranchAndLiteralSearchReadPassed": true,
+      "formalWorkerRealCliReadPassed": true,
+      "livePaidInferenceInvokedForProbe": false,
+      "counts": {
+        "ticket": 0,
+        "trigger": 19,
+        "disposition": 19,
+        "outbox": 2
+      },
+      "backupVerified": true,
+      "retainedRustTickets": 0,
+      "archivedLegacyTickets": 1,
+      "legacySessionsContinued": false
+    }
+  ],
+  "allSixReady": true,
+  "sameBinary": true,
+  "allSixSourcesReady": true,
+  "allSixReadProbesPassed": true,
+  "sameExistingDeepSeekSearchCredential": true,
+  "allPromptsAndModelRoutesPreserved": true,
+  "unrelatedCronUnchanged": true,
+  "legacyAutomaticRestartersDisabled": true,
+  "oldWorkDirectoriesRetainedInPlace": true,
+  "noNewAccountGrants": true,
+  "livePaidModelRoundTripNotRun": true,
+  "wholeBusinessParitySignedOff": false
+}

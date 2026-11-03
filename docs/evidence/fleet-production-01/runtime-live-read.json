@@ -1,0 +1,13 @@
+{
+  "instance": "runtime",
+  "liveBranchApi": true,
+  "liveLiteralSearchApi": true,
+  "searchIncomplete": false,
+  "realWorkerCliRead": true,
+  "reasoningModel": "loopback fixture only; no paid inference",
+  "realExternalWrites": false,
+  "binarySha256": "ebc5ea886e4f47ac2175868b24d4da889a2fa408f3b94ca953a109a4bce7c2b1",
+  "probeSha256": "cf67533742b37a996ee6be59508021fe0a47b032b1be46b750b94d2a1dd922fb",
+  "repositorySha256": "85c07b18bbc04a0e03768f6c49a5021d1a3d5162f8fbb50d5a622fdec6f270bf",
+  "existingAccountVerified": true
+}
