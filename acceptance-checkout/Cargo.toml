@@ -1,0 +1,13 @@
+[package]
+name = "xharness-checkout-acceptance"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[workspace]
+
+[features]
+default = []
+negative_control = []
+
+[dependencies]
